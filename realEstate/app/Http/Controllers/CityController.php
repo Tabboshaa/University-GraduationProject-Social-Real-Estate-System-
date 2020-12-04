@@ -16,8 +16,8 @@ class CityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    { 
+        
         $city=City::all();
         $countries=Country::all();
         $states=State::all();
