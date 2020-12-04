@@ -9,6 +9,7 @@
                     <th>Sub Type</th>
                     <th>Property</th>
                     <th>Property Detail Name</th>
+                    <th>Data Type</th>
                     <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <a href="#/trash">  </a></th>
                     <th></th>
                     <!-- Java Script for select all function -->
@@ -32,6 +33,7 @@
                         <td>{{$property_detail->Sub_Type_Name}}</td>
                         <td>{{$property_detail->Property_Name}}</td>
                         <td>{{$property_detail->Detail_Name}}</td>
+                        <td>{{$property_detail->datatype}}</td>
                         <td><input type="checkbox" name="id[]" value="{{$property_detail->Property_Detail_Id}}"></td>
                          <input type="hidden" name="_method" value="DELETE">
                         <td><a href="javascript:void(0)" onclick="setPropertyDetailIdName('{{$property_detail->Property_Detail_Id}}','{{$property_detail->Detail_Name}}')"><i class="fa fa-edit"> Edit</i></a></td>

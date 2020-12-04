@@ -139,20 +139,29 @@
                                     </span>
                             @enderror
                         </div>
-                      
-                            <label for="Data Type Name" class="col-md-1 col-form-label text-md-right">{{ __('Data Type') }}</label>
-    
-                            <div class="col-md-1">
-                                <select id="DataTypeName" class="form-control @error('Data Type Name') is-invalid @enderror" name="Data_Type_Name" value="{{ old('Data Type Name') }}" required autocomplete="Data Type Name">
-                                    <option value="0" selected disabled>Select Data Type</option>;
-                                     <!-- For loop  --> 
-                                     @foreach($data_type as $data_type)
-                                         <option value="{{$data_type->id}}">{{$data_type->datatype}}</option>
-                                        @endforeach
-                    </div>
+                  
+ <!-- Data Type -->
 
-                    </div>
-                    <div class="form-group row">
+    <label for="Data Type Name" class="col-md-2 col-form-label text-md-right">{{ __('Data Type') }}</label>
+
+    <div class="col-md-2">
+        <select id="DataTypeName" class="form-control @error('Data Type Name') is-invalid @enderror" name="Data_Type_Name" value="{{ old('Data Type Name') }}" required autocomplete="Data Type Name">
+            <option value="0" selected disabled>Select Data Type</option>;
+             <!-- For loop  --> 
+             @foreach($data_type as $data_type)
+                 <option value="{{$data_type->id}}">{{$data_type->datatype}}</option>
+                @endforeach
+        <!-- End loop -->
+        </select>
+        @error('Data Type Name')
+        <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+        @enderror
+    </div>
+</div>
+
+                    <div class="form-group row mb-0">
                         <div class="col-md-2 offset-md-2">
                             <button type="submit" class="btn btn-primary">
                                 {{ __('Add') }}
