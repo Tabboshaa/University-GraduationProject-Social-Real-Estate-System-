@@ -24,10 +24,10 @@
         <form method="Post" action="{{ url('/delete_data_types/'.$data_types->id) }}" enctype="multipart/form-data">
                         @csrf
         <tr>
-            <td>{{$data_types->Type_Name}}</td>
+            <td>{{$data_types->datatype}}</td>
             <td><input type="checkbox" name="id[]" value="{{$data_types->id}}"></td>
                          <input type="hidden" name="_method" value="DELETE">
-                        <td><a href="javascript:void(0)" onclick="setDataTypeIdName('{{$data_types->Data_Type_ID}}','{{$data_types->Type_Name}}')"><i class="fa fa-edit"> Edit</i></a></td>
+                        <td><a href="javascript:void(0)" onclick="setDataTypeIdName('{{$data_types->id}}','{{$data_types->datatype}}')"><i class="fa fa-edit"> Edit</i></a></td>
 
                     </tr>
                 @endforeach
