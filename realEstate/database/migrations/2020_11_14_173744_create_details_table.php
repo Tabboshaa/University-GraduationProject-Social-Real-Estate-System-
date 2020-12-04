@@ -13,6 +13,11 @@ class CreateDetailsTable extends Migration
      */
     public function up()
     {
+        Schema::create('datatypes', function (Blueprint $table) {
+            $table->id();
+            $table->string('datatype');
+            $table->timestamps();
+        });
         Schema::create('main__types', function (Blueprint $table){
             $table->id('Main_Type_Id');
             $table->string('Main_Type_Name')->unique();
@@ -37,6 +42,7 @@ class CreateDetailsTable extends Migration
             $table->foreignId('Main_Type_Id')->references('Main_Type_Id')->on('sub__type__properties')->onDelete('cascade');
             $table->foreignId('Sub_Type_Id')->references('Sub_Type_Id')->on('sub__type__properties')->onDelete('cascade');
             $table->foreignId('Property_Id')->references('Property_Id')->on('sub__type__properties')->onDelete('cascade');
+            $table->foreignId('DataType_Id')->references('id')->on('datatypes')->onDelete('cascade');
             $table->string('Detail_Name');
             $table->timestamps();
         });

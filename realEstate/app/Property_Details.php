@@ -13,6 +13,7 @@ class Property_Details extends Model
         'Main_Type_Id',
         'Sub_Type_Id',
         'Property_Id',
+        'DataType_Id',
         'Detail_Name'
     ];
 }

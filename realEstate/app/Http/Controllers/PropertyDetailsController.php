@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Datatype;
 use App\Main_Type;
 use App\Property_Details;
 use App\Sub_Type;
 use App\Sub_Type_Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 class PropertyDetailsController extends Controller
 {
@@ -16,7 +18,8 @@ class PropertyDetailsController extends Controller
         $main_types=Main_Type::all();
         $sub_types=Sub_Type::all();
         $property=Sub_Type_Property::all();
-        return view('website.backend.database pages.Property_Details',['main_type'=>$main_types,'sub_type'=>$sub_types,'property'=>$property]);
+        $data_type=Datatype::all();
+        return view('website.backend.database pages.Property_Details',['main_type'=>$main_types,'sub_type'=>$sub_types,'property'=>$property,'data_type'=>$data_type]);
     }
 
     public function create()
@@ -26,6 +29,7 @@ class PropertyDetailsController extends Controller
             'Main_Type_Id' => request('Main_Type_Name'),
             'Sub_Type_Id' => request('Sub_Type_Name'),
             'Property_Id'=>request('Sub_Type_Property'),
+            'DataType_Id'=>request('Data_Type'),
             'Detail_Name' => request('property_details')
         ]);
 
@@ -60,8 +64,6 @@ class PropertyDetailsController extends Controller
     {
         //
         $propertydetail= Property_Details::all()->find(request('id'));
-        // $subtypepropertypropertyproperty->Main_Type_Id=request('MainTypeid');
-        // $subtypepropertyproperty->Sub_Type_Id=request('SubTypeid');
         $propertydetail->Detail_Name=request('PropertyDetailName');
         $propertydetail->save();
 
@@ -71,8 +73,9 @@ class PropertyDetailsController extends Controller
     {
         //
         Property_Details::destroy($request->id);
+        return redirect()->route('property_detail_show');
 
-      return $this->show();
+      
         }
 
 }

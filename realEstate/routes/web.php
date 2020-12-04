@@ -66,11 +66,16 @@ Route::get('/show_region','RegionController@show');
 Route::get('/street','StreetController@index');
 Route::post('/add_street','StreetController@create');
 Route::get('/show_street','StreetController@show');
+Route::Post('/delete_Street/{id?}','StreetController@destroy');
+Route::get('/edit_Street','StreetController@editStreet')->name('Street.edit');
 
 //Property Details pages #Tabbosha
 Route::get('/Property_Details', 'PropertyDetailsController@index');
-Route::get('/Property_Details_show', 'PropertyDetailsController@show');
+Route::get('/Property_Details_show', 'PropertyDetailsController@show')->name('property_detail_show');
 Route::post('/add_Property_Details','PropertyDetailsController@create');
+Route::get('/findPropertyDetail','PropertyDetailsController@find');
+Route::delete('/delete_property_detail','PropertyDetailsController@destroy');
+Route::get('/edit_property_detail','PropertyDetailsController@edit')->name('propertyDetail.update');
 
 //Property Details pages #Tabbosha
 Route::get('/property', 'SubTypePropertyController@index');
@@ -99,7 +104,7 @@ Route::delete('/delete_sub_type/{id?}','SubTypes@destroy');
 Route::get('/edit_sub_type/{id}','SubTypes@getSubTypeById')->name('suptype.getbyid');
 Route::get('/edit_edit_sub_type','SubTypes@editSubType')->name('suptype.update');
 Route::get('/update_get_sub_type/{id}', function ($id){
-
+    
     $sub_types=Sub_Type::all();
     $subtypeid=$id;
     $main_types=Main_Type::all();
@@ -107,14 +112,10 @@ Route::get('/update_get_sub_type/{id}', function ($id){
 });
 Route::post('/update_sub_type/{id}','SubTypes@update');
 Route::get('/findProperty','SubTypePropertyController@find');
-Route::get('/findPropertyDetail','PropertyDetailsController@find');
 
 //Detail delete and edit
 Route::delete('/delete_sub_type_property/{id?}','SubTypePropertyController@destroy');
 Route::get('/edit_sub_type_property','SubTypePropertyController@edit')->name('subTypeProperty.update');
-
-Route::delete('/delete_property_detail/{id?}','PropertyDetailsController@destroy');
-Route::get('/edit_property_detail','PropertyDetailsController@edit')->name('propertyDetail.update');
 
 
 Route::delete('/delete_detail/{id?}','DetailsController@destroy');
@@ -139,11 +140,9 @@ Route::Post('/delete_Country/{id?}','CountryController@destroy');
 Route::Post('/delete_State/{id?}','StateController@destroy');
 Route::Post('/delete_City/{id?}','CityController@destroy');
 Route::Post('/delete_Region/{id?}','RegionController@destroy');
-Route::Post('/delete_Street/{id?}','StreetController@destroy');
 
 //Edit #s
 Route::get('/edit_Country','CountryController@editCountry')->name('Country.edit');
 Route::get('/edit_State','StateController@editState')->name('State.edit');
 Route::get('/edit_City','CityController@editCity')->name('City.edit');
 Route::get('/edit_Region','RegionController@editRegion')->name('Region.edit');
-Route::get('/edit_Street','StreetController@editStreet')->name('Street.edit');
