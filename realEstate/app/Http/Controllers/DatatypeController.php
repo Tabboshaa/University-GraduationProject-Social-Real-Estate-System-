@@ -96,7 +96,6 @@ class DatatypeController extends Controller
         
         Datatype::destroy(request('id'));
 
-        
         return redirect()->route('data_type_show');
   
     }

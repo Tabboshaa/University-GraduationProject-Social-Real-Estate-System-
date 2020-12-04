@@ -1,5 +1,7 @@
 @extends('website.backend.database pages.Add_State')
 @section('table')
+<form method="Post" action="{{ url('/delete_State?_method=delete') }}" enctype="multipart/form-data">
+@csrf
 <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
 
     <thead>
@@ -7,7 +9,7 @@
             <th>Country ID</th>
             <th>State ID</th>
             <th>State Name</th>
-            <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <a href="#/trash"></a></th>
+            <th>Select all <input type="checkbox" id="selectAll" name="selectAll"><input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
             <th>Edit</th>
              <!-- Java Script for select all function -->
              <script>
@@ -22,8 +24,6 @@
     </thead>
     <tbody>
         @foreach($state as $state)
-        <form method="Post" action="{{ url('/delete_State/'.$state->State_Id) }}" enctype="multipart/form-data">
-        @csrf
         <tr>
             <td> {{$state->Country_Id}}</td>
             <td> {{$state->State_Id}}</td>
@@ -36,10 +36,9 @@
         </tr>
         @endforeach
         
-        <td><input type="submit" value="Delete Selected"></td>
-        </form>
     </tbody>
 </table>
+</form>
 
 <div class="modal fade" id="EditStateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">

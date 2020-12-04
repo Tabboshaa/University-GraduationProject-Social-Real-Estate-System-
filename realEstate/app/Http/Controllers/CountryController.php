@@ -91,9 +91,7 @@ class CountryController extends Controller
         // Will Destroy each column with id form action 
         Country::destroy($request->id);
 
-        $country=Country::all();
-        return view('website.backend.database pages.Add_country_Show',['c1'=>$country]);
-
+        return redirect()->route('country_show');
     }
     //  function  EDIT: AJAX
 

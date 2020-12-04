@@ -101,11 +101,7 @@ class CityController extends Controller
         City::destroy($request->id);
 
       
-        $counrty=Country::all();
-        $states=State::all();
-        $city=City::all();
-        return view('website\backend.database pages.Add_City_Show',['state'=>$states,'country'=>$counrty,'city'=>$city]);
-  
+        return redirect()->route('city_show');
     }
 
     public function findstate(){
