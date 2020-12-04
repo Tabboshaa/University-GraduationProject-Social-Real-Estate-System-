@@ -1,6 +1,6 @@
 @extends('website.backend.database pages.Add_Street')
 @section('table')
-<form method="Post" action="{{ url('/delete_Street/'.$street->Street_Id)}}" enctype="multipart/form-data">
+<form method="Post" action="{{ url('/delete_Street?_method=delete')}}" enctype="multipart/form-data">
     @csrf
     <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
         <thead>

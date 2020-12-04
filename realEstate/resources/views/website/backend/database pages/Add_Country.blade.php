@@ -3,7 +3,7 @@
     <div class="right_col" role="main">
         <div class="title_right">
             <div class="x_panel">
-                <form method="POST" action="{{ url('/Create_Country') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ url('/add_country') }}" enctype="multipart/form-data">
                     @csrf
 
                     <!-- Add New Country -->
