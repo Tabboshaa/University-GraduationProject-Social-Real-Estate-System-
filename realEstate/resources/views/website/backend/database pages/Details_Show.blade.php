@@ -1,7 +1,9 @@
 @extends('website.backend.database pages.Details')
 @section('Details_table')
-    <div class="row">
-        <div class="col-sm-12">
+<div class="row">
+    <div class="col-sm-12">
+        <form method="Post" action="{{ url('/delete_detail?_method=delete') }}" enctype="multipart/form-data">
+                @csrf
             <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
                 <thead>
                 <tr>
@@ -11,7 +13,7 @@
                     <th>Main Type ID</th>
                     <th>Property Detail ID</th>
                     <th>Detail Value</th>
-                    <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <a href="#/trash"> <i class="fa fa-trash" style="width:20%;height:20%;text-align: right;"></i></a></th>
+                    <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
                     <th></th>
                     <!-- Java Script for select all function -->
                     <script>
@@ -27,8 +29,6 @@
                 <tbody>
                 <!-- EL FOREARCH HNA -->
                 @foreach($detail as $detail)
-                <form method="Post" action="{{ url('/delete_detail/'.$property->Property_Id) }}" enctype="multipart/form-data">
-                        @csrf
                     <tr>
                         <td>{{$detail->Detail_Id}}</td>
                         <td>{{$detail->Property_Detail_Id}}</td>
@@ -36,16 +36,14 @@
                         <td>{{$detail->Main_Type_Id}}</td>
                         <td>{{$detail->DetailValue}}</td>
                         <td><input type="checkbox" name="id[]" value="{{$property->Property_Id}}"></td>
-                        <input type="hidden" name="_method" value="DELETE">
                         <td><a href="javascript:void(0)" onclick="setDetailIdName('{{$detail->Detail_Id}}','{{$detail->DetailValue}}')"><i class="fa fa-edit"> Edit</i></a></td>
                  </tr>
                 @endforeach
                 <!-- END OF FOREACH -->
-                <td><input type="submit" value="Delete Selected"></td>
-                </form>
-                </tbody>
-            </table>
-        </div>
+            </tbody>
+        </table>
+    </form>
+    </div>
     </div>
     <div class="modal fade" id="EditDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
