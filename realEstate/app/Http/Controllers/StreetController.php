@@ -115,13 +115,7 @@ class StreetController extends Controller
 
         Street::destroy($request->id);
 
-        $counrty=Country::all();
-        $states=State::all();
-        $city=City::all();
-        $region=Region::all();
-        $street=Street::all();
-        return view('website\backend.database pages.Add_Street_Show',['state'=>$states,'country'=>$counrty,'city'=>$city , 'region'=>$region , 'street'=>$street]);
-  
+        return redirect()->route('street_show');
     }
     public function editStreet(Request $request)
     {

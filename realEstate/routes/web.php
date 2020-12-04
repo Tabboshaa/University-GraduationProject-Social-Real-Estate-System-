@@ -45,27 +45,27 @@ Route::get('/edit_data_type','DatatypeController@edit')->name('usertype.update')
 Route::get('/viewAddCountry', function () {
     return view('website\backend.database pages.Add_Country');
 });
-Route::get('/show_country','CountryController@index');
+Route::get('/show_country','CountryController@index')->name('country_show');
 
 //State
 Route::get('/state','StateController@index');
 Route::post('/add_state','StateController@create');
-Route::get('/show_state','StateController@show');
+Route::get('/show_state','StateController@show')->name('state_show');
 
 //City
 Route::get('/city','CityController@index');
 Route::post('/add_city','CityController@create');
-Route::get('/show_city','CityController@show');
+Route::get('/show_city','CityController@show')->name('city_show');
 
 //Region
 Route::get('/region','RegionController@index');
 Route::post('/add_region','RegionController@create');
-Route::get('/show_region','RegionController@show');
+Route::get('/show_region','RegionController@show')->name('region_show');
 
 //Street
 Route::get('/street','StreetController@index');
 Route::post('/add_street','StreetController@create');
-Route::get('/show_street','StreetController@show');
+Route::get('/show_street','StreetController@show')->name('street_show');
 Route::Post('/delete_Street/{id?}','StreetController@destroy');
 Route::get('/edit_Street','StreetController@editStreet')->name('Street.edit');
 

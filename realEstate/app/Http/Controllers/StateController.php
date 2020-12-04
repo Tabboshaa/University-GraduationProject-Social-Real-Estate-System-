@@ -103,9 +103,7 @@ class StateController extends Controller
 
         State::destroy($request->id);
 
-        $counrty=Country::all();
-        $states=State::all();
-        return view('website\backend.database pages.Add_State_Show',['state'=>$states,'country'=>$counrty]);
+        return redirect()->route('state_show');
   
     }
     public function findstate(){

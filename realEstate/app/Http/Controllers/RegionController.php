@@ -111,12 +111,7 @@ class RegionController extends Controller
         Region::destroy($request->id);
 
       
-        $counrty=Country::all();
-        $states=State::all();
-        $city=City::all();
-        $region=Region::all();
-        return view('website\backend.database pages.Add_City_Show',['state'=>$states,'country'=>$counrty,'city'=>$city , 'region'=>$region]);
-  
+        return redirect()->route('region_show');
     }
 
     public function findstate(){
