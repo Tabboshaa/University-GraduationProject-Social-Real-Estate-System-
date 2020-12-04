@@ -15,7 +15,7 @@
             var op=" ";
             $.ajax({
                 type:'get', 
-                url:'{{ url('/D2') }}', 
+                url:"{{ url('/D2') }}", 
                 data:{'id':country_id}, 
                 success:function(data){ 
                     //console.log('success');
@@ -49,7 +49,7 @@
 
             $.ajax({
                 type:'get', 
-                url:'{{ url('/D3') }}',
+                url:"{{ url('/D3') }}",
                 data:{'id':state_id}, 
                 success:function(data){ 
                     //console.log('success');
