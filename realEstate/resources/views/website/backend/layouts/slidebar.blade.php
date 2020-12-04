@@ -31,6 +31,7 @@
                       <li><a>User<span class="fa fa-chevron-down"></span> </a>
                       <ul class="nav child_menu">
                       <li><a href="{{url('/user_types')}}">Add User Type</a></li>
+                      <li><a href="{{url('/User')}}">Add User</a></li>
                       </ul></li>
                     </ul> 
             </li>
@@ -56,11 +57,11 @@
                       </li>
                       <li><a>Item<span class="fa fa-chevron-down"></span> </a>
                       <ul class="nav child_menu">
-                      <li><a href="{{url('/Item')}}">Add Item</a></li>
+                      <li><a href="{{url('/Item')}}">Items</a></li>
                       </ul></li>
                       <li><a>User<span class="fa fa-chevron-down"></span> </a>
                       <ul class="nav child_menu">
-                      <li><a href="{{url('/user_types_show')}}">Add User Type</a></li>
+                      <li><a href="{{url('/user_types_show')}}">User Types</a></li>
                       </ul></li>
                     </ul>
             </li>

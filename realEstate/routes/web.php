@@ -1,7 +1,4 @@
 <?php
-
-use App\Main_Type;
-use App\Sub_Type;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,11 +17,15 @@ Route::get('/', 'SubTypes@index');
 Route::get('/main_types', 'MainTypes@index');
 Route::get('/main_types_show', 'MainTypes@show')->name('main_types_show');
 Route::post('/add_main_type','MainTypes@create');
+Route::delete('/delete_main_type','MainTypes@destroy');
+Route::get('/edit_main_type','MainTypes@edit')->name('Maintype.update');
+
 //sub types pages
 Route::get('/sub_types', 'SubTypes@index');
 Route::get('/sub_types_show', 'SubTypes@show')->name('subtype_show');
 Route::post('/add_sub_type','SubTypes@create');
-Route::get('/delete/{id}','SubTypes@destroy');
+Route::get('/delete_sub_type','SubTypes@destroy');
+
 //User types pages
 Route::get('/user_types', 'UserTypes@index');
 Route::get('/user_types_show', 'UserTypes@show')->name('usertype_show');
@@ -36,7 +37,6 @@ Route::get('/edit_user_type','UserTypes@edit')->name('usertype.update');
 Route::get('/data_types', 'DatatypeController@index');
 Route::get('/data_types_show', 'DatatypeController@show')->name('data_type_show');
 Route::post('/add_data_type','DatatypeController@create');
-
 Route::delete('/delete_data_types','DatatypeController@destroy');
 Route::get('/edit_data_type','DatatypeController@edit')->name('usertype.update');
 
@@ -103,13 +103,6 @@ Route::get('/findSub','SubTypes@find');
 Route::delete('/delete_sub_type/{id?}','SubTypes@destroy');
 Route::get('/edit_sub_type/{id}','SubTypes@getSubTypeById')->name('suptype.getbyid');
 Route::get('/edit_edit_sub_type','SubTypes@editSubType')->name('suptype.update');
-Route::get('/update_get_sub_type/{id}', function ($id){
-    
-    $sub_types=Sub_Type::all();
-    $subtypeid=$id;
-    $main_types=Main_Type::all();
-    return view('website.backend.database pages.Edit_Sup_Type',['sub_type'=>$sub_types,'main_type'=>$main_types,'supTypeId'=>$subtypeid]);
-});
 Route::post('/update_sub_type/{id}','SubTypes@update');
 Route::get('/findProperty','SubTypePropertyController@find');
 
@@ -121,8 +114,6 @@ Route::get('/edit_sub_type_property','SubTypePropertyController@edit')->name('su
 Route::delete('/delete_detail/{id?}','DetailsController@destroy');
 Route::get('/edit_detail','DetailsController@edit')->name('Detail.update');
 
-Route::delete('/delete_main_type','MainTypes@destroy');
-Route::get('/edit_main_type','MainTypes@edit')->name('Maintype.update');
 
 
 Route::post('/add_Item_Detail/{main_id}/{sub_id}/{property_id}','ItemController@submit');
