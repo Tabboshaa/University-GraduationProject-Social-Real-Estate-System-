@@ -1,0 +1,115 @@
+@extends('website.backend.database pages.Details')
+@section('Details_table')
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+                <thead>
+                <tr>
+                    <th>Item ID</th>
+                    <th>Property Detail ID</th>
+                    <th>Sub Type ID</th>
+                    <th>Main Type ID</th>
+                    <th>Property Detail ID</th>
+                    <th>Detail Value</th>
+                    <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <a href="#/trash"> <i class="fa fa-trash" style="width:20%;height:20%;text-align: right;"></i></a></th>
+                    <th></th>
+                    <!-- Java Script for select all function -->
+                    <script>
+                        document.getElementById('selectAll').onclick = function() {
+                            var checkboxes = document.getElementsByName('id[]'); //get all check boxes with name delete
+                            for (var checkbox of checkboxes) { //for loop to set all checkboxes to checked
+                                checkbox.checked = this.checked;
+                            }
+                        }
+                    </script>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- EL FOREARCH HNA -->
+                @foreach($detail as $detail)
+                <form method="Post" action="{{ url('/delete_detail/'.$property->Property_Id) }}" enctype="multipart/form-data">
+                        @csrf
+                    <tr>
+                        <td>{{$detail->Detail_Id}}</td>
+                        <td>{{$detail->Property_Detail_Id}}</td>
+                        <td>{{$detail->Sub_Type_Id}}</td>
+                        <td>{{$detail->Main_Type_Id}}</td>
+                        <td>{{$detail->DetailValue}}</td>
+                        <td><input type="checkbox" name="id[]" value="{{$property->Property_Id}}"></td>
+                        <input type="hidden" name="_method" value="DELETE">
+                        <td><a href="javascript:void(0)" onclick="setDetailIdName('{{$detail->Detail_Id}}','{{$detail->DetailValue}}')"><i class="fa fa-edit"> Edit</i></a></td>
+                 </tr>
+                @endforeach
+                <!-- END OF FOREACH -->
+                <td><input type="submit" value="Delete Selected"></td>
+                </form>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal fade" id="EditDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Sub Type</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="EditDetailForm">
+                    @csrf
+                    <input type="hidden" name="id" id="id">
+          
+                    <div class="form-group">
+                        <label for="DetailName" >Detail Value</label>
+                        <input type="text" name="DetailName" id="DetailName" class="form-control">
+                    </div>
+                    <button  type="submit" class="btn btn-success">Edit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        function setDetailIdName(id,name){
+
+                $("#id").val(id);
+                $("#DetailName").val(name);
+                $("#EditDetailModal").modal("toggle");
+        }
+        $('#EditDetailForm').submit(function (){
+
+            var id=$("#id").val();
+            // var MainTypeid=$("#MainTypeNameEdit").val();
+            var DetailName=$("#DetailName").val();
+            var _token= $("input[name=_token]").val();
+            
+            $.ajax({
+                url:"{{route('Detail.update')}}",
+                Type:"PUT",
+                data:{
+                    id:id,
+                    // MainTypeid:MainTypeid,
+                    DetailName:DetailName,
+                     _token:_token
+                },
+                success:function (response){
+                    console.log('Success')
+                    console.log(response);
+                    $('#sid'+response.id + 'td:nth-child(1)').text(response.DetailName);
+                    $("#EditDetailModal").modal("toggle");
+                    // $("#EditDetailModal")[0].reset();
+                },
+                error:function ()
+                {
+                    console.log('Error');
+                }
+
+            });
+        })
+    </script>
+
+@endsection
