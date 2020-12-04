@@ -97,8 +97,7 @@ class UserTypes extends Controller
 
         User_Type::destroy(request('id'));
 
-        $user_types=User_Type::all();
-        return view('website/backend.database pages.User_Type',['user_type'=>$user_types]);
-  
+        return redirect()->route('usertype_show');
+
     }
 }

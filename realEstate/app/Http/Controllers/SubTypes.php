@@ -87,7 +87,8 @@ class SubTypes extends Controller
     public function show()
     {
         //
-        $sub_show=DB::table('sub__types')->join('main__types', 'sub__types.Main_Type_Id', '=', 'main__types.Main_Type_Id')->select('sub__types.*', 'main__types.Main_Type_Name')->get();
+        $sub_show=DB::table('sub__types')->join('main__types', 'sub__types.Main_Type_Id', '=', 'main__types.Main_Type_Id')
+        ->select('sub__types.*', 'main__types.Main_Type_Name')->get();
        //DB join b3ml add l column el main type name le table el subtype w bb3to 3sha azhr el main type name 
        //fe table el show sub tye
         $main_types=Main_Type::all();
@@ -138,16 +139,8 @@ class SubTypes extends Controller
      */
     public function destroy(Request $request,$id)
     {
-       // return dd(request()->all());
         Sub_Type::destroy($request->id);
+        return redirect()->route('subtype_show');
 
-        $sub_types=Sub_Type::all();
-        $main_types=Main_Type::all();
-       /* if($id!=null){
-            Sub_Type::all()->find($id)->delete();
-        }elseif(request()->has('id')){
-            Sub_Type::destroy($request->id);
-        };*/
-        return view('website.backend.database pages.Sub_Types_Show',['sub_type'=>$sub_types,'main_type'=>$main_types]);
     }
 }

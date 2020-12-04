@@ -53,8 +53,6 @@ class DetailsController extends Controller
     {
         //
         $detail=Details::all()->find(request('id'));
-        // $subtypepropertypropertyproperty->Main_Type_Id=request('MainTypeid');
-        // $subtypepropertyproperty->Sub_Type_Id=request('SubTypeid');
         $detail->DetailValue=request('DetailName');
         $detail->save();
 
@@ -65,6 +63,6 @@ class DetailsController extends Controller
         //
         Property_Details::destroy($request->id);
 
-       return $this->show();
+       return redirect()->route('details_show');
        }
 }

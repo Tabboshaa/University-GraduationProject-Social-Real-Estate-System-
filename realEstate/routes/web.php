@@ -22,12 +22,12 @@ Route::get('/main_types_show', 'MainTypes@show')->name('main_types_show');
 Route::post('/add_main_type','MainTypes@create');
 //sub types pages
 Route::get('/sub_types', 'SubTypes@index');
-Route::get('/sub_types_show', 'SubTypes@show');
+Route::get('/sub_types_show', 'SubTypes@show')->name('subtype_show');
 Route::post('/add_sub_type','SubTypes@create');
 Route::get('/delete/{id}','SubTypes@destroy');
 //User types pages
 Route::get('/user_types', 'UserTypes@index');
-Route::get('/user_types_show', 'UserTypes@show');
+Route::get('/user_types_show', 'UserTypes@show')->name('usertype_show');
 Route::post('/add_user_type','UserTypes@create');
 Route::delete('/delete_user_type/{id?}','UserTypes@destroy');
 Route::get('/edit_user_type','UserTypes@edit')->name('usertype.update');
@@ -79,12 +79,12 @@ Route::get('/edit_property_detail','PropertyDetailsController@edit')->name('prop
 
 //Property Details pages #Tabbosha
 Route::get('/property', 'SubTypePropertyController@index');
-Route::get('/sub_type_property_show', 'SubTypePropertyController@show');
+Route::get('/sub_type_property_show', 'SubTypePropertyController@show')->name('subtypeproperty_show');
 Route::post('/add_sub_type_property','SubTypePropertyController@create');
 
 // Details pages #Tabbosha
 Route::get('/Details', 'DetailsController@index');
-Route::get('/Details_show', 'DetailsController@show');
+Route::get('/Details_show', 'DetailsController@show')->name('details_show');
 Route::post('/add_Details','DetailsController@create');
 
 // add user

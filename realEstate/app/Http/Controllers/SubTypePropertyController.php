@@ -63,7 +63,8 @@ class SubTypePropertyController extends Controller
         //
         $sub_types=Sub_Type::all();
         $main_types=Main_Type::all();
-        $property=DB::table('sub__type__properties')->join('main__types', 'sub__type__properties.Main_Type_Id', '=', 'main__types.Main_Type_Id')
+        $property=DB::table('sub__type__properties')
+        ->join('main__types', 'sub__type__properties.Main_Type_Id', '=', 'main__types.Main_Type_Id')
         ->join('sub__types', 'sub__type__properties.Sub_Type_Id', '=', 'sub__types.Sub_Type_Id')
         ->select('sub__type__properties.*', 'main__types.Main_Type_Name','sub__types.Sub_Type_Name')->get();
         //el subtype name w el main type name 
@@ -120,7 +121,7 @@ class SubTypePropertyController extends Controller
     {
         //
         Sub_Type_Property::destroy($request->id);
-     return $this->show();
+     return redirect()->route('subtypeproperty_show');
     }
 
 }
