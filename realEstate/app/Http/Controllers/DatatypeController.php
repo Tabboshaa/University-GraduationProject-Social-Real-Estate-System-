@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Main_Type;
+use App\Datatype;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 
-class MainTypes extends Controller
+class DatatypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,7 @@ class MainTypes extends Controller
     public function index()
     {
         //
-        return view('website.backend.database pages.Main_Types');
+        return view('website/backend.database pages.Data_Type');
     }
 
     /**
@@ -27,10 +26,10 @@ class MainTypes extends Controller
     public function create()
     {
         //
-        $Main_Type = Main_Type::create([
-            'Main_Type_Name' => request('Main_Type_Name'),
+        $Data_Type =Datatype::create([
+            'datatype' => request('Data_Type_Name')
         ]);
-        return view('website.backend.database pages.Main_Types');
+     return $this->index();
     }
 
     /**
@@ -53,8 +52,8 @@ class MainTypes extends Controller
     public function show()
     {
         //
-        $main_types=Main_Type::all();
-        return view('website.backend.database pages.Main_Types_Show',['main_type'=>$main_types]);
+        $data_types=Datatype::all();
+        return view('website/backend.database pages.Data_Type_Show',['data_types'=>$data_types]);
     }
 
     /**
@@ -66,11 +65,11 @@ class MainTypes extends Controller
     public function edit()
     {
         //
-        $main_types=Main_Type::all()->find(request('id'));
-        $main_types->Main_Type_Name=request('MainTypeName');
-        $main_types->save();
+        $data_type=Datatype::all()->find(request('id'));
+        $data_type->datatype=request('DataTypeName');
+        $data_type->save();
 
-        return response()->json($main_types);
+        return response()->jason($data_type);
     }
 
     /**
@@ -91,12 +90,14 @@ class MainTypes extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy()
     {
-        //return dd($request->all());
         //
-        Main_Type::destroy($request->mainType);
         
-        return redirect()->route('main_types_show');
-}
+        Datatype::destroy(request('id'));
+
+        
+        return redirect()->route('data_type_show');
+  
+    }
 }

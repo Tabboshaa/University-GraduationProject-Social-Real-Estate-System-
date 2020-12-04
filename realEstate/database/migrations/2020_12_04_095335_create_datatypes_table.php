@@ -16,6 +16,7 @@ class CreateDatatypesTable extends Migration
         Schema::create('datatypes', function (Blueprint $table) {
             $table->id();
             $table->string('datatype');
+            $table->timestamps();
         });
     }
 

@@ -29,6 +29,10 @@ Route::get('/delete/{id}','SubTypes@destroy');
 Route::get('/user_types', 'UserTypes@index');
 Route::get('/user_types_show', 'UserTypes@show');
 Route::post('/add_user_type','UserTypes@create');
+//Data types pages
+Route::get('/data_types', 'DatatypeController@index');
+Route::get('/data_types_show', 'DatatypeController@show')->name('data_type_show');
+Route::post('/add_data_type','DatatypeController@create');
 
 //Country #s
 Route::get('/viewAddCountry', function () {
