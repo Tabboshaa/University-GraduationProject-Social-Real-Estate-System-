@@ -1,11 +1,13 @@
 @extends('website.backend.database pages.Data_Type')
 @section('table')
+<form method="Post" action="{{ url('/delete_data_types?_method=delete') }}" enctype="multipart/form-data">
+    @csrf
 <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
     <thead>
         <tr>
            
             <th>Data Type Name</th>
-            <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <a href="#/trash">  </a></th>
+            <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> </a> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
             <th></th>
             <!-- Java Script for select all function -->
             <script>
@@ -21,8 +23,7 @@
     <tbody>
         <!-- EL FOREARCH HNA -->
         @foreach($data_types as $data_types)
-        <form method="Post" action="{{ url('/delete_data_types/'.$data_types->id) }}" enctype="multipart/form-data">
-                        @csrf
+     
         <tr>
             <td>{{$data_types->datatype}}</td>
             <td><input type="checkbox" name="id[]" value="{{$data_types->id}}"></td>
@@ -32,10 +33,10 @@
                     </tr>
                 @endforeach
                 <!-- END OF FOREACH -->
-                <td><input type="submit" value="Delete Selected"></td>
-                </form>
-    </tbody>
-</table>
+            </tbody>
+        </table>
+        
+        </form>
 <!-- Modal -->
 <div class="modal fade" id="EditDataTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
