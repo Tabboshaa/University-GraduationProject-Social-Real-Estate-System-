@@ -21,32 +21,6 @@
                             checkbox.checked = this.checked;
                         }
                     }
-<<<<<<< HEAD
-                }
-        </script>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- EL FOREARCH HNA -->
-        @foreach($street as $street)
-        <form method="Post" action="{{ url('/delete_Street/'.$street->Street_Id)}}" enctype="multipart/form-data">
-         @csrf
-        <tr>
-            <td>{{$street->Country_Name}}</td>
-            <td>{{$street->State_Name}}</td>
-            <td>{{$street->City_Name}}</td>
-            <td>{{$street->Region_Name}}</td>
-            <td>{{$street->Street_Name}}</td>
-            <td><input type="checkbox" name="id[]" value="{{$street->Street_Id}}"></td>
-        <td><a href="javascript:void(0)" onclick="setStreetIdName('{{$street->Street_Id}}','{{$street->Street_Name}}')"><i class="fa fa-edit"></i></a></td>
-    </tr>
-        @endforeach
-        <!-- END OF FOREACH -->
-        <td><input type="submit" value="Delete Selected"></td>
-    </form>
-    </tbody>
-</table>
-=======
                 </script>
             </tr>
         </thead>
@@ -54,12 +28,11 @@
             <!-- EL FOREARCH HNA -->
             @foreach($street as $street)
             <tr>
-                <td>{{$street->Street_Id}}</td>
-                <td>{{$street->Country_Id}}</td>
-                <td>{{$street->State_Id}}</td>
-                <td>{{$street->City_Id}}</td>
-                <td>{{$street->Region_Id}}</td>
-                <td>{{$street->Street_Name}}</td>
+            <td>{{$street->Country_Name}}</td>
+            <td>{{$street->State_Name}}</td>
+            <td>{{$street->City_Name}}</td>
+            <td>{{$street->Region_Name}}</td>
+            <td>{{$street->Street_Name}}</td>
                 <td><input type="checkbox" name="id[]" value="{{$street->Street_Id}}"></td>
                 <td><a href="javascript:void(0)" onclick="setStreetIdName('{{$street->Street_Id}}','{{$street->Street_Name}}')"><i class="fa fa-edit"></i></a></td>
             </tr>
@@ -68,7 +41,6 @@
         </tbody>
     </table>
 </form>
->>>>>>> 6481ba95387376bb5304f93a95adec7ea8101ec2
 
 <div class="modal fade" id="EditStreetModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

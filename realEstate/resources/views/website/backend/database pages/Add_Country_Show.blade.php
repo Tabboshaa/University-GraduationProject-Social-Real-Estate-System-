@@ -23,24 +23,6 @@
     </thead>
     <tbody>
         @foreach($C1 as $C1)
-<<<<<<< HEAD
-        <form method="Post" action="{{ url('/delete_Country/'.$C1->Country_Id) }}" enctype="multipart/form-data">
-        @csrf
-        <tr>
-
-            <!-- {{-- <tr id="sid{{$c1->Country_Id}}">--}} -->
-            <td> {{$C1->Country_Name}}</td>
-            <td><input type="checkbox" name="id[]" value="{{$C1->Country_Id}}"></td>
-            
-            <!-- On clicking edit icon will go to setCountryIdName in-->
-            <td><a href="javascript:void(0)" onclick="setCountryIdName('{{$C1->Country_Id}}','{{$C1->Country_Name}}')"><i class="fa fa-edit"></i></a></td>
-        </tr>
-        @endforeach
-
-        <!-- When we click this button will go to route delete country  -->
-        <td><input type="submit" value="Delete Selected"></td>
-        </form>
-=======
             <tr>
                 <td> {{$C1->Country_Id}}</td>
                 <td> {{$C1->Country_Name}}</td>
@@ -50,7 +32,6 @@
                 <td><a href="javascript:void(0)" onclick="setCountryIdName('{{$C1->Country_Id}}','{{$C1->Country_Name}}')"><i class="fa fa-edit"></i></a></td>
             </tr>
             @endforeach
->>>>>>> 6481ba95387376bb5304f93a95adec7ea8101ec2
     </tbody>
 </table>
 </form>

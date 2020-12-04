@@ -2,61 +2,38 @@
 @section('table')
 <form method="Post" action="{{ url('/delete_City?_method=delete') }}" enctype="multipart/form-data">
     @csrf
-<table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
-    <thead>
-        <tr>
-            <th>City ID</th>
-            <th>Country ID</th>
-            <th>State ID</th>
-            <th>City Name</th>
-            <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
-            <th>Edit</th>
-
-            <script>
-                document.getElementById('selectAll').onclick = function() {
-                    var checkboxes = document.getElementsByName('id[]'); //get all check boxes with name delete
-                    for (var checkbox of checkboxes) { //for loop to set all checkboxes to checked
-                        checkbox.checked = this.checked;
-                    }
-                }
-<<<<<<< HEAD
-        </script>
-    </tr>
-</thead>
-<tbody>
-    @foreach($city as $city)
-    <form method="Post" action="{{ url('/delete_City/'.$city->City_Id) }}" enctype="multipart/form-data">
-    @csrf
-    <tr>
-        <td> {{$city->Country_Name}}</td>
-        <td> {{$city->State_Name}}</td>
-        <td> {{$city->City_Name}}</td>
-        <td><input type="checkbox" name="id[]" value="{{$city->City_Id}}"></td>
-        <td><a href="javascript:void(0)" onclick="setCityIdName('{{$city->City_Id}}','{{$city->City_Name}}')"><i class="fa fa-edit"></i></a></td>
-    </tr>
-    @endforeach
-
-    <td><input type="submit" value="Delete Selected"></td>
-    </form>
-</tbody>
-=======
-            </script>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($city as $city)
+    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+        <thead>
             <tr>
-                <td> {{$city->City_Id}} </td>
-                <td> {{$city->Country_Id}}</td>
-                <td> {{$city->State_Id}}</td>
+                <th>City ID</th>
+                <th>Country ID</th>
+                <th>State ID</th>
+                <th>City Name</th>
+                <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
+                <th>Edit</th>
+
+                <script>
+                    document.getElementById('selectAll').onclick = function() {
+                        var checkboxes = document.getElementsByName('id[]'); //get all check boxes with name delete
+                        for (var checkbox of checkboxes) { //for loop to set all checkboxes to checked
+                            checkbox.checked = this.checked;
+                        }
+                    }
+                </script>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($city as $city)
+            <tr>
+                <td> {{$city->Country_Name}}</td>
+                <td> {{$city->State_Name}}</td>
                 <td> {{$city->City_Name}}</td>
                 <td><input type="checkbox" name="id[]" value="{{$city->City_Id}}"></td>
                 <td><a href="javascript:void(0)" onclick="setCityIdName('{{$city->City_Id}}','{{$city->City_Name}}')"><i class="fa fa-edit"></i></a></td>
             </tr>
             @endforeach
-    </tbody>
->>>>>>> 6481ba95387376bb5304f93a95adec7ea8101ec2
-</table>
+        </tbody>
+    </table>
 </form>
 
 <div class="modal fade" id="EditCityModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -20,31 +20,6 @@
                             checkbox.checked = this.checked;
                         }
                     }
-<<<<<<< HEAD
-                }
-        </script>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- EL FOREARCH HNA -->
-        @foreach($region as $region)
-        <form method="Post" action="{{ url('/delete_Region/'.$region->Region_Id)}}" enctype="multipart/form-data">
-         @csrf
-        <tr>
-            <td>{{$region->Country_Name}}</td>
-            <td>{{$region->State_Name}}</td>
-            <td>{{$region->City_Name}}</td>
-            <td>{{$region->Region_Name}}</td>
-            <td><input type="checkbox" name="id[]" value="{{$region->Region_Id}}"></td>
-        <td><a href="javascript:void(0)" onclick="setRegionIdName('{{$region->Region_Id}}','{{$region->Region_Name}}')"><i class="fa fa-edit"></i></a></td>
-    </tr>
-        @endforeach
-        <!-- END OF FOREACH -->
-        <td><input type="submit" value="Delete Selected"></td>
-    </form>
-    </tbody>
-</table>
-=======
                 </script>
             </tr>
         </thead>
@@ -52,11 +27,10 @@
             <!-- EL FOREARCH HNA -->
             @foreach($region as $region)
             <tr>
-                <td>{{$region->Region_Id}}</td>
-                <td>{{$region->Country_Id}}</td>
-                <td>{{$region->State_Id}}</td>
-                <td>{{$region->City_Id}}</td>
-                <td>{{$region->Region_Name}}</td>
+            <td>{{$region->Country_Name}}</td>
+            <td>{{$region->State_Name}}</td>
+            <td>{{$region->City_Name}}</td>
+            <td>{{$region->Region_Name}}</td>
                 <td><input type="checkbox" name="id[]" value="{{$region->Region_Id}}"></td>
                 <td><a href="javascript:void(0)" onclick="setRegionIdName('{{$region->Region_Id}}','{{$region->Region_Name}}')"><i class="fa fa-edit"></i></a></td>
             </tr>
@@ -65,7 +39,6 @@
         </tbody>
     </table>
 </form>
->>>>>>> 6481ba95387376bb5304f93a95adec7ea8101ec2
 
 <div class="modal fade" id="EditRegionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

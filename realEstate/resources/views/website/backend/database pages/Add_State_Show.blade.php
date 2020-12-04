@@ -6,8 +6,7 @@
 
     <thead>
         <tr>
-            <th>Country ID</th>
-            <th>State ID</th>
+            <th>Country Name</th>
             <th>State Name</th>
             <th>Select all <input type="checkbox" id="selectAll" name="selectAll"><input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
             <th>Edit</th>
