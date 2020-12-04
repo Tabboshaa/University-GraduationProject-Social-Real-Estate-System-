@@ -21,7 +21,7 @@
         </tr>
     </thead>
     <tbody>
-        <!-- EL FOREARCH HNA omniaaa333-->
+        <!-- EL FOREARCH HNA-->
         @foreach($main_type as $main_type)
 
         <tr>
