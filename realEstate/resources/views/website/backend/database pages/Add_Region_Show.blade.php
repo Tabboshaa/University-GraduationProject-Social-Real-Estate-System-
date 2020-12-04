@@ -27,10 +27,9 @@
         <form method="Post" action="{{ url('/delete_Region/'.$region->Region_Id)}}" enctype="multipart/form-data">
          @csrf
         <tr>
-            <td>{{$region->Region_Id}}</td>
-            <td>{{$region->Country_Id}}</td>
-            <td>{{$region->State_Id}}</td>
-            <td>{{$region->City_Id}}</td>
+            <td>{{$region->Country_Name}}</td>
+            <td>{{$region->State_Name}}</td>
+            <td>{{$region->City_Name}}</td>
             <td>{{$region->Region_Name}}</td>
             <td><input type="checkbox" name="id[]" value="{{$region->Region_Id}}"></td>
         <td><a href="javascript:void(0)" onclick="setRegionIdName('{{$region->Region_Id}}','{{$region->Region_Name}}')"><i class="fa fa-edit"></i></a></td>

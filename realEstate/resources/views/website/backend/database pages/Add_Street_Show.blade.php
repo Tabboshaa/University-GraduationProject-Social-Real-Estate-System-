@@ -28,11 +28,10 @@
         <form method="Post" action="{{ url('/delete_Street/'.$street->Street_Id)}}" enctype="multipart/form-data">
          @csrf
         <tr>
-            <td>{{$street->Street_Id}}</td>
-            <td>{{$street->Country_Id}}</td>
-            <td>{{$street->State_Id}}</td>
-            <td>{{$street->City_Id}}</td>
-            <td>{{$street->Region_Id}}</td>
+            <td>{{$street->Country_Name}}</td>
+            <td>{{$street->State_Name}}</td>
+            <td>{{$street->City_Name}}</td>
+            <td>{{$street->Region_Name}}</td>
             <td>{{$street->Street_Name}}</td>
             <td><input type="checkbox" name="id[]" value="{{$street->Street_Id}}"></td>
         <td><a href="javascript:void(0)" onclick="setStreetIdName('{{$street->Street_Id}}','{{$street->Street_Name}}')"><i class="fa fa-edit"></i></a></td>

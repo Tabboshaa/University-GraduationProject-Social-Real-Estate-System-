@@ -60,9 +60,12 @@ class StateController extends Controller
     public function show()
     {
         //
-        $counrty=Country::all();
-        $states=State::all();
-        return view('website\backend.database pages.Add_State_Show',['state'=>$states,'country'=>$counrty]);
+        $countries=Country::all();
+        $states=DB::table('states')
+        ->join('countries', 'states.Country_Id', '=', 'countries.Country_Id')
+        ->select('states.*', 'countries.Country_Name')->get();
+
+        return view('website\backend.database pages.Add_State_Show',['state'=>$states,'country'=>$countries]);
     }
 
     /**

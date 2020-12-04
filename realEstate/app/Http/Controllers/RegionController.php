@@ -63,12 +63,17 @@ class RegionController extends Controller
     public function show()
     {
         //
-        $counrty=Country::all();
-        $state=State::all();
-        $city=City::all();
-        $region=Region::all();
-        return view('website.backend.database pages.Add_Region_Show',['counrty'=>$counrty,'state'=>$state,'city'=>$city,'region'=>$region]);
    
+        $city=City::all();
+        $states=State::all();
+        $countries=Country::all();
+        $region=DB::table('regions')
+        ->join('countries', 'regions.Country_Id', '=', 'countries.Country_Id')
+        ->join('states', 'regions.State_Id', '=', 'states.State_Id')
+        ->join('cities', 'regions.City_Id', '=', 'cities.City_Id')
+        ->select('regions.*', 'countries.Country_Name','states.State_Name','cities.City_Name')->get();
+        //el subtype name w el main type name 
+        return view('website.backend.database pages.Add_Region_Show',['counrty'=>$countries,'state'=>$states,'city'=>$city,'region'=>$region]);
     }
 
     /**

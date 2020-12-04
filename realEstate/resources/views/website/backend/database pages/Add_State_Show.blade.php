@@ -25,8 +25,7 @@
         <form method="Post" action="{{ url('/delete_State/'.$state->State_Id) }}" enctype="multipart/form-data">
         @csrf
         <tr>
-            <td> {{$state->Country_Id}}</td>
-            <td> {{$state->State_Id}}</td>
+            <td> {{$state->Country_Name}}</td>
             <td> {{$state->State_Name}}</td>
             <td><input type="checkbox" name="id[]" value="{{$state->State_Id}}"></td>
             

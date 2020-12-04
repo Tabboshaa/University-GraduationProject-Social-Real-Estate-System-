@@ -17,7 +17,7 @@ class CityController extends Controller
      */
     public function index()
     { 
-        
+
         $city=City::all();
         $countries=Country::all();
         $states=State::all();
@@ -59,11 +59,15 @@ class CityController extends Controller
      */
     public function show()
     {
-        //
-        $cities=City::all();
-        $countries=Country::all();
         $states=State::all();
-        return view('website\backend.database pages.Add_City_Show',['state'=>$states , 'country'=>$countries , 'city'=>$cities]);
+        $countries=Country::all();
+        $cities=DB::table('cities')
+        ->join('countries', 'cities.Country_Id', '=', 'countries.Country_Id')
+        ->join('states', 'cities.State_Id', '=', 'states.State_Id')
+        ->select('cities.*', 'countries.Country_Name','states.State_Name')->get();
+        //el subtype name w el main type name 
+        return view('website.backend.database pages.Add_City_Show',['state'=>$states , 'country'=>$countries , 'city'=>$cities]);
+
     }
 
     /**

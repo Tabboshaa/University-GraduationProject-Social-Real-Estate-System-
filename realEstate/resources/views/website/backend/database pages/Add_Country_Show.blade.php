@@ -27,7 +27,6 @@
         <tr>
 
             <!-- {{-- <tr id="sid{{$c1->Country_Id}}">--}} -->
-            <td> {{$C1->Country_Id}}</td>
             <td> {{$C1->Country_Name}}</td>
             <td><input type="checkbox" name="id[]" value="{{$C1->Country_Id}}"></td>
             

@@ -66,13 +66,19 @@ class StreetController extends Controller
     public function show()
     {
         //
-        $counrty=Country::all();
-        $state=State::all();
-        $city=City::all();
-        $region=Region::all();
-        $street=Street::all();
-        return view('website.backend.database pages.Add_Street_Show',['counrty'=>$counrty,'state'=>$state,'city'=>$city,'region'=>$region,'street'=>$street]);
    
+        $region=Region::all();
+        $city=City::all();
+        $states=State::all();
+        $countries=Country::all();
+        $streets=DB::table('streets')
+        ->join('countries', 'streets.Country_Id', '=', 'countries.Country_Id')
+        ->join('states', 'streets.State_Id', '=', 'states.State_Id')
+        ->join('cities', 'streets.City_Id', '=', 'cities.City_Id')
+        ->join('regions', 'streets.Region_Id', '=', 'regions.Region_Id')
+        ->select('streets.*', 'countries.Country_Name','states.State_Name','cities.City_Name','regions.Region_Name')->get();
+        //el subtype name w el main type name 
+        return view('website.backend.database pages.Add_Street_Show',['counrty'=>$countries,'state'=>$states,'city'=>$city,'region'=>$region,'street'=>$streets]);
     }
 
     /**

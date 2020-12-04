@@ -26,9 +26,8 @@
     <form method="Post" action="{{ url('/delete_City/'.$city->City_Id) }}" enctype="multipart/form-data">
     @csrf
     <tr>
-        <td> {{$city->City_Id}} </td>
-        <td> {{$city->Country_Id}}</td>
-        <td> {{$city->State_Id}}</td>
+        <td> {{$city->Country_Name}}</td>
+        <td> {{$city->State_Name}}</td>
         <td> {{$city->City_Name}}</td>
         <td><input type="checkbox" name="id[]" value="{{$city->City_Id}}"></td>
         <td><a href="javascript:void(0)" onclick="setCityIdName('{{$city->City_Id}}','{{$city->City_Name}}')"><i class="fa fa-edit"></i></a></td>
