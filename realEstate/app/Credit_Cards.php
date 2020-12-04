@@ -12,4 +12,5 @@ class Credit_Cards extends Model
         'User_ID',
         'Default'
     ];
+    
 }
