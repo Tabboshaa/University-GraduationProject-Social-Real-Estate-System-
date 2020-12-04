@@ -8,6 +8,8 @@ use App\Country;
 use App\State;
 use App\Street;
 use App\Region;
+use Illuminate\Support\Facades\DB;
+
 class CityController extends Controller
 {
     /**
