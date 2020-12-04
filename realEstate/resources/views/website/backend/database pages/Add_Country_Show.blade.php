@@ -5,7 +5,6 @@
 <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
     <thead>
         <tr>
-            <th>Country ID</th>
             <th>Country Name</th>
             <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
             <th>Edit</th>
@@ -24,7 +23,6 @@
     <tbody>
         @foreach($C1 as $C1)
             <tr>
-                <td> {{$C1->Country_Id}}</td>
                 <td> {{$C1->Country_Name}}</td>
                 <td><input type="checkbox" name="id[]" value="{{$C1->Country_Id}}"></td>
 
