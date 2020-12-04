@@ -5,10 +5,9 @@
     <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
         <thead>
             <tr>
-                <th>Region Id</th>
-                <th>Country Id</th>
-                <th>State Id</th>
-                <th>City Id</th>
+                <th>Country Name</th>
+                <th>State Name</th>
+                <th>City Name</th>
                 <th>Region Name</th>
                 <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
                 <th>Edit</th>
