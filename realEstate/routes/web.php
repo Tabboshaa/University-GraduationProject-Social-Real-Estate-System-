@@ -46,6 +46,7 @@ Route::get('/viewAddCountry', function () {
     return view('website\backend.database pages.Add_Country');
 });
 Route::get('/show_country','CountryController@index')->name('country_show');
+Route::post('/add_country','CountryController@create');
 
 //State
 Route::get('/state','StateController@index');

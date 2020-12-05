@@ -8,6 +8,7 @@ use App\Country;
 use App\Region;
 use App\State;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StreetController extends Controller
 {
