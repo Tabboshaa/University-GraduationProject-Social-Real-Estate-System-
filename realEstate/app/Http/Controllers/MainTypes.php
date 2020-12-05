@@ -27,10 +27,18 @@ class MainTypes extends Controller
     public function create()
     {
         //
-        $Main_Type = Main_Type::create([
-            'Main_Type_Name' => request('Main_Type_Name'),
-        ]);
-        return view('website.backend.database pages.Main_Types');
+        try {
+            $Main_Type = Main_Type::create([
+                'Main_Type_Name' => request('Main_Type_Name'),
+            ]);
+            return back()->with('success','Item Created Successfully');
+        }catch (\Illuminate\Database\QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == 1062){
+                return back()->with('error','Already Exist !!');
+            }
+        }
+
     }
 
     /**
@@ -96,7 +104,7 @@ class MainTypes extends Controller
         //return dd($request->all());
         //
         Main_Type::destroy($request->mainType);
-        
+
         return redirect()->route('main_types_show');
 }
 }
