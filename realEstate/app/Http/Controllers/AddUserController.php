@@ -19,8 +19,8 @@ class AddUserController extends Controller
     public function index()
     {
         //
-        $user_type=User_Type::all();
-        return view ('website\backend.database pages.Add_User',['user_type'=>$user_type]);
+        $user_type = User_Type::all();
+        return view('website\backend.database pages.Add_User', ['user_type' => $user_type]);
     }
 
     /**
@@ -32,35 +32,41 @@ class AddUserController extends Controller
     {
         //
 
-        if(($request->hasFile('image')))
-        {
+        if (($request->hasFile('image'))) {
 
 
-            $filename=$request->image->getClientOriginalName();
-            $request->image->storeAs('image',$filename,'public');
+            $filename = $request->image->getClientOriginalName();
+            $request->image->storeAs('image', $filename, 'public');
+            try {
+                $user = User::create([
 
-            $user=User::create([
-
-                'Image'=>$filename,
-                'First_Name'=> request('first_name'),
-                'Middle_Name'=> request('middle-name'),
-                'Last_Name'=>request('last-name'),
-                'Email'=>request('Email'),
-                'Birth_Day'=>request('birthdate'),
-                'Gender'=>request('gender'),
-                'password'=>request('pasword'),
-                'National_ID'=>request('national_id')
+                    'Image' => $filename,
+                    'First_Name' => request('first_name'),
+                    'Middle_Name' => request('middle-name'),
+                    'Last_Name' => request('last-name'),
+                    'Email' => request('Email'),
+                    'Birth_Day' => request('birthdate'),
+                    'Gender' => request('gender'),
+                    'password' => request('pasword'),
+                    'National_ID' => request('national_id')
                 ]);
-                $user_id=Arr::get($user,'id');
-                $user_type=Type_Of_User::create([
+                $user_id = Arr::get($user, 'id');
+                $user_type = Type_Of_User::create([
                     'User_ID' => $user_id,
-                    'User_Type_ID'=> request('select_type')
+                    'User_Type_ID' => request('select_type')
                 ]);
 
+                return back()->with('success', 'Item Created Successfully');
+            } catch (\Illuminate\Database\QueryException $e) {
+                $errorCode = $e->errorInfo[1];
+                if ($errorCode == 1062) {
+                    return back()->with('error', 'Already Exist !!');
+                }
+            }
         }
 
 
-            return redirect()->back();
+        return redirect()->back();
     }
 
     /**
