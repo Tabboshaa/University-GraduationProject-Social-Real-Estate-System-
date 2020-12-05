@@ -64,9 +64,6 @@ class AddUserController extends Controller
                 }
             }
         }
-
-
-        return redirect()->back();
     }
 
     /**
