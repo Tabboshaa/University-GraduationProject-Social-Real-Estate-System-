@@ -20,7 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d769efd1-97e1-47e1-8384-ee2d2e51b516" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Main_Types_Show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Main_Types_Show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +146,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../realEstate" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -187,7 +187,12 @@
       <workItem from="1605964667920" duration="599000" />
       <workItem from="1606379361345" duration="1161000" />
       <workItem from="1606399199604" duration="10000" />
-      <workItem from="1607091923842" duration="181000" />
+      <workItem from="1607091923842" duration="488000" />
+      <workItem from="1607092938225" duration="299000" />
+      <workItem from="1607105896358" duration="373000" />
+      <workItem from="1607106305734" duration="748000" />
+      <workItem from="1607107143991" duration="1453000" />
+      <workItem from="1607158670936" duration="276000" />
     </task>
     <servers />
   </component>
@@ -204,12 +209,13 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="246" y="167" key="FileChooserDialogImpl" timestamp="1605718906026">
+    <state x="246" y="167" key="FileChooserDialogImpl" timestamp="1607158946154">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="246" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1605718906026" />
+    <state x="246" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1607158946154" />
     <state x="604" y="336" key="NewPhpFileDialog" timestamp="1605515420306">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
