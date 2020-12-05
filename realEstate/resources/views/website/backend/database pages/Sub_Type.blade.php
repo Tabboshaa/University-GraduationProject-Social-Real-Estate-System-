@@ -3,6 +3,7 @@
 <div class="right_col" role="main">
     <div class="title_right">
         <div class="x_panel">
+            @include('website.backend.layouts.flashmessage')
             <form method="POST" action="{{ url('/add_sub_type') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
@@ -10,8 +11,8 @@
 
                     <div class="col-md-2">
                         <select id="MainTypeName" class="form-control @error('Main Type Name') is-invalid @enderror" name="Main_Type_Name" value="{{ old('Main Type Name') }}" required autocomplete="Main Type Name">
-                            
-                        <option value="0" selected disabled>Select Main Type</option>
+
+                            <option value="0" selected disabled>Select Main Type</option>
                             <!--  For loop  -->
                             @foreach($main_type as $main_type)
                             <option value="{{$main_type->Main_Type_Id}}">{{$main_type->Main_Type_Name}}</option>

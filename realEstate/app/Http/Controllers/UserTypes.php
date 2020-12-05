@@ -16,7 +16,6 @@ class UserTypes extends Controller
     {
         //
         return view('website/backend.database pages.User_Type');
-
     }
 
     /**
@@ -27,12 +26,18 @@ class UserTypes extends Controller
     public function create()
     {
         //
-        $User_Type = User_Type::create([
-            'Type_Name' => request('User_Type_Name')
-        ]);
-     return $this->index();
+        try {
+            $User_Type = User_Type::create([
+                'Type_Name' => request('User_Type_Name')
+            ]);
+            return back()->with('success', 'Item Created Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Already Exist !!');
+            }
+        }
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -53,8 +58,8 @@ class UserTypes extends Controller
     public function show()
     {
         //
-        $user_types=User_Type::all();
-        return view('website/backend.database pages.User_Type_Show',['user_type'=>$user_types]);
+        $user_types = User_Type::all();
+        return view('website/backend.database pages.User_Type_Show', ['user_type' => $user_types]);
     }
 
     /**
@@ -66,8 +71,8 @@ class UserTypes extends Controller
     public function edit()
     {
         //
-        $user_type=User_Type::all()->find(request('id'));
-        $user_type->Type_Name=request('UserTypeName');
+        $user_type = User_Type::all()->find(request('id'));
+        $user_type->Type_Name = request('UserTypeName');
         $user_type->save();
 
         return response()->jason($user_type);
@@ -98,6 +103,5 @@ class UserTypes extends Controller
         User_Type::destroy(request('id'));
 
         return redirect()->route('usertype_show');
-
     }
 }

@@ -19,22 +19,21 @@ class SubTypes extends Controller
     public function index()
     {
         //
-        $main_types=Main_Type::all();
-        return view('website.backend.database pages.Sub_Type',['main_type'=>$main_types]);
+        $main_types = Main_Type::all();
+        return view('website.backend.database pages.Sub_Type', ['main_type' => $main_types]);
     }
-//    function of drop downlist
-    public function find(){
+    //    function of drop downlist
+    public function find()
+    {
 
-        $sub_type=Sub_Type::all()->where('Main_Type_Id','=',request('id'));
+        $sub_type = Sub_Type::all()->where('Main_Type_Id', '=', request('id'));
 
         return  response()->json($sub_type);
-
-
     }
     // //    function getSubTypeById: AJAX
     public function getSubTypeById($id)
     {
-        $subtype= Sub_Type::all()->find($id);
+        $subtype = Sub_Type::all()->find($id);
         //return dd($subtype) ;
         return response()->json($subtype);
     }
@@ -42,10 +41,10 @@ class SubTypes extends Controller
 
     public function editSubType()
     {
-        
-        $subtype= Sub_Type::all()->find(request('id'));
-        $subtype->Main_Type_Id=request('MainTypeid');
-        $subtype->Sub_Type_Name=request('SupTypeName');
+
+        $subtype = Sub_Type::all()->find(request('id'));
+        $subtype->Main_Type_Id = request('MainTypeid');
+        $subtype->Sub_Type_Name = request('SupTypeName');
         $subtype->save();
 
         return response()->json($subtype);
@@ -60,11 +59,19 @@ class SubTypes extends Controller
     public function create()
     {
         //
-        $Sub_Type = Sub_Type::create([
-            'Sub_Type_Name' => request('Sub_Type_Name'),
-            'Main_Type_Id' => request('Main_Type_Name')
-        ]);
-     return $this->index();
+        try {
+            $Sub_Type = Sub_Type::create([
+                'Sub_Type_Name' => request('Sub_Type_Name'),
+                'Main_Type_Id' => request('Main_Type_Name')
+            ]);
+            return back()->with('success', 'Item Created Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Already Exist !!');
+            }
+        }
+        return $this->index();
     }
 
     /**
@@ -87,12 +94,12 @@ class SubTypes extends Controller
     public function show()
     {
         //
-        $sub_show=DB::table('sub__types')->join('main__types', 'sub__types.Main_Type_Id', '=', 'main__types.Main_Type_Id')
-        ->select('sub__types.*', 'main__types.Main_Type_Name')->get();
-       //DB join b3ml add l column el main type name le table el subtype w bb3to 3sha azhr el main type name 
-       //fe table el show sub tye
-        $main_types=Main_Type::all();
-        return view('website.backend.database pages.Sub_Types_Show',['sub_type'=>$sub_show,'main_type'=>$main_types]);
+        $sub_show = DB::table('sub__types')->join('main__types', 'sub__types.Main_Type_Id', '=', 'main__types.Main_Type_Id')
+            ->select('sub__types.*', 'main__types.Main_Type_Name')->get();
+        //DB join b3ml add l column el main type name le table el subtype w bb3to 3sha azhr el main type name 
+        //fe table el show sub tye
+        $main_types = Main_Type::all();
+        return view('website.backend.database pages.Sub_Types_Show', ['sub_type' => $sub_show, 'main_type' => $main_types]);
     }
 
     /**
@@ -116,12 +123,12 @@ class SubTypes extends Controller
 
     public function update($id)
     {
-       //return dd(request()->all());
-        $sub_types=Sub_Type::all();
-        $main_types=Main_Type::all();
-        $subtype= Sub_Type::all()->find($id);
-        $subtype->Main_Type_Id=request('MainTypeName');
-        $subtype->Sub_Type_Name=request('SubTypeName');
+        //return dd(request()->all());
+        $sub_types = Sub_Type::all();
+        $main_types = Main_Type::all();
+        $subtype = Sub_Type::all()->find($id);
+        $subtype->Main_Type_Id = request('MainTypeName');
+        $subtype->Sub_Type_Name = request('SubTypeName');
 
 
         $subtype->save();
@@ -137,10 +144,9 @@ class SubTypes extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     {
         Sub_Type::destroy($request->id);
         return redirect()->route('subtype_show');
-
     }
 }

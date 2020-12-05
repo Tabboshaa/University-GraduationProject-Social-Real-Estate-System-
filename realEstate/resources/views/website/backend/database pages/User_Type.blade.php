@@ -3,6 +3,7 @@
     <div class="right_col" role="main">
         <div class="title_right">
             <div class="x_panel">
+            @include('website.backend.layouts.flashmessage')
                 <form method="POST" action="{{ url('/add_user_type') }}" enctype="multipart/form-data">
                 @csrf
                 <meta name="csrf-token" content="{{ csrf_token() }}">

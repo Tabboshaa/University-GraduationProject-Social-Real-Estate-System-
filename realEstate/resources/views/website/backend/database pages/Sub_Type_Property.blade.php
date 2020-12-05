@@ -41,6 +41,7 @@
 <div class="right_col" role="main">
     <div class="title_right">
         <div class="x_panel">
+        @include('website.backend.layouts.flashmessage')
             <form method="POST" action="{{ url('/add_sub_type_property') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
