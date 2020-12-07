@@ -95,8 +95,8 @@ Route::Post('/Add_User','AddUserController@Create');
 
 // Item  pages #Tabbosha
 Route::get('/Item', 'ItemController@index');
-Route::get('/Item_Main_types_show', 'ItemController@MainTypeShow');
-Route::get('/Item_Sub_types_show/{id}', 'ItemController@SubTypeShow');
+// Route::get('/Item_Main_types_show', 'ItemController@MainTypeShow');
+Route::get('/Item_Sub_types_show', 'ItemController@SubTypeShow');
 Route::get('/Item_Details_show/{main_id}/{id}', 'ItemController@DetailShow');
 
 //Sub type javacript phase

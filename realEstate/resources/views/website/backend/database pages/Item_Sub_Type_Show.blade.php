@@ -6,17 +6,26 @@
                 <thead>
                 <tr>
 
-                    <th>Sub Type ID</th>
+                  
 
                 </tr>
                 </thead>
                 <tbody>
                 <!-- EL FOREARCH HNA -->
-                @foreach($sub_type as $sub_type)
-                    <tr>
-                        <td><a href="{{ url('/Item_Details_show/'.$main_id.'/'.$sub_type->Sub_Type_Id) }}">{{$sub_type->Sub_Type_Name}}</a></td>
+                @foreach($main_type as $main)
+                <tr>
+                <td>{{$main->Main_Type_Name}}</td>
 
-                    </tr>
+                @foreach($sub_type as $sub)
+                @if($sub->Main_Type_Id == $main->Main_Type_Id)
+
+                   
+                        <td><a href="{{ url('/Item_Details_show/'.$main->Main_Type_Id.'/'.$sub->Sub_Type_Id) }}">{{$sub->Sub_Type_Name}}</a></td>
+
+                    
+                    @endif
+                @endforeach
+                </tr>
                 @endforeach
                 <!-- END OF FOREACH -->
                 </tbody>
