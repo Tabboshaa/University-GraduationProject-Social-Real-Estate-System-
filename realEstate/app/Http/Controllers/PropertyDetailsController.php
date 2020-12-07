@@ -90,4 +90,15 @@ class PropertyDetailsController extends Controller
         Property_Details::destroy($request->id);
         return redirect()->route('property_detail_show');
     }
+    
+    public function submit_properties()
+    {
+        //
+        // $property = Sub_Type_Property::all();
+        $property=Sub_Type_Property::find(request('property'));
+        dd($property);
+        $details= $property_details = Property_Details::all();
+        return view('website.backend.database pages.Detail_Page', ['property' => $property,'detail'=>$details]);
+  
+    }
 }

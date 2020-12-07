@@ -138,4 +138,13 @@ class SubTypePropertyController extends Controller
         Sub_Type_Property::destroy($request->id);
         return redirect()->route('subtypeproperty_show');
     }
+//function that sends the property details that are desplayed in checkboxes
+    public function property_select($sub_type_id)
+    {
+        //
+        $property = Sub_Type_Property::all()->where('Sub_Type_Id','=',$sub_type_id);
+        return view('website.backend.database pages.Properties_Select', ['property' => $property]);
+  
+    }
+   
 }

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'SubTypes@index');
+Route::get('/', 'SubTypePropertyController@property_select');
 //main types pages
 Route::get('/main_types', 'MainTypes@index');
 Route::get('/main_types_show', 'MainTypes@show')->name('main_types_show');
@@ -82,6 +82,8 @@ Route::get('/edit_property_detail','PropertyDetailsController@edit')->name('prop
 Route::get('/property', 'SubTypePropertyController@index');
 Route::get('/sub_type_property_show', 'SubTypePropertyController@show')->name('subtypeproperty_show');
 Route::post('/add_sub_type_property','SubTypePropertyController@create');
+Route::post('/submit_properties','PropertyDetailsController@submit_properties');
+
 
 // Details pages #Tabbosha
 Route::get('/Details', 'DetailsController@index');
@@ -94,7 +96,7 @@ Route::Post('/Add_User','AddUserController@Create');
 
 
 // Item  pages #Tabbosha
-Route::get('/Item', 'ItemController@index');
+Route::get('/Item', 'ItemController@SubTypeShow');
 // Route::get('/Item_Main_types_show', 'ItemController@MainTypeShow');
 Route::get('/Item_Sub_types_show', 'ItemController@SubTypeShow');
 Route::get('/Item_Details_show/{main_id}/{id}', 'ItemController@DetailShow');
@@ -138,3 +140,6 @@ Route::get('/edit_Country','CountryController@editCountry')->name('Country.edit'
 Route::get('/edit_State','StateController@editState')->name('State.edit');
 Route::get('/edit_City','CityController@editCity')->name('City.edit');
 Route::get('/edit_Region','RegionController@editRegion')->name('Region.edit');
+
+//neww 7/12
+Route::get('/property_select/{sub_type_id}','SubTypePropertyController@property_select');
