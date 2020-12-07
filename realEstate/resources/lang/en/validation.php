@@ -149,6 +149,6 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => ['Main_Type_Name'],
 
 ];
