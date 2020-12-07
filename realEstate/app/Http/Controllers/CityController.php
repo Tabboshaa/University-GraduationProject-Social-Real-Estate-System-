@@ -40,6 +40,7 @@ class CityController extends Controller
             'Country_Id'=> request('Country_Name'),
             'State_Id'  => request('State_Name')
         ]);
+        return back()->with('success','Item Created Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){

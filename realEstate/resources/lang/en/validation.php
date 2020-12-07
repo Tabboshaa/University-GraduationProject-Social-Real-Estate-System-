@@ -133,6 +133,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'Main_Type_Name' => [
+            'regex' => 'Main type name first letter must be capital and not contain numbers',
+        ],
     ],
 
     /*

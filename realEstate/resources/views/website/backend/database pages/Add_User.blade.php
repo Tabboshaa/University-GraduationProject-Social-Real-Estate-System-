@@ -74,7 +74,7 @@
 								<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Pasword <span class="required">*</span>
 								</label>
 								<div class="col-md-6 col-sm-6 ">
-									<input type="pasword" id="pasword" name="pasword" required="required" class="form-control">
+									<input type="password" id="password" name="password" required="required" class="form-control">
 								</div>
 							</div>
 
@@ -82,7 +82,7 @@
 								<label class="col-form-label col-md-3 col-sm-3 label-align" for="confirm_password">Confirm Password <span class="required">*</span>
 								</label>
 								<div class="col-md-6 col-sm-6 ">
-									<input type="password" id="confirm_password" name="confirm_password" required="required" class="form-control">
+									<input type="password" id="password_confirmation" name="password_confirmation" required="required" class="form-control">
 								</div>
 							</div>
 

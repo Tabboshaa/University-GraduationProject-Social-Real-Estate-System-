@@ -10,9 +10,9 @@
                     <label for="Main Type Name" class="col-md-2 col-form-label text-md-right">{{ __('Main Type Name') }}</label>
 
                     <div class="col-md-2">
-                        <input id="Main Type Name" type="text" class="form-control @error('Main Type Name') is-invalid @enderror" name="Main_Type_Name" value="{{ old('Main Type Name') }}" required autocomplete="Main Type Name" autofocus>
+                        <input id="Main Type Name" type="text" class="form-control @error('Main_Type_Name') is-invalid @enderror" name="Main_Type_Name" value="{{ old('Main_Type_Name') }}" required autocomplete="Main_Type_Name" autofocus>
 
-                        @error('Main Type Name')
+                        @error('Main_Type_Name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
