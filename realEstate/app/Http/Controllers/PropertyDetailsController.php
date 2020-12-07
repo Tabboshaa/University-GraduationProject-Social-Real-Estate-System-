@@ -24,6 +24,13 @@ class PropertyDetailsController extends Controller
 
     public function create()
     {
+        request()->validate([
+            'Main_Type_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
+            'Sub_Type_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
+            'Sub_Type_Property' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"], 
+            'property_details' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"]  
+        ]);
+
         try {
             $Property_Detail = Property_Details::create([
                 'Main_Type_Id' => request('Main_Type_Name'),

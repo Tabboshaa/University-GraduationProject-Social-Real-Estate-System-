@@ -26,6 +26,14 @@ class DetailsController extends Controller
 
     public function create()
     {
+        request()->validate([
+            'Main_Type_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
+            'Sub_Type_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
+            'Sub_Type_Property' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"], 
+            'property_details' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
+            'DetailValue' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"] 
+
+        ]);
         try {
             $Detail = Details::create([
                 'Item_Id' => request('Item_Id'),

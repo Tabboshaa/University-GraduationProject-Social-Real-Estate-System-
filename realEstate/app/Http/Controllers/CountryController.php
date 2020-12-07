@@ -28,6 +28,11 @@ class CountryController extends Controller
     public function create()
     {
         //
+
+        request()->validate([
+            'country_name' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"],
+        ]);
+
         try {
         $country=Country::create([
             'Country_Name' => request('country_name'),
