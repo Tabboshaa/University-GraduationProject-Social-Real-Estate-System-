@@ -28,11 +28,18 @@ class CountryController extends Controller
     public function create()
     {
         //
-        
+        try {
         $country=Country::create([
             'Country_Name' => request('country_name'),
         ]);
-        return view('website.backend.database pages.Add_Country');
+        return back()->with('success','Item Created Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == 1062){
+            return back()->with('error','Already Exist !!');
+        }
+    }
+
     }
 
     /**

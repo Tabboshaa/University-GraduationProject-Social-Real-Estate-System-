@@ -35,13 +35,20 @@ class RegionController extends Controller
     public function create()
     {
         //
+        try {
         $region = Region::create([
             'Country_Id' => request('Country_Name'),
             'State_Id' => request('State_Name'),
             'City_Id' => request('City_Name'),
             'Region_Name' => request('Region_Name')
         ]);
-     return $this->index();
+        return back()->with('success','Item Created Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == 1062){
+            return back()->with('error','Already Exist !!');
+        }
+    }
     }
 
     /**

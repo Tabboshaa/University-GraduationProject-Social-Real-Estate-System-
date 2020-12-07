@@ -37,6 +37,7 @@ class StreetController extends Controller
     public function create()
     {
          //
+         try {
          $street = Street::create([
             'Country_Id' => request('Country_Name'),
             'State_Id' => request('State_Name'),
@@ -44,7 +45,13 @@ class StreetController extends Controller
             'Region_Id' => request('Region_Name'),
             'Street_Name' => request('Street_Name')
         ]);
-     return $this->index();
+        return back()->with('success','Item Created Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == 1062){
+            return back()->with('error','Already Exist !!');
+        }
+    }
     }
 
     /**

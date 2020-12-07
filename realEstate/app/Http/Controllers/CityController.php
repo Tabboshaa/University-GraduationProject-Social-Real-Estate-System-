@@ -34,12 +34,18 @@ class CityController extends Controller
     public function create()
     {
         //
+        try {
         $city=City::create([
             'City_Name' => request('City_Name'),
             'Country_Id'=> request('Country_Name'),
             'State_Id'  => request('State_Name')
         ]);
-        return redirect()->back();
+    }catch (\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == 1062){
+            return back()->with('error','Already Exist !!');
+        }
+    }
     }
 
     /**

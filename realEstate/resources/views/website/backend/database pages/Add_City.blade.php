@@ -52,6 +52,7 @@
 <div class="right_col" role="main">
     <div class="title_right">
         <div class="x_panel">
+        @include('website.backend.layouts.flashmessage')
             <form method="POST" action="{{ url('/add_city') }}" enctype="multipart/form-data">
                 @csrf
 
