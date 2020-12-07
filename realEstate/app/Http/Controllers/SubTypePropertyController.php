@@ -31,6 +31,14 @@ class SubTypePropertyController extends Controller
     public function create()
     {
         //
+
+        request()->validate([
+            'Main_Type_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
+            'Sub_Type_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
+            'Sub_Type_Property' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"] 
+        ]);
+
+
         try {
             $Property_Detail = sub_type_property::create([
                 'Main_Type_Id' => request('Main_Type_Name'),
@@ -66,6 +74,8 @@ class SubTypePropertyController extends Controller
     public function show()
     {
         //
+
+        
         $sub_types = Sub_Type::all();
         $main_types = Main_Type::all();
         $property = DB::table('sub__type__properties')

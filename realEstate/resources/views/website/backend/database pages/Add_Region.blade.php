@@ -150,7 +150,7 @@
                         <button type="submit" class="btn btn-primary">
                             {{ __('Add') }}
                         </button>
-                        <a href='{{ url('/show_region')}}' class="btn btn-primary">{{ __('Show') }}</a>
+                        <a href="{{url('/show_region')}}" class="btn btn-primary">{{ __('Show') }}</a>
                     </div>
                 </div>
             </form>
