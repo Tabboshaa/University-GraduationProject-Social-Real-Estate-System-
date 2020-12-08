@@ -37,7 +37,7 @@ class ItemController extends Controller
 
     }
 
-    public function submit($main_id,$sub_id,$property_id)
+    public function submit($property_id)
     {
         $no= request()->all();
         // return $no[1];

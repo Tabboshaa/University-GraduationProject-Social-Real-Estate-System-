@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'SubTypePropertyController@property_select');
+Route::get('/', 'DatatypeController@index');
 //main types pages
 Route::get('/main_types', 'MainTypes@index');
 Route::get('/main_types_show', 'MainTypes@show')->name('main_types_show');
@@ -119,7 +119,7 @@ Route::get('/edit_detail','DetailsController@edit')->name('Detail.update');
 
 
 
-Route::post('/add_Item_Detail/{main_id}/{sub_id}/{property_id}','ItemController@submit');
+Route::post('/add_Item_Detail/{property_id}','ItemController@submit');
 
 // Dynamic Drop Down For Country #s
 Route::get('/D1','StateController@findstate');

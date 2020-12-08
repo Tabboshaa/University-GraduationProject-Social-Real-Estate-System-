@@ -25,7 +25,7 @@
                       </li>
                       <li><a>Item<span class="fa fa-chevron-down"></span> </a>
                       <ul class="nav child_menu">
-                      <li><a href="{{url('/item')}}">Add Item</a>
+                      <li><a href="{{url('/Item')}}">Add Item</a>
                     </li>
                       </ul></li>
                       <li><a>User<span class="fa fa-chevron-down"></span> </a>

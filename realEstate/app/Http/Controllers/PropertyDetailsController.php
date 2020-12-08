@@ -24,19 +24,13 @@ class PropertyDetailsController extends Controller
 
     public function create()
     {
-        request()->validate([
-            'Main_Type_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
-            'Sub_Type_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
-            'Sub_Type_Property' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"], 
-            'property_details' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"]  
-        ]);
-
+      
         try {
             $Property_Detail = Property_Details::create([
                 'Main_Type_Id' => request('Main_Type_Name'),
                 'Sub_Type_Id' => request('Sub_Type_Name'),
                 'Property_Id' => request('Sub_Type_Property'),
-                'DataType_Id' => request('Data_Type'),
+                'DataType_Id' => request('Data_Type_Name'),
                 'Detail_Name' => request('property_details')
             ]);
             return back()->with('success', 'Item Created Successfully');
@@ -94,11 +88,9 @@ class PropertyDetailsController extends Controller
     public function submit_properties()
     {
         //
-        // $property = Sub_Type_Property::all();
-        $property=Sub_Type_Property::find(request('property'));
-        dd($property);
-        $details= $property_details = Property_Details::all();
-        return view('website.backend.database pages.Detail_Page', ['property' => $property,'detail'=>$details]);
+        $property = Sub_Type_Property::all()->whereIn('Property_Id',request('property'));
+        $details= Property_Details::all();
+        return view('website.backend.database pages.Detail_Page', ['property' => $property,'details'=>$details]);
   
     }
 }

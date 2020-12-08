@@ -11,7 +11,7 @@
         </td>
         <td>
         <div class="col-md-2">
-            <input id="Sub_Type_Property" type="checkbox"  name="property[]" value="{{$p}}">
+            <input id="Sub_Type_Property" type="checkbox"  name="property[]" value="{{$p->Property_Id}}"/>
 
 <!-- class="form @error('Sub_Type_Property') is-invalid @enderror"
             @error('Sub_Type_Property')
