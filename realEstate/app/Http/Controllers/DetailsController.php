@@ -39,6 +39,7 @@ class DetailsController extends Controller
                 'Item_Id' => request('Item_Id'),
                 'Main_Type_Id' => request('Main_Type_Name'),
                 'Sub_Type_Id' => request('Sub_Type_Name'),
+                'Property_Id'=>request('Propety_Detail'),
                 'property_Detail_Id' => request('property_Detail_Name'),
                 'DetailValue' => request('DetailValue')
             ]);
@@ -77,4 +78,5 @@ class DetailsController extends Controller
 
         return redirect()->route('details_show');
     }
+ 
 }

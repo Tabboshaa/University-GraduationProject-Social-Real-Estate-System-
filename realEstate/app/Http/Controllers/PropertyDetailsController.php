@@ -93,4 +93,10 @@ class PropertyDetailsController extends Controller
         return view('website.backend.database pages.Detail_Page', ['property' => $property,'details'=>$details]);
   
     }
+    public function findDetailsForForm()
+    {
+        $details=Property_Details::all()->where('Propety_Detail','=',request('id'));
+        
+        return response()->json($details);
+    }
 }

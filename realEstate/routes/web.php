@@ -143,3 +143,6 @@ Route::get('/edit_Region','RegionController@editRegion')->name('Region.edit');
 
 //neww 7/12
 Route::get('/property_select/{sub_type_id}','SubTypePropertyController@property_select');
+
+// findDetailsForForm
+Route::get('/findDetailsForForm','PropertyDetailsController@findDetailsForForm');

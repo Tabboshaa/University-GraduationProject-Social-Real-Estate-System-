@@ -21,6 +21,27 @@
   <component name="ChangeListManager">
     <list default="true" id="d769efd1-97e1-47e1-8384-ee2d2e51b516" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DetailsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DetailsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PropertyDetailsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PropertyDetailsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AdminBackEnd/css/smart_wizard.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/AdminBackEnd/css/smart_wizard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AdminBackEnd/css/smart_wizard_all.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/AdminBackEnd/css/smart_wizard_all.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AdminBackEnd/css/smart_wizard_arrows.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/AdminBackEnd/css/smart_wizard_arrows.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AdminBackEnd/css/smart_wizard_dark.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/AdminBackEnd/css/smart_wizard_dark.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AdminBackEnd/css/smart_wizard_dots.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/AdminBackEnd/css/smart_wizard_dots.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AdminBackEnd/css/smart_wizard_progress.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/AdminBackEnd/css/smart_wizard_progress.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AdminBackEnd/js/jquery.smartWizard.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/AdminBackEnd/js/jquery.smartWizard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AdminBackEnd/scss/smart_wizard.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/AdminBackEnd/scss/smart_wizard.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AdminBackEnd/scss/smart_wizard_all.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/AdminBackEnd/scss/smart_wizard_all.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AdminBackEnd/scss/smart_wizard_arrows.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/AdminBackEnd/scss/smart_wizard_arrows.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AdminBackEnd/scss/smart_wizard_dots.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/AdminBackEnd/scss/smart_wizard_dots.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AdminBackEnd/scss/smart_wizard_progress.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/AdminBackEnd/scss/smart_wizard_progress.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AdminBackEnd/scss/themes/_arrows.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/AdminBackEnd/scss/themes/_arrows.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AdminBackEnd/scss/themes/_default.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/AdminBackEnd/scss/themes/_default.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AdminBackEnd/scss/themes/_dots.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/AdminBackEnd/scss/themes/_dots.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AdminBackEnd/scss/themes/_progress.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/AdminBackEnd/scss/themes/_progress.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Detail_Page.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Detail_Page.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/layouts/head.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/layouts/head.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,6 +214,7 @@
       <workItem from="1607106305734" duration="748000" />
       <workItem from="1607107143991" duration="1453000" />
       <workItem from="1607158670936" duration="276000" />
+      <workItem from="1607453510514" duration="774000" />
     </task>
     <servers />
   </component>

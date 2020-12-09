@@ -32,12 +32,9 @@
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
-<!-- smart wizard wizard -->
-<!-- CSS -->
-<link href="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
-
-<!-- JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
-<link href="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
+<!-- Include SmartWizard CSS -->
+<link href="{{asset('AdminBackEnd/css/smart_wizard_all.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('AdminBackEnd/css/smart_wizard_arrows.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('AdminBackEnd/css/smart_wizard.css')}}" rel="stylesheet" type="text/css" />
 
 </head>
