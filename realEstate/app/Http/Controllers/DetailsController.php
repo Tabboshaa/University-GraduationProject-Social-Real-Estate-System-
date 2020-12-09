@@ -9,6 +9,7 @@ use App\Property_Details;
 use App\Sub_Type;
 use App\Sub_Type_Property;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class DetailsController extends Controller
 {
@@ -26,13 +27,14 @@ class DetailsController extends Controller
 
     public function create()
     {
-        request()->validate([
-            'Main_Type_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
-            'Sub_Type_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
-            'Sub_Type_Property' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"], 
-            'property_details' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
-            'DetailValue' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"] 
+     $property=request()->all();
+       return Arr::get($property, '1');
+        // $property = Sub_Type_Property::all()->where('Property_Id','=',);
+        // return $property;
+        // $property_item = Arr::get($property, 'id');
 
+        request()->validate([
+            'DetailValue' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"] 
         ]);
         try {
             $Detail = Details::create([

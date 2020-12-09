@@ -95,7 +95,12 @@ class PropertyDetailsController extends Controller
     }
     public function findDetailsForForm()
     {
-        $details=Property_Details::all()->where('Propety_Detail','=',request('id'));
+        $details=DB::table('property__details')
+        ->join('datatypes', 'property__details.DataType_Id', '=', 'datatypes.id')
+            ->select('property__details.*','datatypes.datatype')
+            ->get()
+            ->where('Property_Detail_Id','=',request('id'));
+        // $details=Property_Details::all()->where('Property_Detail_Id','=',request('id'));
         
         return response()->json($details);
     }

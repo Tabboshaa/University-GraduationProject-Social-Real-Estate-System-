@@ -82,7 +82,6 @@ Route::get('/edit_property_detail','PropertyDetailsController@edit')->name('prop
 Route::get('/property', 'SubTypePropertyController@index');
 Route::get('/sub_type_property_show', 'SubTypePropertyController@show')->name('subtypeproperty_show');
 Route::post('/add_sub_type_property','SubTypePropertyController@create');
-Route::post('/submit_properties','PropertyDetailsController@submit_properties');
 
 
 // Details pages #Tabbosha
@@ -143,6 +142,8 @@ Route::get('/edit_Region','RegionController@editRegion')->name('Region.edit');
 
 //neww 7/12
 Route::get('/property_select/{sub_type_id}','SubTypePropertyController@property_select');
+Route::post('/submit_properties','PropertyDetailsController@submit_properties');
 
 // findDetailsForForm
 Route::get('/findDetailsForForm','PropertyDetailsController@findDetailsForForm');
+

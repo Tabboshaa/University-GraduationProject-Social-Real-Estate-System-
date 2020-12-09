@@ -88,11 +88,7 @@ $.ajax({
 });
 
     });
-    $(document).ready(function (){
-
-       
-    });
-
+   
 
 </script>
     <div class="right_col" role="main">
