@@ -6,6 +6,8 @@ use App\Type_Of_User;
 use Illuminate\Http\Request;
 use App\User;
 use App\User_Type;
+use App\Emails;
+use App\Phone_Numbers;
 use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 
@@ -31,42 +33,9 @@ class AddUserController extends Controller
     public function create(Request $request)
     {
         //
-
-        
-        if (($request->hasFile('image'))) {
-
-
-            $filename = $request->image->getClientOriginalName();
-            $request->image->storeAs('image', $filename, 'public');
-            try {
-                $user = User::create([
-
-                    'Image' => $filename,
-                    'First_Name' => request('first_name'),
-                    'Middle_Name' => request('middle-name'),
-                    'Last_Name' => request('last-name'),
-                    'Email' => request('Email'),
-                    'Birth_Day' => request('birthdate'),
-                    'Gender' => request('gender'),
-                    'password' => request('pasword'),
-                    'National_ID' => request('national_id')
-                ]);
-                $user_id = Arr::get($user, 'id');
-                $user_type = Type_Of_User::create([
-                    'User_ID' => $user_id,
-                    'User_Type_ID' => request('select_type')
-                ]);
-
-                return back()->with('success', 'Item Created Successfully');
-            } catch (\Illuminate\Database\QueryException $e) {
-                $errorCode = $e->errorInfo[1];
-                if ($errorCode == 1062) {
-                    return back()->with('error', 'Already Exist !!');
-                }
-            }
-        }
+     
+    
     }
-
     /**
      * Store a newly created resource in storage.
      *

@@ -98,7 +98,7 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request,$id=null)
     {
         // Will Destroy each column with id form action 
         Country::destroy($request->id);

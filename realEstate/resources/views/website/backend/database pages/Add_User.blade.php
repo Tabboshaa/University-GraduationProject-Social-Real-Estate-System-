@@ -15,7 +15,7 @@
 					</div>
 					<div class="x_content">
 						<br />
-						@include('website.backend.layouts.flashmessage')
+						 @include('website.backend.layouts.flashmessage') 
 						<form method="POST" action="{{ url('/Add_User') }}" enctype="multipart/form-data">
 							@csrf
 							<div class="item form-group">

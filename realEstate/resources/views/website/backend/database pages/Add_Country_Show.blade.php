@@ -1,12 +1,12 @@
 @extends('website.backend.database pages.Add_Country')
 @section('table')
-<form method="Post" action="{{ url('/delete_Country/?_method=delete') }}" enctype="multipart/form-data">
+<form method="Post" action="{{ url('/delete_Country?_method=delete') }}" enctype="multipart/form-data">
     @csrf
 <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
     <thead>
         <tr>
             <th>Country Name</th>
-            <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
+            <th>Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" style="margin-left: 850px;"><i class="fa fa-trash"></i></th>
             <th>Edit</th>
             Java Script for select all function
             <script>

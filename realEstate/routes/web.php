@@ -89,7 +89,6 @@ Route::get('/Details', 'DetailsController@index');
 Route::get('/Details_show', 'DetailsController@show')->name('details_show');
 Route::post('/add_Details','DetailsController@create');
 
-// add user
 Route::get('/User','AddUserController@Index');
 Route::Post('/Add_User','AddUserController@Create');
 
