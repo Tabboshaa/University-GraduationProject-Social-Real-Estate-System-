@@ -129,10 +129,10 @@ Route::get('/D5','RegionController@findcity');
 Route::get('/D6','RegionController@findregion');
 
 //Delete #s
-Route::Post('/delete_Country/{id?}','CountryController@destroy');
-Route::Post('/delete_State/{id?}','StateController@destroy');
-Route::Post('/delete_City/{id?}','CityController@destroy');
-Route::Post('/delete_Region/{id?}','RegionController@destroy');
+Route::delete('/delete_Country/{id?}','CountryController@destroy');
+Route::delete('/delete_State/{id?}','StateController@destroy');
+Route::delete('/delete_City/{id?}','CityController@destroy');
+Route::delete('/delete_Region/{id?}','RegionController@destroy');
 
 //Edit #s
 Route::get('/edit_Country','CountryController@editCountry')->name('Country.edit');
@@ -142,8 +142,16 @@ Route::get('/edit_Region','RegionController@editRegion')->name('Region.edit');
 
 //neww 7/12
 Route::get('/property_select/{sub_type_id}','SubTypePropertyController@property_select');
+
 Route::post('/submit_properties','PropertyDetailsController@submit_properties');
 
 // findDetailsForForm
 Route::get('/findDetailsForForm','PropertyDetailsController@findDetailsForForm');
+
+
+Route::get('/show_users' , 'UserTypes@get_user_types');
+
+Route::get('TypeOfUser/{id}','UserTypes@getUser');
+
+
 
