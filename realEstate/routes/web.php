@@ -24,7 +24,7 @@ Route::get('/edit_main_type','MainTypes@edit')->name('Maintype.update');
 Route::get('/sub_types', 'SubTypes@index');
 Route::get('/sub_types_show', 'SubTypes@show')->name('subtype_show');
 Route::post('/add_sub_type','SubTypes@create');
-Route::get('/delete_sub_type','SubTypes@destroy');
+Route::delete('/delete_sub_type','SubTypes@destroy');
 
 //User types pages
 Route::get('/user_types', 'UserTypes@index');
@@ -67,7 +67,7 @@ Route::get('/show_region','RegionController@show')->name('region_show');
 Route::get('/street','StreetController@index');
 Route::post('/add_street','StreetController@create');
 Route::get('/show_street','StreetController@show')->name('street_show');
-Route::Post('/delete_Street/{id?}','StreetController@destroy');
+Route::delete('/delete_Street/{id?}','StreetController@destroy');
 Route::get('/edit_Street','StreetController@editStreet')->name('Street.edit');
 
 //Property Details pages #Tabbosha
@@ -98,8 +98,6 @@ Route::Post('/Add_User','AddUserController@Create');
 Route::get('/Item', 'ItemController@SubTypeShow');
 // Route::get('/Item_Main_types_show', 'ItemController@MainTypeShow');
 Route::get('/Item_Sub_types_show', 'ItemController@SubTypeShow');
-Route::get('/Item_Details_show/{main_id}/{id}', 'ItemController@DetailShow');
-
 //Sub type javacript phase
 Route::get('/findSub','SubTypes@find');
 Route::delete('/delete_sub_type/{id?}','SubTypes@destroy');
