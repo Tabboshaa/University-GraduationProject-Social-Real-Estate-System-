@@ -139,8 +139,16 @@ Route::get('/edit_Region','RegionController@editRegion')->name('Region.edit');
 
 //neww 7/12
 Route::get('/property_select/{sub_type_id}','SubTypePropertyController@property_select');
+
 Route::post('/submit_properties','PropertyDetailsController@submit_properties');
 
 // findDetailsForForm
 Route::get('/findDetailsForForm','PropertyDetailsController@findDetailsForForm');
+
+
+Route::get('/show_users' , 'UserTypes@get_user_types');
+
+Route::get('TypeOfUser/{id}','UserTypes@getUser');
+
+
 
