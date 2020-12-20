@@ -89,6 +89,10 @@ Route::get('/Details', 'DetailsController@index');
 Route::get('/Details_show', 'DetailsController@show')->name('details_show');
 Route::post('/add_Details','DetailsController@create');
 
+Route::get('/User','AddUserController@Index');
+Route::Post('/Add_User','AddUserController@Create');
+
+
 // Item  pages #Tabbosha
 Route::get('/Item', 'ItemController@SubTypeShow');
 // Route::get('/Item_Main_types_show', 'ItemController@MainTypeShow');

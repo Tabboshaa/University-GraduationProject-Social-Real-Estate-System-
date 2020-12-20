@@ -82,6 +82,8 @@ class AddUserController extends Controller
                      return back()->with('error', 'Already Exist !!');
                  }
             }
+     
+    
     }
     /**
      * Store a newly created resource in storage.

@@ -34,8 +34,6 @@ class CityController extends Controller
     public function create()
     {
         //
-
-
         try {
         $city=City::create([
             'City_Name' => request('City_Name'),
@@ -110,7 +108,8 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id=null)
+   
+    public function destroy(Request $request, $id=null)
     {
 
         City::destroy($request->id);
