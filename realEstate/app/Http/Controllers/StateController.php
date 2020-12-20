@@ -34,10 +34,6 @@ class StateController extends Controller
     {
        //
 
-       request()->validate([
-        'country_name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
-        'State_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"]
-       ]);
        try {
         $state=State::create([
             'State_Name' => request('State_Name'),
@@ -111,7 +107,7 @@ class StateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request,$id=null)
     {
         // Will Destroy each column with id form action 
 

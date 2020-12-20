@@ -36,13 +36,6 @@ class RegionController extends Controller
     {
         //
 
-        request()->validate([
-            'country_name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
-            'State_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
-            'City_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
-            'Region_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"]
-        ]);
-
         try {
         $region = Region::create([
             'Country_Id' => request('Country_Name'),
@@ -121,7 +114,7 @@ class RegionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request,$id=null)
     {
 
         Region::destroy($request->id);

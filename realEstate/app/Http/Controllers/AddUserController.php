@@ -33,31 +33,12 @@ class AddUserController extends Controller
     public function create(Request $request)
     {
         //
-
-        // request()->validate([
-        // 'image_user'=> 'image|mimes:jpeg,jpg,png',
-        // 'user_type'=>['required'],
-        // 'first_name'=>['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"],
-        // 'middle_name'=>['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"],
-        // 'last_name'=>['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"],
-        // 'Email'=>['required', 'string','max:225',"regex:'\w+([-+.']\w+)@\w+([-.]\w+)\.\w+([-.]\w+)*'"],
-        // 'password'=>['required', 'string','max:225',"regex:'\w{8,16}'"],
-        // 'password_confirmation'=>['required', 'string','max:225',"regex:'\w{8,16}'"],
-        // 'phone_number'=>['required', 'string','max:225',"regex:'[0][1][0-2][0-24-9]\s\d{7}'"],
-        // 'birthdate'=>['required','date_format:D-M-Y|Y-M-D|before:today'],
-        // 'national_id'=>'[2-3]\d{13}'
-        // ]);
-        if (($request->hasFile('image'))) {
-                
-
-            $filename = $request->image->getClientOriginalName();
-            $request->image->storeAs('image', $filename, 'public');
-
+        
             try {
               
 
                 $user = User::create([
-                    'Image'=>$filename,
+                   
                     'First_Name' => request('first_name'),
                     'Middle_Name' => request('middle-name'),
                     'Last_Name' => request('last-name'),
@@ -101,9 +82,6 @@ class AddUserController extends Controller
                      return back()->with('error', 'Already Exist !!');
                  }
             }
-
-        }
-    
     }
     /**
      * Store a newly created resource in storage.
@@ -156,8 +134,13 @@ class AddUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id=null)
     {
         //
+        
+        User::destroy($request->id);
+        Emails::destroy($request->id);
+        Phone_Numbers::destroy($request->id);
+        return redirect()->route('users_show/'.$id);
     }
 }

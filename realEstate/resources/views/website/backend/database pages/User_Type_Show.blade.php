@@ -74,7 +74,7 @@
         var _token = $("input[name=_token]").val();
 
         $.ajax({
-            url: "{{route('usertype.update')}}",
+            url: "{{route('usertype.edite')}}",
             Type: "PUT",
             data: {
                 id: id,
@@ -84,7 +84,7 @@
             success: function(response) {
                 console.log('Success')
                 console.log(response);
-                $('#sid' + response.id + 'td:nth-child(1)').text(response.UserTypeName);
+                //$('#sid' + response.id + 'td:nth-child(1)').text(response.UserTypeName);
                 $("#EditUserTypeModal").modal("toggle");
                 // $("#EditUserTypeModal")[0].reset();
             },

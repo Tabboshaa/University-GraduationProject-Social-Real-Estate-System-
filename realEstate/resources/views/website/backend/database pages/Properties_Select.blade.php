@@ -13,10 +13,10 @@
         <div class="col-md-2">
             <input id="Sub_Type_Property" type="checkbox"  name="property[]" value="{{$p->Property_Id}}"/>
 
-<!-- class="form @error('Sub_Type_Property') is-invalid @enderror"
-            @error('Sub_Type_Property')
+            <!-- class="form @error('Sub_Type_Property') is-invalid @enderror"
+             @error('Sub_Type_Property')
             <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
+            <strong>{{ $message }}</strong>
             </span>
             @enderror -->
         </div>

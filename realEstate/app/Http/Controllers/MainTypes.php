@@ -27,10 +27,6 @@ class MainTypes extends Controller
     public function create()
     {
         //
-        request()->validate([
-           'Main_Type_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"]
-       ]);
-
         try {
             $Main_Type = Main_Type::create([
                 'Main_Type_Name' => request('Main_Type_Name'),

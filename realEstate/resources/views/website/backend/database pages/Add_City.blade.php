@@ -24,7 +24,7 @@
                     //console.log('success');
 
                     // default option but can't be selected
-                    op+='<option value="0" selected disabled>Select Country</option>';
+                    op+='<option value="0" selected disabled>Select State</option>';
 
                     //will get value value in for each from the object data and put it on option tag in op value
                     Object.values(data).forEach(val => {

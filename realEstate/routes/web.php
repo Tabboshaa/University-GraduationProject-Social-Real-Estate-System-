@@ -28,10 +28,10 @@ Route::delete('/delete_sub_type','SubTypes@destroy');
 
 //User types pages
 Route::get('/user_types', 'UserTypes@index');
-Route::get('/user_types_show', 'UserTypes@show')->name('usertype_show');
 Route::post('/add_user_type','UserTypes@create');
+Route::get('/user_types_show', 'UserTypes@show')->name('usertype_show');
 Route::delete('/delete_user_type/{id?}','UserTypes@destroy');
-Route::get('/edit_user_type','UserTypes@edit')->name('usertype.update');
+Route::get('/edit_user_type','UserTypes@edit')->name('usertype.edite');
 
 //Data types pages
 Route::get('/data_types', 'DatatypeController@index');
@@ -89,11 +89,6 @@ Route::get('/Details', 'DetailsController@index');
 Route::get('/Details_show', 'DetailsController@show')->name('details_show');
 Route::post('/add_Details','DetailsController@create');
 
-// add user
-Route::get('/User','AddUserController@Index');
-Route::Post('/Add_User','AddUserController@Create');
-
-
 // Item  pages #Tabbosha
 Route::get('/Item', 'ItemController@SubTypeShow');
 // Route::get('/Item_Main_types_show', 'ItemController@MainTypeShow');
@@ -140,16 +135,22 @@ Route::get('/edit_Region','RegionController@editRegion')->name('Region.edit');
 
 //neww 7/12
 Route::get('/property_select/{sub_type_id}','SubTypePropertyController@property_select');
-
 Route::post('/submit_properties','PropertyDetailsController@submit_properties');
 
 // findDetailsForForm
 Route::get('/findDetailsForForm','PropertyDetailsController@findDetailsForForm');
 
 
+//User Pages #S
+Route::get('/User','AddUserController@Index');
+Route::Post('/Add_User','AddUserController@Create');
 Route::get('/show_users' , 'UserTypes@get_user_types');
+Route::get('/TypeOfUser/{id}','UserTypes@getUser')->name('users_show');
+Route::delete('/delete_user/{id?}','AddUserController@destroy');
 
-Route::get('TypeOfUser/{id}','UserTypes@getUser');
+
+
+
 
 
 

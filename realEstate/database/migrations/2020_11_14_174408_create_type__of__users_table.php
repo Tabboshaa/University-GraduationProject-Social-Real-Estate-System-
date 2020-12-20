@@ -14,7 +14,7 @@ class CreateTypeOfUsersTable extends Migration
     public function up()
     {
         Schema::create('type__of__users', function (Blueprint $table) {
-            $table->foreignId('User_ID')->references('User_ID')->on('users');
+            $table->foreignId('User_ID')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('User_Type_ID')->references('User_Type_ID')->on('user__types')->onDelete('cascade');
             $table->timestamps();
         });
