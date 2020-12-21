@@ -29,9 +29,6 @@ class CountryController extends Controller
     {
         //
 
-        request()->validate([
-            'country_name' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"],
-        ]);
 
         try {
         $country=Country::create([
@@ -98,7 +95,7 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id=null)
+    public function destroy(Request $request)
     {
         // Will Destroy each column with id form action 
         Country::destroy($request->id);

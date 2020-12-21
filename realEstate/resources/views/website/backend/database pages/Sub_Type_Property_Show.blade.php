@@ -54,16 +54,7 @@
                 <form id="EditSubTypeForm">
                     @csrf
                     <input type="hidden" name="id" id="id">
-                    <div>
-                    <label for="MainTypeNameEdit">Main Type Name</label>
-                        <select id="MainTypeNameEdit" class="form-control"  name="MainTypeNameEdit">
-                            <!--  For loop  -->
-                            @foreach($main_type as $main)
-                                     <option value="{{$main->Main_Type_Id}}">{{$main->Main_Type_Name}}</option> 
-                                     @endforeach
-                        <!-- End loop -->
-                        </select>
-                    </div>
+            
                     <div class="form-group">
                         <label for="SubTypePropertyName" >Property Name</label>
                         <input type="text" name="SubTypePropertyName" id="SubTypePropertyName" class="form-control">

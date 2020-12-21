@@ -78,7 +78,7 @@ class PropertyDetailsController extends Controller
 
         return response()->json($propertydetail);
     }
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request)
     {
         //
         Property_Details::destroy($request->id);
@@ -99,8 +99,7 @@ class PropertyDetailsController extends Controller
         ->join('datatypes', 'property__details.DataType_Id', '=', 'datatypes.id')
             ->select('property__details.*','datatypes.datatype')
             ->get()
-            ->where('Property_Detail_Id','=',request('id'));
-        // $details=Property_Details::all()->where('Property_Detail_Id','=',request('id'));
+            ->where('Property_Id','=',request('id'));
         
         return response()->json($details);
     }

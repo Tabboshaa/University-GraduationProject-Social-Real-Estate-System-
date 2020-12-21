@@ -87,7 +87,9 @@ Route::post('/add_sub_type_property','SubTypePropertyController@create');
 // Details pages #Tabbosha
 Route::get('/Details', 'DetailsController@index');
 Route::get('/Details_show', 'DetailsController@show')->name('details_show');
-Route::post('/add_Details','DetailsController@create');
+Route::post('/add_Details','DetailsController@create')->name('details_submit');
+
+
 
 Route::get('/User','AddUserController@Index');
 Route::Post('/Add_User','AddUserController@Create');
@@ -143,7 +145,7 @@ Route::get('/property_select/{sub_type_id}','SubTypePropertyController@property_
 Route::post('/submit_properties','PropertyDetailsController@submit_properties');
 
 // findDetailsForForm
-Route::get('/findDetailsForForm','PropertyDetailsController@findDetailsForForm');
+Route::get('/findDetailsForForm','PropertyDetailsController@findDetailsForForm')->name('propertyDetail.find');
 
 
 Route::get('/show_users' , 'UserTypes@get_user_types');
