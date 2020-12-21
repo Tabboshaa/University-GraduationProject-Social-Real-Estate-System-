@@ -34,10 +34,6 @@ class CityController extends Controller
     public function create()
     {
         //
-        request()->validate([
-            'City_Name' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"],
-        ]);
-
         try {
         $city=City::create([
             'City_Name' => request('City_Name'),
@@ -112,6 +108,7 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+   
     public function destroy(Request $request, $id=null)
     {
 

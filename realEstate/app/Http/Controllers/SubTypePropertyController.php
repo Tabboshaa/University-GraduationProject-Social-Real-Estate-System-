@@ -31,7 +31,6 @@ class SubTypePropertyController extends Controller
     public function create()
     {
         //
-
         try {
             $Property_Detail = sub_type_property::create([
                 'Main_Type_Id' => request('Main_Type_Name'),

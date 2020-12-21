@@ -27,7 +27,6 @@ class MainTypes extends Controller
     public function create()
     {
         //
-       
         try {
             $Main_Type = Main_Type::create([
                 'Main_Type_Name' => request('Main_Type_Name'),

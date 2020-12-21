@@ -28,8 +28,6 @@ class CountryController extends Controller
     public function create()
     {
         //
-
-
         try {
         $country=Country::create([
             'Country_Name' => request('country_name'),
@@ -99,7 +97,6 @@ class CountryController extends Controller
     {
         // Will Destroy each column with id form action 
         Country::destroy($request->id);
-
         return redirect()->route('country_show');
     }
     //  function  EDIT: AJAX

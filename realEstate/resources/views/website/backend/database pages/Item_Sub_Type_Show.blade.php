@@ -6,8 +6,6 @@
                 <thead>
                 <tr>
 
-                  
-
                 </tr>
                 </thead>
                 <tbody>
@@ -20,7 +18,7 @@
                 @if($sub->Main_Type_Id == $main->Main_Type_Id)
 
                    
-                        <td><a href="{{ url('/property_select/'.$sub->Sub_Type_Id) }}">{{$sub->Sub_Type_Name}}</a></td>
+                        <td><a href="{{ url('property_select/'.$sub->Sub_Type_Id) }}">{{$sub->Sub_Type_Name}}</a></td>
 
                     
                     @endif

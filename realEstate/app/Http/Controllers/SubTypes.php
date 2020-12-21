@@ -59,7 +59,6 @@ class SubTypes extends Controller
     public function create()
     {
         //
-
         try {
             $Sub_Type = Sub_Type::create([
                 'Sub_Type_Name' => request('Sub_Type_Name'),
