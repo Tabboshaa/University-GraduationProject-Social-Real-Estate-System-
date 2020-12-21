@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Emails extends Model
 {
     //
+    protected $primaryKey='Email_Id';
     protected $fillable = [
         'User_ID',
         'email',

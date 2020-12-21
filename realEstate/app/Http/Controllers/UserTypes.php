@@ -124,7 +124,7 @@ class UserTypes extends Controller
          $Users=DB::table('type__of__users')->join('users','users.id','=','type__of__users.User_ID')
          ->join('emails', 'type__of__users.User_ID', '=', 'emails.User_ID')
          ->join('phone__numbers', 'type__of__users.User_ID', '=', 'phone__numbers.User_ID')
-         ->select('type__of__users.*','emails.*','phone__numbers.*','users.First_Name','users.Middle_Name','users.Last_Name')
+         ->select('users.*','type__of__users.*','emails.*','phone__numbers.*','users.First_Name','users.Middle_Name','users.Last_Name')
          ->get()->where('User_Type_ID', '=', $id);
                 
     

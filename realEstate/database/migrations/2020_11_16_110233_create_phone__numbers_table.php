@@ -14,7 +14,7 @@ class CreatePhoneNumbersTable extends Migration
     public function up()
     {
         Schema::create('phone__numbers', function (Blueprint $table) {
-            $table->id();
+            $table->id('PhoneNumber_Id');
             $table->foreignId('User_ID')->references('id')->on('users')->onDelete('cascade');
             $table->string('phone_number')->unique();
             $table->boolean('Default');

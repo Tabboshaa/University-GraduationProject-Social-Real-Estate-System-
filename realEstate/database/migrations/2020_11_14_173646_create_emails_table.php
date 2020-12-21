@@ -14,7 +14,7 @@ class CreateEmailsTable extends Migration
     public function up()
     {
         Schema::create('emails', function (Blueprint $table) {
-            $table->id();
+            $table->id('Email_Id');
             $table->foreignId('User_ID')->references('id')->on('users')->onDelete('cascade');
             $table->string('email')->unique();
             $table->boolean('Default');
