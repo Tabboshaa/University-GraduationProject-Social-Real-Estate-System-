@@ -23,7 +23,6 @@ class ItemController extends Controller
     public function SubTypeShow()
     {
         $sub_types=Sub_Type::all();
-        // where('Main_Type_Id','=',$id);
         $main_types=Main_Type::all();
         return view('website.backend.database pages.Item_Sub_Type_Show',['sub_type'=>$sub_types,'main_type'=>$main_types]);
 

@@ -1,10 +1,9 @@
 @extends('website.backend.database pages.Item')
 @section('Item_Main_Type_table')
-<form method="Post" action="{{url('/submit_properties')}}" enctype="multipart/form-data">
-    @csrf
+
     <table>
         @foreach($property as $p)
-        <div class="row">
+     
             <tr>
                 <td>
                     <a href="javascript:void(0)" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')"> 
@@ -12,14 +11,17 @@
                 </a>
                 </td>
             </tr>
-        </div>
+        
         @endforeach
-    </table>
+    <tr>
+    <!-- send item id to be shown in show item page -->
+        <a href="{{url('show_item'.)}}">
     <button type="submit" class="btn btn-primary">
         {{ __('Next') }}
     </button>
-</form>
-
+        </a>
+</tr>
+    </table>
 <div class="modal fade" id="EditMainTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -104,10 +106,11 @@
                             },
                             success: function(data) {
                                 //hna 3iza anady 3la created succefully
-                                console.log(data);
+                              console.log('sucess');
                             },
                             error: function() {
                                 // hna anady 3la not created w kdaho
+                                
                             console.log('error');
                             }
                             });

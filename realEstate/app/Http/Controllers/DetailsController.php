@@ -33,12 +33,13 @@ class DetailsController extends Controller
 
      foreach ($detailsInput as $detail)
      {
-         $property_details =Property_Details::all()->where('Property_Detail_Id','=', Arr::get($detail,'id')); 
+         $property_details=Property_Details::all()->where('Property_Detail_Id','=',Arr::get($detail,'id'))->first(); 
+
          $details[] = [
              'Item_Id' => 1,
              'Main_Type_Id' => Arr::get($property_details,'Main_Type_Id'),
              'Sub_Type_Id' => Arr::get($property_details,'Sub_Type_Id'),
-             'Property_Id'=>Arr::get($property_details,'Property_Id'),
+             'Property_Id'=> Arr::get($property_details,'Property_Id'),
              'property_Detail_Id' => Arr::get($property_details,'Property_Detail_Id'),
              'DetailValue' => Arr::get($detail,'value')
          ];
@@ -57,7 +58,8 @@ class DetailsController extends Controller
             //     'DetailValue' => request('DetailValue')
             // ]);
             // return back()->with('success', 'Item Created Successfully');
-            return response()->json($detailsInput);
+           
+        return response()->json($property_details);
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
