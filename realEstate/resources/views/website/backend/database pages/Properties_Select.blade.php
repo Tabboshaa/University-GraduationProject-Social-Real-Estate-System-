@@ -1,6 +1,7 @@
 @extends('website.backend.database pages.Item')
 @section('Item_Main_Type_table')
-
+<form method="Post" action="{{url('/')}}" enctype="multipart/form-data">
+    @csrf
     <table>
         @foreach($property as $p)
      
@@ -15,13 +16,16 @@
         @endforeach
     <tr>
     <!-- send item id to be shown in show item page -->
-        <a href="{{url('show_item'.)}}">
+    <td>
     <button type="submit" class="btn btn-primary">
         {{ __('Next') }}
     </button>
-        </a>
+
+</td>
 </tr>
     </table>
+    </form>
+
 <div class="modal fade" id="EditMainTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -87,7 +91,7 @@
 
                             }
 
-                            $('#data_form').submit(function (){
+    $('#data_form').submit(function (){
                             var data=[];
 
                             //3iza ageeb kol el inputs b get element by name
@@ -98,20 +102,19 @@
                             var _token= $("input[name=_token]").val();
                             //w b3den 3iza 2b3t el array le el controller
                             $.ajax({
-                            type: 'post',
+                            type: "post",
                             url: "{{ route('details_submit')}}",
                             data: {
                             data: data,
                             _token:_token
                             },
-                            success: function(data) {
+                            success: function() {
                                 //hna 3iza anady 3la created succefully
-                              console.log('sucess');
+                              console.log('Success');
                             },
                             error: function() {
                                 // hna anady 3la not created w kdaho
-                                
-                            console.log('error');
+                            console.log('Error');
                             }
                             });
 

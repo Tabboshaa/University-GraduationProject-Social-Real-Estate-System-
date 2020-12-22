@@ -28,9 +28,9 @@ class DetailsController extends Controller
 
     public function create()
     {
-
+      
      $detailsInput=request('data');
-
+     
      foreach ($detailsInput as $detail)
      {
          $property_details=Property_Details::all()->where('Property_Detail_Id','=',Arr::get($detail,'id'))->first(); 
@@ -59,7 +59,7 @@ class DetailsController extends Controller
             // ]);
             // return back()->with('success', 'Item Created Successfully');
            
-        return response()->json($property_details);
+        return back()->with('success', 'Item Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
