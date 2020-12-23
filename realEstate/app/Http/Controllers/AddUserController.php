@@ -174,7 +174,7 @@ class AddUserController extends Controller
         $email= Emails::all()->find(request('id'));
         $email->email=request('email');
         $email->save();
-        return back()->with('success', 'Item Edited Successfully');
+        return back()->with('info','Item Edited Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
@@ -189,7 +189,7 @@ class AddUserController extends Controller
         $phone_number= Phone_Numbers::all()->find(request('id'));
         $phone_number->phone_number=request('phonenumber');
         $phone_number->save();
-        return back()->with('success', 'Item Edited Successfully');
+        return back()->with('info','Item Edited Successfully');
             }catch (\Illuminate\Database\QueryException $e){
                 $errorCode = $e->errorInfo[1];
                 if($errorCode == 1062){

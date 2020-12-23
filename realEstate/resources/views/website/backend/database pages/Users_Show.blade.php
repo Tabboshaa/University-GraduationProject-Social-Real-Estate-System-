@@ -15,7 +15,7 @@
                 <div class="clearfix"></div>
                 
                 <div class="x_content">
-
+                @include('website.backend.layouts.flashmessage')
                     <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
                         @foreach($user_types as $user_types)
                         <li class="nav-item">
