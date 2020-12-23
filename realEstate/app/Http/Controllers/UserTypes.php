@@ -75,11 +75,19 @@ class UserTypes extends Controller
     public function edit()
     {
         //
+        try {
+
         $user_type = User_Type::all()->find(request('id'));
         $user_type->Type_Name = request('UserTypeName');
         $user_type->save();
 
-        return response()->jason($user_type);
+        return back()->with('info','Item Edited Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == 1062){
+            return back()->with('error','Already Exist !!');
+        }
+    }
     }
 
     /**
@@ -103,10 +111,12 @@ class UserTypes extends Controller
     public function destroy()
     {
         //
-
+        try {
         User_Type::destroy(request('id'));
-
-        return redirect()->route('usertype_show');
+        return redirect()->route('usertype_show')->with('success', 'Item Deleted Successfully');
+            }catch (\Illuminate\Database\QueryException $e){
+        return redirect()->route('usertype_show')->with('error', 'Item cannot be deleted');
+    }
     }
 
     public function get_user_types()

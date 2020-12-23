@@ -205,15 +205,12 @@
                 _token: _token
             },
             success: function(response) {
-                console.log('Shaimaa Es7a m3aia mtnamshe')
-                console.log(response);
-                // $('#sid'+response.id + 'td:nth-child(1)').text(response.SupTypeName);
+                console.log('Sucess');
                 $("#EditUserNameModel").modal("toggle");
                 // $("#EditSubTypeModal")[0].reset();
             },
             error: function() {
-                console.log(id);
-                console.log('Error 7azen');
+                console.log('Error');
             }
 
         });
@@ -234,18 +231,13 @@
                 email:email,
                 _token: _token
             },
-            success: function(response) {
-                console.log('Shaimaa Es7a m3aia mtnamshe')
-                console.log(response);
-                // $('#sid'+response.id + 'td:nth-child(1)').text(response.SupTypeName);
+            success: function() {
+                console.log('Success');
                 $("#EditUserEmailModel").modal("toggle");
                 // $("#EditSubTypeModal")[0].reset();
             },
             error: function() {
-                console.log(id);
-                console.log(email);
-                
-                console.log('Error 7azen');
+                console.log('Error');
             }
 
         });
@@ -267,14 +259,12 @@
                 _token: _token
             },
             success: function(response) {
-                console.log('Shaimaa Es7a m3aia mtnamshe')
-                console.log(response);
-                // $('#sid'+response.id + 'td:nth-child(1)').text(response.SupTypeName);
+                console.log('Sucess');
                 $("#EditUserPhoneNumberModel").modal("toggle");
                 // $("#EditSubTypeModal")[0].reset();
             },
             error: function() {
-                console.log('Error 7azen');
+                console.log('Error');
             }
 
         });

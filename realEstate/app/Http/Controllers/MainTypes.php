@@ -74,11 +74,18 @@ class MainTypes extends Controller
     public function edit()
     {
         //
-        $main_types=Main_Type::all()->find(request('id'));
-        $main_types->Main_Type_Name=request('MainTypeName');
-        $main_types->save();
+        try {
+            $main_types=Main_Type::all()->find(request('id'));
+            $main_types->Main_Type_Name=request('MainTypeName');
+            $main_types->save();
 
-        return response()->json($main_types);
+                return back()->with('info','Item Edited Successfully');
+            }catch (\Illuminate\Database\QueryException $e){
+                $errorCode = $e->errorInfo[1];
+                if($errorCode == 1062){
+                    return back()->with('error','Error editing item');
+                }
+            }
     }
 
     /**
@@ -101,10 +108,12 @@ class MainTypes extends Controller
      */
     public function destroy(Request $request)
     {
-        //return dd($request->all());
-        //
+        try {
         Main_Type::destroy($request->mainType);
-
-        return redirect()->route('main_types_show');
+        return redirect()->route('main_types_show')->with('success', 'Item Deleted Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+        return redirect()->route('main_types_show')->with('error', 'Item cannot be deleted');
+                
+    }
 }
 }

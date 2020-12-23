@@ -116,11 +116,14 @@ class RegionController extends Controller
      */
     public function destroy(Request $request,$id=null)
     {
-
+        try {
         Region::destroy($request->id);
+        return redirect()->route('region_show')->with('success', 'Item Deleted Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
 
-      
-        return redirect()->route('region_show');
+        return redirect()->route('region_show')->with('error', 'Item cannot be deleted');
+                
+    }
     }
 
     public function findstate(){
@@ -158,13 +161,21 @@ class RegionController extends Controller
 
     public function editRegion(Request $request)
     {
+        try {
+       
         //hygeb el country eli el ID bt3ha da 
         $region= Region::all()->find(request('id'));
         //hy7ot el name el gded f column el country name 
         $region->Region_Name=request('RegionName');
         $region->save();
 
-        //hyb3t el update el gded fl country table 
-        return response()->json($region);
+        return back()->with('info','Item Edited Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == 1062){
+            return back()->with('error','Error editing item');
+        }
+    }
+      
     }
 }

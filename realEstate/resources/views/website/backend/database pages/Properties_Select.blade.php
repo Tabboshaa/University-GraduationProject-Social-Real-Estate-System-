@@ -18,7 +18,7 @@
                                 
                                 <a href="javascript:void(0)" id="details" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')"> 
                                    
-                                    <img  src="{{ asset('Images/' . $image->getFilename()) }}" id="PropertyImage">
+                                    <img  src="{{ asset('Images/' . $image->getFilename()) }}" name="PropertyImage">
                                    
                                     <label for="Sub_Type_Property" class="col-md-2 col-form-label text-md-right">{{ __($p->Property_Name) }}</label> 
                                 </a>
@@ -71,12 +71,12 @@
 
 window.onload = choosePic;
 
-var myPix = new Array("images/1.jpeg","images/2.jpeg","images/3.jpeg","images/4.jpeg","images/5.jpeg","images/6.jpeg");
+var myPix = new Array("Images/1.jpeg","Images/2.jpeg","Images/3.jpeg","Images/4.jpeg","Images/5.jpeg","Images/6.jpeg");
 
 function choosePic() {
 
      var randomNum = Math.floor(Math.random() * myPix.length);
-     document.getElementById("PropertyImage").src = myPix[randomNum];
+     document.getElementsByName("PropertyImage").src = myPix[randomNum];
 }
 
     function AddDetail(id, name) {

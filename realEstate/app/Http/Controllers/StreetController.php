@@ -122,13 +122,19 @@ class StreetController extends Controller
      */
     public function destroy(Request $request,$id=null)
     {
-
+        try {
+       
         Street::destroy($request->id);
+        return redirect()->route('street_show')->with('success', 'Item Deleted Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('street_show');
+        return redirect()->route('street_show')->with('error', 'Item cannot be deleted');
+                
+    }
     }
     public function editStreet(Request $request)
     {
+        try {
         //hygeb el country eli el ID bt3ha da 
         $street= Street::all()->find(request('id'));
         //hy7ot el name el gded f column el country name 
@@ -136,6 +142,12 @@ class StreetController extends Controller
         $street->save();
 
         //hyb3t el update el gded fl country table 
-        return response()->json($street);
+        return back()->with('info','Item Edited Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == 1062){
+            return back()->with('error','Error editing item');
+        }
+    }
     }
 }

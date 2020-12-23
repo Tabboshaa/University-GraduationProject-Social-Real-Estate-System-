@@ -95,15 +95,14 @@
                 StreetName: StreetName,
                 _token: _token
             },
-            success: function(response) {
-                console.log('Shaimaa Es7a m3aia mtnamshe')
-                console.log(response);
+            success: function() {
+                console.log('Success');
                 // $('#sid'+response.id + 'td:nth-child(1)').text(response.SupTypeName);
                 $("#EditStreetModal").modal("toggle");
                 // $("#EditSubTypeModal")[0].reset();
             },
             error: function() {
-                console.log('Error 7azen');
+                console.log('Error');
             }
 
         });

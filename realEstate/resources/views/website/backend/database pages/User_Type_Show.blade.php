@@ -81,10 +81,8 @@
                 UserTypeName: UserTypeName,
                 _token: _token
             },
-            success: function(response) {
-                console.log('Success')
-                console.log(response);
-                //$('#sid' + response.id + 'td:nth-child(1)').text(response.UserTypeName);
+            success: function() {
+                console.log('Success');
                 $("#EditUserTypeModal").modal("toggle");
                 // $("#EditUserTypeModal")[0].reset();
             },
