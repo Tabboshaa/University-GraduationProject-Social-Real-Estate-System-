@@ -33,9 +33,8 @@ class SubTypePropertyController extends Controller
         //
 
         request()->validate([
-            'Main_Type_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
-            'Sub_Type_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
-            'Sub_Type_Property' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"] 
+            
+            'Sub_Type_Property' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"] 
         ]);
 
 
@@ -132,7 +131,7 @@ class SubTypePropertyController extends Controller
      * @param  \App\sub_type_property  $sub_type_property
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id=null)
     {
         //
         Sub_Type_Property::destroy($request->id);

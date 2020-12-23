@@ -7,13 +7,15 @@
             <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
                 <thead>
                     <tr>
-                        <th>Main Type</th>
-                        <th>Sub Type</th>
-                        <th>Property</th>
-                        <th>Property Detail Name</th>
-                        <th>Data Type</th>
-                        <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
-                        <th></th>
+                    <tr>
+                        <th><h2 style="margin-right:30px; padding-bottom: 5px;">Main Type ID</h2></th>
+                        <th ><h2 style="margin-right:30px;padding-bottom: 5px;">Sub Type Name</h2></th>
+                        <th ><h2 style="margin-right:30px;padding-bottom: 5px;">Sub Type Property</h2></th>
+                        
+                        <th> <h2 style="margin-right:30px;padding-bottom: 5px;">Property Detail Name</th>
+                        <th> <h2 style="margin-right:30px;padding-bottom: 5px;">Data Type</th>
+                        <th ><h2 style="margin-right:30px;padding-bottom: 5px;">Edit</h2></th>
+                        <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:30px;"></i></th>
                         <!-- Java Script for select all function -->
                         <script>
                             document.getElementById('selectAll').onclick = function() {
@@ -34,9 +36,9 @@
                         <td>{{$property_detail->Property_Name}}</td>
                         <td>{{$property_detail->Detail_Name}}</td>
                         <td>{{$property_detail->datatype}}</td>
-                        <td><input type="checkbox" name="id[]" value="{{$property_detail->Property_Detail_Id}}"></td>
+                        
                         <td><a href="javascript:void(0)" onclick="setPropertyDetailIdName('{{$property_detail->Property_Detail_Id}}','{{$property_detail->Detail_Name}}')"><i class="fa fa-edit"> Edit</i></a></td>
-
+                        <td><input type="checkbox" name="id[]" value="{{$property_detail->Property_Detail_Id}}"></td>
                     </tr>
                     @endforeach
                     <!-- END OF FOREACH -->

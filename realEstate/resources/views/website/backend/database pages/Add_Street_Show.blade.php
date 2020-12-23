@@ -5,13 +5,16 @@
     <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
         <thead>
             <tr>
-                <th>Country Name</th>
-                <th>State Name</th>
-                <th>City Name</th>
-                <th>Region Name</th>
-                <th>Street Name</th>
-                <th>Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" style="margin-left: 450px;"><i class="fa fa-trash"></i></th>
-                <th>Edit</th>
+            
+                        <th ><h2 style="margin-right:30px;padding-bottom: 5px;">Country Name</h2></th>
+                        <th ><h2 style="margin-right:30px;padding-bottom: 5px;">State Name</h2></th>
+                        
+                        <th> <h2 style="margin-right:30px;padding-bottom: 5px;">City Name</th>
+                        <th> <h2 style="margin-right:30px;padding-bottom: 5px;">Region Name </th>
+                        <th><h2 style="margin-right:30px; padding-bottom: 5px;">Street Name</h2></th>
+                        <th ><h2 style="margin-right:30px;padding-bottom: 5px;">Edit</h2></th>
+                        <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:30px;"></i></th>
+                       
                 <!-- Java Script for select all function -->
                 <script>
                     document.getElementById('selectAll').onclick = function() {
@@ -32,8 +35,9 @@
             <td>{{$street->City_Name}}</td>
             <td>{{$street->Region_Name}}</td>
             <td>{{$street->Street_Name}}</td>
-                <td><input type="checkbox" name="id[]" value="{{$street->Street_Id}}"></td>
+                
                 <td><a href="javascript:void(0)" onclick="setStreetIdName('{{$street->Street_Id}}','{{$street->Street_Name}}')"><i class="fa fa-edit"></i></a></td>
+                <td><input type="checkbox" name="id[]" value="{{$street->Street_Id}}"></td>
             </tr>
             @endforeach
             <!-- END OF FOREACH -->

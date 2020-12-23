@@ -6,10 +6,11 @@
 
     <thead>
         <tr>
-            <th>Country Name</th>
-            <th>State Name</th>
-            <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <button class="btn" style="margin-left: 750px;"><i class="fa fa-trash"></i></th>
-            <th>Edit</th>
+        <th><h2 style="margin-right:175px; padding-bottom: 5px;">Country Name</h2></th>
+                        <th ><h2 style="margin-right:175px;padding-bottom: 5px;">State Name</h2></th>
+                        <th ><h2 style="margin-right:200px;padding-bottom: 5px;">Edit</h2></th>
+                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:160px;"></i></th>
+                   
              <!-- Java Script for select all function -->
              <script>
                 document.getElementById('selectAll').onclick = function() {
@@ -26,11 +27,11 @@
         <tr>
             <td> {{$state->Country_Name}}</td>
             <td> {{$state->State_Name}}</td>
-            <td><input type="checkbox" name="id[]" value="{{$state->State_Id}}"></td>
+            
             
             <!-- On clicking edit icon will go to setCountryIdName in-->
             <td><a href="javascript:void(0)" onclick="setStateIdName('{{$state->State_Id}}','{{$state->State_Name}}')"><i class="fa fa-edit"></i></a></td>
-        
+            <td><input type="checkbox" name="id[]" value="{{$state->State_Id}}"></td>
         </tr>
         @endforeach
         

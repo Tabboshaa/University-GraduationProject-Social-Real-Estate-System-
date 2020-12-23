@@ -12,8 +12,8 @@
                         <label for="Data_Type_Name" class="col-md-2 col-form-label text-md-right">{{ __('Data Type Name') }}</label>
 
                         <div class="col-md-2">
-                            <input id="Data_Type_Name" type="text" class="form-control @error('Data Type Name') is-invalid @enderror" name="Data_Type_Name" value="{{ old('Data_Type_Name') }}" required autocomplete="Data_Type_Name" autofocus>
-                            @error('Data Type Name')
+                            <input id="Data_Type_Name" type="text" class="form-control @error('Data_Type_Name') is-invalid @enderror" name="Data_Type_Name" value="{{ old('Data_Type_Name') }}" required autocomplete="Data_Type_Name" autofocus>
+                            @error('Data_Type_Name')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

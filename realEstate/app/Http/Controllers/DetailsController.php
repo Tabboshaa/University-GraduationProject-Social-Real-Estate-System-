@@ -34,7 +34,7 @@ class DetailsController extends Controller
         // $property_item = Arr::get($property, 'id');
 
         request()->validate([
-            'DetailValue' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"] 
+            'DetailValue' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"] 
         ]);
         try {
             $Detail = Details::create([

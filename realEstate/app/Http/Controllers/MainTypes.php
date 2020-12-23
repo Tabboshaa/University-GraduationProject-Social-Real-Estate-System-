@@ -28,7 +28,7 @@ class MainTypes extends Controller
     {
         //
         request()->validate([
-           'Main_Type_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"]
+           'Main_Type_Name' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"]
        ]);
 
         try {

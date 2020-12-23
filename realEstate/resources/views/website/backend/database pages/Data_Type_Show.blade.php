@@ -6,10 +6,10 @@
     <thead>
         <tr>
            
-            <th>Data Type Name</th>
-            <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> </a> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
-            <th></th>
-            <!-- Java Script for select all function -->
+        <th><h2 style="margin-right:200px; padding-bottom: 5px;">Data Type Name</h2></th>
+                        <th ><h2 style="margin-right:250px;padding-bottom: 5px;">Edit</h2></th>
+                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:200px;"></i></th>
+                     
             <script>
                 document.getElementById('selectAll').onclick = function() {
                     var checkboxes = document.getElementsByName('id[]'); //get all check boxes with name delete
@@ -26,10 +26,10 @@
      
         <tr>
             <td>{{$data_types->datatype}}</td>
-            <td><input type="checkbox" name="id[]" value="{{$data_types->id}}"></td>
+            
                          <input type="hidden" name="_method" value="DELETE">
                         <td><a href="javascript:void(0)" onclick="setDataTypeIdName('{{$data_types->id}}','{{$data_types->datatype}}')"><i class="fa fa-edit"> Edit</i></a></td>
-
+                        <td><input type="checkbox" name="id[]" value="{{$data_types->id}}"></td>
                     </tr>
                 @endforeach
                 <!-- END OF FOREACH -->

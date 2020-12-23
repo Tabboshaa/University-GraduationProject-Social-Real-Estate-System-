@@ -7,11 +7,13 @@
             <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
                 <thead>
                 <tr>
-                    <th>Main Type</th>
-                    <th>Sub Type</th>
-                    <th>Property Name</th>
-                    <th>Select all <input type="checkbox" id="selectAll" name="selectAll">  <input type="submit" value="Delete Selected" class="btn btn-secondary"> </th>
-                    <th></th>
+               <tr>
+                        <th><h2 style="margin-right:90px; padding-bottom: 5px;">Main Type ID</h2></th>
+                        <th ><h2 style="margin-right:90px;padding-bottom: 5px;">Sub Type Name</h2></th>
+                        <th ><h2 style="margin-right:90px;padding-bottom: 5px;">Sub Type Property</h2></th>
+                        <th ><h2 style="margin-right:90px;padding-bottom: 5px;">Edit</h2></th>
+                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:90px;"></i></th>
+                        
                     <!-- Java Script for select all function -->
                     <script>
                         document.getElementById('selectAll').onclick = function() {
@@ -30,8 +32,9 @@
                         <td>{{$property->Main_Type_Name}}</td>
                         <td>{{$property->Sub_Type_Name}}</td>
                         <td>{{$property->Property_Name}}</td>
-                        <td><input type="checkbox" name="id[]" value="{{$property->Property_Id}}"></td>
+                        
                         <td><a href="javascript:void(0)" onclick="setSubTypePropertyIdName('{{$property->Property_Id}}','{{$property->Property_Name}}')"><i class="fa fa-edit"> Edit</i></a></td>
+                        <td><input type="checkbox" name="id[]" value="{{$property->Property_Id}}"></td>
                  </tr>
                 @endforeach
                 <!-- END OF FOREACH -->

@@ -5,13 +5,16 @@
     <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
         <thead>
             <tr>
-                <th>Country Name</th>
-                <th>State Name</th>
-                <th>City Name</th>
-                <th>Region Name</th>
-                <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <button class="btn" style="margin-left: 550px;"><i class="fa fa-trash"></i></th>
-                <th>Edit</th>
-                <!-- Java Script for select all function -->
+            <th><h2 style="margin-right:50px; padding-bottom: 5px;">Country Name</h2></th>
+                        <th ><h2 style="margin-right:50px;padding-bottom: 5px;">State Name</h2></th>
+                        <th ><h2 style="margin-right:50px;padding-bottom: 5px;">City Name</h2></th>
+                        
+                        <th> <h2 style="margin-right:50px;padding-bottom: 5px;">Region Name</th>
+
+                        <th ><h2 style="margin-right:60px;padding-bottom: 5px;">Edit</h2></th>
+                        <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:50px;"></i></th>
+                        <!-- Java Script for select all function -->
+                       
                 <script>
                     document.getElementById('selectAll').onclick = function() {
                         var checkboxes = document.getElementsByName('id[]'); //get all check boxes with name delete
@@ -30,8 +33,9 @@
             <td>{{$region->State_Name}}</td>
             <td>{{$region->City_Name}}</td>
             <td>{{$region->Region_Name}}</td>
-                <td><input type="checkbox" name="id[]" value="{{$region->Region_Id}}"></td>
+               
                 <td><a href="javascript:void(0)" onclick="setRegionIdName('{{$region->Region_Id}}','{{$region->Region_Name}}')"><i class="fa fa-edit"></i></a></td>
+                <td><input type="checkbox" name="id[]" value="{{$region->Region_Id}}"></td>
             </tr>
             @endforeach
             <!-- END OF FOREACH -->

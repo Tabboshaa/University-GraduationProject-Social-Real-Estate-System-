@@ -5,14 +5,16 @@
                         @csrf
 <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
     <thead>
-        <tr>
-            <th>Type Name</th>
-            <th>Select all <input type="checkbox" id="selectAll" name="selectAll">  <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
-            <th></th>
+    <tr>
+                        <th><h2 style="margin-right:200px; padding-bottom: 5px;">Main Type ID</h2></th>
+                       
+                        <th ><h2 style="margin-right:250px;padding-bottom: 5px;">Edit</h2></th>
+                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:200px;"></i></th>
+                      
             <!-- Java Script for select all function -->
                 <script>
                     document.getElementById('selectAll').onclick = function() {
-                        var checkboxes = document.getElementsByName('mainType'); //get all check boxes with name delete
+                        var checkboxes = document.getElementsByName('mainType[]'); //get all check boxes with name delete
                         for (var checkbox of checkboxes) { //for loop to set all checkboxes to checked
                             checkbox.checked = this.checked;
                         }
@@ -26,9 +28,10 @@
 
         <tr>
             <td>{{$main_type->Main_Type_Name}}</td>
-            <td><input type="checkbox" name="mainType[]" value="{{$main_type->Main_Type_Id}}"></td>
+            
 
          <td><a href="javascript:void(0)" onclick="setMainTypeIdName('{{$main_type->Main_Type_Id}}','{{$main_type->Main_Type_Name}}')"><i class="fa fa-edit"> Edit</i></a></td>
+         <td><input type="checkbox" name="mainType[]" value="{{$main_type->Main_Type_Id}}"></td>
                 </tr>
 
                 @endforeach

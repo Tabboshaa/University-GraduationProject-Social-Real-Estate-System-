@@ -5,10 +5,12 @@
 <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
     <thead>
         <tr>
-            <th>Country Name</th>
-            <th>Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" style="margin-left: 850px;"><i class="fa fa-trash"></i></th>
-            <th>Edit</th>
-            Java Script for select all function
+        <tr>
+                        <th><h2 style="margin-right:200px; padding-bottom: 5px;">Country Name</h2></th>
+                        <th ><h2 style="margin-right:250px;padding-bottom: 5px;">Edit</h2></th>
+                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:200px;"></i></th>
+                      
+          
             <script>
                 //will select all row with id -> id[]
                 document.getElementById('selectAll').onclick = function() {
@@ -24,11 +26,12 @@
         @foreach($C1 as $C1)
             <tr>
                 <td> {{$C1->Country_Name}}</td>
-                <td><input type="checkbox" name="id[]" value="{{$C1->Country_Id}}"></td>
+                
 
                 <!-- On clicking edit icon will go to setCountryIdName in-->
                 <td><a href="javascript:void(0)" onclick="setCountryIdName('{{$C1->Country_Id}}','{{$C1->Country_Name}}')"><i class="fa fa-edit"></i></a></td>
-            </tr>
+            
+            <td><input type="checkbox" name="id[]" value="{{$C1->Country_Id}}"></td></tr>
             @endforeach
     </tbody>
 </table>
@@ -80,6 +83,7 @@
         //byb3t el value el gdeda
         var CountryName = $("#Country_Name").val();
         var _token = $("input[name=_token]").val();
+        
 
         $.ajax({
             url: "{{route('Country.edit')}}",
@@ -88,18 +92,23 @@
                 id: id,
                 CountryName: CountryName,
                 _token: _token
+               
             },
+            
             success: function(response) {
+               
                 console.log('Shaimaa Es7a m3aia mtnamshe')
                 console.log(response);
                 // $('#sid'+response.id + 'td:nth-child(1)').text(response.SupTypeName);
                 $("#EditCountryModal").modal("toggle");
+                alert("updated Succesfully");
                 // $("#EditSubTypeModal")[0].reset();
+                
             },
             error: function() {
                 console.log('Error 7azen');
             }
-
+           
         });
 
 

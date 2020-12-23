@@ -19,6 +19,7 @@ class CreateEmailsTable extends Migration
             $table->string('email')->unique();
             $table->boolean('Default');
             $table->timestamp('email_verified_at')->nullable();
+            $table->timestamps();
         });
     }
 

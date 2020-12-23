@@ -5,11 +5,12 @@
     <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
         <thead>
             <tr>
-                <th>Country Name</th>
-                <th>State Name</th>
-                <th>City Name</th>
-                <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <button class="btn" style="margin-left: 650px;"><i class="fa fa-trash"></i></th>
-                <th>Edit</th>
+            <th><h2 style="margin-right:90px; padding-bottom: 5px;">Country Name</h2></th>
+                        <th ><h2 style="margin-right:90px;padding-bottom: 5px;">State Name</h2></th>
+                        <th ><h2 style="margin-right:90px;padding-bottom: 5px;">City Name</h2></th>
+                        <th ><h2 style="margin-right:90px;padding-bottom: 5px;">Edit</h2></th>
+                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:90px;"></i></th>
+                        
 
                 <script>
                     document.getElementById('selectAll').onclick = function() {
@@ -27,8 +28,9 @@
                 <td> {{$city->Country_Name}}</td>
                 <td> {{$city->State_Name}}</td>
                 <td> {{$city->City_Name}}</td>
-                <td><input type="checkbox" name="id[]" value="{{$city->City_Id}}"></td>
+               
                 <td><a href="javascript:void(0)" onclick="setCityIdName('{{$city->City_Id}}','{{$city->City_Name}}')"><i class="fa fa-edit"></i></a></td>
+                <td><input type="checkbox" name="id[]" value="{{$city->City_Id}}"></td>
             </tr>
             @endforeach
         </tbody>

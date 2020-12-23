@@ -1,16 +1,16 @@
 @extends('website.backend.database pages.Sub_Type')
 @section('table')
-<div class="row">
+<div class="row" >
     <div class="col-sm-12">
         <form method="Post" action="{{ url('/delete_sub_type?_method=delete') }}" enctype="multipart/form-data">
             @csrf
-            <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+            <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width:'100%'" role="grid" aria-describedby="datatable_info">
                 <thead>
                     <tr>
-                        <th>Main Type ID</th>
-                        <th>Sub Type Name</th>
-                        <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <input type="submit" value="Delete Selected" class="btn btn-secondary"> </th>
-                        <th></th>
+                        <th><h2 style="margin-right:175px; padding-bottom: 5px;">Main Type ID</h2></th>
+                        <th ><h2 style="margin-right:175px;padding-bottom: 5px;">Sub Type Name</h2></th>
+                        <th ><h2 style="margin-right:200px;padding-bottom: 5px;">Edit</h2></th>
+                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:160px;"></i></th>
                         <!-- Java Script for select all function -->
                         <script>
                             document.getElementById('selectAll').onclick = function() {
@@ -31,9 +31,10 @@
                     <tr>
                         <td>{{$sub_type->Main_Type_Name}}</td>
                         <td>{{$sub_type->Sub_Type_Name}}</td>
-                        <td><input type="checkbox" name="id[]" value="{{$sub_type->Sub_Type_Id}}"></td>
+                        
 
-                        <td><a href="javascript:void(0)" onclick="setSupTypeIdName('{{$sub_type->Sub_Type_Id}}','{{$sub_type->Sub_Type_Name}}')"><i class="fa fa-edit"> Edit</i></a></td>
+                        <td><a href="javascript:void(0)" onclick="setSupTypeIdName('{{$sub_type->Sub_Type_Id}}','{{$sub_type->Sub_Type_Name}}')"><i class="fa fa-edit"> </i></a></td>
+                        <td><input type="checkbox" name="id[]" value="{{$sub_type->Sub_Type_Id}}"></td>
                     </tr>
 
                     @endforeach

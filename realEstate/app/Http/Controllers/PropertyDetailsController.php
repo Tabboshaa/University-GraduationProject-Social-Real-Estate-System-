@@ -24,7 +24,9 @@ class PropertyDetailsController extends Controller
 
     public function create()
     {
-      
+        request()->validate([
+        'property_details' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"]
+        ]);
         try {
             $Property_Detail = Property_Details::create([
                 'Main_Type_Id' => request('Main_Type_Name'),
@@ -78,7 +80,7 @@ class PropertyDetailsController extends Controller
 
         return response()->json($propertydetail);
     }
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id=null)
     {
         //
         Property_Details::destroy($request->id);

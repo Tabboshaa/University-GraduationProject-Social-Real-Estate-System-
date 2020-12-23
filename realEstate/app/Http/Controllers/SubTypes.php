@@ -61,8 +61,7 @@ class SubTypes extends Controller
         //
 
         request()->validate([
-            'Main_Type_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"],
-            'Sub_Type_Name' => ['required', 'string','max:225',"regex:'[A-Z][a-z]* [A-Z][a-z]*'"]
+             'Sub_Type_Name' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"]
         ]);
 
         try {
@@ -150,7 +149,7 @@ class SubTypes extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id=null)
     {
         Sub_Type::destroy($request->id);
         return redirect()->route('subtype_show');
