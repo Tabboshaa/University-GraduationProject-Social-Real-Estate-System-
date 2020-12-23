@@ -26,7 +26,7 @@ class StreetController extends Controller
         $region=Region::all();
         $street=Street::all();
         return view('website.backend.database pages.Add_Street',['counrty'=>$counrty,'state'=>$state,'city'=>$city,'region'=>$region , 'street'=>$street]);
-   
+
     }
 
     /**
@@ -76,7 +76,7 @@ class StreetController extends Controller
     public function show()
     {
         //
-   
+
         $region=Region::all();
         $city=City::all();
         $states=State::all();
@@ -87,7 +87,7 @@ class StreetController extends Controller
         ->join('cities', 'streets.City_Id', '=', 'cities.City_Id')
         ->join('regions', 'streets.Region_Id', '=', 'regions.Region_Id')
         ->select('streets.*', 'countries.Country_Name','states.State_Name','cities.City_Name','regions.Region_Name')->get();
-        //el subtype name w el main type name 
+        //el subtype name w el main type name
         return view('website.backend.database pages.Add_Street_Show',['counrty'=>$countries,'state'=>$states,'city'=>$city,'region'=>$region,'street'=>$streets]);
     }
 
@@ -129,13 +129,24 @@ class StreetController extends Controller
     }
     public function editStreet(Request $request)
     {
-        //hygeb el country eli el ID bt3ha da 
+        //hygeb el country eli el ID bt3ha da
         $street= Street::all()->find(request('id'));
-        //hy7ot el name el gded f column el country name 
+        //hy7ot el name el gded f column el country name
         $street->Street_Name=request('StreetName');
         $street->save();
 
-        //hyb3t el update el gded fl country table 
+        //hyb3t el update el gded fl country table
         return response()->json($street);
+    }
+
+    public function findstreet(){
+
+        //will get all states which her Country_Id is the ID we passed from $.ajax
+        $street=Street::all()->where('Region_Id','=',request('id'));
+
+        // will send all values in state object by json
+        return response()->json($street);
+
+
     }
 }

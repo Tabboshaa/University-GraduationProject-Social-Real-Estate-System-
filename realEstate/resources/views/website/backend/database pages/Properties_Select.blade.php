@@ -3,23 +3,23 @@
 
     <table>
         @foreach($property as $p)
-     
+
             <tr>
                 <td>
-                    <a href="javascript:void(0)" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')"> 
-                    <label for="Sub_Type_Property" class="col-md-2 col-form-label text-md-right">{{ __($p->Property_Name) }}</label> 
+                    <a href="javascript:void(0)" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')">
+                    <label for="Sub_Type_Property" class="col-md-2 col-form-label text-md-right">{{ __($p->Property_Name) }}</label>
                 </a>
                 </td>
             </tr>
-        
+
         @endforeach
     <tr>
     <!-- send item id to be shown in show item page -->
-        <a href="{{url('show_item'.)}}">
+{{--        <a href="{{url('show_item'.)}}">--}}
     <button type="submit" class="btn btn-primary">
         {{ __('Next') }}
     </button>
-        </a>
+{{--        </a>--}}
 </tr>
     </table>
 <div class="modal fade" id="EditMainTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -34,7 +34,7 @@
             <div class="modal-body">
                 <form id="data_form"">
                     @csrf
-                   
+
                 </form>
 
             </div>
@@ -45,18 +45,18 @@
 <script>
     function AddDetail(id, name) {
 
-        $("#exampleModalLabel").html(name); 
-        var Form='' ; 
-        $.ajax({ 
-            url: "{{route('propertyDetail.find')}}" , 
-            Type: "PUT" , 
-            data: { id: id }, 
-            success: 
-            function(data) 
-            { 
-                console.log('success'); 
-                $("#EditMainTypeModal").modal("toggle"); 
-                
+        $("#exampleModalLabel").html(name);
+        var Form='' ;
+        $.ajax({
+            url: "{{route('propertyDetail.find')}}" ,
+            Type: "PUT" ,
+            data: { id: id },
+            success:
+            function(data)
+            {
+                console.log('success');
+                $("#EditMainTypeModal").modal("toggle");
+
                  Object.values(data).forEach(val=> {
 
                     Form += ' <div class="form-group row"> ' +
@@ -110,7 +110,7 @@
                             },
                             error: function() {
                                 // hna anady 3la not created w kdaho
-                                
+
                             console.log('error');
                             }
                             });

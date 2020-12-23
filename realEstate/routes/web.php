@@ -1,4 +1,7 @@
 <?php
+
+use App\User_Type;
+use App\Country;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'DatatypeController@index');
+
 //main types pages
 Route::get('/main_types', 'MainTypes@index');
 Route::get('/main_types_show', 'MainTypes@show')->name('main_types_show');
@@ -96,9 +100,11 @@ Route::Post('/Add_User','AddUserController@Create');
 
 
 // Item  pages #Tabbosha
+Route::get('addItemSteps','ItemController@index1');
+Route::post('addItem','ItemController@create');
 Route::get('/Item', 'ItemController@SubTypeShow');
 // Route::get('/Item_Main_types_show', 'ItemController@MainTypeShow');
-Route::get('/Item_Sub_types_show', 'ItemController@SubTypeShow');
+Route::get('/Item_Sub_types_show/{id}', 'ItemController@SubTypeShow');
 //Sub type javacript phase
 Route::get('/findSub','SubTypes@find');
 Route::delete('/delete_sub_type/{id?}','SubTypes@destroy');
@@ -110,6 +116,10 @@ Route::get('/findProperty','SubTypePropertyController@find');
 //Detail delete and edit
 Route::delete('/delete_sub_type_property/{id?}','SubTypePropertyController@destroy');
 Route::get('/edit_sub_type_property','SubTypePropertyController@edit')->name('subTypeProperty.update');
+
+//Search
+
+
 
 
 Route::delete('/delete_detail/{id?}','DetailsController@destroy');
@@ -126,6 +136,7 @@ Route::get('/D3','CityController@findcity');
 Route::get('/D4','RegionController@findstate');
 Route::get('/D5','RegionController@findcity');
 Route::get('/D6','RegionController@findregion');
+Route::get('/D7','StreetController@findstreet');
 
 //Delete #s
 Route::delete('/delete_Country/{id?}','CountryController@destroy');
@@ -158,7 +169,9 @@ Route::get('/edit_User_Email','AddUserController@editUserEmail')->name('UserEmai
 Route::get('/edit_User_PhoneNumber','AddUserController@editUserPhoneNumber')->name('UserPhoneNumber.update');
 
 
+//search user
 
+Route::Post('/search_user','AddUserController@search')->name('search');
 
 
 

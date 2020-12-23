@@ -5,7 +5,7 @@
     $(document).ready(function() {
 
 
-        $(document).on('change', '#Country_Name', function() {
+        $(document).on('change','#Country_Name', function() {
 
             var country_id = $(this).val();
             //  console.log(MainType_id);
@@ -13,9 +13,9 @@
             var FormTag = $(this).parent().parent().parent();
             var op = " ";
             $.ajax({
-                type: 'get',
+                type:'get',
                 url: "{{ url('/D4') }}",
-                data: {
+                data:{
                     'id': country_id
                 },
                 success: function(data) {

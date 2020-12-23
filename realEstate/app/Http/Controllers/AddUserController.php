@@ -35,10 +35,10 @@ class AddUserController extends Controller
         //
 
             try {
-              
+
 
                 $user = User::create([
-                   
+
                     'First_Name' => request('first_name'),
                     'Middle_Name' => request('middle-name'),
                     'Last_Name' => request('last-name'),
@@ -67,8 +67,8 @@ class AddUserController extends Controller
                     'User_ID' => $user_id,
                     'User_Type_ID' => request('select_type')
                     ]);
-                
-                
+
+
 
                 //  $user_type = Type_Of_User::create([
                 // 'User_ID' => $user_id,
@@ -82,8 +82,8 @@ class AddUserController extends Controller
                      return back()->with('error', 'Already Exist !!');
                  }
             }
-     
-    
+
+
     }
     /**
      * Store a newly created resource in storage.
@@ -129,7 +129,13 @@ class AddUserController extends Controller
     {
         //
     }
+    public function search()
+    {
+        $search = request('Search');
+        $Email= Emails::all()->where('email', 'LIKE', $search)->get();
+        return response()->json($Email);
 
+    }
     /**
      * Remove the specified resource from storage.
      *

@@ -20,20 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d769efd1-97e1-47e1-8384-ee2d2e51b516" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Users_Show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AddUserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AddUserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/StateController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/StateController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserTypes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserTypes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Phone_Numbers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Phone_Numbers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_14_173646_create_emails_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_14_173646_create_emails_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Add_City.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Add_City.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Add_User.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Add_User.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Item_Sub_Type_Show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Item_Sub_Type_Show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/layouts/foot.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/layouts/foot.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/layouts/head.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/layouts/head.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/layouts/slidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/layouts/slidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/StreetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/StreetController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Add_Street.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Add_Street.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Properties_Select.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Properties_Select.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -149,6 +141,7 @@
       <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
       <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
       <path value="$PROJECT_DIR$/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/vendor/techlab/smartwizard" />
     </include_path>
   </component>
   <component name="ProjectId" id="1kI1nMEVitWm5TymDvJSblceTGv" />
@@ -161,6 +154,12 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../realEstate" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -209,6 +208,23 @@
       <workItem from="1607158670936" duration="276000" />
       <workItem from="1607453510514" duration="774000" />
       <workItem from="1608290213926" duration="15000" />
+      <workItem from="1608655437038" duration="1108000" />
+      <workItem from="1608657407921" duration="1727000" />
+      <workItem from="1608659538398" duration="1786000" />
+      <workItem from="1608661384610" duration="1914000" />
+      <workItem from="1608663339186" duration="1801000" />
+      <workItem from="1608665184330" duration="1264000" />
+      <workItem from="1608667089325" duration="1789000" />
+      <workItem from="1608668928682" duration="1707000" />
+      <workItem from="1608670742682" duration="1774000" />
+      <workItem from="1608672580292" duration="994000" />
+      <workItem from="1608675741859" duration="1597000" />
+      <workItem from="1608677834851" duration="654000" />
+      <workItem from="1608711953421" duration="1719000" />
+      <workItem from="1608713731543" duration="1778000" />
+      <workItem from="1608715543252" duration="1716000" />
+      <workItem from="1608717371557" duration="2845000" />
+      <workItem from="1608730299108" duration="603000" />
     </task>
     <servers />
   </component>
@@ -228,18 +244,22 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1608718555466">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1608718555466" />
     <state x="246" y="167" key="FileChooserDialogImpl" timestamp="1607158946154">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="246" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1607158946154" />
-    <state x="604" y="336" key="NewPhpFileDialog" timestamp="1605515420306">
+    <state x="604" y="336" key="NewPhpFileDialog" timestamp="1608657695864">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="604" y="336" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1605515420306" />
-    <state x="114" y="192" key="run.anything.popup" timestamp="1605517472836">
+    <state x="604" y="336" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1608657695864" />
+    <state x="114" y="192" key="run.anything.popup" timestamp="1608718537158">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="114" y="192" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1605517472836" />
+    <state x="114" y="192" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1608718537158" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
