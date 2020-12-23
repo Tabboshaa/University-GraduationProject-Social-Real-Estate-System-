@@ -53,14 +53,14 @@ class AddUserController extends Controller
 
                 'User_ID' => $user_id,
                 'email' => request('Email'),
-                'Default' => 0
+                'Default' => 1
                 ]);
 
                 $phone_number = Phone_Numbers::create([
 
                 'User_ID' => $user_id,
                 'phone_number' => request('phone_number'),
-                'Default' => 0
+                'Default' => 1
                  ]);
 
                  $user_type = Type_Of_User::create([

@@ -2,10 +2,11 @@
 
 #regForm {
   background-color: #ffffff;
-  margin: 100px auto;
+  margin: 30px auto;
   padding: 40px;
   width: 70%;
   min-width: 300px;
+  font-size: 15px;
 }
 
 /* Style the input fields */
@@ -44,5 +45,27 @@ input.invalid {
   
   /* Mark the steps that are finished and valid: */
   .step.finish {
-    background-color: #4CAF50;
+    background-color: rgb(17, 113, 192);
   }
+
+  #nextBtn
+  {
+    background-color: rgb(17, 113, 192);
+    color: white;
+    border-radius: 3px;
+    border-color: white;
+    border-width: 0px;
+    font-size: 18px;
+    padding: 7pt;
+  }
+  #prevBtn
+  {
+    background-color: rgb(94, 94, 110);
+    border-radius: 3px;
+    color: white;
+    border-color: white;
+    border-width: 0px;
+    font-size: 18px;
+    padding: 7pt;
+  }
+  

@@ -1,30 +1,51 @@
 @extends('website.backend.database pages.Item')
 @section('Item_Main_Type_table')
+
+<link href="{{asset('css/CategoriesDesign.css')}}" rel="stylesheet" type="text/css" />
+
 <form method="Post" action="{{url('/')}}" enctype="multipart/form-data">
     @csrf
-    <table>
+    @foreach($images as $image)
         @foreach($property as $p)
-     
-            <tr>
-                <td>
-                    <a href="javascript:void(0)" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')"> 
-                    <label for="Sub_Type_Property" class="col-md-2 col-form-label text-md-right">{{ __($p->Property_Name) }}</label> 
-                </a>
-                </td>
-            </tr>
         
-        @endforeach
-    <tr>
-    <!-- send item id to be shown in show item page -->
-    <td>
-    <button type="submit" class="btn btn-primary">
-        {{ __('Next') }}
-    </button>
+            <div class="col-sm-3">
+                
+                <table id="cateagories">
+                    <body>
+                        
+                        <tr>
+                            <td>
+                                
+                                <a href="javascript:void(0)" id="details" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')"> 
+                                   
+                                    <img  src="{{ asset('Images/' . $image->getFilename()) }}" id="PropertyImage">
+                                   
+                                    <label for="Sub_Type_Property" class="col-md-2 col-form-label text-md-right">{{ __($p->Property_Name) }}</label> 
+                                </a>
+                                
+                            </td>
+                          
+                        </tr>
+                        
+                    </body>
+                </table>
+                
 
-</td>
-</tr>
-    </table>
-    </form>
+            </div>
+        @endforeach
+        @endforeach
+
+        <tr>
+        <!-- send item id to be shown in show item page -->
+            <td>
+                <button type="submit" class="btn btn-primary">
+                    {{ __('Next') }}
+                </button>
+
+            </td>
+        </tr>
+
+</form>
 
 <div class="modal fade" id="EditMainTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -36,7 +57,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="data_form"">
+                <form id="data_form">
                     @csrf
                    
                 </form>
@@ -47,6 +68,17 @@
 </div>
 
 <script>
+
+window.onload = choosePic;
+
+var myPix = new Array("images/1.jpeg","images/2.jpeg","images/3.jpeg","images/4.jpeg","images/5.jpeg","images/6.jpeg");
+
+function choosePic() {
+
+     var randomNum = Math.floor(Math.random() * myPix.length);
+     document.getElementById("PropertyImage").src = myPix[randomNum];
+}
+
     function AddDetail(id, name) {
 
         $("#exampleModalLabel").html(name); 

@@ -31,7 +31,7 @@
 							</div>
 
 							<div class="item form-group">
-								<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Middle Name </label>
+								<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Middle Name <span class="required">*</span></label>
 								<div class="col-md-6 col-sm-6 ">
 									<input id="middle-name" class="form-control" type="text" name="middle-name">
 								</div>
@@ -44,11 +44,11 @@
 									<input type="text" id="last-name" name="last-name" required="required" class="form-control">
 								</div>
 							</div>
-
 							<div class="item form-group">
-								<label class="col-form-label col-md-3 col-sm-3 label-align ">User Type</label>
+								<label class="col-form-label col-md-3 col-sm-3 label-align ">User Type <span class="required">*</span></label>
 								<div class="col-md-6 col-sm-6 ">
-									<select class="form-control" name="select_type">
+									<select class="form-control" name="select_type" required>
+										<option value="0" selected disabled>Select Type</option>
 										@foreach($user_type as $user_type)
 										<option value="{{$user_type->User_Type_ID}}">{{$user_type->Type_Name}}</option>
 										@endforeach
@@ -71,8 +71,17 @@
 								</div>
 							</div>
 
+							
 							<div class="item form-group">
-								<label class="col-form-label col-md-3 col-sm-3 label-align">Gender</label>
+								<label class="col-form-label col-md-3 col-sm-3 label-align" for="phone_number">National ID <span class="required">*</span>
+								</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="national_id" name="national_id" required="required" class="form-control">
+								</div>
+							</div>
+
+							<div class="item form-group">
+								<label class="col-form-label col-md-3 col-sm-3 label-align">Gender <span class="required">*</span></label>
 								<div class="col-md-6 col-sm-6 ">
 									<div id="gender" class="btn-group" data-toggle="buttons">
 										<label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
@@ -88,7 +97,7 @@
 
 							<div class="tab">
 							<div class="item form-group">
-								<label class="col-form-label col-md-3 col-sm-3 label-align" for="phone_number">Main Phone Number <span class="required">*</span>
+								<label class="col-form-label col-md-3 col-sm-3 label-align" for="phone_number">Phone Number <span class="required">*</span>
 								</label>
 								<div class="col-md-6 col-sm-6 ">
 									<input type="phone" id="phone_number" name="phone_number" required="required" class="form-control">
@@ -96,35 +105,10 @@
 							</div>
 
 							<div class="item form-group">
-								<label class="col-form-label col-md-3 col-sm-3 label-align" for="phone_number"> Altranative Phone Number
-								</label>
-								<div class="col-md-6 col-sm-6 ">
-									<input type="phone" id="second_phone_number" name="phone_number" class="form-control">
-								</div>
-							</div>
-							<div class="item form-group">
-								<label class="col-form-label col-md-3 col-sm-3 label-align" for="phone_number">National ID <span class="required">*</span>
-								</label>
-								<div class="col-md-6 col-sm-6 ">
-									<input type="text" id="national_id" name="national_id" required="required" class="form-control">
-								</div>
-							</div>
-							</div>
-
-							<div class="tab">
-							<div class="item form-group">
 								<label class="col-form-label col-md-3 col-sm-3 label-align" for="Email">Email <span class="required">*</span>
 								</label>
 								<div class="col-md-6 col-sm-6 ">
 									<input type="text" id="Email" name="Email" required="required" class="form-control">
-								</div>
-							</div>
-
-							<div class="item form-group">
-								<label class="col-form-label col-md-3 col-sm-3 label-align" for="Email">Second Email
-								</label>
-								<div class="col-md-6 col-sm-6 ">
-									<input type="text" id="Email" name="Email" class="form-control">
 								</div>
 							</div>
 							</div>
@@ -149,8 +133,8 @@
 
 							<div style="overflow:auto;">
 								<div style="float:right;">
-								  <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-								  <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+								  <button type="button" id="prevBtn" onclick="nextPrev(-1)">  Previous</button>
+								  <button type="button" id="nextBtn" onclick="nextPrev(1)"> Next  </button>
 								</div>
 							  </div>
 							  

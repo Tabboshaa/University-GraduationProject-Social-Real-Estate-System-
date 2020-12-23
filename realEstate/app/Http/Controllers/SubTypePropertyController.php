@@ -134,8 +134,9 @@ class SubTypePropertyController extends Controller
     public function property_select($sub_type_id)
     {
         //
+        $images = \File::allFiles(public_path('Images'));
         $property = Sub_Type_Property::all()->where('Sub_Type_Id','=',$sub_type_id);
-        return view('website.backend.database pages.Properties_Select', ['property' => $property]);
+        return view('website.backend.database pages.Properties_Select', ['property' => $property,'images'=>$images]);
   
     }
    
