@@ -84,10 +84,8 @@
                     DataTypeName:DataTypeName,
                      _token:_token
                 },
-                success:function (response){
-                    console.log('Success')
-                    console.log(response);
-                    $('#sid'+response.id + 'td:nth-child(1)').text(response.DataTypeName);
+                success:function (){
+                    console.log('Success');
                     $("#EditDataTypeModal").modal("toggle");
                     // $("#EditDataTypeModal")[0].reset();
                 },

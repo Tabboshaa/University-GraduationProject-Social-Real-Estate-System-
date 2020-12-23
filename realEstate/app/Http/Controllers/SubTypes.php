@@ -41,13 +41,19 @@ class SubTypes extends Controller
 
     public function editSubType()
     {
-
+        try {
+       
         $subtype = Sub_Type::all()->find(request('id'));
-        $subtype->Main_Type_Id = request('MainTypeid');
         $subtype->Sub_Type_Name = request('SupTypeName');
         $subtype->save();
 
-        return response()->json($subtype);
+        return back()->with('info','Item Edited Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == 1062){
+            return back()->with('error','Error editing item');
+        }
+    }
     }
 
 
@@ -146,7 +152,12 @@ class SubTypes extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        try{
         Sub_Type::destroy($request->id);
-        return redirect()->route('subtype_show');
+        return redirect()->route('subtype_show')->with('success', 'Item Deleted Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+
+        return redirect()->route('subtype_show')->with('error', 'Item cannot be deleted');
+    }
     }
 }

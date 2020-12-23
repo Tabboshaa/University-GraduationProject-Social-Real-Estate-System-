@@ -96,20 +96,33 @@ class CountryController extends Controller
     public function destroy(Request $request)
     {
         // Will Destroy each column with id form action 
+        try {
         Country::destroy($request->id);
-        return redirect()->route('country_show');
+        return redirect()->route('country_show')->with('success', 'Item Deleted Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+
+        return redirect()->route('country_show')->with('error', 'Item cannot be deleted');
+                
+    }
     }
     //  function  EDIT: AJAX
 
     public function editCountry(Request $request)
     {
-        //hygeb el country eli el ID bt3ha da 
+        try {
+       
+            //hygeb el country eli el ID bt3ha da 
         $country= Country::all()->find(request('id'));
         //hy7ot el name el gded f column el country name 
         $country->Country_Name=request('CountryName');
         $country->save();
-
-        //hyb3t el update el gded fl country table 
-        return response()->json($country);
+                return back()->with('info','Item Edited Successfully');
+            }catch (\Illuminate\Database\QueryException $e){
+                $errorCode = $e->errorInfo[1];
+                if($errorCode == 1062){
+                    return back()->with('error','Error editing item');
+                }
+            }
+            
     }
 }

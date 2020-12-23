@@ -28,9 +28,9 @@ class DetailsController extends Controller
 
     public function create()
     {
-
+      
      $detailsInput=request('data');
-
+     
      foreach ($detailsInput as $detail)
      {
          $property_details=Property_Details::all()->where('Property_Detail_Id','=',Arr::get($detail,'id'))->first(); 
@@ -59,7 +59,7 @@ class DetailsController extends Controller
             // ]);
             // return back()->with('success', 'Item Created Successfully');
            
-        return response()->json($property_details);
+        return back()->with('success', 'Item Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -81,18 +81,31 @@ class DetailsController extends Controller
     public function edit()
     {
         //
-        $detail = Details::all()->find(request('id'));
-        $detail->DetailValue = request('DetailName');
-        $detail->save();
+        try {
+       
+            $detail = Details::all()->find(request('id'));
+            $detail->DetailValue = request('DetailName');
+            $detail->save();
 
-        return response()->json($detail);
+                return back()->with('info','Item Edited Successfully');
+            }catch (\Illuminate\Database\QueryException $e){
+                $errorCode = $e->errorInfo[1];
+                if($errorCode == 1062){
+                    return back()->with('error','Error editing item');
+                }
+            }
     }
     public function destroy(Request $request, $id)
     {
         //
+        try {
         Property_Details::destroy($request->id);
+        return redirect()->route('details_show')->with('success', 'Item Deleted Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('details_show');
+        return redirect()->route('details_show')->with('error', 'Item cannot be deleted');
+                
+    }
     }
  
 }

@@ -105,9 +105,7 @@
                 _token: _token
             },
             success: function(response) {
-                console.log('Success')
-                console.log(response);
-                $('#sid' + response.id + 'td:nth-child(1)').text(response.SupTypeName);
+                console.log('Success');
                 $("#EditSubTypeModal").modal("toggle");
                 // $("#EditSubTypeModal")[0].reset();
             },

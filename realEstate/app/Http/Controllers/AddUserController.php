@@ -53,14 +53,14 @@ class AddUserController extends Controller
 
                 'User_ID' => $user_id,
                 'email' => request('Email'),
-                'Default' => 0
+                'Default' => 1
                 ]);
 
                 $phone_number = Phone_Numbers::create([
 
                 'User_ID' => $user_id,
                 'phone_number' => request('phone_number'),
-                'Default' => 0
+                'Default' => 1
                  ]);
 
                  $user_type = Type_Of_User::create([
@@ -145,38 +145,62 @@ class AddUserController extends Controller
     public function destroy(Request $request,$id=null)
     {
         //
+        try {
         User::destroy($request->id);
         Emails::destroy($request->id);
         Phone_Numbers::destroy($request->id);
-        return redirect()->route('users_show/'.$id);
+        return redirect()->route('users_show/'.$id)->with('success', 'Item Deleted Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+
+        return redirect()->route('users_show/'.$id)->with('error', 'Item cannot be deleted');
+                
+    }
     }
 
     public function editUserName(Request $request)
     {
+        try {
         $user= User::all()->find(request('id'));
         $user->First_Name=request('UserFirstName');
         $user->Middle_Name=request('UserMiddleName');
         $user->Last_Name=request('UserLastName');
         $user->save();
-
-        return response()->json($user);
+        return back()->with('info','Item Edited Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == 1062){
+            return back()->with('error','Already Exist !!');
+        }
+    }
     }
 
     public function editUserEmail(Request $request)
     {
+        try {
         $email= Emails::all()->find(request('id'));
         $email->email=request('email');
         $email->save();
-
-        return response()->json($email);
+        return back()->with('info','Item Edited Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == 1062){
+             return back()->with('error', 'Already Exist !!');
+        }
+    }
     }
 
     public function editUserPhoneNumber(Request $request)
     {
+        try {
         $phone_number= Phone_Numbers::all()->find(request('id'));
         $phone_number->phone_number=request('phonenumber');
         $phone_number->save();
-
-        return response()->json($phone_number);
+        return back()->with('info','Item Edited Successfully');
+            }catch (\Illuminate\Database\QueryException $e){
+                $errorCode = $e->errorInfo[1];
+                if($errorCode == 1062){
+                     return back()->with('error', 'Already Exist !!');
+                }
+            }
     }
 }

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Main_Type;
 use App\Sub_Type;
 use App\sub_type_property;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File as FacadesFile;
 
 class SubTypePropertyController extends Controller
 {
@@ -96,13 +98,17 @@ class SubTypePropertyController extends Controller
     public function edit()
     {
         //
+        try {
         $subtypeproperty = Sub_Type_Property::all()->find(request('id'));
-        // $subtypepropertypropertyproperty->Main_Type_Id=request('MainTypeid');
-        // $subtypepropertyproperty->Sub_Type_Id=request('SubTypeid');
         $subtypeproperty->Property_Name = request('SubTypePropertyName');
         $subtypeproperty->save();
-
-        return response()->json($subtypeproperty);
+        return back()->with('info','Item Edited Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == 1062){
+            return back()->with('error','Error editing item');
+        }
+    }
     }
 
     /**
@@ -127,15 +133,22 @@ class SubTypePropertyController extends Controller
     public function destroy(Request $request, $id)
     {
         //
+        try {
         Sub_Type_Property::destroy($request->id);
-        return redirect()->route('subtypeproperty_show');
+        return redirect()->route('subtypeproperty_show')->with('success', 'Item Deleted Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+
+        return redirect()->route('subtypeproperty_show')->with('error', 'Item cannot be deleted');
+                
+    }
     }
 //function that sends the property details that are desplayed in checkboxes
     public function property_select($sub_type_id)
     {
         //
+        $images = FacadesFile::allFiles(public_path('Images'));
         $property = Sub_Type_Property::all()->where('Sub_Type_Id','=',$sub_type_id);
-        return view('website.backend.database pages.Properties_Select', ['property' => $property]);
+        return view('website.backend.database pages.Properties_Select', ['property' => $property,'images'=>$images]);
   
     }
    

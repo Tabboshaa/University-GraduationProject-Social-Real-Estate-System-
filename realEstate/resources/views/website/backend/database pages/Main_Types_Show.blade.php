@@ -88,10 +88,8 @@
                     MainTypeName:MainTypeName,
                      _token:_token
                 },
-                success:function (response){
-                    console.log('Success')
-                    console.log(response);
-                    // $('#sid'+response.id + 'td:nth-child(1)').text(response.MainTypeName);
+                success:function (){
+                    console.log('Success');
                     $("#EditMainTypeModal").modal("toggle");
                     // $("#EditMainTypeModal")[0].reset();
                 },

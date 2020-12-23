@@ -110,10 +110,14 @@ class StateController extends Controller
     public function destroy(Request $request,$id=null)
     {
         // Will Destroy each column with id form action 
-
+        try {
         State::destroy($request->id);
+        return redirect()->route('state_show')->with('success', 'Item Deleted Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('state_show');
+        return redirect()->route('state_show')->with('error', 'Item cannot be deleted');
+                
+    }
   
     }
     public function findstate(){
@@ -129,6 +133,8 @@ class StateController extends Controller
 
     public function editState(Request $request)
     {
+        try {
+       
         //hygeb el country eli el ID bt3ha da 
         $state= State::all()->find(request('id'));
         //hy7ot el name el gded f column el country name 
@@ -136,6 +142,12 @@ class StateController extends Controller
         $state->save();
 
         //hyb3t el update el gded fl country table 
-        return response()->json($state);
+        return back()->with('info','Item Edited Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == 1062){
+            return back()->with('error','Error editing item');
+        }
+    }   
     }
 }

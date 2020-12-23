@@ -89,15 +89,12 @@
                 CityName: CityName,
                 _token: _token
             },
-            success: function(response) {
-                console.log('Shaimaa Es7a m3aia mtnamshe')
-                console.log(response);
-                // $('#sid'+response.id + 'td:nth-child(1)').text(response.SupTypeName);
+            success: function() {
+                console.log('Success')
                 $("#EditCityModal").modal("toggle");
-                // $("#EditSubTypeModal")[0].reset();
             },
             error: function() {
-                console.log('Error 7azen');
+                console.log('Error');
             }
 
         });

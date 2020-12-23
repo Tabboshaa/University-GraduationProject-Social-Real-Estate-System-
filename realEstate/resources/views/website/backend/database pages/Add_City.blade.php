@@ -3,7 +3,7 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function (){
+$(document).ready(function (){
 
         // on change new action will happen when user select new country depending on 'select id' "#country_name"
         $(document).on('change','#country_name',function(){

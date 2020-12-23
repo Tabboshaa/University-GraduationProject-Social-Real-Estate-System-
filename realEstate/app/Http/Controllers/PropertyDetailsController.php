@@ -72,17 +72,30 @@ class PropertyDetailsController extends Controller
     public function edit()
     {
         //
+        try {
         $propertydetail = Property_Details::all()->find(request('id'));
         $propertydetail->Detail_Name = request('PropertyDetailName');
         $propertydetail->save();
-
-        return response()->json($propertydetail);
+        return back()->with('info','Item Edited Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == 1062){
+            return back()->with('error','Error editing item');
+        }
+    }
     }
     public function destroy(Request $request)
     {
         //
+        try {
         Property_Details::destroy($request->id);
-        return redirect()->route('property_detail_show');
+        
+        return redirect()->route('property_detail_show')->with('success', 'Item Deleted Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+
+        return redirect()->route('property_detail_show')->with('error', 'Item cannot be deleted');
+                
+    }
     }
     
     public function submit_properties()

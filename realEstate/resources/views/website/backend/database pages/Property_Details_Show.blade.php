@@ -94,9 +94,8 @@
                 PropertyDetailName: PropertyDetailName,
                 _token: _token
             },
-            success: function(response) {
-                console.log('Success')
-                console.log(response);
+            success: function() {
+                console.log('Success');
                 // $('#sid'+response.id + 'td:nth-child(1)').text(response.PropertyDetailName);
                 $("#EditPropertyDetailModal").modal("toggle");
                 // $("#EditPropertyDetailModal")[0].reset();

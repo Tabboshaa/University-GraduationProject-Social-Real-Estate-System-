@@ -15,7 +15,7 @@
                 <div class="clearfix"></div>
                 
                 <div class="x_content">
-
+                @include('website.backend.layouts.flashmessage')
                     <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
                         @foreach($user_types as $user_types)
                         <li class="nav-item">
@@ -55,7 +55,7 @@
                                         
                                         <td> {{$users->First_Name}} {{$users->Middle_Name}} {{$users->Last_Name}} <a href="javascript:void(0)" onclick="setUserNameIdName('{{$users->id}}','{{$users->First_Name}}' , '{{$users->Middle_Name}}' , '{{$users->Last_Name}}')" ><i class="fa fa-edit"></i></a></td>
                                         <td> {{$users->email}} <a href="javascript:void(0)" ><i class="fa fa-edit" onclick="setUserEmailIdName('{{$users->Email_Id}}','{{$users->email}}')"></i></a></td>
-                                        <td> {{$users->phone_number}} <a href="javascript:void(1)"><i class="fa fa-edit" onclick="setUserPhoneNumberIdName('{{$users->PhoneNumber_Id}}','{{$users->phone_number}}')"></i></a></td>
+                                        <td> {{$users->phone_number}} <a href="javascript:void(0)"><i class="fa fa-edit" onclick="setUserPhoneNumberIdName('{{$users->PhoneNumber_Id}}','{{$users->phone_number}}')"></i></a></td>
                                         <td><input type="checkbox" name="id[]" value="{{$users->User_ID}}"></td>
                                         
                                     </tr>
@@ -205,15 +205,12 @@
                 _token: _token
             },
             success: function(response) {
-                console.log('Shaimaa Es7a m3aia mtnamshe')
-                console.log(response);
-                // $('#sid'+response.id + 'td:nth-child(1)').text(response.SupTypeName);
+                console.log('Sucess');
                 $("#EditUserNameModel").modal("toggle");
                 // $("#EditSubTypeModal")[0].reset();
             },
             error: function() {
-                console.log(id);
-                console.log('Error 7azen');
+                console.log('Error');
             }
 
         });
@@ -234,18 +231,13 @@
                 email:email,
                 _token: _token
             },
-            success: function(response) {
-                console.log('Shaimaa Es7a m3aia mtnamshe')
-                console.log(response);
-                // $('#sid'+response.id + 'td:nth-child(1)').text(response.SupTypeName);
+            success: function() {
+                console.log('Success');
                 $("#EditUserEmailModel").modal("toggle");
                 // $("#EditSubTypeModal")[0].reset();
             },
-            error: function(response) {
-                console.log(id);
-                console.log(email);
-                console.log(response);
-                console.log('Error 7azen');
+            error: function() {
+                console.log('Error');
             }
 
         });
@@ -267,14 +259,12 @@
                 _token: _token
             },
             success: function(response) {
-                console.log('Shaimaa Es7a m3aia mtnamshe')
-                console.log(response);
-                // $('#sid'+response.id + 'td:nth-child(1)').text(response.SupTypeName);
+                console.log('Sucess');
                 $("#EditUserPhoneNumberModel").modal("toggle");
                 // $("#EditSubTypeModal")[0].reset();
             },
             error: function() {
-                console.log('Error 7azen');
+                console.log('Error');
             }
 
         });

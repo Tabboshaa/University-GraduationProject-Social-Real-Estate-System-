@@ -94,10 +94,8 @@
                     DetailName:DetailName,
                      _token:_token
                 },
-                success:function (response){
-                    console.log('Success')
-                    console.log(response);
-                    $('#sid'+response.id + 'td:nth-child(1)').text(response.DetailName);
+                success:function (){
+                    console.log('Success');
                     $("#EditDetailModal").modal("toggle");
                     // $("#EditDetailModal")[0].reset();
                 },
