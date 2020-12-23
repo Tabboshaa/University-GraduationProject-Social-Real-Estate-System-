@@ -1,0 +1,36 @@
+table , th , td , tr
+{
+    margin: 10pt;
+    border: 10px;
+    border-radius: 7pt;
+    border-color: white;   
+
+    
+}
+
+thead , tbody
+{
+    border-color: white;   
+    border: 10px;
+
+}
+
+th 
+{
+    background-color: #8BAAD2;
+    color: rgb(255, 255, 255);
+    border: 10px;
+    text-align: center;
+    border-color: white;   
+
+}
+
+td
+{
+    background-color: white;
+    border: 10px ;
+    font-size: 10pt;
+      
+
+    
+}

@@ -37,4 +37,6 @@
 <link href="{{asset('AdminBackEnd/css/smart_wizard_arrows.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('AdminBackEnd/css/smart_wizard.css')}}" rel="stylesheet" type="text/css" />
 
+
+
 </head>

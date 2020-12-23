@@ -36,11 +36,6 @@ class RegionController extends Controller
     {
         //
 
-        request()->validate([
-            'Region_Name' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"],
-        ]);
-
-
         try {
         $region = Region::create([
             'Country_Id' => request('Country_Name'),

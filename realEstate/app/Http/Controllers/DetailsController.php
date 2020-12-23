@@ -16,6 +16,7 @@ class DetailsController extends Controller
 
     public function index()
     {
+       
         $main_types = Main_Type::all();
         $sub_types = Sub_Type::all();
         $property = Sub_Type_Property::all();
@@ -27,25 +28,41 @@ class DetailsController extends Controller
 
     public function create()
     {
-     $property=request()->all();
-       return Arr::get($property, '1');
-        // $property = Sub_Type_Property::all()->where('Property_Id','=',);
-        // return $property;
-        // $property_item = Arr::get($property, 'id');
+      
+     $detailsInput=request('data');
+     
+     foreach ($detailsInput as $detail)
+     {
+         $property_details=Property_Details::all()->where('Property_Detail_Id','=',Arr::get($detail,'id'))->first(); 
+
+         $details[] = [
+             'Item_Id' => 1,
+             'Main_Type_Id' => Arr::get($property_details,'Main_Type_Id'),
+             'Sub_Type_Id' => Arr::get($property_details,'Sub_Type_Id'),
+             'Property_Id'=> Arr::get($property_details,'Property_Id'),
+             'property_Detail_Id' => Arr::get($property_details,'Property_Detail_Id'),
+             'DetailValue' => Arr::get($detail,'value')
+         ];
+     }
+
 
         request()->validate([
             'DetailValue' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"] 
         ]);
         try {
-            $Detail = Details::create([
-                'Item_Id' => request('Item_Id'),
-                'Main_Type_Id' => request('Main_Type_Name'),
-                'Sub_Type_Id' => request('Sub_Type_Name'),
-                'Property_Id'=>request('Propety_Detail'),
-                'property_Detail_Id' => request('property_Detail_Name'),
-                'DetailValue' => request('DetailValue')
-            ]);
-            return back()->with('success', 'Item Created Successfully');
+            Details::insert($details);
+
+            // $Detail = Details::create([
+            //     'Item_Id' => 1,
+            //     'Main_Type_Id' => request('Main_Type_Name'),
+            //     'Sub_Type_Id' => request('Sub_Type_Name'),
+            //     'Property_Id'=>request('Propety_Detail'),
+            //     'property_Detail_Id' => request('property_Detail_Name'),
+            //     'DetailValue' => request('DetailValue')
+            // ]);
+            // return back()->with('success', 'Item Created Successfully');
+           
+        return back()->with('success', 'Item Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {

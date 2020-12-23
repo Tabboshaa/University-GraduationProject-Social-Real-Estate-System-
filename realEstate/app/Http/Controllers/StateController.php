@@ -34,9 +34,6 @@ class StateController extends Controller
     {
        //
 
-       request()->validate([
-        'State_Name' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"],
-    ]);
        try {
         $state=State::create([
             'State_Name' => request('State_Name'),

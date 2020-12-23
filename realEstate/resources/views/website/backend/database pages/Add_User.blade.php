@@ -127,6 +127,39 @@
 								</label>
 								<div class="col-md-6 col-sm-6 ">
 									<input type="password" id="password_confirmation" name="password_confirmation" required="required" class="form-control">
+
+							<div class="tab">
+							<div class="item form-group">
+								<label class="col-form-label col-md-3 col-sm-3 label-align" for="phone_number">Phone Number <span class="required">*</span>
+								</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="phone" id="phone_number" name="phone_number" required="required" class="form-control">
+								</div>
+							</div>
+
+							<div class="item form-group">
+								<label class="col-form-label col-md-3 col-sm-3 label-align" for="Email">Email <span class="required">*</span>
+								</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="Email" name="Email" required="required" class="form-control">
+								</div>
+							</div>
+							</div>
+
+							<div class="tab">
+							<div class="item form-group">
+								<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Pasword <span class="required">*</span>
+								</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="password" id="password" name="password" required="required" class="form-control">
+								</div>
+							</div>
+
+							<div class="item form-group">
+								<label class="col-form-label col-md-3 col-sm-3 label-align" for="confirm_password">Confirm Password <span class="required">*</span>
+								</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="password" id="password_confirmation" name="password_confirmation" required="required" class="form-control">
 								</div>
 							</div>
 							</div>
@@ -143,6 +176,7 @@
 								<span class="step"></span>
 								<span class="step"></span>
 								<span class="step"></span>
+								
 								
 							  </div>
 
@@ -284,6 +318,15 @@ valid = false;
 
 								
 							
+							for (i = 0; i < y.length; i++) {
+								// If a field is empty...
+								if (y[i].value == "") {
+								// add an "invalid" class to the field:
+								y[i].className += " invalid";
+								// and set the current valid status to false:
+								valid = false;
+								}
+							}
 							// If the valid status is true, mark the step as finished and valid:
 							if (valid) {
 								document.getElementsByClassName("step")[currentTab].className += " finish";

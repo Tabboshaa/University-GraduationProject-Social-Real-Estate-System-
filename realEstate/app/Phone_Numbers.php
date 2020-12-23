@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Phone_Numbers extends Model
 {
     //
-    protected $fillable=[
-
+    protected $primaryKey='PhoneNumber_Id';
+    protected $fillable = [
         'User_ID',
         'phone_number',
         'Default'
