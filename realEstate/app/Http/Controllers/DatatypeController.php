@@ -72,11 +72,19 @@ class DatatypeController extends Controller
     public function edit()
     {
         //
-        $data_type = Datatype::all()->find(request('id'));
-        $data_type->datatype = request('DataTypeName');
-        $data_type->save();
+        try {
+       
+            $data_type = Datatype::all()->find(request('id'));
+            $data_type->datatype = request('DataTypeName');
+            $data_type->save();
 
-        return response()->jason($data_type);
+                return back()->with('info','Item Edited Successfully');
+            }catch (\Illuminate\Database\QueryException $e){
+                $errorCode = $e->errorInfo[1];
+                if($errorCode == 1062){
+                    return back()->with('error','Error editing item');
+                }
+            }
     }
 
     /**
@@ -100,9 +108,13 @@ class DatatypeController extends Controller
     public function destroy()
     {
         //
-
+        try {
         Datatype::destroy(request('id'));
+        return  redirect()->route('data_type_show')->with('success', 'Item Deleted Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('data_type_show');
+        return redirect()->route('data_type_show')->with('error', 'Item cannot be deleted');
+                
+    }
     }
 }

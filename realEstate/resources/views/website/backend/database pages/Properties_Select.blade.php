@@ -3,7 +3,7 @@
 
 <link href="{{asset('css/CategoriesDesign.css')}}" rel="stylesheet" type="text/css" />
 
-<form method="Post" action="{{url('/')}}" enctype="multipart/form-data">
+<form method="Post" action="{{url('/item_created')}}" enctype="multipart/form-data">
     @csrf
 
     @foreach($property as $p)

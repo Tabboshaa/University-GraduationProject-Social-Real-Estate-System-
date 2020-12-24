@@ -123,7 +123,7 @@ class UserTypes extends Controller
     {
         //
         $user_types = User_Type::all();
-        $Users=[];
+        $Users=User_Type::all();
         return view('website/backend.database pages.Users_Show', ['user_types' => $user_types,'users'=>$Users]);
         
     }

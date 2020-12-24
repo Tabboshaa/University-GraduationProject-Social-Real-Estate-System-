@@ -251,7 +251,7 @@
                                         document.getElementById("nextBtn").innerHTML = "Next";
                                     }
                                     // ... and run a function that displays the correct step indicator:
-                                    fixStepIndicator(n)
+                                    fixStepIndicator(n);
                                 }
 
                                 function nextPrev(n) {

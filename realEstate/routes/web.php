@@ -168,6 +168,8 @@ Route::get('/edit_User_Name','AddUserController@editUserName')->name('UserName.u
 Route::get('/edit_User_Email','AddUserController@editUserEmail')->name('UserEmail.update');
 Route::get('/edit_User_PhoneNumber','AddUserController@editUserPhoneNumber')->name('UserPhoneNumber.update');
 
+Route::Post('/item_created','ItemController@itemShow');
+
 
 //search user
 

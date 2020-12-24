@@ -32,6 +32,15 @@ class ItemController extends Controller
         return view('website.backend.database pages.AddItemSteps',['user_type' => $user_type,'counrty'=>$counrty]);
     }
 
+    public function itemShow()
+    {
+        //
+        
+        return view('website.backend.database pages.Item')->with('success', 'Item Created Successfully');
+
+    }
+
+  
     public function SubTypeShow($id=null)
     {
         $sub_types=Sub_Type::all();
@@ -42,12 +51,12 @@ class ItemController extends Controller
     public function create()
     {
         //
+
         try {
             $item=Item::create([
-                'Street_Id' => request('Street'),
-                'User_Id'=> request('Search')
+                'Street_Id'=>request("Street"), 
+                'User_Id'=>request("Search")
             ]);
-            dd($item);
             $item_id=Arr::get($item, 'id');
             return redirect()->url('/Item_Sub_types_show/'.$item_id);
             //return back()->with('success','Item Created Successfully');

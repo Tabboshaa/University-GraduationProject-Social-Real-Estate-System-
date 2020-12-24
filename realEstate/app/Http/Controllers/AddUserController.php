@@ -132,7 +132,7 @@ class AddUserController extends Controller
     public function search()
     {
         $search = request('Search');
-        $Email= Emails::all()->where('email', 'LIKE', $search)->get();
+        $Email= Emails::all()->where('email', 'LIKE', $search);
         return response()->json($Email);
 
     }
@@ -149,10 +149,10 @@ class AddUserController extends Controller
         User::destroy($request->id);
         Emails::destroy($request->id);
         Phone_Numbers::destroy($request->id);
-        return redirect()->route('users_show/'.$id)->with('success', 'Item Deleted Successfully');
+        return redirect()->route('users_show')->with('success', 'Item Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('users_show/'.$id)->with('error', 'Item cannot be deleted');
+        return redirect()->route('users_show')->with('error', 'Item cannot be deleted');
                 
     }
     }
