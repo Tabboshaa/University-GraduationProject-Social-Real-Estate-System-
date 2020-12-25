@@ -58,6 +58,7 @@ class ItemController extends Controller
                 'User_Id'=>request("Search")
             ]);
             $item_id=Arr::get($item, 'id');
+            return $this()->SubTypeShow($item_id);
             return redirect()->url('/Item_Sub_types_show/'.$item_id);
             //return back()->with('success','Item Created Successfully');
         }catch (\Illuminate\Database\QueryException $e){

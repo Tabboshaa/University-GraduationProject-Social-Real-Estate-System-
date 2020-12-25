@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\User_Type;
 use App\Emails;
+use App\Main_Type;
 use App\Phone_Numbers;
 use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
@@ -131,9 +132,13 @@ class AddUserController extends Controller
     }
     public function search()
     {
-        $search = request('Search');
-        $Email= Emails::all()->where('email', 'LIKE', $search);
-        return response()->json($Email);
+       
+        $search = request('email');
+        // $Email= Emails::all()->first();
+        $test= Main_Type::all();
+        //->where('email','=', 'Omnia@gmail.com')
+        // Arr::get($Email, 'email');
+        return response()->json($test);
 
     }
     /**

@@ -173,7 +173,7 @@ Route::Post('/item_created','ItemController@itemShow');
 
 //search user
 
-Route::Post('/search_user','AddUserController@search')->name('search');
+Route::post('/search_user','AddUserController@search')->name('search');
 
 
 
