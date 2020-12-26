@@ -21,11 +21,18 @@
   <component name="ChangeListManager">
     <list default="true" id="d769efd1-97e1-47e1-8384-ee2d2e51b516" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AddUserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AddUserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/StreetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/StreetController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SubTypePropertyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SubTypePropertyController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SubTypes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SubTypes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/AddItemSteps.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/AddItemSteps.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Add_Country_Show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Add_Country_Show.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Add_Street.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Add_Street.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Item_Sub_Type_Show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Item_Sub_Type_Show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Main_Types_Show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Main_Types_Show.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Properties_Select.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Properties_Select.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Sub_Type.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Sub_Type.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Test.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Test.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/layouts/head.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/layouts/head.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -225,6 +232,35 @@
       <workItem from="1608715543252" duration="1716000" />
       <workItem from="1608717371557" duration="2845000" />
       <workItem from="1608730299108" duration="603000" />
+      <workItem from="1608809108699" duration="2095000" />
+      <workItem from="1608811696153" duration="1723000" />
+      <workItem from="1608817444259" duration="1804000" />
+      <workItem from="1608819284723" duration="1846000" />
+      <workItem from="1608821177248" duration="1774000" />
+      <workItem from="1608822986435" duration="1819000" />
+      <workItem from="1608824947036" duration="1109000" />
+      <workItem from="1608827051404" duration="1025000" />
+      <workItem from="1608828888123" duration="1322000" />
+      <workItem from="1608830767928" duration="2123000" />
+      <workItem from="1608834504985" duration="911000" />
+      <workItem from="1608836751146" duration="679000" />
+      <workItem from="1608883070254" duration="815000" />
+      <workItem from="1608886462301" duration="1710000" />
+      <workItem from="1608896948419" duration="268000" />
+      <workItem from="1608912990990" duration="1251000" />
+      <workItem from="1608915132907" duration="1248000" />
+      <workItem from="1608920943460" duration="112000" />
+      <workItem from="1608921927282" duration="1586000" />
+      <workItem from="1608923729920" duration="1608000" />
+      <workItem from="1608925548503" duration="2001000" />
+      <workItem from="1608927773182" duration="545000" />
+      <workItem from="1608981042294" duration="1631000" />
+      <workItem from="1608983048437" duration="1179000" />
+      <workItem from="1608984599470" duration="1431000" />
+      <workItem from="1608986330793" duration="1932000" />
+      <workItem from="1608988319348" duration="1777000" />
+      <workItem from="1608990131476" duration="1738000" />
+      <workItem from="1609000775350" duration="401000" />
     </task>
     <servers />
   </component>
@@ -256,10 +292,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="604" y="336" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1608657695864" />
-    <state x="114" y="192" key="run.anything.popup" timestamp="1608718537158">
+    <state x="114" y="192" key="run.anything.popup" timestamp="1608987782853">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="114" y="192" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1608718537158" />
+    <state x="114" y="192" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1608987782853" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1608812556620">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1608812556620" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -268,6 +308,11 @@
           <url>file://$PROJECT_DIR$/resources/views/website/backend/database pages/Main_Types.blade.php</url>
           <line>42</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/website/backend/database pages/AddItemSteps.blade.php</url>
+          <line>230</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

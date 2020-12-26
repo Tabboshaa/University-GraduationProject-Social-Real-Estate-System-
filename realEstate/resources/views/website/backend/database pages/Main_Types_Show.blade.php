@@ -26,10 +26,10 @@
 
         <tr>
             <td>{{$main_type->Main_Type_Name}}</td>
-            <td><input type="checkbox" name="mainType[]" value="{{$main_type->Main_Type_Id}}"></td>
-
-         <td><a href="javascript:void(0)" onclick="setMainTypeIdName('{{$main_type->Main_Type_Id}}','{{$main_type->Main_Type_Name}}')"><i class="fa fa-edit"> Edit</i></a></td>
-                </tr>
+            <td><input type="checkbox" name="mainType[]" value="{{$main_type->Main_Type_Id}}" id="MainTypeId"></td>
+            <td><a href="javascript:void(0)" onclick="setMainTypeIdName('{{$main_type->Main_Type_Id}}','{{$main_type->Main_Type_Name}}')"><i class="fa fa-edit"> Edit</i></a></td>
+            <td><a href="javascript:void(0)" onclick="addSubType()" ><i class="fa fa-add"> Add Sub Type</i></a></td>
+        </tr>
 
                 @endforeach
 
@@ -72,6 +72,23 @@
                 $("#id").val(id);
                 $("#MainTypeName").val(name);
                 $("#EditMainTypeModal").modal("toggle");
+        }
+        function addSubType()
+        {
+            var MainTypeId = $("#MainTypeId").val();
+            $.ajax({
+                url: "",
+                Type: "",
+                data: {
+                    MainTypeId:MainTypeId
+                },
+                success:function (){
+
+                },
+                error:function (){
+
+                }
+            })
         }
         $('#EditSubTypeForm').submit(function (){
 

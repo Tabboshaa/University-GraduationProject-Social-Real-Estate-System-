@@ -55,7 +55,7 @@ class ItemController extends Controller
                 'Street_Id'=>request("Street"),
                 'User_Id'=>request("Search")
             ]);
-            $item_id=Arr::get($item, 'id');
+            $item_id=Arr::get($item, 'Item_Id');
             return $this->SubTypeShow($item_id);
             //return back()->with('success','Item Created Successfully');
         }catch (\Illuminate\Database\QueryException $e){
