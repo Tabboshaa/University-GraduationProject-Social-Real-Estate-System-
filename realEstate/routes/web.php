@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'DatatypeController@index');
-Route::get('/', function (){
-    return view('website/backend/database pages/Test');
-});
+// Route::get('/', function (){
+//     return view('website/backend/database pages/Test');
+// });
 
 //main types pages
 Route::get('/main_types', 'MainTypes@index');
@@ -103,9 +103,9 @@ Route::Post('/Add_User','AddUserController@Create');
 
 
 // Item  pages #Tabbosha
-Route::get('addItemSteps','ItemController@index1');
+Route::get('Item','ItemController@index1');
 Route::post('addItem','ItemController@create');
-Route::get('/Item', 'ItemController@SubTypeShow');
+Route::get('/addItemSteps', 'ItemController@SubTypeShow');
 // Route::get('/Item_Main_types_show', 'ItemController@MainTypeShow');
 Route::get('/Item_Sub_types_show/{id}', 'ItemController@SubTypeShow');
 Route::get('/searchR', 'ItemController@searchEmail');
