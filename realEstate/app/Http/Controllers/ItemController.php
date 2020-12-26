@@ -35,12 +35,12 @@ class ItemController extends Controller
     public function itemShow()
     {
         //
-        
+
         return view('website.backend.database pages.Item')->with('success', 'Item Created Successfully');
 
     }
 
-  
+
     public function SubTypeShow($id=null)
     {
         $sub_types=Sub_Type::all();
@@ -50,16 +50,13 @@ class ItemController extends Controller
     }
     public function create()
     {
-        //
-
         try {
             $item=Item::create([
-                'Street_Id'=>request("Street"), 
+                'Street_Id'=>request("Street"),
                 'User_Id'=>request("Search")
             ]);
             $item_id=Arr::get($item, 'id');
-            return $this()->SubTypeShow($item_id);
-            return redirect()->url('/Item_Sub_types_show/'.$item_id);
+            return $this->SubTypeShow($item_id);
             //return back()->with('success','Item Created Successfully');
         }catch (\Illuminate\Database\QueryException $e){
             $errorCode = $e->errorInfo[1];
@@ -67,6 +64,13 @@ class ItemController extends Controller
                 return back()->with('error','Already Exist !!');
             }
         }
+
+    }
+    public function searchEmail()
+    {
+        $search=request('email');
+        $email=Emails::all()->where('email','=',$search);
+        return response()->json($email);
 
     }
 
