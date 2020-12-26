@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'DatatypeController@index');
+Route::get('/', function (){
+    return view('website/backend/database pages/Test');
+});
 
 //main types pages
 Route::get('/main_types', 'MainTypes@index');
@@ -105,6 +108,7 @@ Route::post('addItem','ItemController@create');
 Route::get('/Item', 'ItemController@SubTypeShow');
 // Route::get('/Item_Main_types_show', 'ItemController@MainTypeShow');
 Route::get('/Item_Sub_types_show/{id}', 'ItemController@SubTypeShow');
+Route::get('/searchR', 'ItemController@searchEmail');
 //Sub type javacript phase
 Route::get('/findSub','SubTypes@find');
 Route::delete('/delete_sub_type/{id?}','SubTypes@destroy');
@@ -151,7 +155,7 @@ Route::get('/edit_City','CityController@editCity')->name('City.edit');
 Route::get('/edit_Region','RegionController@editRegion')->name('Region.edit');
 
 //neww 7/12
-Route::get('/property_select/{sub_type_id}','SubTypePropertyController@property_select');
+Route::get('/property_select/{item_id}/{sub_type_id}','SubTypePropertyController@property_select');
 Route::post('/submit_properties','PropertyDetailsController@submit_properties');
 
 // findDetailsForForm

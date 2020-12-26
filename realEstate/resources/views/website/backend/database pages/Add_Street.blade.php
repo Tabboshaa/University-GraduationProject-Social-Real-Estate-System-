@@ -3,8 +3,6 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-
-
         $(document).on('change','#Country_Name', function() {
 
             var country_id = $(this).val();

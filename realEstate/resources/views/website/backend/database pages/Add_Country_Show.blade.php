@@ -1,11 +1,12 @@
 @extends('website.backend.database pages.Add_Country')
+@section('table')
 <form method="Post" action="{{ url('/delete_Country?_method=delete') }}" enctype="multipart/form-data">
     @csrf
 <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
     <thead>
         <tr>
             <th>Country Name</th>
-            <th>Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" style="margin-left: 850px;"><i class="fa fa-trash"></i></th>
+            <th>Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" style="margin-left: 850px;"><i class="fa fa-trash"></i></button></th>
             <th>Edit</th>
             Java Script for select all function
             <script>
@@ -54,10 +55,10 @@
                         <label for="CountryName">Country Name</label>
                         <input type="text" name="Country_Name" id="Country_Name" class="form-control">
                     </div>
-                    
+
                     <button type="submit" class="btn btn-success">Edit</button>
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -66,7 +67,7 @@
 <script>
     function setCountryIdName(id, name) {
 
-        // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty 
+        // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty
         $("#id").val(id);
         $("#Country_Name").val(name);
         $("#EditCountryModal").modal("toggle");

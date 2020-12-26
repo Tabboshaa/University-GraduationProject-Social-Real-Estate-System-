@@ -13,11 +13,14 @@
                         <select id="MainTypeName" class="form-control @error('Main Type Name') is-invalid @enderror" name="Main_Type_Name" value="{{ old('Main Type Name') }}" required autocomplete="Main Type Name">
 
                             <option value="0" selected disabled>Select Main Type</option>
+
                             <!--  For loop  -->
                             @foreach($main_type as $main_type)
                             <option value="{{$main_type->Main_Type_Id}}">{{$main_type->Main_Type_Name}}</option>
                             @endforeach
                             <!-- End loop -->
+                            {{-- if (var !=null)
+                                         roo7 l java script ($("#mydropdownlist").val("thevalue");)        --}}
                         </select>
                         @error('Main Type Name')
                         <span class="invalid-feedback" role="alert">

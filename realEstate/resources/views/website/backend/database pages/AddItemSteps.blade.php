@@ -136,6 +136,8 @@
             });
 
         });
+
+
     </script>
 
     <link href="{{asset('css/Form.css')}}" rel="stylesheet" type="text/css" />
@@ -160,10 +162,14 @@
 
                                 <div class="tab">
                                     <div class="item form-group">
-                                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="Search">Search About User!!:<span class="required">*</span>
-                                        </label>
+                                        <a href="javascript:void(0)" id="SearchA" onclick="search()" class="btn btn-info" role="button">Search </a>
                                         <div class="col-md-6 col-sm-6 ">
-                                            <input type="search" id="Search" name="Search" required="required" class="form-control">
+                                            <input  type="search" id="Search" name="Search" required="required" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <h2 id="result"></h2>
                                         </div>
                                     </div>
                                 </div>
@@ -246,7 +252,7 @@
                                         document.getElementById("prevBtn").style.display = "inline";
                                     }
                                     if (n == (x.length - 1)) {
-                                        document.getElementById("nextBtn").innerHTML = "Submit";
+                                        document.getElementById("nextBtn").innerHTML = "continue";
                                     } else {
                                         document.getElementById("nextBtn").innerHTML = "Next";
                                     }
@@ -304,7 +310,6 @@
                                     //... and adds the "active" class to the current step:
                                     x[n].className += " active";
                                 }
-
                             </script>
                         </div>
                     </div>
