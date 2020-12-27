@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\User_Type;
 use App\Emails;
+use App\Main_Type;
 use App\Phone_Numbers;
 use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
@@ -35,10 +36,10 @@ class AddUserController extends Controller
         //
 
             try {
-              
+
 
                 $user = User::create([
-                   
+
                     'First_Name' => request('first_name'),
                     'Middle_Name' => request('middle-name'),
                     'Last_Name' => request('last-name'),
@@ -67,8 +68,8 @@ class AddUserController extends Controller
                     'User_ID' => $user_id,
                     'User_Type_ID' => request('select_type')
                     ]);
-                
-                
+
+
 
                 //  $user_type = Type_Of_User::create([
                 // 'User_ID' => $user_id,
@@ -82,8 +83,8 @@ class AddUserController extends Controller
                      return back()->with('error', 'Already Exist !!');
                  }
             }
-     
-    
+
+
     }
     /**
      * Store a newly created resource in storage.
@@ -129,7 +130,17 @@ class AddUserController extends Controller
     {
         //
     }
+    public function search()
+    {
+       
+        $search = request('email');
+        // $Email= Emails::all()->first();
+        $test= Main_Type::all();
+        //->where('email','=', 'Omnia@gmail.com')
+        // Arr::get($Email, 'email');
+        return response()->json($test);
 
+    }
     /**
      * Remove the specified resource from storage.
      *

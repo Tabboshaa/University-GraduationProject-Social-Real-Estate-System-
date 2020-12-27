@@ -52,7 +52,7 @@ class CreateItemsTable extends Migration
             $table->id('Item_Id');
             $table->foreignId('Street_Id')->references('Street_Id')->on('streets')->onDelete('cascade')->nullable();
             $table->foreignId('User_Id')->references('id')->on('users')->onDelete('cascade')->nullable();
-
+            $table->timestamps();
         });
     }
 

@@ -69,14 +69,14 @@ class SubTypePropertyController extends Controller
     {
         //
 
-        
+
         $sub_types = Sub_Type::all();
         $main_types = Main_Type::all();
         $property = DB::table('sub__type__properties')
             ->join('main__types', 'sub__type__properties.Main_Type_Id', '=', 'main__types.Main_Type_Id')
             ->join('sub__types', 'sub__type__properties.Sub_Type_Id', '=', 'sub__types.Sub_Type_Id')
             ->select('sub__type__properties.*', 'main__types.Main_Type_Name', 'sub__types.Sub_Type_Name')->get();
-        //el subtype name w el main type name 
+        //el subtype name w el main type name
         return view('website.backend.database pages.Sub_Type_Property_Show', ['sub_type' => $sub_types, 'main_type' => $main_types, 'property' => $property]);
     }
 
@@ -139,17 +139,16 @@ class SubTypePropertyController extends Controller
     }catch (\Illuminate\Database\QueryException $e){
 
         return redirect()->route('subtypeproperty_show')->with('error', 'Item cannot be deleted');
-                
+
     }
     }
 //function that sends the property details that are desplayed in checkboxes
-    public function property_select($sub_type_id)
+    public function property_select($item_id=null,$sub_type_id=null)
     {
         //
-        $images = FacadesFile::allFiles(public_path('Images'));
         $property = Sub_Type_Property::all()->where('Sub_Type_Id','=',$sub_type_id);
-        return view('website.backend.database pages.Properties_Select', ['property' => $property,'images'=>$images]);
-  
+        return view('website.backend.database pages.Properties_Select', ['property' => $property,'item_id'=>$item_id]);
+
     }
-   
+
 }

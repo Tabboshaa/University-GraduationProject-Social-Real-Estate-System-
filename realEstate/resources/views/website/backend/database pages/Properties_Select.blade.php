@@ -15,6 +15,7 @@
               <h5 style="color:white;"><a href="javascript:void(0)" style="color:white;" id="details" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')"> <label for="Sub_Type_Property" class="col-md-2 col-form-label text-md-right">{{ __($p->Property_Name) }}</label>
                         </a></h5>
                 <p style="color:24A745;">+</p>
+                  <p style="color:24A745;">+</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>

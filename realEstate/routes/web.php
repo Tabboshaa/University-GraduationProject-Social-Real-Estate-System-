@@ -1,4 +1,7 @@
 <?php
+
+use App\User_Type;
+use App\Country;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'DatatypeController@index');
+// Route::get('/', function (){
+//     return view('website/backend/database pages/Test');
+// });
+
 //main types pages
 Route::get('/main_types', 'MainTypes@index');
 Route::get('/main_types_show', 'MainTypes@show')->name('main_types_show');
@@ -78,6 +85,7 @@ Route::get('/findPropertyDetail','PropertyDetailsController@find');
 Route::delete('/delete_property_detail','PropertyDetailsController@destroy');
 Route::get('/edit_property_detail','PropertyDetailsController@edit')->name('propertyDetail.update');
 
+
 //Property Details pages #Tabbosha
 Route::get('/property', 'SubTypePropertyController@index');
 Route::get('/sub_type_property_show', 'SubTypePropertyController@show')->name('subtypeproperty_show');
@@ -96,9 +104,16 @@ Route::Post('/Add_User','AddUserController@Create');
 
 
 // Item  pages #Tabbosha
-Route::get('/Item', 'ItemController@SubTypeShow');
+Route::get('Item','ItemController@index1');
+Route::post('addItem','ItemController@create');
+Route::get('ShowItem/{id}','ItemController@show');
+
+
+//Route::get('/Item', 'ItemController@SubTypeShow');
+Route::get('/addItemSteps', 'ItemController@SubTypeShow');
 // Route::get('/Item_Main_types_show', 'ItemController@MainTypeShow');
-Route::get('/Item_Sub_types_show', 'ItemController@SubTypeShow');
+Route::get('/Item_Sub_types_show/{id}', 'ItemController@SubTypeShow');
+Route::get('/searchR', 'ItemController@searchEmail');
 //Sub type javacript phase
 Route::get('/findSub','SubTypes@find');
 Route::delete('/delete_sub_type/{id?}','SubTypes@destroy');
@@ -110,6 +125,10 @@ Route::get('/findProperty','SubTypePropertyController@find');
 //Detail delete and edit
 Route::delete('/delete_sub_type_property/{id?}','SubTypePropertyController@destroy');
 Route::get('/edit_sub_type_property','SubTypePropertyController@edit')->name('subTypeProperty.update');
+
+//Search
+
+
 
 
 Route::delete('/delete_detail/{id?}','DetailsController@destroy');
@@ -126,6 +145,7 @@ Route::get('/D3','CityController@findcity');
 Route::get('/D4','RegionController@findstate');
 Route::get('/D5','RegionController@findcity');
 Route::get('/D6','RegionController@findregion');
+Route::get('/D7','StreetController@findstreet');
 
 //Delete #s
 Route::delete('/delete_Country/{id?}','CountryController@destroy');
@@ -140,7 +160,7 @@ Route::get('/edit_City','CityController@editCity')->name('City.edit');
 Route::get('/edit_Region','RegionController@editRegion')->name('Region.edit');
 
 //neww 7/12
-Route::get('/property_select/{sub_type_id}','SubTypePropertyController@property_select');
+Route::get('/property_select/{item_id}/{sub_type_id}','SubTypePropertyController@property_select');
 Route::post('/submit_properties','PropertyDetailsController@submit_properties');
 
 // findDetailsForForm
@@ -157,9 +177,18 @@ Route::get('/edit_User_Name','AddUserController@editUserName')->name('UserName.u
 Route::get('/edit_User_Email','AddUserController@editUserEmail')->name('UserEmail.update');
 Route::get('/edit_User_PhoneNumber','AddUserController@editUserPhoneNumber')->name('UserPhoneNumber.update');
 
+Route::Post('/item_created','ItemController@itemShow');
+
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', function () {
     return view('website\backend.layouts.Admin');
 });
+//search user
+
+Route::post('/search_user','AddUserController@search')->name('search');
+
+
+
+
