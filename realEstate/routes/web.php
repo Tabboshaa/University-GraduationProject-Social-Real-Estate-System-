@@ -85,6 +85,7 @@ Route::get('/findPropertyDetail','PropertyDetailsController@find');
 Route::delete('/delete_property_detail','PropertyDetailsController@destroy');
 Route::get('/edit_property_detail','PropertyDetailsController@edit')->name('propertyDetail.update');
 
+
 //Property Details pages #Tabbosha
 Route::get('/property', 'SubTypePropertyController@index');
 Route::get('/sub_type_property_show', 'SubTypePropertyController@show')->name('subtypeproperty_show');
@@ -105,6 +106,10 @@ Route::Post('/Add_User','AddUserController@Create');
 // Item  pages #Tabbosha
 Route::get('Item','ItemController@index1');
 Route::post('addItem','ItemController@create');
+Route::get('ShowItem/{id}','ItemController@show');
+
+
+//Route::get('/Item', 'ItemController@SubTypeShow');
 Route::get('/addItemSteps', 'ItemController@SubTypeShow');
 // Route::get('/Item_Main_types_show', 'ItemController@MainTypeShow');
 Route::get('/Item_Sub_types_show/{id}', 'ItemController@SubTypeShow');
@@ -175,6 +180,11 @@ Route::get('/edit_User_PhoneNumber','AddUserController@editUserPhoneNumber')->na
 Route::Post('/item_created','ItemController@itemShow');
 
 
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin', function () {
+    return view('website\backend.layouts.Admin');
+});
 //search user
 
 Route::post('/search_user','AddUserController@search')->name('search');
