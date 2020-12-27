@@ -134,11 +134,9 @@ class AddUserController extends Controller
     {
        
         $search = request('email');
-        // $Email= Emails::all()->first();
-        $test= Main_Type::all();
-        //->where('email','=', 'Omnia@gmail.com')
-        // Arr::get($Email, 'email');
-        return response()->json($test);
+        $email=Emails::all()->where('email','Like',$search);
+
+        return response()->json($email);
 
     }
     /**

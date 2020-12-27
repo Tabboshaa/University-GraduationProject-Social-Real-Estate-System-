@@ -162,7 +162,7 @@
 
                                 <div class="tab">
                                     <div class="item form-group">
-                                        <a href="javascript:void(0)" id="SearchA" onclick="search()" class="btn btn-info" role="button">Search </a>
+                                        <a href="javascript:void(0)" id="SearchA" onclick="searchForEmail()" class="btn btn-info" role="button">Search </a>
                                         <div class="col-md-6 col-sm-6 ">
                                             <input  type="search" id="Search" name="Search" required="required" class="form-control">
                                         </div>
@@ -231,11 +231,33 @@
                                 <div style="text-align:center;margin-top:40px;">
                                     <span class="step"></span>
                                     <span class="step"></span>
-                                    <span class="step"></span>
-                                    <span class="step"></span>
+                                    
                                 </div>
 
                             </form>
+                            <script>
+                               function searchForEmail(){
+
+                                    var email = $("#Search").val();
+                                var _token = $("input[name=_token]").val();
+                                $.ajax({
+                                    type: 'post',
+                                    url: "{{ route('search') }}",
+                                    data: {
+                                        email: email,
+                                        _token: _token
+                                    },
+                                    success: function(data) {
+                                        $("#result").html('tmm'+data);
+
+                                    },
+                                    error: function() {
+                                        $("#result").html('There is no User with this Email!!');
+                                    }
+                                });
+
+                                }
+                            </script>
 
                             <script>
                                 var currentTab = 0; // Current tab is set to be the first tab (0)
