@@ -1,4 +1,5 @@
 @extends('website.backend.database pages.Add_Country')
+@section('table')
 <form method="Post" action="{{ url('/delete_Country?_method=delete') }}" enctype="multipart/form-data">
     @csrf
 <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">

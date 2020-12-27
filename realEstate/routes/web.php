@@ -158,8 +158,8 @@ Route::get('/edit_User_Email','AddUserController@editUserEmail')->name('UserEmai
 Route::get('/edit_User_PhoneNumber','AddUserController@editUserPhoneNumber')->name('UserPhoneNumber.update');
 
 
-
-
-
-
-
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin', function () {
+    return view('website\backend.layouts.Admin');
+});

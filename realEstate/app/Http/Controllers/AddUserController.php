@@ -143,10 +143,10 @@ class AddUserController extends Controller
         User::destroy($request->id);
         Emails::destroy($request->id);
         Phone_Numbers::destroy($request->id);
-        return redirect()->route('users_show/'.$id)->with('success', 'Item Deleted Successfully');
+        return back()->with('success', 'Item Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('users_show/'.$id)->with('error', 'Item cannot be deleted');
+        return back()->with('error', 'Item cannot be deleted');
                 
     }
     }

@@ -70,16 +70,6 @@
 									</script>
 								</div>
 							</div>
-
-							
-							<div class="item form-group">
-								<label class="col-form-label col-md-3 col-sm-3 label-align" for="phone_number">National ID <span class="required">*</span>
-								</label>
-								<div class="col-md-6 col-sm-6 ">
-									<input type="text" id="national_id" name="national_id" required="required" class="form-control">
-								</div>
-							</div>
-
 							<div class="item form-group">
 								<label class="col-form-label col-md-3 col-sm-3 label-align">Gender <span class="required">*</span></label>
 								<div class="col-md-6 col-sm-6 ">
@@ -143,7 +133,7 @@
 								<span class="step"></span>
 								<span class="step"></span>
 								<span class="step"></span>
-								<span class="step"></span>
+								
 							  </div>
 
 						</form>

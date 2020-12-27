@@ -26,7 +26,6 @@
 
                    
                         <tr><td><a href="{{ url('property_select/'.$sub->Sub_Type_Id) }}">{{$sub->Sub_Type_Name}}</a></td></tr>
-
                     
                     @endif
                 @endforeach

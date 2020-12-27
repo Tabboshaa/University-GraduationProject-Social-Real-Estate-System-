@@ -1,39 +1,34 @@
 @extends('website.backend.database pages.Item')
 @section('Item_Main_Type_table')
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link href="{{asset('css/CategoriesDesign.css')}}" rel="stylesheet" type="text/css" />
 
-<link href="{{asset('css/CategoriesDesign.css')}}" rel="stylesheet" type="text/css" />
-
-<form method="Post" action="{{url('/')}}" enctype="multipart/form-data">
+    
+<form method="Get" action="{{url('/ShowItem/'.$item_id)}}" enctype="multipart/form-data">
     @csrf
-
+    <div class="row">
     @foreach($property as $p)
 
-    <div class="col-sm-3">
-
-        <table id="cateagories">
-            <tr>
-                <td>
-                    <div class="fancy">
-                    <a href="javascript:void(0)" id="details" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')">
-
-                        <label for="Sub_Type_Property" class="col-md-2 col-form-label text-md-right">{{ __($p->Property_Name) }}</label>
-                    </a>
-                    </div>
-                </td>
-
-            </tr>
-
-
+        <div class="col-lg-3 col-6">
+             <div class="small-box bg-info">
+              <div class="inner">
+              <h5 style="color:white;"><a href="javascript:void(0)" style="color:white;" id="details" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')"> <label for="Sub_Type_Property" class="col-md-2 col-form-label text-md-right">{{ __($p->Property_Name) }}</label>
+                        </a></h5>
+                <p style="color:24A745;">+</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="javascript:void(0)" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')" class="small-box-footer" style="color:white;">
+                Add More <i class="fa fa-plus"></i>
+              </a>
+              </div>
+        </div>
+        @endforeach
     </div>
-    @endforeach
-    <tr>
-        <td>
-            <button type="submit" class="btn btn-primary">
-                {{ __('Next') }}
-            </button>
-        </td>
-    </tr>
-    </table>
+    <div class="row">
+        <button type="submit">Done</button>
+    </div>
 </form>
 
 <div class="modal fade" id="EditMainTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -57,16 +52,6 @@
 </div>
 
 <script>
-    var myPix = new Array("Images/1.jpeg", "Images/2.jpeg", "Images/3.jpeg", "Images/4.jpeg", "Images/5.jpeg", "Images/6.jpeg");
-    $(document).ready(function() {
-
-        function choosePic() {
-            $('img[name="PropertyImage[]"]').each(function() {
-                var randomNum = Math.floor(Math.random() * myPix.length);
-                this.src = " {{ asset('Images/1.jpeg')}}";
-            });
-        }
-    });
 
     function AddDetail(id, name) {
 
