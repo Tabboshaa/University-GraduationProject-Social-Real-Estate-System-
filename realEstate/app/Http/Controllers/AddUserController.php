@@ -35,55 +35,44 @@ class AddUserController extends Controller
     {
         //
 
-            try {
-
-
+        try {
                 $user = User::create([
-
                     'First_Name' => request('first_name'),
                     'Middle_Name' => request('middle-name'),
                     'Last_Name' => request('last-name'),
                     'Birth_Day' => request('birthdate'),
                     'Gender' => request('gender'),
                     'password' => request('password'),
-                    'National_ID' => request('national_id')
                 ]);
+                
                 $user_id = Arr::get($user, 'id');
-
+                
                 $email = Emails::create([
-
                 'User_ID' => $user_id,
                 'email' => request('Email'),
                 'Default' => 1
                 ]);
 
                 $phone_number = Phone_Numbers::create([
-
                 'User_ID' => $user_id,
                 'phone_number' => request('phone_number'),
                 'Default' => 1
                  ]);
 
-                 $user_type = Type_Of_User::create([
-                    'User_ID' => $user_id,
-                    'User_Type_ID' => request('select_type')
-                    ]);
+                $user_type = Type_Of_User::create([
+                'User_ID' => $user_id,
+                'User_Type_ID' => request('select_type')
+                ]);
 
-
-
-                //  $user_type = Type_Of_User::create([
-                // 'User_ID' => $user_id,
-                // 'User_Type_ID' => request('select_type')
-                // ]);
-
-            return back()->with('success', 'Item Created Successfully');
-             } catch (\Illuminate\Database\QueryException $e) {
-                 $errorCode = $e->errorInfo[1];
-                 if ($errorCode == 1062) {
-                     return back()->with('error', 'Already Exist !!');
-                 }
-            }
-
+            
+                return back()->with('success', 'Item Created Successfully');
+            } catch (\Illuminate\Database\QueryException $e) {
+                $errorCode = $e->errorInfo[1];
+                if ($errorCode == 1062) {
+                    return back()->with('error', 'Already Exist !!');
+                }
+           }
+             
 
     }
     /**
