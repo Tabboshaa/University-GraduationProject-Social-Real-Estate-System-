@@ -104,7 +104,7 @@ class ItemController extends Controller
     public function searchEmail()
     {
         $search=request('email');
-        $email=Emails::all()->where('email','=',$search)->get();
+        $email=Emails::all()->where('email','=',$search);
         return response()->json($email);
 
     }

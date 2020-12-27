@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'DatatypeController@index');
-Route::get('/', function (){
-    return view('website/backend/database pages/Test');
-});
+// Route::get('/', function (){
+//     return view('website/backend/database pages/Test');
+// });
 
 //main types pages
 Route::get('/main_types', 'MainTypes@index');
@@ -110,6 +110,7 @@ Route::get('ShowItem/{id}','ItemController@show');
 
 
 //Route::get('/Item', 'ItemController@SubTypeShow');
+Route::get('/addItemSteps', 'ItemController@SubTypeShow');
 // Route::get('/Item_Main_types_show', 'ItemController@MainTypeShow');
 Route::get('/Item_Sub_types_show/{id}', 'ItemController@SubTypeShow');
 Route::get('/searchR', 'ItemController@searchEmail');
@@ -181,7 +182,7 @@ Route::Post('/item_created','ItemController@itemShow');
 
 //search user
 
-Route::Post('/search_user','AddUserController@search')->name('search');
+Route::post('/search_user','AddUserController@search')->name('search');
 
 
 
