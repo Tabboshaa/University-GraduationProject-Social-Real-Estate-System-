@@ -24,7 +24,7 @@ class RegionController extends Controller
         $state=State::all();
         $city=City::all();
         return view('website.backend.database pages.Add_Region',['counrty'=>$counrty,'state'=>$state,'city'=>$city]);
-   
+
     }
 
     /**
@@ -72,7 +72,7 @@ class RegionController extends Controller
     public function show()
     {
         //
-   
+
         $city=City::all();
         $states=State::all();
         $countries=Country::all();
@@ -80,9 +80,9 @@ class RegionController extends Controller
         ->join('countries', 'regions.Country_Id', '=', 'countries.Country_Id')
         ->join('states', 'regions.State_Id', '=', 'states.State_Id')
         ->join('cities', 'regions.City_Id', '=', 'cities.City_Id')
-        ->select('regions.*', 'countries.Country_Name','states.State_Name','cities.City_Name')->get();
-        //el subtype name w el main type name 
-        return view('website.backend.database pages.Add_Region_Show',['counrty'=>$countries,'state'=>$states,'city'=>$city,'region'=>$region]);
+        ->select('regions.*', 'countries.Country_Name','states.State_Name','cities.City_Name')->paginate(10);
+        //el subtype name w el main type name
+        return view('website.backend.database pages.Add_Region_Show',['counrty'=>$countries,'state'=>$states,'city'=>$city,'region1'=>$region]);
     }
 
     /**
@@ -122,7 +122,7 @@ class RegionController extends Controller
     }catch (\Illuminate\Database\QueryException $e){
 
         return redirect()->route('region_show')->with('error', 'Item cannot be deleted');
-                
+
     }
     }
 
@@ -130,7 +130,7 @@ class RegionController extends Controller
 
         //will get all states which her Country_Id is the ID we passed from $.ajax
         $state=State::all()->where('Country_Id','=',request('id'));
-         
+
         // will send all values in state object by json
         return  response()->json($state);
 
@@ -141,7 +141,7 @@ class RegionController extends Controller
 
         //will get all states which her Country_Id is the ID we passed from $.ajax
         $city=City::all()->where('State_Id','=',request('id'));
-         
+
         // will send all values in state object by json
         return  response()->json($city);
 
@@ -152,7 +152,7 @@ class RegionController extends Controller
 
         //will get all states which her Country_Id is the ID we passed from $.ajax
         $region=Region::all()->where('City_Id','=',request('id'));
-         
+
         // will send all values in state object by json
         return  response()->json($region);
 
@@ -162,10 +162,10 @@ class RegionController extends Controller
     public function editRegion(Request $request)
     {
         try {
-       
-        //hygeb el country eli el ID bt3ha da 
+
+        //hygeb el country eli el ID bt3ha da
         $region= Region::all()->find(request('id'));
-        //hy7ot el name el gded f column el country name 
+        //hy7ot el name el gded f column el country name
         $region->Region_Name=request('RegionName');
         $region->save();
 
@@ -176,6 +176,6 @@ class RegionController extends Controller
             return back()->with('error','Error editing item');
         }
     }
-      
+
     }
 }

@@ -17,9 +17,11 @@ class UserTypes extends Controller
      */
     public function index()
     {
+        $users = DB::table('users')->paginate(2);
+
         //
-        $user_types = User_Type::all();
-        return view('website/backend.database pages.User_Type', ['user_type' => $user_types]);
+
+        return view('website/backend.database pages.User_Type', ['user_type' => $users]);
     }
 
     /**
@@ -125,10 +127,10 @@ class UserTypes extends Controller
         $user_types = User_Type::all();
         $Users=User_Type::all();
         return view('website/backend.database pages.Users_Show', ['user_types' => $user_types,'users'=>$Users]);
-        
+
     }
     public function getUser($id)
-    {       
+    {
          //$Type_Of_User=Type_Of_User::all();
          $user_types = User_Type::all();
          $Users=DB::table('type__of__users')->join('users','users.id','=','type__of__users.User_ID')
@@ -136,12 +138,12 @@ class UserTypes extends Controller
          ->join('phone__numbers', 'type__of__users.User_ID', '=', 'phone__numbers.User_ID')
          ->select('users.*','type__of__users.*','emails.*','phone__numbers.*','users.First_Name','users.Middle_Name','users.Last_Name')
          ->get()->where('User_Type_ID', '=', $id);
-                
-    
-         
+
+
+
          //'Type_Of_User'=> $Type_Of_User,
          return view('website\backend.database pages.Users_Show',['users'=>$Users,'user_types'=>$user_types]);
- 
-    
+
+
     }
 }

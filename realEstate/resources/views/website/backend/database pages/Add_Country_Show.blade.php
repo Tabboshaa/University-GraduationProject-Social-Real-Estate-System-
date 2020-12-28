@@ -1,13 +1,17 @@
 @extends('website.backend.database pages.Add_Country')
 @section('table')
+    <link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
 <form method="Post" action="{{ url('/delete_Country?_method=delete') }}" enctype="multipart/form-data">
     @csrf
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
 <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
     <thead>
         <tr>
             <th>Country Name</th>
+
             <th>Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" style="margin-left: 850px;"><i class="fa fa-trash"></i></button></th>
             <th>Edit</th>
+            <th>ِAdd Subtitle</th>
             Java Script for select all function
             <script>
                 //will select all row with id -> id[]
@@ -21,17 +25,19 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($C1 as $C1)
+        @foreach($C11 as $C1)
             <tr>
                 <td> {{$C1->Country_Name}}</td>
                 <td><input type="checkbox" name="id[]" value="{{$C1->Country_Id}}"></td>
 
                 <!-- On clicking edit icon will go to setCountryIdName in-->
                 <td><a href="javascript:void(0)" onclick="setCountryIdName('{{$C1->Country_Id}}','{{$C1->Country_Name}}')"><i class="fa fa-edit"></i></a></td>
+                <td><a href="javascript:void(0)" onclick="setCountryIdName('{{$C1->Country_Id}}','{{$C1->Country_Name}}')">add</a></td>
             </tr>
             @endforeach
     </tbody>
 </table>
+    {!! $C11->render() !!}
 </form>
 
 <!-- form of editing country -->
@@ -60,11 +66,49 @@
                 </form>
 
             </div>
-        </div>
+            <div class="modal fade" id="AddState" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add State</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="EditCountryForm">
+                                @csrf
+                                <input type="hidden" name="id" id="id">
+
+
+                                <div class="form-group">
+                                <label> State </label>
+                                <input type="text" name="state_name" id="StateName" class="form-control">
+                                    <button type="submit" class="btn btn-add">Add</button>
+                                </div>
+                    </div>
     </div>
 </div>
 
 <script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("datatable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
     function setCountryIdName(id, name) {
 
         // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty

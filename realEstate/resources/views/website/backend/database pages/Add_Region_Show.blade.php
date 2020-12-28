@@ -1,7 +1,9 @@
 @extends('website.backend.database pages.Add_Region')
 @section('table')
+    <link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
 <form method="Post" action="{{ url('/delete_Region?_method=delete')}}" enctype="multipart/form-data">
     @csrf
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
     <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
         <thead>
             <tr>
@@ -24,7 +26,7 @@
         </thead>
         <tbody>
             <!-- EL FOREARCH HNA -->
-            @foreach($region as $region)
+            @foreach($region1 as $region)
             <tr>
             <td>{{$region->Country_Name}}</td>
             <td>{{$region->State_Name}}</td>
@@ -37,6 +39,7 @@
             <!-- END OF FOREACH -->
         </tbody>
     </table>
+    {!! $region1->render() !!}
 </form>
 
 <div class="modal fade" id="EditRegionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -68,9 +71,27 @@
 </div>
 
 <script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("datatable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[3];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
     function setRegionIdName(id, name) {
 
-        // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty 
+        // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty
         $("#id").val(id);
         $("#RegionName").val(name);
         $("#EditRegionModal").modal("toggle");
