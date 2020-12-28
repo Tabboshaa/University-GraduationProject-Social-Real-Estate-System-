@@ -36,23 +36,23 @@
                     <th>{{$detail->Detail_Name}}</th>
                     @endforeach
                     {{-- End For each Sub Type Proberty Detail--}}
-                    
+
 
                 </tr>
                 </thead>
                 <tbody>
-                
+
                     {{--     LOOP FOR ROWS        --}}
                     @foreach($properties as $detail)
                     <tr>
                         <td>{{$detail->Property_Name}}   {{--{{count($detail)}}--}}</td>
-                      
+
                         {{--For each Sub Type Proberty Detail--}}
                         @foreach($details as $detail)
                         <td>{{$detail->DetailValue}}</td>
                         @endforeach
                         {{-- End For each Sub Type Proberty Detail--}}
-                        
+
                     </tr>
                     @endforeach
                     {{--   END  LOOP FOR ROWS        --}}
@@ -65,8 +65,4 @@
         </tr>
         </tbody>
     </table>
-
-
-
-
 @endsection

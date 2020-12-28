@@ -130,7 +130,7 @@ class SubTypePropertyController extends Controller
      * @param  \App\sub_type_property  $sub_type_property
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request)
     {
         //
         try {

@@ -1,24 +1,24 @@
 @extends('website.backend.database pages.Item')
 @section('Item_Main_Type_table')
-<p>Main Type: Property</p>
-<p>Sub Type: Apartment</p>
-<p>aziz we7sh</p>
 
-<p> Room </p>
-<p>Area : 50 </p>
-<p>Number Of Beds: 20</p>
 
-<p> Room</p>
-<p>Area : 50 </p>
-<p>Number Of Beds: 20</p>
+{{--@foreach($details as $detail)--}}
+{{--    <div><h3>{{$detail[i]}}</h3></div>--}}
+{{--    @foreach($detail as $d)--}}
+{{--        <div><h2>{{$d[][]}}</h2></div>--}}
+{{--    @endforeach--}}
+{{--@endforeach--}}
 
-<p>Balacony </p>
-<p>Area : 50 </p>
-<p>view : aziz el we7sh </p>
+@foreach ($details as $d => $dd)
 
-<p> Room</p>
-<p>Area : 50 </p>
-<p>Number Of Beds: 20</p>
+       <div><h3>{{$d}}</h3></div>
+        @foreach($dd as $ddd)
+            <div><h2>{{$dd}}</h2></div>
+            @foreach($ddd as $ddda)
+                <div><h1>{{$ddda}}</h1></div>
+            @endforeach
+        @endforeach
 
+@endforeach
 
 @endsection

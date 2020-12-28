@@ -181,3 +181,7 @@ Route::post('/search_user','AddUserController@search')->name('search');
 
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
