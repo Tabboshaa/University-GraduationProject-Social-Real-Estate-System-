@@ -20,14 +20,14 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="javascript:void(0)" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')" class="small-box-footer" style="color:white;">
+              <a href="javascript:void(0)" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}','{{$item_id}}')" class="small-box-footer" style="color:white;">
                 Add More <i class="fa fa-plus"></i>
               </a>
               </div>
         </div>
         @endforeach
     </div>
-
+    <input type="hidden" value="{{$item_id}}" id="item_id">
     <div class="row">
         <button type="submit">Done</button>
     </div>
@@ -100,13 +100,13 @@
 
     $('#data_form').submit(function() {
         var data = [];
-
+        var item_id= $("#item_id").val();
         //3iza ageeb kol el inputs b get element by name
         //w b3deen 3iza 27ot el inputs value&id f array
         $('input[name="DetailItem[]"]').each(function() {
             data.push({
                 id: this.id,
-                value: this.value
+                value: this.value,
             });
         });
         var _token = $("input[name=_token]").val();
@@ -116,6 +116,7 @@
             url: "{{ route('details_submit')}}",
             data: {
                 data: data,
+                item_id: item_id,
                 _token: _token
             },
             success: function() {

@@ -246,8 +246,6 @@
                                         _token: _token
                                     },
                                     success: function(data) {
-                                        $("#result").html('tmm');
-
                                         Object.values(data).forEach(val => {
                                             $("#result").html('<tr><td>'+ val['email']+ '</td> <td> <input type="checkbox" name="userid" value="' + val['User_ID'] + '" onclick="onlyOne(this)"> </td> </tr>');
                                         });

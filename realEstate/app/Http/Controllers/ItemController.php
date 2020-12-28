@@ -10,7 +10,7 @@ use App\Sub_Type;
 use App\User;
 use App\User_Type;
 use App\Country;
-
+use App\Details;
 use App\Sub_Type_Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -60,10 +60,19 @@ class ItemController extends Controller
             ->join('sub__types', 'details.Sub_Type_Id', '=', 'sub__types.Sub_Type_Id')
             ->join('sub__type__properties', 'details.Property_Id', '=', 'sub__type__properties.Property_Id')
             ->join('property__details', 'details.Property_Detail_Id', '=', 'property__details.Property_Detail_Id')
-            ->select('details.DetailValue', 'main__types.Main_Type_Name', 'sub__types.Sub_Type_Name', 'sub__type__properties.Property_Name', 'property__details.Detail_Name')
-            ->get()->where('Item_Id','=',$Item_id)->first();
+            ->select('details.*', 'main__types.Main_Type_Name', 'sub__types.Sub_Type_Name', 'sub__type__properties.Property_Name', 'property__details.Detail_Name')
+            ->get()->where('Item_Id','=',$id)->groupBy('Property_Name');
+         
+             return $details;
 
-            return dd($details);
+
+            // $SubTypeId=Arr::get(Details::all()->where('Item_Id','=',$id)->first(),'Sub_Type_Id');
+            // return $SubTypeId;
+            
+            // return dd($SubTypeId);
+
+        // $properties=Sub_Type_Property::all()->where('Sub_Type_Id','=',$SubTypeId);
+//   return $properties;
 
         return view('website.backend.database pages.ShowItem',['user'=>$user,'Location'=>$Location,'details'=>$details]);
     }

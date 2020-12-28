@@ -36,7 +36,7 @@ class DetailsController extends Controller
          $property_details=Property_Details::all()->where('Property_Detail_Id','=',Arr::get($detail,'id'))->first(); 
 
          $details[] = [
-             'Item_Id' => 1,
+             'Item_Id' => request('item_id'),
              'Main_Type_Id' => Arr::get($property_details,'Main_Type_Id'),
              'Sub_Type_Id' => Arr::get($property_details,'Sub_Type_Id'),
              'Property_Id'=> Arr::get($property_details,'Property_Id'),
