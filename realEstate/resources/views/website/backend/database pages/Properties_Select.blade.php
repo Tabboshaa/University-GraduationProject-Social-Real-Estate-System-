@@ -1,30 +1,33 @@
 @extends('website.backend.database pages.Item')
 @section('Item_Main_Type_table')
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link href="{{asset('css/CategoriesDesign.css')}}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link href="{{asset('css/CategoriesDesign.css')}}" rel="stylesheet" type="text/css" />
 
+    
 <form method="Get" action="{{url('/ShowItem/'.$item_id)}}" enctype="multipart/form-data">
     @csrf
     <div class="row">
-    @foreach($property as $p)
+        @foreach($property as $p)
 
-        <div class="col-lg-3 col-6">
-             <div class="small-box bg-info">
-              <div class="inner">
-              <h5 style="color:white;"><a href="javascript:void(0)" style="color:white;" id="details" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')"> <label for="Sub_Type_Property" class="col-md-2 col-form-label text-md-right">{{ __($p->Property_Name) }}</label>
+        <div class="col-lg-3 col-26">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h5 style="color:white;"><a href="javascript:void(0)" style="color:white;" id="details" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')"> <label for="Sub_Type_Property" class="col-md-2 col-form-label text-md-right">{{ __($p->Property_Name) }}</label>
                         </a></h5>
+                <p style="color:24A745;">+</p>
                   <p style="color:24A745;">+</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="javascript:void(0)" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')" class="small-box-footer" style="color:white;">
+              <a href="javascript:void(0)" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}','{{$item_id}}')" class="small-box-footer" style="color:white;">
                 Add More <i class="fa fa-plus"></i>
               </a>
               </div>
         </div>
         @endforeach
     </div>
+    <input type="hidden" value="{{$item_id}}" id="item_id">
     <div class="row">
         <button type="submit">Done</button>
     </div>
@@ -51,7 +54,6 @@
 </div>
 
 <script>
-
     function AddDetail(id, name) {
 
         $("#exampleModalLabel").html(name);
@@ -98,13 +100,13 @@
 
     $('#data_form').submit(function() {
         var data = [];
-
+        var item_id= $("#item_id").val();
         //3iza ageeb kol el inputs b get element by name
         //w b3deen 3iza 27ot el inputs value&id f array
         $('input[name="DetailItem[]"]').each(function() {
             data.push({
                 id: this.id,
-                value: this.value
+                value: this.value,
             });
         });
         var _token = $("input[name=_token]").val();
@@ -114,6 +116,7 @@
             url: "{{ route('details_submit')}}",
             data: {
                 data: data,
+                item_id: item_id,
                 _token: _token
             },
             success: function() {

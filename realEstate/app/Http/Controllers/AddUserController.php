@@ -35,55 +35,44 @@ class AddUserController extends Controller
     {
         //
 
-            try {
-
-
+        try {
                 $user = User::create([
-
                     'First_Name' => request('first_name'),
                     'Middle_Name' => request('middle-name'),
                     'Last_Name' => request('last-name'),
                     'Birth_Day' => request('birthdate'),
                     'Gender' => request('gender'),
                     'password' => request('password'),
-                    'National_ID' => request('national_id')
                 ]);
+                
                 $user_id = Arr::get($user, 'id');
-
+                
                 $email = Emails::create([
-
                 'User_ID' => $user_id,
                 'email' => request('Email'),
                 'Default' => 1
                 ]);
 
                 $phone_number = Phone_Numbers::create([
-
                 'User_ID' => $user_id,
                 'phone_number' => request('phone_number'),
                 'Default' => 1
                  ]);
 
-                 $user_type = Type_Of_User::create([
-                    'User_ID' => $user_id,
-                    'User_Type_ID' => request('select_type')
-                    ]);
+                $user_type = Type_Of_User::create([
+                'User_ID' => $user_id,
+                'User_Type_ID' => request('select_type')
+                ]);
 
-
-
-                //  $user_type = Type_Of_User::create([
-                // 'User_ID' => $user_id,
-                // 'User_Type_ID' => request('select_type')
-                // ]);
-
-            return back()->with('success', 'Item Created Successfully');
-             } catch (\Illuminate\Database\QueryException $e) {
-                 $errorCode = $e->errorInfo[1];
-                 if ($errorCode == 1062) {
-                     return back()->with('error', 'Already Exist !!');
-                 }
-            }
-
+            
+                return back()->with('success', 'Item Created Successfully');
+            } catch (\Illuminate\Database\QueryException $e) {
+                $errorCode = $e->errorInfo[1];
+                if ($errorCode == 1062) {
+                    return back()->with('error', 'Already Exist !!');
+                }
+           }
+             
 
     }
     /**
@@ -132,14 +121,11 @@ class AddUserController extends Controller
     }
     public function search()
     {
-       
-        $search = request('email');
-        // $Email= Emails::all()->first();
-        $test= Main_Type::all();
-        //->where('email','=', 'Omnia@gmail.com')
-        // Arr::get($Email, 'email');
-        return response()->json($test);
-
+          $search = request('email');
+        // return response()->json($search);
+        $email=Emails::where('email', 'LIKE', '%'.$search.'%')->get();
+    
+        return response()->json($email);
     }
     /**
      * Remove the specified resource from storage.
@@ -154,10 +140,10 @@ class AddUserController extends Controller
         User::destroy($request->id);
         Emails::destroy($request->id);
         Phone_Numbers::destroy($request->id);
-        return redirect()->route('users_show')->with('success', 'Item Deleted Successfully');
+        return back()->with('success', 'Item Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('users_show')->with('error', 'Item cannot be deleted');
+        return back()->with('error', 'Item cannot be deleted');
                 
     }
     }

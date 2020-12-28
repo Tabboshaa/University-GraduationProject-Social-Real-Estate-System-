@@ -1,5 +1,8 @@
 @extends('website.backend.layouts.main')
 @section('content')
+
+
+<link href="{{asset('css/ButtonStyle.css')}}" rel="stylesheet" type="text/css" />
     <div class="right_col" role="main">
         <div class="title_right">
             <div class="x_panel">
@@ -26,7 +29,7 @@
                             <button type="submit" class="btn btn-primary">
                                 {{ __('Add') }}
                             </button>
-                            <a href="{{url('/show_country')}}" class="btn btn-primary">{{ __('Show') }}</a>
+                            <a href="{{url('/show_country')}}" id="btun" >{{ __('Show') }}</a>
                         </div>
                     </div>
 

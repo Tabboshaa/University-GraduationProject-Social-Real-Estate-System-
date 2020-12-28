@@ -98,11 +98,6 @@ Route::get('/Details_show', 'DetailsController@show')->name('details_show');
 Route::post('/add_Details','DetailsController@create')->name('details_submit');
 
 
-
-Route::get('/User','AddUserController@Index');
-Route::Post('/Add_User','AddUserController@Create');
-
-
 // Item  pages #Tabbosha
 Route::get('Item','ItemController@index1');
 Route::post('addItem','ItemController@create');
@@ -127,15 +122,8 @@ Route::delete('/delete_sub_type_property/{id?}','SubTypePropertyController@destr
 Route::get('/edit_sub_type_property','SubTypePropertyController@edit')->name('subTypeProperty.update');
 
 //Search
-
-
-
-
 Route::delete('/delete_detail/{id?}','DetailsController@destroy');
 Route::get('/edit_detail','DetailsController@edit')->name('Detail.update');
-
-
-
 Route::post('/add_Item_Detail/{property_id}','ItemController@submit');
 
 // Dynamic Drop Down For Country #s
@@ -169,7 +157,7 @@ Route::get('/findDetailsForForm','PropertyDetailsController@findDetailsForForm')
 
 //User Pages #S
 Route::get('/User','AddUserController@Index');
-Route::Post('/Add_User','AddUserController@Create');
+Route::Post('/Add_User','AddUserController@create');
 Route::get('/show_users' , 'UserTypes@get_user_types');
 Route::get('/TypeOfUser/{id}','UserTypes@getUser')->name('users_show');
 Route::delete('/delete_user/{id?}','AddUserController@destroy');
@@ -180,6 +168,12 @@ Route::get('/edit_User_PhoneNumber','AddUserController@editUserPhoneNumber')->na
 Route::Post('/item_created','ItemController@itemShow');
 
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin', function () {
+    return view('website\backend.layouts.Admin');
+});
 //search user
 
 Route::post('/search_user','AddUserController@search')->name('search');
