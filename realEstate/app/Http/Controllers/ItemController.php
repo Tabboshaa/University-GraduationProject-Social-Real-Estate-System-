@@ -68,7 +68,7 @@ class ItemController extends Controller
         //  return dd($properties);
 
 
-          //  return $details;
+           return $details;
 
 
             // $SubTypeId=Arr::get(Details::all()->where('Item_Id','=',$id)->first(),'Sub_Type_Id');
@@ -79,7 +79,7 @@ class ItemController extends Controller
         // $properties=Sub_Type_Property::all()->where('Sub_Type_Id','=',$SubTypeId);
 //   return $properties;
 
-        return view('website.backend.database pages.omniaShowItem',['user'=>$user,'Location'=>$Location,'details'=>$details]);
+        return view('website.backend.database pages.ShowItem',['user'=>$user,'Location'=>$Location,'details'=>$details]);
     }
     public function itemShow()
     {

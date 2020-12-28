@@ -19,21 +19,21 @@
         </tr>
         <tr>
             {{--For each Sub Type Proberty--}}
-            @foreach($details as $properties)
+            @foreach($details as $properties => $details)
 
             <table class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
 
                 <thead>
                 <tr>
-                    <th colspan="{{count($properties)+1}}" style="text-align:center">{{$properties->Property_Name}}</th>
+                    <th colspan="{{count($details)+1}}" style="text-align:center">{{$properties}}</th>
                 </tr>
                 <tr >
 
-                    <th>{{$properties->Property_Name}} Number</th>
+                    <th>{{$properties}} Number</th>
 
                     {{--For each Sub Type Proberty Detail--}}
-                    @foreach($properties as $detail)
-                    <th>{{$detail->Detail_Name}}</th>
+                    @foreach($details as $detail)
+                    <th>{{$detail->Detail_Name }}</th>
                     @endforeach
                     {{-- End For each Sub Type Proberty Detail--}}
 
@@ -43,14 +43,14 @@
                 <tbody>
 
                     {{--     LOOP FOR ROWS        --}}
-                    @foreach($properties as $detail)
+                    @foreach($details as $detail)
                     <tr>
-                        <td>{{$detail->Property_Name}}   {{--{{count($detail)}}--}}</td>
+                        <td>{{$detail->Property_Name}} </td>
 
                         {{--For each Sub Type Proberty Detail--}}
-                        @foreach($details as $detail)
+                        <!-- @foreach($details as $detail) -->
                         <td>{{$detail->DetailValue}}</td>
-                        @endforeach
+                        <!-- @endforeach -->
                         {{-- End For each Sub Type Proberty Detail--}}
 
                     </tr>
