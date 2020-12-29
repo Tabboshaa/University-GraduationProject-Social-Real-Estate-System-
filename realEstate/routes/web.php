@@ -123,6 +123,7 @@ Route::get('/edit_sub_type_property','SubTypePropertyController@edit')->name('su
 
 //Search
 Route::delete('/delete_detail/{id?}','DetailsController@destroy');
+Route::delete('/delete_detail_item','DetailsController@destroydetail');
 Route::get('/edit_detail','DetailsController@edit')->name('Detail.update');
 Route::post('/add_Item_Detail/{property_id}','ItemController@submit');
 

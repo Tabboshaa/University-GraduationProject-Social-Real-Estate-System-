@@ -95,13 +95,13 @@ class DetailsController extends Controller
                 }
             }
     }
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id=null)
     {
         //
         if(request()->has('id'))
        {
         try {
-        Property_Details::destroy($request->id);
+            Details::destroy($request->id);
         return redirect()->route('details_show')->with('success', 'Detail Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
 
@@ -110,5 +110,25 @@ class DetailsController extends Controller
     }
 }else return redirect()->route('details_show')->with('warning', 'No Detail was chosen to be deleted.. !!');
     }
+
+    
+    public function destroydetail(Request $request)
+    {
+        if(request()->has('id'))
+        {
+         try {
+            Details::destroy($request->id);
+         return redirect()->back()->with('success', 'Detail Deleted Successfully');
+     }catch (\Illuminate\Database\QueryException $e){
+ 
+         return redirect()->back()->with('error', 'Detail cannot be deleted');
+                 
+     }
+ }else return redirect()->back()->with('warning', 'No Detail was chosen to be deleted.. !!');
+
+
+    }
+
+
  
 }
