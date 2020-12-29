@@ -43,11 +43,11 @@ class RegionController extends Controller
             'City_Id' => request('City_Name'),
             'Region_Name' => request('Region_Name')
         ]);
-        return back()->with('success','Item Created Successfully');
+        return back()->with('success','Region Created Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
-            return back()->with('error','Already Exist !!');
+            return back()->with('error','Region Already Exists !!');
         }
     }
     }
@@ -116,14 +116,17 @@ class RegionController extends Controller
      */
     public function destroy(Request $request,$id=null)
     {
+        if(request()->has('id'))
+       {
         try {
         Region::destroy($request->id);
-        return redirect()->route('region_show')->with('success', 'Item Deleted Successfully');
+        return redirect()->route('region_show')->with('success', 'Region Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('region_show')->with('error', 'Item cannot be deleted');
+        return redirect()->route('region_show')->with('error', 'Region cannot be deleted');
 
     }
+}else return redirect()->route('region_show')->with('warning', 'No Region was chosen to be deleted.. !!');
     }
 
     public function findstate(){
@@ -169,11 +172,11 @@ class RegionController extends Controller
         $region->Region_Name=request('RegionName');
         $region->save();
 
-        return back()->with('info','Item Edited Successfully');
+        return back()->with('info','Region Edited Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
-            return back()->with('error','Error editing item');
+            return back()->with('error','Error editing Region');
         }
     }
 

@@ -137,7 +137,7 @@
 
     });
 </script>
-
+<!-- <script src="{{ asset('js/location.js')}}"></script> -->
 <link href="{{asset('css/Form.css')}}" rel="stylesheet" type="text/css" />
 
 <div class="right_col" role="main">
@@ -163,6 +163,7 @@
                                     <a href="javascript:void(0)" id="SearchA" onclick="searchForEmail()" class="btn btn-info" role="button">Search </a>
                                     <div class="col-md-6 col-sm-6 ">
                                         <input type="search" id="Search" name="Search" required="required" class="form-control">
+                                        <input type="hidden" id="userIdHiddenInput" name="userIdHiddenInput" >
                                     </div>
                                 </div>
                                 <div class="item form-group">
@@ -262,8 +263,7 @@
                                 checkboxes.forEach((item) => {
                                     if (item !== checkbox) item.checked = false
                                 })
-                                console.log($("#Search").val());
-                                $("#Search").val(checkbox.value);
+                                $("#userIdHiddenInput").val(checkbox.value);
                             }
                         </script>
 

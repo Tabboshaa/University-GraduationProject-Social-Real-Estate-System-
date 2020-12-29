@@ -136,6 +136,7 @@ class AddUserController extends Controller
     public function destroy(Request $request,$id=null)
     {
         //
+        
         try {
         User::destroy($request->id);
         Emails::destroy($request->id);

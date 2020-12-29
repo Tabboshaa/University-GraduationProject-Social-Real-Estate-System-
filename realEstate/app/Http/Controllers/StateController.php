@@ -40,11 +40,11 @@ class StateController extends Controller
             'Country_Id' => request('country_name')
 
         ]);
-        return back()->with('success','Item Created Successfully');
+        return back()->with('success','State Created Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
-            return back()->with('error','Already Exist !!');
+            return back()->with('error','State Already Exists !!');
         }
     }
 
@@ -110,15 +110,17 @@ class StateController extends Controller
     public function destroy(Request $request,$id=null)
     {
         // Will Destroy each column with id form action
+        if(request()->has('id'))
+       {
         try {
         State::destroy($request->id);
-        return redirect()->route('state_show')->with('success', 'Item Deleted Successfully');
+        return redirect()->route('state_show')->with('success', 'State Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('state_show')->with('error', 'Item cannot be deleted');
+        return redirect()->route('state_show')->with('error', 'State cannot be deleted');
 
     }
-
+}else return redirect()->route('state_show')->with('warning', 'No State was chosen to be deleted.. !!');
     }
     public function findstate(){
 
@@ -142,7 +144,7 @@ class StateController extends Controller
         $state->save();
 
         //hyb3t el update el gded fl country table
-        return back()->with('info','Item Edited Successfully');
+        return back()->with('info','State Edited Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){

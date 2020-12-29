@@ -30,11 +30,11 @@ class DatatypeController extends Controller
             $Data_Type = Datatype::create([
                 'datatype' => request('Data_Type_Name')
             ]);
-            return back()->with('success', 'Item Created Successfully');
+            return back()->with('success', 'Datatype Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('error', 'Already Exist !!');
+                return back()->with('error', 'Datatype Already Exist !!');
             }
         }
     }
@@ -78,11 +78,11 @@ class DatatypeController extends Controller
             $data_type->datatype = request('DataTypeName');
             $data_type->save();
 
-                return back()->with('info','Item Edited Successfully');
+                return back()->with('info','Datatype Edited Successfully');
             }catch (\Illuminate\Database\QueryException $e){
                 $errorCode = $e->errorInfo[1];
                 if($errorCode == 1062){
-                    return back()->with('error','Error editing item');
+                    return back()->with('error','Error editing Datatype');
                 }
             }
     }
@@ -108,13 +108,18 @@ class DatatypeController extends Controller
     public function destroy()
     {
         //
+        if(request()->has('id'))
+       {
+           
         try {
         Datatype::destroy(request('id'));
-        return  redirect()->route('data_type_show')->with('success', 'Item Deleted Successfully');
+        return  redirect()->route('data_type_show')->with('success', 'Datatype Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('data_type_show')->with('error', 'Item cannot be deleted');
+        return redirect()->route('data_type_show')->with('error', 'Datatype cannot be deleted');
                 
     }
+}else return redirect()->route('data_type_show')->with('warning', 'No Datatype was chosen to be deleted.. !!');
     }
+
 }

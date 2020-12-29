@@ -59,11 +59,11 @@ class DetailsController extends Controller
             // ]);
             // return back()->with('success', 'Item Created Successfully');
            
-        return back()->with('success', 'Item Created Successfully');
+        return back()->with('success', 'Detail Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('error', 'Already Exist !!');
+                return back()->with('error', 'Detail Already Exist !!');
             }
         }
     }
@@ -87,25 +87,28 @@ class DetailsController extends Controller
             $detail->DetailValue = request('DetailName');
             $detail->save();
 
-                return back()->with('info','Item Edited Successfully');
+                return back()->with('info','Detail Edited Successfully');
             }catch (\Illuminate\Database\QueryException $e){
                 $errorCode = $e->errorInfo[1];
                 if($errorCode == 1062){
-                    return back()->with('error','Error editing item');
+                    return back()->with('error','Error editing Detail');
                 }
             }
     }
     public function destroy(Request $request, $id)
     {
         //
+        if(request()->has('id'))
+       {
         try {
         Property_Details::destroy($request->id);
-        return redirect()->route('details_show')->with('success', 'Item Deleted Successfully');
+        return redirect()->route('details_show')->with('success', 'Detail Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('details_show')->with('error', 'Item cannot be deleted');
+        return redirect()->route('details_show')->with('error', 'Detail cannot be deleted');
                 
     }
+}else return redirect()->route('details_show')->with('warning', 'No Detail was chosen to be deleted.. !!');
     }
  
 }

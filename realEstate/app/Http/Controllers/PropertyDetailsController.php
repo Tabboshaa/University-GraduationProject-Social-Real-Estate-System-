@@ -33,11 +33,11 @@ class PropertyDetailsController extends Controller
                 'DataType_Id' => request('Data_Type_Name'),
                 'Detail_Name' => request('property_details')
             ]);
-            return back()->with('success', 'Item Created Successfully');
+            return back()->with('success', 'Property Detail Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('error', 'Already Exist !!');
+                return back()->with('error', 'Property Detail Already Exists !!');
             }
         }
     }
@@ -76,26 +76,29 @@ class PropertyDetailsController extends Controller
         $propertydetail = Property_Details::all()->find(request('id'));
         $propertydetail->Detail_Name = request('PropertyDetailName');
         $propertydetail->save();
-        return back()->with('info','Item Edited Successfully');
+        return back()->with('info','Property Detail Edited Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
-            return back()->with('error','Error editing item');
+            return back()->with('error','Error editing Property Detail');
         }
     }
     }
     public function destroy(Request $request)
     {
         //
+        if(request()->has('id'))
+       {
         try {
         Property_Details::destroy($request->id);
         
-        return redirect()->route('property_detail_show')->with('success', 'Item Deleted Successfully');
+        return redirect()->route('property_detail_show')->with('success', 'Property Detail Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('property_detail_show')->with('error', 'Item cannot be deleted');
+        return redirect()->route('property_detail_show')->with('error', 'Property Detail cannot be deleted');
                 
     }
+}else return redirect()->route('property_detail_show')->with('warning', 'No Property Detail was chosen to be deleted.. !!');
     }
     
     public function submit_properties()

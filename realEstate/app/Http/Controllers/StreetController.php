@@ -47,11 +47,11 @@ class StreetController extends Controller
             'Region_Id' => request('Region_Name'),
             'Street_Name' => request('Street_Name')
         ]);
-        return back()->with('success','Item Created Successfully');
+        return back()->with('success','Street Created Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
-            return back()->with('error','Already Exist !!');
+            return back()->with('error','Street Already Exists !!');
         }
     }
     }
@@ -122,15 +122,18 @@ class StreetController extends Controller
      */
     public function destroy(Request $request,$id=null)
     {
+        if(request()->has('id'))
+       {
         try {
 
         Street::destroy($request->id);
-        return redirect()->route('street_show')->with('success', 'Item Deleted Successfully');
+        return redirect()->route('street_show')->with('success', 'Street Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('street_show')->with('error', 'Item cannot be deleted');
+        return redirect()->route('street_show')->with('error', 'Street cannot be deleted');
 
     }
+}else return redirect()->route('street_show')->with('warning', 'No Street was chosen to be deleted.. !!');
     }
     public function editStreet(Request $request)
     {
@@ -142,11 +145,11 @@ class StreetController extends Controller
         $street->save();
 
         //hyb3t el update el gded fl country table
-        return back()->with('info','Item Edited Successfully');
+        return back()->with('info','Street Edited Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
-            return back()->with('error','Error editing item');
+            return back()->with('error','Error editing Street');
         }
     }
     }

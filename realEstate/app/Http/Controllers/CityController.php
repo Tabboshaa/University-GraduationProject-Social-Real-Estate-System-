@@ -42,11 +42,11 @@ return view('website\backend.database pages.Add_City',['country'=>$countries , '
             'Country_Id'=> request('Country_Name'),
             'State_Id'  => request('State_Name')
         ]);
-        return back()->with('success','Item Created Successfully');
+        return back()->with('success','City Created Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
-            return back()->with('error','Already Exist !!');
+            return back()->with('error','City Already Exist !!');
         }
     }
     }
@@ -113,14 +113,17 @@ return view('website\backend.database pages.Add_City',['country'=>$countries , '
 
     public function destroy(Request $request, $id=null)
     {
+        if(request()->has('id'))
+       {
         try {
         City::destroy($request->id);
-        return redirect()->route('city_show')->with('success', 'Item Deleted Successfully');
+        return redirect()->route('city_show')->with('success', 'City Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('city_show')->with('error', 'Item cannot be deleted');
+        return redirect()->route('city_show')->with('error', 'City cannot be deleted');
 
     }
+}else return redirect()->route('city_show')->with('warning', 'No City was chosen to be deleted.. !!');
     }
 
     public function findstate(){

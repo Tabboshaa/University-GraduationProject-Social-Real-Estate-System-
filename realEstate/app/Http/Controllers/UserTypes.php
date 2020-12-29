@@ -36,7 +36,7 @@ class UserTypes extends Controller
             $User_Type = User_Type::create([
                 'Type_Name' => request('User_Type_Name')
             ]);
-            return back()->with('success', 'Item Created Successfully');
+            return back()->with('success', 'Type Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -83,7 +83,7 @@ class UserTypes extends Controller
         $user_type->Type_Name = request('UserTypeName');
         $user_type->save();
 
-        return back()->with('info','Item Edited Successfully');
+        return back()->with('info','Type Edited Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
@@ -113,12 +113,15 @@ class UserTypes extends Controller
     public function destroy()
     {
         //
+        if(request()->has('id'))
+       {   
         try {
         User_Type::destroy(request('id'));
-        return redirect()->route('usertype_show')->with('success', 'Item Deleted Successfully');
+        return redirect()->route('usertype_show')->with('success', 'Type Deleted Successfully');
             }catch (\Illuminate\Database\QueryException $e){
-        return redirect()->route('usertype_show')->with('error', 'Item cannot be deleted');
+        return redirect()->route('usertype_show')->with('error', 'Type cannot be deleted');
     }
+}else return redirect()->route('usertype_show')->with('warning', 'No type was chosen to be deleted.. !!');
     }
 
     public function get_user_types()
