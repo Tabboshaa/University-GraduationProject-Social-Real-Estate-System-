@@ -262,6 +262,8 @@
                                 checkboxes.forEach((item) => {
                                     if (item !== checkbox) item.checked = false
                                 })
+                                console.log($("#Search").val());
+                                $("#Search").val(checkbox.value);
                             }
                         </script>
 

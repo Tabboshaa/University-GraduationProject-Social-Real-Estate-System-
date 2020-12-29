@@ -167,9 +167,6 @@ Route::get('/edit_User_PhoneNumber','AddUserController@editUserPhoneNumber')->na
 
 Route::Post('/item_created','ItemController@itemShow');
 
-
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', function () {
     return view('website\backend.layouts.Admin');
@@ -177,10 +174,6 @@ Route::get('/admin', function () {
 //search user
 
 Route::post('/search_user','AddUserController@search')->name('search');
-
-
-
-
 
 Auth::routes();
 
