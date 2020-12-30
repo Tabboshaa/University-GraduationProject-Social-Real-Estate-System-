@@ -1,14 +1,11 @@
 @extends('website.backend.database pages.Item')
 @section('Item_Main_Type_table')
 
-<table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+<table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
     <thead>
         <tr>
-            <td></td>
-        </tr>
-        <tr>
             <th>User</th>
-            <td>{{$user->First_Name}} {{$user->Middle_Name}} {{$user->Last_Name}}</td>
+            <td>{{$user->First_Name}} {{$user->Middle_Name}} {{$user->Last_Name}} <br> {{$email->email}} <br> {{$phone_number->phone_number}}</td>
         </tr>
     </thead>
     <tbody>

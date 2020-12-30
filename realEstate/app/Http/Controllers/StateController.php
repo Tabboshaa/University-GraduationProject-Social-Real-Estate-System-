@@ -71,7 +71,7 @@ class StateController extends Controller
     public function show()
     {
         //
-        $countries=Country::paginate(1);
+        $countries=Country::all();
         $states=DB::table('states')
         ->join('countries', 'states.Country_Id', '=', 'countries.Country_Id')
         ->select('states.*', 'countries.Country_Name')->paginate(10);

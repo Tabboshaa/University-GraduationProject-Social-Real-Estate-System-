@@ -132,8 +132,9 @@ class UserTypes extends Controller
         return view('website/backend.database pages.Users_Show', ['user_types' => $user_types,'users'=>$Users]);
 
     }
-    public function getUser($id)
+    public function getUser($id=null)
     {
+        if($id==null && request()->has('id')) $id=request('id');
          //$Type_Of_User=Type_Of_User::all();
          $user_types = User_Type::all();
          $Users=DB::table('type__of__users')->join('users','users.id','=','type__of__users.User_ID')
@@ -143,9 +144,7 @@ class UserTypes extends Controller
          ->get()->where('User_Type_ID', '=', $id);
 
 
-
-         //'Type_Of_User'=> $Type_Of_User,
-         return view('website\backend.database pages.Users_Show',['users'=>$Users,'user_types'=>$user_types]);
+         return  response()->json($Users);
 
 
     }
