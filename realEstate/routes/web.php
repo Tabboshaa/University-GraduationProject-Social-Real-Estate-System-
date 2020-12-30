@@ -94,7 +94,7 @@ Route::post('/add_sub_type_property','SubTypePropertyController@create');
 
 
 // Details pages #Tabbosha
-Route::get('/Details', 'DetailsController@index');
+Route::get('/Details', 'DetailsController@index')->name('Details');
 Route::get('/Details_show', 'DetailsController@show')->name('details_show');
 Route::post('/add_Details','DetailsController@create')->name('details_submit');
 
@@ -103,6 +103,7 @@ Route::post('/add_Details','DetailsController@create')->name('details_submit');
 Route::get('Item','ItemController@index1');
 Route::post('addItem','ItemController@create');
 Route::get('ShowItem/{id?}','ItemController@show');
+Route::delete('DelteItem/{id?}','ItemController@destroy');
 
 
 //Route::get('/Item', 'ItemController@SubTypeShow');
