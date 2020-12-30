@@ -6,8 +6,8 @@
         <tr>
             <th>User</th>
             <td>{{$user->First_Name}} {{$user->Middle_Name}} {{$user->Last_Name}} <br> {{$email->email}} <br> {{$phone_number->phone_number}}</td>
-            <td><a href="javascript:void(0)" onclick="setUserEmail()"><i class="fa fa-edit"> Edit</i></a></td>
-        
+            <td><a href="javascript:void(0)" onclick="setUserEmail({{$user->id}})"><i class="fa fa-edit"> Edit</i></a></td>
+
         </tr>
     </thead>
     <tbody>
@@ -107,6 +107,33 @@
     </div>
 </div>
 
+<div class="modal fade" id="EditUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Main type</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="EditUserForm">
+                    @csrf
+                    <input type="hidden" name="id" id="id">
+
+                    <div class="form-group">
+                        <label for="Email" style="font-size: 12pt" >User Email</label>
+                        <input type="text" style="border-radius: 3pt" name="Email" id="Email" class="form-control">
+
+                    </div>
+                    <button type="submit" id="EUbtn" class="btn btn-success">Edit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     function setDetailIdName(id, name) {
 
@@ -147,8 +174,7 @@
     function setUserEmail(Eamil){
 
         $("#id").val(id);
-        $("#MainTypeName").val(name);
-        $("#EditMainTypeModal").modal("toggle");
+        $("#EditUserModal").modal("toggle");
     }
     $('#EditUserForm').submit(function (){
 

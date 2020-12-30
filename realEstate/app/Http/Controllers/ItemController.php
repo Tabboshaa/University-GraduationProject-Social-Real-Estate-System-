@@ -48,7 +48,7 @@ class ItemController extends Controller
 
         $Street_id = Arr::get($item, 'Street_Id');
 
-        $user = User::all('First_Name', 'Middle_Name', 'Last_Name')->where('id', '=', $User_id)->first();
+        $user = User::all('First_Name', 'Middle_Name', 'Last_Name','id')->where('id', '=', $User_id)->first();
 
         $email = Emails::all('email')->where('User_ID', '=', $User_id)->first();
 
