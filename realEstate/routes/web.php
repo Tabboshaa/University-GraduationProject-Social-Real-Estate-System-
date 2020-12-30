@@ -107,7 +107,7 @@ Route::delete('DelteItem/{id?}','ItemController@destroy');
 
 
 //Route::get('/Item', 'ItemController@SubTypeShow');
-Route::get('/addItemSteps', 'ItemController@SubTypeShow');
+Route::get('/addItemSteps/{id}', 'ItemController@SubTypeShow');
 // Route::get('/Item_Main_types_show', 'ItemController@MainTypeShow');
 Route::get('/Item_Sub_types_show/{id}', 'ItemController@SubTypeShow');
 Route::get('/searchR', 'ItemController@searchEmail');

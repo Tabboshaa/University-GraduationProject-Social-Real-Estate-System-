@@ -66,8 +66,12 @@
 
 </form>
 
-
+@if(!empty($subtypeid))
 <a href="{{url('/property_select/'.$item_id.'/'.$subtypeid.'')}}" class="btn btn-info"> Add More Details</a>
+@else 
+<a href="{{url('/addItemSteps/'.$item_id)}}" class="btn btn-info"> Add Details of item</a>
+
+@endif
 <a href="{{url('/Details')}}" class="btn btn-info">Search for an Item</a>
 <a href="{{url('/Item')}}" class="btn btn-info"> Create Another Item</a>
 <form method="Post" action="{{ url('/DelteItem/'.$item_id.'?_method=delete') }}" enctype="multipart/form-data">
