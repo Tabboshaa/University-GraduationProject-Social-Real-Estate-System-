@@ -41,14 +41,14 @@ class ItemController extends Controller
         if ($id == null && request()->has('Item')) $id = request('Item');
         $item = Item::all('Street_Id', 'User_Id')->where('Item_Id', '=', $id);
         // return $item;
-        
+
         $User_id = Arr::get($item, 'User_Id');
 
         $Item_id = Arr::get($item, 'Item_Id');
 
         $Street_id = Arr::get($item, 'Street_Id');
 
-        $user = User::all('First_Name', 'Middle_Name', 'Last_Name')->where('id', '=', $User_id)->first();
+        $user = User::all('First_Name', 'Middle_Name', 'Last_Name','id')->where('id', '=', $User_id)->first();
 
         $email = Emails::all('email')->where('User_ID', '=', $User_id)->first();
 
@@ -105,6 +105,12 @@ class ItemController extends Controller
                 return back()->with('error', 'Already Exist !!');
             }
         }
+    }
+    public function EditUser()
+    {
+        $item=Item::all()->find(request('id'));
+        $item->User_Id=request('User_Id');
+        $item->save();
     }
     public function searchEmail()
     {

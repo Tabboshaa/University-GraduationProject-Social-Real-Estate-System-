@@ -17,7 +17,7 @@
             <td class="th1">User</td>
             <td class="td1"> 
                  Name : {{$user->First_Name}} {{$user->Middle_Name}} {{$user->Last_Name}} 
-                <br>Email : {{$email->email}} 
+                <br>Email : {{$email->email}} <a href="javascript:void(0)" onclick="setUserEmail({{$user->id}})"><i class="fa fa-edit"> Edit</i></a>
                 <br>Phone Number :{{$phone_number->phone_number}}
             </td>
         </tr>
@@ -25,7 +25,9 @@
     <tbody>
         <tr>
             <th class="th1">Location</th>
-            <td class="td1">{{$Location->Country_Name}},{{$Location->State_Name}},{{$Location->City_Name}},{{$Location->Region_Name}},{{$Location->Street_Name}}</td>
+            <td class="td1">{{$Location->Country_Name}},{{$Location->State_Name}},{{$Location->City_Name}},{{$Location->Region_Name}},{{$Location->Street_Name}}
+                <a href="javascript:void(0)" onclick=""><i class="fa fa-edit"> Edit</i></a>
+            </td>
         </tr>
         <tr>
             <td colspan="2" style="text-align:center" class="td1">Details</td>
@@ -73,11 +75,12 @@
 
                     @endforeach
                 </table>
+            </form>
         </tr>
     </tbody>
 </table>
 
-</form>
+
 
 @if(!empty($subtypeid))
 <a href="{{url('/property_select/'.$item_id.'/'.$subtypeid.'')}}" id="btun1"class="btn btn-info "> Add More Details</a>
@@ -117,6 +120,33 @@
     </div>
 </div>
 
+<div class="modal fade" id="EditUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Main type</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="EditUserForm">
+                    @csrf
+                    <input type="hidden" name="id" id="id">
+
+                    <div class="form-group">
+                        <label for="Email" style="font-size: 12pt" >User Email</label>
+                        <input type="text" style="border-radius: 3pt" name="Email" id="Email" class="form-control">
+
+                    </div>
+                    <button type="submit" id="EUbtn" class="btn btn-success">Edit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     function setDetailIdName(id, name) {
 
@@ -147,6 +177,40 @@
                 // $("#EditDetailModal")[0].reset();
             },
             error: function() {
+                console.log('Error');
+            }
+
+        });
+    })
+
+
+    function setUserEmail(Eamil){
+
+        $("#id").val(id);
+        $("#EditUserModal").modal("toggle");
+    }
+    $('#EditUserForm').submit(function (){
+
+        var id=$("#id").val();
+        var MainTypeName=$("#MainTypeName").val();
+        var _token= $("input[name=_token]").val();
+
+        $.ajax({
+            url:"{{route('Maintype.update')}}",
+            Type:"PUT",
+            data:{
+                id:id,
+                // MainTypeid:MainTypeid,
+                MainTypeName:MainTypeName,
+                _token:_token
+            },
+            success:function (){
+                console.log('Success');
+                $("#EditMainTypeModal").modal("toggle");
+                // $("#EditMainTypeModal")[0].reset();
+            },
+            error:function ()
+            {
                 console.log('Error');
             }
 

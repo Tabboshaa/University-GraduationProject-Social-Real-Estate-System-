@@ -5,7 +5,7 @@
         <thead>
         <tr>
             <th>User</th>
-            <td>{{$user[0]->First_Name}} {{$user[0]->Middle_Name}} {{$user[0]->Last_Name}}</td>
+            <td>{{$user->First_Name}} {{$user->Middle_Name}} {{$user->Last_Name}}</td>
 
         </tr>
         </thead>
@@ -19,7 +19,7 @@
         </tr>
         <tr>
             {{--For each Sub Type Proberty--}}
-            @foreach($details as $properties => $details)
+            @foreach($detail as $properties => $details)
 
             <table class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
 
