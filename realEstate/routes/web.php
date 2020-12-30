@@ -161,7 +161,7 @@ Route::get('/findDetailsForForm','PropertyDetailsController@findDetailsForForm')
 Route::get('/User','AddUserController@Index');
 Route::Post('/Add_User','AddUserController@create');
 Route::get('/show_users' , 'UserTypes@get_user_types');
-Route::get('/TypeOfUser/{id}','UserTypes@getUser')->name('users_show');
+Route::get('/TypeOfUser','UserTypes@getUser')->name('users_show');
 Route::delete('/delete_user/{id?}','AddUserController@destroy');
 Route::get('/edit_User_Name','AddUserController@editUserName')->name('UserName.update');
 Route::get('/edit_User_Email','AddUserController@editUserEmail')->name('UserEmail.update');

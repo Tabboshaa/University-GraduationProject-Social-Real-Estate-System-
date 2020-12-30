@@ -17,6 +17,8 @@
 
                     <div class="col-md-2">
                         <select id="country_name" style="border-radius: 3pt" class="form-control @error('country_name') is-invalid @enderror" name="country_name" value="{{ old('country_name') }}" required autocomplete="country_name">
+                            <option value="0" selected disabled>Select Country</option>
+
                             @foreach($country as $country)
                             <option value="{{$country->Country_Id}}">{{$country->Country_Name}}</option>
                             @endforeach
