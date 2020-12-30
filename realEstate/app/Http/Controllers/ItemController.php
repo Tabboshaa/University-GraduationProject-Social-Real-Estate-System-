@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Emails;
+use App\Phone_Numbers;
 use App\Item;
 use App\Main_Type;
 use App\Street;
@@ -49,6 +50,10 @@ class ItemController extends Controller
 
         $user = User::all('First_Name', 'Middle_Name', 'Last_Name')->where('id', '=', $User_id)->first();
 
+        $email = Emails::all('email')->where('User_ID', '=', $User_id)->first();
+
+        $phone_number = Phone_Numbers :: all('phone_number')->where('User_ID', '=', $User_id)->first();
+
         $Location = DB::table('streets')
             ->join('countries', 'streets.Country_Id', '=', 'countries.Country_Id')
             ->join('states', 'streets.State_Id', '=', 'states.State_Id')
@@ -67,7 +72,7 @@ class ItemController extends Controller
 
         $Sub_Type_Id = Arr::get(Details::all()->where('Item_Id', '=', $id)->first(), 'Sub_Type_Id');
 
-        return view('website.backend.database pages.omniaShowItem', ['user' => $user, 'Location' => $Location, 'details' => $details, 'item_id' => $id, 'subtypeid' => $Sub_Type_Id]);
+        return view('website.backend.database pages.omniaShowItem', ['user' => $user, 'Location' => $Location, 'details' => $details, 'item_id' => $id, 'subtypeid' => $Sub_Type_Id,'email'=>$email,'phone_number' => $phone_number]);
     }
 
     public function itemShow()

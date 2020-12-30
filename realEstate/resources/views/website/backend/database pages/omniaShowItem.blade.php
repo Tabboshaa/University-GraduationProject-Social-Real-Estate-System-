@@ -1,13 +1,13 @@
 @extends('website.backend.database pages.Item')
 @section('Item_Main_Type_table')
 
-<table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+<table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
     <thead>
-        <tr><td></td></tr>
         <tr>
             <th>User</th>
-            <td>{{$user->First_Name}} {{$user->Middle_Name}} {{$user->Last_Name}}</td>
+            <td>{{$user->First_Name}} {{$user->Middle_Name}} {{$user->Last_Name}} <br> {{$email->email}} <br> {{$phone_number->phone_number}}</td>
             <td><a href="javascript:void(0)" onclick="setUserEmail()"><i class="fa fa-edit"> Edit</i></a></td>
+        
         </tr>
     </thead>
     <tbody>
@@ -30,7 +30,7 @@
                             <h4>{{$property}}</h4>
                         </td>
                         <th></th>
-                        <th>Select all <input type="checkbox" id="selectAll" name="selectAll">  <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
+                        <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
                         <th></th>
                         <!-- Java Script for select all function -->
                         <script>
@@ -78,8 +78,8 @@
 <a href="{{url('/Details')}}" class="btn btn-info">Search for an Item</a>
 <a href="{{url('/Item')}}" class="btn btn-info"> Create Another Item</a>
 <form method="Post" action="{{ url('/DelteItem/'.$item_id.'?_method=delete') }}" enctype="multipart/form-data">
-                @csrf
-<button type="submit" class="btn btn-danger"> Delete Item</button>
+    @csrf
+    <button type="submit" class="btn btn-danger"> Delete Item</button>
 </form>
 <div class="modal fade" id="EditDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

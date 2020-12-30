@@ -21,14 +21,15 @@
                     <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
                         @foreach($user_types as $user_types)
                         <li class="nav-item">
-                            <a class="nav-link" id="usertypes-tab"  href="{{url('/TypeOfUser/'.$user_types->User_Type_ID)}}" role="tab" aria-controls="usertypes" aria-selected="true">{{$user_types->Type_Name}}</a>
+                            <a class="nav-link" id="usertypes-tab"  href="javascript:void(0)" onclick="showUsers('{{$user_types->User_Type_ID}}')" role="tab" aria-controls="usertypes" aria-selected="true">{{$user_types->Type_Name}}</a>
                         </li>
                         @endforeach
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         @if(count($users) == 0)
                             <p> There is no data to show </p>
-                        @else
+                        @endif    
+                        
 
                         <form method="Post" action="{{ url('/delete_user/?_method=delete') }}" enctype="multipart/form-data">
                             @csrf
@@ -51,21 +52,12 @@
                                         </script>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach($users as $users)
-                                    <tr>
-                                        
-                                        <td> {{$users->First_Name}} {{$users->Middle_Name}} {{$users->Last_Name}} <a href="javascript:void(0)" onclick="setUserNameIdName('{{$users->id}}','{{$users->First_Name}}' , '{{$users->Middle_Name}}' , '{{$users->Last_Name}}')" ><i class="fa fa-edit"></i></a></td>
-                                        <td> {{$users->email}} <a href="javascript:void(0)" ><i class="fa fa-edit" onclick="setUserEmailIdName('{{$users->Email_Id}}','{{$users->email}}')"></i></a></td>
-                                        <td> {{$users->phone_number}} <a href="javascript:void(0)"><i class="fa fa-edit" onclick="setUserPhoneNumberIdName('{{$users->PhoneNumber_Id}}','{{$users->phone_number}}')"></i></a></td>
-                                        <td><input type="checkbox" name="id[]" value="{{$users->User_ID}}"></td>
-                                        
-                                    </tr>
-                                    @endforeach
+                                <tbody id="Table">
+                                    
                                 </tbody>
                             </table>
                         </form>
-                        @endif
+                     
 
                         <!-- form of editing user name -->
                         <div class="modal fade" id="EditUserNameModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -166,6 +158,7 @@
 </div>
 
 <script>
+
         function setUserNameIdName(id, First_Name , Middle_Name , Last_Name ) {
             
             $("#editnameid").val(id);
@@ -188,6 +181,52 @@
         }
 
     // Submit New User Name
+
+    
+
+    function showUsers(id) {
+
+
+var Table = '';
+$.ajax({
+    url: "{{route('users_show')}}",
+    Type: "get",
+    data: {
+        id: id
+    },
+    success: function(data) {
+        console.log(data);
+
+        Object.values(data).forEach(val => {
+            
+            Table += 
+            '<tr>'+
+            '<td>'+val['First_Name']+' '+ val['Middle_Name'] +' '+val['Last_Name'] +' '+'<a href="javascript:void(0)" onclick="setUserNameIdName('+val['First_Name']+','+val['Middle_Name']+' , '+val['Last_Name']+')">'+'<i class="fa fa-edit">'+'</i>'+'</a>'+'</td>' +
+            '<td>'+val['email']+'<a href="javascript:void(0)" >'+'<i class="fa fa-edit" onclick="setUserEmailIdName('+val['Email_Id']+','+val['email']+')">'+'</i>'+'</a>'+'</td>'+
+            '<td>'+val['phone_number']+'<a href="javascript:void(0)">'+'<i class="fa fa-edit" onclick="setUserPhoneNumberIdName('+val['PhoneNumber_Id']+','+val['phone_number']+')">'+'</i>'+'</a>'+'</td>'+
+            '<td>'+'<input type="checkbox" name="id[]"'+ val['User_ID']+'">'+'</td>'+
+            '</tr>';
+        });
+        if (Table == '')
+        Table = 'No Property Details';
+        else
+        Table += ' <div class="form-group row mb-0">' +
+            '<div class="col-md-2 offset-md-2">' +
+            ' <button type="submit" class="btn btn-primary">' +
+            ' {{ __("Add") }}';
+        '</button>';
+
+
+        $('#Table').html(Table);
+        // var FormTag= document.getElementById('data_form').innerHTML()=Form;
+    },
+    error: function() {
+        console.log('Error');
+    }
+
+});
+
+}
     $('#EditUserNameForm').submit(function() {
 
         var id = $("#editnameid").val();
