@@ -1,8 +1,17 @@
 @extends('website.backend.database pages.Add_Region')
 @section('table')
+
+<link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+
+<div class="x_title">
+    <h2>All Regions</h2>
+
+    <div class="clearfix"></div>
+</div>
+
 <form method="Post" action="{{ url('/delete_Region?_method=delete')}}" enctype="multipart/form-data">
     @csrf
-    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+    <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
         <thead>
             <tr>
                 <th>Country Name</th>
@@ -43,7 +52,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit State Name</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Region Name</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -55,11 +64,11 @@
                     <input type="hidden" name="id" id="id">
 
                     <div class="form-group">
-                        <label for="Region_Name">State Name</label>
-                        <input type="text" name="Region_Name" id="RegionName" class="form-control">
+                        <label for="Region_Name" style="font-size: 12pt">Region :</label>
+                        <input type="text" style="border-radius: 3pt" name="Region_Name" id="RegionName" class="form-control">
                     </div>
 
-                    <button type="submit" class="btn btn-success">Edit</button>
+                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>
 
             </div>

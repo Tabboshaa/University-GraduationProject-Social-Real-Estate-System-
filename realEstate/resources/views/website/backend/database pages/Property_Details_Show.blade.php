@@ -1,10 +1,19 @@
 @extends('website.backend.database pages.Property_Details')
 @section('Property_Details_table')
+
+<link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+
+<div class="x_title">
+    <h2>All Details</h2>
+
+    <div class="clearfix"></div>
+</div>
+
 <div class="row">
     <div class="col-sm-12">
         <form method="Post" action="{{ url('/delete_property_detail?_method=delete') }}" enctype="multipart/form-data">
             @csrf
-            <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+            <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
                 <thead>
                     <tr>
                         <th>Main Type</th>
@@ -13,7 +22,7 @@
                         <th>Property Detail Name</th>
                         <th>Data Type</th>
                         <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
-                        <th></th>
+                        <th>Edit</th>
                         <!-- Java Script for select all function -->
                         <script>
                             document.getElementById('selectAll').onclick = function() {
@@ -35,7 +44,7 @@
                         <td>{{$property_detail->Detail_Name}}</td>
                         <td>{{$property_detail->datatype}}</td>
                         <td><input type="checkbox" name="id[]" value="{{$property_detail->Property_Detail_Id}}"></td>
-                        <td><a href="javascript:void(0)" onclick="setPropertyDetailIdName('{{$property_detail->Property_Detail_Id}}','{{$property_detail->Detail_Name}}')"><i class="fa fa-edit"> Edit</i></a></td>
+                        <td><a href="javascript:void(0)" onclick="setPropertyDetailIdName('{{$property_detail->Property_Detail_Id}}','{{$property_detail->Detail_Name}}')"><i class="fa fa-edit"></i></a></td>
 
                     </tr>
                     @endforeach
@@ -49,7 +58,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Sub Type</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Property Details</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -60,10 +69,10 @@
                     <input type="hidden" name="id" id="id">
 
                     <div class="form-group">
-                        <label for="PropertyDetailName">Detail Name</label>
-                        <input type="text" name="PropertyDetailName" id="PropertyDetailName" class="form-control">
+                        <label for="PropertyDetailName" style="font-size: 12pt" >Detail </label>
+                        <input type="text" style="border-radius: 3pt" name="PropertyDetailName" id="PropertyDetailName" class="form-control">
                     </div>
-                    <button type="submit" class="btn btn-success">Edit</button>
+                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>
 
             </div>

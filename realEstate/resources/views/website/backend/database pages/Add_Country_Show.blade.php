@@ -1,14 +1,22 @@
 @extends('website.backend.database pages.Add_Country')
 @section('table')
+
+<link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+
+<div class="x_title">
+    <h2>All Countries</h2>
+
+    <div class="clearfix"></div>
+</div>
+
 <form method="Post" action="{{ url('/delete_Country?_method=delete') }}" enctype="multipart/form-data">
     @csrf
-<table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+<table id="datatable" class="table  table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
     <thead>
         <tr>
             <th>Country Name</th>
             <th>Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" style="margin-left: 850px;"><i class="fa fa-trash"></i></button></th>
             <th>Edit</th>
-            Java Script for select all function
             <script>
                 //will select all row with id -> id[]
                 document.getElementById('selectAll').onclick = function() {
@@ -27,7 +35,7 @@
                 <td><input type="checkbox" name="id[]" value="{{$C1->Country_Id}}"></td>
 
                 <!-- On clicking edit icon will go to setCountryIdName in-->
-                <td><a href="javascript:void(0)" onclick="setCountryIdName('{{$C1->Country_Id}}','{{$C1->Country_Name}}')"><i class="fa fa-edit"></i></a></td>
+                <td><a href="javascript:void(0)" onclick="setCountryIdName('{{$C1->Country_Id}}','{{$C1->Country_Name}}')" ><i id="edit" class="fa fa-edit"></i></a></td>
             </tr>
             @endforeach
     </tbody>
@@ -52,11 +60,11 @@
 
 
                     <div class="form-group">
-                        <label for="CountryName">Country Name</label>
-                        <input type="text" name="Country_Name" id="Country_Name" class="form-control">
+                        <label for="CountryName" style="font-size: 12pt">Country</label>
+                        <input type="text" style="border-radius: 3pt" name="Country_Name" id="Country_Name" class="form-control">
                     </div>
 
-                    <button type="submit" class="btn btn-success">Edit</button>
+                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>
 
             </div>
@@ -72,6 +80,8 @@
         $("#Country_Name").val(name);
         $("#EditCountryModal").modal("toggle");
     }
+
+    
 
     // awl ma bados submit button in EditCountryForm will go to  $('#EditCountryForm').submit(function (){}) and start sending the new name to country controller and save it .
     $('#EditCountryForm').submit(function() {

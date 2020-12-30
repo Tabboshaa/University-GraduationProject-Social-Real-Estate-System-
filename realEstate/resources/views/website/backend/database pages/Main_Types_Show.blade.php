@@ -1,14 +1,23 @@
 @extends('website.backend.database pages.Main_Types')
 @section('table')
 
+<link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+
+<div class="x_title">
+    <h2>All Main types</h2>
+
+    <div class="clearfix"></div>
+</div>
+
 <form method="Post" action="{{url('/delete_main_type?_method=delete')}}" enctype="multipart/form-data">
                         @csrf
-<table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+<table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
     <thead>
         <tr>
             <th>Type Name</th>
             <th>Select all <input type="checkbox" id="selectAll" name="selectAll">  <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
-            <th></th>
+            <th> Edit</th>
+            <th>Add Sub Type</th>
             <!-- Java Script for select all function -->
                 <script>
                     document.getElementById('selectAll').onclick = function() {
@@ -27,8 +36,8 @@
         <tr>
             <td>{{$main_type->Main_Type_Name}}</td>
             <td><input type="checkbox" name="mainType[]" value="{{$main_type->Main_Type_Id}}" id="MainTypeId"></td>
-            <td><a href="javascript:void(0)" onclick="setMainTypeIdName('{{$main_type->Main_Type_Id}}','{{$main_type->Main_Type_Name}}')"><i class="fa fa-edit"> Edit</i></a></td>
-            <td><a href="javascript:void(0)" onclick="addSubType()" ><i class="fa fa-add"> Add Sub Type</i></a></td>
+            <td><a href="javascript:void(0)" onclick="setMainTypeIdName('{{$main_type->Main_Type_Id}}','{{$main_type->Main_Type_Name}}')"><i class="fa fa-edit"> </i></a></td>
+            <td><a href="javascript:void(0)" onclick="addSubType()" ><i class="fa fa-add"> Add </i></a></td>
         </tr>
 
                 @endforeach
@@ -43,7 +52,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Sub Type</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Main type</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -54,11 +63,11 @@
                     <input type="hidden" name="id" id="id">
 
                     <div class="form-group">
-                        <label for="MainTypeName" >Main Type Name</label>
-                        <input type="text" name="MainTypeName" id="MainTypeName" class="form-control">
+                        <label for="MainTypeName" style="font-size: 12pt" >Main Type</label>
+                        <input type="text" style="border-radius: 3pt" name="MainTypeName" id="MainTypeName" class="form-control">
 
                     </div>
-                    <button  type="submit" class="btn btn-success">Edit</button>
+                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>
 
             </div>

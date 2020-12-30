@@ -34,19 +34,23 @@ class StateController extends Controller
     {
        //
 
-       try {
-        $state=State::create([
+       try 
+        {
+            $state=State::create([
             'State_Name' => request('State_Name'),
             'Country_Id' => request('country_name')
-
-        ]);
-        return back()->with('success','Item Created Successfully');
-    }catch (\Illuminate\Database\QueryException $e){
-        $errorCode = $e->errorInfo[1];
-        if($errorCode == 1062){
-            return back()->with('error','Already Exist !!');
+            ]);
+            
+            return back()->with('success','Item Created Successfully');
         }
-    }
+        catch (\Illuminate\Database\QueryException $e)
+        {
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == 1062)
+            {
+                return back()->with('error','Already Exist !!');
+            }
+        }
 
     }
 

@@ -1,6 +1,7 @@
 @extends('website.backend.layouts.main')
 @section('content')
 
+<link href="{{asset('css/ButtonStyle.css')}}" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     $(document).ready(function() {
 
@@ -83,10 +84,12 @@
                 @csrf
                 <!-- Add Country-->
                 <div class="form-group row">
-                    <label for="Country Name" class="col-md-2 col-form-label text-md-right">{{ __('Country Name') }}</label>
+                    <label for="Country Name" class="col-md-2 col-form-label text-md-right " style="font-size: 12pt">
+                        {{ __('Country :') }}
+                    </label>
 
                     <div class="col-md-2">
-                        <select id="Country_Name" class="form-control @error('Country Name') is-invalid @enderror" name="Country_Name" value="{{ old('Country Name') }}" required autocomplete="Country Name">
+                        <select id="Country_Name" style="border-radius: 3pt" class="form-control @error('Country Name') is-invalid @enderror" name="Country_Name" value="{{ old('Country Name') }}" required autocomplete="Country Name">
                             <option value="0" selected disabled>Select Country</option>
                             <!--  For loop  -->
                             @foreach($counrty as $country)
@@ -103,10 +106,12 @@
                 </div>
                 <!-- Add State-->
                 <div class="form-group row">
-                    <label for="State Name" class="col-md-2 col-form-label text-md-right">{{ __('State Name') }}</label>
+                    <label for="State Name" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
+                        {{ __('State :') }}
+                    </label>
 
                     <div class="col-md-2">
-                        <select id="State_Name" class="form-control @error('State Name') is-invalid @enderror" name="State_Name" value="{{ old('State Name') }}" required autocomplete="State Name">
+                        <select id="State_Name" style="border-radius: 3pt" class="form-control @error('State Name') is-invalid @enderror" name="State_Name" value="{{ old('State Name') }}" required autocomplete="State Name">
 
                         </select>
                         @error('State Name')
@@ -118,10 +123,12 @@
                 </div>
                 <!-- Add City-->
                 <div class="form-group row">
-                    <label for="City Name" class="col-md-2 col-form-label text-md-right">{{ __('City Name') }}</label>
+                    <label for="City Name" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
+                        {{ __('City :') }}
+                    </label>
 
                     <div class="col-md-2">
-                        <select id="City_Name" class="form-control @error('City Name') is-invalid @enderror" name="City_Name" value="{{ old('City Name') }}" required autocomplete="City Name">
+                        <select id="City_Name" style="border-radius: 3pt" class="form-control @error('City Name') is-invalid @enderror" name="City_Name" value="{{ old('City Name') }}" required autocomplete="City Name">
 
                         </select>
                         @error('City Name')
@@ -133,9 +140,11 @@
                 </div>
                 <!-- Add New Region -->
                 <div class="form-group row">
-                    <label for="Region Name" class="col-md-2 col-form-label text-md-right">{{ __('Region Name :') }}</label>
+                    <label for="Region Name" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
+                        {{ __('Region :') }}
+                    </label>
                     <div class="col-md-2">
-                        <input id="Region Name" type="text" class="form-control @error('Region Name') is-invalid @enderror" name="Region_Name" value="{{ old('Region Name') }}" required autocomplete="Region Name" autofocus>
+                        <input id="Region Name" style="border-radius: 3pt" type="text" class="form-control @error('Region Name') is-invalid @enderror" name="Region_Name" value="{{ old('Region Name') }}" required autocomplete="Region Name" autofocus>
 
                         @error('Region Name')
                         <span class="invalid-feedback" role="alert">
@@ -147,10 +156,12 @@
                 </div>
                 <div class="form-group row mb-0">
                     <div class="col-md-2 offset-md-2">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" id="btun1"class="btn btn-primary">
                             {{ __('Add') }}
                         </button>
-                        <a href="{{url('/show_region')}}" class="btn btn-primary">{{ __('Show') }}</a>
+                        <button id="btun2"  class="btn btn-primary">
+                            <a href="{{url('/show_region')}}" class="link2" >{{ __('Show') }}</a>
+                        </button>
                     </div>
                 </div>
             </form>

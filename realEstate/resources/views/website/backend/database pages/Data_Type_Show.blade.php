@@ -1,5 +1,14 @@
 @extends('website.backend.database pages.Data_Type')
 @section('table')
+
+<link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+
+<div class="x_title">
+    <h2>All Data Types</h2>
+
+    <div class="clearfix"></div>
+</div>
+
 <form method="Post" action="{{ url('/delete_data_types?_method=delete') }}" enctype="multipart/form-data">
     @csrf
 <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
@@ -8,7 +17,7 @@
            
             <th>Data Type Name</th>
             <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> </a> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
-            <th></th>
+            <th>Edit</th>
             <!-- Java Script for select all function -->
             <script>
                 document.getElementById('selectAll').onclick = function() {
@@ -28,7 +37,7 @@
             <td>{{$data_types->datatype}}</td>
             <td><input type="checkbox" name="id[]" value="{{$data_types->id}}"></td>
                          <input type="hidden" name="_method" value="DELETE">
-                        <td><a href="javascript:void(0)" onclick="setDataTypeIdName('{{$data_types->id}}','{{$data_types->datatype}}')"><i class="fa fa-edit"> Edit</i></a></td>
+                        <td><a href="javascript:void(0)" onclick="setDataTypeIdName('{{$data_types->id}}','{{$data_types->datatype}}')"><i class="fa fa-edit"></i></a></td>
 
                     </tr>
                 @endforeach
@@ -52,10 +61,10 @@
                     @csrf
                     <input type="hidden" name="id" id="id">
                     <div class="form-group">
-                        <label for="DataTypeName" >Data Type Name</label>
-                        <input type="text" name="DataTypeName" id="DataTypeName" class="form-control">
+                        <label for="DataTypeName" style="font-size: 12pt">Data Type</label>
+                        <input type="text" style="border-radius: 3pt" name="DataTypeName" id="DataTypeName" class="form-control">
                     </div>
-                    <button  type="submit" class="btn btn-success">Edit</button>
+                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>
 
             </div>

@@ -1,16 +1,22 @@
 @extends('website.backend.database pages.Sub_Type')
 @section('table')
-<div class="row">
-    <div class="col-sm-12">
+
+<link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+
+<div class="x_title">
+    <h2>All Sub types</h2>
+
+    <div class="clearfix"></div>
+</div>
         <form method="Post" action="{{ url('/delete_sub_type?_method=delete') }}" enctype="multipart/form-data">
             @csrf
-            <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+            <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
                 <thead>
                     <tr>
                         <th>Main Type ID</th>
                         <th>Sub Type Name</th>
                         <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <input type="submit" value="Delete Selected" class="btn btn-secondary"> </th>
-                        <th></th>
+                        <th>Edit</th>
                         <!-- Java Script for select all function -->
                         <script>
                             document.getElementById('selectAll').onclick = function() {
@@ -33,7 +39,7 @@
                         <td>{{$sub_type->Sub_Type_Name}}</td>
                         <td><input type="checkbox" name="id[]" value="{{$sub_type->Sub_Type_Id}}"></td>
 
-                        <td><a href="javascript:void(0)" onclick="setSupTypeIdName('{{$sub_type->Sub_Type_Id}}','{{$sub_type->Sub_Type_Name}}')"><i class="fa fa-edit"> Edit</i></a></td>
+                        <td><a href="javascript:void(0)" onclick="setSupTypeIdName('{{$sub_type->Sub_Type_Id}}','{{$sub_type->Sub_Type_Name}}')"><i class="fa fa-edit"></i></a></td>
                     </tr>
 
                     @endforeach
@@ -43,8 +49,7 @@
         </tbody>
         </table>
         </form>
-    </div>
-</div>
+ 
 <!-- Modal -->
 <div class="modal fade" id="EditSubTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -60,8 +65,8 @@
                     @csrf
                     <input type="hidden" name="id" id="id">
                     <div>
-                        <label for="MainTypeNameEdit">Main Type Name</label>
-                        <select id="MainTypeNameEdit" class="form-control" name="MainTypeNameEdit">
+                        <label for="MainTypeNameEdit" style="font-size: 12pt" >Main Type</label>
+                        <select id="MainTypeNameEdit" style="border-radius: 3pt" class="form-control" name="MainTypeNameEdit">
                             <!--  For loop  -->
                             @foreach($main_type as $main)
                             <option value="{{$main->Main_Type_Id}}">{{$main->Main_Type_Name}}</option>
@@ -70,10 +75,10 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="SubTypeName">Sub Type Name</label>
-                        <input type="text" name="SubTypeName" id="SubTypeName" class="form-control">
+                        <label for="SubTypeName" style="font-size: 12pt" >Sub Type</label>
+                        <input type="text" style="border-radius: 3pt" name="SubTypeName" id="SubTypeName" class="form-control">
                     </div>
-                    <button type="submit" class="btn btn-success">Edit</button>
+                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>
 
             </div>

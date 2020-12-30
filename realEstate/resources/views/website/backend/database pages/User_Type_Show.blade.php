@@ -1,5 +1,14 @@
 @extends('website.backend.database pages.User_Type')
 @section('table')
+
+<link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+
+<div class="x_title">
+    <h2>All User Types</h2>
+
+    <div class="clearfix"></div>
+</div>
+
 <form method="Post" action="{{ url('/delete_user_type?_method=delete') }}" enctype="multipart/form-data">
     @csrf
     <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
@@ -8,7 +17,7 @@
                 <th>User Type ID</th>
                 <th>User Type Name</th>
                 <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
-                <th></th>
+                <th>Edit</th>
                 <!-- Java Script for select all function -->
                 <script>
                     document.getElementById('selectAll').onclick = function() {
@@ -27,7 +36,7 @@
                 <td>{{$user_type->User_Type_ID}}</td>
                 <td>{{$user_type->Type_Name}}</td>
                 <td><input type="checkbox" name="id[]" value="{{$user_type->User_Type_ID}}"></td>
-                <td><a href="javascript:void(0)" onclick="setUserTypeIdName('{{$user_type->User_Type_ID}}','{{$user_type->Type_Name}}')"><i class="fa fa-edit"> Edit</i></a></td>
+                <td><a href="javascript:void(0)" onclick="setUserTypeIdName('{{$user_type->User_Type_ID}}','{{$user_type->Type_Name}}')"><i class="fa fa-edit"></i></a></td>
             </tr>
             @endforeach
             <!-- END OF FOREACH -->
@@ -49,10 +58,10 @@
                     @csrf
                     <input type="hidden" name="id" id="id">
                     <div class="form-group">
-                        <label for="UserTypeName">User Type Name</label>
-                        <input type="text" name="UserTypeName" id="UserTypeName" class="form-control">
+                        <label for="UserTypeName"  style="font-size: 12pt">User Type</label>
+                        <input type="text" style="border-radius: 3pt" name="UserTypeName" id="UserTypeName" class="form-control">
                     </div>
-                    <button type="submit" class="btn btn-success">Edit</button>
+                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>
 
             </div>

@@ -2,6 +2,7 @@
 @section('content')
 
 <link href="{{asset('css/Form.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('css/ButtonStyle.css')}}" rel="stylesheet" type="text/css" />
 
 <div class="right_col" role="main">
 	<div class="">
@@ -23,31 +24,31 @@
 
 							<div class="tab">
 							<div class="item form-group">
-								<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">First Name <span class="required">*</span>
+								<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">First Name <span class="required">*  :</span>
 								</label>
 								<div class="col-md-6 col-sm-6 ">
-									<input type="text" id="first-name" required="required" class="form-control " name="first_name">
+									<input type="text" style="border-radius: 3pt" id="first-name" required="required" class="form-control " name="first_name">
 								</div>
 							</div>
 
 							<div class="item form-group">
-								<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Middle Name <span class="required">*</span></label>
+								<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Middle Name <span class="required">*  :</span></label>
 								<div class="col-md-6 col-sm-6 ">
-									<input id="middle-name" class="form-control" type="text" name="middle-name">
+									<input id="middle-name" style="border-radius: 3pt" class="form-control" type="text" name="middle-name">
 								</div>
 							</div>
 
 							<div class="item form-group">
-								<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Last Name <span class="required">*</span>
+								<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Last Name <span class="required">*  :</span>
 								</label>
 								<div class="col-md-6 col-sm-6 ">
-									<input type="text" id="last-name" name="last-name" required="required" class="form-control">
+									<input type="text" style="border-radius: 3pt" id="last-name" name="last-name" required="required" class="form-control">
 								</div>
 							</div>
 							<div class="item form-group">
-								<label class="col-form-label col-md-3 col-sm-3 label-align ">User Type <span class="required">*</span></label>
+								<label class="col-form-label col-md-3 col-sm-3 label-align ">User Type <span class="required">*  :</span></label>
 								<div class="col-md-6 col-sm-6 ">
-									<select class="form-control" name="select_type" required>
+									<select class="form-control" style="border-radius: 3pt" name="select_type" required>
 										<option value="0" selected disabled>Select Type</option>
 										@foreach($user_type as $user_type)
 										<option value="{{$user_type->User_Type_ID}}">{{$user_type->Type_Name}}</option>
@@ -57,10 +58,10 @@
 							</div>
 
 							<div class="item form-group">
-								<label class="col-form-label col-md-3 col-sm-3 label-align">Date Of Birth <span class="required">*</span>
+								<label class="col-form-label col-md-3 col-sm-3 label-align">Date Of Birth <span class="required">*  :</span>
 								</label>
 								<div class="col-md-6 col-sm-6 ">
-									<input id="birthday" name="birthdate" class="date-picker form-control" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+									<input id="birthday" style="border-radius: 3pt" name="birthdate" class="date-picker form-control" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
 									<script>
 										function timeFunctionLong(input) {
 											setTimeout(function() {
@@ -71,14 +72,14 @@
 								</div>
 							</div>
 							<div class="item form-group">
-								<label class="col-form-label col-md-3 col-sm-3 label-align">Gender <span class="required">*</span></label>
+								<label class="col-form-label col-md-3 col-sm-3 label-align">Gender <span class="required">*  :</span></label>
 								<div class="col-md-6 col-sm-6 ">
 									<div id="gender" class="btn-group" data-toggle="buttons">
 										<label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-											<input type="radio" name="gender" value="male" class="join-btn"> &nbsp; Male &nbsp;
+											<input type="radio" style="border-radius: 3pt" name="gender" value="male" class="join-btn"> &nbsp; Male &nbsp;
 										</label>
 										<label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-											<input type="radio" name="gender" value="female" class="join-btn"> Female
+											<input type="radio" style="border-radius: 3pt" name="gender" value="female" class="join-btn"> Female
 										</label>
 									</div>
 								</div>
@@ -87,36 +88,36 @@
 
 							<div class="tab">
 							<div class="item form-group">
-								<label class="col-form-label col-md-3 col-sm-3 label-align" for="phone_number">Phone Number <span class="required">*</span>
+								<label class="col-form-label col-md-3 col-sm-3 label-align" for="phone_number">Phone Number <span class="required">*  :</span>
 								</label>
 								<div class="col-md-6 col-sm-6 ">
-									<input type="phone" id="phone_number" name="phone_number" required="required" class="form-control">
+									<input type="phone" style="border-radius: 3pt" id="phone_number" name="phone_number" required="required" class="form-control">
 								</div>
 							</div>
 
 							<div class="item form-group">
-								<label class="col-form-label col-md-3 col-sm-3 label-align" for="Email">Email <span class="required">*</span>
+								<label class="col-form-label col-md-3 col-sm-3 label-align" for="Email">Email <span class="required">*  :</span>
 								</label>
 								<div class="col-md-6 col-sm-6 ">
-									<input type="text" id="Email" name="Email" required="required" class="form-control">
+									<input type="text" style="border-radius: 3pt" id="Email" name="Email" required="required" class="form-control">
 								</div>
 							</div>
 							</div>
 
 							<div class="tab">
 							<div class="item form-group">
-								<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Pasword <span class="required">*</span>
+								<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Pasword <span class="required">*  :</span>
 								</label>
 								<div class="col-md-6 col-sm-6 ">
-									<input type="password" id="password" name="password" required="required" class="form-control">
+									<input type="password" style="border-radius: 3pt" id="password" name="password" required="required" class="form-control">
 								</div>
 							</div>
 
 							<div class="item form-group">
-								<label class="col-form-label col-md-3 col-sm-3 label-align" for="confirm_password">Confirm Password <span class="required">*</span>
+								<label class="col-form-label col-md-3 col-sm-3 label-align" for="confirm_password">Confirm Password <span class="required">*  :</span>
 								</label>
 								<div class="col-md-6 col-sm-6 ">
-									<input type="password" id="password_confirmation" name="password_confirmation" required="required" class="form-control">
+									<input type="password" style="border-radius: 3pt" id="password_confirmation" name="password_confirmation" required="required" class="form-control">
 								</div>
 							</div>
 							</div>

@@ -1,5 +1,7 @@
 @extends('website.backend.layouts.main')
 @section('content')
+
+<link href="{{asset('css/ButtonStyle.css')}}" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 
     $(document).ready(function (){
@@ -99,10 +101,12 @@ $.ajax({
                     @csrf
                     <!-- Item -->
                     <div class="form-group row">
-                        <label for="Item" class="col-md-2 col-form-label text-md-right">{{ __('Item') }}</label>
+                        <label for="Item" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
+                            {{ __('Item :') }}
+                        </label>
 
                         <div class="col-md-2">
-                            <select id="Item" class="form-control @error('Item') is-invalid @enderror" name="Item" value="{{ old('Item') }}" required autocomplete="Item">
+                            <select id="Item" style="border-radius: 3pt" class="form-control @error('Item') is-invalid @enderror" name="Item" value="{{ old('Item') }}" required autocomplete="Item">
                                 <!--  For loop  -->
                                 
                                 @foreach($item as $item)
@@ -120,10 +124,12 @@ $.ajax({
 
                     <!-- Main Type -->
                     <div class="form-group row">
-                        <label for="Main Type Name" class="col-md-2 col-form-label text-md-right">{{ __('Main Type Name') }}</label>
+                        <label for="Main Type Name" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
+                            {{ __('Main Type :') }}
+                        </label>
 
                         <div class="col-md-2">
-                            <select id="MainTypeName" class="form-control @error('Main Type Name') is-invalid @enderror" name="Main_Type_Name" value="{{ old('Main Type Name') }}" required autocomplete="Main Type Name">
+                            <select id="MainTypeName" style="border-radius: 3pt" class="form-control @error('Main Type Name') is-invalid @enderror" name="Main_Type_Name" value="{{ old('Main Type Name') }}" required autocomplete="Main Type Name">
                                 <!--  For loop  -->
                                 <option value="0" selected disabled>Select Main Type</option>
                                 @foreach($main_type as $main_type)
@@ -140,10 +146,12 @@ $.ajax({
                     </div>
 
                     <div class="form-group row">
-                        <label for="Sub Type Name" class="col-md-2 col-form-label text-md-right">{{ __('Sub Type Name') }}</label>
+                        <label for="Sub Type Name" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
+                            {{ __('Sub Type :') }}
+                        </label>
 
                         <div class="col-md-2">
-                            <select id="SubTypeName" class="form-control @error('Sub Type Name') is-invalid @enderror" name="Sub_Type_Name" value="{{ old('Sub Type Name') }}" required autocomplete="Sub Type Name">
+                            <select id="SubTypeName" style="border-radius: 3pt" class="form-control @error('Sub Type Name') is-invalid @enderror" name="Sub_Type_Name" value="{{ old('Sub Type Name') }}" required autocomplete="Sub Type Name">
                                 <!--  For loop  -->
                                
                             <!-- End loop -->
@@ -157,10 +165,12 @@ $.ajax({
                     </div>
 
                     <div class="form-group row">
-                        <label for="Sub_Type_Property" class="col-md-2 col-form-label text-md-right">{{ __('Sub Type Property') }}</label>
+                        <label for="Sub_Type_Property" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
+                            {{ __('Sub Type Property :') }}
+                        </label>
 
                         <div class="col-md-2">
-                            <select id="SubTypeProperty" class="form-control @error('Sub_Type_Property') is-invalid @enderror" name="Sub_Type_Property" value="{{ old('Sub_Type_Property') }}" required autocomplete="Sub_Type_Property">
+                            <select id="SubTypeProperty" style="border-radius: 3pt" class="form-control @error('Sub_Type_Property') is-invalid @enderror" name="Sub_Type_Property" value="{{ old('Sub_Type_Property') }}" required autocomplete="Sub_Type_Property">
                                 <!--  For loop  -->
                                 <!-- <option value="0" selected disabled>Select Property Name</option> -->
                             <!-- End loop -->
@@ -174,10 +184,12 @@ $.ajax({
                     </div>
                     
                     <div class="form-group row">
-                        <label for="PropertyDetail" class="col-md-2 col-form-label text-md-right">{{ __('Property Detail') }}</label>
+                        <label for="PropertyDetail" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
+                            {{ __('Property Detail :') }}
+                        </label>
 
                         <div class="col-md-2">
-                            <select id="PropertyDetail" class="form-control @error('Propety_Detail') is-invalid @enderror" name="Propety_Detail" value="{{ old('Propety_Detail') }}" required autocomplete="Propety_Detail">
+                            <select id="PropertyDetail" style="border-radius: 3pt" class="form-control @error('Propety_Detail') is-invalid @enderror" name="Propety_Detail" value="{{ old('Propety_Detail') }}" required autocomplete="Propety_Detail">
                                 <!--  For loop  -->
                                 <!-- <option value="0" selected disabled>Select Property Name</option> -->
                             <!-- End loop -->
@@ -190,10 +202,12 @@ $.ajax({
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="DetailValue" class="col-md-2 col-form-label text-md-right">{{ __('Detail Value') }}</label>
+                        <label for="DetailValue" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
+                            {{ __('Detail Value :') }}
+                        </label>
 
                         <div class="col-md-2">
-                            <input id="DetailValue" type="text" class="form-control @error('DetailValue') is-invalid @enderror" name="DetailValue" value="{{ old('DetailValue') }}" required autocomplete="DetailValue" autofocus>
+                            <input id="DetailValue" style="border-radius: 3pt" type="text" class="form-control @error('DetailValue') is-invalid @enderror" name="DetailValue" value="{{ old('DetailValue') }}" required autocomplete="DetailValue" autofocus>
 
                             @error('DetailValue')
                             <span class="invalid-feedback" role="alert">
@@ -205,10 +219,12 @@ $.ajax({
 
                     <div class="form-group row mb-0">
                         <div class="col-md-2 offset-md-2">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" id="btun1"class="btn btn-primary">
                                 {{ __('Add') }}
                             </button>
-                            <a href="{{ url('/Details_show') }}" class="btn btn-primary"> {{ __('Show') }}</a>
+                            <button id="btun2"  class="btn btn-primary">
+                                <a href="{{url('/Details_show')}}" class="link2" >{{ __('Show') }}</a>
+                            </button>
                         </div>
                     </div>
                 </form>

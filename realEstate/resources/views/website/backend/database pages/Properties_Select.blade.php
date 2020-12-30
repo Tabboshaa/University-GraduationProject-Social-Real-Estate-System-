@@ -1,36 +1,57 @@
 @extends('website.backend.database pages.Item')
 @section('Item_Main_Type_table')
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link href="{{asset('css/CategoriesDesign.css')}}" rel="stylesheet" type="text/css" />
 
-    
+    <link href="{{asset('css/CategoriesDesign.css')}}" rel="stylesheet" type="text/css" />
+  
+        <div class="x_title">
+            
+            <h2>Add Item</h2>
+            <div class="clearfix"></div>
+        
+        </div>   
 <form method="Get" action="{{url('/ShowItem/'.$item_id)}}" enctype="multipart/form-data">
     @csrf
-    <div class="row">
+    
     @foreach($property as $p)
+    
+    <div class="col-sm-3" id="done">
+        <table id="datatable" class="table table-striped  dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+            <thead>
+                <th>
+                    <h6>
+                        <a class="one" href="javascript:void(0)" id="details" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')">
+                            {{ __($p->Property_Name) }}
+                        </a>
+                    </h6>
+                </th>
+            </thead>
 
-        <div class="col-lg-3 col-6">
-             <div class="small-box bg-info">
-              <div class="inner">
-              <h5 style="color:white;"><a href="javascript:void(0)" style="color:white;" id="details" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')"> <label for="Sub_Type_Property" class="col-md-2 col-form-label text-md-right">{{ __($p->Property_Name) }}</label>
-                        </a></h5>
-                <p style="color:24A745;">+</p>
-                  <p style="color:24A745;">+</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="javascript:void(0)" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')" class="small-box-footer" style="color:white;">
-                Add More <i class="fa fa-plus"></i>
-              </a>
-              </div>
-        </div>
-        @endforeach
+            <tbody>
+              
+                <tr>
+                    <td>
+                        <a class="two" href="javascript:void(0)" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')">
+                            Add More <i class="fa fa-plus"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    @endforeach
+    <br>
     <div class="row">
-        <button type="submit">Done</button>
+        <div class="col-sm-4" id="done">
+            <div class="g">
+                <button type="submit">Done</button>
+            <div>
+        </div>
+        </div>
     </div>
 </form>
+    
+
+{{-- ----------------------------------------------------------------------------------------------------- --}}
 
 <div class="modal fade" id="EditMainTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
