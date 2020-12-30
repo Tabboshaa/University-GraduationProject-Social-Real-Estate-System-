@@ -8,6 +8,8 @@
         var item_id = $("#Item").val();
         var flag=false;
         $("#submitbtn").prop("disabled", true);
+        $("#submitbtn").html('See Item');
+        $("#submitbtn").removeClass('btn btn-danger').addClass('btn btn-primary');
         $("#next_button").html('');
 
         $('option[name="items_options"]').each(function() {
@@ -18,10 +20,15 @@
                     return true;
             }
         });
-        if(!flag)
-        $("#next_button").html('Item not Found');
+        if(!flag){
+        $("#submitbtn").html('Item not Found');
+        $("#submitbtn").removeClass('btn btn-primary').addClass('btn btn-danger');
+        }
     }
-   
+    function changesearch(){ 
+        searchForItems();
+        // $("#submitbtn").prop("disabled", true);
+        }
 </script>
 
 <div class="right_col" role="main">
@@ -31,14 +38,15 @@
             <!-- Item -->
             <form method="Get" action="{{url('/ShowItem')}}" enctype="multipart/form-data">
     @csrf
+
             <div class="form-group row">
                 <label for="Item" class="col-md-2 col-form-label text-md-right">
                     {{ __('Item') }}
                 </label>
-
                 <div class="col-md-2">
-                    <input type="search" id="Item" list="items" class="form-control @error('Item') is-invalid @enderror" name="Item" value="{{ old('Item') }}" required autocomplete="Item">
+                    <input type="search" id="Item" list="items" class="form-control @error('Item') is-invalid @enderror" name="Item" value="{{ old('Item') }}" required autocomplete="Item" onchange="changesearch()">
                     <!--  For loop  -->
+                    <div id="next_button" ></div>
                  <datalist id="items">
                         @foreach($item as $item)
                         <option value="{{$item->Item_Id}}" name="items_options">{{$item->Item_Id}}</option>
@@ -56,13 +64,10 @@
 
             <div class="form-group row mb-0">
                 <div class="col-md-2 offset-md-2">
-                    <a href="javascript:void(0)" class="btn btn-primary" onclick="searchForItems()">
+                    <!-- <a href="javascript:void(0)" class="btn btn-primary" onclick="searchForItems()">
                         {{ __('Search') }}
-                    </a>
-                    <div id="next_button" >
-                    
-                    </div>
-
+                    </a> -->
+            
                     <button  class="btn btn-primary" type="submit" disabled id="submitbtn">
                         {{ __('See Item') }}
                     </button>

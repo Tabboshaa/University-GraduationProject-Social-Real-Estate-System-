@@ -3,10 +3,10 @@
 
 <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
     <thead>
+        <tr><td></td></tr>
         <tr>
             <th>User</th>
-            <td>{{$user[0]->First_Name}} {{$user[0]->Middle_Name}} {{$user[0]->Last_Name}}</td>
-
+            <td>{{$user->First_Name}} {{$user->Middle_Name}} {{$user->Last_Name}}</td>
         </tr>
     </thead>
     <tbody>
@@ -65,10 +65,19 @@
 </table>
 
 </form>
+
+@if(!empty($subtypeid))
 <a href="{{url('/property_select/'.$item_id.'/'.$subtypeid.'')}}" class="btn btn-info"> Add More Details</a>
+@else 
+<a href="{{url('/addItemSteps/'.$item_id)}}" class="btn btn-info"> Add Details of item</a>
+
+@endif
 <a href="{{url('/Details')}}" class="btn btn-info">Search for an Item</a>
 <a href="{{url('/Item')}}" class="btn btn-info"> Create Another Item</a>
-
+<form method="Post" action="{{ url('/DelteItem/'.$item_id.'?_method=delete') }}" enctype="multipart/form-data">
+                @csrf
+<button type="submit" class="btn btn-danger"> Delete Item</button>
+</form>
 <div class="modal fade" id="EditDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
