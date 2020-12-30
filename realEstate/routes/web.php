@@ -20,6 +20,7 @@ Route::get('/', 'DatatypeController@index');
 //     return view('website/backend/database pages/Test');
 // });
 
+Route::get('/data_types', 'DatatypeController@index');
 //main types pages
 Route::get('/main_types', 'MainTypes@index');
 Route::get('/main_types_show', 'MainTypes@show')->name('main_types_show');
@@ -101,7 +102,7 @@ Route::post('/add_Details','DetailsController@create')->name('details_submit');
 // Item  pages #Tabbosha
 Route::get('Item','ItemController@index1');
 Route::post('addItem','ItemController@create');
-Route::get('ShowItem/{id}','ItemController@show');
+Route::get('ShowItem/{id?}','ItemController@show');
 
 
 //Route::get('/Item', 'ItemController@SubTypeShow');

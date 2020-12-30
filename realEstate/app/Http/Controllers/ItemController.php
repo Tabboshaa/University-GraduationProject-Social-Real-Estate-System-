@@ -37,10 +37,13 @@ class ItemController extends Controller
 
     public  function show($id=null)
     {
+        //lw gy mn el ajax fe el detail blade
+        if($id==null && request()->has('Item')) $id=request('Item');
+        
         $item=Item::all('Street_Id','User_Id')->where('Item_Id','=',$id);
-        //return dd($item);
+     
         $User_id=Arr::get($item, 'User_Id');
-       // return dd($User_id); Item_Id
+      
         $Item_id=Arr::get($item, 'Item_Id');
 
         $Street_id=Arr::get($item, 'Street_Id');
@@ -62,25 +65,12 @@ class ItemController extends Controller
             ->join('property__details', 'details.Property_Detail_Id', '=', 'property__details.Property_Detail_Id')
             ->select('details.*', 'main__types.Main_Type_Name', 'sub__types.Sub_Type_Name', 'sub__type__properties.Property_Name', 'property__details.Detail_Name')
             ->get()->where('Item_Id','=',$id)->groupBy('Property_Name');
-        $Sub_Type_Id=Arr::get($details, 'Sub_Type_Id');
-        $properties=Sub_Type_Property::all()->where('Property_Id','=',$Sub_Type_Id);
 
-        //  return dd($properties);
-
-
-        //    return $details;
-
-
-            // $SubTypeId=Arr::get(Details::all()->where('Item_Id','=',$id)->first(),'Sub_Type_Id');
-            // return $SubTypeId;phph
-
-            // return dd($SubTypeId);
-
-        // $properties=Sub_Type_Property::all()->where('Sub_Type_Id','=',$SubTypeId);
-//   return $properties;
-
-        return view('website.backend.database pages.omniaShowItem',['user'=>$user,'Location'=>$Location,'details'=>$details]);
+            $Sub_Type_Id=Arr::get(Details::all()->where('Item_Id','=',$id)->first(),'Sub_Type_Id');
+  
+        return view('website.backend.database pages.omniaShowItem',['user'=>$user,'Location'=>$Location,'details'=>$details,'item_id'=>$id,'subtypeid'=>$Sub_Type_Id]);
     }
+
     public function itemShow()
     {
         //

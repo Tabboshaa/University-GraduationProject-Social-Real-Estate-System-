@@ -65,7 +65,10 @@
 </table>
 
 </form>
+<a href="{{url('/property_select/'.$item_id.'/'.$subtypeid.'')}}" class="btn btn-info"> Add More Details</a>
+<a href="{{url('/Details')}}" class="btn btn-info">Search for an Item</a>
 <a href="{{url('/Item')}}" class="btn btn-info"> Create Another Item</a>
+
 <div class="modal fade" id="EditDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -99,6 +102,7 @@
         $("#DetailName").val(name);
         $("#EditDetailModal").modal("toggle");
     }
+
     $('#EditDetailForm').submit(function() {
 
         var id = $("#id").val();
