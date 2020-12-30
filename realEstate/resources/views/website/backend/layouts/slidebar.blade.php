@@ -40,6 +40,10 @@
                       
                       </ul></li>
 
+                      <li><a>Other<span class="fa fa-chevron-down"></span> </a>
+                      <ul class="nav child_menu">
+                      <li><a href="{{url('/data_types')}}">Data Types for details</a></li>
+                      </ul></li>
                     </ul> 
             </li>
             <li> <a> Table <span class="fa fa-chevron-down"></span> </a>
@@ -60,6 +64,7 @@
                       <li><a href="{{url('/sub_type_property_show')}}">Sub Type Property</a></li>
                       <li><a href="{{url('/Property_Details_show')}}">Detail of Property</a></li>
                       
+                      <!-- <li><a href="{{url('/Details_show')}}">Details of Item</a></li> -->
                       </ul>
                       </li>
                       
@@ -67,6 +72,11 @@
                       <ul class="nav child_menu">
                       <li><a href="{{url('/user_types_show')}}">User Types</a></li>
                       <li><a href="{{url('/show_users')}}">Show Users</a></li>
+                      </ul></li>
+
+                      <li><a>Other<span class="fa fa-chevron-down"></span> </a>
+                      <ul class="nav child_menu">
+                      <li><a href="{{url('/data_types_show')}}">Data Types for details</a></li>
                       </ul></li>
                     </ul>
             </li>

@@ -1,5 +1,8 @@
 @extends('website.backend.layouts.main')
 @section('content')
+
+<link href="{{asset('css/ButtonStyle.css')}}" rel="stylesheet" type="text/css" />
+
 <div class="right_col" role="main">
     <div class="title_right">
         <div class="x_panel">
@@ -8,10 +11,14 @@
                 @csrf
                 <!-- Select Country -->
                 <div class="form-group row">
-                    <label for="country_name" class="col-md-2 col-form-label text-md-right">{{ __('Country Name ') }}</label>
+                    <label for="country_name" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
+                        {{ __('Country :') }}
+                    </label>
 
                     <div class="col-md-2">
-                        <select id="country_name" class="form-control @error('country_name') is-invalid @enderror" name="country_name" value="{{ old('country_name') }}" required autocomplete="country_name">
+                        <select id="country_name" style="border-radius: 3pt" class="form-control @error('country_name') is-invalid @enderror" name="country_name" value="{{ old('country_name') }}" required autocomplete="country_name">
+                            <option value="0" selected disabled>Select Country</option>
+
                             @foreach($country as $country)
                             <option value="{{$country->Country_Id}}">{{$country->Country_Name}}</option>
                             @endforeach
@@ -26,9 +33,11 @@
                 </div>
                 <!-- Add New State -->
                 <div class="form-group row">
-                    <label for="State Name" class="col-md-2 col-form-label text-md-right">{{ __('State Name :') }}</label>
+                    <label for="State Name" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
+                        {{ __('State :') }}
+                    </label>
                     <div class="col-md-2">
-                        <input id="State_Name" type="text" class="form-control @error('State_Name') is-invalid @enderror" name="State_Name" value="{{ old('State Name') }}" required autocomplete="State Name" autofocus>
+                        <input id="State_Name" type="text" style="border-radius: 3pt"class="form-control @error('State Name') is-invalid @enderror" name="State_Name" value="{{ old('State Name') }}" required autocomplete="State Name" autofocus>
 
                         @error('State_Name')
                         <span class="invalid-feedback" role="alert">
@@ -40,10 +49,12 @@
                 </div>
                 <div class="form-group row mb-0">
                     <div class="col-md-2 offset-md-2">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" id="btun1"class="btn btn-primary">
                             {{ __('Add') }}
                         </button>
-                        <a href="{{ url('/show_state') }}" class="btn btn-primary">{{ __('Show') }}</a>
+                        <button id="btun2"  class="btn btn-primary">
+                            <a href="{{url('/show_state')}}" class="link2" >{{ __('Show') }}</a>
+                        </button>
                     </div>
                 </div>
             </form>

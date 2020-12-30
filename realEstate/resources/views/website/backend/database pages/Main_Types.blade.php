@@ -1,5 +1,8 @@
 @extends('website.backend.layouts.main')
 @section('content')
+
+<link href="{{asset('css/ButtonStyle.css')}}" rel="stylesheet" type="text/css" />
+
 <div class="right_col" role="main">
     <div class="title_right">
         <div class="x_panel">
@@ -7,10 +10,12 @@
             <form method="POST" action="{{ url('/add_main_type') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
-                    <label for="Main Type Name" class="col-md-2 col-form-label text-md-right">{{ __('Main Type Name') }}</label>
+                    <label for="Main Type Name" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
+                        {{ __('Main Type :') }}
+                    </label>
 
                     <div class="col-md-2">
-                        <input id="Main Type Name" type="text" class="form-control @error('Main_Type_Name') is-invalid @enderror" name="Main_Type_Name" value="{{ old('Main_Type_Name') }}" required autocomplete="Main_Type_Name" autofocus>
+                        <input id="Main Type Name" style="border-radius: 3pt" type="text" class="form-control @error('Main_Type_Name') is-invalid @enderror" name="Main_Type_Name" value="{{ old('Main_Type_Name') }}" required autocomplete="Main_Type_Name" autofocus>
 
                         @error('Main_Type_Name')
                         <span class="invalid-feedback" role="alert">
@@ -21,10 +26,12 @@
                 </div>
                 <div class="form-group row mb-0">
                     <div class="col-md-2 offset-md-2">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" id="btun1"class="btn btn-primary">
                             {{ __('Add') }}
                         </button>
-                        <a href="{{ url('/main_types_show') }}" class="btn btn-primary"> {{ __('Show') }}</a>
+                        <button id="btun2"  class="btn btn-primary">
+                            <a href="{{url('/main_types_show')}}" class="link2" >{{ __('Show') }}</a>
+                        </button>
                     </div>
                 </div>
             </form>

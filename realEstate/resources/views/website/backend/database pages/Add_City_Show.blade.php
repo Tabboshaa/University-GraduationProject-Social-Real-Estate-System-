@@ -1,10 +1,20 @@
 @extends('website.backend.database pages.Add_City')
 @section('table')
-    <link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
+
+<link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
+
+
+<div class="x_title">
+    <h2>All Cities</h2>
+
+    <div class="clearfix"></div>
+</div>
+
 <form method="Post" action="{{ url('/delete_City?_method=delete') }}" enctype="multipart/form-data">
     @csrf
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+    <table id="datatable" class="table  table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
         <thead>
             <tr>
             <th><h2 style="margin-right:90px; padding-bottom: 5px;">Country Name</h2></th>
@@ -44,7 +54,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit State Name</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit City Name</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -57,11 +67,11 @@
 
 
                     <div class="form-group">
-                        <label for="City_Name">State Name</label>
-                        <input type="text" name="City_Name" id="CityName" class="form-control">
+                        <label for="City_Name" style="font-size: 12pt">City</label>
+                        <input type="text" style="border-radius: 3pt" name="City_Name" id="CityName" class="form-control">
                     </div>
 
-                    <button type="submit" class="btn btn-success">Edit</button>
+                    <button  type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>
 
             </div>

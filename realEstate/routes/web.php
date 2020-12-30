@@ -22,6 +22,7 @@ Route::get('/', 'DatatypeController@index');
 //     return view('website/backend/database pages/Test');
 // });
 
+Route::get('/data_types', 'DatatypeController@index');
 //main types pages
 Route::get('/main_types', 'MainTypes@index');
 Route::get('/main_types_show', 'MainTypes@show')->name('main_types_show');
@@ -95,7 +96,7 @@ Route::post('/add_sub_type_property','SubTypePropertyController@create');
 
 
 // Details pages #Tabbosha
-Route::get('/Details', 'DetailsController@index');
+Route::get('/Details', 'DetailsController@index')->name('Details');
 Route::get('/Details_show', 'DetailsController@show')->name('details_show');
 Route::post('/add_Details','DetailsController@create')->name('details_submit');
 
@@ -103,11 +104,13 @@ Route::post('/add_Details','DetailsController@create')->name('details_submit');
 // Item  pages #Tabbosha
 Route::get('Item','ItemController@index1');
 Route::post('addItem','ItemController@create');
-Route::get('ShowItem/{id}','ItemController@show');
+Route::get('ShowItem/{id?}','ItemController@show');
+Route::delete('DelteItem/{id?}','ItemController@destroy');
+Route::post('edit_item_user','ItemController@EditUser')->name('edit_item_user');
 
 
 //Route::get('/Item', 'ItemController@SubTypeShow');
-Route::get('/addItemSteps', 'ItemController@SubTypeShow');
+Route::get('/addItemSteps/{id}', 'ItemController@SubTypeShow');
 // Route::get('/Item_Main_types_show', 'ItemController@MainTypeShow');
 Route::get('/Item_Sub_types_show/{id}', 'ItemController@SubTypeShow');
 Route::get('/searchR', 'ItemController@searchEmail');
@@ -125,6 +128,7 @@ Route::get('/edit_sub_type_property','SubTypePropertyController@edit')->name('su
 
 //Search
 Route::delete('/delete_detail/{id?}','DetailsController@destroy');
+Route::delete('/delete_detail_item','DetailsController@destroydetail');
 Route::get('/edit_detail','DetailsController@edit')->name('Detail.update');
 Route::post('/add_Item_Detail/{property_id}','ItemController@submit');
 
@@ -161,7 +165,7 @@ Route::get('/findDetailsForForm','PropertyDetailsController@findDetailsForForm')
 Route::get('/User','AddUserController@Index');
 Route::Post('/Add_User','AddUserController@create');
 Route::get('/show_users' , 'UserTypes@get_user_types');
-Route::get('/TypeOfUser/{id}','UserTypes@getUser')->name('users_show');
+Route::get('/TypeOfUser','UserTypes@getUser')->name('users_show');
 Route::delete('/delete_user/{id?}','AddUserController@destroy');
 Route::get('/edit_User_Name','AddUserController@editUserName')->name('UserName.update');
 Route::get('/edit_User_Email','AddUserController@editUserEmail')->name('UserEmail.update');

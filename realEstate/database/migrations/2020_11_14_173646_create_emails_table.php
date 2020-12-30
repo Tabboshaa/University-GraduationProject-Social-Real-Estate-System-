@@ -17,7 +17,7 @@ class CreateEmailsTable extends Migration
             $table->id('Email_Id');
             $table->foreignId('User_ID')->references('id')->on('users')->onDelete('cascade');
             $table->string('email')->unique();
-            $table->boolean('Default');
+            $table->boolean('Default')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });

@@ -1,22 +1,31 @@
 @extends('website.backend.database pages.Details')
 @section('Details_table')
 <link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
+
+<link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+
+<div class="x_title">
+    <h2>All Details and it's values</h2>
+
+    <div class="clearfix"></div>
+</div>
+
 <div class="row">
     <div class="col-sm-12">
         <form method="Post" action="{{ url('/delete_detail?_method=delete') }}" enctype="multipart/form-data">
                 @csrf
                 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-            <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+            <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
                 <thead>
                 <tr>
                     <th>Item ID</th>
                     <th>Property Detail ID</th>
                     <th>Sub Type ID</th>
                     <th>Main Type ID</th>
-                    <th>Property Detail ID</th>
+                    <th>Property ID</th>
                     <th>Detail Value</th>
                     <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
-                    <th></th>
+                    <th>Edit</th>
                     <!-- Java Script for select all function -->
                     <script>
                         document.getElementById('selectAll').onclick = function() {
@@ -36,9 +45,10 @@
                         <td>{{$detail->Property_Detail_Id}}</td>
                         <td>{{$detail->Sub_Type_Id}}</td>
                         <td>{{$detail->Main_Type_Id}}</td>
+                        <td>{{$detail->Property_Id}}</td>
                         <td>{{$detail->DetailValue}}</td>
-                        <td><input type="checkbox" name="id[]" value="{{$property->Property_Id}}"></td>
-                        <td><a href="javascript:void(0)" onclick="setDetailIdName('{{$detail->Detail_Id}}','{{$detail->DetailValue}}')"><i class="fa fa-edit"> Edit</i></a></td>
+                        <td><input type="checkbox" name="id[]" value="{{$detail->Detail_Id}}"></td>
+                        <td><a href="javascript:void(0)" onclick="setDetailIdName('{{$detail->Detail_Id}}','{{$detail->DetailValue}}')"><i class="fa fa-edit"></i></a></td>
                  </tr>
                 @endforeach
                 <!-- END OF FOREACH -->
@@ -51,7 +61,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Sub Type</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Detail value</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -62,10 +72,10 @@
                     <input type="hidden" name="id" id="id">
           
                     <div class="form-group">
-                        <label for="DetailName" >Detail Value</label>
-                        <input type="text" name="DetailName" id="DetailName" class="form-control">
+                        <label for="DetailName" style="font-size: 12pt" >Detail Value</label>
+                        <input type="text" style="border-radius: 3pt"name="DetailName" id="DetailName" class="form-control">
                     </div>
-                    <button  type="submit" class="btn btn-success">Edit</button>
+                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>
 
             </div>

@@ -1,6 +1,9 @@
 @extends('website.backend.layouts.main')
 @section('content')
 <link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
+
+<link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+
 <div class="right_col" role="main">
     <div class="title_right">
         
@@ -17,21 +20,22 @@
                 <div class="x_content">
                 @include('website.backend.layouts.flashmessage')
                     <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
-                        @foreach($user_types as $user_types)
+                        @foreach($user_typess as $user_types)
                         <li class="nav-item">
-                            <a class="nav-link" id="usertypes-tab"  href="{{url('/TypeOfUser/'.$user_types->User_Type_ID)}}" role="tab" aria-controls="usertypes" aria-selected="true">{{$user_types->Type_Name}}</a>
+                            <a class="nav-link" id="usertypes-tab"  href="javascript:void(0)" onclick="showUsers('{{$user_types->User_Type_ID}}')" role="tab" aria-controls="usertypes" aria-selected="true">{{$user_types->Type_Name}}</a>
                         </li>
                         @endforeach
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         @if(count($users) == 0)
                             <p> There is no data to show </p>
-                        @else
+                        @endif    
+                        
 
                         <form method="Post" action="{{ url('/delete_user/?_method=delete') }}" enctype="multipart/form-data">
                             @csrf
                             <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-                            <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+                            <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -50,29 +54,20 @@
                                         </script>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach($users as $users)
-                                    <tr>
-                                        
-                                        <td> {{$users->First_Name}} {{$users->Middle_Name}} {{$users->Last_Name}} <a href="javascript:void(0)" onclick="setUserNameIdName('{{$users->id}}','{{$users->First_Name}}' , '{{$users->Middle_Name}}' , '{{$users->Last_Name}}')" ><i class="fa fa-edit"></i></a></td>
-                                        <td> {{$users->email}} <a href="javascript:void(0)" ><i class="fa fa-edit" onclick="setUserEmailIdName('{{$users->Email_Id}}','{{$users->email}}')"></i></a></td>
-                                        <td> {{$users->phone_number}} <a href="javascript:void(0)"><i class="fa fa-edit" onclick="setUserPhoneNumberIdName('{{$users->PhoneNumber_Id}}','{{$users->phone_number}}')"></i></a></td>
-                                        <td><input type="checkbox" name="id[]" value="{{$users->User_ID}}"></td>
-                                        
-                                    </tr>
-                                    @endforeach
+                                <tbody id="Table">
+                                    
                                 </tbody>
                             </table>
                         
                         </form>
-                        @endif
+                     
 
                         <!-- form of editing user name -->
                         <div class="modal fade" id="EditUserNameModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Edit User Name</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Change User Name</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -83,18 +78,18 @@
 
                                             <input type="hidden" name="id" id="editnameid">
                                             <div class="form-group">
-                                                <label for="UserFirstName">First Name</label>
-                                                <input type="text" name="User_First_Name" id="User_First_Name" class="form-control">
+                                                <label for="UserFirstName" style="font-size: 12pt" >First Name</label>
+                                                <input type="text"  style="border-radius: 3pt"name="User_First_Name" id="User_First_Name" class="form-control">
                                             
-                                                <label for="UserMiddleName">Middle Name</label>
-                                                <input type="text" name="User_Middle_Name" id="User_Middle_Name" class="form-control">
+                                                <label for="UserMiddleName" style="font-size: 12pt" >Middle Name</label>
+                                                <input type="text" style="border-radius: 3pt" name="User_Middle_Name" id="User_Middle_Name" class="form-control">
                                             
-                                                <label for="UserLastName">Last Name</label>
-                                                <input type="text" name="User_Last_Name" id="User_Last_Name" class="form-control">
+                                                <label for="UserLastName" style="font-size: 12pt" >Last Name</label>
+                                                <input type="text" style="border-radius: 3pt" name="User_Last_Name" id="User_Last_Name" class="form-control">
                                             
                                             </div>
                                             
-                                            <button type="submit" class="btn btn-success">Edit</button>
+                                            <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                                         </form>
                                         
                                     </div>
@@ -107,7 +102,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Edit User Email:</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Change Email:</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -118,11 +113,11 @@
 
                                             <input type="hidden" name="id" id="editemailid">
                                             <div class="form-group">
-                                                <label for="UserEmail">User Email</label>
-                                                <input type="text" name="User_Email" id="User_Email" class="form-control">
+                                                <label for="UserEmail" style="font-size: 12pt" >Email</label>
+                                                <input type="text" style="border-radius: 3pt" name="User_Email" id="User_Email" class="form-control">
                                             </div>
                                             
-                                            <button type="submit" class="btn btn-success">Edit</button>
+                                            <button type="submit"  id="btun3" class="btn btn-success">Edit</button>
                                         </form>
                                         
                                     </div>
@@ -135,7 +130,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Edit User PhoneNumber</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Change PhoneNumber</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -146,11 +141,11 @@
 
                                             <input type="hidden" name="id" id="editphonenumberid">
                                             <div class="form-group">
-                                                <label for="UserPhoneNumber">User PhoneNumber</label>
-                                                <input type="text" name="User_PhoneNumber" id="User_PhoneNumber" class="form-control">
+                                                <label for="UserPhoneNumber" style="font-size: 12pt" >PhoneNumber</label>
+                                                <input type="text" style="border-radius: 3pt" name="User_PhoneNumber" id="User_PhoneNumber" class="form-control">
                                             </div>
                                             
-                                            <button type="submit" class="btn btn-success">Edit</button>
+                                            <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                                         </form>
                                         
                                     </div>
@@ -184,6 +179,7 @@
             }
         }
     }
+
         function setUserNameIdName(id, First_Name , Middle_Name , Last_Name ) {
             
             $("#editnameid").val(id);
@@ -206,6 +202,52 @@
         }
 
     // Submit New User Name
+
+    
+
+    function showUsers(id) {
+
+
+var Table = '';
+$.ajax({
+    url: "{{route('users_show')}}",
+    Type: "get",
+    data: {
+        id: id
+    },
+    success: function(data) {
+        console.log(data);
+
+        Object.values(data).forEach(val => {
+            
+            Table += 
+            '<tr>'+
+            '<td>'+val['First_Name']+' '+ val['Middle_Name'] +' '+val['Last_Name'] +' '+'<a href="javascript:void(0)" onclick="setUserNameIdName('+val['First_Name']+','+val['Middle_Name']+' , '+val['Last_Name']+')">'+'<i class="fa fa-edit">'+'</i>'+'</a>'+'</td>' +
+            '<td>'+val['email']+'<a href="javascript:void(0)" >'+'<i class="fa fa-edit" onclick="setUserEmailIdName('+val['Email_Id']+','+val['email']+')">'+'</i>'+'</a>'+'</td>'+
+            '<td>'+val['phone_number']+'<a href="javascript:void(0)">'+'<i class="fa fa-edit" onclick="setUserPhoneNumberIdName('+val['PhoneNumber_Id']+','+val['phone_number']+')">'+'</i>'+'</a>'+'</td>'+
+            '<td>'+'<input type="checkbox" name="id[]"'+ val['User_ID']+'">'+'</td>'+
+            '</tr>';
+        });
+        if (Table == '')
+        Table = 'No Property Details';
+        else
+        Table += ' <div class="form-group row mb-0">' +
+            '<div class="col-md-2 offset-md-2">' +
+            ' <button type="submit" class="btn btn-primary">' +
+            ' {{ __("Add") }}';
+        '</button>';
+
+
+        $('#Table').html(Table);
+        // var FormTag= document.getElementById('data_form').innerHTML()=Form;
+    },
+    error: function() {
+        console.log('Error');
+    }
+
+});
+
+}
     $('#EditUserNameForm').submit(function() {
 
         var id = $("#editnameid").val();

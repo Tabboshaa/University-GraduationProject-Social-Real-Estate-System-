@@ -124,7 +124,7 @@ class AddUserController extends Controller
           $search = request('email');
         // return response()->json($search);
         $email=Emails::where('email', 'LIKE', '%'.$search.'%')->get();
-    
+        
         return response()->json($email);
     }
     /**

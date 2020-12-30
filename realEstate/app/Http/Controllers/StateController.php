@@ -37,8 +37,9 @@ class StateController extends Controller
         'State_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
     ]);
 
-       try {
-        $state=State::create([
+       try 
+        {
+            $state=State::create([
             'State_Name' => request('State_Name'),
             'Country_Id' => request('country_name')
 
@@ -49,9 +50,9 @@ class StateController extends Controller
         if($errorCode == 1062){
             return back()->with('error','State Already Exists !!');
         }
-    }
 
     }
+}
 
     /**
      * Store a newly created resource in storage.

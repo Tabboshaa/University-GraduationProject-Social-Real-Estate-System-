@@ -1,10 +1,19 @@
 @extends('website.backend.database pages.User_Type')
 @section('table')
 <link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
+
+<link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+
+<div class="x_title">
+    <h2>All User Types</h2>
+
+    <div class="clearfix"></div>
+</div>
+
 <form method="Post" action="{{ url('/delete_user_type?_method=delete') }}" enctype="multipart/form-data">
     @csrf
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+    <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
         <thead>
             <tr>
             <tr>
@@ -53,10 +62,10 @@
                     @csrf
                     <input type="hidden" name="id" id="id">
                     <div class="form-group">
-                        <label for="UserTypeName">User Type Name</label>
-                        <input type="text" name="UserTypeName" id="UserTypeName" class="form-control">
+                        <label for="UserTypeName"  style="font-size: 12pt">User Type</label>
+                        <input type="text" style="border-radius: 3pt" name="UserTypeName" id="UserTypeName" class="form-control">
                     </div>
-                    <button type="submit" class="btn btn-success">Edit</button>
+                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>
 
             </div>

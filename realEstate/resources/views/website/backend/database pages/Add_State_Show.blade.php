@@ -1,10 +1,19 @@
 @extends('website.backend.database pages.Add_State')
 @section('table')
-    <link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
+
+<link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
+
+<div class="x_title">
+    <h2>All States</h2>
+
+    <div class="clearfix"></div>
+</div>
+
 <form method="Post" action="{{ url('/delete_State?_method=delete') }}" enctype="multipart/form-data">
 @csrf
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-<table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+<table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
 
     <thead>
         <tr>
@@ -59,11 +68,11 @@
 
 
                     <div class="form-group">
-                        <label for="State_Name" >State Name</label>
-                        <input type="text" name="State_Name" id="StateName" class="form-control">
+                        <label for="State_Name" style="font-size: 12pt">State </label>
+                        <input type="text"  style="border-radius: 3pt"  name="State_Name" id="StateName" class="form-control">
                     </div>
 
-                    <button  type="submit" class="btn btn-success">Edit</button>
+                    <button  type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>
 
             </div>

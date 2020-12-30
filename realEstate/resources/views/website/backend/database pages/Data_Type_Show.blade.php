@@ -1,6 +1,15 @@
 @extends('website.backend.database pages.Data_Type')
 @section('table')
 <link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
+
+<link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+
+<div class="x_title">
+    <h2>All Data Types</h2>
+
+    <div class="clearfix"></div>
+</div>
+
 <form method="Post" action="{{ url('/delete_data_types?_method=delete') }}" enctype="multipart/form-data">
     @csrf
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
@@ -54,10 +63,10 @@
                     @csrf
                     <input type="hidden" name="id" id="id">
                     <div class="form-group">
-                        <label for="DataTypeName" >Data Type Name</label>
-                        <input type="text" name="DataTypeName" id="DataTypeName" class="form-control">
+                        <label for="DataTypeName" style="font-size: 12pt">Data Type</label>
+                        <input type="text" style="border-radius: 3pt" name="DataTypeName" id="DataTypeName" class="form-control">
                     </div>
-                    <button  type="submit" class="btn btn-success">Edit</button>
+                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>
 
             </div>

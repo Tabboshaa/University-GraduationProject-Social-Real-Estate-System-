@@ -1,6 +1,7 @@
 @extends('website.backend.layouts.main')
 @section('content')
 
+<link href="{{asset('css/ButtonStyle.css')}}" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     $(document).ready(function() {
 
@@ -45,10 +46,12 @@
             <form method="POST" action="{{ url('/add_sub_type_property') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
-                    <label for="Main Type Name" class="col-md-2 col-form-label text-md-right">{{ __('Main Type Name') }}</label>
+                    <label for="Main Type Name" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
+                        {{ __('Main Type :') }}
+                    </label>
 
                     <div class="col-md-2">
-                        <select id="MainTypeName" class="form-control @error('Main Type Name') is-invalid @enderror" name="Main_Type_Name" value="{{ old('Main Type Name') }}" required autocomplete="Main Type Name">
+                        <select id="MainTypeName" style="border-radius: 3pt"  class="form-control @error('Main Type Name') is-invalid @enderror" name="Main_Type_Name" value="{{ old('Main Type Name') }}" required autocomplete="Main Type Name">
 
                             <option value="0" selected disabled>Select Main Type</option>
                             <!--  For loop  -->
@@ -66,10 +69,12 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="Sub Type Name" class="col-md-2 col-form-label text-md-right">{{ __('Sub Type Name') }}</label>
+                    <label for="Sub Type Name" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
+                        {{ __('Sub Type :') }}
+                    </label>
 
                     <div class="col-md-2">
-                        <select id="SubTypeName" class="form-control @error('Sub Type Name') is-invalid @enderror" name="Sub_Type_Name" value="{{ old('Sub Type Name') }}" required autocomplete="Sub Type Name">
+                        <select id="SubTypeName" style="border-radius: 3pt"  class="form-control @error('Sub Type Name') is-invalid @enderror" name="Sub_Type_Name" value="{{ old('Sub Type Name') }}" required autocomplete="Sub Type Name">
                             <!--  For loop  -->
 
                             <!-- End loop -->
@@ -82,10 +87,12 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="Sub_Type_Property" class="col-md-2 col-form-label text-md-right">{{ __('Sub Type Property') }}</label>
+                    <label for="Sub_Type_Property" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
+                        {{ __('Sub Type Property :') }}
+                    </label>
 
                     <div class="col-md-2">
-                        <input id="Sub_Type_Property" type="text" class="form-control @error('Sub_Type_Property') is-invalid @enderror" name="Sub_Type_Property" value="{{ old('Sub_Type_Property') }}" required autocomplete="Sub_Type_Property" autofocus>
+                        <input id="Sub_Type_Property" style="border-radius: 3pt"  type="text" class="form-control @error('Sub_Type_Property') is-invalid @enderror" name="Sub_Type_Property" value="{{ old('Sub_Type_Property') }}" required autocomplete="Sub_Type_Property" autofocus>
 
                         @error('Sub_Type_Property')
                         <span class="invalid-feedback" role="alert">
@@ -97,10 +104,12 @@
 
                 <div class="form-group row mb-0">
                     <div class="col-md-2 offset-md-2">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" id="btun1"class="btn btn-primary">
                             {{ __('Add') }}
                         </button>
-                        <a href="{{ url('/sub_type_property_show') }}" class="btn btn-primary"> {{ __('Show') }}</a>
+                        <button id="btun2"  class="btn btn-primary">
+                            <a href="{{url('/sub_type_property_show')}}" class="link2" >{{ __('Show') }}</a>
+                        </button>
                     </div>
                 </div>
             </form>

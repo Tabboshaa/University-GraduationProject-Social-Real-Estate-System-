@@ -1,6 +1,7 @@
 @extends('website.backend.layouts.main')
 @section('content')
 
+<link href="{{asset('css/ButtonStyle.css')}}" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 
 $(document).ready(function (){
@@ -58,10 +59,12 @@ $(document).ready(function (){
 
                 <!-- Select Country -->
                 <div class="form-group row">
-                    <label for="country_name" class="col-md-2 col-form-label text-md-right">{{ __('Country Name ') }}</label>
+                    <label for="country_name" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
+                        {{ __('Country :') }}
+                    </label>
 
                     <div class="col-md-2">
-                        <select id="country_name" class="form-control @error('country_name') is-invalid @enderror" name="Country_Name" value="{{ old('country_namee') }}" required autocomplete="country_name">
+                        <select id="country_name" style="border-radius: 3pt" class="form-control @error('country_name') is-invalid @enderror" name="Country_Name" value="{{ old('country_namee') }}" required autocomplete="country_name">
                         <option value="0" selected disabled>Select Country</option>   
                         @foreach($country as $country)
                             <option value="{{$country->Country_Id}}">{{$country->Country_Name}}</option>
@@ -78,10 +81,12 @@ $(document).ready(function (){
 
                 <!-- Select State -->
                 <div class="form-group row">
-                    <label for="State Name" class="col-md-2 col-form-label text-md-right">{{ __('State Name ') }}</label>
+                    <label for="State Name" style="font-size: 12pt" class="col-md-2 col-form-label text-md-right">
+                        {{ __('State :') }}
+                    </label>
 
                     <div class="col-md-2">
-                        <select id="State_Name" class="form-control @error('State Name') is-invalid @enderror" name="State_Name" value="{{ old('State_Name') }}" required autocomplete="State_Name">
+                        <select id="State_Name" style="border-radius: 3pt" class="form-control @error('State Name') is-invalid @enderror" name="State_Name" value="{{ old('State_Name') }}" required autocomplete="State_Name">
 
                         </select>
 
@@ -96,9 +101,11 @@ $(document).ready(function (){
 
                 <!-- Add New City -->
                 <div class="form-group row">
-                    <label for=" City Name" class="col-md-2 col-form-label text-md-right">{{ __('City Name :') }}</label>
+                    <label for=" City Name" style="font-size: 12pt" class="col-md-2 col-form-label text-md-right">
+                        {{ __('City :') }}
+                    </label>
                     <div class="col-md-2">
-                        <input id="City_Name" type="text" class="form-control @error('City_Name') is-invalid @enderror" name="City_Name" value="{{ old('City Name') }}" required autocomplete="City Name" autofocus>
+                        <input id="City_Name" style="border-radius: 3pt" type="text" class="form-control @error('City Name') is-invalid @enderror" name="City_Name" value="{{ old('City Name') }}" required autocomplete="City Name" autofocus>
 
                         @error('City_Name')
                         <span class="invalid-feedback" role="alert">
@@ -110,10 +117,12 @@ $(document).ready(function (){
                 </div>
                 <div class="form-group row mb-0">
                     <div class="col-md-2 offset-md-2">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" id="btun1"class="btn btn-primary">
                             {{ __('Add') }}
                         </button>
-                        <a href="{{url('/show_city')}}" class="btn btn-primary">{{ __('Show') }}</a>
+                        <button id="btun2"  class="btn btn-primary">
+                            <a href="{{url('/show_city')}}" class="link2" >{{ __('Show') }}</a>
+                        </button>
                     </div>
                 </div>
             </form>

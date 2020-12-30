@@ -1,12 +1,21 @@
 @extends('website.backend.database pages.Sub_Type_Property')
 @section('Property_Details_table')
 <link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
+
+<link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+
+<div class="x_title">
+    <h2>All Properties</h2>
+
+    <div class="clearfix"></div>
+</div>
+
     <div class="row">
         <div class="col-sm-12">
             <form method="Post" action="{{ url('/delete_sub_type_property?_method=delete') }}" enctype="multipart/form-data">
                 @csrf
                 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-            <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+            <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
                 <thead>
                 <tr>
                <tr>
@@ -51,7 +60,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Sub Type</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Sub Type Property</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -62,10 +71,10 @@
                     <input type="hidden" name="id" id="id">
             
                     <div class="form-group">
-                        <label for="SubTypePropertyName" >Property Name</label>
-                        <input type="text" name="SubTypePropertyName" id="SubTypePropertyName" class="form-control">
+                        <label for="SubTypePropertyName" style="font-size: 12pt" >Property</label>
+                        <input type="text" style="border-radius: 3pt"  name="SubTypePropertyName" id="SubTypePropertyName" class="form-control">
                     </div>
-                    <button  type="submit" class="btn btn-success">Edit</button>
+                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>
 
             </div>

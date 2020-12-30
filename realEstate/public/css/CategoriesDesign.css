@@ -1,44 +1,85 @@
-/* #cateagories
+table , th , td , tr
 {
-    margin: 20px;
-    padding: 10px;
+    margin: 10pt;
+    border: none;
+    border-color: white;   
+    
+
+    
 }
+
+thead , tbody
+{
+    border-color: white;   
+    border: none;
+    
+}
+
+th 
+{
+    background-color:  #2A3F54;
+    color: rgb(255, 255, 255);
+    border-radius: 7pt;
+    border: none;
+    text-align: center;
+    
+    width: 100px;
+    height: 100px;
+    
+}
+
 td
 {
-    
-    background-color: rgb(35, 146, 173);
-    border-radius: 5pt;
-    
+    background-color: rgb(47, 139, 151);
+    border: none;
+    text-align: center;
+    font-size: 10pt;
+    border-radius: 3pt;
+    padding: 50px;
 }
 a
 {
-    color: white;
-} */
+  color: white;
+}
 
-.fancy {
-    position: relative;
-    background-color: rgb(107, 191, 230);
-    padding: 2rem;
-    text-align: center;
-    
-    max-width: 200px;
-    border-radius: 5pt;
-  }
-.fancy a{
-    color:white;
-    text-align: center;
-  }
-  
-  .fancy::before {
+a.one:hover
+{
+  color:rgb(96, 194, 207);
+  font-size:150%;
+}
 
-    position : absolute;
-    z-index  : -1;
-    bottom   : 15px;
-    right    : 5px;
-    width    : 50%;
-    top      : 80%;
-    max-width: 200px;
+.row
+{
+  display: block;
+  padding: 30px;
+}
+.done
+{
+  display: block;
+}
+button
+{
   
-    box-shadow: 0px 13px 10px rgb(31, 30, 30);
-    transform: rotate(4deg);
-  }
+
+  position: relative;
+  background-color: #4265a5;
+  border: none;
+  border-radius: 2pt;
+  font-size: 16px;
+  color: #FFFFFF;
+  padding: 10px;
+  width: 80px;
+  text-align: center;
+  transition: transform .2s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+
+}
+button:hover
+{
+  background-color: rgb(91, 136, 173);
+  -ms-transform: scale(1.1); /* IE 9 */
+  -webkit-transform: scale(1.1); /* Safari 3-8 */
+  transform: scale(1.1); 
+}
