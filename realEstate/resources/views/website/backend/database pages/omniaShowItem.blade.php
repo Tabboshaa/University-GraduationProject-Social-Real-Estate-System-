@@ -17,7 +17,7 @@
             <td class="th1">User</td>
             <td class="td1"> 
                  Name : {{$user->First_Name}} {{$user->Middle_Name}} {{$user->Last_Name}} 
-                <br>Email : {{$email->email}} <a href="javascript:void(0)" onclick="setUserEmail({{$user->id}})"><i class="fa fa-edit"> Edit</i></a>
+                <br>Email : {{$email->email}} <a href="javascript:void(0)" onclick="setUserId('{{$item_id}}')"><i class="fa fa-edit"> Edit</i></a>
                 <br>Phone Number :{{$phone_number->phone_number}}
             </td>
         </tr>
@@ -132,13 +132,22 @@
             <div class="modal-body">
                 <form id="EditUserForm">
                     @csrf
-                    <input type="hidden" name="id" id="id">
+                    <input type="hidden" name="id" id="item_id" value="{{$item_id}}">
 
-                    <div class="form-group">
-                        <label for="Email" style="font-size: 12pt" >User Email</label>
-                        <input type="text" style="border-radius: 3pt" name="Email" id="Email" class="form-control">
 
+                    <div class="item form-group">
+                        <a href="javascript:void(0)" id="SearchA" onclick="searchForEmail()" class="btn btn-info" role="button">Search </a>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="search" id="Search" name="Search" required="required" class="form-control">
+                            <input type="hidden" id="userIdHiddenInput" name="userIdHiddenInput">
+                        </div>
                     </div>
+                    <div class="item form-group">
+                        <table id="result" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+
+                        </table>
+                    </div>
+
                     <button type="submit" id="EUbtn" class="btn btn-success">Edit</button>
                 </form>
 
@@ -146,7 +155,38 @@
         </div>
     </div>
 </div>
+<script>
+    function searchForEmail() {
 
+        var email = $("#Search").val();
+        var _token = $("input[name=_token]").val();
+        $.ajax({
+            type: 'post',
+            url: "{{ route('search') }}",
+            data: {
+                email: email,
+                _token: _token
+            },
+            success: function(data) {
+                Object.values(data).forEach(val => {
+                    $("#result").html('<tr><td>' + val['email'] + '</td> <td> <input type="checkbox" name="userid" value="' + val['User_ID'] + '" onclick="onlyOne(this)"> </td> </tr>');
+                });
+            },
+            error: function() {
+                $("#result").html('There is no User with this Email!!');
+            }
+        });
+
+    }
+
+    function onlyOne(checkbox) {
+        var checkboxes = document.getElementsByName('userid')
+        checkboxes.forEach((item) => {
+            if (item !== checkbox) item.checked = false
+        })
+        $("#userIdHiddenInput").val(checkbox.value);
+    }
+</script>
 <script>
     function setDetailIdName(id, name) {
 
@@ -184,33 +224,29 @@
     })
 
 
-    function setUserEmail(Eamil){
-
-        $("#id").val(id);
+    function setUserId() {
         $("#EditUserModal").modal("toggle");
     }
-    $('#EditUserForm').submit(function (){
 
-        var id=$("#id").val();
-        var MainTypeName=$("#MainTypeName").val();
-        var _token= $("input[name=_token]").val();
+    $('#EditUserForm').submit(function() {
+
+        var b2dons=$("#item_id").val();
+        var user_id = $("#userIdHiddenInput").val();
+        console.log(user_id);console.log(b2dons);
+        var _token = $("input[name=_token]").val();
 
         $.ajax({
-            url:"{{route('Maintype.update')}}",
-            Type:"PUT",
-            data:{
-                id:id,
-                // MainTypeid:MainTypeid,
-                MainTypeName:MainTypeName,
-                _token:_token
+            url: "{{route('edit_item_user')}}",
+            Type: "PUT",
+            data: {
+                id: b2dons,
+                User_Id:user_id,
+                _token: _token
             },
-            success:function (){
+            success: function() {
                 console.log('Success');
-                $("#EditMainTypeModal").modal("toggle");
-                // $("#EditMainTypeModal")[0].reset();
             },
-            error:function ()
-            {
+            error: function(da) {
                 console.log('Error');
             }
 
