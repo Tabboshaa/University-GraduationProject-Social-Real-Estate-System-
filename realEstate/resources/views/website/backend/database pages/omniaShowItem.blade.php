@@ -7,15 +7,17 @@
         <tr>
             <th>User</th>
             <td>{{$user->First_Name}} {{$user->Middle_Name}} {{$user->Last_Name}}</td>
+            <td><a href="javascript:void(0)" onclick="setUserEmail()"><i class="fa fa-edit"> Edit</i></a></td>
         </tr>
     </thead>
     <tbody>
         <tr>
             <th>Location</th>
             <td>{{$Location->Country_Name}},{{$Location->State_Name}},{{$Location->City_Name}},{{$Location->Region_Name}},{{$Location->Street_Name}}</td>
+            <td><a href="javascript:void(0)" onclick=""><i class="fa fa-edit"> Edit</i></a></td>
         </tr>
         <tr>
-            <td colspan="2" style="text-align:center">Details</td>
+            <td colspan="3" style="text-align:center">Details</td>
         </tr>
         <tr>
             <form method="Post" action="{{ url('/delete_detail_item?_method=delete') }}" enctype="multipart/form-data">
@@ -28,7 +30,7 @@
                             <h4>{{$property}}</h4>
                         </td>
                         <th></th>
-                        <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> </a> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
+                        <th>Select all <input type="checkbox" id="selectAll" name="selectAll">  <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
                         <th></th>
                         <!-- Java Script for select all function -->
                         <script>
@@ -60,15 +62,16 @@
 
                     @endforeach
                 </table>
+            </form>
         </tr>
     </tbody>
 </table>
 
-</form>
+
 
 @if(!empty($subtypeid))
 <a href="{{url('/property_select/'.$item_id.'/'.$subtypeid.'')}}" class="btn btn-info"> Add More Details</a>
-@else 
+@else
 <a href="{{url('/addItemSteps/'.$item_id)}}" class="btn btn-info"> Add Details of item</a>
 
 @endif
@@ -134,6 +137,41 @@
                 // $("#EditDetailModal")[0].reset();
             },
             error: function() {
+                console.log('Error');
+            }
+
+        });
+    })
+
+
+    function setUserEmail(Eamil){
+
+        $("#id").val(id);
+        $("#MainTypeName").val(name);
+        $("#EditMainTypeModal").modal("toggle");
+    }
+    $('#EditUserForm').submit(function (){
+
+        var id=$("#id").val();
+        var MainTypeName=$("#MainTypeName").val();
+        var _token= $("input[name=_token]").val();
+
+        $.ajax({
+            url:"{{route('Maintype.update')}}",
+            Type:"PUT",
+            data:{
+                id:id,
+                // MainTypeid:MainTypeid,
+                MainTypeName:MainTypeName,
+                _token:_token
+            },
+            success:function (){
+                console.log('Success');
+                $("#EditMainTypeModal").modal("toggle");
+                // $("#EditMainTypeModal")[0].reset();
+            },
+            error:function ()
+            {
                 console.log('Error');
             }
 

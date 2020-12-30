@@ -5,7 +5,7 @@
         <thead>
         <tr>
             <th>User</th>
-            <td>{{$user[0]->First_Name}} {{$user[0]->Middle_Name}} {{$user[0]->Last_Name}}</td>
+            <td>{{$user->First_Name}} {{$user->Middle_Name}} {{$user->Last_Name}}</td>
 
         </tr>
         </thead>

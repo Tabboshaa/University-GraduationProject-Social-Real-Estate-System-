@@ -40,7 +40,7 @@ class ItemController extends Controller
         if ($id == null && request()->has('Item')) $id = request('Item');
         $item = Item::all('Street_Id', 'User_Id')->where('Item_Id', '=', $id);
         // return $item;
-        
+
         $User_id = Arr::get($item, 'User_Id');
 
         $Item_id = Arr::get($item, 'Item_Id');
@@ -100,6 +100,12 @@ class ItemController extends Controller
                 return back()->with('error', 'Already Exist !!');
             }
         }
+    }
+    public function EditUser()
+    {
+        $item=Item::all()->find(request('id'));
+        $item->User_Id=request('User_Id');
+        $item->save();
     }
     public function searchEmail()
     {

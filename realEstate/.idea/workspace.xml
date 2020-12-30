@@ -21,13 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="61291dc3-a956-485f-a24a-b25b13aeff46" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MainTypes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MainTypes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_14_173646_create_emails_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_14_173646_create_emails_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/register.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/ShowItem.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/ShowItem.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/omniaShowItem.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/omniaShowItem.blade.php" afterDir="false" />
     </list>
@@ -307,6 +301,10 @@
       <workItem from="1609255058783" duration="618000" />
       <workItem from="1609257947482" duration="870000" />
       <workItem from="1609316369264" duration="897000" />
+      <workItem from="1609326334232" duration="1006000" />
+      <workItem from="1609328177546" duration="624000" />
+      <workItem from="1609331490644" duration="1783000" />
+      <workItem from="1609333357581" duration="90000" />
     </task>
     <servers />
   </component>
@@ -352,12 +350,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/website/backend/database pages/Main_Types.blade.php</url>
-          <line>42</line>
+          <line>49</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/website/backend/database pages/AddItemSteps.blade.php</url>
-          <line>230</line>
+          <line>231</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
