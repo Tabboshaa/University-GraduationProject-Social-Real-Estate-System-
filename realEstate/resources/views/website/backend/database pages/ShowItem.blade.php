@@ -19,7 +19,7 @@
         </tr>
         <tr>
             {{--For each Sub Type Proberty--}}
-            @foreach($details as $properties => $details)
+            @foreach($detail as $properties => $details)
 
             <table class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
 
