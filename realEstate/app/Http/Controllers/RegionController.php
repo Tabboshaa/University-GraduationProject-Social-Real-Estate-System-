@@ -24,7 +24,7 @@ class RegionController extends Controller
         $state=State::all();
         $city=City::all();
         return view('website.backend.database pages.Add_Region',['counrty'=>$counrty,'state'=>$state,'city'=>$city]);
-   
+
     }
 
     /**
@@ -34,6 +34,9 @@ class RegionController extends Controller
      */
     public function create()
     {
+        request()->validate([
+            'Region_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
+        ]);
         //
 
         try {
@@ -43,11 +46,11 @@ class RegionController extends Controller
             'City_Id' => request('City_Name'),
             'Region_Name' => request('Region_Name')
         ]);
-        return back()->with('success','Item Created Successfully');
+        return back()->with('success','Region Created Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
-            return back()->with('error','Already Exist !!');
+            return back()->with('error','Region Already Exists !!');
         }
     }
     }
@@ -72,7 +75,7 @@ class RegionController extends Controller
     public function show()
     {
         //
-   
+
         $city=City::all();
         $states=State::all();
         $countries=Country::all();
@@ -80,9 +83,9 @@ class RegionController extends Controller
         ->join('countries', 'regions.Country_Id', '=', 'countries.Country_Id')
         ->join('states', 'regions.State_Id', '=', 'states.State_Id')
         ->join('cities', 'regions.City_Id', '=', 'cities.City_Id')
-        ->select('regions.*', 'countries.Country_Name','states.State_Name','cities.City_Name')->get();
-        //el subtype name w el main type name 
-        return view('website.backend.database pages.Add_Region_Show',['counrty'=>$countries,'state'=>$states,'city'=>$city,'region'=>$region]);
+        ->select('regions.*', 'countries.Country_Name','states.State_Name','cities.City_Name')->paginate(10);
+        //el subtype name w el main type name
+        return view('website.backend.database pages.Add_Region_Show',['counrty'=>$countries,'state'=>$states,'city'=>$city,'region1'=>$region]);
     }
 
     /**
@@ -116,18 +119,24 @@ class RegionController extends Controller
      */
     public function destroy(Request $request,$id=null)
     {
-
+        if(request()->has('id'))
+       {
+        try {
         Region::destroy($request->id);
+        return redirect()->route('region_show')->with('success', 'Region Deleted Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
 
-      
-        return redirect()->route('region_show');
+        return redirect()->route('region_show')->with('error', 'Region cannot be deleted');
+
+    }
+}else return redirect()->route('region_show')->with('warning', 'No Region was chosen to be deleted.. !!');
     }
 
     public function findstate(){
 
         //will get all states which her Country_Id is the ID we passed from $.ajax
         $state=State::all()->where('Country_Id','=',request('id'));
-         
+
         // will send all values in state object by json
         return  response()->json($state);
 
@@ -138,7 +147,7 @@ class RegionController extends Controller
 
         //will get all states which her Country_Id is the ID we passed from $.ajax
         $city=City::all()->where('State_Id','=',request('id'));
-         
+
         // will send all values in state object by json
         return  response()->json($city);
 
@@ -149,7 +158,7 @@ class RegionController extends Controller
 
         //will get all states which her Country_Id is the ID we passed from $.ajax
         $region=Region::all()->where('City_Id','=',request('id'));
-         
+
         // will send all values in state object by json
         return  response()->json($region);
 
@@ -158,13 +167,21 @@ class RegionController extends Controller
 
     public function editRegion(Request $request)
     {
-        //hygeb el country eli el ID bt3ha da 
+        try {
+
+        //hygeb el country eli el ID bt3ha da
         $region= Region::all()->find(request('id'));
-        //hy7ot el name el gded f column el country name 
+        //hy7ot el name el gded f column el country name
         $region->Region_Name=request('RegionName');
         $region->save();
 
-        //hyb3t el update el gded fl country table 
-        return response()->json($region);
+        return back()->with('info','Region Edited Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == 1062){
+            return back()->with('error','Error editing Region');
+        }
+    }
+
     }
 }

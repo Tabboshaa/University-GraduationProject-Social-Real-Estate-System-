@@ -28,7 +28,7 @@ class MainTypes extends Controller
     {
         //
         request()->validate([
-           'Main_Type_Name' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"]
+           'Main_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
        ]);
 
         try {
@@ -65,8 +65,8 @@ class MainTypes extends Controller
     public function show()
     {
         //
-        $main_types=Main_Type::all();
-        return view('website.backend.database pages.Main_Types_Show',['main_type'=>$main_types]);
+        $main_types=Main_Type::paginate(10);
+        return view('website.backend.database pages.Main_Types_Show',['main_type1'=>$main_types]);
     }
 
     /**
@@ -78,11 +78,18 @@ class MainTypes extends Controller
     public function edit()
     {
         //
-        $main_types=Main_Type::all()->find(request('id'));
-        $main_types->Main_Type_Name=request('MainTypeName');
-        $main_types->save();
+        try {
+            $main_types=Main_Type::all()->find(request('id'));
+            $main_types->Main_Type_Name=request('MainTypeName');
+            $main_types->save();
 
-        return response()->json($main_types);
+                return back()->with('info','Item Edited Successfully');
+            }catch (\Illuminate\Database\QueryException $e){
+                $errorCode = $e->errorInfo[1];
+                if($errorCode == 1062){
+                    return back()->with('error','Error editing item');
+                }
+            }
     }
 
     /**
@@ -105,10 +112,15 @@ class MainTypes extends Controller
      */
     public function destroy(Request $request)
     {
-        //return dd($request->all());
-        //
+        if(request()->has('mainType'))
+       {
+        try {
         Main_Type::destroy($request->mainType);
-
-        return redirect()->route('main_types_show');
+        return redirect()->route('main_types_show')->with('success', 'Item Deleted Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+        return redirect()->route('main_types_show')->with('error', 'Item cannot be deleted');
+                
+    }
+}else return redirect()->route('main_types_show')->with('warning', 'No type was chosen to be deleted.. !!');
 }
 }

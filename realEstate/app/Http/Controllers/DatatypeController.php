@@ -28,17 +28,17 @@ class DatatypeController extends Controller
         //
         request()->validate([
             
-            'Data_Type_Name' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"] 
+            'Data_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"] 
         ]);
         try {
             $Data_Type = Datatype::create([
                 'datatype' => request('Data_Type_Name')
             ]);
-            return back()->with('success', 'Item Created Successfully');
+            return back()->with('success', 'Datatype Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('error', 'Already Exist !!');
+                return back()->with('error', 'Datatype Already Exist !!');
             }
         }
     }
@@ -63,8 +63,8 @@ class DatatypeController extends Controller
     public function show()
     {
         //
-        $data_types = Datatype::all();
-        return view('website/backend.database pages.Data_Type_Show', ['data_types' => $data_types]);
+        $data_types = Datatype::paginate(1);
+        return view('website/backend.database pages.Data_Type_Show', ['data_typess' => $data_types]);
     }
 
     /**
@@ -76,11 +76,19 @@ class DatatypeController extends Controller
     public function edit()
     {
         //
-        $data_type = Datatype::all()->find(request('id'));
-        $data_type->datatype = request('DataTypeName');
-        $data_type->save();
+        try {
+       
+            $data_type = Datatype::all()->find(request('id'));
+            $data_type->datatype = request('DataTypeName');
+            $data_type->save();
 
-        return response()->jason($data_type);
+                return back()->with('info','Datatype Edited Successfully');
+            }catch (\Illuminate\Database\QueryException $e){
+                $errorCode = $e->errorInfo[1];
+                if($errorCode == 1062){
+                    return back()->with('error','Error editing Datatype');
+                }
+            }
     }
 
     /**
@@ -104,9 +112,18 @@ class DatatypeController extends Controller
     public function destroy()
     {
         //
-
+        if(request()->has('id'))
+       {
+           
+        try {
         Datatype::destroy(request('id'));
+        return  redirect()->route('data_type_show')->with('success', 'Datatype Deleted Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('data_type_show');
+        return redirect()->route('data_type_show')->with('error', 'Datatype cannot be deleted');
+                
     }
+}else return redirect()->route('data_type_show')->with('warning', 'No Datatype was chosen to be deleted.. !!');
+    }
+
 }

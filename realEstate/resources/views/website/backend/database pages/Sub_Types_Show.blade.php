@@ -1,16 +1,18 @@
 @extends('website.backend.database pages.Sub_Type')
 @section('table')
+<link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
 <div class="row" >
     <div class="col-sm-12">
         <form method="Post" action="{{ url('/delete_sub_type?_method=delete') }}" enctype="multipart/form-data">
             @csrf
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
             <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width:'100%'" role="grid" aria-describedby="datatable_info">
                 <thead>
                     <tr>
-                        <th><h2 style="margin-right:175px; padding-bottom: 5px;">Main Type ID</h2></th>
+                        <th><h2 style="margin-right:160px; padding-bottom: 5px;">Main Type ID</h2></th>
                         <th ><h2 style="margin-right:175px;padding-bottom: 5px;">Sub Type Name</h2></th>
                         <th ><h2 style="margin-right:200px;padding-bottom: 5px;">Edit</h2></th>
-                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:160px;"></i></th>
+                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:155px;"></i></th>
                         <!-- Java Script for select all function -->
                         <script>
                             document.getElementById('selectAll').onclick = function() {
@@ -25,7 +27,7 @@
                 <tbody>
 
                     <!-- EL FOREARCH HNA -->
-                    @foreach($sub_type as $sub_type)
+                    @foreach($S1 as $sub_type)
 
 
                     <tr>
@@ -43,6 +45,7 @@
 
         </tbody>
         </table>
+        {!! $S1->render() !!}
         </form>
     </div>
 </div>
@@ -83,6 +86,24 @@
 </div>
 
 <script>
+ function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("datatable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
     function setSupTypeIdName(id, name) {
 
         $("#id").val(id);
@@ -106,9 +127,7 @@
                 _token: _token
             },
             success: function(response) {
-                console.log('Success')
-                console.log(response);
-                $('#sid' + response.id + 'td:nth-child(1)').text(response.SupTypeName);
+                console.log('Success');
                 $("#EditSubTypeModal").modal("toggle");
                 // $("#EditSubTypeModal")[0].reset();
             },

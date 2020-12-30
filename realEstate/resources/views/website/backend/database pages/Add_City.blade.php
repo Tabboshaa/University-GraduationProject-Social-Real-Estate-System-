@@ -3,7 +3,7 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function (){
+$(document).ready(function (){
 
         // on change new action will happen when user select new country depending on 'select id' "#country_name"
         $(document).on('change','#country_name',function(){
@@ -98,9 +98,9 @@
                 <div class="form-group row">
                     <label for=" City Name" class="col-md-2 col-form-label text-md-right">{{ __('City Name :') }}</label>
                     <div class="col-md-2">
-                        <input id="City_Name" type="text" class="form-control @error('City Name') is-invalid @enderror" name="City_Name" value="{{ old('City Name') }}" required autocomplete="City Name" autofocus>
+                        <input id="City_Name" type="text" class="form-control @error('City_Name') is-invalid @enderror" name="City_Name" value="{{ old('City Name') }}" required autocomplete="City Name" autofocus>
 
-                        @error('City Name')
+                        @error('City_Name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

@@ -1,10 +1,8 @@
 @extends('website.backend.database pages.Item')
 @section('Item_Main_Type_table')
-<link href="{{asset('css/ItemStyle.css')}}" rel="stylesheet" type="text/css" />
-    
-        
 
-            <div class="x_panel">
+<link href="{{asset('css/ItemStyle.css')}}" rel="stylesheet" type="text/css" />
+                <div class="x_panel">
                 <div class="x_title">
                     <h2 style="text-align: center">New Item</h2>
 
@@ -24,10 +22,10 @@
                 @foreach($sub_type as $sub)
                 @if($sub->Main_Type_Id == $main->Main_Type_Id)
 
-                   
-                        <tr><td><a href="{{ url('property_select/'.$sub->Sub_Type_Id) }}">{{$sub->Sub_Type_Name}}</a></td></tr>
 
-                    
+                        <tr><td><a href="{{ url('property_select/'.$item_id.'/'.$sub->Sub_Type_Id) }}">{{$sub->Sub_Type_Name}}</a></td></tr>
+
+
                     @endif
                 @endforeach
                 </tbody>
@@ -35,7 +33,7 @@
                 </table>
                 </div>
                 @endforeach
-            </div>  
-        
-    
+            </div>
+
+
 @endsection

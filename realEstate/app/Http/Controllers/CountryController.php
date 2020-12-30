@@ -16,8 +16,8 @@ class CountryController extends Controller
     public function index()
     {
         //
-        $Countries=Country::all();
-        return view('website.backend.database pages.Add_Country_Show',['C1'=>$Countries]);
+        $Countries=Country::paginate(10);
+        return view('website.backend.database pages.Add_Country_Show',['C11'=>$Countries]);
     }
 
     /**
@@ -27,16 +27,19 @@ class CountryController extends Controller
      */
     public function create()
     {
+        request()->validate([
+            'country_name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
+        ]);
         //
         try {
         $country=Country::create([
             'Country_Name' => request('country_name'),
         ]);
-        return back()->with('success','Item Created Successfully');
+        return back()->with('success','Country Created Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
-            return back()->with('error','Already Exist !!');
+            return back()->with('error','Country Already Exist !!');
         }
     }
 
@@ -95,21 +98,37 @@ class CountryController extends Controller
      */
     public function destroy(Request $request)
     {
-        // Will Destroy each column with id form action 
+        // Will Destroy each column with id form action
+        if(request()->has('id'))
+       {
+        try {
         Country::destroy($request->id);
-        return redirect()->route('country_show');
+        return redirect()->route('country_show')->with('success', 'Country Deleted Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+
+        return redirect()->route('country_show')->with('error', 'Country cannot be deleted');
+
+    }
+}else return redirect()->route('country_show')->with('warning', 'No Country was chosen to be deleted.. !!');
     }
     //  function  EDIT: AJAX
 
     public function editCountry(Request $request)
     {
-        //hygeb el country eli el ID bt3ha da 
+        try {
+
+            //hygeb el country eli el ID bt3ha da
         $country= Country::all()->find(request('id'));
-        //hy7ot el name el gded f column el country name 
+        //hy7ot el name el gded f column el country name
         $country->Country_Name=request('CountryName');
         $country->save();
+                return back()->with('info','Country Edited Successfully');
+            }catch (\Illuminate\Database\QueryException $e){
+                $errorCode = $e->errorInfo[1];
+                if($errorCode == 1062){
+                    return back()->with('error','Error editing Country');
+                }
+            }
 
-        //hyb3t el update el gded fl country table 
-        return response()->json($country);
     }
 }

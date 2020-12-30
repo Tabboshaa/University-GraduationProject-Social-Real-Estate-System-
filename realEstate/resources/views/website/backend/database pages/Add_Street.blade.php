@@ -3,9 +3,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-
-
-        $(document).on('change', '#Country_Name', function() {
+        $(document).on('change','#Country_Name', function() {
 
             var country_id = $(this).val();
             //  console.log(MainType_id);
@@ -13,9 +11,9 @@
             var FormTag = $(this).parent().parent().parent();
             var op = " ";
             $.ajax({
-                type: 'get',
+                type:'get',
                 url: "{{ url('/D4') }}",
-                data: {
+                data:{
                     'id': country_id
                 },
                 success: function(data) {
@@ -170,7 +168,7 @@
                         <select id="Region_Name" class="form-control @error('Region Name') is-invalid @enderror" name="Region_Name" value="{{ old('Region Name') }}" required autocomplete="Region Name">
 
                         </select>
-                        @error('Region Name')
+                        @error('Region_Name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -181,9 +179,9 @@
                 <div class="form-group row">
                     <label for="Street_Name" class="col-md-2 col-form-label text-md-right">{{ __('Street Name :') }}</label>
                     <div class="col-md-2">
-                        <input id="Street_Name" type="text" class="form-control @error('Street Name') is-invalid @enderror" name="Street_Name" value="{{ old('Street Name') }}" required autocomplete="Street Name" autofocus>
+                        <input id="Street_Name" type="text" class="form-control @error('Street_Name') is-invalid @enderror" name="Street_Name" value="{{ old('Street Name') }}" required autocomplete="Street Name" autofocus>
 
-                        @error('Street Name')
+                        @error('Street_Name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

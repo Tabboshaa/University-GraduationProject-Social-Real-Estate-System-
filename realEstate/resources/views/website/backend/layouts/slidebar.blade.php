@@ -17,7 +17,7 @@
                       <li> <a>Data Type<span class="fa fa-chevron-down"></span> </a>
                       <ul class="nav child_menu">
 
-                      <li><a href="{{url('/Data_Type')}}">Add Data Type</a></li>
+                      <li><a href="{{url('/data_types')}}">Add Data Type</a></li>
                       </ul>
                       </li>
                       <li> <a>Item Details<span class="fa fa-chevron-down"></span> </a>

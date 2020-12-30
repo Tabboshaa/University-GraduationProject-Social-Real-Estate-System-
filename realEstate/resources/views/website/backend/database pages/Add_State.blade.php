@@ -28,9 +28,9 @@
                 <div class="form-group row">
                     <label for="State Name" class="col-md-2 col-form-label text-md-right">{{ __('State Name :') }}</label>
                     <div class="col-md-2">
-                        <input id="State_Name" type="text" class="form-control @error('State Name') is-invalid @enderror" name="State_Name" value="{{ old('State Name') }}" required autocomplete="State Name" autofocus>
+                        <input id="State_Name" type="text" class="form-control @error('State_Name') is-invalid @enderror" name="State_Name" value="{{ old('State Name') }}" required autocomplete="State Name" autofocus>
 
-                        @error('State Name')
+                        @error('State_Name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

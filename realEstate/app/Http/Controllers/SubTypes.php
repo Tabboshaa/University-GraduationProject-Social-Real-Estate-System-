@@ -41,13 +41,19 @@ class SubTypes extends Controller
 
     public function editSubType()
     {
+        try {
 
         $subtype = Sub_Type::all()->find(request('id'));
-        $subtype->Main_Type_Id = request('MainTypeid');
         $subtype->Sub_Type_Name = request('SupTypeName');
         $subtype->save();
 
-        return response()->json($subtype);
+        return back()->with('info','Type Edited Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == 1062){
+            return back()->with('error','Error editing item');
+        }
+    }
     }
 
 
@@ -61,7 +67,7 @@ class SubTypes extends Controller
         //
 
         request()->validate([
-             'Sub_Type_Name' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"]
+             'Sub_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
         ]);
 
         try {
@@ -69,11 +75,11 @@ class SubTypes extends Controller
                 'Sub_Type_Name' => request('Sub_Type_Name'),
                 'Main_Type_Id' => request('Main_Type_Name')
             ]);
-            return back()->with('success', 'Item Created Successfully');
+            return back()->with('success', 'Type Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('error', 'Already Exist !!');
+                return back()->with('error', 'Type Already Exists !!');
             }
         }
         return $this->index();
@@ -100,11 +106,12 @@ class SubTypes extends Controller
     {
         //
         $sub_show = DB::table('sub__types')->join('main__types', 'sub__types.Main_Type_Id', '=', 'main__types.Main_Type_Id')
-            ->select('sub__types.*', 'main__types.Main_Type_Name')->get();
-        //DB join b3ml add l column el main type name le table el subtype w bb3to 3sha azhr el main type name 
+            ->select('sub__types.*', 'main__types.Main_Type_Name')->paginate(10);
+        //DB join b3ml add l column el main type name le table el subtype w bb3to 3sha azhr el main type name
         //fe table el show sub tye
-        $main_types = Main_Type::all();
-        return view('website.backend.database pages.Sub_Types_Show', ['sub_type' => $sub_show, 'main_type' => $main_types]);
+        $main_types = Main_Type::paginate(10);
+        return view('website.backend.database pages.Sub_Types_Show', ['S1' => $sub_show, 'main_type' => $main_types]);
+
     }
 
     /**
@@ -151,7 +158,15 @@ class SubTypes extends Controller
      */
     public function destroy(Request $request, $id=null)
     {
+        if(request()->has('id'))
+       {
+        try{
         Sub_Type::destroy($request->id);
-        return redirect()->route('subtype_show');
+        return redirect()->route('subtype_show')->with('success', 'Type Deleted Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+
+        return redirect()->route('subtype_show')->with('error', 'Type cannot be deleted');
+    }
+}else return redirect()->route('subtype_show')->with('warning', 'No type was chosen to be deleted.. !!');
     }
 }
