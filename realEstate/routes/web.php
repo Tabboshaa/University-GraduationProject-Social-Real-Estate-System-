@@ -104,6 +104,7 @@ Route::get('Item','ItemController@index1');
 Route::post('addItem','ItemController@create');
 Route::get('ShowItem/{id?}','ItemController@show');
 Route::delete('DelteItem/{id?}','ItemController@destroy');
+Route::post('edit_item_user','ItemController@EditUser')->name('edit_item_user');
 
 
 //Route::get('/Item', 'ItemController@SubTypeShow');

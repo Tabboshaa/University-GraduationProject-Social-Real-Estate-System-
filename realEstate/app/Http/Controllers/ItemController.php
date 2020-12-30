@@ -48,7 +48,7 @@ class ItemController extends Controller
 
         $Street_id = Arr::get($item, 'Street_Id');
 
-        $user = User::all('First_Name', 'Middle_Name', 'Last_Name','id')->where('id', '=', $User_id)->first();
+        $user = User::all('First_Name', 'Middle_Name', 'Last_Name')->where('id', '=', $User_id)->first();
 
         $email = Emails::all('email')->where('User_ID', '=', $User_id)->first();
 
@@ -72,7 +72,7 @@ class ItemController extends Controller
 
         $Sub_Type_Id = Arr::get(Details::all()->where('Item_Id', '=', $id)->first(), 'Sub_Type_Id');
 
-        return view('website.backend.database pages.omniaShowItem', ['user' => $user, 'Location' => $Location, 'details' => $details, 'item_id' => $id, 'subtypeid' => $Sub_Type_Id,'email'=>$email,'phone_number' => $phone_number]);
+        return view('website.backend.database pages.omniaShowItem', ['user' => $user, 'Location' => $Location, 'details' => $details, 'item_id' => $id, 'subtypeid' => $Sub_Type_Id,'email'=>$email,'phone_number' => $phone_number,'user_id'=>$User_id]);
     }
 
     public function itemShow()
@@ -111,7 +111,9 @@ class ItemController extends Controller
         $item=Item::all()->find(request('id'));
         $item->User_Id=request('User_Id');
         $item->save();
+        return response()->json($item);
     }
+
     public function searchEmail()
     {
         $search = request('email');
