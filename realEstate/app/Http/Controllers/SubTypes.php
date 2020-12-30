@@ -47,7 +47,7 @@ class SubTypes extends Controller
         $subtype->Sub_Type_Name = request('SupTypeName');
         $subtype->save();
 
-        return back()->with('info','Item Edited Successfully');
+        return back()->with('info','Type Edited Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
@@ -70,11 +70,11 @@ class SubTypes extends Controller
                 'Sub_Type_Name' => request('Sub_Type_Name'),
                 'Main_Type_Id' => request('Main_Type_Name')
             ]);
-            return back()->with('success', 'Item Created Successfully');
+            return back()->with('success', 'Type Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('error', 'Already Exist !!');
+                return back()->with('error', 'Type Already Exists !!');
             }
         }
         return $this->index();
@@ -153,12 +153,15 @@ class SubTypes extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        if(request()->has('id'))
+       {
         try{
         Sub_Type::destroy($request->id);
-        return redirect()->route('subtype_show')->with('success', 'Item Deleted Successfully');
+        return redirect()->route('subtype_show')->with('success', 'Type Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('subtype_show')->with('error', 'Item cannot be deleted');
+        return redirect()->route('subtype_show')->with('error', 'Type cannot be deleted');
     }
+}else return redirect()->route('subtype_show')->with('warning', 'No type was chosen to be deleted.. !!');
     }
 }

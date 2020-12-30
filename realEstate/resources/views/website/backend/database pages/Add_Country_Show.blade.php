@@ -2,6 +2,7 @@
 @section('table')
 
 <link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
 
 <div class="x_title">
     <h2>All Countries</h2>
@@ -11,10 +12,12 @@
 
 <form method="Post" action="{{ url('/delete_Country?_method=delete') }}" enctype="multipart/form-data">
     @csrf
-<table id="datatable" class="table  table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+<table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
     <thead>
         <tr>
             <th>Country Name</th>
+
             <th>Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" style="margin-left: 850px;"><i class="fa fa-trash"></i></button></th>
             <th>Edit</th>
             <script>
@@ -29,7 +32,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($C1 as $C1)
+        @foreach($C11 as $C1)
             <tr>
                 <td> {{$C1->Country_Name}}</td>
                 <td><input type="checkbox" name="id[]" value="{{$C1->Country_Id}}"></td>
@@ -40,6 +43,7 @@
             @endforeach
     </tbody>
 </table>
+    {!! $C11->render() !!}
 </form>
 
 <!-- form of editing country -->
@@ -67,12 +71,33 @@
                     <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>
 
-            </div>
+            </div>                
+    
         </div>
+
     </div>
 </div>
+    
 
 <script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("datatable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
     function setCountryIdName(id, name) {
 
         // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty

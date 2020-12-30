@@ -39,20 +39,17 @@ class StateController extends Controller
             $state=State::create([
             'State_Name' => request('State_Name'),
             'Country_Id' => request('country_name')
-            ]);
-            
-            return back()->with('success','Item Created Successfully');
-        }
-        catch (\Illuminate\Database\QueryException $e)
-        {
-            $errorCode = $e->errorInfo[1];
-            if($errorCode == 1062)
-            {
-                return back()->with('error','Already Exist !!');
-            }
+
+        ]);
+        return back()->with('success','State Created Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == 1062){
+            return back()->with('error','State Already Exists !!');
         }
 
     }
+}
 
     /**
      * Store a newly created resource in storage.
@@ -74,12 +71,12 @@ class StateController extends Controller
     public function show()
     {
         //
-        $countries=Country::all();
+        $countries=Country::paginate(1);
         $states=DB::table('states')
         ->join('countries', 'states.Country_Id', '=', 'countries.Country_Id')
-        ->select('states.*', 'countries.Country_Name')->get();
+        ->select('states.*', 'countries.Country_Name')->paginate(10);
 
-        return view('website\backend.database pages.Add_State_Show',['state'=>$states,'country'=>$countries]);
+        return view('website\backend.database pages.Add_State_Show',['state1'=>$states,'country'=>$countries]);
     }
 
     /**
@@ -113,22 +110,24 @@ class StateController extends Controller
      */
     public function destroy(Request $request,$id=null)
     {
-        // Will Destroy each column with id form action 
+        // Will Destroy each column with id form action
+        if(request()->has('id'))
+       {
         try {
         State::destroy($request->id);
-        return redirect()->route('state_show')->with('success', 'Item Deleted Successfully');
+        return redirect()->route('state_show')->with('success', 'State Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('state_show')->with('error', 'Item cannot be deleted');
-                
+        return redirect()->route('state_show')->with('error', 'State cannot be deleted');
+
     }
-  
+}else return redirect()->route('state_show')->with('warning', 'No State was chosen to be deleted.. !!');
     }
     public function findstate(){
 
         //will get all states which her Country_Id is the ID we passed from $.ajax
         $state=State::all()->where('Country_Id','=',request('id'));
-         
+
         // will send all values in state object by json
         return  response()->json($state);
 
@@ -138,20 +137,20 @@ class StateController extends Controller
     public function editState(Request $request)
     {
         try {
-       
-        //hygeb el country eli el ID bt3ha da 
+
+        //hygeb el country eli el ID bt3ha da
         $state= State::all()->find(request('id'));
-        //hy7ot el name el gded f column el country name 
+        //hy7ot el name el gded f column el country name
         $state->State_Name=request('StateName');
         $state->save();
 
-        //hyb3t el update el gded fl country table 
-        return back()->with('info','Item Edited Successfully');
+        //hyb3t el update el gded fl country table
+        return back()->with('info','State Edited Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
             return back()->with('error','Error editing item');
         }
-    }   
+    }
     }
 }

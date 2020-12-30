@@ -108,6 +108,8 @@ class MainTypes extends Controller
      */
     public function destroy(Request $request)
     {
+        if(request()->has('mainType'))
+       {
         try {
         Main_Type::destroy($request->mainType);
         return redirect()->route('main_types_show')->with('success', 'Item Deleted Successfully');
@@ -115,5 +117,6 @@ class MainTypes extends Controller
         return redirect()->route('main_types_show')->with('error', 'Item cannot be deleted');
                 
     }
+}else return redirect()->route('main_types_show')->with('warning', 'No type was chosen to be deleted.. !!');
 }
 }

@@ -1,8 +1,7 @@
 @extends('website.backend.database pages.Item')
 @section('Item_Main_Type_table')
-
-    <link href="{{asset('css/CategoriesDesign.css')}}" rel="stylesheet" type="text/css" />
-  
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link href="{{asset('css/CategoriesDesign.css')}}" rel="stylesheet" type="text/css" />
         <div class="x_title">
             
             <h2>Add Item</h2>
@@ -11,35 +10,37 @@
         </div>   
 <form method="Get" action="{{url('/ShowItem/'.$item_id)}}" enctype="multipart/form-data">
     @csrf
+    <div class="row">
+        @foreach($property as $p)
     
-    @foreach($property as $p)
+        <div class="col-sm-3" id="done">
+            <table id="datatable" class="table table-striped  dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+                <thead>
+                    <th>
+                        <h6>
+                            <a class="one" href="javascript:void(0)" id="details" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')">
+                                {{ __($p->Property_Name) }}
+                            </a>
+                        </h6>
+                    </th>
+                </thead>
     
-    <div class="col-sm-3" id="done">
-        <table id="datatable" class="table table-striped  dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
-            <thead>
-                <th>
-                    <h6>
-                        <a class="one" href="javascript:void(0)" id="details" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')">
-                            {{ __($p->Property_Name) }}
-                        </a>
-                    </h6>
-                </th>
-            </thead>
-
-            <tbody>
-              
-                <tr>
-                    <td>
-                        <a class="two" href="javascript:void(0)" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')">
-                            Add More <i class="fa fa-plus"></i>
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                <tbody>
+                  
+                    <tr>
+                        <td>
+                            <a class="two" href="javascript:void(0)" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')">
+                                Add More <i class="fa fa-plus"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        @endforeach
+        <br>
     </div>
-    @endforeach
-    <br>
+    <input type="hidden" value="{{$item_id}}" id="item_id">
     <div class="row">
         <div class="col-sm-4" id="done">
             <div class="g">
@@ -74,7 +75,6 @@
 </div>
 
 <script>
-
     function AddDetail(id, name) {
 
         $("#exampleModalLabel").html(name);
@@ -121,13 +121,13 @@
 
     $('#data_form').submit(function() {
         var data = [];
-
+        var item_id= $("#item_id").val();
         //3iza ageeb kol el inputs b get element by name
         //w b3deen 3iza 27ot el inputs value&id f array
         $('input[name="DetailItem[]"]').each(function() {
             data.push({
                 id: this.id,
-                value: this.value
+                value: this.value,
             });
         });
         var _token = $("input[name=_token]").val();
@@ -137,6 +137,7 @@
             url: "{{ route('details_submit')}}",
             data: {
                 data: data,
+                item_id: item_id,
                 _token: _token
             },
             success: function() {

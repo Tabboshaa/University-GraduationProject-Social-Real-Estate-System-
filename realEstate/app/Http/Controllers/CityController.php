@@ -18,12 +18,14 @@ class CityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { 
+    {
 
         $city=City::all();
         $countries=Country::all();
         $states=State::all();
-        return view('website\backend.database pages.Add_City',['country'=>$countries , 'state'=>$states , 'city'=>$city]);
+
+
+return view('website\backend.database pages.Add_City',['country'=>$countries , 'state'=>$states , 'cityy'=>$city]);
     }
 
     /**
@@ -40,11 +42,11 @@ class CityController extends Controller
             'Country_Id'=> request('Country_Name'),
             'State_Id'  => request('State_Name')
         ]);
-        return back()->with('success','Item Created Successfully');
+        return back()->with('success','City Created Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
-            return back()->with('error','Already Exist !!');
+            return back()->with('error','City Already Exist !!');
         }
     }
     }
@@ -73,9 +75,9 @@ class CityController extends Controller
         $cities=DB::table('cities')
         ->join('countries', 'cities.Country_Id', '=', 'countries.Country_Id')
         ->join('states', 'cities.State_Id', '=', 'states.State_Id')
-        ->select('cities.*', 'countries.Country_Name','states.State_Name')->get();
-        //el subtype name w el main type name 
-        return view('website.backend.database pages.Add_City_Show',['state'=>$states , 'country'=>$countries , 'city'=>$cities]);
+        ->select('cities.*', 'countries.Country_Name','states.State_Name')->paginate(10);
+        //el subtype name w el main type name
+        return view('website.backend.database pages.Add_City_Show',['state'=>$states , 'country'=>$countries , 'cityy'=>$cities]);
 
     }
 
@@ -108,24 +110,27 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   
+
     public function destroy(Request $request, $id=null)
     {
+        if(request()->has('id'))
+       {
         try {
         City::destroy($request->id);
-        return redirect()->route('city_show')->with('success', 'Item Deleted Successfully');
+        return redirect()->route('city_show')->with('success', 'City Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('city_show')->with('error', 'Item cannot be deleted');
-                
+        return redirect()->route('city_show')->with('error', 'City cannot be deleted');
+
     }
+}else return redirect()->route('city_show')->with('warning', 'No City was chosen to be deleted.. !!');
     }
 
     public function findstate(){
 
         //will get all states which her Country_Id is the ID we passed from $.ajax
         $state=State::all()->where('Country_Id','=',request('id'));
-         
+
         // will send all values in state object by json
         return  response()->json($state);
 
@@ -136,7 +141,7 @@ class CityController extends Controller
 
         //will get all states which her Country_Id is the ID we passed from $.ajax
         $city=City::all()->where('State_Id','=',request('id'));
-         
+
         // will send all values in state object by json
         return  response()->json($city);
 
@@ -146,10 +151,10 @@ class CityController extends Controller
     public function editCity(Request $request)
     {
         try {
-       
-        //hygeb el country eli el ID bt3ha da 
+
+        //hygeb el country eli el ID bt3ha da
         $city= City::all()->find(request('id'));
-        //hy7ot el name el gded f column el country name 
+        //hy7ot el name el gded f column el country name
         $city->City_Name=request('CityName');
         $city->save();
             return back()->with('info','Item Edited Successfully');
@@ -159,6 +164,6 @@ class CityController extends Controller
                 return back()->with('error','Error editing item');
             }
         }
-        
+
     }
 }

@@ -121,14 +121,11 @@ class AddUserController extends Controller
     }
     public function search()
     {
-       
-        $search = request('email');
-        // $Email= Emails::all()->first();
-        $test= Main_Type::all();
-        //->where('email','=', 'Omnia@gmail.com')
-        // Arr::get($Email, 'email');
-        return response()->json($test);
-
+          $search = request('email');
+        // return response()->json($search);
+        $email=Emails::where('email', 'LIKE', '%'.$search.'%')->get();
+        
+        return response()->json($email);
     }
     /**
      * Remove the specified resource from storage.
@@ -139,6 +136,7 @@ class AddUserController extends Controller
     public function destroy(Request $request,$id=null)
     {
         //
+        
         try {
         User::destroy($request->id);
         Emails::destroy($request->id);

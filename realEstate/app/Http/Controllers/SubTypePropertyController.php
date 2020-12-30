@@ -39,11 +39,11 @@ class SubTypePropertyController extends Controller
                 'Sub_Type_Id' => request('Sub_Type_Name'),
                 'Property_Name' => request('Sub_Type_Property')
             ]);
-            return back()->with('success', 'Item Created Successfully');
+            return back()->with('success', 'Property Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('error', 'Already Exist !!');
+                return back()->with('error', 'Property Already Exists !!');
             }
         }
     }
@@ -102,11 +102,11 @@ class SubTypePropertyController extends Controller
         $subtypeproperty = Sub_Type_Property::all()->find(request('id'));
         $subtypeproperty->Property_Name = request('SubTypePropertyName');
         $subtypeproperty->save();
-        return back()->with('info','Item Edited Successfully');
+        return back()->with('info','Property Edited Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
-            return back()->with('error','Error editing item');
+            return back()->with('error','Error editing Property');
         }
     }
     }
@@ -130,17 +130,20 @@ class SubTypePropertyController extends Controller
      * @param  \App\sub_type_property  $sub_type_property
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request)
     {
         //
+        if(request()->has('id'))
+       {
         try {
         Sub_Type_Property::destroy($request->id);
-        return redirect()->route('subtypeproperty_show')->with('success', 'Item Deleted Successfully');
+        return redirect()->route('subtypeproperty_show')->with('success', 'Property Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('subtypeproperty_show')->with('error', 'Item cannot be deleted');
+        return redirect()->route('subtypeproperty_show')->with('error', 'Property cannot be deleted');
 
     }
+}else return redirect()->route('subtypeproperty_show')->with('warning', 'No Property was chosen to be deleted.. !!');
     }
 //function that sends the property details that are desplayed in checkboxes
     public function property_select($item_id=null,$sub_type_id=null)

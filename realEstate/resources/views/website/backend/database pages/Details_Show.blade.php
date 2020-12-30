@@ -20,7 +20,7 @@
                     <th>Property Detail ID</th>
                     <th>Sub Type ID</th>
                     <th>Main Type ID</th>
-                    <th>Property Detail ID</th>
+                    <th>Property ID</th>
                     <th>Detail Value</th>
                     <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
                     <th>Edit</th>
@@ -43,8 +43,9 @@
                         <td>{{$detail->Property_Detail_Id}}</td>
                         <td>{{$detail->Sub_Type_Id}}</td>
                         <td>{{$detail->Main_Type_Id}}</td>
+                        <td>{{$detail->Property_Id}}</td>
                         <td>{{$detail->DetailValue}}</td>
-                        <td><input type="checkbox" name="id[]" value="{{$property->Property_Id}}"></td>
+                        <td><input type="checkbox" name="id[]" value="{{$detail->Detail_Id}}"></td>
                         <td><a href="javascript:void(0)" onclick="setDetailIdName('{{$detail->Detail_Id}}','{{$detail->DetailValue}}')"><i class="fa fa-edit"></i></a></td>
                  </tr>
                 @endforeach

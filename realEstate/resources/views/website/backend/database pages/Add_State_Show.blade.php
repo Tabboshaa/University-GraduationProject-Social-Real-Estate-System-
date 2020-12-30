@@ -2,6 +2,7 @@
 @section('table')
 
 <link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
 
 <div class="x_title">
     <h2>All States</h2>
@@ -11,6 +12,7 @@
 
 <form method="Post" action="{{ url('/delete_State?_method=delete') }}" enctype="multipart/form-data">
 @csrf
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
 <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
 
     <thead>
@@ -31,20 +33,21 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($state as $state)
+        @foreach($state1 as $state)
         <tr>
             <td> {{$state->Country_Name}}</td>
             <td> {{$state->State_Name}}</td>
             <td><input type="checkbox" name="id[]" value="{{$state->State_Id}}"></td>
-            
+
             <!-- On clicking edit icon will go to setCountryIdName in-->
             <td><a href="javascript:void(0)" onclick="setStateIdName('{{$state->State_Id}}','{{$state->State_Name}}')"><i class="fa fa-edit"></i></a></td>
-        
+
         </tr>
         @endforeach
-        
+
     </tbody>
 </table>
+    {!! $state1->render() !!}
 </form>
 
 <div class="modal fade" id="EditStateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -58,10 +61,10 @@
             </div>
             <div class="modal-body">
                 <form id="EditStateForm">
-               
+
                     @csrf
-                 <input type="hidden" name="id" id="id"> 
-                  
+                 <input type="hidden" name="id" id="id">
+
 
                     <div class="form-group">
                         <label for="State_Name" style="font-size: 12pt">State </label>
@@ -77,9 +80,27 @@
 </div>
 
 <script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("datatable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
         function setStateIdName(id,name){
 
-                // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty 
+                // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty
                 $("#id").val(id);
                 $("#StateName").val(name);
                 $("#EditStateModal").modal("toggle");

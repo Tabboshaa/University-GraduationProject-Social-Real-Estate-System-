@@ -20,6 +20,7 @@ Route::get('/', 'DatatypeController@index');
 //     return view('website/backend/database pages/Test');
 // });
 
+Route::get('/data_types', 'DatatypeController@index');
 //main types pages
 Route::get('/main_types', 'MainTypes@index');
 Route::get('/main_types_show', 'MainTypes@show')->name('main_types_show');
@@ -101,7 +102,7 @@ Route::post('/add_Details','DetailsController@create')->name('details_submit');
 // Item  pages #Tabbosha
 Route::get('Item','ItemController@index1');
 Route::post('addItem','ItemController@create');
-Route::get('ShowItem/{id}','ItemController@show');
+Route::get('ShowItem/{id?}','ItemController@show');
 
 
 //Route::get('/Item', 'ItemController@SubTypeShow');
@@ -123,6 +124,7 @@ Route::get('/edit_sub_type_property','SubTypePropertyController@edit')->name('su
 
 //Search
 Route::delete('/delete_detail/{id?}','DetailsController@destroy');
+Route::delete('/delete_detail_item','DetailsController@destroydetail');
 Route::get('/edit_detail','DetailsController@edit')->name('Detail.update');
 Route::post('/add_Item_Detail/{property_id}','ItemController@submit');
 
@@ -167,8 +169,6 @@ Route::get('/edit_User_PhoneNumber','AddUserController@editUserPhoneNumber')->na
 
 Route::Post('/item_created','ItemController@itemShow');
 
-
-Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', function () {
     return view('website\backend.layouts.Admin');
@@ -177,6 +177,6 @@ Route::get('/admin', function () {
 
 Route::post('/search_user','AddUserController@search')->name('search');
 
+Auth::routes();
 
-
-
+Route::get('/home', 'HomeController@index')->name('home');

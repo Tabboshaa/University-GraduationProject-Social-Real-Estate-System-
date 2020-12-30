@@ -10,7 +10,7 @@ use App\Sub_Type;
 use App\User;
 use App\User_Type;
 use App\Country;
-
+use App\Details;
 use App\Sub_Type_Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -37,10 +37,13 @@ class ItemController extends Controller
 
     public  function show($id=null)
     {
+        //lw gy mn el ajax fe el detail blade
+        if($id==null && request()->has('Item')) $id=request('Item');
+        
         $item=Item::all('Street_Id','User_Id')->where('Item_Id','=',$id);
-        //return dd($item);
+     
         $User_id=Arr::get($item, 'User_Id');
-       // return dd($User_id); Item_Id
+      
         $Item_id=Arr::get($item, 'Item_Id');
 
         $Street_id=Arr::get($item, 'Street_Id');
@@ -60,13 +63,14 @@ class ItemController extends Controller
             ->join('sub__types', 'details.Sub_Type_Id', '=', 'sub__types.Sub_Type_Id')
             ->join('sub__type__properties', 'details.Property_Id', '=', 'sub__type__properties.Property_Id')
             ->join('property__details', 'details.Property_Detail_Id', '=', 'property__details.Property_Detail_Id')
-            ->select('details.DetailValue', 'main__types.Main_Type_Name', 'sub__types.Sub_Type_Name', 'sub__type__properties.Property_Name', 'property__details.Detail_Name')
-            ->get()->where('Item_Id','=',$Item_id)->first();
+            ->select('details.*', 'main__types.Main_Type_Name', 'sub__types.Sub_Type_Name', 'sub__type__properties.Property_Name', 'property__details.Detail_Name')
+            ->get()->where('Item_Id','=',$id)->groupBy('Property_Name');
 
-            return dd($details);
-
-        return view('website.backend.database pages.ShowItem',['user'=>$user,'Location'=>$Location,'details'=>$details]);
+            $Sub_Type_Id=Arr::get(Details::all()->where('Item_Id','=',$id)->first(),'Sub_Type_Id');
+  
+        return view('website.backend.database pages.omniaShowItem',['user'=>$user,'Location'=>$Location,'details'=>$details,'item_id'=>$id,'subtypeid'=>$Sub_Type_Id]);
     }
+
     public function itemShow()
     {
         //
@@ -88,7 +92,7 @@ class ItemController extends Controller
         try {
             $item=Item::create([
                 'Street_Id'=>request("Street"),
-                'User_Id'=>request("Search")
+                'User_Id'=>request("userIdHiddenInput")
             ]);
             $item_id=Arr::get($item, 'Item_Id');
             return $this->SubTypeShow($item_id);

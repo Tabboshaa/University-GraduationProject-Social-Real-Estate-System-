@@ -19,35 +19,42 @@
         </tr>
         <tr>
             {{--For each Sub Type Proberty--}}
-            @foreach($details as $detail)
+            @foreach($details as $properties => $details)
 
             <table class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
 
                 <thead>
                 <tr>
-                    <th colspan="{{$detail}}" style="text-align:center">{{$detail->Property_Name}}</th>
+                    <th colspan="{{count($details)+1}}" style="text-align:center">{{$properties}}</th>
                 </tr>
                 <tr >
 
-                    <th>RoomNumber</th>
+                    <th>{{$properties}} Number</th>
 
                     {{--For each Sub Type Proberty Detail--}}
-                    <th>{{$detail->Detail_Name}}</th>
+                    @foreach($details as $detail)
+                    <th>{{$detail->Detail_Name }}</th>
+                    @endforeach
                     {{-- End For each Sub Type Proberty Detail--}}
+
 
                 </tr>
                 </thead>
                 <tbody>
+
                     {{--     LOOP FOR ROWS        --}}
+                    @foreach($details as $detail)
                     <tr>
-                        <td>{{$detail->Property_Name}}{{count($detail)}}</td>
+                        <td>{{$detail->Property_Name}} </td>
 
                         {{--For each Sub Type Proberty Detail--}}
-
+                        <!-- @foreach($details as $detail) -->
                         <td>{{$detail->DetailValue}}</td>
+                        <!-- @endforeach -->
                         {{-- End For each Sub Type Proberty Detail--}}
 
                     </tr>
+                    @endforeach
                     {{--   END  LOOP FOR ROWS        --}}
 
                 </tbody>
@@ -58,23 +65,4 @@
         </tr>
         </tbody>
     </table>
-
-{{--    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">--}}
-{{--        <thead>--}}
-{{--        <tr>--}}
-{{--            <th></th>--}}
-{{--           <th></th>--}}
-
-{{--        </tr>--}}
-{{--        </thead>--}}
-{{--        <tbody>--}}
-{{--        <tr>--}}
-{{--            <td></td>--}}
-{{--            <td></td>--}}
-
-{{--        </tr>--}}
-{{--        </tbody>--}}
-{{--    </table>--}}
-
-
 @endsection

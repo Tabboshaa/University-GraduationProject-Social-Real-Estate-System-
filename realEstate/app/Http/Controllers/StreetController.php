@@ -25,7 +25,7 @@ class StreetController extends Controller
         $city=City::all();
         $region=Region::all();
         $street=Street::all();
-        return view('website.backend.database pages.Add_Street',['counrty'=>$counrty,'state'=>$state,'city'=>$city,'region'=>$region , 'street'=>$street]);
+        return view('website.backend.database pages.Add_Street',['counrty'=>$counrty,'state'=>$state,'city'=>$city,'region'=>$region , 'street1'=>$street]);
 
     }
 
@@ -47,11 +47,11 @@ class StreetController extends Controller
             'Region_Id' => request('Region_Name'),
             'Street_Name' => request('Street_Name')
         ]);
-        return back()->with('success','Item Created Successfully');
+        return back()->with('success','Street Created Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
-            return back()->with('error','Already Exist !!');
+            return back()->with('error','Street Already Exists !!');
         }
     }
     }
@@ -86,9 +86,9 @@ class StreetController extends Controller
         ->join('states', 'streets.State_Id', '=', 'states.State_Id')
         ->join('cities', 'streets.City_Id', '=', 'cities.City_Id')
         ->join('regions', 'streets.Region_Id', '=', 'regions.Region_Id')
-        ->select('streets.*', 'countries.Country_Name','states.State_Name','cities.City_Name','regions.Region_Name')->get();
+        ->select('streets.*', 'countries.Country_Name','states.State_Name','cities.City_Name','regions.Region_Name')->paginate(10);
         //el subtype name w el main type name
-        return view('website.backend.database pages.Add_Street_Show',['counrty'=>$countries,'state'=>$states,'city'=>$city,'region'=>$region,'street'=>$streets]);
+        return view('website.backend.database pages.Add_Street_Show',['counrty'=>$countries,'state'=>$states,'city'=>$city,'region'=>$region,'street1'=>$streets]);
     }
 
     /**
@@ -122,31 +122,34 @@ class StreetController extends Controller
      */
     public function destroy(Request $request,$id=null)
     {
+        if(request()->has('id'))
+       {
         try {
-       
+
         Street::destroy($request->id);
-        return redirect()->route('street_show')->with('success', 'Item Deleted Successfully');
+        return redirect()->route('street_show')->with('success', 'Street Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
 
-        return redirect()->route('street_show')->with('error', 'Item cannot be deleted');
-                
+        return redirect()->route('street_show')->with('error', 'Street cannot be deleted');
+
     }
+}else return redirect()->route('street_show')->with('warning', 'No Street was chosen to be deleted.. !!');
     }
     public function editStreet(Request $request)
     {
         try {
-        //hygeb el country eli el ID bt3ha da 
+        //hygeb el country eli el ID bt3ha da
         $street= Street::all()->find(request('id'));
         //hy7ot el name el gded f column el country name
         $street->Street_Name=request('StreetName');
         $street->save();
 
-        //hyb3t el update el gded fl country table 
-        return back()->with('info','Item Edited Successfully');
+        //hyb3t el update el gded fl country table
+        return back()->with('info','Street Edited Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
-            return back()->with('error','Error editing item');
+            return back()->with('error','Error editing Street');
         }
     }
     }

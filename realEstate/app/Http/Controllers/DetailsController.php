@@ -16,7 +16,7 @@ class DetailsController extends Controller
 
     public function index()
     {
-       
+
         $main_types = Main_Type::all();
         $sub_types = Sub_Type::all();
         $property = Sub_Type_Property::all();
@@ -28,42 +28,30 @@ class DetailsController extends Controller
 
     public function create()
     {
-      
-     $detailsInput=request('data');
-     
-     foreach ($detailsInput as $detail)
-     {
-         $property_details=Property_Details::all()->where('Property_Detail_Id','=',Arr::get($detail,'id'))->first(); 
 
-         $details[] = [
-             'Item_Id' => 1,
-             'Main_Type_Id' => Arr::get($property_details,'Main_Type_Id'),
-             'Sub_Type_Id' => Arr::get($property_details,'Sub_Type_Id'),
-             'Property_Id'=> Arr::get($property_details,'Property_Id'),
-             'property_Detail_Id' => Arr::get($property_details,'Property_Detail_Id'),
-             'DetailValue' => Arr::get($detail,'value')
-         ];
-     }
+        $detailsInput = request('data');
+
+        foreach ($detailsInput as $detail) {
+            $property_details = Property_Details::all()->where('Property_Detail_Id', '=', Arr::get($detail, 'id'))->first();
+
+            $details[] = [
+                'Item_Id' => request('item_id'),
+                'Main_Type_Id' => Arr::get($property_details, 'Main_Type_Id'),
+                'Sub_Type_Id' => Arr::get($property_details, 'Sub_Type_Id'),
+                'Property_Id' => Arr::get($property_details, 'Property_Id'),
+                'property_Detail_Id' => Arr::get($property_details, 'Property_Detail_Id'),
+                'DetailValue' => Arr::get($detail, 'value')
+            ];
+        }
 
 
         try {
             Details::insert($details);
-
-            // $Detail = Details::create([
-            //     'Item_Id' => 1,
-            //     'Main_Type_Id' => request('Main_Type_Name'),
-            //     'Sub_Type_Id' => request('Sub_Type_Name'),
-            //     'Property_Id'=>request('Propety_Detail'),
-            //     'property_Detail_Id' => request('property_Detail_Name'),
-            //     'DetailValue' => request('DetailValue')
-            // ]);
-            // return back()->with('success', 'Item Created Successfully');
-           
-        return back()->with('success', 'Item Created Successfully');
+            return back()->with('success', 'Detail Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('error', 'Already Exist !!');
+                return back()->with('error', 'Detail Already Exist !!');
             }
         }
     }
@@ -82,30 +70,44 @@ class DetailsController extends Controller
     {
         //
         try {
-       
+
             $detail = Details::all()->find(request('id'));
             $detail->DetailValue = request('DetailName');
             $detail->save();
 
-                return back()->with('info','Item Edited Successfully');
-            }catch (\Illuminate\Database\QueryException $e){
-                $errorCode = $e->errorInfo[1];
-                if($errorCode == 1062){
-                    return back()->with('error','Error editing item');
-                }
+            return back()->with('info', 'Detail Edited Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Error editing Detail');
             }
+        }
     }
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request)
     {
         //
-        try {
-        Property_Details::destroy($request->id);
-        return redirect()->route('details_show')->with('success', 'Item Deleted Successfully');
-    }catch (\Illuminate\Database\QueryException $e){
+        if (request()->has('id')) {
+            try {
+                Details::destroy($request->id);
+                return redirect()->route('details_show')->with('success', 'Detail Deleted Successfully');
+            } catch (\Illuminate\Database\QueryException $e) {
 
-        return redirect()->route('details_show')->with('error', 'Item cannot be deleted');
-                
+                return redirect()->route('details_show')->with('error', 'Detail cannot be deleted');
+            }
+        } else return redirect()->route('details_show')->with('warning', 'No Detail was chosen to be deleted.. !!');
     }
+
+
+    public function destroydetail(Request $request)
+    {
+        if (request()->has('id')) {
+            try {
+                Details::destroy($request->id);
+                return redirect()->back()->with('success', 'Detail Deleted Successfully');
+            } catch (\Illuminate\Database\QueryException $e) {
+
+                return redirect()->back()->with('error', 'Detail cannot be deleted');
+            }
+        } else return redirect()->back()->with('warning', 'No Detail was chosen to be deleted.. !!');
     }
- 
 }

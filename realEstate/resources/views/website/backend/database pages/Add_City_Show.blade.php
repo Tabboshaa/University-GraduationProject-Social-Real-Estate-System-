@@ -2,6 +2,8 @@
 @section('table')
 
 <link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
+
 
 <div class="x_title">
     <h2>All Cities</h2>
@@ -11,6 +13,7 @@
 
 <form method="Post" action="{{ url('/delete_City?_method=delete') }}" enctype="multipart/form-data">
     @csrf
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
     <table id="datatable" class="table  table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
         <thead>
             <tr>
@@ -31,7 +34,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($city as $city)
+            @foreach($cityy as $city)
             <tr>
                 <td> {{$city->Country_Name}}</td>
                 <td> {{$city->State_Name}}</td>
@@ -42,6 +45,7 @@
             @endforeach
         </tbody>
     </table>
+   {!! $cityy->render() !!}
 </form>
 
 <div class="modal fade" id="EditCityModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -74,9 +78,29 @@
 </div>
 
 <script>
+
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("datatable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
     function setCityIdName(id, name) {
 
-        // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty 
+        // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty
         $("#id").val(id);
         $("#CityName").val(name);
         $("#EditCityModal").modal("toggle");
