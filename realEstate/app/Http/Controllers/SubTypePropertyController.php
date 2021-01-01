@@ -33,6 +33,13 @@ class SubTypePropertyController extends Controller
     public function create()
     {
         //
+
+        request()->validate([
+            
+            'Sub_Type_Property' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"] 
+        ]);
+
+
         try {
             $Property_Detail = sub_type_property::create([
                 'Main_Type_Id' => request('Main_Type_Name'),
@@ -75,9 +82,9 @@ class SubTypePropertyController extends Controller
         $property = DB::table('sub__type__properties')
             ->join('main__types', 'sub__type__properties.Main_Type_Id', '=', 'main__types.Main_Type_Id')
             ->join('sub__types', 'sub__type__properties.Sub_Type_Id', '=', 'sub__types.Sub_Type_Id')
-            ->select('sub__type__properties.*', 'main__types.Main_Type_Name', 'sub__types.Sub_Type_Name')->get();
+            ->select('sub__type__properties.*', 'main__types.Main_Type_Name', 'sub__types.Sub_Type_Name')->paginate(10);
         //el subtype name w el main type name
-        return view('website.backend.database pages.Sub_Type_Property_Show', ['sub_type' => $sub_types, 'main_type' => $main_types, 'property' => $property]);
+        return view('website.backend.database pages.Sub_Type_Property_Show', ['sub_type' => $sub_types, 'main_type' => $main_types, 'P1' => $property]);
     }
 
     //    function of drop downlist : AJAX

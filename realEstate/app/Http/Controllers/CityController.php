@@ -35,6 +35,10 @@ return view('website\backend.database pages.Add_City',['country'=>$countries , '
      */
     public function create()
     {
+        request()->validate([
+            'City_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"
+        ]]);
+ 
         //
         try {
         $city=City::create([

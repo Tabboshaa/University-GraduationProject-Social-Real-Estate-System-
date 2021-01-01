@@ -1,5 +1,6 @@
 @extends('website.backend.layouts.main')
 @section('content')
+<link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
 
 <link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
 
@@ -19,7 +20,7 @@
                 <div class="x_content">
                 @include('website.backend.layouts.flashmessage')
                     <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
-                        @foreach($user_types as $user_types)
+                        @foreach($user_typess as $user_types)
                         <li class="nav-item">
                             <a class="nav-link" id="usertypes-tab"  href="javascript:void(0)" onclick="showUsers('{{$user_types->User_Type_ID}}')" role="tab" aria-controls="usertypes" aria-selected="true">{{$user_types->Type_Name}}</a>
                         </li>
@@ -33,13 +34,14 @@
 
                         <form method="Post" action="{{ url('/delete_user/?_method=delete') }}" enctype="multipart/form-data">
                             @csrf
+                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
                             <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone Number</th>
-                                        <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
+                                        <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:90px;"></i></th>
                                         
                         
                                         <script>
@@ -56,6 +58,7 @@
                                     
                                 </tbody>
                             </table>
+                        
                         </form>
                      
 
@@ -158,6 +161,24 @@
 </div>
 
 <script>
+ function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("datatable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
 
         function setUserNameIdName(id, First_Name , Middle_Name , Last_Name ) {
             

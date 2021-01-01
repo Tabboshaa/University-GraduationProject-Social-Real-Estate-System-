@@ -1,0 +1,207 @@
+table.pro
+{  
+    box-shadow:1px 1px 1px 1px rgb(209, 212, 212);
+
+}
+table.pro2
+{  
+    text-align: center;
+    box-shadow:5px 4px 4px 3px rgb(145, 171, 180);
+
+}
+tr.ha:hover
+{
+  background-color: rgb(235, 241, 243);
+  transition: transform .2s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  -ms-transform: scale(1); /* IE 9 */
+  -webkit-transform: scale(1); /* Safari 3-8 */
+  transform: scale(1);
+}
+
+th.th1
+{
+    font-size: 14pt;
+    text-align: center;
+    color: rgb(19, 19, 19);
+}
+
+th.th2
+{
+    font-size: 16pt;
+    text-align: center;
+    color: rgb(27, 27, 27);
+}
+td.th1
+{
+    font-size: 14pt;
+    text-align: center;
+    color: rgb(19, 19, 19);
+    font-weight: bold;
+}
+
+td.td1
+{
+  font-size: 12pt;
+}
+h2
+{
+    font-size: 18pt;
+    color: rgb(37, 37, 37);
+    text-align: center;
+    font-weight: bold;
+}
+h4
+{
+    font-weight: bold;
+    font-size: 16pt;
+    text-align: center;
+    color: rgb(27, 27, 27);
+}
+
+a#btun1
+{
+  position: relative;
+  background-color: #4265a5;
+  border: none;
+  border-radius: 2pt;
+  font-size: 16px;
+  color: #FFFFFF;
+  padding: 5px;
+  width: 150px;
+  text-align: center;
+  transition: transform .2s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 3pt;
+}
+
+a#btun1:hover
+{
+  background-color: rgb(91, 136, 173);
+  color: #FFFFFF;
+  -ms-transform: scale(1.05); /* IE 9 */
+  -webkit-transform: scale(1.05); /* Safari 3-8 */
+  transform: scale(1.05);
+}
+
+a#btun2
+{
+  position: relative;
+  color: #FFFFFF;
+  background-color: #6c757d;
+  border: none;
+  border-radius: 2pt;
+  font-size: 16px;
+  padding: 5px;
+  width: 170px;
+  text-align: center;
+  transition: transform .2s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 3pt;
+}
+
+a#btun2:hover
+{
+  background-color: #899299;
+  color: #FFFFFF;
+  -ms-transform: scale(1.05); /* IE 9 */
+  -webkit-transform: scale(1.05); /* Safari 3-8 */
+  transform: scale(1.05);
+}
+
+a#btun3
+{
+  position: relative;
+  color: #FFFFFF;
+  background-color: #17a2b8;
+  border: none;
+  border-radius: 2pt;
+  font-size: 16px;
+  padding: 5px;
+  width: 170px;
+  text-align: center;
+  transition: transform .2s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 3pt;
+}
+
+a#btun3:hover
+{
+  background-color: rgb(104, 179, 189);
+  color: #FFFFFF;
+  -ms-transform: scale(1.05); /* IE 9 */
+  -webkit-transform: scale(1.05); /* Safari 3-8 */
+  transform: scale(1.05); 
+}
+
+button#btun4
+{
+  position: relative;
+  color: #FFFFFF;
+  background-color: #dc3545;
+  border: none;
+  border-radius: 2pt;
+  font-size: 16px;
+  padding: 5px;
+  width: 170px;
+  text-align: center;
+  transition: transform .2s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 3pt;
+}
+
+button#btun4:hover
+{
+  background-color: #b62b39;
+  color: #FFFFFF;
+  -ms-transform: scale(1.05); /* IE 9 */
+  -webkit-transform: scale(1.05); /* Safari 3-8 */
+  transform: scale(1.05); 
+}
+
+button#btun5
+{
+  position: relative;
+  color: #FFFFFF;
+  background-color: #4dc475;
+  border: none;
+  border-radius: 2pt;
+  font-size: 16px;
+  padding: 5px;
+  width: 80px;
+  text-align: center;
+  transition: transform .2s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+button#btun5:hover
+{
+  background-color: rgb(111, 204, 131);
+  color: #FFFFFF;
+  -ms-transform: scale(1.1); /* IE 9 */
+  -webkit-transform: scale(1.1); /* Safari 3-8 */
+  transform: scale(1.1); 
+}
+
+div.C
+{
+    margin: auto;
+  width: 60%;
+  
+  padding: 10px;
+}
+
+
+

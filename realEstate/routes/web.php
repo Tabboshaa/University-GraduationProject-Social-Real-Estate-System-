@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'DatatypeController@index');
+
+
 // Route::get('/', function (){
 //     return view('website/backend/database pages/Test');
 // });

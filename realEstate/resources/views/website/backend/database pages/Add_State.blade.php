@@ -39,7 +39,7 @@
                     <div class="col-md-2">
                         <input id="State_Name" type="text" style="border-radius: 3pt"class="form-control @error('State Name') is-invalid @enderror" name="State_Name" value="{{ old('State Name') }}" required autocomplete="State Name" autofocus>
 
-                        @error('State Name')
+                        @error('State_Name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

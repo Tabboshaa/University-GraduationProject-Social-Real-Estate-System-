@@ -177,7 +177,7 @@
                         <select id="Region_Name" style="border-radius: 3pt"  class="form-control @error('Region Name') is-invalid @enderror" name="Region_Name" value="{{ old('Region Name') }}" required autocomplete="Region Name">
 
                         </select>
-                        @error('Region Name')
+                        @error('Region_Name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -192,7 +192,7 @@
                     <div class="col-md-2">
                         <input id="Street_Name" style="border-radius: 3pt"  type="text" class="form-control @error('Street Name') is-invalid @enderror" name="Street_Name" value="{{ old('Street Name') }}" required autocomplete="Street Name" autofocus>
 
-                        @error('Street Name')
+                        @error('Street_Name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

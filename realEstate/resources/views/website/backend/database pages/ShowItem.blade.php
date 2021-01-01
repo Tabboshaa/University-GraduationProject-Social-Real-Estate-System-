@@ -1,6 +1,6 @@
 @extends('website.backend.database pages.Item')
 @section('Item_Main_Type_table')
-
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
     <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
         <thead>
         <tr>

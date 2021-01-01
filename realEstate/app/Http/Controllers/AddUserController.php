@@ -22,7 +22,7 @@ class AddUserController extends Controller
     public function index()
     {
         //
-        $user_type = User_Type::all();
+        $user_type = User_Type::paginate(10);
         return view('website\backend.database pages.Add_User', ['user_type' => $user_type]);
     }
 

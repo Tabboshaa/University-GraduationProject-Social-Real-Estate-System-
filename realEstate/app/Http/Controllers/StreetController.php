@@ -37,7 +37,9 @@ class StreetController extends Controller
     public function create()
     {
          //
-
+         request()->validate([
+            'Street_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
+        ]);
 
          try {
          $street = Street::create([

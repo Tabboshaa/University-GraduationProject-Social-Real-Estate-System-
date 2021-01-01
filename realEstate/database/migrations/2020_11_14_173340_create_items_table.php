@@ -15,20 +15,20 @@ class CreateItemsTable extends Migration
     {
         Schema::create('countries', function (Blueprint $table) {
             $table->id('Country_Id');
-            $table->string('Country_Name');
+            $table->string('Country_Name')->unique();
             $table->timestamps();
         });
         Schema::create('states', function (Blueprint $table) {
             $table->id('State_Id');
             $table->foreignId('Country_Id')->references('Country_Id')->on('countries')->onDelete('cascade');
-            $table->string('State_Name');
+            $table->string('State_Name')->unique();
             $table->timestamps();
         });
         Schema::create('cities', function (Blueprint $table) {
             $table->id('City_Id');
             $table->foreignId('Country_Id')->references('Country_Id')->on('states')->onDelete('cascade');
             $table->foreignId('State_Id')->references('State_Id')->on('states')->onDelete('cascade');
-            $table->string('City_Name');
+            $table->string('City_Name')->unique();
             $table->timestamps();
         });
         Schema::create('regions', function (Blueprint $table) {

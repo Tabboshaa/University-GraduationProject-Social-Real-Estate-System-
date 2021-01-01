@@ -1,5 +1,6 @@
 @extends('website.backend.database pages.Details')
 @section('Details_table')
+<link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
 
 <link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
 
@@ -13,6 +14,7 @@
     <div class="col-sm-12">
         <form method="Post" action="{{ url('/delete_detail?_method=delete') }}" enctype="multipart/form-data">
                 @csrf
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
             <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
                 <thead>
                 <tr>
@@ -82,6 +84,24 @@
 </div>
 
     <script>
+     function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("datatable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[3];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
         function setDetailIdName(id,name){
 
                 $("#id").val(id);

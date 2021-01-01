@@ -1,5 +1,6 @@
 @extends('website.backend.database pages.User_Type')
 @section('table')
+<link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
 
 <link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
 
@@ -11,13 +12,15 @@
 
 <form method="Post" action="{{ url('/delete_user_type?_method=delete') }}" enctype="multipart/form-data">
     @csrf
-    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+    <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
         <thead>
             <tr>
-                <th>User Type ID</th>
-                <th>User Type Name</th>
-                <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
-                <th>Edit</th>
+            <tr>
+                        <th><h2 style="margin-right:200px; padding-bottom: 5px;">User Type Name</h2></th>
+                        <th ><h2 style="margin-right:250px;padding-bottom: 5px;">Edit</h2></th>
+                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:200px;"></i></th>
+                      
                 <!-- Java Script for select all function -->
                 <script>
                     document.getElementById('selectAll').onclick = function() {
@@ -33,10 +36,11 @@
             <!-- EL FOREARCH HNA -->
             @foreach($user_type as $user_type)
             <tr>
-                <td>{{$user_type->User_Type_ID}}</td>
+                
                 <td>{{$user_type->Type_Name}}</td>
+                
+                <td><a href="javascript:void(0)" onclick="setUserTypeIdName('{{$user_type->User_Type_ID}}','{{$user_type->Type_Name}}')"><i class="fa fa-edit"> Edit</i></a></td>
                 <td><input type="checkbox" name="id[]" value="{{$user_type->User_Type_ID}}"></td>
-                <td><a href="javascript:void(0)" onclick="setUserTypeIdName('{{$user_type->User_Type_ID}}','{{$user_type->Type_Name}}')"><i class="fa fa-edit"></i></a></td>
             </tr>
             @endforeach
             <!-- END OF FOREACH -->

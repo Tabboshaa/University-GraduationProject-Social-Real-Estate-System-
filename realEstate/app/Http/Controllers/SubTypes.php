@@ -65,6 +65,11 @@ class SubTypes extends Controller
     public function create()
     {
         //
+
+        request()->validate([
+             'Sub_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
+        ]);
+
         try {
             $Sub_Type = Sub_Type::create([
                 'Sub_Type_Name' => request('Sub_Type_Name'),
@@ -101,11 +106,11 @@ class SubTypes extends Controller
     {
         //
         $sub_show = DB::table('sub__types')->join('main__types', 'sub__types.Main_Type_Id', '=', 'main__types.Main_Type_Id')
-            ->select('sub__types.*', 'main__types.Main_Type_Name')->get();
+            ->select('sub__types.*', 'main__types.Main_Type_Name')->paginate(10);
         //DB join b3ml add l column el main type name le table el subtype w bb3to 3sha azhr el main type name
         //fe table el show sub tye
-        $main_types = Main_Type::all();
-        return view('website.backend.database pages.Sub_Types_Show', ['sub_type' => $sub_show, 'main_type' => $main_types]);
+        $main_types = Main_Type::paginate(10);
+        return view('website.backend.database pages.Sub_Types_Show', ['S1' => $sub_show, 'main_type' => $main_types]);
 
     }
 
@@ -151,7 +156,7 @@ class SubTypes extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id=null)
     {
         if(request()->has('id'))
        {

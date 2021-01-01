@@ -31,6 +31,9 @@ class UserTypes extends Controller
      */
     public function create()
     {
+        request()->validate([
+            'User_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
+        ]);
         //
         try {
             $User_Type = User_Type::create([

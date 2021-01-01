@@ -146,7 +146,7 @@
                     <div class="col-md-2">
                         <input id="Region Name" style="border-radius: 3pt" type="text" class="form-control @error('Region Name') is-invalid @enderror" name="Region_Name" value="{{ old('Region Name') }}" required autocomplete="Region Name" autofocus>
 
-                        @error('Region Name')
+                        @error('Region_Name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

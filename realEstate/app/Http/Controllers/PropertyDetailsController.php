@@ -24,7 +24,9 @@ class PropertyDetailsController extends Controller
 
     public function create()
     {
-      
+        request()->validate([
+        'property_details' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
+        ]);
         try {
             $Property_Detail = Property_Details::create([
                 'Main_Type_Id' => request('Main_Type_Name'),
@@ -56,7 +58,7 @@ class PropertyDetailsController extends Controller
             ->join('sub__type__properties', 'property__details.Property_Id', '=', 'sub__type__properties.Property_Id')
             ->join('datatypes', 'property__details.DataType_Id', '=', 'datatypes.id')
             ->select('property__details.*', 'main__types.Main_Type_Name', 'sub__types.Sub_Type_Name', 'sub__type__properties.Property_Name', 'datatypes.datatype')
-            ->get();
+            ->paginate(10);
 
         return view('website.backend.database pages.Property_Details_Show', ['sub_type' => $sub_types, 'main_type' => $main_types, 'property_detail' => $property_details, 'property' => $property, 'data_type' => $data_type]);
     }
@@ -84,7 +86,7 @@ class PropertyDetailsController extends Controller
         }
     }
     }
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id=null)
     {
         //
         if(request()->has('id'))

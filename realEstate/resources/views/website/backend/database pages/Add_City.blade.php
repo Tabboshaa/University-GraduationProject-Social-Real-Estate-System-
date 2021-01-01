@@ -107,7 +107,7 @@ $(document).ready(function (){
                     <div class="col-md-2">
                         <input id="City_Name" style="border-radius: 3pt" type="text" class="form-control @error('City Name') is-invalid @enderror" name="City_Name" value="{{ old('City Name') }}" required autocomplete="City Name" autofocus>
 
-                        @error('City Name')
+                        @error('City_Name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

@@ -1,5 +1,6 @@
 @extends('website.backend.database pages.Data_Type')
 @section('table')
+<link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
 
 <link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
 
@@ -11,14 +12,15 @@
 
 <form method="Post" action="{{ url('/delete_data_types?_method=delete') }}" enctype="multipart/form-data">
     @csrf
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
 <table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
     <thead>
         <tr>
            
-            <th>Data Type Name</th>
-            <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> </a> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
-            <th>Edit</th>
-            <!-- Java Script for select all function -->
+        <th><h2 style="margin-right:200px; padding-bottom: 5px;">Data Type Name</h2></th>
+                        <th ><h2 style="margin-right:250px;padding-bottom: 5px;">Edit</h2></th>
+                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:200px;"></i></th>
+                     
             <script>
                 document.getElementById('selectAll').onclick = function() {
                     var checkboxes = document.getElementsByName('id[]'); //get all check boxes with name delete
@@ -31,20 +33,20 @@
     </thead>
     <tbody>
         <!-- EL FOREARCH HNA -->
-        @foreach($data_types as $data_types)
+        @foreach($data_typess as $data_types)
      
         <tr>
             <td>{{$data_types->datatype}}</td>
-            <td><input type="checkbox" name="id[]" value="{{$data_types->id}}"></td>
+            
                          <input type="hidden" name="_method" value="DELETE">
-                        <td><a href="javascript:void(0)" onclick="setDataTypeIdName('{{$data_types->id}}','{{$data_types->datatype}}')"><i class="fa fa-edit"></i></a></td>
-
+                        <td><a href="javascript:void(0)" onclick="setDataTypeIdName('{{$data_types->id}}','{{$data_types->datatype}}')"><i class="fa fa-edit"> Edit</i></a></td>
+                        <td><input type="checkbox" name="id[]" value="{{$data_types->id}}"></td>
                     </tr>
                 @endforeach
                 <!-- END OF FOREACH -->
             </tbody>
         </table>
-        
+        {!! $data_typess->render() !!}
         </form>
 <!-- Modal -->
 <div class="modal fade" id="EditDataTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -73,6 +75,24 @@
 </div>
 
     <script>
+     function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("datatable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
         function setDataTypeIdName(id,name){
 
                 $("#id").val(id);

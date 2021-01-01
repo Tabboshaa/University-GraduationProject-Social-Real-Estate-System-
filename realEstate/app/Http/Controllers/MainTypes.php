@@ -27,6 +27,10 @@ class MainTypes extends Controller
     public function create()
     {
         //
+        request()->validate([
+           'Main_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
+       ]);
+
         try {
             $Main_Type = Main_Type::create([
                 'Main_Type_Name' => request('Main_Type_Name'),
@@ -61,8 +65,8 @@ class MainTypes extends Controller
     public function show()
     {
         //
-        $main_types=Main_Type::all();
-        return view('website.backend.database pages.Main_Types_Show',['main_type'=>$main_types]);
+        $main_types=Main_Type::paginate(10);
+        return view('website.backend.database pages.Main_Types_Show',['main_type1'=>$main_types]);
     }
 
     /**
