@@ -40,9 +40,9 @@
                 <td> {{$city->Country_Name}}</td>
                 <td> {{$city->State_Name}}</td>
                 <td> {{$city->City_Name}}</td>
-               
                 <td><a href="javascript:void(0)" onclick="setCityIdName('{{$city->City_Id}}','{{$city->City_Name}}')"><i class="fa fa-edit"></i></a></td>
                 <td><input type="checkbox" name="id[]" value="{{$city->City_Id}}"></td>
+                
             </tr>
             @endforeach
         </tbody>

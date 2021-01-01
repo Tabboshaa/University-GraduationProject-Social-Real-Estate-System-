@@ -38,10 +38,10 @@
         <tr>
             <td> {{$state->Country_Name}}</td>
             <td>{{$state->State_Name}}</td>
+            <td><a href="javascript:void(0)" onclick="setStateIdName('{{$state->State_Id}}','{{$state->State_Name}}')"><i class="fa fa-edit"></i></a></td>
             <td><input type="checkbox" name="id[]" value="{{$state->State_Id}}"></td>
 
             <!-- On clicking edit icon will go to setCountryIdName in-->
-            <td><a href="javascript:void(0)" onclick="setStateIdName('{{$state->State_Id}}','{{$state->State_Name}}')"><i class="fa fa-edit"></i></a></td>
 
         </tr>
         @endforeach
