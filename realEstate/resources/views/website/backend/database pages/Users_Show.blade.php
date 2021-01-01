@@ -20,7 +20,7 @@
                 <div class="x_content">
                 @include('website.backend.layouts.flashmessage')
                     <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
-                        @foreach($user_types as $user_types)
+                        @foreach($user_typess as $user_types)
                         <li class="nav-item">
                             <a class="nav-link" id="usertypes-tab"  href="javascript:void(0)" onclick="showUsers('{{$user_types->User_Type_ID}}')" role="tab" aria-controls="usertypes" aria-selected="true">{{$user_types->Type_Name}}</a>
                         </li>

@@ -63,7 +63,7 @@ class DatatypeController extends Controller
     public function show()
     {
         //
-        $data_types = Datatype::paginate(1);
+        $data_types = Datatype::paginate(10);
         return view('website/backend.database pages.Data_Type_Show', ['data_typess' => $data_types]);
     }
 
