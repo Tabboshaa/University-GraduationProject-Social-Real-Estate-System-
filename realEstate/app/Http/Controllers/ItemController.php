@@ -1,16 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Street;
+use App\City;
+use App\Country;
+use App\Region;
+use App\State;
 use App\Emails;
 use App\Phone_Numbers;
 use App\Item;
 use App\Main_Type;
-use App\Street;
 use App\Sub_Type;
 use App\User;
 use App\User_Type;
-use App\Country;
 use App\Details;
 use App\Sub_Type_Property;
 use Illuminate\Http\Request;
@@ -39,7 +41,7 @@ class ItemController extends Controller
     {
         //lw gy mn el ajax fe el detail blade
         if ($id == null && request()->has('Item')) $id = request('Item');
-        $item = Item::all('Street_Id', 'User_Id')->where('Item_Id', '=', $id);
+        $item = Item::all()->where('Item_Id', '=', $id)->first();
         // return $item;
 
         $User_id = Arr::get($item, 'User_Id');
@@ -48,19 +50,21 @@ class ItemController extends Controller
 
         $Street_id = Arr::get($item, 'Street_Id');
 
-        $user = User::all('First_Name', 'Middle_Name', 'Last_Name')->where('id', '=', $User_id)->first();
+        $user =User::select('First_Name','Middle_Name','Last_Name')->where('id', '=', $User_id)->get();
 
-        $email = Emails::all('email')->where('User_ID', '=', $User_id)->first();
+        $email = Arr::get(Emails::all()->where('User_ID', '=', $User_id)->first(),'email');
+        
 
-        $phone_number = Phone_Numbers :: all('phone_number')->where('User_ID', '=', $User_id)->first();
-
+        $phone_number = Arr::get(Phone_Numbers :: all()->where('User_ID', '=', $User_id)->first(),'');
+       
         $Location = DB::table('streets')
-            ->join('countries', 'streets.Country_Id', '=', 'countries.Country_Id')
-            ->join('states', 'streets.State_Id', '=', 'states.State_Id')
-            ->join('cities', 'streets.City_Id', '=', 'cities.City_Id')
-            ->join('regions', 'streets.Region_Id', '=', 'regions.Region_Id')
-            ->select('streets.Street_Name', 'countries.Country_Name', 'states.State_Name', 'cities.City_Name', 'regions.Region_Name')
-            ->get()->where('Street_Id', '=', $Street_id)->first();
+            ->leftJoin('countries', 'streets.Country_Id', '=', 'countries.Country_Id')
+            ->leftJoin('states', 'streets.State_Id', '=', 'states.State_Id')
+            ->leftJoin('cities', 'streets.City_Id', '=', 'cities.City_Id')
+            ->leftJoin('regions', 'streets.Region_Id', '=', 'regions.Region_Id')
+            ->select('streets.*', 'countries.Country_Name', 'states.State_Name', 'cities.City_Name', 'regions.Region_Name')
+            ->get()->where('Street_Id', '=',$Street_id)->pop();
+            
 
         $details = DB::table('details')
             ->join('main__types', 'details.Main_Type_Id', '=', 'main__types.Main_Type_Id')
@@ -70,8 +74,10 @@ class ItemController extends Controller
             ->select('details.*', 'main__types.Main_Type_Name', 'sub__types.Sub_Type_Name', 'sub__type__properties.Property_Name', 'property__details.Detail_Name')
             ->get()->where('Item_Id', '=', $id)->groupBy('Property_Name');
 
+           
         $Sub_Type_Id = Arr::get(Details::all()->where('Item_Id', '=', $id)->first(), 'Sub_Type_Id');
 
+        
         return view('website.backend.database pages.omniaShowItem', ['user' => $user, 'Location' => $Location, 'details' => $details, 'item_id' => $id, 'subtypeid' => $Sub_Type_Id,'email'=>$email,'phone_number' => $phone_number,'user_id'=>$User_id]);
     }
 
@@ -106,12 +112,40 @@ class ItemController extends Controller
             }
         }
     }
-    public function EditUser()
+    public function ShowEditlocation($id=null)
+    {
+        $item_id=$id;
+        $region=Region::all();
+        $city=City::all();
+        $states=State::all();
+        $countries=Country::all();
+        $streets=Street::all();
+        //el subtype name w el main type name
+        return view('website.backend.database pages.Edit_Item_Location',['counrty'=>$countries,'state'=>$states,'city'=>$city,'region'=>$region,'street1'=>$streets,'item_id'=>$item_id]);
+   }
+   public function EditLocation($id=null)
+   {
+
+    $item=Item::all()->find($id);
+    $item->Street_Id=request('Street_Name');
+    $item->save();
+        
+     return $this->show($id)->with('success', 'Location Edited Successfully');
+    }
+   
+    public function ShowEditUser($id=null)
+    {
+        $item_id=$id;
+
+        return view('website.backend.database pages.Edit_Item_User',['item_id'=>$item_id]);
+   }
+
+    public function EditUser($id=null)
     {
         $item=Item::all()->find(request('id'));
-        $item->User_Id=request('User_Id');
+        $item->User_Id=request('userIdHiddenInput');
         $item->save();
-        return response()->json($item);
+        return $this->show($id);
     }
 
     public function searchEmail()
