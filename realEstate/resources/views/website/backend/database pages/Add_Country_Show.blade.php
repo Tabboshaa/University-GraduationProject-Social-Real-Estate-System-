@@ -16,15 +16,15 @@
 <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
     <thead>
         <tr>
-            <th ><h2 style="margin-right:200px; padding-bottom: 5px;">Country Name</th>
-
-            <th>Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" style="margin-left: 200px;"><i class="fa fa-trash"></i></button></th>
-            <th><h2 style="margin-right:250px;padding-bottom: 5px;">Edit</h2></th>
+            <th style="margin-right:50px; padding-bottom: 5px;"><h2>Country Name</h2></th>
+            <th ><h2 style="margin-right:60px;padding-bottom: 5px;">Edit</h2></th>
+            <th>Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" style="margin-right:50px;"><i class="fa fa-trash"></i></button></th>
+            
             <script>
                 //will select all row with id -> id[]
                 document.getElementById('selectAll').onclick = function() {
                     var checkboxes = document.getElementsByName('id[]'); //get all check boxes with name delete
-                    for (var checkbox of checkboxes) { //for loop to set all checkboxes to checked
+                    for (var checkbox of checkboxes) { //for loop to set all checkboxe 24 1 decs to checked
                         checkbox.checked = this.checked;
                     }
                 }
@@ -35,10 +35,9 @@
         @foreach($C11 as $C1)
             <tr>
                 <td> {{$C1->Country_Name}}</td>
-                
-                
-                <!-- On clicking edit icon will go to setCountryIdName in-->
                 <td><input type="checkbox" name="id[]" value="{{$C1->Country_Id}}"></td>
+
+                <!-- On clicking edit icon will go to setCountryIdName in-->
                 <td><a href="javascript:void(0)" onclick="setCountryIdName('{{$C1->Country_Id}}','{{$C1->Country_Name}}')" ><i id="edit" class="fa fa-edit"></i></a></td>
             </tr>
             @endforeach
@@ -116,7 +115,6 @@
         //byb3t el value el gdeda
         var CountryName = $("#Country_Name").val();
         var _token = $("input[name=_token]").val();
-        
 
         $.ajax({
             url: "{{route('Country.edit')}}",
@@ -125,20 +123,17 @@
                 id: id,
                 CountryName: CountryName,
                 _token: _token
-               
             },
             success: function() {
                 console.log('Success');
                 // $('#sid'+response.id + 'td:nth-child(1)').text(response.SupTypeName);
                 $("#EditCountryModal").modal("toggle");
-                alert("updated Succesfully");
                 // $("#EditSubTypeModal")[0].reset();
-                
             },
             error: function() {
                 console.log('Error');
             }
-           
+
         });
 
 

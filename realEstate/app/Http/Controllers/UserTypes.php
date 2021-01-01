@@ -21,7 +21,7 @@ class UserTypes extends Controller
 
         //
 
-        return view('website/backend.database pages.User_Type', ['user_type' => $users]);
+        return view('website/backend.database pages.User_Type', ['user_typess' => $users]);
     }
 
     /**
@@ -68,7 +68,7 @@ class UserTypes extends Controller
     {
         //
         $user_types = User_Type::all();
-        return view('website/backend.database pages.User_Type_Show', ['user_type' => $user_types]);
+        return view('website/backend.database pages.User_Type_Show', ['user_typess' => $user_types]);
     }
 
     /**
@@ -132,7 +132,7 @@ class UserTypes extends Controller
         //
         $user_types = User_Type::all();
         $Users=User_Type::all();
-        return view('website/backend.database pages.Users_Show', ['user_types' => $user_types,'users'=>$Users]);
+        return view('website/backend.database pages.Users_Show', ['user_typess' => $user_types,'users'=>$Users]);
 
     }
     public function getUser($id=null)

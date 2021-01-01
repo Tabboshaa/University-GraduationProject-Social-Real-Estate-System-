@@ -34,7 +34,7 @@
         </thead>
         <tbody>
             <!-- EL FOREARCH HNA -->
-            @foreach($user_type as $user_type)
+            @foreach($user_typess as $user_type)
             <tr>
                 
                 <td>{{$user_type->Type_Name}}</td>
