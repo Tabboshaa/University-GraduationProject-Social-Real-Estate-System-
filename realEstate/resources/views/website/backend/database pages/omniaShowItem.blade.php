@@ -6,7 +6,7 @@
 
 <div class="C">
     
-    <h2>{{$user->First_Name}} {{$user->Middle_Name}} {{$user->Last_Name}} Items </h2> 
+    <h2>{{$user[0]->First_Name}} {{$user[0]->Middle_Name}} {{$user[0]->Last_Name}} Items </h2> 
     
 </div>
 
