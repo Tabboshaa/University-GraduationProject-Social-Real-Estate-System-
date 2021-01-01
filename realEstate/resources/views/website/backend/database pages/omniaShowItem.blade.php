@@ -28,9 +28,7 @@
             <a href="{{ url('/edit_item_location/'.$item_id) }}"><i class="fa fa-edit"> Edit</i>
             </td>
         </tr>
-        <tr>
-            <td colspan="2" style="text-align:center" class="td1">Details</td>
-        </tr>
+
         <tr>
             <form method="Post" action="{{ url('/delete_detail_item?_method=delete') }}" enctype="multipart/form-data">
                 @csrf
@@ -39,7 +37,7 @@
                     @foreach ($details as $property => $detail)
                     <tr>
                         <td class="th2">
-                            <h4>{{$property}}</h4>
+                            <h4>{{$property}} detail</h4>
                         </td>
                         <th class="th2">value</th>
                         <th class="th2">Select all <input type="checkbox" id="selectAll" name="selectAll"> </a> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
