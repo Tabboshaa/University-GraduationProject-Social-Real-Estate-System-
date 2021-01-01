@@ -26,6 +26,7 @@
                       <li><a href="{{url('/sub_types')}}">Sub Types</a></li>
                       <li><a href="{{url('/property')}}">Sub Type Property</a></li>
                       <li><a href="{{url('/Property_Details')}}">Detail of Property</a></li>
+                      <li><a href="{{url('/Details')}}">Details of Item</a></li>
                       </ul>
                       </li>
                       <li><a>Item<span class="fa fa-chevron-down"></span> </a>
