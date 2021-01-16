@@ -51,6 +51,8 @@ class RegionController extends Controller
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
             return back()->with('error','Region Already Exists !!');
+        }if($errorCode == 1048 ){
+            return back()->with('error','You must select all values!!');
         }
     }
     }

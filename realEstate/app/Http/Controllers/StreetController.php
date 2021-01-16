@@ -54,6 +54,8 @@ class StreetController extends Controller
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
             return back()->with('error','Street Already Exists !!');
+        }        if($errorCode == 1048 ){
+            return back()->with('error','You must select all values!!');
         }
     }
     }

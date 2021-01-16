@@ -53,8 +53,12 @@
                         </script>
 
                     </tr>
-
-                    @foreach($detail as $detailValue)
+                    
+                    <!-- {{$i=0}} -->
+                    @foreach($detail as $diff => $detailValue)
+                    <!-- {{$i+=1}} -->
+                    <tr class="ha"><td colspan="5"><h6> {{$property}} {{$i}}</h6></td></tr>
+                    @foreach($detailValue as $detailValue)
                     <tr  class="ha">
                         <td>
                             <h6>{{$detailValue->Detail_Name}}</h6>
@@ -67,7 +71,7 @@
 
                     </tr>
 
-                    @endforeach
+                    @endforeach  @endforeach
 
 
                     @endforeach

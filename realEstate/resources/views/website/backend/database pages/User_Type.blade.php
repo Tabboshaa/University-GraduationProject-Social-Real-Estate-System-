@@ -30,12 +30,13 @@
                             <button type="submit" id="btun1"class="btn btn-primary">
                                 {{ __('Add') }}
                             </button>
+                            </form>
                             <button id="btun2"  class="btn btn-primary">
                                 <a href="{{url('/user_types_show')}}" class="link2" >{{ __('Show') }}</a>
                             </button>
                         </div>
                     </div>
-                </form>
+              
             </div>
                 <div class="x_panel">
             <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
