@@ -14,6 +14,7 @@ class Details extends Model
         'Sub_Type_Id',
         'Property_Id',
         'Property_Detail_Id',
+        'Property_diff',
         'DetailValue'
     ];
 }

@@ -72,9 +72,9 @@ class ItemController extends Controller
             ->join('sub__type__properties', 'details.Property_Id', '=', 'sub__type__properties.Property_Id')
             ->join('property__details', 'details.Property_Detail_Id', '=', 'property__details.Property_Detail_Id')
             ->select('details.*', 'main__types.Main_Type_Name', 'sub__types.Sub_Type_Name', 'sub__type__properties.Property_Name', 'property__details.Detail_Name')
-            ->get()->where('Item_Id', '=', $id)->groupBy('Property_Name');
+            ->get()->where('Item_Id', '=', $id)->groupBy(['Property_Name','Property_diff']);
 
-           
+          
         $Sub_Type_Id = Arr::get(Details::all()->where('Item_Id', '=', $id)->first(), 'Sub_Type_Id');
 
         
@@ -100,11 +100,11 @@ class ItemController extends Controller
         try {
             $item = Item::create([
                 'Street_Id' => request("Street"),
-                'User_Id' => request("userIdHiddenInput")
+                'User_Id' => request("userIdHiddenInput"),
             ]);
             $item_id = Arr::get($item, 'Item_Id');
             return $this->SubTypeShow($item_id);
-            //return back()->with('success','Item Created Successfully');
+            return back()->with('success','Item Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {

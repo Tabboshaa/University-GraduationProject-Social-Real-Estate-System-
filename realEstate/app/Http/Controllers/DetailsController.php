@@ -30,9 +30,13 @@ class DetailsController extends Controller
     {
 
         $detailsInput = request('data');
+        $max= Details::max('Property_diff');
+         $max+=1;
 
         foreach ($detailsInput as $detail) {
-            $property_details = Property_Details::all()->where('Property_Detail_Id', '=', Arr::get($detail, 'id'))->first();
+            $property_details = Property_Details::all()->where('Property_Detail_Id', '=', Arr::get($detail, 'id'))->first();        
+            
+
 
             $details[] = [
                 'Item_Id' => request('item_id'),
@@ -40,9 +44,11 @@ class DetailsController extends Controller
                 'Sub_Type_Id' => Arr::get($property_details, 'Sub_Type_Id'),
                 'Property_Id' => Arr::get($property_details, 'Property_Id'),
                 'property_Detail_Id' => Arr::get($property_details, 'Property_Detail_Id'),
+                'Property_diff'=>$max,
                 'DetailValue' => Arr::get($detail, 'value')
             ];
         }
+
 
         // request()->validate([
         //     'DetailValue' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"] 

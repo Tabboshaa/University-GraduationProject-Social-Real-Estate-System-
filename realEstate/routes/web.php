@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', 'DatatypeController@index');
 
 
- Route::get('/', function (){
-     return view('auth.login');
- });
+Route::get('/', function (){
+    return view('website/frontend/layouts/main');
+});
 
 Route::get('/data_types', 'DatatypeController@index');
 //main types pages

@@ -54,6 +54,7 @@ class CreateDetailsTable extends Migration
             $table->foreignId('Property_Id')->references('Property_Id')->on('property__details')->onDelete('cascade');
             $table->foreignId('Property_Detail_Id')->references('Property_Detail_Id')->on('property__details')->onDelete('cascade');
 
+            $table->bigInteger('Property_diff');
             $table->string('DetailValue');
 
             $table->timestamps();
