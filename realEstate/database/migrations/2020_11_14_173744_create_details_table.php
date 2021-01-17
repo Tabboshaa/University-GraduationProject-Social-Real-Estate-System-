@@ -43,6 +43,7 @@ class CreateDetailsTable extends Migration
             $table->foreignId('Property_Id')->references('Property_Id')->on('sub__type__properties')->onDelete('cascade');
             $table->foreignId('DataType_Id')->references('id')->on('datatypes')->onDelete('cascade');
             $table->string('Detail_Name');
+            $table->bigInteger('Property_id');
             $table->timestamps();
         });
         Schema::create('details', function (Blueprint $table) {
@@ -52,6 +53,7 @@ class CreateDetailsTable extends Migration
             $table->foreignId('Sub_Type_Id')->references('Sub_Type_Id')->on('property__details')->onDelete('cascade');
             $table->foreignId('Property_Id')->references('Property_Id')->on('property__details')->onDelete('cascade');
             $table->foreignId('Property_Detail_Id')->references('Property_Detail_Id')->on('property__details')->onDelete('cascade');
+
             $table->bigInteger('Property_diff');
             $table->string('DetailValue');
 

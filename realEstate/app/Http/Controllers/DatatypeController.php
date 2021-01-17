@@ -25,11 +25,11 @@ class DatatypeController extends Controller
      */
     public function create()
     {
-        //
-        request()->validate([
+        // //
+        // request()->validate([
             
-            'Data_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"] 
-        ]);
+        //     'Data_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"] 
+        // ]);
         try {
             $Data_Type = Datatype::create([
                 'datatype' => request('Data_Type_Name')
