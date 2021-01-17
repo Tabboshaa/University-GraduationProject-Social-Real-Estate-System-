@@ -8,7 +8,7 @@
 <!-- Favicon -->
 	<link href="{{asset('FrontEnd/images/header/fav.png')}}" rel="shortcut icon" type="image/x-icon"/>
 
-    <title>Youlisting | Home </title>
+    <title>Home </title>
 
     <!-- Bootstrap core CSS-->
     <link href="{{asset('FrontEnd/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">

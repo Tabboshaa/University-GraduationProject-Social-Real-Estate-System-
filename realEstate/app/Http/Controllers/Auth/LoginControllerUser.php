@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\Console\Input\Input;
 
-class LoginController extends Controller
+class LoginControllerUser extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -42,25 +42,23 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest.user')->except('logout');
     }
 
-    public function loginViaEmailAdmin()
+    public function loginViaEmail()
     {
         $email=request('email');
         $password=request('password');
 
         if ($emailModel = Emails::all()->where('email', $email)->first())
         {
-            if( Count(Type_Of_User::all()->where('User_ID',$emailModel->User_ID)->where('User_Type_ID',1))>0);
+            if( Count(Type_Of_User::all()->where('User_ID',$emailModel->User_ID)->where('User_Type_ID',2))>0);
             return $this->login($emailModel->User_ID, $password);
 
         }
 
         return false;
     }
-
-
 
     public function login($id, $password)
     {
@@ -69,11 +67,11 @@ class LoginController extends Controller
         if(Hash::check( $password, $user->password))
         {
             Auth::loginUsingId($id);
-            return view('home');
-           
+            return redirect()->route('CustomerHome');
         }
 
         return false;
     }
+
 
 }

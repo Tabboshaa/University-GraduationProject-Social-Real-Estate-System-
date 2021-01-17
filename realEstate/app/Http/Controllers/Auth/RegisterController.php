@@ -31,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -40,7 +40,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest.user');
     }
 
     /**
@@ -52,7 +52,6 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
@@ -73,6 +72,7 @@ class RegisterController extends Controller
 //        ]);
 
         $user=User::create(['password' => Hash::make($data['password'])]);
+        
 
         $user_Id= Arr::get($user, 'id');
         $Email=Emails::create([
