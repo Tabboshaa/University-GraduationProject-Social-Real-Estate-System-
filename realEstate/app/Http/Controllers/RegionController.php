@@ -34,10 +34,10 @@ class RegionController extends Controller
      */
     public function create()
     {
-        request()->validate([
-            'Region_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
-        ]);
-        //
+        // request()->validate([
+        //     'Region_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
+        // ]);
+        // //
 
         try {
         $region = Region::create([
@@ -51,6 +51,8 @@ class RegionController extends Controller
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
             return back()->with('error','Region Already Exists !!');
+        }if($errorCode == 1048 ){
+            return back()->with('error','You must select all values!!');
         }
     }
     }

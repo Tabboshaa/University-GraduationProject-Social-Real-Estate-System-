@@ -44,10 +44,9 @@ class DetailsController extends Controller
             ];
         }
 
-
-        request()->validate([
-            'DetailValue' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"] 
-        ]);
+        // request()->validate([
+        //     'DetailValue' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"] 
+        // ]);
         try {
             Details::insert($details);
             return back()->with('success', 'Detail Created Successfully');

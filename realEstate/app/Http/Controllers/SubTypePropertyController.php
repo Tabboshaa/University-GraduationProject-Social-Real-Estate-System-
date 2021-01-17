@@ -150,7 +150,7 @@ class SubTypePropertyController extends Controller
         return redirect()->route('subtypeproperty_show')->with('error', 'Property cannot be deleted');
 
     }
-}else return redirect()->route('subtypeproperty_show')->with('warning', 'No Property was chosen to be deleted.. !!');
+    }else return redirect()->route('subtypeproperty_show')->with('warning', 'No Property was chosen to be deleted.. !!');
     }
 //function that sends the property details that are desplayed in checkboxes
     public function property_select($item_id=null,$sub_type_id=null)

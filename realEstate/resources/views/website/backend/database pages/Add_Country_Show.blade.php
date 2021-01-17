@@ -35,10 +35,10 @@
         @foreach($C11 as $C1)
             <tr>
                 <td> {{$C1->Country_Name}}</td>
+                <td><a href="javascript:void(0)" onclick="setCountryIdName('{{$C1->Country_Id}}','{{$C1->Country_Name}}')" ><i id="edit" class="fa fa-edit"></i></a></td>
                 <td><input type="checkbox" name="id[]" value="{{$C1->Country_Id}}"></td>
 
                 <!-- On clicking edit icon will go to setCountryIdName in-->
-                <td><a href="javascript:void(0)" onclick="setCountryIdName('{{$C1->Country_Id}}','{{$C1->Country_Name}}')" ><i id="edit" class="fa fa-edit"></i></a></td>
             </tr>
             @endforeach
     </tbody>

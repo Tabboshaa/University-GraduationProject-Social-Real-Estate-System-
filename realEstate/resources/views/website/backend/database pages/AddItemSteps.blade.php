@@ -163,13 +163,13 @@
                                     <a href="javascript:void(0)" id="SearchA" onclick="searchForEmail()" class="btn btn-info" role="button">Search </a>
                                     <div class="col-md-6 col-sm-6 ">
                                         <input type="search" id="Search" name="Search" required="required" class="form-control">
-                                        <input type="hidden" id="userIdHiddenInput" name="userIdHiddenInput" >
+                                        <input type="hidden" id="userIdHiddenInput" name="userIdHiddenInput" required>
                                     </div>
                                 </div>
                                 <div class="item form-group">
-                                        <table id="result" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
-                                            
-                                        </table>
+                                    <table id="result" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+
+                                    </table>
                                 </div>
                             </div>
 
@@ -247,9 +247,16 @@
                                         _token: _token
                                     },
                                     success: function(data) {
+                                        var result=""
                                         Object.values(data).forEach(val => {
-                                            $("#result").html('<tr><td>'+ val['email']+ '</td> <td> <input type="checkbox" name="userid" value="' + val['User_ID'] + '" onclick="onlyOne(this)"> </td> </tr>');
+                                            result+='<tr><td>' + val['email'] + '</td> <td> <input type="checkbox" name="userid" value="' + val['User_ID'] + '" onclick="onlyOne(this)"> </td> </tr>';
                                         });
+                                        if(result=="")
+                                        {
+                                            $("#result").html("<tr class='table-danger'><td> Sorry, There is no user with this email !</td></tr>");
+                                        }else
+                                        $("#result").html(result);
+                                        console.log(data);
                                     },
                                     error: function() {
                                         $("#result").html('There is no User with this Email!!');
@@ -264,6 +271,7 @@
                                     if (item !== checkbox) item.checked = false
                                 })
                                 $("#userIdHiddenInput").val(checkbox.value);
+                                document.getElementById("nextBtn").style.display = "inline";
                             }
                         </script>
 
@@ -278,6 +286,9 @@
                                 // ... and fix the Previous/Next buttons:
                                 if (n == 0) {
                                     document.getElementById("prevBtn").style.display = "none";
+                                    document.getElementById("nextBtn").style.display = "none";
+
+
                                 } else {
                                     document.getElementById("prevBtn").style.display = "inline";
                                 }
@@ -340,6 +351,17 @@
                                 //... and adds the "active" class to the current step:
                                 x[n].className += " active";
                             }
+
+                            $('#AddItemForm').on('keyup keypress', function(e) {
+                                var keyCode = e.keyCode || e.which;
+                                if (keyCode === 13) {
+                                    e.preventDefault();
+                                    return false;
+                                }
+                            });
+
+
+                            
                         </script>
                     </div>
                 </div>

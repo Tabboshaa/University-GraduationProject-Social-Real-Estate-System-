@@ -40,7 +40,7 @@
                             <h4>{{$property}} detail</h4>
                         </td>
                         <th class="th2">value</th>
-                        <th class="th2">Select all <input type="checkbox" id="selectAll" name="selectAll"> </a> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
+                        <th class="th2">Select all <input type="checkbox" id="selectAll" name="selectAll"> </a>  <button class="btn"><i class="fa fa-trash" style="margin-right:155px;"></i></th>
                         <th class="th2">Edit</th>
                         <!-- Java Script for select all function -->
                         <script>

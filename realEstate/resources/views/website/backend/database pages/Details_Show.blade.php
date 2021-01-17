@@ -47,8 +47,8 @@
                         <td>{{$detail->Main_Type_Id}}</td>
                         <td>{{$detail->Property_Id}}</td>
                         <td>{{$detail->DetailValue}}</td>
-                        <td><input type="checkbox" name="id[]" value="{{$detail->Detail_Id}}"></td>
                         <td><a href="javascript:void(0)" onclick="setDetailIdName('{{$detail->Detail_Id}}','{{$detail->DetailValue}}')"><i class="fa fa-edit"></i></a></td>
+                        <td><input type="checkbox" name="id[]" value="{{$detail->Detail_Id}}"></td>
                  </tr>
                 @endforeach
                 <!-- END OF FOREACH -->

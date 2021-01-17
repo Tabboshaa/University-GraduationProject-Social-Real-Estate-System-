@@ -25,11 +25,11 @@ class DatatypeController extends Controller
      */
     public function create()
     {
-        //
-        request()->validate([
+        // //
+        // request()->validate([
             
-            'Data_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"] 
-        ]);
+        //     'Data_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"] 
+        // ]);
         try {
             $Data_Type = Datatype::create([
                 'datatype' => request('Data_Type_Name')
@@ -63,7 +63,7 @@ class DatatypeController extends Controller
     public function show()
     {
         //
-        $data_types = Datatype::paginate(1);
+        $data_types = Datatype::paginate(10);
         return view('website/backend.database pages.Data_Type_Show', ['data_typess' => $data_types]);
     }
 

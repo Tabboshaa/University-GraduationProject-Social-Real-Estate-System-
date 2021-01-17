@@ -33,9 +33,9 @@ class StateController extends Controller
     public function create()
     {
        //
-       request()->validate([
-        'State_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
-    ]);
+    //    request()->validate([
+    //     'State_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
+    // ]);
 
        try 
         {
@@ -49,6 +49,9 @@ class StateController extends Controller
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
             return back()->with('error','State Already Exists !!');
+        }
+        if($errorCode == 1048 ){
+            return back()->with('error','You must select all values!!');
         }
 
     }

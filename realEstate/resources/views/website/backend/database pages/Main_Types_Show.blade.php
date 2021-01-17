@@ -35,9 +35,9 @@
 
         <tr>
             <td>{{$main_type->Main_Type_Name}}</td>
-            <td><input type="checkbox" name="mainType[]" value="{{$main_type->Main_Type_Id}}" id="MainTypeId"></td>
             <td><a href="javascript:void(0)" onclick="setMainTypeIdName('{{$main_type->Main_Type_Id}}','{{$main_type->Main_Type_Name}}')"><i class="fa fa-edit"> </i></a></td>
-            <td><a href="javascript:void(0)" onclick="addSubType()" ><i class="fa fa-add"> Add </i></a></td>
+            <td><input type="checkbox" name="mainType[]" value="{{$main_type->Main_Type_Id}}" id="MainTypeId"></td>
+            <!-- <td><a href="javascript:void(0)" onclick="addSubType()" ><i class="fa fa-add"> Add </i></a></td> -->
         </tr>
 
                 @endforeach

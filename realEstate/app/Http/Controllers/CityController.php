@@ -35,9 +35,9 @@ return view('website\backend.database pages.Add_City',['country'=>$countries , '
      */
     public function create()
     {
-        request()->validate([
-            'City_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"
-        ]]);
+        // request()->validate([
+        //     'City_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"
+        // ]]);
  
         //
         try {
@@ -51,6 +51,8 @@ return view('website\backend.database pages.Add_City',['country'=>$countries , '
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
             return back()->with('error','City Already Exist !!');
+        }if($errorCode == 1048 ){
+            return back()->with('error','You must select all values!!');
         }
     }
     }

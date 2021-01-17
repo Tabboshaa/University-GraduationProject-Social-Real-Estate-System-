@@ -37,9 +37,9 @@ class StreetController extends Controller
     public function create()
     {
          //
-         request()->validate([
-            'Street_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
-        ]);
+        //  request()->validate([
+        //     'Street_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
+        // ]);
 
          try {
          $street = Street::create([
@@ -54,6 +54,8 @@ class StreetController extends Controller
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
             return back()->with('error','Street Already Exists !!');
+        }        if($errorCode == 1048 ){
+            return back()->with('error','You must select all values!!');
         }
     }
     }

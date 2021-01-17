@@ -15,12 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'DatatypeController@index');
+// Route::get('/', 'DatatypeController@index');
 
 
-// Route::get('/', function (){
-//     return view('website/backend/database pages/Test');
-// });
+ Route::get('/', function (){
+     return view('auth.login');
+ });
 
 Route::get('/data_types', 'DatatypeController@index');
 //main types pages

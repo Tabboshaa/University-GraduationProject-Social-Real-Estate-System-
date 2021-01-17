@@ -14,12 +14,6 @@
                       <li><a href="{{url('/street')}}">Street</a></li>
                       </ul>
                       </li>
-                      <li> <a>Data Type<span class="fa fa-chevron-down"></span> </a>
-                      <ul class="nav child_menu">
-
-                      <li><a href="{{url('/data_types')}}">Add Data Type</a></li>
-                      </ul>
-                      </li>
                       <li> <a>Item Details<span class="fa fa-chevron-down"></span> </a>
                       <ul class="nav child_menu">
                       <li><a href="{{url('/main_types')}}">Main Types</a></li>
