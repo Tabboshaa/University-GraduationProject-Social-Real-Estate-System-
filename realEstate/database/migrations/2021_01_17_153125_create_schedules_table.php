@@ -18,7 +18,7 @@ class CreateSchedulesTable extends Migration
             $table->foreignId('Item_Id')->references('Item_Id')->on('items')->onDelete('cascade');
             $table->date('Start_Date');
             $table->date('End_Date');
-            $table->douple('Price_Per_Night');
+            $table->double('Price_Per_Night');
             $table->timestamps();
         });
     }
