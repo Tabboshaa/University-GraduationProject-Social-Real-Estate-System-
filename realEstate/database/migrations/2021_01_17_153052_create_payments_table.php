@@ -18,7 +18,7 @@ class CreatePaymentsTable extends Migration
             $table->foreignId('Operation_Id')->references('Operation_Id')->on('operations')->onDelete('cascade');
             $table->string('Payment_Method')->unique();
             $table->string('Card_Number');          
-            $table->douple('Paid_Amount');
+            $table->double('Paid_Amount');
             $table->boolean('confirmed');
             $table->timestamps();
         });
