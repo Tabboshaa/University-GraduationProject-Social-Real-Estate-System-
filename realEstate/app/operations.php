@@ -10,7 +10,6 @@ class operations extends Model
     protected $primaryKey='Operation_Id';
     protected $fillable = [
         'Item_Id',
-        'User_Id',
-        'Operation_Name'
+        'User_Id'
     ];
 }
