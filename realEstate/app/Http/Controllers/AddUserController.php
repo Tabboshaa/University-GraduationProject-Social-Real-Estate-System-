@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use App\User;
 use App\User_Type;
 use App\Emails;
-use App\Main_Type;
 use App\Phone_Numbers;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 
 class AddUserController extends Controller
@@ -42,7 +42,7 @@ class AddUserController extends Controller
                     'Last_Name' => request('last-name'),
                     'Birth_Day' => request('birthdate'),
                     'Gender' => request('gender'),
-                    'password' => request('password'),
+                    'password' => Hash::make( request('password')),
                 ]);
                 
                 $user_id = Arr::get($user, 'id');

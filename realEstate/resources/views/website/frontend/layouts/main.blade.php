@@ -12,12 +12,14 @@
       <!-- Sidebar -->
 		              @include('website.frontend.layouts.slidebar')
                 
-	
+                  @yield('content')
+
 			<!-- Sticky Footer -->
 			            @include('website.frontend.layouts.footer')
 
 		</div>
       <!-- /.content-wrapper -->
+      
     </div>
 	</div>
     <!-- /#wrapper -->

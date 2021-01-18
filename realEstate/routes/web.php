@@ -16,21 +16,23 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/', 'DatatypeController@index');
 
-Route::group(['middleware' => 'auth.user'], function () {
+// Route::group(['middleware' => 'auth.user'], function () {
 Route::get('/', function () {
     return view('website/frontend/layouts/main');
 })->name('CustomerHome');
 
-});
+// });
+
 Auth::routes();
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
-Route::post('/loginUser', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');//userLogin
+Route::post('/loginUser', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
+
 Route::get('/UserLogin', function(){
     return view('website\frontend\login');
 })->name('userLogin');
 
 
-Route::group(['middleware' => 'auth.admin'], function () {
+// Route::group(['middleware' => 'auth.admin'], function () {
     Route::get('/data_types', 'DatatypeController@index');
     //main types pages
     Route::get('/main_types', 'MainTypes@index');
@@ -194,4 +196,4 @@ Route::group(['middleware' => 'auth.admin'], function () {
 
     Route::post('/search_user', 'AddUserController@search')->name('search');
     Route::get('/home', 'HomeController@index')->name('home');
-});
+// });
