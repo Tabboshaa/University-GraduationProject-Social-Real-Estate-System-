@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Emails;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Type_Of_User;
+use App\User;
+use App\User_Type;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Symfony\Component\Console\Input\Input;
 
 class LoginController extends Controller
 {
@@ -37,4 +44,36 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function loginViaEmailAdmin()
+    {
+        $email=request('email');
+        $password=request('password');
+
+        if ($emailModel = Emails::all()->where('email', $email)->first())
+        {
+            if( Count(Type_Of_User::all()->where('User_ID',$emailModel->User_ID)->where('User_Type_ID',1))>0);
+            return $this->login($emailModel->User_ID, $password);
+
+        }
+
+        return false;
+    }
+
+
+
+    public function login($id, $password)
+    {
+        $user = User::find($id);
+       
+        if(Hash::check( $password, $user->password))
+        {
+            Auth::loginUsingId($id);
+            return view('home');
+           
+        }
+
+        return false;
+    }
+
 }
