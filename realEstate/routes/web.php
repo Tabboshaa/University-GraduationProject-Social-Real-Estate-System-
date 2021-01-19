@@ -32,15 +32,12 @@ Route::get('/UserLogin', function(){
 })->name('userLogin');
 
 //Customer Routes with middleware
-// Route::group(['middleware' => 'auth.user'], function () {
-Route::get('/', function () {
-    return view('website\frontend\customer\CustomerHome');
-})->name('CustomerHome');
+Route::group(['middleware' => 'auth.user'], function () {
+Route::get('/', 'CustomerHomeController@index')->name('CustomerHome');
 //Customer HOMEpage
 Route::get('/CustomerHome', 'CustomerHomeController@index');
 Route::get('/search_by_place','CustomerHomeController@findItemInState');
-Route::get('/search_by_place','CustomerHomeController@findItemInState');
-// });
+});
 
 //Admin Routes with middleware
 // Route::group(['middleware' => 'auth.admin'], function () {
