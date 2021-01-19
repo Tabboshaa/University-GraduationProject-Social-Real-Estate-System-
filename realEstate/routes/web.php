@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//test Routes we test routes here 
+//test Routes we test routes here
 // Route::get('/', 'DatatypeController@index');
 Route::get('/itemProfile', function () {
     $state= StateController::getStates();
@@ -32,7 +32,7 @@ Route::get('/UserLogin', function(){
 })->name('userLogin');
 
 //Customer Routes with middleware
-Route::group(['middleware' => 'auth.user'], function () {
+// Route::group(['middleware' => 'auth.user'], function () {
 Route::get('/', function () {
     return view('website\frontend\customer\CustomerHome');
 })->name('CustomerHome');
@@ -40,10 +40,10 @@ Route::get('/', function () {
 Route::get('/CustomerHome', 'CustomerHomeController@index');
 Route::get('/search_by_place','CustomerHomeController@findItemInState');
 Route::get('/search_by_place','CustomerHomeController@findItemInState');
-});
+// });
 
 //Admin Routes with middleware
-Route::group(['middleware' => 'auth.admin'], function () {
+// Route::group(['middleware' => 'auth.admin'], function () {
     Route::get('/data_types', 'DatatypeController@index');
     //main types pages
     Route::get('/main_types', 'MainTypes@index');
@@ -207,4 +207,4 @@ Route::group(['middleware' => 'auth.admin'], function () {
 
     Route::post('/search_user', 'AddUserController@search')->name('search');
     Route::get('/home', 'HomeController@index')->name('home');
-});
+// });
