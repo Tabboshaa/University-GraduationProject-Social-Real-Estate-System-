@@ -14,9 +14,14 @@
  <!-- Navbar -->
    <div class="col-md-5 col-xs-12 p-left  p-right">
         <div class="searching">
-           <form>
+           <form action="{{url('search_by_place')}}">
            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-           <input type="text" name="search" placeholder="Search Places, Events, House, Shop, Bike, Car, Mobile etc...">
+           <input type="text" list="states" name="search" placeholder="Search Places, Events, House, Shop, Bike, Car, Mobile etc...">
+              <datalist id="states">
+                        @foreach($states as $state)
+                        <option value="{{$state->State_Name}}" name="items_options">{{$state->State_Name}}</option>
+                        @endforeach
+                    </datalist>
            </form>
        </div>
    </div>
@@ -77,7 +82,7 @@
                </li>
                <li class="popup"  onclick="myFunctionicon()">
                    <img src="{{asset('FrontEnd/images/header/notification.png')}}" alt="" title="" >
-               <span>2</span>
+               <span>0</span>
                <div class="popuptext" id="icon">
                        <div class="notfication-details">
                           
@@ -103,15 +108,28 @@
                                <a href="my_profile_dashboard.html">Dashboard</a>
                            </div>
                        </div>
+                       @if (Route::has('login'))
                        <div class="notfication-details">
                            <div class="notification-info">
-                               <a href="my_profile_view_detail.html">Profile Detail</a>
-                           </div>
-                       </div>
-                       <div class="notfication-details">
+                               <a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                       
+                           </div><!--notification-info -->
+                        @else
+                        <div class="notfication-details">
                            <div class="notification-info">
                                <a href="signin.html" >Sign In</a>
                            </div><!--notification-info -->
+                       </div> 
+                        @endif
+
                        </div>
                     </div>
            

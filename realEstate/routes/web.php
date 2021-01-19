@@ -16,12 +16,15 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/', 'DatatypeController@index');
 
-// Route::group(['middleware' => 'auth.user'], function () {
+Route::group(['middleware' => 'auth.user'], function () {
 Route::get('/', function () {
-    return view('website/frontend/layouts/main');
+    return view('website\frontend\customer\CustomerHome');
 })->name('CustomerHome');
+//Customer HOMEpage
+Route::get('/CustomerHome', 'CustomerHomeController@index');
+Route::get('/search_by_place','CustomerHomeController@findItemInState');
 
-// });
+});
 
 Auth::routes();
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
@@ -32,7 +35,7 @@ Route::get('/UserLogin', function(){
 })->name('userLogin');
 
 
-// Route::group(['middleware' => 'auth.admin'], function () {
+Route::group(['middleware' => 'auth.admin'], function () {
     Route::get('/data_types', 'DatatypeController@index');
     //main types pages
     Route::get('/main_types', 'MainTypes@index');
@@ -196,4 +199,4 @@ Route::get('/UserLogin', function(){
 
     Route::post('/search_user', 'AddUserController@search')->name('search');
     Route::get('/home', 'HomeController@index')->name('home');
-// });
+});
