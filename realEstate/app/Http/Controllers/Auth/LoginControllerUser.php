@@ -63,14 +63,14 @@ class LoginControllerUser extends Controller
     public function login($id, $password)
     {
         $user = User::find($id);
-       
-        if(Hash::check( $password, $user->password))
+
+        if(Hash::check($password, $user->password))
         {
             Auth::loginUsingId($id);
             return redirect()->route('CustomerHome');
         }
 
-        return false;
+        return redirect()->back()->with('error','Wrong Email Or Password');
     }
 
 
