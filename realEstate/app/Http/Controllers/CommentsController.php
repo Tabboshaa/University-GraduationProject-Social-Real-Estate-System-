@@ -87,7 +87,20 @@ class CommentsController extends Controller
     public static function getPostComments($post_id)
     {
         //
-        $comments = comments::all()->where('Post_Id', '=', $post_id)->groupBy(['Post_Id', 'Parent_Comment']);
+        $comments = comments::all()->where('Post_Id', '=', $post_id)->where('Parent_Comment','=',null);
+
+        // $comments=DB::table('posts')
+        // ->join('comments', 'comments.Post_Id', '=', 'posts.Post_Id')
+        // ->where('posts.Post_Id','=',$post_id)
+        // ->select('posts.*', 'comments.*')->get()->groupBy(['Post_Id','Parent_Comment']);
+
+        return $comments;
+    }
+
+    public static function getPostreplies($post_id)
+    {
+        //
+        $comments = comments::all()->where('Post_Id', '=', $post_id)->where('Parent_Comment','!=',null);
 
         // $comments=DB::table('posts')
         // ->join('comments', 'comments.Post_Id', '=', 'posts.Post_Id')

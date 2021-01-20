@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\posts;
+use App\User;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -87,6 +88,7 @@ class PostsController extends Controller
     {
         //
         $posts = posts::all()->where('Item_Id', '=', $item_id);
+        // $user =User::select('First_Name','Middle_Name','Last_Name')->where('id', '=', )->get();
 
         return $posts;
     }
