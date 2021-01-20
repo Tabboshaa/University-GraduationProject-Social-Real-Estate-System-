@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\PostsController;
 use App\Http\Controllers\StateController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -18,8 +20,11 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', 'DatatypeController@index');
 Route::get('/itemProfile', function () {
     $state= StateController::getStates();
-    return view('website\frontend\customer\Item_Profile',['states'=>$state]);
+    $posts=PostsController::getItemPosts(1);
+
+    return view('website\frontend\customer\Item_Profile',['states'=>$state,'posts'=>$posts]);
 });
+
 ////////////////////////////////////
 
 //authntication routes
