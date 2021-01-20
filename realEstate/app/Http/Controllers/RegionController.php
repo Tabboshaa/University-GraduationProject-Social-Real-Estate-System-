@@ -34,10 +34,10 @@ class RegionController extends Controller
      */
     public function create()
     {
-        // request()->validate([
-        //     'Region_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
-        // ]);
-        // //
+        request()->validate([
+            'Region_Name' => ['required', 'string','max:225',"regex:^([A-Z][a-z][A-Za-z]\s[A-Z][a-z][A-Za-z])|[A-Z][a-z][A-Za-z]"]
+        ]);
+        //
 
         try {
         $region = Region::create([
