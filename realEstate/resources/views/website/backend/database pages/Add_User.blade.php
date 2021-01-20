@@ -184,7 +184,7 @@
 
 							function validateForm() {
 							// This function deals with validation of the form fields
-							var regName =/^([A-Z][a-z][A-Za-z]\s[A-Z][a-z][A-Za-z])|[A-Z][a-z][A-Za-z]$/;
+							var regName =/^[A-Za-z]{2,30}$/;
 							var regEmail=/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 							var regNational =/^[0-9]{14}$/;
 							var passw=  /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -246,10 +246,10 @@
                                  }
                               if(y[i].name=="password"&&!(passw.test(y[i].value))) 
                                 {  
-alert('please enter capital letter and character and small letter ');
-valid = false;
+								alert('please enter capital letter and character and small letter ');
+								valid = false;
 
-}
+		}
 else{
 if(y[i].name=="password"&& y[i].value!=y[i+1].value){
 	alert("Not Matching!!");
