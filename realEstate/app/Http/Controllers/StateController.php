@@ -32,34 +32,10 @@ class StateController extends Controller
      */
     public function create()
     {
-<<<<<<< Updated upstream
         //
         //    request()->validate([
         //     'State_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
         // ]);
-=======
-       
-       request()->validate([
-        'State_Name' => ['required', 'string','max:225',"regex:^([A-Z][a-z][A-Za-z]\s[A-Z][a-z][A-Za-z])|[A-Z][a-z][A-Za-z]"]
-    ]);
-
-       try 
-        {
-            $state=State::create([
-            'State_Name' => request('State_Name'),
-            'Country_Id' => request('country_name')
-
-        ]);
-        return back()->with('success','State Created Successfully');
-    }catch (\Illuminate\Database\QueryException $e){
-        $errorCode = $e->errorInfo[1];
-        if($errorCode == 1062){
-            return back()->with('error','State Already Exists !!');
-        }
-        if($errorCode == 1048 ){
-            return back()->with('error','You must select all values!!');
-        }
->>>>>>> Stashed changes
 
         try {
             $state = State::create([

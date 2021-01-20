@@ -71,10 +71,6 @@
 									</script>
 								</div>
 							</div>
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 							<div class="item form-group">
 								<label class="col-form-label col-md-3 col-sm-3 label-align">Gender <span class="required">*  :</span></label>
 								<div class="col-md-6 col-sm-6 ">
@@ -144,7 +140,6 @@
 						</form>
 
 						<script>
-
 							var currentTab = 0; // Current tab is set to be the first tab (0)
 							showTab(currentTab); // Display the current tab
 
@@ -188,86 +183,11 @@
 
 							function validateForm() {
 							// This function deals with validation of the form fields
-							var regName =/^[A-Za-z]{2,30}$/;
-							var regEmail=/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-							var regNational =/^[0-9]{14}$/;
-							var passw=  /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-							var regexp = /^[A-Z]/;
-                         var mobileReg=/^[0][1][0-9]{2}?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-						
 							var x, y, i, valid = true;
 							x = document.getElementsByClassName("tab");
 							y = x[currentTab].getElementsByTagName("input");
 							// A loop that checks every input field in the current tab:
-
 							for (i = 0; i < y.length; i++) {
-								// If a field is empty...
-								
-								if (y[i].value == "") {
-								// add an "invalid" class to the field:
-								y[i].className += " invalid";
-								alert("Please Fill This Field");
-								// and set the current valid status to false:
-								valid = false;
-								}else if(y[i].name=="first_name"&&!(regName.test(y[i].value)))
-								{
-
-									
-									alert("Letters Only In First Name");
-									valid = false;
-								}
-								
-								
-								else if(y[i].name=="middle-name"&&!(regName.test(y[i].value)))
-								{
-
-									
-									alert("Letters Only In Middle Name");
-									valid = false;
-								}
-								
-								else if(y[i].name=="last-name"&&!(regName.test(y[i].value)))
-								{
-
-
-									
-									alert("Letters Only In Last Name");
-									valid = false;
-								}
-							
-							
-							else if(y[i].name=="Email"&&!(regEmail.test(y[i].value)))
-								
-                            {
-	                        alert("You have entered an invalid email address!")
-                             valid = false;
-                             }
-                              else if(y[i].name=="national_id"&&!(regNational.test(y[i].value)))
-								
-                              {
-	                          alert("You have entered an invalid Id!")
-                               valid = false;
-                                 }
-                              if(y[i].name=="password"&&!(passw.test(y[i].value))) 
-                                {  
-								alert('please enter capital letter and character and small letter ');
-								valid = false;
-
-		}
-else{
-if(y[i].name=="password"&& y[i].value!=y[i+1].value){
-	alert("Not Matching!!");
-	valid=false;
-}
-if(y[i].name=="phone_number"&&!(mobileReg.test(y[i].value))) 
-{ 
-alert('Invalid Phone Form ');
-valid = false;
-
-}
-
-}}
-for (i = 0; i < y.length; i++) {
 								// If a field is empty...
 								if (y[i].value == "") {
 								// add an "invalid" class to the field:
@@ -282,7 +202,6 @@ for (i = 0; i < y.length; i++) {
 							}
 							return valid; // return the valid status
 							}
-
 
 							function fixStepIndicator(n) {
 							// This function removes the "active" class of all steps...
