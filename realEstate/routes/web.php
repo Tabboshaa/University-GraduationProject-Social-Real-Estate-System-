@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\PostsController;
 use App\Http\Controllers\StateController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +20,15 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', 'DatatypeController@index');
 Route::get('/itemProfile', function () {
     $state= StateController::getStates();
+    // $posts=PostsController::getItemPosts(1);
+    // $comment= CommentsController::getPostComments(1);
+    // return $comment;
     return view('website\frontend\customer\Item_Profile',['states'=>$state]);
+});
+Route::get('/', function () {
+    $state= StateController::getStates();
+    $comment= CommentsController::getPostComments(1);
+    return $comment;
 });
 ////////////////////////////////////
 
@@ -33,7 +43,7 @@ Route::get('/UserLogin', function(){
 
 //Customer Routes with middleware
 Route::group(['middleware' => 'auth.user'], function () {
-Route::get('/', 'CustomerHomeController@index')->name('CustomerHome');
+Route::get('/jjj', 'CustomerHomeController@index')->name('CustomerHome');
 //Customer HOMEpage
 Route::get('/CustomerHome', 'CustomerHomeController@index');
 Route::get('/search_by_place','CustomerHomeController@findItemInState');
