@@ -1,0 +1,89 @@
+div.rowe
+{
+    padding: 0pt;
+}
+img.background
+{
+    /* padding-top: 100px;   
+    width: 150px;
+    height: 150px;  */
+    display: block;
+  margin-left: 50pt;
+  margin-right: 50pt;
+  width: 1400px;
+    height: 450px;
+    border-bottom-left-radius: 10pt;
+    border-bottom-right-radius: 10pt;
+}
+div.sreachdiv
+{
+    position: relative;
+    padding: 30pt;
+    margin: auto;
+    background-color:rgb(248, 247, 247);
+    width: 1200px;
+    height: 190px;
+    box-sizing: border-box;
+    border: 1pt solid rgb(231, 231, 231);
+    box-shadow:5px 4px 4px 3px rgb(230, 230, 230);
+    border-bottom-left-radius: 10pt;
+    border-bottom-right-radius: 10pt;
+    
+  
+}
+div.shosho
+{
+    padding-top: 5pt;
+    padding-left: 5pt;
+    padding-bottom: 5pt;
+    padding-right: 5pt;
+    margin: auto;
+    background-color:rgb(255, 255, 255);
+    width: 1100px;  
+    height: 50px;
+    box-sizing: border-box;
+    border: 1pt solid rgb(211, 211, 211)  ;
+    border-top-right-radius:10pt ;
+    border-top-left-radius: 10pt;
+}
+
+
+div.bd
+{
+    margin-top: 15px;
+
+}
+button#btun3
+{
+  position: relative;
+  color: #FFFFFF;
+  background-color: #17a2b8;
+  border: none;
+  border-radius: 10pt;
+  font-size: 20px;
+  padding: 3px;
+  width: 400px;
+  height: 70px;;
+  text-align: center;
+  transition: transform .2s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 3pt;
+}
+
+button#btun3:hover
+{
+  background-color: rgb(104, 179, 189);
+  color: #FFFFFF;
+  -ms-transform: scale(1.05); /* IE 9 */
+  -webkit-transform: scale(1.05); /* Safari 3-8 */
+  transform: scale(1.05); 
+}
+
+div.searchbtn
+{
+    padding-top: 40pt;
+    padding-left: 270pt;
+    
+}

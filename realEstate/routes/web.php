@@ -215,3 +215,7 @@ Route::get('/search_by_place','CustomerHomeController@findItemInState');
     Route::post('/search_user', 'AddUserController@search')->name('search');
     Route::get('/home', 'HomeController@index')->name('home');
 // });
+
+Route::get('/timeline',function () {
+    return view('website\frontend.customer.');
+});
