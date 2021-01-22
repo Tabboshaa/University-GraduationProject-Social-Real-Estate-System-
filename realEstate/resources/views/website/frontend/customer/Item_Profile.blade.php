@@ -70,6 +70,7 @@
         <div class="row">
             <div class="col-md-7">
                 <div name="post">
+                    @foreach($posts as $post)
                     <div class=" locatins">
                         <div class="heading1">
                             <img src="{{asset('FrontEnd/images/icon/user.html')}}" alt="">
@@ -78,8 +79,10 @@
                                 <p>jan 2, 2019 at 7.00 pm</p>
                             </h3>
                         </div>
+
                         <div class="sub-heading">
-                            lorem ipsum dolor sit amet, consectetur adipiscing elit. mauris a interdum <br /> neque.
+                        {{$post->Post_Title}} <br/>
+                           {{$post->Post_Content}} <br />
                         </div>
                         <div class="clearfix"></div>
 
@@ -93,11 +96,18 @@
                             <a href="javascript:void(0)" onclick="">Comment</a>
                         </div>
                     </div>
+                    <script>
+                        <?php $comments = App\Http\Controllers\CommentsController::getPostComments($post->Post_Id) ?>;
+                    </script>
 
+                    @if(count($comments) != 0)
+
+                    @foreach($comments as $comment)
                     <div class=" locatins">
                         <div class="heading1">
                             <img src="images/icon/user.jpg" alt="">
                             <h3>
+
                                 John Doe <p>jan 2, 2019 at 7.00 pm</p>
                             </h3>
                         </div>
@@ -105,12 +115,39 @@
                             <a href="#">Reply</a>
                         </div>
                         <div class="sub-heading">
-                            Lorem ipsum dolor sit amet, consecte
+                            {{ $comment->Comment }}
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <script>
+                        <?php $replies = App\Http\Controllers\CommentsController::getPostreplies($post->Post_Id) ?>;
+                    </script>
+                    @if(count($replies) != 0)
+
+                    @foreach($replies as $reply)
+                    <div class="col-md-8">
+                    <div class=" locatins">
+                        <div class="heading1">
+                            <img src="images/icon/user.jpg" alt="">
+                            <h3>
+
+                                John Doe <p>jan 2, 2019 at 7.00 pm</p>
+                            </h3>
+                        </div>
+                        <div class="sub-heading">
+                            {{ $reply->Comment }}
                         </div>
                         <div class="clearfix"></div>
                     </div>
                 </div>
+                </div>
+                @endforeach
+                @endif
 
+                @endforeach
+                @endif
+                @endforeach
             </div>
             <div class="col-md-5">
                 <div class="box-left">
