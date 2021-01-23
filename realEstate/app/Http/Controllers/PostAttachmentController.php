@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\posts;
-use App\User;
+use App\post_attachment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class PostsController extends Controller
+class PostAttachmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -43,10 +41,10 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\post_attachment  $post_attachment
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(post_attachment $post_attachment)
     {
         //
     }
@@ -54,10 +52,10 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\post_attachment  $post_attachment
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(post_attachment $post_attachment)
     {
         //
     }
@@ -66,10 +64,10 @@ class PostsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\post_attachment  $post_attachment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, post_attachment $post_attachment)
     {
         //
     }
@@ -77,26 +75,11 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\post_attachment  $post_attachment
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(post_attachment $post_attachment)
     {
         //
-    }
-
-    public static function getItemPosts($item_id)
-    {
-        //
-        $posts = posts::all()->where('Item_Id', '=', $item_id);
-        $posts=DB::table('posts')
-        ->join('users', 'users.id', '=', 'posts.User_Id')
-        ->select('posts.*', 'users.First_Name','users.Middle_Name','users.Last_Name')->paginate(10);
-
-
-
-        // $user =User::select('First_Name','Middle_Name','Last_Name')->where('id', '=', )->get();
-
-        return $posts;
     }
 }

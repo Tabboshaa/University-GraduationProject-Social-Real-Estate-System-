@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Cover_Page;
+use App\Item;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
@@ -50,10 +51,57 @@ class CustomerHomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function itemProfile($id)
     {
         //
-    
+
+            $state= StateController::getStates();
+            $posts=PostsController::getItemPosts($id);
+
+            $item=DB::table('items')
+            ->join('users', 'users.id', '=', 'items.User_Id')
+            ->select('items.*', 'users.First_Name','users.Middle_Name','users.Last_Name')->where('Item_Id','=',$id)->first();
+
+            $cover=Cover_Page::all()->where('Item_Id','=',$id)->first();
+
+            return view('website\frontend\customer\Item_Profile_Posts',['states'=>$state,'posts'=>$posts,'item'=>$item,'cover'=>$cover]);
+        }
+
+    public function itemDetails($id)
+    {
+        //
+
+        $state= StateController::getStates();
+
+        $item=DB::table('items')
+        ->join('users', 'users.id', '=', 'items.User_Id')
+        ->select('items.*', 'users.First_Name','users.Middle_Name','users.Last_Name')->where('Item_Id','=',$id)->first();
+
+        $cover=Cover_Page::all()->where('Item_Id','=',$id)->first();
+        //schedule and location
+
+
+        return view('website\frontend\customer\Item_Profile_Details',['states'=>$state,'item'=>$item,'cover'=>$cover]);
+    }
+
+    public function itemProfileGallery($id)
+    {
+        //
+
+        $state= StateController::getStates();
+
+        $item=DB::table('items')
+        ->join('users', 'users.id', '=', 'items.User_Id')
+        ->select('items.*', 'users.First_Name','users.Middle_Name','users.Last_Name')->where('Item_Id','=',$id)->first();
+
+        $gallery=DB::table('post_attachments')
+        ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
+        ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
+        ->select('post_attachments.*', 'attachments.File_Path')->where('items.Item_Id','=',$id)->paginate(8);
+
+        $cover=Cover_Page::all()->where('Item_Id','=',$id)->first();
+
+        return view('website\frontend\customer\Item_Profile_Gallery',['states'=>$state,'item'=>$item,'cover'=>$cover,'gallery'=>$gallery]);
     }
 
     /**
@@ -65,7 +113,7 @@ class CustomerHomeController extends Controller
     public function edit()
     {
         //
- 
+
     }
 
     /**
@@ -93,7 +141,7 @@ class CustomerHomeController extends Controller
     public function findItemInState()
     {
             $state_id= StateController::findstatebyname(request('search'));
-            
+
            $items=DB::table('streets')
            ->rightJoin('items', 'streets.Street_Id', '=', 'items.Street_Id')
            ->where('State_Id','=',$state_id)->select('items.*')
