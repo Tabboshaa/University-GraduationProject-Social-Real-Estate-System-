@@ -76,10 +76,12 @@ class CustomerHomeController extends Controller
         $item=DB::table('items')
         ->join('users', 'users.id', '=', 'items.User_Id')
         ->select('items.*', 'users.First_Name','users.Middle_Name','users.Last_Name')->where('Item_Id','=',$id)->first();
+
+        $cover=Cover_Page::all()->where('Item_Id','=',$id)->first();
         //schedule and location
 
 
-        return view('website\frontend\customer\Item_Profile_Details',['states'=>$state,'item'=>$item]);
+        return view('website\frontend\customer\Item_Profile_Details',['states'=>$state,'item'=>$item,'cover'=>$cover]);
     }
 
     public function itemProfileGallery($id)
