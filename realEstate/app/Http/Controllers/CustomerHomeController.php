@@ -64,7 +64,14 @@ class CustomerHomeController extends Controller
 
             $cover=Cover_Page::all()->where('Item_Id','=',$id)->first();
 
-            return view('website\frontend\customer\Item_Profile_Posts',['states'=>$state,'posts'=>$posts,'item'=>$item,'cover'=>$cover]);
+            $post_images=DB::table('post_attachments')
+            ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
+            ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
+            ->select('post_attachments.*', 'attachments.File_Path')->where('items.Item_Id','=',$id)
+            ->get()
+            ->groupBy('Post_Id');
+
+            return view('website\frontend\customer\Item_Profile_Posts',['states'=>$state,'posts'=>$posts,'item'=>$item,'cover'=>$cover,'post_images'=>$post_images]);
         }
 
     public function itemDetails($id)
@@ -79,6 +86,7 @@ class CustomerHomeController extends Controller
 
         $cover=Cover_Page::all()->where('Item_Id','=',$id)->first();
         //schedule and location
+
 
 
         return view('website\frontend\customer\Item_Profile_Details',['states'=>$state,'item'=>$item,'cover'=>$cover]);

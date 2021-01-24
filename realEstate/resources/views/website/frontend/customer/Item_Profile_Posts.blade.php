@@ -16,6 +16,17 @@
                         <p>{{ $end->diffForHumans($today)}} </p>
                     </h3>
                 </div>
+                <div class="gallery">
+                    @if( count($post_images[$post->Post_Id]) != 0)
+                    @foreach($post_images[$post->Post_Id] as $Image)
+                    <div class="col-md-5 col-sm-5">
+                        <div class="gallery">
+                            <img  style="float:left;width:250px;height:200px;" src="{{asset('FrontEnd/images/profile gallery/'.$Image->File_Path)}}" alt="">
+                        </div>
+                    </div>
+                    @endforeach
+                    @endif
+                </div>
 
                 <div class="sub-heading">
                     {{$post->Post_Title}} <br />
@@ -89,7 +100,7 @@
                         </h3>
                     </div>
                     <div class="sub-heading">
-                    {{ $reply->Comment }}
+                        {{ $reply->Comment }}
                     </div>
                     <div class="clearfix"></div>
                 </div>

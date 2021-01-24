@@ -5,7 +5,7 @@
         <div class="gallery">
         @if( count($gallery) != 0)
             @foreach($gallery as $Image)
-            <div class="col-md-3 col-sm-3">
+            <div class="col-md-0 col-sm-2">
                 <div class="gallery">
                     <img src="{{asset('FrontEnd/images/profile gallery/'.$Image->File_Path)}}" alt="">
                 </div>
