@@ -94,8 +94,8 @@
         <!--#Home-->
         <div class="login popup"  onclick="signin()">
 
-           <img src="images/header/u-icon.png" title="" alt="">
-           John Deo
+           <img src="{{asset('FrontEnd/images/header/u-icon.png')}}" title="" alt="">
+           {{\Illuminate\Support\Facades\Auth::user()->First_Name }}
            <div class="popuptext1" id="signin">
                        <div class="notfication-details">
                            <div class="notification-info">
