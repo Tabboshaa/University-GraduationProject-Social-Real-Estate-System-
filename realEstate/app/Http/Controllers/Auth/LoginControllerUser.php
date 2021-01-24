@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\Console\Input\Input;
 
-class LoginControllerUser extends Controller
+class   LoginControllerUser extends Controller
 {
     /*
     |--------------------------------------------------------------------------

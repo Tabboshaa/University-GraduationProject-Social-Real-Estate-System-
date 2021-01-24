@@ -44,9 +44,9 @@ class AddUserController extends Controller
                     'Gender' => request('gender'),
                     'password' => Hash::make( request('password')),
                 ]);
-                
+
                 $user_id = Arr::get($user, 'id');
-                
+
                 $email = Emails::create([
                 'User_ID' => $user_id,
                 'email' => request('Email'),
@@ -64,7 +64,7 @@ class AddUserController extends Controller
                 'User_Type_ID' => request('select_type')
                 ]);
 
-            
+
                 return back()->with('success', 'Item Created Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
                 $errorCode = $e->errorInfo[1];
@@ -72,7 +72,7 @@ class AddUserController extends Controller
                     return back()->with('error', 'Already Exist !!');
                 }
            }
-             
+
 
     }
     /**
@@ -122,9 +122,9 @@ class AddUserController extends Controller
     public function search()
     {
           $search = request('email');
-          
+
         $email=Emails::where('email', 'LIKE', '%'.$search.'%')->get();
-        
+
         return response()->json($email);
     }
     /**
@@ -136,7 +136,7 @@ class AddUserController extends Controller
     public function destroy(Request $request,$id=null)
     {
         //
-        
+
         try {
         User::destroy($request->id);
         Emails::destroy($request->id);
@@ -145,7 +145,7 @@ class AddUserController extends Controller
     }catch (\Illuminate\Database\QueryException $e){
 
         return back()->with('error', 'Item cannot be deleted');
-                
+
     }
     }
 
@@ -194,5 +194,13 @@ class AddUserController extends Controller
                      return back()->with('error', 'Already Exist !!');
                 }
             }
+    }
+    public static function getUserName($user_id)
+    {
+        //
+
+        $user =User::select('First_Name','Middle_Name','Last_Name')->where('id', '=',$user_id )->get()->first();
+
+        return $user;
     }
 }

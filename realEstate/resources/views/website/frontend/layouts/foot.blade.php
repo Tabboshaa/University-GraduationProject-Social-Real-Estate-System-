@@ -15,9 +15,11 @@
 	 <script src="{{asset('FrontEnd/js/crausal1.js')}}"></script>
 	 <script src="{{asset('FrontEnd/js/dropdown.js')}}"></script>
 	     <!-- Demo scripts for this page-->
-   	<script src="{{asset('FrontEnd/js/slick.min.js')}}"></script>.
+       <script src="{{asset('FrontEnd/js/slick.min.js')}}"></script>
+
 	 <!-- Assect scripts for this page-->
 	<script src="{{asset('FrontEnd/assets/vendors/jquery.min.js')}}"></script>
     <script src="{{asset('FrontEnd/assets/owlcarousel/owl.carousel.js')}}"></script>
 	 <script src="{{asset('FrontEnd/assets/vendors/highlight.js')}}"></script>
     <script src="{{asset('FrontEnd/assets/js/app.js')}}"></script>
+
