@@ -11,13 +11,13 @@ class ReviewController extends Controller
 {
     //
 
-    public function create($id=null)
+    public function create()
     {
 
        $review=review::create([
-           'Item_Id'=>$id,
+           'Item_Id'=>request('id'),
            'User_Id'=>Auth::id(),
-           'Review_Title'=>'ay7aga',
+           'Review_Title'=>' ',
            'Review_Content'=>request('review_content'),
            'Number_Of_Stars'=>request('stars')
        ]);

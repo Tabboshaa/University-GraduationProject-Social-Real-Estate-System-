@@ -5,7 +5,7 @@
         <!-- Banner -->
         <div class="dashboard">
             <div class="advertisment-banner1 col-md-12">
-{{--                <img  height="450" src="{{asset('FrontEnd/images/cover page/'.$cover->path)}}" alt="">--}}
+              <img  height="450" src="{{asset('FrontEnd/images/cover page/'.$cover->path)}}" alt="">
             </div>
             <div class="main-page">
                 <div class=" dash-profile">
@@ -53,10 +53,10 @@
                             <a href="{{url('/itemProfile/'.$item->Item_Id)}}">Posts </a>
                         </li>
                         <li>
-                            <a href="#">Detail </a>
+                            <a href="{{url('/itemDetails/'.$item->Item_Id)}}">Detail </a>
                         </li>
                         <li>
-                            <a href="{{url('/itemReviews')}}">Review </a>
+                            <a href="{{url('/itemReviews/'.$item->Item_Id)}}">Review </a>
                         </li>
                         <li>
                             <a href="{{url('/itemGallery/'.$item->Item_Id)}}">Gallery </a>

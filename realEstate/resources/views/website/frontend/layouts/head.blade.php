@@ -29,6 +29,8 @@
 	 <link rel="stylesheet" href="{{asset('FrontEnd/assets/owlcarousel/assets/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('FrontEnd/assets/owlcarousel/assets/owl.theme.default.min.css')}}">
 
+
+
     <script
         src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="

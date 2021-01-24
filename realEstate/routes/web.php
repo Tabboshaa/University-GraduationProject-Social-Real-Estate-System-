@@ -48,13 +48,13 @@ Route::get('/search_by_place','CustomerHomeController@findItemInState');
 //Customer Comment
 Route::get('/add_comment', 'CommentsController@create')->name('comment.add');
 Route::get('/add_reply', 'CommentsController@reply')->name('reply.add');
+Route::get('/addReview', 'ReviewController@create')->name('review.add');
 
 //items Profile Pages
 Route::get('/itemProfile/{id?}', 'CustomerHomeController@itemProfile');
 Route::get('/itemDetails/{id?}', 'CustomerHomeController@itemDetails');
 Route::get('/itemGallery/{id?}', 'CustomerHomeController@itemProfileGallery');
 Route::get('/itemReviews/{id?}', 'CustomerHomeController@itemProfileReviews');
-Route::Post('/addReview/{id?}', 'ReviewController@create')->name("addReview");
 
 
 

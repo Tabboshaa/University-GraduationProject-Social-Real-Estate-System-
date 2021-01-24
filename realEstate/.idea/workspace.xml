@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="da7e8588-8421-4fad-a063-197c0951d9c7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ReviewController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/review.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2021_01_20_172008_create_reviews_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/Item_Profile_Reviews.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginControllerUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginControllerUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CustomerHomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CustomerHomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Item.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/AddItemSteps.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/AddItemSteps.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/customer/Item_Profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/Item_Profile.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/customer/Item_Profile_Posts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/Item_Profile_Posts.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/layouts/head.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/layouts/head.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-    </list>
+    <list default="true" id="da7e8588-8421-4fad-a063-197c0951d9c7" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -164,6 +148,7 @@
       <workItem from="1611487723116" duration="1868000" />
       <workItem from="1611489696083" duration="1705000" />
       <workItem from="1611491445189" duration="1791000" />
+      <workItem from="1611493697426" duration="3000" />
     </task>
     <servers />
   </component>
