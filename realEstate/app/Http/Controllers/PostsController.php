@@ -88,7 +88,6 @@ class PostsController extends Controller
     public static function getItemPosts($item_id)
     {
         //
-        $posts = posts::all()->where('Item_Id', '=', $item_id);
         $posts=DB::table('posts')
         ->join('users', 'users.id', '=', 'posts.User_Id')
         ->select('posts.*', 'users.First_Name','users.Middle_Name','users.Last_Name')->paginate(10);

@@ -65,7 +65,7 @@ class CustomerHomeController extends Controller
             $cover=Cover_Page::all()->where('Item_Id','=',$id)->first();
 
             return view('website\frontend\customer\Item_Profile_Posts',['states'=>$state,'posts'=>$posts,'item'=>$item,'cover'=>$cover]);
-        }
+    }
 
     public function itemDetails($id)
     {
@@ -102,6 +102,21 @@ class CustomerHomeController extends Controller
         $cover=Cover_Page::all()->where('Item_Id','=',$id)->first();
 
         return view('website\frontend\customer\Item_Profile_Gallery',['states'=>$state,'item'=>$item,'cover'=>$cover,'gallery'=>$gallery]);
+    }
+    public function itemProfileReviews($id=null)
+    {
+        //
+
+        $state= StateController::getStates();
+        $reviews=ReviewController::getItemReviews($id);
+
+        $item=DB::table('items')
+            ->join('users', 'users.id', '=', 'items.User_Id')
+            ->select('items.*', 'users.First_Name','users.Middle_Name','users.Last_Name')->where('Item_Id','=',$id)->first();
+
+        $cover=Cover_Page::all()->where('Item_Id','=',$id)->first();
+
+        return view('website\frontend\customer\Item_Profile_Reviews',['states'=>$state,'reviews'=>$reviews,'item'=>$item,'cover'=>$cover]);
     }
 
     /**

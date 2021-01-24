@@ -4,6 +4,7 @@ use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\StateController;
 use App\Item;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,12 @@ use Illuminate\Support\Facades\Route;
 //test Routes we test routes here
 // Route::get('/', 'DatatypeController@index');
 
+
+Route::get('/review', function () {
+    $state= StateController::getStates();
+    $reviews=ReviewController::getItemReviews(1);
+    return view('website\frontend\customer\Item_Profile_Reviews',['states'=>$state,'reviews'=>$reviews]);
+});
 ////////////////////////////////////
 
 //authntication routes
@@ -46,6 +53,10 @@ Route::get('/add_reply', 'CommentsController@reply')->name('reply.add');
 Route::get('/itemProfile/{id?}', 'CustomerHomeController@itemProfile');
 Route::get('/itemDetails/{id?}', 'CustomerHomeController@itemDetails');
 Route::get('/itemGallery/{id?}', 'CustomerHomeController@itemProfileGallery');
+Route::get('/itemReviews/{id?}', 'CustomerHomeController@itemProfileReviews');
+Route::Post('/addReview/{id?}', 'ReviewController@create')->name("addReview");
+
+
 
 
 });
