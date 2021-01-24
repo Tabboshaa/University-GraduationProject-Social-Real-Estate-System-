@@ -212,5 +212,5 @@ Route::get('/search_by_place','CustomerHomeController@findItemInState');
 // });
 
 Route::get('/timeline',function () {
-    return view('website\frontend.customer.');
+    return view('website.frontend.customer.TimeLine');
 });

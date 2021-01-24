@@ -12,7 +12,7 @@
    </div>
 </div>
  <!-- Navbar -->
-   <div class="col-md-5 col-xs-12 p-left  p-right">
+   {{-- <div class="col-md-5 col-xs-12 p-left  p-right">
         <div class="searching">
            <form action="{{url('search_by_place')}}">
            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -24,7 +24,7 @@
                     </datalist>
            </form>
        </div>
-   </div>
+   </div> --}}
        <div class="col-md-5 col-xs-12 p-left p-right">
         <div class="add-listing">
            <a href="upload.html">
