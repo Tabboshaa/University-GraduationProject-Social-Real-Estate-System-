@@ -5,7 +5,7 @@
         <!-- Banner -->
         <div class="dashboard">
             <div class="advertisment-banner1 col-md-12">
-                <img  height="450" src="{{asset('FrontEnd/images/cover page/'.$cover->path)}}" alt="">
+{{--                <img  height="450" src="{{asset('FrontEnd/images/cover page/'.$cover->path)}}" alt="">--}}
             </div>
             <div class="main-page">
                 <div class=" dash-profile">
@@ -20,7 +20,7 @@
                             <a href="#">saved</a>
                         </li>
                         <li class="Reivew">
-                            <a href="#">Add Review </a>
+                            <a href="{{url('/itemReviews')}}">Add Review </a>
                         </li>
                         <li class="borders"><i class="fa fa-share-alt" aria-hidden="true"></i></li>
                         <li class="borders"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></li>
@@ -56,7 +56,7 @@
                             <a href="#">Detail </a>
                         </li>
                         <li>
-                            <a href="#">Review </a>
+                            <a href="{{url('/itemReviews')}}">Review </a>
                         </li>
                         <li>
                             <a href="{{url('/itemGallery/'.$item->Item_Id)}}">Gallery </a>

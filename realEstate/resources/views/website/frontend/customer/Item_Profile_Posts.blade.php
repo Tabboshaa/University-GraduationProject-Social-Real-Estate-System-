@@ -175,7 +175,6 @@
         </div>
     </div>
 </div>
-</div>
 <script>
     function Comment(post_id) {
 

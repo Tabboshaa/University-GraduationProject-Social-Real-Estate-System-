@@ -11,7 +11,8 @@ class Item extends Model
 
     protected $fillable=[
         'Street_Id',
-        'User_Id'
+        'User_Id',
+        'Item_Name'
     ];
-    
+
 }
