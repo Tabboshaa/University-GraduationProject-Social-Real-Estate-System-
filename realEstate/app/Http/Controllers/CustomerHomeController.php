@@ -57,6 +57,9 @@ class CustomerHomeController extends Controller
 
             $state= StateController::getStates();
             $posts=PostsController::getItemPosts($id);
+            $comments=CommentsController::getPostComments($id);
+            $replies=CommentsController::getPostreplies($id);
+    
 
             $item=DB::table('items')
             ->join('users', 'users.id', '=', 'items.User_Id')
@@ -71,7 +74,17 @@ class CustomerHomeController extends Controller
             ->get()
             ->groupBy('Post_Id');
 
-            return view('website\frontend\customer\Item_Profile_Posts',['states'=>$state,'posts'=>$posts,'item'=>$item,'cover'=>$cover,'post_images'=>$post_images]);
+
+
+
+            return view('website\frontend\customer\Item_Profile_Posts',
+            ['states'=>$state,
+            'posts'=>$posts,
+            'item'=>$item,
+            'cover'=>$cover,
+            'post_images'=>$post_images,
+            'comments'=>$comments,
+            'replies'=>$replies]);
         }
 
     public function itemDetails($id)
@@ -171,6 +184,27 @@ class CustomerHomeController extends Controller
            ->get();
 
            return $items;
+
+    }
+    public function findItemInStateAndDate()
+    {
+            $state_id= StateController::findstatebyname(request('search'));
+$arrivaldate=request('arrivaldate');
+$departuredate=request('departuredate');
+
+           $items=DB::table('items')
+           ->join('streets', 'streets.Street_Id', '=', 'items.Street_Id')
+           ->join('schedules', 'schedules.Item_Id', '=', 'items.Item_Id')
+           ->join('cover__pages','cover__pages.Item_Id', '=', 'items.Item_Id')
+           ->where('streets.State_Id','=',$state_id)
+           ->whereDate('schedules.Start_Date', '<=', $arrivaldate)
+           ->whereDate('schedules.End_Date', '>=', $departuredate)
+           ->select('items.*','cover__pages.path')
+           ->get();
+
+           $state= StateController::getStates();
+
+           return view('website.frontend.customer.TimeLine',['states'=>$state,'items'=>$items]);
 
     }
 }

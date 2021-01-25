@@ -12,11 +12,11 @@
    </div>
 </div>
  <!-- Navbar -->
-   {{-- <div class="col-md-5 col-xs-12 p-left  p-right">
+   <div class="col-md-5 col-xs-12 p-left  p-right">
         <div class="searching">
            <form action="{{url('search_by_place')}}">
            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-           <input type="text" list="states" name="search" placeholder="Search Places, Events, House, Shop, Bike, Car, Mobile etc...">
+           <input type="text" list="states" name="search" placeholder="Search for item by state">
               <datalist id="states">
                         @foreach($states as $state)
                         <option value="{{$state->State_Name}}" name="items_options">{{$state->State_Name}}</option>
@@ -24,7 +24,7 @@
                     </datalist>
            </form>
        </div>
-   </div> --}}
+   </div>
        <div class="col-md-5 col-xs-12 p-left p-right">
         <div class="add-listing">
            <a href="upload.html">
