@@ -19,14 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //test Routes we test routes here
-// Route::get('/', 'DatatypeController@index');
 
-
-Route::get('/review', function () {
-    $state= StateController::getStates();
-    $reviews=ReviewController::getItemReviews(1);
-    return view('website\frontend\customer\Item_Profile_Reviews',['states'=>$state,'reviews'=>$reviews]);
-});
 ////////////////////////////////////
 
 //authntication routes
@@ -44,6 +37,7 @@ Route::get('/', 'CustomerHomeController@index')->name('CustomerHome');
 //Customer HOMEpage
 Route::get('/CustomerHome', 'CustomerHomeController@index');
 Route::get('/search_by_place','CustomerHomeController@findItemInState');
+Route::get('/search_by_placedate','CustomerHomeController@findItemInStateAndDate');
 
 //Customer Comment
 Route::get('/add_comment', 'CommentsController@create')->name('comment.add');
@@ -55,9 +49,6 @@ Route::get('/itemProfile/{id?}', 'CustomerHomeController@itemProfile');
 Route::get('/itemDetails/{id?}', 'CustomerHomeController@itemDetails');
 Route::get('/itemGallery/{id?}', 'CustomerHomeController@itemProfileGallery');
 Route::get('/itemReviews/{id?}', 'CustomerHomeController@itemProfileReviews');
-
-
-
 
 });
 

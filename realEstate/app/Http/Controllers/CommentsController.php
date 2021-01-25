@@ -112,26 +112,35 @@ class CommentsController extends Controller
         //
     }
 
-    public static function getPostComments($post_id)
+    public static function getPostComments($item_id)
     {
         //
-        $comments = comments::all()->where('Post_Id', '=', $post_id)->where('Parent_Comment','=',null);
 
         $comments=DB::table('comments')
+        ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
         ->join('users', 'users.id', '=', 'comments.User_Id')
-        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')->where('Parent_Comment','=',null)->paginate(10);
+        ->where('Parent_Comment','=',null)
+        ->where('posts.Item_Id','=',$item_id)
+        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
+        ->get()
+        ->groupBy('Post_Id');
+
 
         return $comments;
     }
 
-    public static function getPostreplies($post_id)
+    public static function getPostreplies($item_id)
     {
         //
-        $comments = comments::all()->where('Parent_Comment', '=', $post_id)->where('Parent_Comment','!=',null);
 
         $comments=DB::table('comments')
+        ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
         ->join('users', 'users.id', '=', 'comments.User_Id')
-        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')->where('Parent_Comment','=',$post_id)->paginate(10);
+        ->where('comments.Parent_Comment','!=',null)
+        ->where('posts.Item_Id','=',$item_id)
+        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
+        ->get()
+        ->groupBy('Parent_Comment');
 
         return $comments;
     }
