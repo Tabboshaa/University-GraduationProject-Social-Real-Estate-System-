@@ -1,10 +1,5 @@
 <?php
 
-use App\Http\Controllers\CommentsController;
-use App\Http\Controllers\PostsController;
-use App\Http\Controllers\StateController;
-use App\Item;
-use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//test Routes we test routes here
 
-////////////////////////////////////
+
+//test routes here
+
+//end test routes
 
 //authntication routes
 Auth::routes();

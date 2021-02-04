@@ -59,7 +59,7 @@ class CustomerHomeController extends Controller
             $posts=PostsController::getItemPosts($id);
             $comments=CommentsController::getPostComments($id);
             $replies=CommentsController::getPostreplies($id);
-    
+
 
             $item=DB::table('items')
             ->join('users', 'users.id', '=', 'items.User_Id')
@@ -180,10 +180,13 @@ class CustomerHomeController extends Controller
 
            $items=DB::table('streets')
            ->rightJoin('items', 'streets.Street_Id', '=', 'items.Street_Id')
-           ->where('State_Id','=',$state_id)->select('items.*')
+           ->join('cover__pages','cover__pages.Item_Id', '=', 'items.Item_Id')
+           ->where('State_Id','=',$state_id)
+           ->select('items.*','cover__pages.path')
            ->get();
+           $state= StateController::getStates();
 
-           return $items;
+           return view('website.frontend.customer.TimeLine',['states'=>$state,'items'=>$items]);
 
     }
     public function findItemInStateAndDate()

@@ -1,15 +1,26 @@
 @extends('website.frontend.customer.Item_Profile')
 @section('profile_Content')
-
 <div class="row">
     <div class="col-md-7">
+        <div class=" locatins">
+            <div class="heading">
+                <img src="{{asset('FrontEnd/images/banner/icon.html')}}" alt="">
+                <h3>
+                    Description
+                </h3>
+            </div>
+            <div class="sub-heading">
+                Description of item.
+            </div>
+            <div class="clearfix"></div>
+        </div>
         <div class="locatins heading">
             <img src="images/banner/icon1.html" alt="">
             <h3>
                 Location
             </h3>
             <div class="map">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d109552.36514741898!2d75.78663299443437!3d30.900326335681108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a837462345a7d%3A0x681102348ec60610!2sLudhiana%2C+Punjab!5e0!3m2!1sen!2sin!4v1542822206775" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -44,7 +55,27 @@
                             <div class="calendar-table__row">
                                 <div class="calendar-table__col calendar-table__inactive">
                                     <div class="calendar-table__item">
+                                        <span>27</span>
+                                    </div>
+                                </div>
+                                <div class="calendar-table__col calendar-table__inactive">
+                                    <div class="calendar-table__item">
+                                        <span>28</span>
+                                    </div>
+                                </div>
+                                <div class="calendar-table__col calendar-table__inactive">
+                                    <div class="calendar-table__item">
+                                        <span>29</span>
+                                    </div>
+                                </div>
+                                <div class="calendar-table__col calendar-table__inactive">
+                                    <div class="calendar-table__item">
                                         <span>30</span>
+                                    </div>
+                                </div>
+                                <div class="calendar-table__col calendar-table__inactive">
+                                    <div class="calendar-table__item">
+                                        <span>31</span>
                                     </div>
                                 </div>
                                 <div class="calendar-table__col ">
@@ -57,6 +88,8 @@
                                         <span>2</span>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="calendar-table__row">
                                 <div class="calendar-table__col">
                                     <div class="calendar-table__item">
                                         <span>3</span>
@@ -77,8 +110,7 @@
                                         <span>6</span>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="calendar-table__row">
+
                                 <div class="calendar-table__col">
                                     <div class="calendar-table__item">
                                         <span>7</span>
@@ -94,6 +126,8 @@
                                         <span>9</span>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="calendar-table__row">
                                 <div class="calendar-table__col">
                                     <div class="calendar-table__item">
                                         <span>10</span>
@@ -114,8 +148,8 @@
                                         <span>13</span>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="calendar-table__row">
+
+
                                 <div class="calendar-table__col">
                                     <div class="calendar-table__item">
                                         <span>14</span>
@@ -131,6 +165,8 @@
                                         <span>16</span>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="calendar-table__row">
                                 <div class="calendar-table__col">
                                     <div class="calendar-table__item">
                                         <span>17</span>
@@ -151,8 +187,8 @@
                                         <span>20</span>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="calendar-table__row">
+
+
                                 <div class="calendar-table__col">
                                     <div class="calendar-table__item">
                                         <span>21</span>
@@ -168,6 +204,8 @@
                                         <span>23</span>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="calendar-table__row">
                                 <div class="calendar-table__col calendar-table__today">
                                     <div class="calendar-table__item">
                                         <span>24</span>
@@ -188,8 +226,8 @@
                                         <span>27</span>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="calendar-table__row">
+
+
                                 <div class="calendar-table__col">
                                     <div class="calendar-table__item">
                                         <span>28</span>
@@ -205,26 +243,6 @@
                                         <span>30</span>
                                     </div>
                                 </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>31</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col  calendar-table__inactive">
-                                    <div class="calendar-table__item">
-                                        <span>1</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col calendar-table__inactive">
-                                    <div class="calendar-table__item">
-                                        <span>2</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col calendar-table__inactive">
-                                    <div class="calendar-table__item">
-                                        <span>3</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -232,6 +250,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 <style>
@@ -456,7 +475,7 @@
         border-width: 2px;
     }
 
-    .calendar-table__inactive .calendar-table__item{
+    .calendar-table__inactive .calendar-table__item {
         color: #fff;
         cursor: default;
     }
