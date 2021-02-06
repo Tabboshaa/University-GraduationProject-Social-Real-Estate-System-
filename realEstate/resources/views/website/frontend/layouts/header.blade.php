@@ -16,7 +16,7 @@
         <div class="searching">
            <form action="{{url('search_by_place')}}">
            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-           <input type="text" list="states" name="search" placeholder="Search Places, Events, House, Shop, Bike, Car, Mobile etc...">
+           <input type="text" list="states" name="search" placeholder="Search for item by state">
               <datalist id="states">
                         @foreach($states as $state)
                         <option value="{{$state->State_Name}}" name="items_options">{{$state->State_Name}}</option>
@@ -35,12 +35,12 @@
            <ul>
                <li>
                    <a  href="index-2.html"><img src="{{asset('FrontEnd/images/header/home.png')}}" alt="" title="" >
-                       <span>1</span>
+                       <span>0</span>
                    </a>
                </li>
                <li class="popup"  onclick="myFunctionmsg()">
                    <img src="{{asset('FrontEnd/images/header/mgs.png')}}" alt="" title="" >
-                   <span>4</span>
+                   <span>0</span>
                    <div class="popuptext" id="message">
                        <div class="notfication-details">
                            <div class="noty-user-img">
@@ -48,7 +48,7 @@
                            </div>
                            <div class="notification-info">
                                <h5><a href="message.html">Jassica William</a>
-                               Lorem ipsum dolor sit amet, 
+                               Lorem ipsum dolor sit amet,
                                consectetur adipisicing elit,</h5>
                                <p>2 min ago</p>
                            </div><!--notification-info -->
@@ -59,7 +59,7 @@
                            </div>
                            <div class="notification-info">
                                <h5><a href="message.html">Jassica William</a>
-                               Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+                               Lorem ipsum dolor sit amet, consectetur adipisicing elit,
                                .</h5>
                                <p>2 min ago</p>
                            </div><!--notification-info -->
@@ -70,37 +70,37 @@
                                <img src="{{asset('FrontEnd/images/resources/ny-img1.png')}}" alt="">
                            </div>
                            <div class="notification-info">
-                               <h5><a href="message.html">Jassica William</a> 
+                               <h5><a href="message.html">Jassica William</a>
                                Lorem ipsum dolor sit amet, consectetur adipisicing elit,
                                </h5>
                                <p>2 min ago</p>
                            </div><!--notification-info -->
                        </div>
-                       
+
                     </div>
-           
+
                </li>
                <li class="popup"  onclick="myFunctionicon()">
                    <img src="{{asset('FrontEnd/images/header/notification.png')}}" alt="" title="" >
                <span>0</span>
                <div class="popuptext" id="icon">
                        <div class="notfication-details">
-                          
+
                        </div>
                     </div>
-               </li>       
+               </li>
            </ul>
         </div>
         <!--#Home-->
         <div class="login popup"  onclick="signin()">
-           
-           <img src="images/header/u-icon.png" title="" alt="">
-           John Deo
+
+           <img src="{{asset('FrontEnd/images/header/u-icon.png')}}" title="" alt="">
+           {{\Illuminate\Support\Facades\Auth::user()->First_Name }}
            <div class="popuptext1" id="signin">
                        <div class="notfication-details">
                            <div class="notification-info">
                                <a href="my_profile_account.html" >Profile </a>
-                           
+
                            </div>
                        </div>
                        <div class="notfication-details">
@@ -120,21 +120,21 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
-                                       
+
                            </div><!--notification-info -->
                         @else
                         <div class="notfication-details">
                            <div class="notification-info">
                                <a href="signin.html" >Sign In</a>
                            </div><!--notification-info -->
-                       </div> 
+                       </div>
                         @endif
 
                        </div>
                     </div>
-           
-       
-           
+
+
+
         </div>
        </div>
 </nav>

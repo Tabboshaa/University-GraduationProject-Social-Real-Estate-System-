@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\StateController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,13 +13,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//test Routes we test routes here
-// Route::get('/', 'DatatypeController@index');
-Route::get('/itemProfile', function () {
-    $state= StateController::getStates();
-    return view('website\frontend\customer\Item_Profile',['states'=>$state]);
-});
-////////////////////////////////////
+
+
+//test routes here
+
+//end test routes
 
 //authntication routes
 Auth::routes();
@@ -37,7 +34,26 @@ Route::get('/', 'CustomerHomeController@index')->name('CustomerHome');
 //Customer HOMEpage
 Route::get('/CustomerHome', 'CustomerHomeController@index');
 Route::get('/search_by_place','CustomerHomeController@findItemInState');
+Route::get('/search_by_placedate','CustomerHomeController@findItemInStateAndDate');
+
+//Customer Comment
+Route::get('/add_comment', 'CommentsController@create')->name('comment.add');
+Route::get('/add_reply', 'CommentsController@reply')->name('reply.add');
+Route::get('/addReview', 'ReviewController@create')->name('review.add');
+
+//items Profile Pages
+Route::get('/itemProfile/{id?}', 'CustomerHomeController@itemProfile');
+Route::get('/itemDetails/{id?}', 'CustomerHomeController@itemDetails');
+Route::get('/itemGallery/{id?}', 'CustomerHomeController@itemProfileGallery');
+Route::get('/itemReviews/{id?}', 'CustomerHomeController@itemProfileReviews');
+
 });
+
+//fullcalender
+Route::get('fullcalendar','FullCalendarController@index');
+Route::post('fullcalendar/create','FullCalendarController@create');
+Route::post('fullcalendar/update','FullCalendarController@update');
+Route::post('fullcalendar/delete','FullCalendarController@destroy');
 
 //Admin Routes with middleware
 // Route::group(['middleware' => 'auth.admin'], function () {
@@ -114,7 +130,7 @@ Route::get('/search_by_place','CustomerHomeController@findItemInState');
     Route::post('/add_sub_type_property', 'SubTypePropertyController@create');
 
 
-    // Details pages #Tabbosha
+    // Details pages #Tabboshak
     Route::get('/Details', 'DetailsController@index')->name('Details');
     Route::get('/Details_show', 'DetailsController@show')->name('details_show');
     Route::post('/add_Details', 'DetailsController@create')->name('details_submit');
@@ -205,3 +221,7 @@ Route::get('/search_by_place','CustomerHomeController@findItemInState');
     Route::post('/search_user', 'AddUserController@search')->name('search');
     Route::get('/home', 'HomeController@index')->name('home');
 // });
+
+Route::get('/timeline',function () {
+    return view('website.frontend.customer.TimeLine');
+});

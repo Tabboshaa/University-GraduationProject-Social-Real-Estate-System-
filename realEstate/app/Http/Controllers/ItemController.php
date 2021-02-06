@@ -53,10 +53,10 @@ class ItemController extends Controller
         $user =User::select('First_Name','Middle_Name','Last_Name')->where('id', '=', $User_id)->get();
 
         $email = Arr::get(Emails::all()->where('User_ID', '=', $User_id)->first(),'email');
-        
+
 
         $phone_number = Arr::get(Phone_Numbers :: all()->where('User_ID', '=', $User_id)->first(),'');
-       
+
         $Location = DB::table('streets')
             ->leftJoin('countries', 'streets.Country_Id', '=', 'countries.Country_Id')
             ->leftJoin('states', 'streets.State_Id', '=', 'states.State_Id')
@@ -64,7 +64,7 @@ class ItemController extends Controller
             ->leftJoin('regions', 'streets.Region_Id', '=', 'regions.Region_Id')
             ->select('streets.*', 'countries.Country_Name', 'states.State_Name', 'cities.City_Name', 'regions.Region_Name')
             ->get()->where('Street_Id', '=',$Street_id)->pop();
-            
+
 
         $details = DB::table('details')
             ->join('main__types', 'details.Main_Type_Id', '=', 'main__types.Main_Type_Id')
@@ -74,10 +74,10 @@ class ItemController extends Controller
             ->select('details.*', 'main__types.Main_Type_Name', 'sub__types.Sub_Type_Name', 'sub__type__properties.Property_Name', 'property__details.Detail_Name')
             ->get()->where('Item_Id', '=', $id)->groupBy(['Property_Name','Property_diff']);
 
-          
+
         $Sub_Type_Id = Arr::get(Details::all()->where('Item_Id', '=', $id)->first(), 'Sub_Type_Id');
 
-        
+
         return view('website.backend.database pages.omniaShowItem', ['user' => $user, 'Location' => $Location, 'details' => $details, 'item_id' => $id, 'subtypeid' => $Sub_Type_Id,'email'=>$email,'phone_number' => $phone_number,'user_id'=>$User_id]);
     }
 
@@ -97,20 +97,17 @@ class ItemController extends Controller
     }
     public function create()
     {
-        try {
+
             $item = Item::create([
                 'Street_Id' => request("Street"),
                 'User_Id' => request("userIdHiddenInput"),
+                'Item_Name' => request("Item_Name")
             ]);
             $item_id = Arr::get($item, 'Item_Id');
             return $this->SubTypeShow($item_id);
             return back()->with('success','Item Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
-            $errorCode = $e->errorInfo[1];
-            if ($errorCode == 1062) {
-                return back()->with('error', 'Already Exist !!');
-            }
-        }
+
+
     }
     public function ShowEditlocation($id=null)
     {
@@ -129,10 +126,10 @@ class ItemController extends Controller
     $item=Item::all()->find($id);
     $item->Street_Id=request('Street_Name');
     $item->save();
-        
+
      return $this->show($id)->with('success', 'Location Edited Successfully');
     }
-   
+
     public function ShowEditUser($id=null)
     {
         $item_id=$id;
