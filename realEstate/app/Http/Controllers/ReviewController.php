@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\DB;
 class ReviewController extends Controller
 {
     //
+    public function index($id = null)
+    {
+        //
+
+        $reviews = ReviewController::getItemReviews($id);
+
+        return view('website\backend\database pages\Item_Reviews', ['reviews' => $reviews,'Item_Id'=> $id]);
+    }
 
     public function create()
     {
@@ -35,4 +43,19 @@ class ReviewController extends Controller
 
         return $review;
     }
+
+    public function destroy($id)
+    {
+        //
+         try {
+         review::destroy($id);
+         return  redirect()->back()->with('success', 'Review Deleted Successfully');
+     }catch (\Illuminate\Database\QueryException $e){
+
+         return redirect()->back()->with('error', 'Review cannot be deleted');
+
+     }
+
+    }
+
 }

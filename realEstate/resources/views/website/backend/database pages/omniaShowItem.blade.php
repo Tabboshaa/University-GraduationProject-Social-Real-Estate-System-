@@ -5,17 +5,17 @@
 
 
 <div class="C">
-    
-    <h2>{{$user[0]->First_Name}} {{$user[0]->Middle_Name}} {{$user[0]->Last_Name}} Items </h2> 
-    
+
+    <h2>{{$user[0]->First_Name}} {{$user[0]->Middle_Name}} {{$user[0]->Last_Name}} Items </h2>
+
 </div>
 
 <table id="datatable" class="table  pro  dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
     <thead>
-        <tr>   
+        <tr>
             <td class="th1">User</td>
-            <td class="td1"> 
-                 Name : {{$user[0]->First_Name}} {{$user[0]->Middle_Name}} {{$user[0]->Last_Name}} 
+            <td class="td1">
+                 Name : {{$user[0]->First_Name}} {{$user[0]->Middle_Name}} {{$user[0]->Last_Name}}
                 <br>Email :{{$email}} <a href="{{ url('/edit_item_user/'.$item_id) }}"><i class="fa fa-edit"> Edit</i></a>
                 <br>Phone Number :{{$phone_number}}
             </td>
@@ -53,7 +53,7 @@
                         </script>
 
                     </tr>
-                    
+
                     <!-- {{$i=0}} -->
                     @foreach($detail as $diff => $detailValue)
                     <!-- {{$i+=1}} -->
@@ -81,15 +81,15 @@
     </tbody>
 </table>
 
-
-
 @if(!empty($subtypeid))
 <a href="{{url('/property_select/'.$item_id.'/'.$subtypeid.'')}}" id="btun1"class="btn btn-info "> Add More Details</a>
-@else 
-<a href="{{url('/addItemSteps/'.$item_id)}}" class="btn btn-info"id="btun1" > Add Details of item</a>
-
+@else
+<a href="{{url('/addItemSteps/'.$item_id)}}" class="btn btn-info" id="btun1" > Add Details of item</a>
 @endif
 <a href="{{url('/Details')}}" class="btn btn-info" id="btun3">Search for an Item</a>
+<a href="{{url('/item_schedule/'.$item_id)}}" class="btn btn-success"  id="btun2"> Add Schedule</a>
+<a href="{{url('/item_posts/'.$item_id)}}" class="btn btn-dark"  id="btun2"> See Item Posts</a>
+<a href="{{url('/item_reviews/'.$item_id)}}" class="btn btn-dark"  id="btun2"> See Item Reviews</a>
 <a href="{{url('/Item')}}" class="btn btn-info" id="btun2"> Create Another Item</a>
 <form method="Post" action="{{ url('/DelteItem/'.$item_id.'?_method=delete') }}" enctype="multipart/form-data">
                 @csrf

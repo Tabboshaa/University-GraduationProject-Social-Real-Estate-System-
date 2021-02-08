@@ -34,8 +34,8 @@ class DetailsController extends Controller
          $max+=1;
 
         foreach ($detailsInput as $detail) {
-            $property_details = Property_Details::all()->where('Property_Detail_Id', '=', Arr::get($detail, 'id'))->first();        
-            
+            $property_details = Property_Details::all()->where('Property_Detail_Id', '=', Arr::get($detail, 'id'))->first();
+
 
 
             $details[] = [
@@ -51,7 +51,7 @@ class DetailsController extends Controller
 
 
         // request()->validate([
-        //     'DetailValue' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"] 
+        //     'DetailValue' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"]
         // ]);
         try {
             Details::insert($details);

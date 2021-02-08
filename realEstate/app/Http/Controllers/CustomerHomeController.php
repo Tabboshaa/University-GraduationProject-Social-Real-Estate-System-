@@ -211,7 +211,7 @@ class CustomerHomeController extends Controller
             ->select('items.*', 'cover__pages.path')
             ->get();
 
-          
+
         $state = StateController::getStates();
 
         return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items]);
