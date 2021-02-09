@@ -155,7 +155,10 @@ Route::post('fullcalendar/delete','FullCalendarController@destroy');
     Route::get('/item_posts/{id}', 'PostsController@index');
     Route::Post('/add_item_post/{id}', 'PostsController@create');
     Route::get('/delete_posts/{id?}', 'PostsController@destroy');
-    Route::get('/edit_posts', 'PostsController@edit')->name('posts.update');
+
+    Route::get('/item_gallery/{id}', 'AttachmentController@index');
+    Route::Post('/add_item_gallery/{id}', 'AttachmentController@create');
+    Route::get('/delete_gallery/{id?}', 'AttachmentController@destroy');
 
     Route::get('/delete_comment/{id?}', 'CommentsController@destroyComment');
     Route::get('/delete_reply/{id?}', 'CommentsController@destroyReply');

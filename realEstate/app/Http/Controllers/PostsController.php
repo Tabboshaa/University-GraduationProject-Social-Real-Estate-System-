@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\attachment;
 use App\Item;
+use App\post_attachment;
 use App\posts;
 use App\User;
 use Illuminate\Http\Request;
@@ -44,11 +45,12 @@ class PostsController extends Controller
      */
     public function create($id)
     {
+
         //
         $item = Item::all()->find($id);
 
         try {
-            posts::create([
+            $post=posts::create([
                 'Item_Id' => $id,
                 'User_Id' => $item->User_Id,
                 'Post_Title' => request('Post_Title'),
@@ -57,14 +59,19 @@ class PostsController extends Controller
 
             if($files=request()->file('images')){
                 foreach($files as $file){
-                    $name=$file->getClientOriginalName();
-                    $attachment[] = [
-                        'File_Path'=>$name,
-                    ];
+                    $filename=$file->getClientOriginalName();
+                    $file->storeAs('/profile gallery',$filename,'public');
+
+                    $attachment=attachment::create(['File_Path'=>$filename]);
+
+                    $post_attachment=post_attachment::create([
+                    'Post_Id'=> $post->Post_Id,
+                    'Attachment_Id'=>  $attachment->Attachment_Id,
+                    'Item_Id'=>$id
+                    ]);
 
                 }
-                 attachment::insert($attachment);
-                
+
             }
 
 
