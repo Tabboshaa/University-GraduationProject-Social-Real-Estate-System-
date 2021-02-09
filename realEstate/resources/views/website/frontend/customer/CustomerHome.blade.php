@@ -4,6 +4,7 @@
 <link href="{{asset('css/FrontEndCSS/CustomerHome.css')}}" rel="stylesheet" type="text/css" />
 
 <div class="rowe">
+
     <!-- <img src="Images/h3.jpg" class="background"> -->
         <div class="sreachdiv">
             <div class="shosho">
