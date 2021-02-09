@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Cover_Page;
 use App\Item;
+use App\schedule;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class CustomerHomeController extends Controller
 {
@@ -94,6 +96,10 @@ class CustomerHomeController extends Controller
     public function itemDetails($id)
     {
         //
+        $schedule=$this->getAvailableTime($id);
+
+         $test= $schedule["03"][0]["Start_Date"];
+//        return Carbon::parse($test)->format('d');
 
         $state = StateController::getStates();
 
@@ -106,7 +112,20 @@ class CustomerHomeController extends Controller
 
 
 
-        return view('website\frontend\customer\Item_Profile_Details', ['states' => $state, 'item' => $item, 'cover' => $cover]);
+        return view('website\frontend\customer\Item_Profile_Details',['states'=>$state,'item'=>$item,'cover'=>$cover,'schedule'=>$schedule]);
+    }
+
+    public function getAvailableTime($item_id)
+    {
+//     get from Schedule endDate startDate where item id =$item_id
+//
+        $schedule=schedule::all()->where('Item_Id','=',$item_id)->groupBy(function($val) {
+            return Carbon::parse($val->Start_Date)->format('m');
+        })->toArray();
+
+
+        return $schedule;
+
     }
 
     public function itemProfileGallery($id)
@@ -216,4 +235,5 @@ class CustomerHomeController extends Controller
 
         return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items]);
     }
+
 }

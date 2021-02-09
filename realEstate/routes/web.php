@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
 Route::post('/loginUser', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
+Route::post('/registerUser', 'Auth\RegisterControllerUser@create')->name('registerUser');
 
 Route::get('/UserLogin', function(){
     return view('website\frontend\login');
