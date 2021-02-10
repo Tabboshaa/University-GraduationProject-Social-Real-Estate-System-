@@ -99,9 +99,8 @@ class CustomerHomeController extends Controller
     {
         //
         $schedule = $this->getAvailableTime($id);
-return $schedule;
-
-        //        return Carbon::parse($test)->format('d');
+        // return $schedule;
+        // return Carbon::parse($test)->format('d');
 
         $state = StateController::getStates();
 
@@ -121,7 +120,7 @@ return $schedule;
         //
         $schedule = schedule::all()->where('Item_Id', '=', $item_id);
         $days=[];
-        //get day od every schedule
+        //get day of every schedule
         foreach ($schedule as $value) {
 
             $day=$this->getdays($value->Start_Date,$value->End_Date);
@@ -129,11 +128,10 @@ return $schedule;
             $days=collect($days)->merge($day)->unique(); //unique 3shan mykrrsh date mrten
         }
 
-//group by month of date
+        //group by month of date
         $days = collect($days)->groupBy(function ($val) {
             return Carbon::parse($val['date'])->format('m');
         })->toArray();
-
 
         return $days;
     }
@@ -162,11 +160,6 @@ return $schedule;
         $interval[] = [
             'date' => $end,
         ];
-
-        //group by month of date
-        // $interval = collect($interval)->groupBy(function ($val) {
-        //     return Carbon::parse($val['date'])->format('m');
-        // })->toArray();
 
         return $interval;
     }
