@@ -1,10 +1,10 @@
 table.pro
-{  
+{
     box-shadow:1px 1px 1px 1px rgb(209, 212, 212);
 
 }
 table.pro2
-{  
+{
     text-align: center;
     box-shadow:5px 4px 4px 3px rgb(145, 171, 180);
 
@@ -139,7 +139,7 @@ a#btun3:hover
   color: #FFFFFF;
   -ms-transform: scale(1.05); /* IE 9 */
   -webkit-transform: scale(1.05); /* Safari 3-8 */
-  transform: scale(1.05); 
+  transform: scale(1.05);
 }
 
 button#btun4
@@ -166,7 +166,7 @@ button#btun4:hover
   color: #FFFFFF;
   -ms-transform: scale(1.05); /* IE 9 */
   -webkit-transform: scale(1.05); /* Safari 3-8 */
-  transform: scale(1.05); 
+  transform: scale(1.05);
 }
 
 button#btun5
@@ -192,16 +192,27 @@ button#btun5:hover
   color: #FFFFFF;
   -ms-transform: scale(1.1); /* IE 9 */
   -webkit-transform: scale(1.1); /* Safari 3-8 */
-  transform: scale(1.1); 
+  transform: scale(1.1);
 }
 
 div.C
 {
     margin: auto;
   width: 60%;
-  
   padding: 10px;
 }
 
+
+div.ItemPanel {
+    width: 100%;
+    padding: 10px;
+}
+.ItemPanel a{
+margin: 10px;
+display: inline-block;
+}
+a.space{
+    margin-right: 50%;
+}
 
 

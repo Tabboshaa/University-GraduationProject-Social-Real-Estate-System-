@@ -14,7 +14,7 @@
                     <label for="Post_Content" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
                         {{ __('Upload Images:') }}
                     </label>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <input type="file" class="form-control" name="images[]" placeholder="upload Images" multiple>
                         @error('Upload Images')
                         <span class="invalid-feedback" role="alert">

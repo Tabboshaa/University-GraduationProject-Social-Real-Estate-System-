@@ -58,6 +58,8 @@ Route::post('fullcalendar/delete','FullCalendarController@destroy');
 
 //Admin Routes with middleware
 // Route::group(['middleware' => 'auth.admin'], function () {
+
+    Route::get('/date', 'CustomerHomeController@getdays');
     Route::get('/data_types', 'DatatypeController@index');
     //main types pages
     Route::get('/main_types', 'MainTypes@index');
@@ -142,6 +144,7 @@ Route::post('fullcalendar/delete','FullCalendarController@destroy');
     Route::post('/addItem', 'ItemController@create');
     Route::get('/ShowItem/{id?}', 'ItemController@show');
     Route::delete('/DelteItem/{id?}', 'ItemController@destroy');
+    Route::get('/item_delete/{id?}', 'ItemController@destroy');
     Route::get('/edit_item_user/{id}', 'ItemController@ShowEditUser');
     Route::post('/edit_item_user2/{id}', 'ItemController@EditUser');
     Route::get('/edit_item_location/{id}', 'ItemController@ShowEditlocation');
