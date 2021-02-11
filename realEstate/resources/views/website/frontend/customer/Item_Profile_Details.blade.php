@@ -35,6 +35,33 @@
 
                         <li> <a><span class="fa fa-chevron-down"></span>1-January</a>
 
+                            @if(isset($schedule["01"]))
+                                <ul class="nav child_menu">
+                                    @foreach($schedule["01"] as $schedule3 => $test3)
+
+                                        <?php
+                                        $SartDateDay3=\Carbon\Carbon::parse($test3["Start_Date"])->format('d');
+                                        $EndDateDay3=\Carbon\Carbon::parse($test3["End_Date"])->format('d');
+                                        ?>
+                                        <li><a> <span class="fa fa-chevron-down"></span> {{$SartDateDay3+1-1}}->{{$EndDateDay3+1-1}} </a>
+                                            <ul class="nav child_menu">
+                                                <?php
+                                                $SartDateMonth3=\Carbon\Carbon::parse($test3["Start_Date"])->format('m');
+                                                $EndDateMonth3=\Carbon\Carbon::parse($test3["End_Date"])->format('m');
+//                                                if($SartDateMonth3!=$EndDateMonth3)
+//                                                    $end= \Carbon\Carbon::parse($EndDateMonth3)->endOfMonth();
+//                                                else{$end=$EndDateMonth3}
+                                                ?>
+                                                @for($i3=$SartDateDay3-1+1;$i3<=$EndDateDay3;$i3++)
+                                                    <li><a href=""> {{$i3}}</a></li>
+                                                @endfor
+
+                                            </ul>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+
 
                         </li>
                         <li> <a><span class="fa fa-chevron-down"></span>2-February </a>
@@ -44,16 +71,24 @@
                         <li> <a><span class="fa fa-chevron-down"></span>3-March </a>
                             @if(isset($schedule["03"]))
                                 <ul class="nav child_menu">
+<<<<<<< Updated upstream
                                     @foreach($schedule["03"] as $schedules => $tests)
 
                                         <?php
                                         $SartDateDay=\Carbon\Carbon::parse($tests["Start_Date"])->format('d');
                                         $EndDateDay=\Carbon\Carbon::parse($tests["End_Date"])->format('d');
+=======
+                                    @foreach($schedule["03"] as $schedule3 => $test3)
+
+                                        <?php
+                                        $SartDateDay3=\Carbon\Carbon::parse($test3["Start_Date"])->format('d');
+                                        $EndDateDay3=\Carbon\Carbon::parse($test3["End_Date"])->format('d');
+>>>>>>> Stashed changes
                                         ?>
-                                        <li><a> <span class="fa fa-chevron-down"></span> {{$SartDateDay+1-1}}->{{$EndDateDay+1-1}} </a>
+                                        <li><a> <span class="fa fa-chevron-down"></span> {{$SartDateDay3+1-1}}->{{$EndDateDay3+1-1}} </a>
                                             <ul class="nav child_menu">
-                                                @for($i=$SartDateDay-1+1;$i<=$EndDateDay;$i++)
-                                                    <li><a href=""> {{$i}}</a></li>
+                                                @for($i3=$SartDateDay3-1+1;$i3<=$EndDateDay3;$i3++)
+                                                    <li><a href=""> {{$i3}}</a></li>
                                                 @endfor
 
                                             </ul>

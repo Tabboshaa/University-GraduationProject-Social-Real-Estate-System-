@@ -2,7 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da7e8588-8421-4fad-a063-197c0951d9c7" name="Default Changelist" comment="">
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostsController.php" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CustomerHomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CustomerHomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AdminBackEnd/build/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/AdminBackEnd/build/css/custom.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/customer/Item_Profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/Item_Profile.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/customer/Item_Profile_Details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/Item_Profile_Details.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/layouts/foot.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/layouts/foot.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/layouts/head.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/layouts/head.blade.php" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,6 +151,12 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\GP\realEstate\resources\views\website\frontend" />
+      <recent name="C:\xampp\htdocs\GP\realEstate\resources\views\website\frontend\owner" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -161,8 +179,61 @@
       <workItem from="1611580092363" duration="1693000" />
       <workItem from="1611581829988" duration="1760000" />
       <workItem from="1611583819492" duration="1034000" />
+<<<<<<< Updated upstream
       <workItem from="1612797992809" duration="172000" />
       <workItem from="1612814182232" duration="177000" />
+=======
+      <workItem from="1611653943464" duration="2171000" />
+      <workItem from="1612356243841" duration="593000" />
+      <workItem from="1612541738648" duration="1718000" />
+      <workItem from="1612544553495" duration="1773000" />
+      <workItem from="1612546364782" duration="855000" />
+      <workItem from="1612550534712" duration="1580000" />
+      <workItem from="1612552287781" duration="806000" />
+      <workItem from="1612559238005" duration="1197000" />
+      <workItem from="1612561379640" duration="831000" />
+      <workItem from="1612623662943" duration="1443000" />
+      <workItem from="1612625863975" duration="1762000" />
+      <workItem from="1612627686942" duration="1774000" />
+      <workItem from="1612629503836" duration="1137000" />
+      <workItem from="1612632475874" duration="1766000" />
+      <workItem from="1612634288921" duration="1793000" />
+      <workItem from="1612636117030" duration="1878000" />
+      <workItem from="1612638056392" duration="1446000" />
+      <workItem from="1612640090482" duration="1899000" />
+      <workItem from="1612642040330" duration="1783000" />
+      <workItem from="1612643884896" duration="2868000" />
+      <workItem from="1612701015182" duration="1348000" />
+      <workItem from="1612703124857" duration="1697000" />
+      <workItem from="1612705171488" duration="1174000" />
+      <workItem from="1612707878833" duration="1837000" />
+      <workItem from="1612709865850" duration="685000" />
+      <workItem from="1612712124562" duration="1833000" />
+      <workItem from="1612713994038" duration="964000" />
+      <workItem from="1612719049598" duration="1748000" />
+      <workItem from="1612720884211" duration="3314000" />
+      <workItem from="1612878036308" duration="1665000" />
+      <workItem from="1612879791416" duration="1775000" />
+      <workItem from="1612881606378" duration="1699000" />
+      <workItem from="1612883424160" duration="654000" />
+      <workItem from="1612884816707" duration="1729000" />
+      <workItem from="1612886995727" duration="1563000" />
+      <workItem from="1612888672667" duration="1739000" />
+      <workItem from="1612890578077" duration="1657000" />
+      <workItem from="1612892436684" duration="1678000" />
+      <workItem from="1612894258640" duration="1525000" />
+      <workItem from="1612896248676" duration="1663000" />
+      <workItem from="1612898110156" duration="4770000" />
+      <workItem from="1612903072690" duration="1772000" />
+      <workItem from="1612905161480" duration="1918000" />
+      <workItem from="1612963133987" duration="1187000" />
+      <workItem from="1612965834221" duration="14000" />
+      <workItem from="1612972011895" duration="2253000" />
+      <workItem from="1612974990859" duration="2131000" />
+      <workItem from="1612977595824" duration="923000" />
+      <workItem from="1612979832346" duration="1050000" />
+      <workItem from="1613037595736" duration="374000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
@@ -170,13 +241,29 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
+<<<<<<< Updated upstream
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1612814356331">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1612814356331" />
     <state x="604" y="336" key="NewPhpFileDialog" timestamp="1611580909705">
+=======
+    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1612708700504">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="604" y="336" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1611580909705" />
+    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1612708700504" />
+    <state x="604" y="336" key="NewPhpFileDialog" timestamp="1611654745068">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="604" y="336" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1611654745068" />
+    <state x="425" y="187" key="run.anything.popup" timestamp="1612639361289">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1612639361289" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1612883429284">
+>>>>>>> Stashed changes
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1612883429284" />
   </component>
 </project>

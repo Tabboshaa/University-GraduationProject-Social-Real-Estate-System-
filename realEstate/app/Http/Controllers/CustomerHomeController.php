@@ -98,9 +98,16 @@ class CustomerHomeController extends Controller
     public function itemDetails($id)
     {
         //
+<<<<<<< Updated upstream
         $schedule = $this->getAvailableTime($id);
         // return $schedule;
         // return Carbon::parse($test)->format('d');
+=======
+        $schedule=$this->getAvailableTime($id);
+        return $schedule;
+         $test= $schedule["03"][0]["Start_Date"];
+//        return Carbon::parse($test)->format('d');
+>>>>>>> Stashed changes
 
         $state = StateController::getStates();
 
@@ -166,7 +173,6 @@ class CustomerHomeController extends Controller
     public function itemProfileGallery($id)
     {
         //
-
         $state = StateController::getStates();
 
         $item = DB::table('items')
@@ -264,6 +270,11 @@ class CustomerHomeController extends Controller
             ->select('items.*', 'cover__pages.path')
             ->get();
 
+<<<<<<< Updated upstream
+=======
+
+        $state = StateController::getStates();
+>>>>>>> Stashed changes
 
         $state = StateController::getStates();
         return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items]);
