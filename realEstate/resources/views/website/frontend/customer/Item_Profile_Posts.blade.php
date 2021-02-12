@@ -21,7 +21,7 @@
                     @foreach($post_images[$post->Post_Id] as $Image)
                     <div class="col-md-5 col-sm-5">
                         <div class="gallery">
-                            <img style="float:left;width:250px;height:200px;" src="{{asset('FrontEnd/images/profile gallery/'.$Image->File_Path)}}" alt="">
+                            <img style="float:left;width:250px;height:200px;" src="{{asset('storage\profile gallery\'.$Image->File_Path)}}" alt="">
                         </div>
                     </div>
                     @endforeach

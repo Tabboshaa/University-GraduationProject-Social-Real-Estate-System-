@@ -28,232 +28,280 @@
 
     <div class="box-left">
         <div class="rightboxs">
-            <div class="calendar-container">
-                <div class="calendar-container__header">
-                    <button class="calendar-container__btn calendar-container__btn--left" title="Previous">
-                        <i class="icon ion-ios-arrow-back"></i>
-                    </button>
-                    <h2 class="calendar-container__title">January 2020</h2>
-                    <button class="calendar-container__btn calendar-container__btn--right" title="Next">
-                        <i class="icon ion-ios-arrow-forward"></i>
-                    </button>
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                <div class="menu_section">
+
+                    <ul class="nav side-menu">
+
+                        <li> <a><span class="fa fa-chevron-down"></span>1-January</a>
+
+                            @if(isset($schedule["01"]))
+                                <ul class="nav child_menu">
+                                    @foreach($schedule["01"] as $schedule3 => $test3)
+
+                                        <?php
+                                        $SartDateDay3=\Carbon\Carbon::parse($test3["Start_Date"])->format('d');
+                                        $EndDateDay3=\Carbon\Carbon::parse($test3["End_Date"])->format('d');
+                                        ?>
+                                        <li><a> <span class="fa fa-chevron-down"></span> {{$SartDateDay3+1-1}}->{{$EndDateDay3+1-1}} </a>
+                                            <ul class="nav child_menu">
+                                                <?php
+                                                $SartDateMonth3=\Carbon\Carbon::parse($test3["Start_Date"])->format('m');
+                                                $EndDateMonth3=\Carbon\Carbon::parse($test3["End_Date"])->format('m');
+//                                                if($SartDateMonth3!=$EndDateMonth3)
+//                                                    $end= \Carbon\Carbon::parse($EndDateMonth3)->endOfMonth();
+//                                                else{$end=$EndDateMonth3}
+                                                ?>
+                                                @for($i3=$SartDateDay3-1+1;$i3<=$EndDateDay3;$i3++)
+                                                    <li><a href=""> {{$i3}}</a></li>
+                                                @endfor
+
+                                            </ul>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+
+
+                        </li>
+                        <li> <a><span class="fa fa-chevron-down"></span>2-February </a>
+
+                        </li>
+
+                        <li> <a><span class="fa fa-chevron-down"></span>3-March </a>
+                            @if(isset($schedule["03"]))
+                                <ul class="nav child_menu">
+<<<<<<< Updated upstream
+                                    @foreach($schedule["03"] as $schedules => $tests)
+
+                                        <?php
+                                        $SartDateDay=\Carbon\Carbon::parse($tests["Start_Date"])->format('d');
+                                        $EndDateDay=\Carbon\Carbon::parse($tests["End_Date"])->format('d');
+=======
+                                    @foreach($schedule["03"] as $schedule3 => $test3)
+
+                                        <?php
+                                        $SartDateDay3=\Carbon\Carbon::parse($test3["Start_Date"])->format('d');
+                                        $EndDateDay3=\Carbon\Carbon::parse($test3["End_Date"])->format('d');
+>>>>>>> Stashed changes
+                                        ?>
+                                        <li><a> <span class="fa fa-chevron-down"></span> {{$SartDateDay3+1-1}}->{{$EndDateDay3+1-1}} </a>
+                                            <ul class="nav child_menu">
+                                                @for($i3=$SartDateDay3-1+1;$i3<=$EndDateDay3;$i3++)
+                                                    <li><a href=""> {{$i3}}</a></li>
+                                                @endfor
+
+                                            </ul>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+
+
+                        </li>
+                        <li> <a><span class="fa fa-chevron-down"></span>4-April </a>
+
+
+                            @if(isset($schedule["04"]))
+                                <ul class="nav child_menu">
+                                    @foreach($schedule["04"] as $schedule => $test)
+
+                                        <?php
+                                        $SartDateDay=\Carbon\Carbon::parse($test["Start_Date"])->format('d');
+                                        $EndDateDay=\Carbon\Carbon::parse($test["End_Date"])->format('d');
+                                        ?>
+                                        <li><a> <span class="fa fa-chevron-down"></span> {{$SartDateDay+1-1}}->{{$EndDateDay+1-1}} </a>
+                                            <ul class="nav child_menu">
+                                                @for($i=$SartDateDay-1+1;$i<=$EndDateDay;$i++)
+                                                    <li><a href=""> {{$i}}</a></li>
+                                                @endfor
+
+                                            </ul>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+
+                        </li>
+                        <li> <a><span class="fa fa-chevron-down"></span>5-May </a></li>
+                        <li> <a><span class="fa fa-chevron-down"></span>6-June </a></li>
+                        <li> <a><span class="fa fa-chevron-down"></span>7-July </a></li>
+                        <li> <a><span class="fa fa-chevron-down"></span>8-August </a></li>
+                        <li> <a><span class="fa fa-chevron-down"></span>9-September</a></li>
+                        <li> <a><span class="fa fa-chevron-down"></span>10-October </a></li>
+                        <li> <a><span class="fa fa-chevron-down"></span>11-November</a></li>
+                        <li> <a><span class="fa fa-chevron-down"></span>12-December</a></li>
+                    </ul>
                 </div>
-                <div class="calendar-container__body">
-                    <div class="calendar-table">
-                        <div class="calendar-table__header">
-                            <div class="calendar-table__row">
-                                <div class="calendar-table__col">S</div>
-                                <div class="calendar-table__col">M</div>
-                                <div class="calendar-table__col">T</div>
-                                <div class="calendar-table__col">W</div>
-                                <div class="calendar-table__col">T</div>
-                                <div class="calendar-table__col">F</div>
-                                <div class="calendar-table__col">S</div>
-                            </div>
-                        </div>
-                        <div class="calendar-table__body">
-                            <div class="calendar-table__row">
-                                <div class="calendar-table__col calendar-table__inactive">
-                                    <div class="calendar-table__item">
-                                        <span>27</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col calendar-table__inactive">
-                                    <div class="calendar-table__item">
-                                        <span>28</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col calendar-table__inactive">
-                                    <div class="calendar-table__item">
-                                        <span>29</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col calendar-table__inactive">
-                                    <div class="calendar-table__item">
-                                        <span>30</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col calendar-table__inactive">
-                                    <div class="calendar-table__item">
-                                        <span>31</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col ">
-                                    <div class="calendar-table__item">
-                                        <span>1</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>2</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="calendar-table__row">
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>3</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>4</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>5</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>6</span>
-                                    </div>
-                                </div>
 
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>7</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>8</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>9</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="calendar-table__row">
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>10</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>11</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>12</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>13</span>
-                                    </div>
-                                </div>
-
-
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>14</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>15</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>16</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="calendar-table__row">
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>17</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>18</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>19</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>20</span>
-                                    </div>
-                                </div>
-
-
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>21</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>22</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>23</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="calendar-table__row">
-                                <div class="calendar-table__col calendar-table__today">
-                                    <div class="calendar-table__item">
-                                        <span>24</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>25</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>26</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>27</span>
-                                    </div>
-                                </div>
-
-
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>28</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>29</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-table__col">
-                                    <div class="calendar-table__item">
-                                        <span>30</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
+
         </div>
     </div>
 
 </div>
 
 <style>
+
+    .main_menu_side {
+        padding: 0; }
+    .menu_section {
+        margin-bottom: 35px; }
+    .nav-sm .nav.side-menu li a {
+        text-align: center !important;
+        font-weight: 400;
+        font-size: 10px;
+        padding: 10px 5px; }
+    .nav-sm .nav.child_menu li.active,
+    .nav-sm .nav.side-menu li.active-sm {
+        border-right: 5px solid #1ABB9C; }
+    @media print{.hidden-print{display:none!important}}
+    /*........................*/
+
+    .nav-sm .menu_section h3 {
+        display: none; }
+    .nav-sm .menu_section {
+        margin: 0; }
+
+    .menu_section {
+        margin-bottom: 35px; }
+
+    .menu_section h3 {
+        padding-left: 23px;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: .5px;
+        font-weight: bold;
+        font-size: 11px;
+        margin-bottom: 0;
+        margin-top: 0;
+        text-shadow: 1px 1px #000; }
+
+    .menu_section > ul {
+        margin-top: 10px;
+        display: block; }
+    .nav-sm .nav.side-menu li a {
+        text-align: center !important;
+        font-weight: 400;
+        font-size: 10px;
+        padding: 10px 5px; }
+
+    .nav-sm .nav.child_menu li.active,
+    .nav-sm .nav.side-menu li.active-sm {
+        border-right: 5px solid #1ABB9C; }
+
+    .nav-sm ul.nav.child_menu ul,
+    .nav-sm .nav.side-menu li.active-sm ul ul {
+        position: static;
+        width: 200px;
+        background: none; }
+
+    .nav-sm > .nav.side-menu > li.active-sm > a {
+        color: #1ABB9C !important; }
+
+    .nav-sm .nav.side-menu li a i.toggle-up {
+        display: none !important; }
+
+    .nav-sm .nav.side-menu li a i {
+        font-size: 25px !important;
+        text-align: center;
+        width: 100% !important;
+        margin-bottom: 5px; }
+
+    .nav-sm ul.nav.child_menu {
+        left: 100%;
+        position: absolute;
+        top: 0;
+        width: 210px;
+        z-index: 4000;
+        background: #3E5367;
+        display: none; }
+
+    .nav-sm ul.nav.child_menu li {
+        padding: 0 10px; }
+
+    .nav-sm ul.nav.child_menu li a {
+        text-align: left !important; }
+
+    .nav.side-menu > li {
+        position: relative;
+        display: block;
+        cursor: pointer; }
+
+    .nav.side-menu > li > a {
+        margin-bottom: 6px; }
+
+    /* hover Form table  */
+    .nav.side-menu > li > a:hover {
+        color: red  !important; }
+
+    .nav.side-menu > li > a:hover, .nav > li > a:focus {
+        text-decoration: none;
+        background: transparent; }
+
+    .nav.child_menu {
+        display: none; }
+
+    .nav.child_menu li:hover,
+    .nav.child_menu li.active {
+        background-color: rgba(255, 255, 255, 0.06); }
+
+    .nav.child_menu li {
+        padding-left: 36px; }
+
+    .nav-md ul.nav.child_menu li:before {
+        background: #425668;
+        bottom: auto;
+        content: "";
+        height: 8px;
+        left: 23px;
+        margin-top: 15px;
+        position: absolute;
+        right: auto;
+        width: 8px;
+        z-index: 1;
+        border-radius: 50%; }
+
+    .nav-md ul.nav.child_menu li:after {
+        border-left: 1px solid #425668;
+        bottom: 0;
+        content: "";
+        left: 27px;
+        position: absolute;
+        top: 0; }
+
+    .nav-md ul.nav.child_menu li:last-child::after {
+        bottom: 50%; }
+    /* form table*/
+    .nav.side-menu > li > a, .nav.child_menu > li > a {
+        color: black;
+        font-weight: 500; }
+
+    .nav.child_menu li li:hover,
+    .nav.child_menu li li.active {
+        background: none; }
+    /* hover country state */
+    .nav.child_menu li li a:hover,
+    .nav.child_menu li li a.active {
+        color: red; }
+    .nav.side-menu > li.current-page, .nav.side-menu > li.active {
+        border-right: 5px solid #1ABB9C; }
+
+
+    .nav.side-menu > li.active > a {
+        text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
+        background: -webkit-gradient(linear, left top, left bottom, from(#334556), to(#2C4257)), #2A3F54;
+        background: linear-gradient(#334556, #2C4257), #2A3F54;
+        -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
+        box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0; }
+
+    .nav.child_menu > li > a {
+        color: black;
+        font-size: 12px;
+        padding: 9px; }
+
+    /*...............................*/
+
     .main-container-wrapper {
         background-color: #f8fafa;
         min-width: 320px;

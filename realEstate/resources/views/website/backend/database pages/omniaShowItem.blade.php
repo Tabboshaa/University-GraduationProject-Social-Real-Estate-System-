@@ -4,18 +4,54 @@
 <link href="{{asset('css/ShowItem.css')}}" rel="stylesheet" type="text/css" />
 
 
+<div class="ItemPanel">
+
+    <a href="{{url('/Item')}}"><i style="padding-left:35px" class="fa fa-plus"></i>
+        <p><small>Create another item</small></p>
+    </a>
+    <a href="{{url('/Details')}}" class="space"><i style="padding-left:40px" class="fa fa-search"></i>
+        <p><small>search for another item</small></p>
+    </a>
+
+    @if(!empty($subtypeid))
+    <a href="{{url('/property_select/'.$item_id.'/'.$subtypeid.'')}}"><i style="padding-left:14px" class="fa fa-plus-square-o"></i>
+        <p><small>Details</small></p>
+    </a>
+    @else
+    <a href="{{url('/addItemSteps/'.$item_id)}}"><i style="padding-left:14px" class="fa fa-plus-square-o"></i>
+        <p><small>Details</small></p>
+    </a>
+    @endif
+    <a href="{{url('/item_schedule/'.$item_id)}}"><i style="padding-left:15px" class="fa fa-calendar"></i>
+        <p><small>Schedule</small></p>
+    </a>
+    <a href="{{url('/item_posts/'.$item_id)}}"><i style="padding-left:14px" class="fa fa-pencil"></i>
+        <p><small>Posts</small></p>
+    </a>
+    <a href="{{url('/item_reviews/'.$item_id)}}"><i style="padding-left:14px" class="fa fa-comments-o"></i>
+        <p><small>Reviews</small></p>
+    </a>
+    <a href="{{url('/item_gallery/'.$item_id)}}"><i style="padding-left:14px" class="fa fa-image"></i>
+        <p><small>Gallery</small></p>
+    </a>
+    <a href="{{url('/item_delete/'.$item_id)}}"><i style="padding-left:14px" class="fa fa-trash-o"></i>
+        <p><small>Delete</small></p>
+    </a>
+</div>
+
+
 <div class="C">
-    
-    <h2>{{$user[0]->First_Name}} {{$user[0]->Middle_Name}} {{$user[0]->Last_Name}} Items </h2> 
-    
+
+    <h2>{{$user[0]->First_Name}} {{$user[0]->Middle_Name}} {{$user[0]->Last_Name}} Items </h2>
+
 </div>
 
 <table id="datatable" class="table  pro  dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
     <thead>
-        <tr>   
+        <tr>
             <td class="th1">User</td>
-            <td class="td1"> 
-                 Name : {{$user[0]->First_Name}} {{$user[0]->Middle_Name}} {{$user[0]->Last_Name}} 
+            <td class="td1">
+                Name : {{$user[0]->First_Name}} {{$user[0]->Middle_Name}} {{$user[0]->Last_Name}}
                 <br>Email :{{$email}} <a href="{{ url('/edit_item_user/'.$item_id) }}"><i class="fa fa-edit"> Edit</i></a>
                 <br>Phone Number :{{$phone_number}}
             </td>
@@ -25,7 +61,7 @@
         <tr>
             <th class="th1">Location</th>
             <td class="td1">{{$Location->Country_Name}},{{$Location->State_Name}},{{$Location->City_Name}},{{$Location->Region_Name}},{{$Location->Street_Name}}
-            <a href="{{ url('/edit_item_location/'.$item_id) }}"><i class="fa fa-edit"> Edit</i>
+                <a href="{{ url('/edit_item_location/'.$item_id) }}"><i class="fa fa-edit"> Edit</i>
             </td>
         </tr>
 
@@ -40,7 +76,7 @@
                             <h4>{{$property}} detail</h4>
                         </td>
                         <th class="th2">value</th>
-                        <th class="th2">Select all <input type="checkbox" id="selectAll" name="selectAll"> </a>  <button class="btn"><i class="fa fa-trash" style="margin-right:155px;"></i></th>
+                        <th class="th2">Select all <input type="checkbox" id="selectAll" name="selectAll"> </a> <button class="btn"><i class="fa fa-trash" style="margin-right:155px;"></i></th>
                         <th class="th2">Edit</th>
                         <!-- Java Script for select all function -->
                         <script>
@@ -53,13 +89,17 @@
                         </script>
 
                     </tr>
-                    
+
                     <!-- {{$i=0}} -->
                     @foreach($detail as $diff => $detailValue)
                     <!-- {{$i+=1}} -->
-                    <tr class="ha"><td colspan="5"><h6> {{$property}} {{$i}}</h6></td></tr>
+                    <tr class="ha">
+                        <td colspan="5">
+                            <h6> {{$property}} {{$i}}</h6>
+                        </td>
+                    </tr>
                     @foreach($detailValue as $detailValue)
-                    <tr  class="ha">
+                    <tr class="ha">
                         <td>
                             <h6>{{$detailValue->Detail_Name}}</h6>
                         </td>
@@ -71,7 +111,7 @@
 
                     </tr>
 
-                    @endforeach  @endforeach
+                    @endforeach @endforeach
 
 
                     @endforeach
@@ -80,21 +120,21 @@
         </tr>
     </tbody>
 </table>
-
-
-
+<!--
 @if(!empty($subtypeid))
 <a href="{{url('/property_select/'.$item_id.'/'.$subtypeid.'')}}" id="btun1"class="btn btn-info "> Add More Details</a>
-@else 
-<a href="{{url('/addItemSteps/'.$item_id)}}" class="btn btn-info"id="btun1" > Add Details of item</a>
-
-@endif
-<a href="{{url('/Details')}}" class="btn btn-info" id="btun3">Search for an Item</a>
-<a href="{{url('/Item')}}" class="btn btn-info" id="btun2"> Create Another Item</a>
-<form method="Post" action="{{ url('/DelteItem/'.$item_id.'?_method=delete') }}" enctype="multipart/form-data">
+@else
+<a href="{{url('/addItemSteps/'.$item_id)}}" class="btn btn-info" id="btun1" > Add Details of item</a>
+@endif -->
+<!-- <a href="{{url('/Details')}}" class="btn btn-info" id="btun3">Search for an Item</a> -->
+<!-- <a href="{{url('/item_schedule/'.$item_id)}}" class="btn btn-success"  id="btun2"> Add Schedule</a>
+<a href="{{url('/item_posts/'.$item_id)}}" class="btn btn-dark"  id="btun2"> See Item Posts</a>
+<a href="{{url('/item_reviews/'.$item_id)}}" class="btn btn-dark"  id="btun2"> See Item Reviews</a> -->
+<!-- <a href="{{url('/Item')}}" class="btn btn-info" id="btun2"> Create Another Item</a> -->
+<!-- <form method="Post" action="{{ url('/DelteItem/'.$item_id.'?_method=delete') }}" enctype="multipart/form-data">
                 @csrf
 <button type="submit" class="btn btn-danger" id="btun4"> Delete Item</button>
-</form>
+</form> -->
 <div class="modal fade" id="EditDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -110,7 +150,7 @@
                     <input type="hidden" name="id" id="id">
 
                     <div class="form-group">
-                        <label for="DetailName"  style="font-size: 12pt">Detail Value</label>
+                        <label for="DetailName" style="font-size: 12pt">Detail Value</label>
                         <input type="text" style="border-radius: 3pt" name="DetailName" id="DetailName" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-success" id="btun5">Edit</button>

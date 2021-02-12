@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
 Route::post('/loginUser', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
+Route::post('/registerUser', 'Auth\RegisterControllerUser@create')->name('registerUser');
 
 Route::get('/UserLogin', function(){
     return view('website\frontend\login');
@@ -57,6 +58,8 @@ Route::post('fullcalendar/delete','FullCalendarController@destroy');
 
 //Admin Routes with middleware
 // Route::group(['middleware' => 'auth.admin'], function () {
+
+    Route::get('/date', 'CustomerHomeController@getdays');
     Route::get('/data_types', 'DatatypeController@index');
     //main types pages
     Route::get('/main_types', 'MainTypes@index');
@@ -137,15 +140,35 @@ Route::post('fullcalendar/delete','FullCalendarController@destroy');
 
 
     // Item  pages #Tabbosha
-    Route::get('Item', 'ItemController@index1');
-    Route::post('addItem', 'ItemController@create');
-    Route::get('ShowItem/{id?}', 'ItemController@show');
-    Route::delete('DelteItem/{id?}', 'ItemController@destroy');
-    Route::get('edit_item_user/{id}', 'ItemController@ShowEditUser');
-    Route::post('edit_item_user2/{id}', 'ItemController@EditUser');
-    Route::get('edit_item_location/{id}', 'ItemController@ShowEditlocation');
-    Route::Post('edit_item_location2/{id}', 'ItemController@EditLocation');
+    Route::get('/Item', 'ItemController@index1');
+    Route::post('/addItem', 'ItemController@create');
+    Route::get('/ShowItem/{id?}', 'ItemController@show');
+    Route::delete('/DelteItem/{id?}', 'ItemController@destroy');
+    Route::get('/item_delete/{id?}', 'ItemController@destroy');
+    Route::get('/edit_item_user/{id}', 'ItemController@ShowEditUser');
+    Route::post('/edit_item_user2/{id}', 'ItemController@EditUser');
+    Route::get('/edit_item_location/{id}', 'ItemController@ShowEditlocation');
+    Route::Post('/edit_item_location2/{id}', 'ItemController@EditLocation');
 
+    Route::get('/item_schedule/{id}', 'ScheduleController@index');
+    Route::get('/show_item_schedule/{id}', 'ScheduleController@show')->name('show_item_schedule');
+    Route::Post('/add_item_schedule/{id}', 'ScheduleController@create');
+    Route::delete('/delete_schedule', 'ScheduleController@destroy');
+    Route::get('/edit_schedule', 'ScheduleController@edit')->name('schedule.update');
+
+    Route::get('/item_posts/{id}', 'PostsController@index');
+    Route::Post('/add_item_post/{id}', 'PostsController@create');
+    Route::get('/delete_posts/{id?}', 'PostsController@destroy');
+
+    Route::get('/item_gallery/{id}', 'AttachmentController@index');
+    Route::Post('/add_item_gallery/{id}', 'AttachmentController@create');
+    Route::get('/delete_gallery/{id?}', 'AttachmentController@destroy');
+
+    Route::get('/delete_comment/{id?}', 'CommentsController@destroyComment');
+    Route::get('/delete_reply/{id?}', 'CommentsController@destroyReply');
+
+    Route::get('/delete_review/{id?}', 'ReviewController@destroy');
+    Route::get('/item_reviews/{id}', 'ReviewController@index');
 
 
     //Route::get('/Item', 'ItemController@SubTypeShow');

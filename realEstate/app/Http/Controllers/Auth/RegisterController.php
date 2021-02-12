@@ -72,12 +72,12 @@ class RegisterController extends Controller
 //        ]);
 
         $user=User::create(['password' => Hash::make($data['password'])]);
-        
+
 
         $user_Id= Arr::get($user, 'id');
         $Email=Emails::create([
             'User_ID'=>$user_Id,
-            'email' => $data['email']
+            'email' => request()['email']
         ]);
         return $user;
     }

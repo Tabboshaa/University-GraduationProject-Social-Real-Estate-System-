@@ -9,7 +9,7 @@ class post_attachment extends Model
     //
     protected $fillable = [
         'Post_Id',
-        'Attachment_id',
-        'Item_ld'
+        'Attachment_Id',
+        'Item_Id'
     ];
 }

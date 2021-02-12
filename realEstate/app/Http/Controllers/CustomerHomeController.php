@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Cover_Page;
-use App\Item;
+use App\schedule;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use DateInterval;
+use DatePeriod;
+use DateTime;
+use Illuminate\Support\Arr;
 
 class CustomerHomeController extends Controller
 {
@@ -94,6 +98,16 @@ class CustomerHomeController extends Controller
     public function itemDetails($id)
     {
         //
+<<<<<<< Updated upstream
+        $schedule = $this->getAvailableTime($id);
+        // return $schedule;
+        // return Carbon::parse($test)->format('d');
+=======
+        $schedule=$this->getAvailableTime($id);
+        return $schedule;
+         $test= $schedule["03"][0]["Start_Date"];
+//        return Carbon::parse($test)->format('d');
+>>>>>>> Stashed changes
 
         $state = StateController::getStates();
 
@@ -104,15 +118,61 @@ class CustomerHomeController extends Controller
         $cover = Cover_Page::all()->where('Item_Id', '=', $id)->first();
         //schedule and location
 
-
-
-        return view('website\frontend\customer\Item_Profile_Details', ['states' => $state, 'item' => $item, 'cover' => $cover]);
+        return view('website\frontend\customer\Item_Profile_Details', ['states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule]);
     }
 
+    public function getAvailableTime($item_id)
+    {
+        //     get from Schedule endDate startDate where item id =$item_id
+        //
+        $schedule = schedule::all()->where('Item_Id', '=', $item_id);
+        $days=[];
+        //get day of every schedule
+        foreach ($schedule as $value) {
+
+            $day=$this->getdays($value->Start_Date,$value->End_Date);
+            //merge days
+            $days=collect($days)->merge($day)->unique(); //unique 3shan mykrrsh date mrten
+        }
+
+        //group by month of date
+        $days = collect($days)->groupBy(function ($val) {
+            return Carbon::parse($val['date'])->format('m');
+        })->toArray();
+
+        return $days;
+    }
+    function getdays($start,$end)
+    {
+
+        $period = new DatePeriod(
+            new DateTime($start),
+            new DateInterval('P1D'),
+            new DateTime($end)
+        );
+
+
+        $interval = [];
+        //enter start date
+        $interval[] = [
+            'date' => $start,
+        ];
+        //for loop to store interval in array
+        foreach ($period as $key => $value) {
+            $interval[] = [
+                'date' => $value->format('Y-m-d'),
+            ];
+        }
+        //enter end date
+        $interval[] = [
+            'date' => $end,
+        ];
+
+        return $interval;
+    }
     public function itemProfileGallery($id)
     {
         //
-
         $state = StateController::getStates();
 
         $item = DB::table('items')
@@ -193,7 +253,6 @@ class CustomerHomeController extends Controller
         return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items]);
     }
 
-
     public function findItemInStateAndDate()
     {
         $state_id = StateController::findstatebyname(request('search')); //3
@@ -211,9 +270,15 @@ class CustomerHomeController extends Controller
             ->select('items.*', 'cover__pages.path')
             ->get();
 
-          
-        $state = StateController::getStates();
+<<<<<<< Updated upstream
+=======
 
+        $state = StateController::getStates();
+>>>>>>> Stashed changes
+
+        $state = StateController::getStates();
         return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items]);
     }
+
+
 }

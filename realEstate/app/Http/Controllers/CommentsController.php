@@ -107,9 +107,30 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroyComment($id)
     {
         //
+        try {
+            comments::destroy($id);
+            return  redirect()->back()->with('success', 'Comment Deleted Successfully');
+        }catch (\Illuminate\Database\QueryException $e){
+
+            return redirect()->back()->with('error', 'Comment cannot be deleted');
+
+        }
+    }
+
+    public function destroyReply($id)
+    {
+        //
+        try {
+            comments::destroy($id);
+            return  redirect()->back()->with('success', 'Reply Deleted Successfully');
+        }catch (\Illuminate\Database\QueryException $e){
+
+            return redirect()->back()->with('error', 'Reply cannot be deleted');
+
+        }
     }
 
     public static function getPostComments($item_id)
