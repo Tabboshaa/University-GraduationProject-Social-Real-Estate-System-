@@ -64,6 +64,8 @@
  <script src="{{asset('AdminBackEnd/build/js/custom.min.js')}}"></script>
  <script src="{{asset('AdminBackEnd//vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js')}}"></script>
 
+ <script src="{{ asset('js/app.js') }}" defer></script>
+
 
 
 

@@ -19,9 +19,9 @@
             <h3>
                 Location
             </h3>
-            <div class="map">
-                <iframe src="https://www.google.com/maps/embed?pb=" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
-            </div>
+{{--            <div class="map">--}}
+{{--                <iframe src="https://www.google.com/maps/embed?pb=" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>--}}
+{{--            </div>--}}
             <div class="clearfix"></div>
         </div>
     </div>
@@ -34,94 +34,66 @@
                     <ul class="nav side-menu">
 
                         <li> <a><span class="fa fa-chevron-down"></span>1-January</a>
-
                             @if(isset($schedule["01"]))
+
                                 <ul class="nav child_menu">
-                                    @foreach($schedule["01"] as $schedule3 => $test3)
-
+                                    @foreach($schedule["01"] as $Dates => $date)
                                         <?php
-                                        $SartDateDay3=\Carbon\Carbon::parse($test3["Start_Date"])->format('d');
-                                        $EndDateDay3=\Carbon\Carbon::parse($test3["End_Date"])->format('d');
+                                        $day=\Carbon\Carbon::parse($date["date"])->format('d');
+                                        $day=$day+1-1;
+                                        $SID=$date["schedule_Id"];
+                                        //$test=$date["date"];
                                         ?>
-                                        <li><a> <span class="fa fa-chevron-down"></span> {{$SartDateDay3+1-1}}->{{$EndDateDay3+1-1}} </a>
-                                            <ul class="nav child_menu">
-                                                <?php
-                                                $SartDateMonth3=\Carbon\Carbon::parse($test3["Start_Date"])->format('m');
-                                                $EndDateMonth3=\Carbon\Carbon::parse($test3["End_Date"])->format('m');
-//                                                if($SartDateMonth3!=$EndDateMonth3)
-//                                                    $end= \Carbon\Carbon::parse($EndDateMonth3)->endOfMonth();
-//                                                else{$end=$EndDateMonth3}
-                                                ?>
-                                                @for($i3=$SartDateDay3-1+1;$i3<=$EndDateDay3;$i3++)
-                                                    <li><a href=""> {{$i3}}</a></li>
-                                                @endfor
+    <li><div> <a id="01_{{$day}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('01_'+{{$day}},{{$SID}})">{{$day}}</a></div></li>
 
-                                            </ul>
-                                        </li>
+
                                     @endforeach
                                 </ul>
                             @endif
-
-
                         </li>
                         <li> <a><span class="fa fa-chevron-down"></span>2-February </a>
 
+                            @if(isset($schedule["02"]))
+
+                                <ul class="nav child_menu">
+                                    @foreach($schedule["02"] as $Dates => $date)
+                                        <?php
+                                        $day=\Carbon\Carbon::parse($date["date"])->format('d');
+                                        ?>
+<li><div> <a id="02_{{$day}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('02_'+{{$day}},{{$SID}})">{{$day}}</a></div></li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         </li>
 
                         <li> <a><span class="fa fa-chevron-down"></span>3-March </a>
                             @if(isset($schedule["03"]))
+
                                 <ul class="nav child_menu">
-<<<<<<< Updated upstream
-                                    @foreach($schedule["03"] as $schedules => $tests)
-
+                                    @foreach($schedule["03"] as $Dates => $date)
                                         <?php
-                                        $SartDateDay=\Carbon\Carbon::parse($tests["Start_Date"])->format('d');
-                                        $EndDateDay=\Carbon\Carbon::parse($tests["End_Date"])->format('d');
-=======
-                                    @foreach($schedule["03"] as $schedule3 => $test3)
-
-                                        <?php
-                                        $SartDateDay3=\Carbon\Carbon::parse($test3["Start_Date"])->format('d');
-                                        $EndDateDay3=\Carbon\Carbon::parse($test3["End_Date"])->format('d');
->>>>>>> Stashed changes
+                                        $day=\Carbon\Carbon::parse($date["date"])->format('d');
+                                        $SID=$date["schedule_Id"];
                                         ?>
-                                        <li><a> <span class="fa fa-chevron-down"></span> {{$SartDateDay3+1-1}}->{{$EndDateDay3+1-1}} </a>
-                                            <ul class="nav child_menu">
-                                                @for($i3=$SartDateDay3-1+1;$i3<=$EndDateDay3;$i3++)
-                                                    <li><a href=""> {{$i3}}</a></li>
-                                                @endfor
-
-                                            </ul>
-                                        </li>
+ <li><div> <a id="03_{{$day}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('03_'+{{$day}},{{$SID}})">{{$day}}</a></div></li>
                                     @endforeach
                                 </ul>
                             @endif
-
-
                         </li>
                         <li> <a><span class="fa fa-chevron-down"></span>4-April </a>
-
-
                             @if(isset($schedule["04"]))
+
                                 <ul class="nav child_menu">
-                                    @foreach($schedule["04"] as $schedule => $test)
-
+                                    @foreach($schedule["04"] as $Dates => $date)
                                         <?php
-                                        $SartDateDay=\Carbon\Carbon::parse($test["Start_Date"])->format('d');
-                                        $EndDateDay=\Carbon\Carbon::parse($test["End_Date"])->format('d');
+                                        $day=\Carbon\Carbon::parse($date["date"])->format('d');
+                                        $SID=$date["schedule_Id"];
                                         ?>
-                                        <li><a> <span class="fa fa-chevron-down"></span> {{$SartDateDay+1-1}}->{{$EndDateDay+1-1}} </a>
-                                            <ul class="nav child_menu">
-                                                @for($i=$SartDateDay-1+1;$i<=$EndDateDay;$i++)
-                                                    <li><a href=""> {{$i}}</a></li>
-                                                @endfor
 
-                                            </ul>
-                                        </li>
+  <li><div> <a id="04_{{$day}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('04_'+{{$day}},{{$SID}})">{{$day}}</a></div></li>
                                     @endforeach
                                 </ul>
                             @endif
-
                         </li>
                         <li> <a><span class="fa fa-chevron-down"></span>5-May </a></li>
                         <li> <a><span class="fa fa-chevron-down"></span>6-June </a></li>
@@ -140,8 +112,237 @@
     </div>
 
 </div>
+<script
+    src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous"></script>
+<script>
+    var s=0;
+    function test(day,schedule_Id)
+    {
+        console.log(day);
+
+        var clicked=document.getElementById(day);
+        console.log(clicked);
+        var end;
+        var schedule_Id2;
+        var disable;
+        if(s==0)
+        {
+            clicked.className = 'calendar-table__item_Start';
+            s = 1;
+            disable = document.getElementsByClassName("calendar-table__item");
+            console.log(disable.length);//44
+            for(var i = 0; i < disable.length; i++)
+            {
+                schedule_Id2=disable[i].getAttribute("name");
+                if (schedule_Id2!=schedule_Id){
+                    disable[i].className="calendar-table__item_isdisable";
+                }
+            }
+        }else {
+            clicked.className='calendar-table__item_End';
+        }
+    }
+</script>
 
 <style>
+
+    .day{
+        background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;"
+    }
+    .calendar-table__item {
+        border: 2px solid transparent;
+        border-radius: 50%;
+        color: #424588;
+        font-size: 12px;
+        font-weight: 700;
+        width: 40%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+    }
+    .calendar-table__item_isdisable {
+        border: 2px solid transparent;
+        border-radius: 50%;
+        color: #424588;
+        font-size: 12px;
+        font-weight: 700;
+        width: 40%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        background-color: #dbd6d0;
+        border-color: #dbd6d0;
+        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        color: #fff;
+        pointer-events: none;
+    }
+
+
+    .calendar-table__item:hover {
+        background: #d0e9c6;
+        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        transition: 0.2s all ease-in;
+    }
+
+    .calendar-table__item_Start {
+        border: 2px solid transparent;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        width: 40%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        background: #7e66ec;
+        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        transition: 0.2s all ease-in;
+        border-radius: 50% 50% 0 0;
+    }
+    .calendar-table__item_Rang {
+        border: 2px solid transparent;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        width: 40%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        background: #7e66ec;
+        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        transition: 0.2s all ease-in;
+        border-radius: 0;
+        border-width: 0 2px;
+    }
+
+
+    .calendar-table__item_End {
+        border: 2px solid transparent;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        width: 40%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        background: #7e66ec;
+        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        transition: 0.2s all ease-in;
+        border-radius: 0 0 50% 50%;
+    }
+    calendar-table__item_isDisabled {
+        border-color: #fefefe;
+        background-color: #f2f6f8;
+        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        -webkit-box-shadow: 0px 2px 2px rgb(0 0 0 / 10%);
+        box-shadow: 0px 2px 2px rgb(0 0 0 / 10%);
+    }
+
+
+
+    /* hover Form table  */
+    .nav.side-menu > li > a:hover {
+        color: red  !important; }
+
+    .nav.side-menu > li > a:hover, .nav > li > a:focus {
+        text-decoration: none;
+        background: transparent; }
+
+    .nav.child_menu {
+        display: none; }
+
+    .nav.child_menu li:hover,
+    .nav.child_menu li.active {
+        background-color: rgba(255, 255, 255, 0.06); }
+
+    .nav.child_menu li {
+        padding-left: 36px; }
+
+    .nav-md ul.nav.child_menu li:before {
+        background: #425668;
+        bottom: auto;
+        content: "";
+        height: 8px;
+        left: 23px;
+        margin-top: 15px;
+        position: absolute;
+        right: auto;
+        width: 8px;
+        z-index: 1;
+        border-radius: 50%; }
+
+    .nav-md ul.nav.child_menu li:after {
+        border-left: 1px solid #425668;
+        bottom: 0;
+        content: "";
+        left: 27px;
+        position: absolute;
+        top: 0; }
+
+    .nav-md ul.nav.child_menu li:last-child::after {
+        bottom: 50%; }
+    /* form table*/
+    .nav.side-menu > li > a, .nav.child_menu > li > a {
+        color: black;
+        font-weight: 500; }
+
+    .nav.child_menu li li:hover,
+    .nav.child_menu li li.active {
+        background: none; }
+    /* hover country state */
+    .nav.child_menu li li a:hover,
+    .nav.child_menu li li a.active {
+        color: red; }
+    .nav.side-menu > li.current-page, .nav.side-menu > li.active {
+        border-right: 5px solid #1ABB9C; }
+
+
+    .nav.side-menu > li.active > a {
+        text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
+        background: -webkit-gradient(linear, left top, left bottom, from(#334556), to(#2C4257)), #2A3F54;
+        background: linear-gradient(#334556, #2C4257), #2A3F54;
+        -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
+        box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0; }
+
+    .nav.child_menu > li > a {
+        color: black;
+        font-size: 12px;
+        padding: 9px; }
+
+    /*...............................*/
+
 
     .main_menu_side {
         padding: 0; }
@@ -230,77 +431,6 @@
 
     .nav.side-menu > li > a {
         margin-bottom: 6px; }
-
-    /* hover Form table  */
-    .nav.side-menu > li > a:hover {
-        color: red  !important; }
-
-    .nav.side-menu > li > a:hover, .nav > li > a:focus {
-        text-decoration: none;
-        background: transparent; }
-
-    .nav.child_menu {
-        display: none; }
-
-    .nav.child_menu li:hover,
-    .nav.child_menu li.active {
-        background-color: rgba(255, 255, 255, 0.06); }
-
-    .nav.child_menu li {
-        padding-left: 36px; }
-
-    .nav-md ul.nav.child_menu li:before {
-        background: #425668;
-        bottom: auto;
-        content: "";
-        height: 8px;
-        left: 23px;
-        margin-top: 15px;
-        position: absolute;
-        right: auto;
-        width: 8px;
-        z-index: 1;
-        border-radius: 50%; }
-
-    .nav-md ul.nav.child_menu li:after {
-        border-left: 1px solid #425668;
-        bottom: 0;
-        content: "";
-        left: 27px;
-        position: absolute;
-        top: 0; }
-
-    .nav-md ul.nav.child_menu li:last-child::after {
-        bottom: 50%; }
-    /* form table*/
-    .nav.side-menu > li > a, .nav.child_menu > li > a {
-        color: black;
-        font-weight: 500; }
-
-    .nav.child_menu li li:hover,
-    .nav.child_menu li li.active {
-        background: none; }
-    /* hover country state */
-    .nav.child_menu li li a:hover,
-    .nav.child_menu li li a.active {
-        color: red; }
-    .nav.side-menu > li.current-page, .nav.side-menu > li.active {
-        border-right: 5px solid #1ABB9C; }
-
-
-    .nav.side-menu > li.active > a {
-        text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
-        background: -webkit-gradient(linear, left top, left bottom, from(#334556), to(#2C4257)), #2A3F54;
-        background: linear-gradient(#334556, #2C4257), #2A3F54;
-        -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
-        box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0; }
-
-    .nav.child_menu > li > a {
-        color: black;
-        font-size: 12px;
-        padding: 9px; }
-
-    /*...............................*/
 
     .main-container-wrapper {
         background-color: #f8fafa;
@@ -403,27 +533,8 @@
         width: 100%;
     }
 
-    .calendar-table__item {
-        border: 2px solid transparent;
-        border-radius: 50%;
-        color: #424588;
-        font-size: 12px;
-        font-weight: 700;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-    }
 
-    .calendar-table__item:hover {
-        background: #f8fafa;
-        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-        -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-        transition: 0.2s all ease-in;
-    }
+
 
     .calendar-table__row {
         display: flex;
@@ -435,7 +546,7 @@
         margin-bottom: 4px;
     }
 
-    .calendar-table__header .calendar-table__col {
+    .calendar-table_header .calendar-table_col {
         display: inline-block;
         color: #99a4ae;
         font-size: 12px;
@@ -448,38 +559,38 @@
     }
 
     @media (min-width: 360px) {
-        .calendar-table__header .calendar-table__col {
+        .calendar-table_header .calendar-table_col {
             width: 46px;
         }
     }
 
     @media (min-width: 410px) {
-        .calendar-table__header .calendar-table__col {
+        .calendar-table_header .calendar-table_col {
             width: 54px;
         }
     }
 
-    .calendar-table__body .calendar-table__col {
+    .calendar-table_body .calendar-table_col {
         width: 40px;
         height: 42px;
         padding-bottom: 2px;
     }
 
     @media (min-width: 360px) {
-        .calendar-table__body .calendar-table__col {
+        .calendar-table_body .calendar-table_col {
             width: 46px;
             height: 48px;
         }
     }
 
     @media (min-width: 410px) {
-        .calendar-table__body .calendar-table__col {
+        .calendar-table_body .calendar-table_col {
             width: 54px;
             height: 56px;
         }
     }
 
-    .calendar-table__today .calendar-table__item {
+    .calendar-table_today .calendar-table_item {
         border-color: #fefefe;
         background-color: #f2f6f8;
         -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
@@ -487,7 +598,7 @@
         box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
     }
 
-    .calendar-table__event .calendar-table__item {
+    .calendar-table_event .calendar-table_item {
         background-color: #7e66ec;
         border-color: #fefefe;
         -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
@@ -500,45 +611,45 @@
         overflow-x: hidden;
     }
 
-    .calendar-table__event--long .calendar-table__item {
+    .calendar-table_event--long .calendar-table_item {
         border-radius: 0;
-        border-width: 2px 0;
+        border-width: 0  2px;
     }
 
-    .calendar-table__event--start .calendar-table__item {
+    .calendar-table_event--start .calendar-table_item {
         border-left: 2px solid #fff;
-        border-radius: 50% 0 0 50%;
+        border-radius: 50% 50% 0 0;
     }
 
-    .calendar-table__event--start.calendar-table__col:last-child .calendar-table__item {
+    .calendar-table_event--start.calendar-tablecol:last-child .calendar-table_item {
         border-width: 2px;
     }
 
-    .calendar-table__event--end .calendar-table__item {
+    .calendar-table_event--end .calendar-table_item {
         border-right: 2px solid #fff;
-        border-radius: 0 50% 50% 0;
+        border-radius: 0 0 50% 50% ;
     }
 
-    .calendar-table__event--end.calendar-table__col:first-child .calendar-table__item {
+    .calendar-table_event--end.calendar-tablecol:first-child .calendar-table_item {
         border-width: 2px;
     }
 
-    .calendar-table__inactive .calendar-table__item {
+    .calendar-table_inactive .calendar-table_item {
         color: #fff;
         cursor: default;
     }
 
-    .calendar-table__inactive .calendar-table__item:hover {
+    .calendar-table_inactive .calendar-table_item:hover {
         background: transparent;
         box-shadow: none;
     }
 
-    .calendar-table__inactive.calendar-table__event .calendar-table__item {
+    .calendar-table_inactive.calendar-tableevent .calendar-table_item {
         color: #fff;
         opacity: 0.25;
     }
 
-    .calendar-table__inactive.calendar-table__event .calendar-table__item:hover {
+    .calendar-table_inactive.calendar-tableevent .calendar-table_item:hover {
         background: #7e66ec;
         -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
         -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
@@ -609,4 +720,14 @@
         display: inline-block;
     }
 </style>
+
+
+<!-- Fonts -->
+<link rel="dns-prefetch" href="//fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+<!-- Styles -->
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<script src="{{ asset('js/app.js') }}" defer></script>
+
 @endsection

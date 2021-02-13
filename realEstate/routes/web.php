@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\Route;
 //end test routes
 
 //authntication routes
+Route::get('test',function (){
+    return view('calender');
+});
 Auth::routes();
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
 Route::post('/loginUser', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');

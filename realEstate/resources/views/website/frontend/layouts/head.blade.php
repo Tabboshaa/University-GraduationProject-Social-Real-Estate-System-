@@ -51,6 +51,12 @@
 {{--   <link href="{{asset('AdminBackEnd/build/css/custom.min.css')}}" rel="stylesheet">--}}
     <link href="{{asset('AdminBackEnd/css/smart_wizard_all.css')}}" rel="stylesheet" type="text/css" />
 
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 {{--End  BackEnd Linkes --}}
     <script
         src="https://code.jquery.com/jquery-3.5.1.min.js"
