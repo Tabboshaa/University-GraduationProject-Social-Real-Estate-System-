@@ -42,9 +42,9 @@
                                         $day=\Carbon\Carbon::parse($date["date"])->format('d');
                                         $day=$day+1-1;
                                         $SID=$date["schedule_Id"];
-                                        //$test=$date["date"];
+                                        $test=$date["date"];
                                         ?>
-    <li><div> <a id="01_{{$day}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('01_'+{{$day}},{{$SID}})">{{$day}}</a></div></li>
+    <li><div> <a id="01_{{$day}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('01_'+'{{$day}}','{{$test}}','{{$SID}}')">{{$day}}</a></div></li>
 
 
                                     @endforeach
@@ -59,8 +59,9 @@
                                     @foreach($schedule["02"] as $Dates => $date)
                                         <?php
                                         $day=\Carbon\Carbon::parse($date["date"])->format('d');
+                                        $SID=$date["schedule_Id"];
                                         ?>
-<li><div> <a id="02_{{$day}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('02_'+{{$day}},{{$SID}})">{{$day}}</a></div></li>
+<li><div> <a id="02_{{$day}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('02_'+'{{$day}}','{{$SID}}')">{{$day}}</a></div></li>
                                     @endforeach
                                 </ul>
                             @endif
@@ -75,7 +76,7 @@
                                         $day=\Carbon\Carbon::parse($date["date"])->format('d');
                                         $SID=$date["schedule_Id"];
                                         ?>
- <li><div> <a id="03_{{$day}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('03_'+{{$day}},{{$SID}})">{{$day}}</a></div></li>
+ <li><div> <a id="03_{{$day}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('03_'+'{{$day}}','{{$SID}}')">{{$day}}</a></div></li>
                                     @endforeach
                                 </ul>
                             @endif
@@ -90,7 +91,7 @@
                                         $SID=$date["schedule_Id"];
                                         ?>
 
-  <li><div> <a id="04_{{$day}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('04_'+{{$day}},{{$SID}})">{{$day}}</a></div></li>
+  <li><div> <a id="04_{{$day}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('04_'+'{{$day}}','{{$SID}}')">{{$day}}</a></div></li>
                                     @endforeach
                                 </ul>
                             @endif
@@ -118,9 +119,9 @@
     crossorigin="anonymous"></script>
 <script>
     var s=0;
-    function test(day,schedule_Id)
+    function test(day,test,schedule_Id)
     {
-        console.log(day);
+        console.log(test);
 
         var clicked=document.getElementById(day);
         console.log(clicked);
@@ -155,7 +156,7 @@
         padding: 0;
         font: inherit;
         cursor: pointer;
-        outline: inherit;"
+        outline: inherit;
     }
     .calendar-table__item {
         border: 2px solid transparent;

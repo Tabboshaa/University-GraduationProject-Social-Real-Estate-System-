@@ -151,8 +151,10 @@ class CustomerHomeController extends Controller
             'date' => $start,
             'schedule_Id' => $schedule_id
         ];
-        //for loop to store interval in array
-        foreach ($period as $key => $value) {
+
+        // }for loop to store interval in array
+        foreach ($period as $key => $value)
+        {
             $interval[] = [
                 'date' => $value->format('Y-m-d'),
                 'schedule_Id' => $schedule_id
@@ -166,6 +168,8 @@ class CustomerHomeController extends Controller
 
         return $interval;
     }
+
+
     public function itemProfileGallery($id)
     {
         //
@@ -272,3 +276,4 @@ class CustomerHomeController extends Controller
         $state = StateController::getStates();
         return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items]);
     }
+}
