@@ -101,7 +101,6 @@ class CustomerHomeController extends Controller
 
         $schedule = $this->getAvailableTime($id);
         // return $schedule;
-        // return Carbon::parse($test)->format('d');
 
         $state = StateController::getStates();
 
@@ -120,13 +119,13 @@ class CustomerHomeController extends Controller
         //     get from Schedule endDate startDate where item id =$item_id
 
         $schedule = schedule::all()->where('Item_Id', '=', $item_id);
-        $days=[];
+        $days = [];
         //get day of every schedule
         foreach ($schedule as $value) {
 
-            $day=$this->getdays($value->Start_Date,$value->End_Date);
+            $day = $this->getdays($value->Start_Date, $value->End_Date, $value->schedule_Id);
             //merge days
-            $days=collect($days)->merge($day)->unique(); //unique 3shan mykrrsh date mrten
+            $days = collect($days)->merge($day)->unique(); //unique 3shan mykrrsh date mrten
         }
 
         //group by month of date
@@ -137,7 +136,7 @@ class CustomerHomeController extends Controller
         return $days;
     }
 
-    function getdays($start,$end)
+    function getdays($start, $end, $schedule_id)
     {
 
         $period = new DatePeriod(
@@ -150,16 +149,19 @@ class CustomerHomeController extends Controller
         //enter start date
         $interval[] = [
             'date' => $start,
+            'schedule_Id' => $schedule_id
         ];
         //for loop to store interval in array
         foreach ($period as $key => $value) {
             $interval[] = [
                 'date' => $value->format('Y-m-d'),
+                'schedule_Id' => $schedule_id
             ];
         }
         //enter end date
         $interval[] = [
             'date' => $end,
+            'schedule_Id' => $schedule_id
         ];
 
         return $interval;
@@ -167,7 +169,6 @@ class CustomerHomeController extends Controller
     public function itemProfileGallery($id)
     {
         //
-
         $state = StateController::getStates();
 
         $item = DB::table('items')
@@ -267,8 +268,7 @@ class CustomerHomeController extends Controller
 
 
         $state = StateController::getStates();
+
+        $state = StateController::getStates();
         return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items]);
     }
-
-
-}
