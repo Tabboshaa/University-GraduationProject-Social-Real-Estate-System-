@@ -98,6 +98,7 @@ class CustomerHomeController extends Controller
     public function itemDetails($id)
     {
         //
+
         $schedule = $this->getAvailableTime($id);
         // return $schedule;
         // return Carbon::parse($test)->format('d');
@@ -117,7 +118,7 @@ class CustomerHomeController extends Controller
     public function getAvailableTime($item_id)
     {
         //     get from Schedule endDate startDate where item id =$item_id
-        //
+
         $schedule = schedule::all()->where('Item_Id', '=', $item_id);
         $days=[];
         //get day of every schedule
@@ -135,6 +136,7 @@ class CustomerHomeController extends Controller
 
         return $days;
     }
+
     function getdays($start,$end)
     {
 
@@ -143,7 +145,6 @@ class CustomerHomeController extends Controller
             new DateInterval('P1D'),
             new DateTime($end)
         );
-
 
         $interval = [];
         //enter start date

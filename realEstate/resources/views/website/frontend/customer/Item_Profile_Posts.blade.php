@@ -69,7 +69,7 @@
 
 
                 <div class="placeform1">
-                    <input type="text" id="ReplyForComment{{$comment->Comment_Id}}" name="comment" placeholder="Write a reply...">
+                    <input type="text" id="ReplyForComment{{$comment->Comment_Id}}" name="comment{{$comment->Comment_Id}}" placeholder="Write a reply...">
                     <a href="#">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </a>
@@ -95,6 +95,7 @@
                     </h3>
                 </div>
                 <div class="sub-heading">
+                <input type="hidden" name="reply{{$comment->Comment_Id}}" autofocus>
                     {{ $reply->Comment }}
                 </div>
                 <div class="clearfix"></div>
