@@ -26,4 +26,9 @@ class HomeController extends Controller
         return view('website/backend.database pages.Data_Type');
         // return view('home');
     }
+    public function reservation(){
+        $user_id = Auth :: id();
+        
+
+    }
 }
