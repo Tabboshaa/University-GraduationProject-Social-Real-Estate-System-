@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\attachment;
+use App\Item;
+use App\post_attachment;
 use App\posts;
 use App\User;
 use Illuminate\Http\Request;
@@ -14,9 +17,25 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
         //
+        $posts = PostsController::getItemPosts($id);
+        $comments = CommentsController::getPostComments($id);
+        $replies = CommentsController::getPostreplies($id);
+        $post_images = DB::table('post_attachments')
+            ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
+            ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
+            ->select('post_attachments.*', 'attachments.File_Path')->where('items.Item_Id', '=', $id)
+            ->get()
+            ->groupBy('Post_Id');
+
+        return view('website.backend.database pages.Item_Posts', [
+            'item_id' => $id, 'posts' => $posts,
+            'post_images' => $post_images,
+            'comments' => $comments,
+            'replies' => $replies
+        ]);
     }
 
     /**
@@ -24,9 +43,43 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
+
         //
+        $item = Item::all()->find($id);
+
+        try {
+            $post=posts::create([
+                'Item_Id' => $id,
+                'User_Id' => $item->User_Id,
+                'Post_Title' => request('Post_Title'),
+                'Post_Content' => request('Post_Content'),
+            ]);
+
+            if($files=request()->file('images')){
+                foreach($files as $file){
+                    $filename=$file->getClientOriginalName();
+                    $file->storeAs('/profile gallery',$filename,'public');
+
+                    $attachment=attachment::create(['File_Path'=>$filename]);
+
+                    $post_attachment=post_attachment::create([
+                    'Post_Id'=> $post->Post_Id,
+                    'Attachment_Id'=>  $attachment->Attachment_Id,
+                    'Item_Id'=>$id
+                    ]);
+
+                }
+
+            }
+
+
+            return back()->with('success', 'Post Created Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+
+            return back()->with('error', 'Error creating Post !!');
+        }
     }
 
     /**
@@ -83,16 +136,25 @@ class PostsController extends Controller
     public function destroy($id)
     {
         //
+         try {
+         posts::destroy($id);
+         return  redirect()->back()->with('success', 'Post Deleted Successfully');
+     }catch (\Illuminate\Database\QueryException $e){
+
+         return redirect()->back()->with('error', 'Post cannot be deleted');
+
+     }
+
     }
 
     public static function getItemPosts($item_id)
     {
         //
-        $posts=DB::table('posts')
-        ->join('users', 'users.id', '=', 'posts.User_Id')
-        ->where('posts.Item_Id','=',$item_id)
-        ->select('posts.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
-        ->paginate(10);
+        $posts = DB::table('posts')
+            ->join('users', 'users.id', '=', 'posts.User_Id')
+            ->where('posts.Item_Id', '=', $item_id)
+            ->select('posts.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')
+            ->paginate(10);
 
 
 

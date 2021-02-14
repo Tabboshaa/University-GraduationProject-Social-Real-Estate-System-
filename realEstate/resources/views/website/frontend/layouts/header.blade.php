@@ -1,18 +1,18 @@
 <nav class="navbar navbar-expand-md navbar-light fixed-top sticky-top nav-menu">
 
-<div class="col-md-2 col-xs-12 p-left  p-right">
+    <div class="col-md-2 col-xs-12 p-left  p-right">
 
- <button  class="btn btn-link btn-sm text-white order-1 order-sm-0"  id="sidebarToggle" >
-   <i class="fas fa-bars"></i>
- </button>
-   <div class="logo">
-       <a href="#">
-       <img src="{{asset('FrontEnd/images/header/logo.png')}}" alt="logo" >
-       </a>
-   </div>
-</div>
- <!-- Navbar -->
-   <div class="col-md-5 col-xs-12 p-left  p-right">
+        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="logo">
+            <a href="#">
+                <img src="{{asset('FrontEnd/images/header/logo.png')}}" alt="logo">
+            </a>
+        </div>
+    </div>
+    <!-- Navbar -->
+    <div class="col-md-5 col-xs-12 p-left  p-right">
         <div class="searching">
            <form action="{{url('search_by_place')}}">
            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -27,9 +27,9 @@
    </div>
        <div class="col-md-5 col-xs-12 p-left p-right">
         <div class="add-listing">
-           <a href="upload.html">
-           <img src="{{asset('FrontEnd/images/header/plus-ico.png')}}" alt="">
-           Add Listing</a>
+            <a href="upload.html">
+                <img src="{{asset('FrontEnd/images/header/plus-ico.png')}}" alt="">
+                Add Listing</a>
         </div>
         <div class="home">
            <ul>
@@ -79,62 +79,83 @@
 
                     </div>
 
-               </li>
-               <li class="popup"  onclick="myFunctionicon()">
-                   <img src="{{asset('FrontEnd/images/header/notification.png')}}" alt="" title="" >
-               <span>0</span>
-               <div class="popuptext" id="icon">
-                       <div class="notfication-details">
+                </li>
+                <?php
+                use App\Http\Controllers\NotificationController;
+                use Illuminate\Support\Facades\Auth;
+                $notifications = NotificationController::index(Auth::id());
+                $today = \Carbon\Carbon::now();
+                ?>
 
-                       </div>
+                <li class="popup" onclick="getNotiffication()">
+                    <img src="{{asset('FrontEnd/images/header/notification.png')}}" alt="" title="">
+
+                    <span>{{count($notifications)}}</span>
+                        <!-- do by javascript -->
+                    <div class="popuptext visible-title show" id="icon">
+                        @foreach($notifications as $notification)
+                        <div class="notfication-details visible-title">
+                            <div class="noty-user-img visible-title">
+                                <img src="images/resources/ny-img1.png" alt="">
+                            </div>
+                            <div class="notification-info visible-title">
+                                <h3><a href="message.html">Jassica William   </a><a href="{{ url('/veiw_notification/'.$notification->Notification_Id) }}">{{ $notification->Notification }} </a></h3>
+                                <?php $end = \Carbon\Carbon::parse($notification->updated_at); ?>
+                                <p>{{ $end->diffForHumans($today) }} </p>
+                            </div>
+                            <!--notification-info -->
+                        </div>
+
+                        @endforeach
                     </div>
-               </li>
-           </ul>
+                </li>
+            </ul>
         </div>
         <!--#Home-->
-        <div class="login popup"  onclick="signin()">
+        <div class="login popup" onclick="signin()">
 
-           <img src="{{asset('FrontEnd/images/header/u-icon.png')}}" title="" alt="">
-           {{\Illuminate\Support\Facades\Auth::user()->First_Name }}
-           <div class="popuptext1" id="signin">
-                       <div class="notfication-details">
-                           <div class="notification-info">
-                               <a href="my_profile_account.html" >Profile </a>
+            <img src="{{asset('FrontEnd/images/header/u-icon.png')}}" title="" alt="">
+            {{\Illuminate\Support\Facades\Auth::user()->First_Name }}
+            <div class="popuptext1" id="signin">
+                <div class="notfication-details">
+                    <div class="notification-info">
+                        <a href="my_profile_account.html">Profile </a>
 
-                           </div>
-                       </div>
-                       <div class="notfication-details">
-                           <div class="notification-info">
-                               <a href="my_profile_dashboard.html">Dashboard</a>
-                           </div>
-                       </div>
-                       @if (Route::has('login'))
-                       <div class="notfication-details">
-                           <div class="notification-info">
-                               <a href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-
-                           </div><!--notification-info -->
-                        @else
-                        <div class="notfication-details">
-                           <div class="notification-info">
-                               <a href="signin.html" >Sign In</a>
-                           </div><!--notification-info -->
-                       </div>
-                        @endif
-
-                       </div>
                     </div>
+                </div>
+                <div class="notfication-details">
+                    <div class="notification-info">
+                        <a href="my_profile_dashboard.html">Dashboard</a>
+                    </div>
+                </div>
+                @if (Route::has('login'))
+                <div class="notfication-details">
+                    <div class="notification-info">
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+
+                    </div>
+                    <!--notification-info -->
+                    @else
+                    <div class="notfication-details">
+                        <div class="notification-info">
+                            <a href="signin.html">Sign In</a>
+                        </div>
+                        <!--notification-info -->
+                    </div>
+                    @endif
+
+                </div>
+            </div>
 
 
 
         </div>
-       </div>
+    </div>
 </nav>

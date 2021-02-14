@@ -11,5 +11,7 @@ class posts extends Model
     protected $fillable = [
         'Item_Id',
         'User_Id',
+        'Post_Title',
+        'Post_Content'
     ];
 }
