@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\Route;
 //end test routes
 
 //authntication routes
+Route::get('test',function (){
+    return view('calender');
+});
 Auth::routes();
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
 Route::post('/loginUser', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
@@ -28,6 +31,10 @@ Route::post('/registerUser', 'Auth\RegisterControllerUser@create')->name('regist
 Route::get('/UserLogin', function(){
     return view('website\frontend\login');
 })->name('userLogin');
+
+Route::get('/s', function(){
+    return view('website\frontend\customer\calender');
+});
 
 //Customer Routes with middleware
 Route::group(['middleware' => 'auth.user'], function () {
@@ -48,6 +55,7 @@ Route::get('/itemDetails/{id?}', 'CustomerHomeController@itemDetails');
 Route::get('/itemGallery/{id?}', 'CustomerHomeController@itemProfileGallery');
 Route::get('/itemReviews/{id?}', 'CustomerHomeController@itemProfileReviews');
 
+Route::get('/veiw_notification/{id}', 'NotificationController@viewNotification');
 });
 
 //fullcalender
@@ -59,7 +67,7 @@ Route::post('fullcalendar/delete','FullCalendarController@destroy');
 //Admin Routes with middleware
 // Route::group(['middleware' => 'auth.admin'], function () {
 
-    Route::get('/date', 'CustomerHomeController@getdays');
+    Route::get('/test/{id}', 'NotificationController@index');
     Route::get('/data_types', 'DatatypeController@index');
     //main types pages
     Route::get('/main_types', 'MainTypes@index');

@@ -98,16 +98,9 @@ class CustomerHomeController extends Controller
     public function itemDetails($id)
     {
         //
-<<<<<<< Updated upstream
+
         $schedule = $this->getAvailableTime($id);
         // return $schedule;
-        // return Carbon::parse($test)->format('d');
-=======
-        $schedule=$this->getAvailableTime($id);
-        return $schedule;
-         $test= $schedule["03"][0]["Start_Date"];
-//        return Carbon::parse($test)->format('d');
->>>>>>> Stashed changes
 
         $state = StateController::getStates();
 
@@ -124,15 +117,16 @@ class CustomerHomeController extends Controller
     public function getAvailableTime($item_id)
     {
         //     get from Schedule endDate startDate where item id =$item_id
-        //
-        $schedule = schedule::all()->where('Item_Id', '=', $item_id);
-        $days=[];
+
+        $schedule = schedule::orderBy('Start_Date')->where('Item_Id', '=', $item_id)->get();
+
+        $days = [];
         //get day of every schedule
         foreach ($schedule as $value) {
 
-            $day=$this->getdays($value->Start_Date,$value->End_Date);
+            $day = $this->getdays($value->Start_Date, $value->End_Date, $value->schedule_Id);
             //merge days
-            $days=collect($days)->merge($day)->unique(); //unique 3shan mykrrsh date mrten
+            $days = collect($days)->merge($day)->unique(); //unique 3shan mykrrsh date mrten
         }
 
         //group by month of date
@@ -142,7 +136,8 @@ class CustomerHomeController extends Controller
 
         return $days;
     }
-    function getdays($start,$end)
+
+    function getdays($start, $end, $schedule_id)
     {
 
         $period = new DatePeriod(
@@ -151,25 +146,31 @@ class CustomerHomeController extends Controller
             new DateTime($end)
         );
 
-
         $interval = [];
         //enter start date
         $interval[] = [
             'date' => $start,
+            'schedule_Id' => $schedule_id
         ];
-        //for loop to store interval in array
-        foreach ($period as $key => $value) {
+
+        // }for loop to store interval in array
+        foreach ($period as $key => $value)
+        {
             $interval[] = [
                 'date' => $value->format('Y-m-d'),
+                'schedule_Id' => $schedule_id
             ];
         }
         //enter end date
         $interval[] = [
             'date' => $end,
+            'schedule_Id' => $schedule_id
         ];
 
         return $interval;
     }
+
+
     public function itemProfileGallery($id)
     {
         //
@@ -270,15 +271,10 @@ class CustomerHomeController extends Controller
             ->select('items.*', 'cover__pages.path')
             ->get();
 
-<<<<<<< Updated upstream
-=======
 
         $state = StateController::getStates();
->>>>>>> Stashed changes
 
         $state = StateController::getStates();
         return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items]);
     }
-
-
 }
