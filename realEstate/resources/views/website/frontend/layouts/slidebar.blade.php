@@ -1,6 +1,6 @@
 <ul class="sidebar navbar-nav">
 			<li class="nav-item active">
-			<a  href="index-2.html"><img src="{{asset('FrontEnd/images/menu-icon/Homeicon.png')}}" title="" alt=""> <div id="foo">Home</div></a></li>
+			<a  href="{{url('/HomePage')}}"><img src="{{asset('FrontEnd/images/menu-icon/Homeicon.png')}}" title="" alt=""> <div id="foo">Home</div></a></li>
 			<li><a href="listing.html"><img src="{{asset('FrontEnd/images/menu-icon/Categoryicon.png')}}" title="" alt=""><div  id="foo1"> Listing </div> </a></li>
 			<li><a href="find_profiles.html"><img src="{{asset('FrontEnd/images/menu-icon/flag.png')}}" title="" alt=""> <div  id="foo2">Find Profiles</div></a></li>
 			<li class="mpadding"><a href="message.html"><img src="{{asset('FrontEnd/images/menu-icon/message.png')}}" title="" alt=""><div  id="foo3"> Messages</div></a></li>

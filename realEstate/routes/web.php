@@ -225,3 +225,9 @@ Route::post('fullcalendar/delete','FullCalendarController@destroy');
 Route::get('/timeline',function () {
     return view('website.frontend.customer.TimeLine');
 });
+
+//Follow 
+Route::get('/FollowItem/{id?}','AddUserController@FollowedItem');
+Route::get('/UnfollowItem/{id?}','AddUserController@UnfollowItem');
+
+Route::get('/HomePage', 'CustomerHomeController@HomePagePosts');

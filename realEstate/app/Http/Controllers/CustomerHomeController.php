@@ -7,6 +7,9 @@ use App\Item;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
+use App\followeditemsbyuser;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerHomeController extends Controller
 {
@@ -19,7 +22,7 @@ class CustomerHomeController extends Controller
     {
         //
         $state = StateController::getStates();
-        return view("website.frontend.customer.CustomerHome", ['states' => $state]);
+        return view("website.frontend.customer.CustomerHome", ['states' => $state ]);
         // return view('');
     }
 
@@ -54,7 +57,7 @@ class CustomerHomeController extends Controller
     public function itemProfile($id = null)
     {
         //
-
+        
         $state = StateController::getStates();
         $posts = PostsController::getItemPosts($id);
         $comments = CommentsController::getPostComments($id);
@@ -74,10 +77,11 @@ class CustomerHomeController extends Controller
             ->get()
             ->groupBy('Post_Id');
 
-
-
-
-        return view(
+            $User_Id = Auth::id();
+            $check_follow=followeditemsbyuser::all()->where('Item_Id','=',$id)->where('User_ID','=',$User_Id);
+            
+        
+            return view(
             'website\frontend\customer\Item_Profile_Posts',
             [
                 'states' => $state,
@@ -86,7 +90,8 @@ class CustomerHomeController extends Controller
                 'cover' => $cover,
                 'post_images' => $post_images,
                 'comments' => $comments,
-                'replies' => $replies
+                'replies' => $replies,
+                'check_follow'=>$check_follow
             ]
         );
     }
@@ -215,5 +220,61 @@ class CustomerHomeController extends Controller
         $state = StateController::getStates();
 
         return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items]);
+    }
+
+    public function FollowedItemPosts($item_id)
+    {
+        $posts = DB::table('posts')
+        ->join('items','items.Item_Id','posts.Item_Id')
+        ->where('posts.Item_Id','=',$item_id)
+        ->select('posts.*')
+        ->get();
+
+        return view('website.frontend.customer.TimeLine', ['posts' => $posts]);
+
+    }
+
+    public function HomePagePosts ()
+    {
+        $User_Id = Auth::id();
+
+        $posts = DB::table('followeditemsbyusers')
+        ->join('posts','followeditemsbyusers.Item_Id','posts.Item_Id')
+        ->join('items','followeditemsbyusers.Item_Id','items.Item_Id')
+        ->select('posts.*','items.Item_Name')
+        ->where('followeditemsbyusers.User_ID','=',$User_Id )
+        ->get();
+
+        
+
+        $post_images = DB::table('post_attachments')
+        ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id') 
+        ->join('followeditemsbyusers','followeditemsbyusers.Item_Id','post_attachments.Item_Id')
+        ->select('post_attachments.*', 'attachments.File_Path')
+        ->get()
+        ->groupBy('Post_Id');
+
+        
+        $comments=DB::table('comments')
+        ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
+        ->join('users', 'users.id', '=', 'comments.User_Id')
+        ->where('Parent_Comment','=',null)
+        ->where('posts.Item_Id','=',$item_id)
+        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
+        ->get()
+        ->groupBy('Post_Id');
+
+        $replies=DB::table('comments')
+        ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
+        ->join('users', 'users.id', '=', 'comments.User_Id')
+        ->where('comments.Parent_Comment','!=',null)
+        ->where('posts.Item_Id','=',$item_id)
+        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
+        ->get()
+        ->groupBy('Parent_Comment');
+       return $comments;
+
+        return view("website.frontend.customer.HomePagePosts", ['posts'=>$posts ,'post_images'=>$post_images]);
+
     }
 }

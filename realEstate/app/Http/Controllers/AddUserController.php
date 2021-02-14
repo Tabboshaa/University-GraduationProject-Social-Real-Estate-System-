@@ -8,8 +8,11 @@ use App\User;
 use App\User_Type;
 use App\Emails;
 use App\Phone_Numbers;
+use App\followeditemsbyuser;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 
 class AddUserController extends Controller
@@ -202,5 +205,26 @@ class AddUserController extends Controller
         $user =User::select('First_Name','Middle_Name','Last_Name')->where('id', '=',$user_id )->get()->first();
 
         return $user;
+    }
+    public static function FollowedItem ($Item_Id)
+    {
+        $followed_items = followeditemsbyuser :: create([
+            'Item_Id' => $Item_Id,
+            'User_ID'=>Auth::id()
+        ]);
+        $followed_items->save();
+        return back();
+    }
+    public static function UnfollowItem ($Item_Id)
+    {
+        $User_Id = Auth::id();
+        // DB::table('followeditemsbyusers')->where('User_ID','=',$User_Id,'Item_Id','=',$Item_Id)->delete();
+        
+        $followed_items=followeditemsbyuser::all()->where('Item_Id','=',$Item_Id)->where('User_ID','=',$User_Id);
+        
+        return $followed_items;
+        followeditemsbyuser::destroy($followed_items[2]->Followed_Item_Id);
+         return back();
+        
     }
 }

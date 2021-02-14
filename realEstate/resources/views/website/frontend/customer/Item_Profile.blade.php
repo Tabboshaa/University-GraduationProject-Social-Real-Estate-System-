@@ -1,11 +1,12 @@
 @extends('website.frontend.layouts.main')
 @section('content')
+
 <div id="content-wrapper">
     <div class="container-fluid">
         <!-- Banner -->
         <div class="dashboard">
             <div class="advertisment-banner1 col-md-12">
-              <img src="{{asset('FrontEnd/images/cover page/'.$cover->path)}}" alt="">
+              <img src="{{asset('FrontEnd/images/cover page/'.$cover->path)}}" alt=""> 
             </div>
             <div class="main-page">
                 <div class=" dash-profile">
@@ -15,10 +16,21 @@
                     <ul class="widths">
                         <li class="number"><i class="fa fa-phone" aria-hidden="true"></i> &nbsp; +91 1234 567 890</li>
                         <li class="number"><i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp; Location here...</li>
+                        
+                        @if ($check_follow=="[]")
                         <li class="saved">
                             <i class="fa fa-heart-o" aria-hidden="true"></i>
-                            <a href="#">saved</a>
+                            <a href="{{url('/FollowItem/'.$item->Item_Id)}}">Follow</a>
                         </li>
+                        {{-- else --}}
+                        @else
+                        <li class="saved"> 
+                            
+                            <i class="fa fa-heart-o" aria-hidden="true"></i> 
+                            <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}">Un Follow</a>
+                            
+                        </li>
+                        @endif
                         <li class="Reivew">
                             <a href="{{url('/itemReviews')}}">Add Review </a>
                         </li>
@@ -61,6 +73,9 @@
                         <li>
                             <a href="{{url('/itemGallery/'.$item->Item_Id)}}">Gallery </a>
                         </li>
+                        {{-- 2bt3y el followeditemsbyuser where itemid=kza w where userid=kza
+                        if !empty() --}}
+                        
                     </ul>
 
                 </div>
@@ -70,5 +85,7 @@
         @yield('profile_Content')
     </div>
 </div>
-
+<script>
+    
+</script>
 @endsection
