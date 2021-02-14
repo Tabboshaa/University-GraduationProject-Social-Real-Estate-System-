@@ -42,11 +42,8 @@
                                         $day=\Carbon\Carbon::parse($date["date"])->format('d');
                                         $day=$day+1-1;
                                         $SID=$date["schedule_Id"];
-                                        //$test=$date["date"];
-                                        ?>
-    <li><div> <a id="01_{{$day}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('01_'+{{$day}},{{$SID}})">{{$day}}</a></div></li>
-
-
+                                        $ID=$date["date"];                                        ?>
+<li><div> <a id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</a></div></li>
                                     @endforeach
                                 </ul>
                             @endif
@@ -59,8 +56,10 @@
                                     @foreach($schedule["02"] as $Dates => $date)
                                         <?php
                                         $day=\Carbon\Carbon::parse($date["date"])->format('d');
-                                        ?>
-<li><div> <a id="02_{{$day}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('02_'+{{$day}},{{$SID}})">{{$day}}</a></div></li>
+                                        $day=$day+1-1;
+                                        $SID=$date["schedule_Id"];
+                                        $ID=$date["date"];                                        ?>
+ <li><div> <a id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</a></div></li>
                                     @endforeach
                                 </ul>
                             @endif
@@ -73,9 +72,10 @@
                                     @foreach($schedule["03"] as $Dates => $date)
                                         <?php
                                         $day=\Carbon\Carbon::parse($date["date"])->format('d');
+                                        $day=$day+1-1;
                                         $SID=$date["schedule_Id"];
-                                        ?>
- <li><div> <a id="03_{{$day}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('03_'+{{$day}},{{$SID}})">{{$day}}</a></div></li>
+                                        $ID=$date["date"];                                        ?>
+<li><div> <a id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</a></div></li>
                                     @endforeach
                                 </ul>
                             @endif
@@ -87,10 +87,10 @@
                                     @foreach($schedule["04"] as $Dates => $date)
                                         <?php
                                         $day=\Carbon\Carbon::parse($date["date"])->format('d');
+                                        $day=$day+1-1;
                                         $SID=$date["schedule_Id"];
-                                        ?>
-
-  <li><div> <a id="04_{{$day}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('04_'+{{$day}},{{$SID}})">{{$day}}</a></div></li>
+                                        $ID=$date["date"];                                        ?>
+<li><div> <a id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</a></div></li>
                                     @endforeach
                                 </ul>
                             @endif
@@ -118,31 +118,68 @@
     crossorigin="anonymous"></script>
 <script>
     var s=0;
+    var start;
+    var end;
+    var start_date;
+    var start_id;
+    var End_id;
+
     function test(day,schedule_Id)
     {
-        console.log(day);
-
+        var date2;
         var clicked=document.getElementById(day);
-        console.log(clicked);
-        var end;
+        var clicked_id=clicked.getAttribute('id');
         var schedule_Id2;
         var disable;
+
+
+        // if(clicked_id==start_id){clicked.className="calendar-table__item"; s=0; start_id=null; start=nu }// reset all days if s=0 or 1 or
+        // else if(clicked_id==End_id){clicked.className="calendar-table__item"; s=1;}
+
         if(s==0)
         {
             clicked.className = 'calendar-table__item_Start';
             s = 1;
+            start= clicked;
+            start_id=clicked.getAttribute('id');
+            start_date=new Date(start_id);
+
             disable = document.getElementsByClassName("calendar-table__item");
             console.log(disable.length);//44
             for(var i = 0; i < disable.length; i++)
             {
                 schedule_Id2=disable[i].getAttribute("name");
-                if (schedule_Id2!=schedule_Id){
-                    disable[i].className="calendar-table__item_isdisable";
-                }
+                date2=new Date(disable[i].getAttribute("id"));
+                 if(schedule_Id2!=schedule_Id){ console.log(disable[i]);}
+                if(date2<start_date){disable[i].className="calendar-table__item_isdisable";}
             }
-        }else {
+            // for(var i = 0; i < disable.length; i++)
+            // {
+            //     schedule_Id2=disable[i].getAttribute("name");
+            //      if(schedule_Id2!=schedule_Id){ disable[i].className="calendar-table__item_isdisable";}
+            //
+            // }
+        }else if(s==1)
+        {
             clicked.className='calendar-table__item_End';
+            end=clicked;
+            End_id=end.getAttribute('id');
+            var end_Date=new Date(End_id);
+            s=2;
+
+            disable = document.getElementsByClassName("calendar-table__item");
+            for(var i = 0; i < disable.length; i++)
+            {
+                date2=new Date(disable[i].getAttribute("id"));
+                if (date2 > start_date && date2 < end_Date)
+                {
+                     console.log(disable[i]);
+                    disable[i].className="calendar-table__item_Rang";
+                }
+
+            }
         }
+
     }
 </script>
 

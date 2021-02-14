@@ -5,7 +5,7 @@
         <!-- Banner -->
         <div class="dashboard">
             <div class="advertisment-banner1 col-md-12">
-              <img src="{{asset('FrontEnd/images/cover page/'.$cover->path)}}" alt="">
+{{--              <img src="{{asset('FrontEnd/images/cover page/'.$cover->path)}}" alt="">--}}
             </div>
             <div class="main-page">
                 <div class=" dash-profile">
