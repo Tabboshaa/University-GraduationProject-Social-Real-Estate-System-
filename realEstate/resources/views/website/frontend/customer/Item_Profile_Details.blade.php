@@ -44,7 +44,7 @@
                                 $SID = $date["schedule_Id"];
                                 $ID = $date["date"];                                        ?>
                                 <li>
-                                    <div> <a id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</a></div>
+                                    <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</span></div>
                                 </li>
                                 @endforeach
                             </ul>
@@ -62,7 +62,7 @@
                                 $SID = $date["schedule_Id"];
                                 $ID = $date["date"];                                        ?>
                                 <li>
-                                    <div> <a id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</a></div>
+                                    <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</span></div>
                                 </li>
                                 @endforeach
                             </ul>
@@ -80,7 +80,7 @@
                                 $SID = $date["schedule_Id"];
                                 $ID = $date["date"];                                        ?>
                                 <li>
-                                    <div> <a id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</a></div>
+                                    <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</span></div>
                                 </li>
                                 @endforeach
                             </ul>
@@ -97,7 +97,7 @@
                                 $SID = $date["schedule_Id"];
                                 $ID = $date["date"];                                        ?>
                                 <li>
-                                    <div> <a id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</a></div>
+                                    <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</span></div>
                                 </li>
                                 @endforeach
                             </ul>
@@ -128,7 +128,6 @@
     var start_date;
     var start_id;
     var End_id;
-
     function test(day, schedule_Id) {
         var date2;
         var clicked = document.getElementById(day);
@@ -163,38 +162,14 @@
                     $this.removeClass('calendar-table__item').addClass('calendar-table__item_isdisable');
                 }
             });
-
-
-            // for (var i = 0; i < disable.length; i++) {
-            //     schedule_Id2 = disable[i].getAttribute("name");
-            //     date2 = new Date(disable[i].getAttribute("id"));
-
-            //     if (schedule_Id2 != schedule_Id) {
-            //         console.log(disable[i]);
-            //     //   disable[i].className = "calendar-table__item_isdisable";
-            //     disable[i].removeClass('calendar-table__item').addClass('calendar-table__item_isdisable');
-
-            //     }
-            //     if (date2 < start_date) {
-            //         // disable[i].className = "calendar-table__item_isdisable";
-            //         disable[i].removeClass('calendar-table__item').addClass('calendar-table__item_isdisable');
-
-            //     }
-            // }
-
-
-            // for(var i = 0; i < disable.length; i++)
-            // {
-            //     schedule_Id2=disable[i].getAttribute("name");
-            //      if(schedule_Id2!=schedule_Id){ disable[i].className="calendar-table__item_isdisable";}
-            //
-            // }
         } else if (s == 1) {
+
             clicked.className = 'calendar-table__item_End';
             end = clicked;
             End_id = end.getAttribute('id');
             var end_Date = new Date(End_id);
             s = 2;
+            if (End_id==start_id){end.className='one_day';}
 
             $('.calendar-table__item').each(function() {
                 var $this = $(this);
@@ -205,31 +180,53 @@
 
                 }
             });
-            // disable = document.getElementsByClassName("calendar-table__item");
-            // for (var i = 0; i < disable.length; i++) {
-            //     date2 = new Date($this[0].getAttribute("id"));
-            //     if (date2 > start_date && date2 < end_Date) {
-            //         console.log($this);
-            //         $this.className = "calendar-table__item_Rang";
-            //     }
 
-            // }
+        }else{
+                end.className='calendar-table__item';
+                start.className='calendar-table__item';
+            $('.calendar-table__item_Rang').each(function() {
+                var $this = $(this);
+                $this.removeClass('calendar-table__item_Rang ').addClass('calendar-table__item');
+            });
+            $('.calendar-table__item_isdisable').each(function() {
+                var $this = $(this);
+                $this.removeClass('calendar-table__item_isdisable ').addClass('calendar-table__item');
+            });
+            s=0;
+
         }
 
     }
 </script>
 
 <style>
-    .day {
-        background: none;
-        color: inherit;
-        border: none;
-        padding: 0;
-        font: inherit;
-        cursor: pointer;
-        outline: inherit;
-    }
 
+    /*label  {*/
+    /*    display: inline-block;*/
+    /*    padding: 5px;*/
+    /*    background: red;*/
+    /*}*/
+
+
+    .one_day {
+        border: 2px solid transparent;
+        border-radius: 50%;
+        color: black;
+        font-size: 12px;
+        font-weight: 700;
+        width: 40%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        background-color: #7e66ec;
+        border-color: #fefefe;
+        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        -webkit-box-shadow: 0px 2px 2px rgb(0 0 0 / 10%);
+        box-shadow: 0px 2px 2px rgb(0 0 0 / 10%);
+        color: #fff;
+    }
     .calendar-table__item {
         border: 2px solid transparent;
         border-radius: 50%;
@@ -269,7 +266,7 @@
 
 
     .calendar-table__item:hover {
-        background: #d0e9c6;
+        background: #7e66ec;
         -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
         -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
         box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
@@ -341,6 +338,8 @@
     calendar-table__item_isDisabled {
         border-color: #fefefe;
         background-color: #f2f6f8;
+        color: #fff;
+        opacity: 0.25;
         -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
         -webkit-box-shadow: 0px 2px 2px rgb(0 0 0 / 10%);
         box-shadow: 0px 2px 2px rgb(0 0 0 / 10%);
