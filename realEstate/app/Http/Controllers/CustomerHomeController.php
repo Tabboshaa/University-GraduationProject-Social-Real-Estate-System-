@@ -118,7 +118,8 @@ class CustomerHomeController extends Controller
     {
         //     get from Schedule endDate startDate where item id =$item_id
 
-        $schedule = schedule::all()->where('Item_Id', '=', $item_id);
+        $schedule = schedule::orderBy('Start_Date')->where('Item_Id', '=', $item_id)->get();
+
         $days = [];
         //get day of every schedule
         foreach ($schedule as $value) {
