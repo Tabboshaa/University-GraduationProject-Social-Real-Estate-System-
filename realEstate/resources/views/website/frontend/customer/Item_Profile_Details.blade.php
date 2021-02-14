@@ -192,7 +192,7 @@
         padding: 0;
         font: inherit;
         cursor: pointer;
-        outline: inherit;"
+        outline: inherit;
     }
     .calendar-table__item {
         border: 2px solid transparent;
