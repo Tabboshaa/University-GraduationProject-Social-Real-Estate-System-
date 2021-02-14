@@ -19,9 +19,9 @@
             <h3>
                 Location
             </h3>
-{{--            <div class="map">--}}
-{{--                <iframe src="https://www.google.com/maps/embed?pb=" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>--}}
-{{--            </div>--}}
+            {{-- <div class="map">--}}
+            {{-- <iframe src="https://www.google.com/maps/embed?pb=" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>--}}
+            {{-- </div>--}}
             <div class="clearfix"></div>
         </div>
     </div>
@@ -36,63 +36,71 @@
                         <li> <a><span class="fa fa-chevron-down"></span>1-January</a>
                             @if(isset($schedule["01"]))
 
-                                <ul class="nav child_menu">
-                                    @foreach($schedule["01"] as $Dates => $date)
-                                        <?php
-                                        $day=\Carbon\Carbon::parse($date["date"])->format('d');
-                                        $day=$day+1-1;
-                                        $SID=$date["schedule_Id"];
-                                        $ID=$date["date"];                                        ?>
-<li><div> <a id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</a></div></li>
-                                    @endforeach
-                                </ul>
+                            <ul class="nav child_menu">
+                                @foreach($schedule["01"] as $Dates => $date)
+                                <?php
+                                $day = \Carbon\Carbon::parse($date["date"])->format('d');
+                                $day = $day + 1 - 1;
+                                $SID = $date["schedule_Id"];
+                                $ID = $date["date"];                                        ?>
+                                <li>
+                                    <div> <a id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</a></div>
+                                </li>
+                                @endforeach
+                            </ul>
                             @endif
                         </li>
                         <li> <a><span class="fa fa-chevron-down"></span>2-February </a>
 
                             @if(isset($schedule["02"]))
 
-                                <ul class="nav child_menu">
-                                    @foreach($schedule["02"] as $Dates => $date)
-                                        <?php
-                                        $day=\Carbon\Carbon::parse($date["date"])->format('d');
-                                        $day=$day+1-1;
-                                        $SID=$date["schedule_Id"];
-                                        $ID=$date["date"];                                        ?>
- <li><div> <a id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</a></div></li>
-                                    @endforeach
-                                </ul>
+                            <ul class="nav child_menu">
+                                @foreach($schedule["02"] as $Dates => $date)
+                                <?php
+                                $day = \Carbon\Carbon::parse($date["date"])->format('d');
+                                $day = $day + 1 - 1;
+                                $SID = $date["schedule_Id"];
+                                $ID = $date["date"];                                        ?>
+                                <li>
+                                    <div> <a id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</a></div>
+                                </li>
+                                @endforeach
+                            </ul>
                             @endif
                         </li>
 
                         <li> <a><span class="fa fa-chevron-down"></span>3-March </a>
                             @if(isset($schedule["03"]))
 
-                                <ul class="nav child_menu">
-                                    @foreach($schedule["03"] as $Dates => $date)
-                                        <?php
-                                        $day=\Carbon\Carbon::parse($date["date"])->format('d');
-                                        $day=$day+1-1;
-                                        $SID=$date["schedule_Id"];
-                                        $ID=$date["date"];                                        ?>
-<li><div> <a id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</a></div></li>
-                                    @endforeach
-                                </ul>
+                            <ul class="nav child_menu">
+                                @foreach($schedule["03"] as $Dates => $date)
+                                <?php
+                                $day = \Carbon\Carbon::parse($date["date"])->format('d');
+                                $day = $day + 1 - 1;
+                                $SID = $date["schedule_Id"];
+                                $ID = $date["date"];                                        ?>
+                                <li>
+                                    <div> <a id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</a></div>
+                                </li>
+                                @endforeach
+                            </ul>
                             @endif
                         </li>
                         <li> <a><span class="fa fa-chevron-down"></span>4-April </a>
                             @if(isset($schedule["04"]))
 
-                                <ul class="nav child_menu">
-                                    @foreach($schedule["04"] as $Dates => $date)
-                                        <?php
-                                        $day=\Carbon\Carbon::parse($date["date"])->format('d');
-                                        $day=$day+1-1;
-                                        $SID=$date["schedule_Id"];
-                                        $ID=$date["date"];                                        ?>
-<li><div> <a id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</a></div></li>
-                                    @endforeach
-                                </ul>
+                            <ul class="nav child_menu">
+                                @foreach($schedule["04"] as $Dates => $date)
+                                <?php
+                                $day = \Carbon\Carbon::parse($date["date"])->format('d');
+                                $day = $day + 1 - 1;
+                                $SID = $date["schedule_Id"];
+                                $ID = $date["date"];                                        ?>
+                                <li>
+                                    <div> <a id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</a></div>
+                                </li>
+                                @endforeach
+                            </ul>
                             @endif
                         </li>
                         <li> <a><span class="fa fa-chevron-down"></span>5-May </a></li>
@@ -112,23 +120,19 @@
     </div>
 
 </div>
-<script
-    src="https://code.jquery.com/jquery-3.5.1.min.js"
-    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-    crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script>
-    var s=0;
+    var s = 0;
     var start;
     var end;
     var start_date;
     var start_id;
     var End_id;
 
-    function test(day,schedule_Id)
-    {
+    function test(day, schedule_Id) {
         var date2;
-        var clicked=document.getElementById(day);
-        var clicked_id=clicked.getAttribute('id');
+        var clicked = document.getElementById(day);
+        var clicked_id = clicked.getAttribute('id');
         var schedule_Id2;
         var disable;
 
@@ -136,56 +140,87 @@
         // if(clicked_id==start_id){clicked.className="calendar-table__item"; s=0; start_id=null; start=nu }// reset all days if s=0 or 1 or
         // else if(clicked_id==End_id){clicked.className="calendar-table__item"; s=1;}
 
-        if(s==0)
-        {
+        if (s == 0) {
             clicked.className = 'calendar-table__item_Start';
             s = 1;
-            start= clicked;
-            start_id=clicked.getAttribute('id');
-            start_date=new Date(start_id);
+            start = clicked;
+            start_id = clicked.getAttribute('id');
+            start_date = new Date(start_id);
 
             disable = document.getElementsByClassName("calendar-table__item");
-            console.log(disable.length);//44
-            for(var i = 0; i < disable.length; i++)
-            {
-                schedule_Id2=disable[i].getAttribute("name");
-                date2=new Date(disable[i].getAttribute("id"));
-                 if(schedule_Id2!=schedule_Id){ console.log(disable[i]);}
-                if(date2<start_date){disable[i].className="calendar-table__item_isdisable";}
-            }
+            console.log(disable.length); //44
+
+            $('.calendar-table__item').each(function() {
+                var $this = $(this);
+                console.log($this);
+                schedule_Id2 = $this[0].getAttribute("name");
+                date2 = new Date($this[0].getAttribute("id"));
+
+                if (schedule_Id2 != schedule_Id) {
+                    $this.removeClass('calendar-table__item').addClass('calendar-table__item_isdisable');
+                }
+                if (date2 < start_date) {
+                    $this.removeClass('calendar-table__item').addClass('calendar-table__item_isdisable');
+                }
+            });
+
+
+            // for (var i = 0; i < disable.length; i++) {
+            //     schedule_Id2 = disable[i].getAttribute("name");
+            //     date2 = new Date(disable[i].getAttribute("id"));
+
+            //     if (schedule_Id2 != schedule_Id) {
+            //         console.log(disable[i]);
+            //     //   disable[i].className = "calendar-table__item_isdisable";
+            //     disable[i].removeClass('calendar-table__item').addClass('calendar-table__item_isdisable');
+
+            //     }
+            //     if (date2 < start_date) {
+            //         // disable[i].className = "calendar-table__item_isdisable";
+            //         disable[i].removeClass('calendar-table__item').addClass('calendar-table__item_isdisable');
+
+            //     }
+            // }
+
+
             // for(var i = 0; i < disable.length; i++)
             // {
             //     schedule_Id2=disable[i].getAttribute("name");
             //      if(schedule_Id2!=schedule_Id){ disable[i].className="calendar-table__item_isdisable";}
             //
             // }
-        }else if(s==1)
-        {
-            clicked.className='calendar-table__item_End';
-            end=clicked;
-            End_id=end.getAttribute('id');
-            var end_Date=new Date(End_id);
-            s=2;
+        } else if (s == 1) {
+            clicked.className = 'calendar-table__item_End';
+            end = clicked;
+            End_id = end.getAttribute('id');
+            var end_Date = new Date(End_id);
+            s = 2;
 
-            disable = document.getElementsByClassName("calendar-table__item");
-            for(var i = 0; i < disable.length; i++)
-            {
-                date2=new Date(disable[i].getAttribute("id"));
-                if (date2 > start_date && date2 < end_Date)
-                {
-                     console.log(disable[i]);
-                    disable[i].className="calendar-table__item_Rang";
+            $('.calendar-table__item').each(function() {
+                var $this = $(this);
+                date2 = new Date($this[0].getAttribute("id"));
+                if (date2 > start_date && date2 < end_Date) {
+                    console.log($this);
+                    $this.removeClass('calendar-table__item').addClass('calendar-table__item_Rang');
+
                 }
+            });
+            // disable = document.getElementsByClassName("calendar-table__item");
+            // for (var i = 0; i < disable.length; i++) {
+            //     date2 = new Date($this[0].getAttribute("id"));
+            //     if (date2 > start_date && date2 < end_Date) {
+            //         console.log($this);
+            //         $this.className = "calendar-table__item_Rang";
+            //     }
 
-            }
+            // }
         }
 
     }
 </script>
 
 <style>
-
-    .day{
+    .day {
         background: none;
         color: inherit;
         border: none;
@@ -194,6 +229,7 @@
         cursor: pointer;
         outline: inherit;
     }
+
     .calendar-table__item {
         border: 2px solid transparent;
         border-radius: 50%;
@@ -208,6 +244,7 @@
         cursor: pointer;
 
     }
+
     .calendar-table__item_isdisable {
         border: 2px solid transparent;
         border-radius: 50%;
@@ -258,6 +295,7 @@
         transition: 0.2s all ease-in;
         border-radius: 50% 50% 0 0;
     }
+
     .calendar-table__item_Rang {
         border: 2px solid transparent;
         border-radius: 50%;
@@ -299,6 +337,7 @@
         transition: 0.2s all ease-in;
         border-radius: 0 0 50% 50%;
     }
+
     calendar-table__item_isDisabled {
         border-color: #fefefe;
         background-color: #f2f6f8;
@@ -310,22 +349,28 @@
 
 
     /* hover Form table  */
-    .nav.side-menu > li > a:hover {
-        color: red  !important; }
+    .nav.side-menu>li>a:hover {
+        color: red !important;
+    }
 
-    .nav.side-menu > li > a:hover, .nav > li > a:focus {
+    .nav.side-menu>li>a:hover,
+    .nav>li>a:focus {
         text-decoration: none;
-        background: transparent; }
+        background: transparent;
+    }
 
     .nav.child_menu {
-        display: none; }
+        display: none;
+    }
 
     .nav.child_menu li:hover,
     .nav.child_menu li.active {
-        background-color: rgba(255, 255, 255, 0.06); }
+        background-color: rgba(255, 255, 255, 0.06);
+    }
 
     .nav.child_menu li {
-        padding-left: 36px; }
+        padding-left: 36px;
+    }
 
     .nav-md ul.nav.child_menu li:before {
         background: #425668;
@@ -338,7 +383,8 @@
         right: auto;
         width: 8px;
         z-index: 1;
-        border-radius: 50%; }
+        border-radius: 50%;
+    }
 
     .nav-md ul.nav.child_menu li:after {
         border-left: 1px solid #425668;
@@ -346,63 +392,93 @@
         content: "";
         left: 27px;
         position: absolute;
-        top: 0; }
+        top: 0;
+    }
 
     .nav-md ul.nav.child_menu li:last-child::after {
-        bottom: 50%; }
+        bottom: 50%;
+    }
+
     /* form table*/
-    .nav.side-menu > li > a, .nav.child_menu > li > a {
+    .nav.side-menu>li>a,
+    .nav.child_menu>li>a {
         color: black;
-        font-weight: 500; }
+        font-weight: 500;
+    }
 
     .nav.child_menu li li:hover,
     .nav.child_menu li li.active {
-        background: none; }
+        background: none;
+    }
+
     /* hover country state */
     .nav.child_menu li li a:hover,
     .nav.child_menu li li a.active {
-        color: red; }
-    .nav.side-menu > li.current-page, .nav.side-menu > li.active {
-        border-right: 5px solid #1ABB9C; }
+        color: red;
+    }
+
+    .nav.side-menu>li.current-page,
+    .nav.side-menu>li.active {
+        border-right: 5px solid #1ABB9C;
+    }
 
 
-    .nav.side-menu > li.active > a {
+    .nav.side-menu>li.active>a {
         text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
         background: -webkit-gradient(linear, left top, left bottom, from(#334556), to(#2C4257)), #2A3F54;
         background: linear-gradient(#334556, #2C4257), #2A3F54;
         -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
-        box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0; }
+        box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
+    }
 
-    .nav.child_menu > li > a {
+    .nav.child_menu>li>a {
         color: black;
         font-size: 12px;
-        padding: 9px; }
+        padding: 9px;
+    }
 
     /*...............................*/
 
 
     .main_menu_side {
-        padding: 0; }
+        padding: 0;
+    }
+
     .menu_section {
-        margin-bottom: 35px; }
+        margin-bottom: 35px;
+    }
+
     .nav-sm .nav.side-menu li a {
         text-align: center !important;
         font-weight: 400;
         font-size: 10px;
-        padding: 10px 5px; }
+        padding: 10px 5px;
+    }
+
     .nav-sm .nav.child_menu li.active,
     .nav-sm .nav.side-menu li.active-sm {
-        border-right: 5px solid #1ABB9C; }
-    @media print{.hidden-print{display:none!important}}
+        border-right: 5px solid #1ABB9C;
+    }
+
+    @media print {
+        .hidden-print {
+            display: none !important
+        }
+    }
+
     /*........................*/
 
     .nav-sm .menu_section h3 {
-        display: none; }
+        display: none;
+    }
+
     .nav-sm .menu_section {
-        margin: 0; }
+        margin: 0;
+    }
 
     .menu_section {
-        margin-bottom: 35px; }
+        margin-bottom: 35px;
+    }
 
     .menu_section h3 {
         padding-left: 23px;
@@ -413,38 +489,47 @@
         font-size: 11px;
         margin-bottom: 0;
         margin-top: 0;
-        text-shadow: 1px 1px #000; }
+        text-shadow: 1px 1px #000;
+    }
 
-    .menu_section > ul {
+    .menu_section>ul {
         margin-top: 10px;
-        display: block; }
+        display: block;
+    }
+
     .nav-sm .nav.side-menu li a {
         text-align: center !important;
         font-weight: 400;
         font-size: 10px;
-        padding: 10px 5px; }
+        padding: 10px 5px;
+    }
 
     .nav-sm .nav.child_menu li.active,
     .nav-sm .nav.side-menu li.active-sm {
-        border-right: 5px solid #1ABB9C; }
+        border-right: 5px solid #1ABB9C;
+    }
 
     .nav-sm ul.nav.child_menu ul,
     .nav-sm .nav.side-menu li.active-sm ul ul {
         position: static;
         width: 200px;
-        background: none; }
+        background: none;
+    }
 
-    .nav-sm > .nav.side-menu > li.active-sm > a {
-        color: #1ABB9C !important; }
+    .nav-sm>.nav.side-menu>li.active-sm>a {
+        color: #1ABB9C !important;
+    }
 
     .nav-sm .nav.side-menu li a i.toggle-up {
-        display: none !important; }
+        display: none !important;
+    }
 
     .nav-sm .nav.side-menu li a i {
         font-size: 25px !important;
         text-align: center;
         width: 100% !important;
-        margin-bottom: 5px; }
+        margin-bottom: 5px;
+    }
 
     .nav-sm ul.nav.child_menu {
         left: 100%;
@@ -453,21 +538,26 @@
         width: 210px;
         z-index: 4000;
         background: #3E5367;
-        display: none; }
+        display: none;
+    }
 
     .nav-sm ul.nav.child_menu li {
-        padding: 0 10px; }
+        padding: 0 10px;
+    }
 
     .nav-sm ul.nav.child_menu li a {
-        text-align: left !important; }
+        text-align: left !important;
+    }
 
-    .nav.side-menu > li {
+    .nav.side-menu>li {
         position: relative;
         display: block;
-        cursor: pointer; }
+        cursor: pointer;
+    }
 
-    .nav.side-menu > li > a {
-        margin-bottom: 6px; }
+    .nav.side-menu>li>a {
+        margin-bottom: 6px;
+    }
 
     .main-container-wrapper {
         background-color: #f8fafa;
@@ -650,7 +740,7 @@
 
     .calendar-table_event--long .calendar-table_item {
         border-radius: 0;
-        border-width: 0  2px;
+        border-width: 0 2px;
     }
 
     .calendar-table_event--start .calendar-table_item {
@@ -664,7 +754,7 @@
 
     .calendar-table_event--end .calendar-table_item {
         border-right: 2px solid #fff;
-        border-radius: 0 0 50% 50% ;
+        border-radius: 0 0 50% 50%;
     }
 
     .calendar-table_event--end.calendar-tablecol:first-child .calendar-table_item {
