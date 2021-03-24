@@ -256,5 +256,3 @@ Route::post('fullcalendar/delete','FullCalendarController@destroy');
 Route::get('/timeline',function () {
     return view('website.frontend.customer.TimeLine');
 });
-
-Route::post('/Reservation','HomeController@Reservation');
