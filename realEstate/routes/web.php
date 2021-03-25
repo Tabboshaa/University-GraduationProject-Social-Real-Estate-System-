@@ -49,6 +49,10 @@ Route::get('/add_comment', 'CommentsController@create')->name('comment.add');
 Route::get('/add_reply', 'CommentsController@reply')->name('reply.add');
 Route::get('/addReview', 'ReviewController@create')->name('review.add');
 
+//operations
+Route::get('/Payment', 'OperationsController@calculateDays')->name('calculate.days');
+
+
 //items Profile Pages
 Route::get('/itemProfile/{id?}', 'CustomerHomeController@itemProfile');
 Route::get('/itemDetails/{id?}', 'CustomerHomeController@itemDetails');

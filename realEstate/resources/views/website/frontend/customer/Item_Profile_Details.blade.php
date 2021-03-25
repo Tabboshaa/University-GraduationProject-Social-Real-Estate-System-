@@ -44,7 +44,7 @@
                                 $SID = $date["schedule_Id"];
                                 $ID = $date["date"];                                        ?>
                                 <li>
-                                    <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</span></div>
+                                    <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
                                 </li>
                                 @endforeach
                             </ul>
@@ -62,7 +62,7 @@
                                 $SID = $date["schedule_Id"];
                                 $ID = $date["date"];                                        ?>
                                 <li>
-                                    <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</span></div>
+                                    <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
                                 </li>
                                 @endforeach
                             </ul>
@@ -80,7 +80,7 @@
                                 $SID = $date["schedule_Id"];
                                 $ID = $date["date"];                                        ?>
                                 <li>
-                                    <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</span></div>
+                                    <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
                                 </li>
                                 @endforeach
                             </ul>
@@ -97,7 +97,7 @@
                                 $SID = $date["schedule_Id"];
                                 $ID = $date["date"];                                        ?>
                                 <li>
-                                    <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}',{{$SID}})">{{$day}}</span></div>
+                                    <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
                                 </li>
                                 @endforeach
                             </ul>
@@ -118,6 +118,10 @@
 
         </div>
     </div>
+    <div class="addbtn1">
+        <a href="javascript:void(0)" onclick="goreserve();" id="gobutton" style="display: none; margin-top:90px; margin-left:50px">reserve y3m
+        </a>
+    </div>
 
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -126,8 +130,11 @@
     var start;
     var end;
     var start_date;
+    var end_Date;
     var start_id;
     var End_id;
+    var schedule;
+
     function test(day, schedule_Id) {
         var date2;
         var clicked = document.getElementById(day);
@@ -147,11 +154,11 @@
             start_date = new Date(start_id);
 
             disable = document.getElementsByClassName("calendar-table__item");
-            console.log(disable.length); //44
+            // console.log(disable.length); //44
 
             $('.calendar-table__item').each(function() {
                 var $this = $(this);
-                console.log($this);
+                // console.log($this);
                 schedule_Id2 = $this[0].getAttribute("name");
                 date2 = new Date($this[0].getAttribute("id"));
 
@@ -167,23 +174,28 @@
             clicked.className = 'calendar-table__item_End';
             end = clicked;
             End_id = end.getAttribute('id');
-            var end_Date = new Date(End_id);
+            end_Date = new Date(End_id);
             s = 2;
-            if (End_id==start_id){end.className='one_day';}
+            if (End_id == start_id) {
+                end.className = 'one_day';
+            }
 
             $('.calendar-table__item').each(function() {
                 var $this = $(this);
                 date2 = new Date($this[0].getAttribute("id"));
                 if (date2 > start_date && date2 < end_Date) {
-                    console.log($this);
+                    // console.log($this);
                     $this.removeClass('calendar-table__item').addClass('calendar-table__item_Rang');
 
                 }
             });
+            // $("#gobutton").style.display = "none";
+            schedule=schedule_Id;
+            document.getElementById("gobutton").style.display = "inline";
 
-        }else{
-                end.className='calendar-table__item';
-                start.className='calendar-table__item';
+        } else {
+            end.className = 'calendar-table__item';
+            start.className = 'calendar-table__item';
             $('.calendar-table__item_Rang').each(function() {
                 var $this = $(this);
                 $this.removeClass('calendar-table__item_Rang ').addClass('calendar-table__item');
@@ -192,15 +204,39 @@
                 var $this = $(this);
                 $this.removeClass('calendar-table__item_isdisable ').addClass('calendar-table__item');
             });
-            s=0;
-
+            s = 0;
+            schedule=null;
+            document.getElementById("gobutton").style.display = "none";
         }
 
     }
+   function goreserve(){
+       console.log(start_id);
+       console.log(End_id);
+   
+       $.ajax({
+            url: "{{route('calculate.days')}}",
+            Type: "POST",
+            data: {
+                start: start_id,
+                end: End_id,
+                schedule_Id:schedule,
+
+            },
+            success: function(data) {
+
+                console.log(data);
+            },
+            error: function() {
+                console.log('Error');
+            }
+
+        });
+
+   }
 </script>
 
 <style>
-
     /*label  {*/
     /*    display: inline-block;*/
     /*    padding: 5px;*/
@@ -227,6 +263,7 @@
         box-shadow: 0px 2px 2px rgb(0 0 0 / 10%);
         color: #fff;
     }
+
     .calendar-table__item {
         border: 2px solid transparent;
         border-radius: 50%;
