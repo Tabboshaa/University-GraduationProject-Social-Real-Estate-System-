@@ -18,9 +18,7 @@
                 <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                 <input type="text" list="states" name="search" placeholder="Search for item by state">
                 <datalist id="states">
-                    @foreach($states as $state)
-                    <option value="{{$state->State_Name}}" name="items_options">{{$state->State_Name}}</option>
-                    @endforeach
+                
                 </datalist>
             </form>
         </div>
