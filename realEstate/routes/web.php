@@ -51,8 +51,14 @@ Route::get('/addReview', 'ReviewController@create')->name('review.add');
 
 //operations
 Route::get('/Payment', 'OperationsController@calculateDays')->name('calculate.days');
+Route::get('/operation_func','OperationsController@create');
+//Payment
+Route::get('/creditCard', function(){
 
+    return view('website.frontend.customer.Reservation');
 
+});
+Route::post('reserve','PaymentController@create');
 //items Profile Pages
 Route::get('/itemProfile/{id?}', 'CustomerHomeController@itemProfile');
 Route::get('/itemDetails/{id?}', 'CustomerHomeController@itemDetails');

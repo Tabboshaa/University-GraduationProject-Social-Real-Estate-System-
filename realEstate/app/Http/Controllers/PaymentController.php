@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Schedule;
+use App\Payment;
 use Illuminate\Http\Request;
-use App\operations;
-use Illuminate\Support\Facades\Auth;
-class OperationsController extends Controller
+
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,14 +21,19 @@ class OperationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public static function create()
+    public function create()
     {
         try {
-            $operations=operations::create([
-                'Item_Id' => 1,
-                'User_Id'=> Auth::id()
+            $Operation_Id = OperationsController::create();
+            
+            $payment=payment::create([
+                'Operation_Id' => $Operation_Id,
+                'Payment_Method'=> "Credit",
+                'Card_Number'  => request('card-num'),
+                'Paid_Amount'=> request('paid_amount'),
+                'confirmed'=> 1
             ]);
-            return $operations->Operation_Id;
+            return back()->with('success','City Created Successfully');
         }catch (\Illuminate\Database\QueryException $e){
             $errorCode = $e->errorInfo[1];
             if($errorCode == 1062){
@@ -39,8 +42,9 @@ class OperationsController extends Controller
                 return back()->with('error','You must select all values!!');
             }
         }
+        }
     
-    }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -48,18 +52,9 @@ class OperationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function calculateDays()
+    public function store(Request $request)
     {
         //
-        $schedule=request('schedule_Id');
-        $price_per_night=Schedule::all()->where('schedule_Id', '=', $schedule)->first()->Price_Per_Night;
-        $start_date=new \Carbon\Carbon(request('start'));
-        $end_date=new \Carbon\Carbon(request('end'));
-
-        $result = ($start_date->diffInDays($end_date)+1)*$price_per_night;
-        $totalDays =($start_date->diffInDays($end_date)+1);
-// return $result;//
-return view('website.frontend.customer.Reservation',['totalDays'=>$totalDays,'Result'=>$result]);
     }
 
     /**
