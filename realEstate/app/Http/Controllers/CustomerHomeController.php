@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
+use App\User;
+use App\Item;
 use App\Cover_Page;
 use App\schedule;
 use Illuminate\Http\Request;
@@ -206,8 +209,10 @@ class CustomerHomeController extends Controller
             ->select('items.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')->where('Item_Id', '=', $id)->first();
 
         $cover = Cover_Page::all()->where('Item_Id', '=', $id)->first();
+        $User_Id = Auth::id();
+        $check_follow=followeditemsbyuser::all()->where('Item_Id','=',$id)->where('User_ID','=',$User_Id);
 
-        return view('website\frontend\customer\Item_Profile_Reviews', ['states' => $state, 'reviews' => $reviews, 'item' => $item, 'cover' => $cover]);
+        return view('website\frontend\customer\Item_Profile_Reviews', ['states' => $state, 'reviews' => $reviews, 'item' => $item, 'cover' => $cover,'check_follow'=>$check_follow]);
     }
 
     /**
@@ -298,6 +303,8 @@ class CustomerHomeController extends Controller
     public function HomePagePosts ()
     {
         $User_Id = Auth::id();
+        
+        $user = User :: all()->where ('id','=',$User_Id);
 
         $posts = DB::table('followeditemsbyusers')
         ->join('posts','followeditemsbyusers.Item_Id','posts.Item_Id')
@@ -306,7 +313,12 @@ class CustomerHomeController extends Controller
         ->where('followeditemsbyusers.User_ID','=',$User_Id )
         ->get();
 
-        
+        $cover__pages = DB::table('cover__pages')
+        ->join('items','items.Item_Id','cover__pages.Item_Id')
+        ->select('cover__pages.path')
+        ->get();
+
+        $items = item::all();
 
         $post_images = DB::table('post_attachments')
         ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id') 
@@ -315,27 +327,40 @@ class CustomerHomeController extends Controller
         ->get()
         ->groupBy('Post_Id');
 
+        $comments = [];
+        $replies = [];
         
-        $comments=DB::table('comments')
-        ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
-        ->join('users', 'users.id', '=', 'comments.User_Id')
-        ->where('Parent_Comment','=',null)
-        ->where('posts.Item_Id','=',$item_id)
-        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
-        ->get()
-        ->groupBy('Post_Id');
+        
+        foreach ($posts as $post)
+        {
+            $comment = CommentsController::getPostCommentsHomePage($post->Post_Id);
+           
+            $comments=collect($comments)->merge($comment);
+           
 
-        $replies=DB::table('comments')
-        ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
-        ->join('users', 'users.id', '=', 'comments.User_Id')
-        ->where('comments.Parent_Comment','!=',null)
-        ->where('posts.Item_Id','=',$item_id)
-        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
-        ->get()
-        ->groupBy('Parent_Comment');
-       return $comments;
+            $reply = CommentsController::getPostrepliesHomePage($post->Post_Id);
+            $replies=collect($replies)->merge($reply);
+        }
 
-        return view("website.frontend.customer.HomePagePosts", ['posts'=>$posts ,'post_images'=>$post_images]);
+        $comments= $comments->groupby('Post_Id');
+
+
+        $replies= $replies->groupby('Parent_Comment');
+        return $replies;
+        
+        $check_follow=followeditemsbyuser::all()->where('User_ID','=',$User_Id);
+        
+        return view("website.frontend.customer.HomePagePosts",
+        [
+            'posts'=>$posts ,
+            'user'=>$user,
+            'items'=>$items,
+            'post_images'=>$post_images ,
+            'comments'=>$comments,
+            'replies'=>$replies,
+            'cover__pages'=>$cover__pages,
+            '$check_follow'=>$check_follow
+        ]);
 
     }
 }

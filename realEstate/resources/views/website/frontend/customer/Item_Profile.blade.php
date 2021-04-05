@@ -22,7 +22,7 @@
                             <i class="fa fa-heart-o" aria-hidden="true"></i>
                             <a href="{{url('/FollowItem/'.$item->Item_Id)}}">Follow</a>
                         </li>
-                        {{-- else --}}
+                        
                         @else
                         <li class="saved"> 
                             
@@ -30,7 +30,7 @@
                             <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}">Un Follow</a>
                             
                         </li>
-                        @endif
+                        @endif 
                         <li class="Reivew">
                             <a href="{{url('/itemReviews')}}">Add Review </a>
                         </li>
@@ -41,12 +41,12 @@
                         {{ $item->Item_Name }}
                         <p><a href="#">@ {{$item->First_Name}} {{$item->Middle_Name}} {{$item->Last_Name}}</a></p>
                     </div>
-                    <!-- <div class="Author">
+                     <div class="Author">
                         <a href="#">Messages to Author</a>
-                    </div> -->
-                    <!-- <div class="promote">
+                    </div>
+                     <div class="promote">
                         <a href="#">Promote</a>
-                    </div> -->
+                    </div> 
                 </div>
             </div>
             <div class="clearfix">
@@ -73,9 +73,6 @@
                         <li>
                             <a href="{{url('/itemGallery/'.$item->Item_Id)}}">Gallery </a>
                         </li>
-                        {{-- 2bt3y el followeditemsbyuser where itemid=kza w where userid=kza
-                        if !empty() --}}
-                        
                     </ul>
 
                 </div>

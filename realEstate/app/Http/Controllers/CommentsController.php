@@ -165,4 +165,31 @@ class CommentsController extends Controller
 
         return $comments;
     }
+
+    public static function getPostCommentsHomePage ($post_id )
+    {
+        $comments=DB::table('comments')
+        ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
+        ->join('users', 'users.id', '=', 'comments.User_Id')
+        ->where('Parent_Comment','=',null)
+        ->where('comments.Post_Id','=',$post_id )
+        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
+        ->get();
+
+
+        return $comments;  
+    }
+
+    public static function getPostrepliesHomePage ($post_id )
+    {
+        $comments=DB::table('comments')
+        ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
+        ->join('users', 'users.id', '=', 'comments.User_Id')
+        ->where('comments.Parent_Comment','!=',null)
+        ->where('comments.Post_Id','=',$post_id )
+        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
+        ->get();
+
+        return $comments; 
+    }
 }

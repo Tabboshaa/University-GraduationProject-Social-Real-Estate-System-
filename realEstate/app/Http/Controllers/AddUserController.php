@@ -222,7 +222,6 @@ class AddUserController extends Controller
         
         $followed_items=followeditemsbyuser::all()->where('Item_Id','=',$Item_Id)->where('User_ID','=',$User_Id);
         
-        return $followed_items;
         followeditemsbyuser::destroy($followed_items[2]->Followed_Item_Id);
          return back();
         

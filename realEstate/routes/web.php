@@ -263,3 +263,5 @@ Route::get('/UnfollowItem/{id?}','AddUserController@UnfollowItem');
 
 Route::get('/HomePage', 'CustomerHomeController@HomePagePosts');
 Route::post('/Reservation','HomeController@Reservation');
+
+Route::get('/hamada/{id?}', 'CommentsController@getPostrepliesHomePage');

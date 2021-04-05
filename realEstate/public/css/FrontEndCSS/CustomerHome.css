@@ -98,3 +98,36 @@ input#bdy2
   border-bottom-left-radius: 10pt;
   border-bottom-right-radius: 10pt;
 }
+a.Usr_name
+{
+  font-size:12px;
+  font-family: Arial;
+  font-weight: bold;
+}
+div.commentt
+{
+  background-color: rgb(238, 238, 238);
+  padding-left: 10pt;
+  padding-top: 10pt;
+  padding-right: 10pt;
+  padding-bottom: 10pt;
+  border-radius: 20pt;
+}
+
+i.arrowStyle
+{
+  font-size:15px;
+  
+ 
+}
+td.arrowStyleL
+{
+  float:left;
+  height:43px;
+}
+
+div.reps
+{
+  margin-left: 50pt;
+  background-color: black;
+}
