@@ -25,20 +25,20 @@ class OperationsController extends Controller
      */
     public static function create()
     {
-        try {
+        // try {
             $operations=operations::create([
-                'Item_Id' => 1,
+                'Item_Id' => request('item_id'),
                 'User_Id'=> Auth::id()
             ]);
             return $operations->Operation_Id;
-        }catch (\Illuminate\Database\QueryException $e){
-            $errorCode = $e->errorInfo[1];
-            if($errorCode == 1062){
-                return back()->with('error','City Already Exist !!');
-            }if($errorCode == 1048 ){
-                return back()->with('error','You must select all values!!');
-            }
-        }
+        // }catch (\Illuminate\Database\QueryException $e){
+        //     $errorCode = $e->errorInfo[1];
+        //     if($errorCode == 1062){
+        //         return back()->with('error','Operation Already Exist !!');
+        //     }if($errorCode == 1048 ){
+        //         return back()->with('error','You must select all values!!');
+        //     }
+        // }
     
     }
 
@@ -51,15 +51,15 @@ class OperationsController extends Controller
     public function calculateDays()
     {
         //
-        $schedule=request('schedule_Id');
-        $price_per_night=Schedule::all()->where('schedule_Id', '=', $schedule)->first()->Price_Per_Night;
-        $start_date=new \Carbon\Carbon(request('start'));
-        $end_date=new \Carbon\Carbon(request('end'));
+        $schedule = request('schedule_Id');
+        $price_per_night = Schedule::all()->where('schedule_Id', '=', $schedule)->first()->Price_Per_Night;
+        $start_date = new \Carbon\Carbon(request('start'));
+        $end_date = new \Carbon\Carbon(request('end'));
 
         $result = ($start_date->diffInDays($end_date)+1)*$price_per_night;
         $totalDays =($start_date->diffInDays($end_date)+1);
 // return $result;//
-return view('website.frontend.customer.Reservation',['totalDays'=>$totalDays,'Result'=>$result]);
+return response()->json(['totalDays'=>$totalDays,'result'=>$result]);
     }
 
     /**
@@ -68,9 +68,10 @@ return view('website.frontend.customer.Reservation',['totalDays'=>$totalDays,'Re
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
         //
+
     }
 
     /**

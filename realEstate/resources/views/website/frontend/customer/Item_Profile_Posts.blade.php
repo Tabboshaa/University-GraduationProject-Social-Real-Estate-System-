@@ -13,7 +13,7 @@
                     <img src="{{asset('FrontEnd/images/icon/user.html')}}" alt="">
                     <h3>
                         {{ $item->Item_Name }}
-                        <p>{{ $end->diffForHumans($today)}} </p>
+                        <p>{{ $today->diffForHumans($end)}} </p>
                     </h3>
                 </div>
                 <div class="gallery">

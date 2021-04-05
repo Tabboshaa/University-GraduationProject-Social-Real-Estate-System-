@@ -119,8 +119,7 @@
         </div>
     </div>
     <div class="addbtn1">
-        <a href="javascript:void(0)" onclick="goreserve();" id="gobutton" style="display: none; margin-top:90px; margin-left:50px">reserve y3m
-        </a>
+        <a href="javascript:void(0)" onclick="goreserve('{{$item_id}}');" id="gobutton" style="display: none; margin-top:90px; margin-left:50px">reserve</a>
     </div>
 
 </div>
@@ -190,7 +189,7 @@
                 }
             });
             // $("#gobutton").style.display = "none";
-            schedule=schedule_Id;
+            schedule = schedule_Id;
             document.getElementById("gobutton").style.display = "inline";
 
         } else {
@@ -205,35 +204,36 @@
                 $this.removeClass('calendar-table__item_isdisable ').addClass('calendar-table__item');
             });
             s = 0;
-            schedule=null;
+            schedule = null;
             document.getElementById("gobutton").style.display = "none";
         }
 
     }
-   function goreserve(){
-       console.log(start_id);
-       console.log(End_id);
-   
-       $.ajax({
+
+    function goreserve(item_id) {
+        console.log(start_id);
+        console.log(End_id);
+
+        $.ajax({
             url: "{{route('calculate.days')}}",
-            Type: "POST",
+            Type: "get",
             data: {
                 start: start_id,
                 end: End_id,
-                schedule_Id:schedule,
+                schedule_Id: schedule,
 
             },
             success: function(data) {
-
-                console.log(data);
+                 //console.log(data[]);
+                 location.href = "/Payment/"+item_id+"/"+data['totalDays']+"/"+data['result'];
             },
-            error: function() {
-                console.log('Error');
+            error: function(numberOfDays, totalCost) {
+                console.log(numberOfDays, totalCost);   
             }
 
         });
 
-   }
+    }
 </script>
 
 <style>

@@ -52,12 +52,20 @@ Route::get('/addReview', 'ReviewController@create')->name('review.add');
 //operations
 Route::get('/Payment', 'OperationsController@calculateDays')->name('calculate.days');
 Route::get('/operation_func','OperationsController@create');
+
 //Payment
 Route::get('/creditCard', function(){
 
     return view('website.frontend.customer.Reservation');
 
 });
+
+Route::get('/Payment/{item_id}/{numberOfDays}/{totalCost}', function($item_id,$numberOfDays,$totalCost){
+
+    return view('website.frontend.customer.Reservation',['totalCost'=>$totalCost,'numberOfDays'=>$numberOfDays,'item_id'=>$item_id]);
+
+});
+
 Route::post('reserve','PaymentController@create');
 //items Profile Pages
 Route::get('/itemProfile/{id?}', 'CustomerHomeController@itemProfile');
@@ -66,6 +74,8 @@ Route::get('/itemGallery/{id?}', 'CustomerHomeController@itemProfileGallery');
 Route::get('/itemReviews/{id?}', 'CustomerHomeController@itemProfileReviews');
 
 Route::get('/veiw_notification/{id}', 'NotificationController@viewNotification');
+Route::get('/show_notifications', 'NotificationController@show');
+Route::get('/veiw_User/{id}', 'AddUserController@show');
 });
 
 //fullcalender

@@ -34,6 +34,9 @@ class CommentsController extends Controller
                 'User_Id'=> Auth::id(),
                 'Comment'  => request('comment')
             ]);
+
+            $to_user= PostsController::postCreatedBy(request('post_id')); 
+            NotificationController::create(Auth::id(),$to_user,'Commented on your post');
            return response()->json($comment);
         // }catch (\Illuminate\Database\QueryException $e){
 
@@ -50,6 +53,9 @@ class CommentsController extends Controller
                 'Parent_Comment' => request('parent_id'),
                 'Comment'  => request('comment')
             ]);
+
+            $to_user= CommentsController::CommentCreatedBy(request('parent_id'));
+            NotificationController::create(Auth::id(),$to_user,'Replyed to your comment');
            return response()->json($comment);
         // }catch (\Illuminate\Database\QueryException $e){
 
@@ -62,9 +68,11 @@ class CommentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public static function CommentCreatedBy($id)
     {
         //
+         $user=comments::all()->where('Comment_Id','=',$id)->first()->User_Id;
+        return $user;
     }
 
     /**

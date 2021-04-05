@@ -9,7 +9,8 @@ class Notification extends Model
     //
     protected $primaryKey = 'Notification_Id';
     protected $fillable = [
-        'User_Id',
+        'To_User_Id',
+        'From_User_Id',
         'Notification',
         'Redirect_To',
         'Viewed'

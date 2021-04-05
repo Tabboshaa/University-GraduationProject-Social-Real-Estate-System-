@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\comments;
 use App\Cover_Page;
 use App\schedule;
 use Illuminate\Http\Request;
@@ -63,7 +64,7 @@ class CustomerHomeController extends Controller
         $posts = PostsController::getItemPosts($id);
         $comments = CommentsController::getPostComments($id);
         $replies = CommentsController::getPostreplies($id);
-
+       
 
         $item = DB::table('items')
             ->join('users', 'users.id', '=', 'items.User_Id')
@@ -111,7 +112,7 @@ class CustomerHomeController extends Controller
         $cover = Cover_Page::all()->where('Item_Id', '=', $id)->first();
         //schedule and location
 
-        return view('website\frontend\customer\Item_Profile_Details', ['states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule]);
+        return view('website\frontend\customer\Item_Profile_Details', ['states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule,'item_id'=>$id]);
     }
 
     public function getAvailableTime($item_id)

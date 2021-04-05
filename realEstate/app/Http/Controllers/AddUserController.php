@@ -9,6 +9,7 @@ use App\User_Type;
 use App\Emails;
 use App\Phone_Numbers;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 
@@ -84,6 +85,7 @@ class AddUserController extends Controller
     public function store(Request $request)
     {
         //
+      
     }
 
     /**
@@ -95,6 +97,12 @@ class AddUserController extends Controller
     public function show($id)
     {
         //
+        $user = User::all()->where('id','=',$id);
+        $posts= PostsController::userPosts($id);
+        $profile_photo=ProfilePhotoController::getPhoto($id);
+        $cover_photo=CoverPhotoController::getPhoto($id);
+
+        return view('website\frontend\customer\Customer_Profile',['First_Name'=>$user->First_Name,'Middle_Name'=>$user->Middle_Name,'Last_Name'=>$user->Last_Name,'Cover_Photo'=>$cover_photo,'Profile_Photo'=>$profile_photo,'Posts'=>$posts]);
     }
 
     /**

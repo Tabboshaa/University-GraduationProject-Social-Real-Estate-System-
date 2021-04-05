@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Payment;
+
+use App\CoverPhoto;
+use App\ProfilePhoto;
 use Illuminate\Http\Request;
 
-class PaymentController extends Controller
+class ProfilePhotoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,6 +18,11 @@ class PaymentController extends Controller
         //
     }
 
+    public static function getPhoto($id)
+    {
+        //
+        return ProfilePhoto::all()->where('User_Id','=',$id)->first()->Profile_Picture;
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -23,26 +30,8 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        // try {
-            $Operation_Id = OperationsController::create();
-            
-            $payment=payment::create([
-                'Operation_Id' => $Operation_Id,
-                'Payment_Method'=> "Credit",
-                'Card_Number'  => request('card-num'),
-                'Paid_Amount'=> request('paid_amount'),
-                'confirmed'=> 1
-            ]);
-            return back()->with('success','Payment Created Successfully');
-        // }catch (\Illuminate\Database\QueryException $e){
-        //     $errorCode = $e->errorInfo[1];
-        //     if($errorCode == 1062){
-        //         return back()->with('error','Payment Already Exist !!');
-        //     }
-        // }
-        }
-    
-    
+        //
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -58,10 +47,10 @@ class PaymentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\CoverPhoto  $coverPhoto
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(CoverPhoto $coverPhoto)
     {
         //
     }
@@ -69,10 +58,10 @@ class PaymentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\CoverPhoto  $coverPhoto
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(CoverPhoto $coverPhoto)
     {
         //
     }
@@ -81,10 +70,10 @@ class PaymentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\CoverPhoto  $coverPhoto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, CoverPhoto $coverPhoto)
     {
         //
     }
@@ -92,10 +81,10 @@ class PaymentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\CoverPhoto  $coverPhoto
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(CoverPhoto $coverPhoto)
     {
         //
     }

@@ -5,12 +5,13 @@
     <div class="container-fluid">
         
         <div>
-            <p >Number of days:</p>
-            <p>Total price:</p>
+            <p >Number of days: {{$numberOfDays}}</p>
+            <p>Total price: {{$totalCost}}</p>
             <h2>Credit Card Information</h2>
             <form method="POST" action="{{ url('/reserve') }}" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="paid_amount" value="1000">
+                <input type="hidden" name="paid_amount" value="{{$totalCost}}">
+                <input type="hidden" name="item_id" value="{{$item_id}}">
             <table style="width:100%">
             <th style="width:25%;"></th><th style="width:25%;"></th><th style="width:25%;"></th><th style="width:25%;"></th>
                     <tr>
@@ -18,7 +19,7 @@
          <td colspan="2">   <input type="text" id="card-name" name="card-name"></td>
 </tr>
             <tr>
-           <td> <label>Credit Card Number</label></td>
+           <td> <label>Credit Card Number</label></td>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
            <td colspan="2">  <input type="text" id="card-num" name="card-num"></td>
             </tr>
             <tr>
