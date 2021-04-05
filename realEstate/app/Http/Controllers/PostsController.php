@@ -99,10 +99,20 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public static function postCreatedBy($id)
     {
         //
+        return $user=posts::all()->where('Post_Id','=',$id)->first()->User_Id;
+        return $user;
     }
+
+    public static function userPosts($id)
+    {
+        //
+         $posts=posts::all()->where('User_Id','=',$id);
+        return $posts;
+    }
+
 
     /**
      * Show the form for editing the specified resource.

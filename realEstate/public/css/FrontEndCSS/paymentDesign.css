@@ -1,0 +1,57 @@
+p{
+margin-top:20px;
+font-weight: bold;
+
+}
+input[type=text]
+{
+    width: 100%;
+}
+
+input[type=password]{
+
+    width:100%;
+}
+label{
+    margin-left:180px;
+    font-weight: bold;
+}
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+  }
+  input.btnpayment
+{
+position: relative;
+background-color: #4265a5;
+border: none;
+border-radius: 2pt;
+font-size: 16px;
+color: #FFFFFF;
+padding: 5px;
+width: 80px;
+text-align: center;
+transition: transform .2s;
+text-decoration: none;
+overflow: hidden;
+cursor: pointer;
+}
+
+
+
+input.btnpayment:hover
+{
+background-color: rgb(91, 136, 173);
+color: #FFFFFF;
+-ms-transform: scale(1.1); /* IE 9 */
+-webkit-transform: scale(1.1); /* Safari 3-8 */
+transform: scale(1.1);
+}
+
+  h2 {
+    text-align: center;
+    color:black;
+    font-weight: bold;
+  }

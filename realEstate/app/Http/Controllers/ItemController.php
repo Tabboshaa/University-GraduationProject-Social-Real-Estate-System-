@@ -102,7 +102,7 @@ class ItemController extends Controller
             $item = Item::create([
                 'Street_Id' => request("Street"),
                 'User_Id' => request("userIdHiddenInput"),
-                'Item_Name' => request("Item_Name")
+                'Item_Name' => 'hamada'
             ]);
             $item_id = Arr::get($item, 'Item_Id');
             return $this->SubTypeShow($item_id);

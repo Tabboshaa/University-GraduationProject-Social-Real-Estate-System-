@@ -6,6 +6,7 @@ use App\Emails;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use http\Env\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
@@ -31,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    // protected $redirectTo = RouteServiceProvider::HOME;
+     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -63,7 +64,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create()
     {
 //        return User::create([
 //            'name' => $data['name'],
@@ -71,7 +72,7 @@ class RegisterController extends Controller
 //            'password' => Hash::make($data['password']),
 //        ]);
 
-        $user=User::create(['password' => Hash::make($data['password'])]);
+        $user=User::create(['password' => Hash::make(request('password'))]);
 
 
         $user_Id= Arr::get($user, 'id');
@@ -79,6 +80,6 @@ class RegisterController extends Controller
             'User_ID'=>$user_Id,
             'email' => request()['email']
         ]);
-        return $user;
+        return route("CustomerHome");
     }
 }

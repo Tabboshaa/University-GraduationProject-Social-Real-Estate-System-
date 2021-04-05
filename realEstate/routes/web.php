@@ -26,8 +26,11 @@ Route::get('test',function (){
 Auth::routes();
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
 Route::post('/loginUser', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
-Route::post('/registerUser', 'Auth\RegisterControllerUser@create')->name('registerUser');
+Route::post('/registerUser', 'Auth\RegisterController@create')->name('registerUser');
 
+Route::get('/UserRegister', function(){
+    return view('website\frontend\Registration');
+})->name('UserRegister');
 Route::get('/UserLogin', function(){
     return view('website\frontend\login');
 })->name('userLogin');
@@ -49,6 +52,24 @@ Route::get('/add_comment', 'CommentsController@create')->name('comment.add');
 Route::get('/add_reply', 'CommentsController@reply')->name('reply.add');
 Route::get('/addReview', 'ReviewController@create')->name('review.add');
 
+//operations
+Route::get('/Payment', 'OperationsController@calculateDays')->name('calculate.days');
+Route::get('/operation_func','OperationsController@create');
+
+//Payment
+Route::get('/creditCard', function(){
+
+    return view('website.frontend.customer.Reservation');
+
+});
+
+Route::get('/Payment/{item_id}/{numberOfDays}/{totalCost}', function($item_id,$numberOfDays,$totalCost){
+
+    return view('website.frontend.customer.Reservation',['totalCost'=>$totalCost,'numberOfDays'=>$numberOfDays,'item_id'=>$item_id]);
+
+});
+
+Route::post('reserve','PaymentController@create');
 //items Profile Pages
 Route::get('/itemProfile/{id?}', 'CustomerHomeController@itemProfile');
 Route::get('/itemDetails/{id?}', 'CustomerHomeController@itemDetails');
@@ -56,6 +77,8 @@ Route::get('/itemGallery/{id?}', 'CustomerHomeController@itemProfileGallery');
 Route::get('/itemReviews/{id?}', 'CustomerHomeController@itemProfileReviews');
 
 Route::get('/veiw_notification/{id}', 'NotificationController@viewNotification');
+Route::get('/show_notifications', 'NotificationController@show');
+Route::get('/veiw_User/{id}', 'AddUserController@show');
 });
 
 //fullcalender
