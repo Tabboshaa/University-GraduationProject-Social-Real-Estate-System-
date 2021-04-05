@@ -218,5 +218,6 @@
                 </div>
             </div>
         </div>
-    </div>w
+    </div>
 @endsection
+

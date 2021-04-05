@@ -454,9 +454,7 @@
     }
 
     .nav.side-menu>li.current-page,
-    .nav.side-menu>li.active {
-        border-right: 5px solid #1ABB9C;
-    }
+
 
 
     .nav.side-menu>li.active>a {

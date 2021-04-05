@@ -14,7 +14,7 @@
     <!-- Favicon -->
     <link href="{{asset('FrontEnd/images/header/fav.png')}}" rel="shortcut icon" type="image/x-icon" />
 
-    <title>Sign In </title>
+    <title>Sign UP </title>
 
     <!-- Bootstrap core CSS-->
     <link href="{{asset('FrontEnd/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -46,15 +46,15 @@
                         <img src="{{asset('FrontEnd/images/header/logo.png')}}" alt="">
                     </div>
                     <div class="sings col-md-6">
-                        <a href="{{url('loginUser')}}"> Already Has Account </a> &nbsp;
+                        <a href="{{route('userLogin')}}"> Already Has Account </a> &nbsp;
                         <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                     </div>
                     <div class="clearfix">
                     </div>
                     <div class="sform">
                         <h1>Sign Up</h1>
-                        <span>Hello there! Sign in and start managing your item.</span>
-                        <form method="POST" class="sinup" action="{{ route('loginUser') }}">
+                        <span>Hello there! Sign UP and start managing your item.</span>
+                        <form method="POST" class="sinup" action="{{ route('registerUser') }}">
                             @csrf
                             @if ($message = Session::get('error'))
                                 <div class="alert alert-danger alert-block">
@@ -72,7 +72,7 @@
                                 <i class="fa fa-eye-slash" aria-hidden="true"></i>
                             </div>
 
-                            <button type="submit" class="btn">Sign in</button>
+                            <button type="submit" class="btn">Sign UP</button>
                             <div class="forgets">
                                 <a href="#">
                                     Forgot password?
