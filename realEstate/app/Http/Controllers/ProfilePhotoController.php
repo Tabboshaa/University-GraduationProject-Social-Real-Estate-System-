@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CoverPhoto;
 use App\ProfilePhoto;
+use Exception;
 use Illuminate\Http\Request;
 
 class ProfilePhotoController extends Controller
@@ -21,7 +22,13 @@ class ProfilePhotoController extends Controller
     public static function getPhoto($id)
     {
         //
-        return ProfilePhoto::all()->where('User_Id','=',$id)->first()->Profile_Picture;
+        try {
+            $attachment_id = ProfilePhoto::all()->where('User_Id', '=', $id)->first()->Profile_Picture;
+            return AttachmentController::getAttachment($attachment_id);
+
+        } catch (Exception $e) {
+            return null;
+        }
     }
     /**
      * Show the form for creating a new resource.

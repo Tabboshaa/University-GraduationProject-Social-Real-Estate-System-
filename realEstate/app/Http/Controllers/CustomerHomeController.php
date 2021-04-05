@@ -5,19 +5,15 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Item;
-use App\comments;
-use App\Cover_Page;
 use App\schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\followeditemsbyuser;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use DateInterval;
 use DatePeriod;
 use DateTime;
-use Illuminate\Support\Arr;
 
 class CustomerHomeController extends Controller
 {
@@ -70,26 +66,14 @@ class CustomerHomeController extends Controller
         $posts = PostsController::getItemPosts($id);
         $comments = CommentsController::getPostComments($id);
         $replies = CommentsController::getPostreplies($id);
+        $cover =CoverPageController::getCoverPhotoOfItem($id);
+        $post_images = AttachmentController::getPostAttachments($id);
+        $item =AddUserController::getItemWithOwnerName($id);
+
+        $User_Id = Auth::id();
+        $check_follow=followeditemsbyuser::all()->where('Item_Id','=',$id)->where('User_ID','=',$User_Id);
        
-
-        $item = DB::table('items')
-            ->join('users', 'users.id', '=', 'items.User_Id')
-            ->select('items.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')->where('Item_Id', '=', $id)->first();
-
-        $cover = Cover_Page::all()->where('Item_Id', '=', $id)->first();
-
-        $post_images = DB::table('post_attachments')
-            ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
-            ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
-            ->select('post_attachments.*', 'attachments.File_Path')->where('items.Item_Id', '=', $id)
-            ->get()
-            ->groupBy('Post_Id');
-
-            $User_Id = Auth::id();
-            $check_follow=followeditemsbyuser::all()->where('Item_Id','=',$id)->where('User_ID','=',$User_Id);
-            
-        
-            return view(
+        return view(
             'website\frontend\customer\Item_Profile_Posts',
             [
                 'states' => $state,
@@ -113,11 +97,8 @@ class CustomerHomeController extends Controller
 
         $state = StateController::getStates();
 
-        $item = DB::table('items')
-            ->join('users', 'users.id', '=', 'items.User_Id')
-            ->select('items.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')->where('Item_Id', '=', $id)->first();
-
-        $cover = Cover_Page::all()->where('Item_Id', '=', $id)->first();
+        $item =AddUserController::getItemWithOwnerName($id);
+        $cover =CoverPageController::getCoverPhotoOfItem($id);
         //schedule and location
 
         return view('website\frontend\customer\Item_Profile_Details', ['states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule,'item_id'=>$id]);
@@ -185,16 +166,14 @@ class CustomerHomeController extends Controller
         //
         $state = StateController::getStates();
 
-        $item = DB::table('items')
-            ->join('users', 'users.id', '=', 'items.User_Id')
-            ->select('items.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')->where('Item_Id', '=', $id)->first();
+        $item =AddUserController::getItemWithOwnerName($id);
 
         $gallery = DB::table('post_attachments')
             ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
             ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
             ->select('post_attachments.*', 'attachments.File_Path')->where('items.Item_Id', '=', $id)->paginate(8);
 
-        $cover = Cover_Page::all()->where('Item_Id', '=', $id)->first();
+        $cover = CoverPageController::getCoverPhotoOfItem($id);
 
         return view('website\frontend\customer\Item_Profile_Gallery', ['states' => $state, 'item' => $item, 'cover' => $cover, 'gallery' => $gallery]);
     }
@@ -204,12 +183,9 @@ class CustomerHomeController extends Controller
 
         $state = StateController::getStates();
         $reviews = ReviewController::getItemReviews($id);
+        $item =AddUserController::getItemWithOwnerName($id);
+        $cover = CoverPageController::getCoverPhotoOfItem($id);
 
-        $item = DB::table('items')
-            ->join('users', 'users.id', '=', 'items.User_Id')
-            ->select('items.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')->where('Item_Id', '=', $id)->first();
-
-        $cover = Cover_Page::all()->where('Item_Id', '=', $id)->first();
         $User_Id = Auth::id();
         $check_follow=followeditemsbyuser::all()->where('Item_Id','=',$id)->where('User_ID','=',$User_Id);
 
@@ -344,10 +320,8 @@ class CustomerHomeController extends Controller
         }
 
         $comments= $comments->groupby('Post_Id');
-
-
         $replies= $replies->groupby('Parent_Comment');
-        return $replies;
+        // return $replies;
         
         $check_follow=followeditemsbyuser::all()->where('User_ID','=',$User_Id);
         
@@ -365,4 +339,4 @@ class CustomerHomeController extends Controller
 
     }
 }
-}
+

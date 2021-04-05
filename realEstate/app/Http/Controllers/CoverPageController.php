@@ -55,9 +55,10 @@ class CoverPageController extends Controller
      * @param  \App\Cover_Page  $cover_Page
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cover_Page $cover_Page)
+    public static function getCoverPhotoOfItem($id)
     {
         //
+        return  Cover_Page::all()->where('Item_Id', '=', $id)->first();
     }
 
     /**

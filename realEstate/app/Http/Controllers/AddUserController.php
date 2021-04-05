@@ -100,12 +100,12 @@ class AddUserController extends Controller
     public function show($id)
     {
         //
-        $user = User::all()->where('id','=',$id);
+        $user = User::all()->where('id','=',$id)->first();
         $posts= PostsController::userPosts($id);
         $profile_photo=ProfilePhotoController::getPhoto($id);
         $cover_photo=CoverPhotoController::getPhoto($id);
-
-        return view('website\frontend\customer\Customer_Profile',['First_Name'=>$user->First_Name,'Middle_Name'=>$user->Middle_Name,'Last_Name'=>$user->Last_Name,'Cover_Photo'=>$cover_photo,'Profile_Photo'=>$profile_photo,'Posts'=>$posts]);
+    
+        return view('website\frontend\customer\Customer_Profile',['First_Name'=>$user->First_Name,'Middle_Name'=>$user->Middle_Name,'Last_Name'=>$user->Last_Name,'Cover_Photo'=>$cover_photo,'Profile_Photo'=>$profile_photo,'posts'=>$posts]);
     }
 
     /**
@@ -114,9 +114,13 @@ class AddUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public static function getItemWithOwnerName($item_id)
     {
         //
+        $item = DB::table('items')
+        ->join('users', 'users.id', '=', 'items.User_Id')
+        ->select('items.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')->where('Item_Id', '=', $item_id)->first();
+return $item;
     }
 
     /**
@@ -235,4 +239,4 @@ class AddUserController extends Controller
         
     }
 }
-}
+

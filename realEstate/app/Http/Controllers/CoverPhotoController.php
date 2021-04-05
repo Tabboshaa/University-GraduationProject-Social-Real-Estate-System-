@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CoverPhoto;
+use Exception;
 use Illuminate\Http\Request;
 
 class CoverPhotoController extends Controller
@@ -58,7 +59,13 @@ class CoverPhotoController extends Controller
     public static function getPhoto($id)
     {
         //
-        return CoverPhoto::all()->where('User_Id','=',$id)->first()->Cover_Photo;
+        try {
+         $attachment_id =CoverPhoto::all()->where('User_Id', '=', $id)->first()->Cover_Photo;
+            return AttachmentController::getAttachment($attachment_id);
+
+        } catch (Exception $e) {
+            return null;
+        }
     }
 
     /**
