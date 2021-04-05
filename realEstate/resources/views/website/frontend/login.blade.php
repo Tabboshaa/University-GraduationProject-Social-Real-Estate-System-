@@ -46,7 +46,7 @@
                             <img src="{{asset('FrontEnd/images/header/logo.png')}}" alt="">
                         </div>
                         <div class="sings col-md-6">
-                            <a href="signup.html">Sign up here</a> &nbsp;
+                            <a href="{{ route('UserRegister') }}">Sign up here</a> &nbsp;
                             <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                         </div>
                         <div class="clearfix">

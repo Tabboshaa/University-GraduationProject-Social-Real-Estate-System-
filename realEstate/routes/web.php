@@ -26,8 +26,11 @@ Route::get('test',function (){
 Auth::routes();
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
 Route::post('/loginUser', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
-Route::post('/registerUser', 'Auth\RegisterControllerUser@create')->name('registerUser');
+Route::post('/registerUser', 'Auth\RegisterController@create')->name('registerUser');
 
+Route::get('/UserRegister', function(){
+    return view('website\frontend\Registration');
+})->name('UserRegister');
 Route::get('/UserLogin', function(){
     return view('website\frontend\login');
 })->name('userLogin');
