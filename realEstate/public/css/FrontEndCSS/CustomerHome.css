@@ -7,6 +7,15 @@ img.background
   border-bottom-left-radius: 10pt;
   border-bottom-right-radius: 10pt;
 }
+img.profile
+{
+  display: block;
+  margin: auto;
+  width: 250px;
+  height: 200px;
+  border-bottom-left-radius: 10pt;
+  border-bottom-right-radius: 10pt;
+}
 div.sreachdiv
 {
   position: relative;

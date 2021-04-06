@@ -1,40 +1,25 @@
 @extends('website.frontend.layouts.main')
 @section('content')
+<link href="{{asset('css/FrontEndCSS/CustomerHome.css')}}" rel="stylesheet" type="text/css" />
+
 <div id="content-wrapper">
     <div class="container-fluid">
         <!-- Banner -->
         <div class="dashboard">
             <div class="advertisment-banner1 col-md-12">
-                {{- <img src="{{asset('FrontEnd/images/cover page/'.$Cover_Photo)}}" alt="">-}}
+            @if(!empty($Cover_Photo))
+            
+             <img class="background" src="{{asset('FrontEnd/images/cover page/'.$Cover_Photo)}}" alt="">
+             @endif
             </div>
             <div class="main-page">
                 <div class=" dash-profile">
-                    <img src="" alt="">
+                    <img class="profile" src="{{asset('FrontEnd/images/cover page/'.$Cover_Photo)}}" alt="">
                 </div>
                 <div class="prompr">
-                    <ul class="widths">
-                        <li class="number"><i class="fa fa-phone" aria-hidden="true"></i> &nbsp; +91 1234 567 890</li>
-                        <li class="number"><i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp; Location here...</li>
-                        <li class="saved">
-                            <i class="fa fa-heart-o" aria-hidden="true"></i>
-                            <a href="#">saved</a>
-                        </li>
-                        <li class="Reivew">
-                            <a href="{{url('/itemReviews')}}">Add Review </a>
-                        </li>
-                        <li class="borders"><i class="fa fa-share-alt" aria-hidden="true"></i></li>
-                        <li class="borders"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></li>
-                    </ul>
                     <div class="dashname">
                         {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}
-                        <!-- <p><a href="#">@ {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}</a></p> -->
                     </div>
-                    <!-- <div class="Author">
-                        <a href="#">Messages to Author</a>
-                    </div> -->
-                    <!-- <div class="promote">
-                        <a href="#">Promote</a>
-                    </div> -->
                 </div>
             </div>
             <div class="clearfix">
@@ -48,27 +33,11 @@
                     <span class="navbar-toggler-icon "></span>
                 </button>
                 <div class="collapse navbar-collapse  visible-title" id="navbarNav">
-                    {{- <ul class="navbar-nav ">
-                        <li>
-                            <a href="{{url('/itemProfile/'.$item->Item_Id)}}">Posts </a>
-                    </li>
-                    <li>
-                        <a href="{{url('/itemDetails/'.$item->Item_Id)}}">Detail </a>
-                    </li>
-                    <li>
-                        <a href="{{url('/itemReviews/'.$item->Item_Id)}}">Review </a>
-                    </li>
-                    <li>
-                        <a href="{{url('/itemGallery/'.$item->Item_Id)}}">Gallery </a>
-                    </li>
-                    </ul>
-                    -}}
+                   
                 </div>
             </div>
 
         </div>
-        @extends('website.frontend.customer.Item_Profile')
-        @section('profile_Content')
         <div class="row">
             <div class="col-md-7">
                 @if( count($posts) != 0)
@@ -198,7 +167,7 @@
                     <div class="rightboxs">
                         <img src="images/banner/Icon4.png" alt="">
                         <span>Owner</span>
-                        <p><a href="#">@ {{$item->First_Name}} {{$item->Middle_Name}} {{$item->Last_Name}}</a></p>
+                        <p><a href="#">@ {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}</a></p>
                         <div id="test"></div>
                     </div>
                 </div>

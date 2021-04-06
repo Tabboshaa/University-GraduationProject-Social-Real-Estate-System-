@@ -200,4 +200,14 @@ class CommentsController extends Controller
 
         return $comments; 
     }
+    public static function GetCommentReply ()
+    {
+        $comments=DB::table('comments')
+        ->join('users', 'users.id', '=', 'comments.User_Id')
+        ->where('comments.Parent_Comment','=',request('comment_id'))
+        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
+        ->get();
+
+        return $comments; 
+    }
 }

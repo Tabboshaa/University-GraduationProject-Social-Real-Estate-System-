@@ -288,3 +288,4 @@ Route::get('/HomePage', 'CustomerHomeController@HomePagePosts');
 Route::post('/Reservation','HomeController@Reservation');
 
 Route::get('/hamada/{id?}', 'CommentsController@getPostrepliesHomePage');
+Route::get('/getRepliesFromComment', 'CommentsController@GetCommentReply')->name('get.replies');

@@ -981,13 +981,14 @@ margin-right: 15px;
 border-radius: 5px;
 }
 .dashboard .dashname {
-color: #34333c;
+color: #ffffff;
 font-size: 18px;
 width: 75%;
-margin: 33px 0;
-float: left;
+margin: 90px 0;
+margin-right: 120px;
+float: right;
 position: relative;
-top: 0;
+top: 20;
 font-weight: 600;
 }
 .dashboard .dashname p {
