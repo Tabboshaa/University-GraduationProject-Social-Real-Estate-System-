@@ -300,6 +300,7 @@ class CustomerHomeController extends Controller
         return view('website.frontend.customer.TimeLine', ['posts' => $posts]);
 
     }
+    
 
     public function HomePagePosts ()
     {
@@ -365,4 +366,4 @@ class CustomerHomeController extends Controller
 
     }
 }
-}
+
