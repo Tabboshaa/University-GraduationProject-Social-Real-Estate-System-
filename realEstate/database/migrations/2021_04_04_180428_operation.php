@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOperationsTable extends Migration
+class Operation extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,13 @@ class CreateOperationsTable extends Migration
      */
     public function up()
     {
-        
+        Schema::create('operations', function (Blueprint $table) {
+            $table->id('Operation_Id');
+            $table->foreignId('Item_Id')->references('Item_Id')->on('items')->onDelete('cascade');
+            $table->foreignId('User_Id')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamps();
+        });
+
         Schema::create('operation__types', function (Blueprint $table) {
             $table->id('Operation_Type_Id');
             $table->string('Operation_Name')->unique();
@@ -34,7 +40,8 @@ class CreateOperationsTable extends Migration
             $table->timestamps();
         });
 
-    }
+    
+}
 
     /**
      * Reverse the migrations.
@@ -43,6 +50,6 @@ class CreateOperationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('operations');
+        //
     }
 }
