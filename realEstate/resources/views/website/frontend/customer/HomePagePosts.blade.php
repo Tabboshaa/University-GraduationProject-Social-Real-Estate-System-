@@ -55,10 +55,46 @@
                             <a href="javascript:void(0)" onclick="Comment('{{$post->Post_Id}}');"><i class="fas fa-arrow-right arrowStyle"></i></a>
                         </td>
                     </tr>
-<tr>
-<a id="viewComments'{{$post->Post_Id}}" href="javascript:void(0)" onclick="viewComments('{{$post->Post_Id}}')">View Comments</a>
-</tr>
-                   <tr id="Comment{{$post->Post_Id}}"></tr>
+
+                    {{-- Loop for comments --}}
+                    @if( isset($comments[$post->Post_Id]))
+                    @foreach($comments[$post->Post_Id] as $comment)
+                    {{-- Comment --}}
+                    <tr>
+                        <td colspan="3">
+                            <div class="commentt">
+                                <a class="Usr_name" href="">{{$comment->First_Name}} {{$comment->Middle_Name}} {{$comment->Last_Name}} </a><br>
+                                {{ $comment->Comment }}<br>
+                                <?php $today = \Carbon\Carbon::now();
+                                $end = \Carbon\Carbon::parse($comment->updated_at); ?>
+                                {{ $end->diffForHumans($today) }}
+                                <a id="viewReplies{{$comment->Comment_Id}}" href="javascript:void(0)" onclick="view('{{$comment->Comment_Id}}')">View Replies</a>
+                                <a href="javascript:void(0)" onclick="writeReplay('{{ $comment->Comment_Id}}')"> reply</a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    {{-- Replies --}}
+                    <tr id="Replies{{$comment->Comment_Id}}">
+                    </tr>
+                    <div>
+                        {{-- Input for reply --}}
+                        <tr name="writeReplay{{$comment->Comment_Id}}" style="display: none;">
+
+                            <td colspan="2">
+                                <input type="text" class="coment" id="ReplyForComment{{$comment->Comment_Id}}" name="comment{{$comment->Comment_Id}}" placeholder="Write a reply...">
+                            </td>
+                            <td class="arrowStyleL">
+                                <a href="javascript:void(0)" onclick="Reply('{{$post->Post_Id}}','{{$comment->Comment_Id}}');"><i class="fas fa-arrow-right arrowStyle"></i></a>
+                            </td>
+
+                        </tr>
+
+
+                    </div>
+
+                    @endforeach
+                    @endif
                 </tbody>
             </table>
             @endforeach
@@ -135,31 +171,6 @@
 
         //else
     }
-    function viewComments(id) {
-        // if value view reply 
-        value = document.getElementById("viewReplies" + id).innerHTML;
-        console.log('one');
-
-        if (value === "View Comments") {
-            var replys = document.getElementsByName("reply1" + id);
-            for (var reply of replys) {
-                reply.style.display = 'block';
-            }
-            document.getElementById("viewComments" + id).innerHTML = "Hide Comments";
-            console.log('two');
-            getReplies(id);
-
-        } else {
-            var replys = document.getElementsByName("reply1" + id);
-            for (var reply of replys) {
-                reply.style.display = 'none';
-            }
-            document.getElementById("viewComments" + id).innerHTML = "View Comments";
-
-        }
-
-        //else
-    }
 
     function writeReplay(id) {
         var writeReplayDivs = document.getElementsByName("writeReplay" + id);
@@ -167,55 +178,6 @@
             Divs.style.display = 'block';
         }
     }
-
-    function getComments(post_id) {
-
-
-        $.ajax({
-            url: "{{route('get.comments')}}",
-            Type: "POST",
-            data: {
-                post_id: post_id,
-
-            },
-            success: function(data) {
-                var Form = '';
-                Object.values(data).forEach(val => {
-
-                    Form += '<tr><td colspan="3">' +
-                        '<div class="commentt">' +
-                        '<a class="Usr_name" href="">' + val['First_Name'] + ' ' + val['Middle_Name'] + ' ' + val['Last_Name'] + ' </a><br>' +
-                        val['Comment'] + '<br>'+
-                        '<a id="viewReplies' + val['Comment_Id'] + '" href="javascript:void(0)" onclick="view(\'' + val['Comment_Id'] + '\')">View Replies</a>' +
-                        '<a href="javascript:void(0)" onclick="writeReplay(\'' + val['Comment_Id'] + '\')"> reply</a>' +
-                        '</div>' +
-                        '</td></tr>' +
-                        '<tr id="Replies' + val['Comment_Id'] + '">' +
-                        '<div>' +
-                        ' <tr name="writeReplay' + val['Comment_Id'] + '" style="display: none;">' +
-
-                        ' <td colspan="2">' +
-                        ' <input type="text" class="coment" id="ReplyForComment' + val['Comment_Id'] + '" name="comment' + val['Comment_Id'] + '" placeholder="Write a reply...">' +
-                        ' </td>' +
-                        '<td class="arrowStyleL">' +
-                        '<a href="javascript:void(0)" onclick="Reply(\'' + val['Post_Id'] + '\',\'' + val['Comment_Id'] + '\');"><i class="fas fa-arrow-right arrowStyle"></i></a>' +
-                        '</td>';
-                    ' </tr>';
-                });
-                if (Form == '')
-                    Form = 'No Comments';
-                else
-                    Form += '';
-
-
-                $('#Comment' + comment_id).html(Form);
-            },
-            error: function() {
-                console.log('Error');
-            }
-
-        });
-    };
 
     function getReplies(comment_id) {
 
@@ -225,6 +187,7 @@
             Type: "POST",
             data: {
                 comment_id: comment_id,
+
             },
             success: function(data) {
                 var Form = '';
@@ -237,6 +200,8 @@
                         '<input type="hidden" name="reply' + comment_id + '">' +
                         val['Comment'] +
                         '<br>' +
+                        '<\?php $end = \Carbon\Carbon::parse(' + val['updated_at'] + '); ?>' +
+                        '<p>{{ $end->diffForHumans($today) }} </p>' +
                         '</div>' +
                         '</td>' +
                         '</tr>';
