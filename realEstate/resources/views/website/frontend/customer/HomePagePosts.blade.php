@@ -83,6 +83,8 @@
                                 <a href="javascript:void(0)" onclick="Reply('{{$post->Post_Id}}','{{$comment->Comment_Id}}');"><i class="fas fa-arrow-right arrowStyle"></i></a>
                             </td>
                         </tr>
+
+
                     </div>
 
                     @endforeach
@@ -140,7 +142,7 @@
 <script>
     function view(id) {
         // if value view reply 
-        value = document.getElementById("viewReplies"+id).innerHTML;
+        value = document.getElementById("viewReplies" + id).innerHTML;
         console.log('one');
 
         if (value === "View Replies") {
@@ -148,7 +150,7 @@
             for (var reply of replys) {
                 reply.style.display = 'block';
             }
-            document.getElementById("viewReplies"+id).innerHTML = "Hide Replies";
+            document.getElementById("viewReplies" + id).innerHTML = "Hide Replies";
             console.log('two');
             getReplies(id);
 
@@ -157,10 +159,10 @@
             for (var reply of replys) {
                 reply.style.display = 'none';
             }
-            document.getElementById("viewReplies"+id).innerHTML = "View Replies";
-         
+            document.getElementById("viewReplies" + id).innerHTML = "View Replies";
+
         }
-       
+
         //else
     }
 
@@ -182,20 +184,20 @@
 
             },
             success: function(data) {
-                var Form='';
+                var Form = '';
                 Object.values(data).forEach(val => {
 
-                    Form += '<tr>'+
-                            '<td colspan="3">'+
-                                '<div class="commentt" name="reply1'+comment_id+'">'+
-                                   ' <a class="Usr_name" href="">'+val['First_Name']+' '+ val['Middle_Name']+' '+ val['Last_Name']+'</a><br>'+
-                                    '<input type="hidden" name="reply'+comment_id+'">'+
-                                    val['Comment']+ 
-                                    '<br>'+
-                                    '<\?php $end = \Carbon\Carbon::parse('+val['updated_at']+'); ?>'+
-                                    '<p>{{ $end->diffForHumans($today) }} </p>'+
-                               '</div>'+
-                            '</td>'+
+                    Form += '<tr>' +
+                        '<td colspan="3">' +
+                        '<div class="commentt" name="reply1' + comment_id + '">' +
+                        ' <a class="Usr_name" href="">' + val['First_Name'] + ' ' + val['Middle_Name'] + ' ' + val['Last_Name'] + '</a><br>' +
+                        '<input type="hidden" name="reply' + comment_id + '">' +
+                        val['Comment'] +
+                        '<br>' +
+                        '<\?php $end = \Carbon\Carbon::parse(' + val['updated_at'] + '); ?>' +
+                        '<p>{{ $end->diffForHumans($today) }} </p>' +
+                        '</div>' +
+                        '</td>' +
                         '</tr>';
                 });
                 if (Form == '')
@@ -204,7 +206,7 @@
                     Form += '';
 
 
-                $('#Replies'+comment_id).html(Form);
+                $('#Replies' + comment_id).html(Form);
             },
             error: function() {
                 console.log('Error');

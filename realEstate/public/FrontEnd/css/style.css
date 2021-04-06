@@ -984,11 +984,10 @@ border-radius: 5px;
 color: #ffffff;
 font-size: 18px;
 width: 75%;
-margin: 90px 0;
-margin-right: 120px;
+margin: 33px 0;
 float: right;
 position: relative;
-top: 20;
+top: 0;
 font-weight: 600;
 }
 .dashboard .dashname p {
