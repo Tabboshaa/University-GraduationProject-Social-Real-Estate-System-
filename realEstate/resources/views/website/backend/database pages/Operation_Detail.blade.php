@@ -19,8 +19,8 @@
                         <select id="operation_Name" style="border-radius: 3pt" class="form-control @error('operation_Name') is-invalid @enderror" name="operation_Name" value="{{ old('operation_Name') }}" required autocomplete="operation_Name">
                             <option value="0" selected disabled>Select Operation Name:</option>
 
-                            @foreach($operation as $operation)
-                            <option value="{{$operation->Operation_Type_Id}}">{{$operation->Operation_Name}}</option>
+                            @foreach($Operation__types as $Operation__types)
+                            <option value="{{$Operation__types->Operation_Type_Id}}">{{$Operation__types->Operation_Name}}</option>
                             @endforeach
                         </select>
 

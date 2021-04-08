@@ -25,7 +25,7 @@ Route::get('test',function (){
 });
 Auth::routes();
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
-Route::post('/loginUser', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
+Route::post('/', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
 Route::post('/registerUser', 'Auth\RegisterControllerUser@create')->name('registerUser');
 
 Route::get('/UserLogin', function(){
@@ -59,16 +59,12 @@ Route::get('/creditCard', function(){
 
 });
 Route::post('reserve','PaymentController@create');
-Route::get('/', function () {
+Route::get('/reservejj', function () {
     return view('website\backend.database pages.add-Reservation');
 });
 
 
-Route::post('/add_opDetail', 'OperationsController@createDetail');
 
-Route::get('/show_detailop', 'OperationsController@showDetail')->name('detailop_show');
-Route::delete('/delete_operation_Detail', 'OperationsController@destroyDetail');
-Route::get('/edit_operation_Detail', 'OperationController@editDetail')->name('detailop.update');
 //items Profile Pages
 Route::get('/itemProfile/{id?}', 'CustomerHomeController@itemProfile');
 Route::get('/itemDetails/{id?}', 'CustomerHomeController@itemDetails');
@@ -88,7 +84,11 @@ Route::post('fullcalendar/delete','FullCalendarController@destroy');
 
 //Admin Routes with middleware
 // Route::group(['middleware' => 'auth.admin'], function () {
-    Route::get('/opDetail', 'OperationsController@index');
+    Route::get('/openDetail', 'OperationsController@index');
+    Route::get('/show_detailop', 'OperationsController@showDetail')->name('detailop_show');
+    Route::post('/add_opDetail', 'OperationsController@createDetail');
+    Route::delete('/delete_operation_Detail', 'OperationsController@destroyDetail');
+    Route::get('/edit_operation_detail', 'OperationsController@editDetail')->name('operationdetail.update');
 
     Route::get('/test/{id}', 'NotificationController@index');
     Route::get('/data_types', 'DatatypeController@index');
@@ -100,7 +100,7 @@ Route::post('fullcalendar/delete','FullCalendarController@destroy');
     Route::get('/edit_main_type', 'MainTypes@edit')->name('Maintype.update');
 //operation types
 Route::get('/operation_types', 'OperationsController@index');
-Route::get('/operation_types_show', 'OperationsController@show')->name('operation_types_show');
+Route::get('/operation_types_show', 'OperationsController@showDetail')->name('operation_types_show');
 Route::post('/add_operation_type', 'OperationsController@createType');
 Route::delete('/delete_operation_type', 'OperationsController@destroy');
 Route::get('/edit_operation_type', 'OperationsController@edit')->name('operationType.update');
@@ -214,6 +214,7 @@ Route::get('/edit_operation_type', 'OperationsController@edit')->name('operation
     Route::get('/Item_Sub_types_show/{id}', 'ItemController@SubTypeShow');
     Route::get('/searchR', 'ItemController@searchEmail');
     //Sub type javacript phase
+    Route::get('/findDetail', 'OperationsController@finddetail');
     Route::get('/findSub', 'SubTypes@find');
     Route::delete('/delete_sub_type/{id?}', 'SubTypes@destroy');
     Route::get('/edit_sub_type/{id}', 'SubTypes@getSubTypeById')->name('suptype.getbyid');

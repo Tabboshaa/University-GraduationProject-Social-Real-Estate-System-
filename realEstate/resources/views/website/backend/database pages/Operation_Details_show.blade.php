@@ -1,4 +1,4 @@
-@extends('website.backend.database pages.Operation_Details')
+@extends('website.backend.database pages.Operation_Detail')
 @section('table')
 
 <link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
@@ -34,16 +34,15 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($Detail1 as $Detail)
+        @foreach($Detail1 as $operation_detail)
         <tr>
-            <td> {{$Detail->Operation_Name}}</td>
-            <td>{{$Detail->Operation_Detail_Name}}</td>
-            <td><a href="javascript:void(0)" onclick="setStateIdName('{{$Detail->Operation_Name}}','{{$Detail->Operation_Detail_Name}}')"><i class="fa fa-edit"></i></a></td>
-            <td><input type="checkbox" name="id[]" value="{{$Detail->Detail_Id}}"></td>
-
-            <!-- On clicking edit icon will go to setCountryIdName in-->
+            <td> {{$operation_detail->Operation_Name}}</td>
+            <td>{{$operation_detail->Operation_Detail_Name}}</td>
+            <td><a href="javascript:void(0)" onclick="setOperationDetail('{{$operation_detail->Detail_Id}}','{{$operation_detail->Operation_Detail_Name}}')"><i class="fa fa-edit"></i></a></td>
+            <td><input type="checkbox" name="id[]" value="{{$operation_detail->Detail_Id}}"></td>
 
         </tr>
+
         @endforeach
 
     </tbody>
@@ -51,7 +50,7 @@
     {!! $Detail1->render() !!}
 </form>
 
-<div class="modal fade" id="EditStateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="EditOpDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -61,31 +60,21 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="EditSubTypeForm">
+                <form id="EditOpDetailForm">
                     @csrf
                     <input type="hidden" name="id" id="id">
-                    <div>
-                        <label for="OperationNameEdit" style="font-size: 12pt" >Operation Name</label>
-                        <select id="OperationNameEdit" style="border-radius: 3pt" class="form-control" name="OperationNameEdit">
-                            <!--  For loop  -->
-                            @foreach($op_Detail as $main)
-                            <option value="{{$main->Operation_Type_Id}}">{{$main->Operation_Name}}</option>
-                            @endforeach
-                            <!-- End loop -->
-                        </select>
-                    </div>
                     <div class="form-group">
-                        <label for="SubTypeName" style="font-size: 12pt" >Operation Detail</label>
-                        <input type="text" style="border-radius: 3pt" name="OperationDetail" id="OperationDetail" class="form-control">
+                        <label for="operationDet" style="font-size: 12pt">Operation Detail </label>
+                        <input type="text"  style="border-radius: 3pt"  name="operation_det" id="operation_det" class="form-control">
                     </div>
-                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
+
+                    <button  type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>
 
             </div>
         </div>
     </div>
 </div>
-
 <script>
     function myFunction() {
         var input, filter, table, tr, td, i, txtValue;
@@ -109,32 +98,34 @@
 
                 // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty
                 $("#id").val(id);
-                $("#OperationDetail").val(name);
+                console.log(name);
+                $("#operation_det").val(name);
                 $("#EditOpDetailModal").modal("toggle");
         }
 
-    // awl ma bados submit button in EditCountryForm will go to  $('#EditCountryForm').submit(function (){}) and start sending the new name to country controller and save it .
+   
         $('#EditOpDetailForm').submit(function (){
 
             var id=$("#id").val();
+            
             //byb3t el value el gdeda
-            var MainTypeid = $("#OperationNameEdit").val();
-            var OperationDetail=$("#OperationDetail").val();
+            var operation_det=$("#operation_det").val();
+            console.log(operation_det);
+
             var _token= $("input[name=_token]").val();
 
             $.ajax({
-                url:"{{route('detailop.update')}}",
+                url:"{{route('operationdetail.update')}}",
                 Type:"PUT",
                 data:{
                     id:id,
-                    OperationDetail:OperationDetail,
+                    operation_det:operation_det,
                      _token:_token
                 },
                 success:function (){
                     console.log('Success');
-                       // $('#sid'+response.id + 'td:nth-child(1)').text(response.SupTypeName);
-                        $("#EditOpDetailModal").modal("toggle");
-                    // $("#EditSubTypeModal")[0].reset();
+                    $("#EditOpDetailModal").modal("toggle");
+                 
                 },
                 error:function ()
                 {

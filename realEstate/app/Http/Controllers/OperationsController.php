@@ -129,12 +129,7 @@ return view('website.frontend.customer.Reservation',['totalDays'=>$totalDays,'Re
  
          return  response()->json($operationDetail);
      }
-     public function getDetailById($id)
-     {
-         $operationDetail = Operation__Detail_Name::all()->find($id);
-         //return dd($subtype) ;
-         return response()->json($operationDetail);
-     }
+   
     public function edit()
     {
         try {
@@ -152,16 +147,17 @@ return view('website.frontend.customer.Reservation',['totalDays'=>$totalDays,'Re
     }
     public function editDetail()
     {
+       
         try {
 
-            //hygeb el country eli el ID bt3ha da
+          
             $operation_detail = Operation__Detail_Name::all()->find(request('id'));
-            //hy7ot el name el gded f column el country name
-            $operation_detail->Operation_Detail_Name = request('operation_Detail');
+         
+            $operation_detail->Operation_Detail_Name = request('operation_det');
             $operation_detail->save();
 
-            //hyb3t el update el gded fl country table
-            return back()->with('info', 'State Edited Successfully');
+        
+            return back()->with('info', 'Operation Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -180,15 +176,7 @@ return view('website.frontend.customer.Reservation',['totalDays'=>$totalDays,'Re
     public function update(Request $request, $id)
     {
         //
-        $details = Operation__Detail_Name::all();
-        $operation_names = Operation__types::all();
-        $detail = Operation__Detail_Name::all()->find($id);
-        $subtype->Operation_Type_Id = request('OperationName');
-        $subtype->Operation_Detail_Name = request('OperationDetail');
-
-
-        $subtype->save();
-        return redirect()->back();
+     
     }
 
     /**
@@ -226,12 +214,12 @@ return view('website.frontend.customer.Reservation',['totalDays'=>$totalDays,'Re
     
     public function showDetail()
     {
-        //
-        $operation_detail = DB::table('Operation__Detail_Name')->join('Operation__types', 'Operation__Detail_Name.Operation_Type_Id', '=', 'Operation__types.Operation_Type_Id')
-        ->select('Operation__Detail_Name.*', 'Operation__types.Operation_Type_Id')->paginate(10);
-    //DB join b3ml add l column el main type name le table el subtype w bb3to 3sha azhr el main type name
-    //fe table el show sub tye
-    $operation_name = Operation__Detail_Name::paginate(10);
-    return view('website.backend.database pages.Operation_Detaiols_show', ['Detail1' => $detail_show, 'op_Detail' => $op_Details]);  }
-    }
+        
+        $operationname = operation__types::all();
+        $operationDetailName = DB::table('operation___detail__names')
+            ->join('operation__types', 'operation___detail__names.Operation_Type_Id', '=', 'operation__types.Operation_Type_Id')
+            ->select('operation___detail__names.*', 'operation__types.Operation_Name')->paginate(10);
+
+        return view('website\backend.database pages.Operation_Details_show', ['Detail1' => $operationDetailName, 'Operation__types' => $operationname]);
+    } }
 
