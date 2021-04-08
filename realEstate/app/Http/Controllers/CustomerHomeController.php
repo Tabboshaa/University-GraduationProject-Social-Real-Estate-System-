@@ -101,7 +101,11 @@ class CustomerHomeController extends Controller
         $cover =CoverPageController::getCoverPhotoOfItem($id);
         //schedule and location
 
-        return view('website\frontend\customer\Item_Profile_Details', ['states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule,'item_id'=>$id]);
+        $User_Id = Auth::id();
+        $check_follow=followeditemsbyuser::all()->where('Item_Id','=',$id)->where('User_ID','=',$User_Id);
+
+
+        return view('website\frontend\customer\Item_Profile_Details', ['states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule,'item_id'=>$id,'check_follow'=>$check_follow]);
     }
 
     public function getAvailableTime($item_id)
@@ -276,6 +280,7 @@ class CustomerHomeController extends Controller
         return view('website.frontend.customer.TimeLine', ['posts' => $posts]);
 
     }
+    
 
     public function HomePagePosts ()
     {

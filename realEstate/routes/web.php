@@ -25,9 +25,12 @@ Route::get('test',function (){
 });
 Auth::routes();
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
-Route::post('/', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
-Route::post('/registerUser', 'Auth\RegisterControllerUser@create')->name('registerUser');
+Route::post('/loginUser', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
+Route::post('/registerUser', 'Auth\RegisterController@create')->name('registerUser');
 
+Route::get('/UserRegister', function(){
+    return view('website\frontend\Registration');
+})->name('UserRegister');
 Route::get('/UserLogin', function(){
     return view('website\frontend\login');
 })->name('userLogin');
@@ -52,19 +55,21 @@ Route::get('/addReview', 'ReviewController@create')->name('review.add');
 //operations
 Route::get('/Payment', 'OperationsController@calculateDays')->name('calculate.days');
 Route::get('/operation_func','OperationsController@create');
+
 //Payment
 Route::get('/creditCard', function(){
 
     return view('website.frontend.customer.Reservation');
 
 });
-Route::post('reserve','PaymentController@create');
-Route::get('/reservejj', function () {
-    return view('website\backend.database pages.add-Reservation');
+
+Route::get('/Payment/{item_id}/{numberOfDays}/{totalCost}', function($item_id,$numberOfDays,$totalCost){
+
+    return view('website.frontend.customer.Reservation',['totalCost'=>$totalCost,'numberOfDays'=>$numberOfDays,'item_id'=>$item_id]);
+
 });
 
-
-
+Route::post('reserve','PaymentController@create');
 //items Profile Pages
 Route::get('/itemProfile/{id?}', 'CustomerHomeController@itemProfile');
 Route::get('/itemDetails/{id?}', 'CustomerHomeController@itemDetails');
@@ -72,10 +77,10 @@ Route::get('/itemGallery/{id?}', 'CustomerHomeController@itemProfileGallery');
 Route::get('/itemReviews/{id?}', 'CustomerHomeController@itemProfileReviews');
 
 Route::get('/veiw_notification/{id}', 'NotificationController@viewNotification');
+Route::get('/show_notifications', 'NotificationController@show');
+Route::get('/veiw_User/{id}', 'AddUserController@show');
 });
-Route::get('/operationtypes', function () {
-    return view('website\backend.database pages.operationTypes');
-});
+
 //fullcalender
 Route::get('fullcalendar','FullCalendarController@index');
 Route::post('fullcalendar/create','FullCalendarController@create');
@@ -84,11 +89,6 @@ Route::post('fullcalendar/delete','FullCalendarController@destroy');
 
 //Admin Routes with middleware
 // Route::group(['middleware' => 'auth.admin'], function () {
-    Route::get('/openDetail', 'OperationsController@index');
-    Route::get('/show_detailop', 'OperationsController@showDetail')->name('detailop_show');
-    Route::post('/add_opDetail', 'OperationsController@createDetail');
-    Route::delete('/delete_operation_Detail', 'OperationsController@destroyDetail');
-    Route::get('/edit_operation_detail', 'OperationsController@editDetail')->name('operationdetail.update');
 
     Route::get('/test/{id}', 'NotificationController@index');
     Route::get('/data_types', 'DatatypeController@index');
@@ -98,12 +98,6 @@ Route::post('fullcalendar/delete','FullCalendarController@destroy');
     Route::post('/add_main_type', 'MainTypes@create');
     Route::delete('/delete_main_type', 'MainTypes@destroy');
     Route::get('/edit_main_type', 'MainTypes@edit')->name('Maintype.update');
-//operation types
-Route::get('/operation_types', 'OperationsController@index');
-Route::get('/operation_types_show', 'OperationsController@showDetail')->name('operation_types_show');
-Route::post('/add_operation_type', 'OperationsController@createType');
-Route::delete('/delete_operation_type', 'OperationsController@destroy');
-Route::get('/edit_operation_type', 'OperationsController@edit')->name('operationType.update');
 
     //sub types pages
     Route::get('/sub_types', 'SubTypes@index');
@@ -214,7 +208,6 @@ Route::get('/edit_operation_type', 'OperationsController@edit')->name('operation
     Route::get('/Item_Sub_types_show/{id}', 'ItemController@SubTypeShow');
     Route::get('/searchR', 'ItemController@searchEmail');
     //Sub type javacript phase
-    Route::get('/findDetail', 'OperationsController@finddetail');
     Route::get('/findSub', 'SubTypes@find');
     Route::delete('/delete_sub_type/{id?}', 'SubTypes@destroy');
     Route::get('/edit_sub_type/{id}', 'SubTypes@getSubTypeById')->name('suptype.getbyid');
@@ -286,3 +279,14 @@ Route::get('/edit_operation_type', 'OperationsController@edit')->name('operation
 Route::get('/timeline',function () {
     return view('website.frontend.customer.TimeLine');
 });
+
+//Follow 
+Route::get('/FollowItem/{id?}','AddUserController@FollowedItem');
+Route::get('/UnfollowItem/{id?}','AddUserController@UnfollowItem');
+
+Route::get('/HomePage', 'CustomerHomeController@HomePagePosts');
+Route::post('/Reservation','HomeController@Reservation');
+
+Route::get('/hamada/{id?}', 'CommentsController@getPostrepliesHomePage');
+Route::get('/getRepliesFromComment', 'CommentsController@GetCommentReply')->name('get.replies');
+Route::get('/getComment', 'CommentsController@GetComments')->name('get.comments');

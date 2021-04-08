@@ -105,6 +105,12 @@ class AddUserController extends Controller
         $profile_photo=ProfilePhotoController::getPhoto($id);
         $cover_photo=CoverPhotoController::getPhoto($id);
     
+        if($id == Auth::id())
+        {
+            return view('website\frontend\customer\Customer_Own_Profile',['First_Name'=>$user->First_Name,'Middle_Name'=>$user->Middle_Name,'Last_Name'=>$user->Last_Name,'Cover_Photo'=>$cover_photo,'Profile_Photo'=>$profile_photo,'posts'=>$posts]);
+
+        }
+
         return view('website\frontend\customer\Customer_Profile',['First_Name'=>$user->First_Name,'Middle_Name'=>$user->Middle_Name,'Last_Name'=>$user->Last_Name,'Cover_Photo'=>$cover_photo,'Profile_Photo'=>$profile_photo,'posts'=>$posts]);
     }
 

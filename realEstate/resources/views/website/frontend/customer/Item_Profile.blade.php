@@ -9,7 +9,7 @@
         <img src="{{asset('FrontEnd/images/cover page/'.$cover->path)}}" alt="">
             </div>
             <div class="main-page">
-                <div class=" dash-profile">
+                <div class="dash-profile">
                     <img src="" alt="">
                 </div>
                 <div class="prompr">
@@ -41,12 +41,7 @@
                         {{ $item->Item_Name }}
                         <p><a href="#">@ {{$item->First_Name}} {{$item->Middle_Name}} {{$item->Last_Name}}</a></p>
                     </div>
-                     <div class="Author">
-                        <a href="#">Messages to Author</a>
-                    </div>
-                     <div class="promote">
-                        <a href="#">Promote</a>
-                    </div> 
+        
                 </div>
             </div>
             <div class="clearfix">
