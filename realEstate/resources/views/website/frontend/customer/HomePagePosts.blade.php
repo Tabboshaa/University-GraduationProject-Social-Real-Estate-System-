@@ -66,6 +66,11 @@
                                 {{ $end->diffForHumans($today) }}
                                 <a id="viewReplies{{$comment->Comment_Id}}" href="javascript:void(0)" onclick="view('{{$comment->Comment_Id}}')">View Replies</a>
                                 <a href="javascript:void(0)" onclick="writeReplay('{{ $comment->Comment_Id}}')"> reply</a>
+
+                                @if($User_Id== $comment->User_Id )
+                                <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}"  name="del_Comment" id="del_Comment"> Delete</a>
+                                @endif 
+                               
                             </div>
                         </td>
                     </tr>
@@ -164,6 +169,14 @@
         }
 
         //else
+    }
+    function DeleteComment(id){
+        var Authid = "{{ Auth::user()->id }}";
+        if (Authid==UserId){
+
+
+        }
+
     }
 
     function writeReplay(id) {

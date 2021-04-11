@@ -286,14 +286,16 @@ class CustomerHomeController extends Controller
     {
         $User_Id = Auth::id();
         
+        
         $user = User :: all()->where ('id','=',$User_Id);
-
+        
         $posts = DB::table('followeditemsbyusers')
         ->join('posts','followeditemsbyusers.Item_Id','posts.Item_Id')
         ->join('items','followeditemsbyusers.Item_Id','items.Item_Id')
         ->select('posts.*','items.Item_Name')
         ->where('followeditemsbyusers.User_ID','=',$User_Id )
         ->get();
+        
 
         $cover__pages = DB::table('cover__pages')
         ->join('items','items.Item_Id','cover__pages.Item_Id')
@@ -323,9 +325,10 @@ class CustomerHomeController extends Controller
             $reply = CommentsController::getPostrepliesHomePage($post->Post_Id);
             $replies=collect($replies)->merge($reply);
         }
+        
 
-        $comments= $comments->groupby('Post_Id');
-        $replies= $replies->groupby('Parent_Comment');
+        $comments= $comments->groupBy('Post_Id');
+        $replies= $replies->groupby('Parent_Comment');  
         // return $replies;
         
         $check_follow=followeditemsbyuser::all()->where('User_ID','=',$User_Id);
@@ -339,9 +342,24 @@ class CustomerHomeController extends Controller
             'comments'=>$comments,
             'replies'=>$replies,
             'cover__pages'=>$cover__pages,
-            '$check_follow'=>$check_follow
+            '$check_follow'=>$check_follow,
+            'User_Id'=>$User_Id
         ]);
 
     }
+    public function DestroyComment(Request $request, $id=null)
+    {
+        if(request()->has('id'))
+       
+        {
+         try {
+            comments::destroy($request->id);
+         return redirect()->route('HomePage')->with('success', 'Comment Deleted Successfully');
+     }catch (\Illuminate\Database\QueryException $e){
+         return redirect()->route('HomePage')->with('error', 'Comment cannot be deleted');
+                 
+     }
+ }else return redirect()->route('HomePage')->with('warning', 'No type was chosen to be deleted.. !!');
+ }
 }
 
