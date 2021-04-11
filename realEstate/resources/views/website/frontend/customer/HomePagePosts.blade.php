@@ -41,7 +41,7 @@
                             </p>
                         </td>
                     </tr>
-                    
+
                     {{-- Input for comment --}}
                     <tr>
                         <td colspan="2">
@@ -56,7 +56,7 @@
                     @if( isset($comments[$post->Post_Id]))
                     @foreach($comments[$post->Post_Id] as $comment)
                     {{-- Comment --}}
-                    <tr >
+                    <tr>
                         <td colspan="3">
                             <div class="commentt">
                                 <a class="Usr_name" href="">{{$comment->First_Name}} {{$comment->Middle_Name}} {{$comment->Last_Name}} </a><br>

@@ -312,7 +312,7 @@ class CustomerHomeController extends Controller
         $comments = [];
         $replies = [];
         
-        
+        if($posts==null){
         foreach ($posts as $post)
         {
             $comment = CommentsController::getPostCommentsHomePage($post->Post_Id);
@@ -323,9 +323,10 @@ class CustomerHomeController extends Controller
             $reply = CommentsController::getPostrepliesHomePage($post->Post_Id);
             $replies=collect($replies)->merge($reply);
         }
-
+    
         $comments= $comments->groupby('Post_Id');
         $replies= $replies->groupby('Parent_Comment');
+    }
         // return $replies;
         
         $check_follow=followeditemsbyuser::all()->where('User_ID','=',$User_Id);
