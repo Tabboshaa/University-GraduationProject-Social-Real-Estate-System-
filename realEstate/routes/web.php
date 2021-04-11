@@ -188,7 +188,7 @@ Route::post('fullcalendar/delete','FullCalendarController@destroy');
     Route::get('/edit_schedule', 'ScheduleController@edit')->name('schedule.update');
 
     Route::get('/item_posts/{id}', 'PostsController@index');
-    Route::Post('/add_item_post/{id}', 'PostsController@create');
+    Route::Post('/add_item_post/{id?}', 'PostsController@create');
     Route::get('/delete_posts/{id?}', 'PostsController@destroy');
 
     Route::get('/item_gallery/{id}', 'AttachmentController@index');

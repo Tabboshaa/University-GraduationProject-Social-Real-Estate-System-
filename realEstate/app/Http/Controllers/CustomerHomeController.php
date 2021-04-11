@@ -180,8 +180,10 @@ class CustomerHomeController extends Controller
             ->select('post_attachments.*', 'attachments.File_Path')->where('items.Item_Id', '=', $id)->paginate(8);
 
         $cover = CoverPageController::getCoverPhotoOfItem($id);
+        $User_Id = Auth::id();
+        $check_follow=followeditemsbyuser::all()->where('Item_Id','=',$id)->where('User_ID','=',$User_Id);
 
-        return view('website\frontend\customer\Item_Profile_Gallery', ['states' => $state, 'item' => $item, 'cover' => $cover, 'gallery' => $gallery]);
+        return view('website\frontend\customer\Item_Profile_Gallery', ['states' => $state, 'item' => $item, 'cover' => $cover, 'gallery' => $gallery,'check_follow'=>$check_follow]);
     }
     public function itemProfileReviews($id = null)
     {
@@ -314,7 +316,7 @@ class CustomerHomeController extends Controller
         $comments = [];
         $replies = [];
         
-        
+        if($posts==null){
         foreach ($posts as $post)
         {
             $comment = CommentsController::getPostCommentsHomePage($post->Post_Id);
@@ -325,9 +327,10 @@ class CustomerHomeController extends Controller
             $reply = CommentsController::getPostrepliesHomePage($post->Post_Id);
             $replies=collect($replies)->merge($reply);
         }
-
+    
         $comments= $comments->groupby('Post_Id');
         $replies= $replies->groupby('Parent_Comment');
+    }
         // return $replies;
         
         $check_follow=followeditemsbyuser::all()->where('User_ID','=',$User_Id);
@@ -341,7 +344,7 @@ class CustomerHomeController extends Controller
             'comments'=>$comments,
             'replies'=>$replies,
             'cover__pages'=>$cover__pages,
-            '$check_follow'=>$check_follow
+            'check_follow'=>$check_follow
         ]);
 
     }

@@ -41,6 +41,9 @@
             +"')) ?>";
 
         $("#model_image").prop('src', image);
+        $("#model_image").prop('height', 200);
+        $("#model_image").prop('width', 400);
+        
         console.log(src);
         $("#ImageModel").modal("toggle");
     }

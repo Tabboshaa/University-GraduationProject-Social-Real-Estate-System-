@@ -117,6 +117,17 @@ class AttachmentController extends Controller
         return $post_attachment;
     }
 
+    //function btgeeb attatchment bta3 post 
+    public static function getAttachmentsOfPosts($post_id)
+    {
+        //
+        $post_attachment = DB::table('post_attachments')
+            ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
+            ->select('post_attachments.*', 'attachments.File_Path')->where('post_attachments.Post_Id', '=', $post_id)
+            ->get();
+        return $post_attachment;
+    }
+
     /**
      * Remove the specified resource from storage.
      *

@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Payment;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
+use App\Http\Controllers\OperationsController;
+use App\payment;
 class PaymentController extends Controller
 {
     /**
@@ -30,9 +31,10 @@ class PaymentController extends Controller
                 'Operation_Id' => $Operation_Id,
                 'Payment_Method'=> "Credit",
                 'Card_Number'  => request('card-num'),
-                'Paid_Amount'=> request('paid_amount'),
-                'confirmed'=> 1
+                'Paid_Amount'=> request('Country_Name'),
+                'confirmed'=> request('Country_Name')
             ]);
+<<<<<<< Updated upstream
             return back()->with('success','Payment Created Successfully');
         // }catch (\Illuminate\Database\QueryException $e){
         //     $errorCode = $e->errorInfo[1];
@@ -40,6 +42,17 @@ class PaymentController extends Controller
         //         return back()->with('error','Payment Already Exist !!');
         //     }
         // }
+=======
+            return back()->with('success','City Created Successfully');
+        }catch (\Illuminate\Database\QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == 1062){
+                return back()->with('error','City Already Exist !!');
+            }//if($errorCode == 1048 ){
+            //     return back()->with('error','You must select all values!!');
+            // }
+        }
+>>>>>>> Stashed changes
         }
     
     
@@ -95,8 +108,38 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+   
+    public function destroy(Request $request)
     {
-        //
+        // Will Destroy each column with id form action
+        if(request()->has('id'))
+       {
+        try {
+            payments::destroy($request->id);
+        return redirect()->route('Card_Show')->with('success', 'Card Deleted Successfully');
+    }catch (\Illuminate\Database\QueryException $e){
+
+        return redirect()->route('Card_Show')->with('error', 'Card cannot be deleted');
+
+    }
+}else return redirect()->route('Card_Show')->with('warning', 'No Card was chosen to be deleted.. !!');
+    }
+    public function editPayment(Request $request)
+    {
+        try {
+
+            //hygeb el country eli el ID bt3ha da
+        $payment= payments::all()->find(request('Payment_Id'));
+        //hy7ot el name el gded f column el country name
+        $payment->Card_Number=request('Card_Num');
+        $country->save();
+                return back()->with('info','Card Edited Successfully');
+            }catch (\Illuminate\Database\QueryException $e){
+                $errorCode = $e->errorInfo[1];
+                if($errorCode == 1062){
+                    return back()->with('error','Error editing Card');
+                }
+            }
+
     }
 }
