@@ -8,6 +8,7 @@ use App\post_attachment;
 use App\posts;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PostsController extends Controller
@@ -43,16 +44,20 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create($id = null)
     {
 
         //
+        if($id !=null){
         $item = Item::all()->find($id);
-
+        $user_id=$item->User_Id;
+        }
+        else $user_id=Auth::id();
+        
         try {
             $post=posts::create([
                 'Item_Id' => $id,
-                'User_Id' => $item->User_Id,
+                'User_Id' => $user_id,
                 'Post_Title' => request('Post_Title'),
                 'Post_Content' => request('Post_Content'),
             ]);
