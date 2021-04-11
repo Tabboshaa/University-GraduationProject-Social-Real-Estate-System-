@@ -94,6 +94,9 @@
             @endforeach
             @else
             @if( count($items) != 0)
+                <div class="modal fade" id="ImageModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-content" style="background-color: #00000000; border: 0px; padding-top:10%;">
+                        <div class="modal-dialog">
             <table>
                 <thead>
                     <tr>
@@ -104,35 +107,37 @@
                         </td>
                     </tr>
                 </thead>
-                @foreach($items as $item)
-                <tbody>
-                    <tr>
-                        <td colspan="3">
-
-                            @if( count($cover__pages) != 0)
-                            @foreach($cover__pages as $cover__page)
-                            <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
-                                <img height="50" width="70" src="{{asset('FrontEnd/images/cover page/'.$cover__page->path)}}" alt="">
-                            </a>
-                            <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
-                                {{ $item->Item_Name }}
-                            </a>
-                            @if ($check_follow=="[]")
-                            <a href="{{url('/FollowItem/'.$item->Item_Id)}}">Follow</a>
-                            @else
-                            <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}">Un Follow</a>
-                            @endif
+                            @foreach($items as $item)
+                            <tbody>
+                                <tr>
+                                    <td colspan="3">
+                                        @if( count($cover__pages) != 0)
+                                        @foreach($cover__pages as $cover__page)
+                                        <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
+                                            <img height="50" width="70" src="{{asset('FrontEnd/images/cover page/'.$cover__page->path)}}" alt="">
+                                        </a>
+                                        <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
+                                            {{ $item->Item_Name }}
+                                        </a>
+                                        @if ($check_follow=="[]")
+                                        <a href="{{url('/FollowItem/'.$item->Item_Id)}}">Follow</a>
+                                        @else
+                                        <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}">Un Follow</a>
+                                        @endif
+                                        @endforeach
+                                        @else
+                                        <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
+                                            {{ $item->Item_Name }}
+                                        </a>
+                                        @endif
+                                    </td>
+                                </tr>
+                            </tbody>
                             @endforeach
-                            @else
-                            <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
-                                {{ $item->Item_Name }}
-                            </a>
-                            @endif
-                        </td>
-                    </tr>
-                </tbody>
-                @endforeach
             </table>
+                        </div>
+                    </div>
+                </div>
             @endif
             @endif
         </div>
@@ -140,6 +145,10 @@
 </div>
 
 <script>
+
+$(document).ready(function (){
+    $("#ImageModel").modal("toggle");
+});
     function view(id) {
         // if value view reply 
         value = document.getElementById("viewReplies" + id).innerHTML;
@@ -194,8 +203,6 @@
                         '<input type="hidden" name="reply' + comment_id + '">' +
                         val['Comment'] +
                         '<br>' +
-                        '<\?php $end = \Carbon\Carbon::parse(' + val['updated_at'] + '); ?>' +
-                        '<p>{{ $end->diffForHumans($today) }} </p>' +
                         '</div>' +
                         '</td>' +
                         '</tr>';

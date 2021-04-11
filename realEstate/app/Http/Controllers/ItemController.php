@@ -167,5 +167,4 @@ class ItemController extends Controller
         } else return redirect()->route('Details')->with('warning', 'No Item was chosen to be deleted.. !!');
     }
 
-
 }
