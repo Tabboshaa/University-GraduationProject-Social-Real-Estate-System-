@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Item;
 use App\schedule;
+use App\CoverPhoto;
+use App\ProfilePhoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\followeditemsbyuser;
@@ -342,6 +344,38 @@ class CustomerHomeController extends Controller
             '$check_follow'=>$check_follow
         ]);
 
+    }
+
+    //route byro7 3la index aw function show da bst5dmo lma ha show variables
+    //fe el blade in the same time the route passes me to the blade 
+    public function showMyProfile ()
+    {
+        $User_Id = Auth::id();
+        $User = User::all()->where ('id','=',$User_Id)->first();
+        $Cover_Photo = CoverPhotoController::getPhoto($User_Id); 
+        $Profile_Photo = ProfilePhotoController::getPhoto($User_Id);
+        $posts = PostsController::userPosts($User_Id);
+
+        $comments = [];
+        $replies = [];
+        foreach ($posts as $post)
+        {
+            $comment = CommentsController::getPostCommentsHomePage($post->Post_Id);
+           
+            $comments=collect($comments)->merge($comment);
+           
+
+            $reply = CommentsController::getPostrepliesHomePage($post->Post_Id);
+            $replies=collect($replies)->merge($reply);
+        }
+
+        $comments= $comments->groupby('Post_Id');
+        $replies= $replies->groupby('Parent_Comment');
+    
+        return view("website.frontend.customer.Customer_Own_Profile",
+        ['User' => $User ,
+         'Cover_Photo' => $Cover_Photo , 'Profile_Photo' => $Profile_Photo,
+         'posts' => $posts , 'comments' => $comments , 'replies' => $replies ]);
     }
 }
 

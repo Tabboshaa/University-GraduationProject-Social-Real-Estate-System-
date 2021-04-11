@@ -119,7 +119,7 @@
             <div class="popuptext1" id="signin">
                 <div class="notfication-details">
                     <div class="notification-info">
-                        <a href="my_profile_account.html">Profile </a>
+                        <a href="{{url('/EditCustomerProfile')}}">Profile </a>
 
                     </div>
                 </div>

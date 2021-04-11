@@ -7,18 +7,39 @@
         <!-- Banner -->
         <div class="dashboard">
             <div class="advertisment-banner1 col-md-12">
-            @if(!empty($Cover_Photo))
-            
-             <img class="background" src="{{asset('FrontEnd/images/cover page/'.$Cover_Photo)}}" alt="">
-             @endif
+                {{-- Cover photo --}}
+                @if(!empty($Cover_Photo))
+                    <img class="background" src="{{asset('FrontEnd/images/cover page/'.$Cover_Photo)}}" alt="">
+                @else 
+                <div id="coverPhoto">
+                    <img class="background" src="{{asset('FrontEnd/images/cover page/Default1.jpeg')}}" alt="">
+                </div>
+                <div class="screnshot" id="OpenImgUpload">
+                   
+                    <input id="user_id" type="hidden" value={{$User->id}}>
+                    <input id="cover_photo_upload" name="CoverPhoto" type="file" class="hidden">
+                   
+                </div>
+                @endif
             </div>
             <div class="main-page">
                 <div class=" dash-profile">
-                    <img class="profile" src="{{asset('FrontEnd/images/cover page/'.$Cover_Photo)}}" alt="">
+                    {{-- profile photo --}}
+                    @if(!empty($Profile_Photo))
+                        <img class="profile" src="{{asset('FrontEnd/images/cover page/'.$Cover_Photo)}}" alt="">
+                    @else 
+                    <div id="ProfilePhoto">
+                        <img class="profile" src="{{asset('FrontEnd/images/cover page/pic.png')}}" alt="">
+                    </div>
+                    <div class="screnshot" id="OpenImgUpload">
+                        <input id="profile_photo_upload" name="ProfilePhoto" type="file" class="hidden">
+                    </div>
+                    @endif
                 </div>
+                {{-- User Name --}}
                 <div class="prompr">
                     <div class="dashname">
-                        {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}
+                        {{$User->First_Name}} {{$User->Middle_Name}} {{$User->Last_Name}}
                     </div>
                 </div>
             </div>
@@ -36,12 +57,11 @@
                    
                 </div>
             </div>
-
         </div>
+        
         <div class="row">
-        <form method="POST" action="{{ url('/) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ url('/') }}" enctype="multipart/form-data">
                 @csrf
-
                 <div class="form-group row">
                     <label for="Post_Title" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
                         {{ __('Post Title:') }}
@@ -75,7 +95,7 @@
                         {{ __('Upload Images:') }}
                     </label>
                     <div class="col-md-2">
-                    <input type="file" class="form-control" name="images[]" placeholder="upload Images" multiple>
+                        <input type="file" class="form-control" name="images[]" placeholder="upload Images" multiple>
                         @error('Upload Images')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -105,7 +125,8 @@
                             ?>
                             <img src="{{asset('FrontEnd/images/icon/user.html')}}" alt="">
                             <h3>
-                            {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}
+                            
+                                {{$User->First_Name}} {{$User->Middle_Name}} {{$User->Last_Name}}
                                 <p>{{ $today->diffForHumans($end)}} </p>
                             </h3>
                         </div>
@@ -136,11 +157,10 @@
                         <div class="addbtn1">
                             <a href="javascript:void(0)" onclick="Comment('{{$post->Post_Id}}');">Comment</a>
                         </div>
-
                     </div>
                 </div>
+                
                 @if( isset($comments[$post->Post_Id]) )
-
                 @foreach($comments[$post->Post_Id] as $comment)
                 <div class="col-md-12">
                     <div class="locatins">
@@ -152,15 +172,12 @@
                                 <p>{{ $end->diffForHumans($today) }} </p>
                             </h3>
                         </div>
-                        <!-- <div class="reply">
-                                <a href="#">Reply</a>
-                            </div> -->
                         <div class="sub-heading">
                             {{ $comment->Comment }}
                         </div>
-                        <div class="clearfix"></div>
+                        <div class="clearfix">
 
-
+                        </div>
                         <div class="placeform1">
                             <input type="text" id="ReplyForComment{{$comment->Comment_Id}}" name="comment{{$comment->Comment_Id}}" placeholder="Write a reply...">
                             <a href="#">
@@ -170,8 +187,6 @@
                         <div class="addbtn1">
                             <a href="javascript:void(0)" onclick="Reply('{{$post->Post_Id}}','{{$comment->Comment_Id}}');">Reply</a>
                         </div>
-
-
                     </div>
                 </div>
 
@@ -194,7 +209,6 @@
                         <div class="clearfix"></div>
                     </div>
                 </div>
-
                 @endforeach
                 @endif
 
@@ -212,7 +226,9 @@
                     <div class="sub-heading">
                         No Posts are posted for this item yet..<br />
                     </div>
-                    <div class="clearfix"></div>
+                    <div class="clearfix">
+
+                    </div>
                 </div>
 
                 @endif
@@ -222,7 +238,8 @@
                     <div class="rightboxs">
                         <img src="images/banner/Icon4.png" alt="">
                         <span>Owner</span>
-                        <p><a href="#">@ {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}</a></p>
+                        <p><a href="#">@ 
+                            {{$User->First_Name}} {{$User->Middle_Name}} {{$User->Last_Name}}</a></p>
                         <div id="test"></div>
                     </div>
                 </div>
@@ -256,67 +273,133 @@
                 </div>
             </div>
         </div>
-        <script>
-            function Comment(post_id) {
+    </div>
+</div>
 
-                var comment = $("#CommentForPost" + post_id).val();
 
-                if (comment.length == 0) {
-                    return;
+<script>
+    // upload cover photo
+    $('#coverPhoto').on('click', function() {
+        $('#cover_photo_upload').click();   
+    });
+
+    $('#cover_photo_upload').on('change',function (){
+
+       
+        // bageb user id by input id
+        var user_id =$('#user_id').val();
+        var CoverPhoto = $('#cover_photo_upload').val();
+        $.ajax({
+            url: "{{url('create.coverphoto')}}",
+            Type: "PUT",
+            data: 
+                {
+                    user_id: user_id,
+                    CoverPhoto: CoverPhoto 
+                },
+                success: function(data) 
+                {
+                    console.log(data);
+                },
+                error: function() 
+                {
+                    console.log(user_id);
+                    console.log(CoverPhoto);
+                    console.log('Error');
                 }
+            }); 
+    });
+    
 
-                $.ajax({
-                    url: "{{route('comment.add')}}",
-                    Type: "POST",
-                    data: {
-                        post_id: post_id,
-                        comment: comment
+    // upload profile photo
+    $('#ProfilePhoto').on('click', function() {
+        $('#profile_photo_upload').click();
+    });
 
-                    },
-                    success: function(data) {
+    $('#profile_photo_upload').on('change',function (){   
 
-                        console.log(data);
-                    },
-                    error: function() {
-                        console.log(post_id);
-                        console.log(comment);
-                        console.log('Error');
-                    }
+    var user_id =$('#user_id').val();
+    var ProfilePhoto = $('#profile_photo_upload').val();
+    $.ajax({
+        url: "{{url('create.profilephoto')}}",
+        Type: "PUT",
+        data: 
+            {
+                user_id: user_id,
+                ProfilePhoto: ProfilePhoto 
+            },
+            success: function(data) 
+            {
+                console.log(data);
+            },
+            error: function() 
+            {
+                console.log(user_id);      
+                console.log(ProfilePhoto);
+                console.log('Error');
+            }
+        }); 
+    });
+    
+    function Comment(post_id) 
+    {
+        var comment = $("#CommentForPost" + post_id).val();
+        if (comment.length == 0) 
+        {
+            return;
+        }
 
-                });
-            };
-
-            function Reply(post_id, parent_id) {
-
-                var comment = $("#ReplyForComment" + parent_id).val();
-
-                if (comment.length == 0) {
-                    return;
+        $.ajax({
+            url: "{{route('comment.add')}}",
+            Type: "POST",
+            data: 
+                {
+                    post_id: post_id,
+                    comment: comment
+                },
+                success: function(data) 
+                {
+                    console.log(data);
+                },
+                error: function() 
+                {
+                    console.log(post_id);
+                    console.log(comment);
+                    console.log('Error');
                 }
+            });
+    };
 
-                $.ajax({
-                    url: "{{route('reply.add')}}",
-                    Type: "POST",
-                    data: {
-                        post_id: post_id,
-                        parent_id: parent_id,
-                        comment: comment
+    function Reply(post_id, parent_id) 
+    {
+        var comment = $("#ReplyForComment" + parent_id).val();
+        if (comment.length == 0) 
+        {
+            return;
+        }
+        $.ajax({
+                url: "{{route('reply.add')}}",
+                Type: "POST",
+                data: 
+                {
+                    post_id: post_id,
+                    parent_id: parent_id,
+                    comment: comment
+                },
+                success: function(data) 
+                {
+                    console.log(data);
+                },
+                error: function() 
+                {
+                    console.log(post_id);
+                    console.log(comment);
+                    console.log('Error');
+                }
+            });
+    };
 
-                    },
-                    success: function(data) {
-
-                        console.log(data);
-                    },
-                    error: function() {
-                        console.log(post_id);
-                        console.log(comment);
-                        console.log('Error');
-                    }
-
-                });
-            };
         </script>
-
     </div>
 </div>
 
