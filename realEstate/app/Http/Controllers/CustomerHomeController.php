@@ -14,7 +14,8 @@ use Carbon\Carbon;
 use DateInterval;
 use DatePeriod;
 use DateTime;
-
+use App\comments;
+use App\posts;
 class CustomerHomeController extends Controller
 {
     /**
@@ -349,17 +350,39 @@ class CustomerHomeController extends Controller
     }
     public function DestroyComment(Request $request, $id=null)
     {
-        if(request()->has('id'))
-       
-        {
-         try {
+     
+    
             comments::destroy($request->id);
          return redirect()->route('HomePage')->with('success', 'Comment Deleted Successfully');
-     }catch (\Illuminate\Database\QueryException $e){
-         return redirect()->route('HomePage')->with('error', 'Comment cannot be deleted');
-                 
-     }
- }else return redirect()->route('HomePage')->with('warning', 'No type was chosen to be deleted.. !!');
+    
+ 
  }
+ public function editComment()
+ {
+     
+    
+     try {
+       
+         $comment = comments::all()->find(request('id'));
+         $comment-> Comment = request('edit_Comment');
+         $comment->save();
+    
+         return back()->with('info', 'Comment Edited Successfully');
+     } catch (\Illuminate\Database\QueryException $e) {
+         $errorCode = $e->errorInfo[1];
+         if ($errorCode == 1062) {
+             return back()->with('error', 'Error editing item');
+         }
+     }
+ }
+ public function DestroyPost(Request $request, $id=null)
+ {
+  
+ 
+         posts::destroy($request->id);
+      return redirect()->route('HomePage')->with('success', 'Post Deleted Successfully');
+ 
+
+}
 }
 

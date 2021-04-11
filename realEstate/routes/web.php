@@ -202,8 +202,9 @@ Route::get('/edit_operation_type', 'OperationsController@edit')->name('operation
     Route::get('/item_gallery/{id}', 'AttachmentController@index');
     Route::Post('/add_item_gallery/{id}', 'AttachmentController@create');
     Route::get('/delete_gallery/{id?}', 'AttachmentController@destroy');
-
+    Route::get('/edit_Comment', 'CustomerHomeController@editComment')->name('Comment.update');
     Route::get('/deletecomment/{id?}', 'CustomerHomeController@DestroyComment');
+    Route::get('/deletePost/{id?}', 'CustomerHomeController@DestroyPost');
     Route::get('/delete_reply/{id?}', 'CommentsController@destroyReply');
 
     Route::get('/delete_review/{id?}', 'ReviewController@destroy');
