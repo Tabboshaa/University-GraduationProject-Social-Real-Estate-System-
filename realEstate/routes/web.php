@@ -280,7 +280,7 @@ Route::get('/timeline',function () {
     return view('website.frontend.customer.TimeLine');
 });
 
-//Follow 
+//Follow
 Route::get('/FollowItem/{id?}','AddUserController@FollowedItem');
 Route::get('/UnfollowItem/{id?}','AddUserController@UnfollowItem');
 
@@ -290,3 +290,5 @@ Route::post('/Reservation','HomeController@Reservation');
 Route::get('/hamada/{id?}', 'CommentsController@getPostrepliesHomePage');
 Route::get('/getRepliesFromComment', 'CommentsController@GetCommentReply')->name('get.replies');
 Route::get('/getComment', 'CommentsController@GetComments')->name('get.comments');
+
+Route::get('ReservationShow','ReservationController@show');

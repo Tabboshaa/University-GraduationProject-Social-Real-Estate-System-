@@ -190,6 +190,7 @@
             });
             // $("#gobutton").style.display = "none";
             schedule = schedule_Id;
+            console.log(schedule);
             document.getElementById("gobutton").style.display = "inline";
 
         } else {
@@ -213,6 +214,7 @@
     function goreserve(item_id) {
         console.log(start_id);
         console.log(End_id);
+        console.log(schedule);
 
         $.ajax({
             url: "{{route('calculate.days')}}",
@@ -227,8 +229,9 @@
                  //console.log(data[]);
                  location.href = "/Payment/"+item_id+"/"+data['totalDays']+"/"+data['result'];
             },
-            error: function(numberOfDays, totalCost) {
-                console.log(numberOfDays, totalCost);   
+            error: function(data) {
+
+                console.log(data['totalDays']);
             }
 
         });

@@ -40,7 +40,7 @@ class Operation extends Migration
             $table->timestamps();
         });
 
-    
+
 }
 
     /**
