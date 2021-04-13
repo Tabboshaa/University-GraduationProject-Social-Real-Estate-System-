@@ -30,7 +30,7 @@ class OperationsController extends Controller
      */
     public static function create()
     {
-        
+
         try {
             $operations=operations::create([
                 'Item_Id' => 1,
@@ -45,7 +45,7 @@ class OperationsController extends Controller
                 return back()->with('error','You must select all values!!');
             }
         }
-    
+
     }
     public static function createType()
     {
@@ -126,12 +126,12 @@ return (['result'=>$result,'totalDays'=>$totalDays]);
      */
      public function finddetail()
      {
- 
+
          $operationDetail = Operation__Detail_Name::all()->where('Operation_Type_Id', '=', request('id'));
- 
+
          return  response()->json($operationDetail);
      }
-   
+
     public function edit()
     {
         try {
@@ -149,16 +149,16 @@ return (['result'=>$result,'totalDays'=>$totalDays]);
     }
     public function editDetail()
     {
-       
+
         try {
 
-          
+
             $operation_detail = Operation__Detail_Name::all()->find(request('id'));
-         
+
             $operation_detail->Operation_Detail_Name = request('operation_det');
             $operation_detail->save();
 
-        
+
             return back()->with('info', 'Operation Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
@@ -178,7 +178,7 @@ return (['result'=>$result,'totalDays'=>$totalDays]);
     public function update(Request $request, $id)
     {
         //
-     
+
     }
 
     /**
@@ -196,7 +196,7 @@ return (['result'=>$result,'totalDays'=>$totalDays]);
          return redirect()->route('operation_types_show')->with('success', 'operation Deleted Successfully');
      }catch (\Illuminate\Database\QueryException $e){
          return redirect()->route('operation_types_show')->with('error', 'operation cannot be deleted');
-                 
+
      }
  }else return redirect()->route('operation_types_show')->with('warning', 'No type was chosen to be deleted.. !!');
  }
@@ -213,10 +213,10 @@ return (['result'=>$result,'totalDays'=>$totalDays]);
             }
         } else return redirect()->route('detailop_show')->with('warning', 'No Delete was chosen to be deleted.. !!');
     }
-    
+
     public function showDetail()
     {
-        
+
         $operationname = operation__types::all();
         $operationDetailName = DB::table('operation___detail__names')
             ->join('operation__types', 'operation___detail__names.Operation_Type_Id', '=', 'operation__types.Operation_Type_Id')
