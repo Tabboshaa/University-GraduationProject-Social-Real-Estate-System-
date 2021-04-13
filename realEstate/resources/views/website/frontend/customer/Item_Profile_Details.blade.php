@@ -226,7 +226,8 @@
 
             },
             success: function(data) {
-                 //console.log(data[]);
+                 console.log(data);
+
                  location.href = "/Payment/"+item_id+"/"+data['totalDays']+"/"+data['result'];
             },
             error: function(data) {

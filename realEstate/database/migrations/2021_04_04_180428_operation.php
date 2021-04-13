@@ -13,12 +13,12 @@ class Operation extends Migration
      */
     public function up()
     {
-        Schema::create('operations', function (Blueprint $table) {
-            $table->id('Operation_Id');
-            $table->foreignId('Item_Id')->references('Item_Id')->on('items')->onDelete('cascade');
-            $table->foreignId('User_Id')->references('id')->on('users')->onDelete('cascade');
-            $table->timestamps();
-        });
+        // Schema::create('operations', function (Blueprint $table) {
+        //     $table->id('Operation_Id');
+        //     $table->foreignId('Item_Id')->references('Item_Id')->on('items')->onDelete('cascade');
+        //     $table->foreignId('User_Id')->references('id')->on('users')->onDelete('cascade');
+        //     $table->timestamps();
+        // });
 
         Schema::create('operation__types', function (Blueprint $table) {
             $table->id('Operation_Type_Id');
