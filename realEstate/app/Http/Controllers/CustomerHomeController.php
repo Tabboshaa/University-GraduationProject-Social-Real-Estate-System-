@@ -16,7 +16,8 @@ use Carbon\Carbon;
 use DateInterval;
 use DatePeriod;
 use DateTime;
-
+use App\comments;
+use App\posts;
 class CustomerHomeController extends Controller
 {
     /**
@@ -290,14 +291,17 @@ class CustomerHomeController extends Controller
     {
         $User_Id = Auth::id();
         
+        
         $user = User :: all()->where ('id','=',$User_Id);
-
+        
         $posts = DB::table('followeditemsbyusers')
         ->join('posts','followeditemsbyusers.Item_Id','posts.Item_Id')
         ->join('items','followeditemsbyusers.Item_Id','items.Item_Id')
         ->select('posts.*','items.Item_Name')
         ->where('followeditemsbyusers.User_ID','=',$User_Id )
         ->get();
+        
+        
 
         $cover__pages = DB::table('cover__pages')
         ->join('items','items.Item_Id','cover__pages.Item_Id')
@@ -316,7 +320,7 @@ class CustomerHomeController extends Controller
         $comments = [];
         $replies = [];
         
-        if($posts==null){
+        if($posts!=null){
         foreach ($posts as $post)
         {
             $comment = CommentsController::getPostCommentsHomePage($post->Post_Id);
@@ -327,10 +331,10 @@ class CustomerHomeController extends Controller
             $reply = CommentsController::getPostrepliesHomePage($post->Post_Id);
             $replies=collect($replies)->merge($reply);
         }
-    
-        $comments= $comments->groupby('Post_Id');
-        $replies= $replies->groupby('Parent_Comment');
     }
+
+        $comments= $comments->groupBy('Post_Id');
+        $replies= $replies->groupby('Parent_Comment');  
         // return $replies;
         
         $check_follow=followeditemsbyuser::all()->where('User_ID','=',$User_Id);
@@ -344,10 +348,65 @@ class CustomerHomeController extends Controller
             'comments'=>$comments,
             'replies'=>$replies,
             'cover__pages'=>$cover__pages,
-            'check_follow'=>$check_follow
+            '$check_follow'=>$check_follow,
+            'User_Id'=>$User_Id
         ]);
 
     }
+    public function DestroyComment(Request $request, $id=null)
+    {
+     
+    
+            comments::destroy($request->id);
+         return redirect()->route('HomePage')->with('success', 'Comment Deleted Successfully');
+    
+ 
+ }
+ public function editComment()
+ {
+     
+    
+     try {
+       
+         $comment = comments::all()->find(request('id'));
+         $comment-> Comment = request('edit_Comment');
+         $comment->save();
+    
+         return back()->with('info', 'Comment Edited Successfully');
+     } catch (\Illuminate\Database\QueryException $e) {
+         $errorCode = $e->errorInfo[1];
+         if ($errorCode == 1062) {
+             return back()->with('error', 'Error editing item');
+         }
+     }
+ }
+ public function DestroyPost(Request $request, $id=null)
+ {
+  
+ 
+         posts::destroy($request->id);
+      return redirect()->route('HomePage')->with('success', 'Post Deleted Successfully');
+ 
+
+}
+public function editPost()
+ {
+     
+    
+     try {
+       
+         $post = posts::all()->find(request('id'));
+         $post-> Post_Content = request('edit_Post');
+         $post->save();
+    
+         return back()->with('info', 'post Edited Successfully');
+     } catch (\Illuminate\Database\QueryException $e) {
+         $errorCode = $e->errorInfo[1];
+         if ($errorCode == 1062) {
+             return back()->with('error', 'Error editing item');
+         }
+     }
+ }
 
     //route byro7 3la index aw function show da bst5dmo lma ha show variables
     //fe el blade in the same time the route passes me to the blade 

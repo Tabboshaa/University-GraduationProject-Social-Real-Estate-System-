@@ -26,6 +26,7 @@
                                     {{ $post->Item_Name }}
                                 </a>
                                 <p>{{$post->created_at}}</p>
+                          
                             </h4>
                         </th>
                     </tr>
@@ -39,6 +40,35 @@
                             <p>
                                 {{$post->Post_Content}}
                             </p>
+                            @if($User_Id== $post->User_Id )
+                                <a href="{{url('/deletePost/'.$post->Post_Id)}}"  name="del_post" id="del_post"> Delete</a>
+                                @endif 
+                                @if($User_Id== $post->User_Id )
+                                <a href="javascript:void(0)" onclick="setPost('{{$post->Post_Id}}','{{$post->Post_Content}}')"  name="editpost" > Edit</a>
+                                @endif 
+                                <div class="modal fade" id="EditPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Post</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="EditPostForm">
+                                                    @csrf
+                                                    <input type="hidden" name="id" id="id">
+                                                    <div class="form-group">
+                                                        <label for="edit_Post" style="font-size: 12pt">Edit Post</label>
+                                                        <input type="text"  style="border-radius: 3pt"  name="edit_Post" id="editPost" class="form-control">
+                                                     </div>
+                                                    <button  type="submit" id="btun3" class="btn btn-success">Edit</button>
+                                                </form>
+                                            </div>
+                                            </div>
+                                            </div>
+                               
                         </td>
                     </tr>
 
@@ -66,6 +96,38 @@
                                 {{ $end->diffForHumans($today) }}
                                 <a id="viewReplies{{$comment->Comment_Id}}" href="javascript:void(0)" onclick="view('{{$comment->Comment_Id}}')">View Replies</a>
                                 <a href="javascript:void(0)" onclick="writeReplay('{{ $comment->Comment_Id}}')"> reply</a>
+
+                                @if($User_Id== $comment->User_Id )
+                                <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}"  name="del_Comment" id="del_Comment"> Delete</a>
+                                @endif 
+                                @if($User_Id== $comment->User_Id )
+                                <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')"  name="editComment" id="edit_Comment"> Edit</a>
+                                @endif 
+                                </div>
+                                <div class="modal fade" id="EditCommentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Comment</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="EditCommentForm">
+                                                    @csrf
+                                                    <input type="hidden" name="id" id="id">
+                                                    <div class="form-group">
+                                                        <label for="edit_Comment" style="font-size: 12pt">Edit Comment</label>
+                                                        <input type="text"  style="border-radius: 3pt"  name="edit_Comment" id="editComment" class="form-control">
+                                                     </div>
+                                                    <button  type="submit" id="btun3" class="btn btn-success">Edit</button>
+                                                </form>
+                                            </div>
+                                            </div>
+                                            </div>
+                                        
+           
                             </div>
                         </td>
                     </tr>
@@ -221,7 +283,94 @@ $(document).ready(function (){
 
         });
     };
+    
+    function setComment(id,name){
+        console.log("sdsdsdds");
+    }
+function setComment(id,name)
+{
 
+// Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty
+$("#id").val(id);
+console.log(name);
+$("#editComment").val(name);
+$("#EditCommentModal").modal("toggle");
+}
+
+
+$('#EditCommentForm').submit(function (){
+
+var id=$("#id").val();
+
+//byb3t el value el gdeda
+var edit_Comment=$("#editComment").val();
+console.log(edit_Comment);
+
+var _token= $("input[name=_token]").val();
+
+$.ajax({
+url:"{{route('Comment.update')}}",
+Type:"PUT",
+data:{
+    id:id,
+    edit_Comment:edit_Comment,
+     _token:_token
+},
+success:function (){
+    console.log('Success');
+    $("#EditCommentModal").modal("toggle");
+ 
+},
+error:function ()
+{
+    console.log('Error');
+}
+
+});
+
+})
+    function setPost(id,name)
+    {
+
+        // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty
+        $("#id").val(id);
+        console.log(name);
+        $("#editPost").val(name);
+        $("#EditPostModal").modal("toggle");
+    }
+
+
+$('#EditPostForm').submit(function (){
+
+var id=$("#id").val();
+
+//byb3t el value el gdeda
+var edit_Post=$("#editPost").val();
+console.log(edit_Post);
+
+var _token= $("input[name=_token]").val();
+
+$.ajax({
+url:"{{route('post.update')}}",
+Type:"PUT",
+data:{
+    id:id,
+    edit_Post:edit_Post,
+     _token:_token
+},
+success:function (){
+    console.log('Success');
+    $("#EditPostModal").modal("toggle");
+ 
+},
+error:function ()
+{
+    console.log('Error');
+}
+
+});
+
+})
     function Comment(post_id) {
 
         var comment = $("#CommentForPost" + post_id).val();
