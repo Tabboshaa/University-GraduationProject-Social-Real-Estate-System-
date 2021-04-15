@@ -43,10 +43,35 @@
                             @if($User_Id== $post->User_Id )
                                 <a href="{{url('/deletePost/'.$post->Post_Id)}}"  name="del_post" id="del_post"> Delete</a>
                                 @endif 
+                                @if($User_Id== $post->User_Id )
+                                <a href="javascript:void(0)" onclick="setPost('{{$post->Post_Id}}','{{$post->Post_Content}}')"  name="editpost" > Edit</a>
+                                @endif 
+                                <div class="modal fade" id="EditPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Post</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="EditPostForm">
+                                                    @csrf
+                                                    <input type="hidden" name="id" id="id">
+                                                    <div class="form-group">
+                                                        <label for="edit_Post" style="font-size: 12pt">Edit Post</label>
+                                                        <input type="text"  style="border-radius: 3pt"  name="edit_Post" id="editPost" class="form-control">
+                                                     </div>
+                                                    <button  type="submit" id="btun3" class="btn btn-success">Edit</button>
+                                                </form>
+                                            </div>
+                                            </div>
+                                            </div>
                                
                         </td>
                     </tr>
-                    
+
                     {{-- Input for comment --}}
                     <tr>
                         <td colspan="2">
@@ -61,7 +86,7 @@
                     @if( isset($comments[$post->Post_Id]))
                     @foreach($comments[$post->Post_Id] as $comment)
                     {{-- Comment --}}
-                    <tr >
+                    <tr>
                         <td colspan="3">
                             <div class="commentt">
                                 <a class="Usr_name" href="">{{$comment->First_Name}} {{$comment->Middle_Name}} {{$comment->Last_Name}} </a><br>
@@ -98,10 +123,10 @@
                                                      </div>
                                                     <button  type="submit" id="btun3" class="btn btn-success">Edit</button>
                                                 </form>
-</div>
-</div>
-</div>
-
+                                            </div>
+                                            </div>
+                                            </div>
+                                        
            
                             </div>
                         </td>
@@ -131,6 +156,9 @@
             @endforeach
             @else
             @if( count($items) != 0)
+                <div class="modal fade" id="ImageModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-content" style="background-color: #00000000; border: 0px; padding-top:10%;">
+                        <div class="modal-dialog">
             <table>
                 <thead>
                     <tr>
@@ -141,35 +169,37 @@
                         </td>
                     </tr>
                 </thead>
-                @foreach($items as $item)
-                <tbody>
-                    <tr>
-                        <td colspan="3">
-
-                            @if( count($cover__pages) != 0)
-                            @foreach($cover__pages as $cover__page)
-                            <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
-                                <img height="50" width="70" src="{{asset('FrontEnd/images/cover page/'.$cover__page->path)}}" alt="">
-                            </a>
-                            <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
-                                {{ $item->Item_Name }}
-                            </a>
-                            @if ($check_follow=="[]")
-                            <a href="{{url('/FollowItem/'.$item->Item_Id)}}">Follow</a>
-                            @else
-                            <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}">Un Follow</a>
-                            @endif
+                            @foreach($items as $item)
+                            <tbody>
+                                <tr>
+                                    <td colspan="3">
+                                        @if( count($cover__pages) != 0)
+                                        @foreach($cover__pages as $cover__page)
+                                        <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
+                                            <img height="50" width="70" src="{{asset('FrontEnd/images/cover page/'.$cover__page->path)}}" alt="">
+                                        </a>
+                                        <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
+                                            {{ $item->Item_Name }}
+                                        </a>
+                                        @if ($check_follow=="[]")
+                                        <a href="{{url('/FollowItem/'.$item->Item_Id)}}">Follow</a>
+                                        @else
+                                        <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}">Un Follow</a>
+                                        @endif
+                                        @endforeach
+                                        @else
+                                        <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
+                                            {{ $item->Item_Name }}
+                                        </a>
+                                        @endif
+                                    </td>
+                                </tr>
+                            </tbody>
                             @endforeach
-                            @else
-                            <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
-                                {{ $item->Item_Name }}
-                            </a>
-                            @endif
-                        </td>
-                    </tr>
-                </tbody>
-                @endforeach
             </table>
+                        </div>
+                    </div>
+                </div>
             @endif
             @endif
         </div>
@@ -177,6 +207,10 @@
 </div>
 
 <script>
+
+$(document).ready(function (){
+    $("#ImageModel").modal("toggle");
+});
     function view(id) {
         // if value view reply 
         value = document.getElementById("viewReplies" + id).innerHTML;
@@ -231,8 +265,6 @@
                         '<input type="hidden" name="reply' + comment_id + '">' +
                         val['Comment'] +
                         '<br>' +
-                        '<\?php $end = \Carbon\Carbon::parse(' + val['updated_at'] + '); ?>' +
-                        '<p>{{ $end->diffForHumans($today) }} </p>' +
                         '</div>' +
                         '</td>' +
                         '</tr>';
@@ -287,6 +319,48 @@ data:{
 success:function (){
     console.log('Success');
     $("#EditCommentModal").modal("toggle");
+ 
+},
+error:function ()
+{
+    console.log('Error');
+}
+
+});
+
+})
+    function setPost(id,name)
+    {
+
+        // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty
+        $("#id").val(id);
+        console.log(name);
+        $("#editPost").val(name);
+        $("#EditPostModal").modal("toggle");
+    }
+
+
+$('#EditPostForm').submit(function (){
+
+var id=$("#id").val();
+
+//byb3t el value el gdeda
+var edit_Post=$("#editPost").val();
+console.log(edit_Post);
+
+var _token= $("input[name=_token]").val();
+
+$.ajax({
+url:"{{route('post.update')}}",
+Type:"PUT",
+data:{
+    id:id,
+    edit_Post:edit_Post,
+     _token:_token
+},
+success:function (){
+    console.log('Success');
+    $("#EditPostModal").modal("toggle");
  
 },
 error:function ()

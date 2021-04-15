@@ -92,6 +92,7 @@ public static function createDetail()
     {
         //
         $schedule=request('schedule_Id');
+
         $price_per_night=Schedule::all()->where('schedule_Id', '=', $schedule)->first()->Price_Per_Night;
         $start_date=new \Carbon\Carbon(request('start'));
         $end_date=new \Carbon\Carbon(request('end'));
@@ -99,7 +100,8 @@ public static function createDetail()
         $result = ($start_date->diffInDays($end_date)+1)*$price_per_night;
         $totalDays =($start_date->diffInDays($end_date)+1);
 // return $result;//
-return view('website.frontend.customer.Reservation',['totalDays'=>$totalDays,'Result'=>$result]);
+// return redirect()->jason(['totalDays'=>$totalDays,'Result'=>$result]);
+return (['result'=>$result,'totalDays'=>$totalDays]);
     }
 
     /**

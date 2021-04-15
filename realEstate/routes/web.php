@@ -205,6 +205,7 @@ Route::get('/edit_operation_type', 'OperationsController@edit')->name('operation
     Route::get('/edit_Comment', 'CustomerHomeController@editComment')->name('Comment.update');
     Route::get('/deletecomment/{id?}', 'CustomerHomeController@DestroyComment');
     Route::get('/deletePost/{id?}', 'CustomerHomeController@DestroyPost');
+    Route::get('/edit_post', 'CustomerHomeController@editPost')->name('post.update');
     Route::get('/delete_reply/{id?}', 'CommentsController@destroyReply');
 
     Route::get('/delete_review/{id?}', 'ReviewController@destroy');
