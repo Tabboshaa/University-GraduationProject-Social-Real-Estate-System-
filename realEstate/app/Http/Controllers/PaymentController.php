@@ -26,7 +26,7 @@ class PaymentController extends Controller
     {
         try {
             $Operation_Id = OperationsController::create();
-            
+
             $payment=payment::create([
                 'Operation_Id' => $Operation_Id,
                 'Payment_Method'=> "Credit",
@@ -44,8 +44,9 @@ class PaymentController extends Controller
             // }
         }
         }
-    
-    
+
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -98,22 +99,22 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   
+
     public function destroy(Request $request)
-    {
-        // Will Destroy each column with id form action
-        if(request()->has('id'))
-       {
+{
+    // Will Destroy each column with id form action
+    if (request()->has('id')) {
         try {
-            payment::destroy($request->id);
-        return redirect()->route('Card_Show')->with('success', 'Card Deleted Successfully');
-    }catch (\Illuminate\Database\QueryException $e){
+            payments::destroy($request->id);
+            return redirect()->route('Card_Show')->with('success', 'Card Deleted Successfully');
+        }catch (\Illuminate\Database\QueryException $e)
+        {
 
-        return redirect()->route('Card_Show')->with('error', 'Card cannot be deleted');
-
-    }
-}else return redirect()->route('Card_Show')->with('warning', 'No Card was chosen to be deleted.. !!');
-    }
+            return redirect()->route('Card_Show')->with('error', 'Card cannot be deleted');
+        }
+    }else
+        return redirect()->route('Card_Show')->with('warning', 'No Card was chosen to be deleted.. !!');
+}
     public function editPayment(Request $request)
     {
         try {

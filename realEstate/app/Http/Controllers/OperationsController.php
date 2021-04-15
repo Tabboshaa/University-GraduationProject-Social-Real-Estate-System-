@@ -97,11 +97,12 @@ public static function createDetail()
         $start_date=new \Carbon\Carbon(request('start'));
         $end_date=new \Carbon\Carbon(request('end'));
 
+
         $result = ($start_date->diffInDays($end_date)+1)*$price_per_night;
         $totalDays =($start_date->diffInDays($end_date)+1);
 // return $result;//
 // return redirect()->jason(['totalDays'=>$totalDays,'Result'=>$result]);
-return (['result'=>$result,'totalDays'=>$totalDays]);
+return (['rresult'=>$result,'totalDays'=>$totalDays]);
     }
 
     /**
