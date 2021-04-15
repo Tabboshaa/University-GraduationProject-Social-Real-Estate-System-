@@ -10,7 +10,11 @@
             <h2>Credit Card Information</h2>
             <form method="POST" action="{{ url('/reserve') }}" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="paid_amount" value="{{$totalCost}}">
+                <input type="hidden" name="totalCost" value="{{$totalCost}}">
+                <input type="hidden" name="numberOfDays" value="{{$numberOfDays}}">
+                <input type="hidden" name="price_per_night" value="{{$price_per_night}}">
+                <input type="hidden" name="start_date" value="{{$start_date}}"> 
+                <input type="hidden" name="end_date" value="{{$end_date}}"> 
                 <input type="hidden" name="item_id" value="{{$item_id}}">
             <table style="width:100%">
             <th style="width:25%;"></th><th style="width:25%;"></th><th style="width:25%;"></th><th style="width:25%;"></th>

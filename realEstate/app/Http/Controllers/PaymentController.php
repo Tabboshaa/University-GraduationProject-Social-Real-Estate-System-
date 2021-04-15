@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\OperationsController;
+use App\Operation__Detail_Value;
 use App\payment;
 class PaymentController extends Controller
 {
@@ -26,19 +27,24 @@ class PaymentController extends Controller
     {
         try {
             $Operation_Id = OperationsController::create();
+            
+            $reservation=OperationsController::createValue($Operation_Id,1,1, request('price_per_night'));
+            $reservation=OperationsController::createValue($Operation_Id,1,2,request('start_date'));
+            $reservation=OperationsController::createValue($Operation_Id,1,3,request('end_date'));
+            $reservation=OperationsController::createValue($Operation_Id,1,4,request('totalCost'));
 
             $payment=payment::create([
                 'Operation_Id' => $Operation_Id,
                 'Payment_Method'=> "Credit",
                 'Card_Number'  => request('card-num'),
-                'Paid_Amount'=> request('Country_Name'),
-                'confirmed'=> request('Country_Name')
+                'Paid_Amount'=> request('totalCost'),
+                'confirmed'=> 1,
             ]);
-            return back()->with('success','City Created Successfully');
+            return back()->with('success',' Created Successfully');
         }catch (\Illuminate\Database\QueryException $e){
             $errorCode = $e->errorInfo[1];
             if($errorCode == 1062){
-                return back()->with('error','City Already Exist !!');
+                return back()->with('error',' Already Exist !!');
             }//if($errorCode == 1048 ){
             //     return back()->with('error','You must select all values!!');
             // }
@@ -54,9 +60,10 @@ class PaymentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function show_payment($item_id,$numberOfDays,$totalCost,$price_per_night,$start_date,$end_date)
     {
-        //
+        // //{totalCost}/{price_per_night}/{start_date}/{end_date}
+        return view('website.frontend.customer.Reservation',['totalCost'=>$totalCost,'numberOfDays'=>$numberOfDays,'item_id'=>$item_id, "price_per_night"=>$price_per_night,"start_date"=>$start_date,"end_date"=>$end_date]);
     }
 
     /**
