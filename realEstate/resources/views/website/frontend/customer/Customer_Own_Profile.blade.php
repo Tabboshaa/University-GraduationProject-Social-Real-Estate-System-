@@ -9,16 +9,16 @@
             <div class="advertisment-banner1 col-md-12">
                 {{-- Cover photo --}}
                 @if(!empty($Cover_Photo))
-                    <img class="background" src="{{asset('FrontEnd/images/cover page/'.$Cover_Photo)}}" alt="">
-                @else 
+                <img class="background" src="{{asset('FrontEnd/images/cover page/'.$Cover_Photo)}}" alt="">
+                @else
                 <div id="coverPhoto">
                     <img class="background" src="{{asset('FrontEnd/images/cover page/Default1.jpeg')}}" alt="">
                 </div>
                 <div class="screnshot" id="OpenImgUpload">
-                   
+
                     <input id="user_id" type="hidden" value={{$User->id}}>
                     <input id="cover_photo_upload" name="CoverPhoto" type="file" class="hidden">
-                   
+
                 </div>
                 @endif
             </div>
@@ -26,8 +26,8 @@
                 <div class=" dash-profile">
                     {{-- profile photo --}}
                     @if(!empty($Profile_Photo))
-                        <img class="profile" src="{{asset('FrontEnd/images/cover page/'.$Cover_Photo)}}" alt="">
-                    @else 
+                    <img class="profile" src="{{asset('FrontEnd/images/cover page/'.$Cover_Photo)}}" alt="">
+                    @else
                     <div id="ProfilePhoto">
                         <img class="profile" src="{{asset('FrontEnd/images/cover page/pic.png')}}" alt="">
                     </div>
@@ -54,66 +54,13 @@
                     <span class="navbar-toggler-icon "></span>
                 </button>
                 <div class="collapse navbar-collapse  visible-title" id="navbarNav">
-                   
+
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
-            <form method="POST" action="{{ url('/') }}" enctype="multipart/form-data">
-                @csrf
-                <div class="form-group row">
-                    <label for="Post_Title" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
-                        {{ __('Post Title:') }}
-                    </label>
-                    <div class="col-md-2">
-                        <input style="border-radius: 3pt" type="text" class="form-control @error('Post_Title') is-invalid @enderror" name="Post_Title" value="{{ old('Post_Title') }}" required autocomplete="Post_Title">
-                        @error('Post_Title')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                </div>
 
-                <div class="form-group row">
-                    <label for="Post_Content" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
-                        {{ __('Post Content:') }}
-                    </label>
-                    <div class="col-md-2">
-                        <input style="border-radius: 3pt" type="text" class="form-control @error('Post_Content') is-invalid @enderror" name="Post_Content" value="{{ old('Post_Content') }}" required autocomplete="Post_Content">
-                        @error('Post_Content')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="Post_Content" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
-                        {{ __('Upload Images:') }}
-                    </label>
-                    <div class="col-md-2">
-                        <input type="file" class="form-control" name="images[]" placeholder="upload Images" multiple>
-                        @error('Upload Images')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                </div>
-
-
-                <div class="form-group row mb-0">
-                    <div class="col-md-2 offset-md-2">
-                        <button type="submit" id="btun1" class="btn btn-primary">
-                            {{ __('Add') }}
-                        </button>
-    
-                    </div>
-                </div>
-            </form>
             <div class="col-md-7">
                 @if( count($posts) != 0)
                 @foreach($posts as $post)
@@ -125,7 +72,7 @@
                             ?>
                             <img src="{{asset('FrontEnd/images/icon/user.html')}}" alt="">
                             <h3>
-                            
+
                                 {{$User->First_Name}} {{$User->Middle_Name}} {{$User->Last_Name}}
                                 <p>{{ $today->diffForHumans($end)}} </p>
                             </h3>
@@ -159,7 +106,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 @if( isset($comments[$post->Post_Id]) )
                 @foreach($comments[$post->Post_Id] as $comment)
                 <div class="col-md-12">
@@ -236,171 +183,185 @@
             <div class="col-md-5">
                 <div class="box-left">
                     <div class="rightboxs">
-                        <img src="images/banner/Icon4.png" alt="">
-                        <span>Owner</span>
-                        <p><a href="#">@ 
-                            {{$User->First_Name}} {{$User->Middle_Name}} {{$User->Last_Name}}</a></p>
-                        <div id="test"></div>
+                        <form method="POST" action="{{ url('/add_item_post') }}" enctype="multipart/form-data">
+                            @csrf
+                            @csrf
+                            <div class="heading1">
+                                <img src="{{asset('FrontEnd/images/icon/user.html')}}" alt="">
+                                <h3>
+                                {{$User->First_Name}} {{$User->Middle_Name}} {{$User->Last_Name}}</a></p>
+                                    <p>now</p>
+                                </h3>
+                            </div>
+                            <div class="feedback col-md-12" style="margin-left: 0px;">
+                                <div class="email-input">
+                                    <input type="text" name="Post_Title" style="margin-left: 5px;" placeholder="Post Title" required autocomplete="Post_Title" value="{{ old('Post_Title') }}">
+                                    <textarea placeholder="Post Content" name="Post_Content" style="margin-left: 5px;" value="{{ old('Post_Content') }}" required autocomplete="Post_Content"></textarea>
+                                </div>
+                                <div id="OpenImgUpload">
+                                    <input type="file" name="images[]" placeholder="upload Images" multiple>
+                                    <br>
+                                </div>
+                                </hr>
+                            </div>
+                            <button class="btn" type="submit">Submit</button>
                     </div>
                 </div>
-                <div class="box-left">
-                    <div class="rightboxs">
-                        <img src="images/banner/Icon9.png" alt="">
-                        <span>Follow Us</span>
-                        <p>
-                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-google" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-lastfm-square" aria-hidden="true"></i></a>
-                        </p>
-                    </div>
-                </div>
-                <div class="box-left">
-                    <div class="rightboxs">
-                        <img src="images/banner/Icon9.png" alt="">
-                        <span>Country</span>
-                        <p>Egypt</p>
-                    </div>
-                </div>
-                <div class="box-left">
-                    <div class="rightboxs">
-                        <img src="images/banner/Icon6.png" alt="">
-                        <span>Categories</span>
-                        <p>For Rent</p>
-                    </div>
-                </div>
+
+                </form>
+            </div>
+        </div>
+        <div class="box-left">
+            <div class="rightboxs">
+                <img src="images/banner/Icon4.png" alt="">
+                <span>Owner</span>
+                <p><a href="#">@
+                        {{$User->First_Name}} {{$User->Middle_Name}} {{$User->Last_Name}}</a></p>
+                <div id="test"></div>
+            </div>
+        </div>
+
+        <div class="box-left">
+            <div class="rightboxs">
+                <img src="images/banner/Icon9.png" alt="">
+                <span>Follow Us</span>
+                <p>
+                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-google" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-lastfm-square" aria-hidden="true"></i></a>
+                </p>
+            </div>
+        </div>
+        <div class="box-left">
+            <div class="rightboxs">
+                <img src="images/banner/Icon9.png" alt="">
+                <span>Country</span>
+                <p>Egypt</p>
+            </div>
+        </div>
+        <div class="box-left">
+            <div class="rightboxs">
+                <img src="images/banner/Icon6.png" alt="">
+                <span>Categories</span>
+                <p>For Rent</p>
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>
 
 
 <script>
     // upload cover photo
     $('#coverPhoto').on('click', function() {
-        $('#cover_photo_upload').click();   
+        $('#cover_photo_upload').click();
     });
 
-    $('#cover_photo_upload').on('change',function (){
+    $('#cover_photo_upload').on('change', function() {
 
-       
+
         // bageb user id by input id
-        var user_id =$('#user_id').val();
+        var user_id = $('#user_id').val();
         var CoverPhoto = $('#cover_photo_upload').val();
         $.ajax({
             url: "{{url('create.coverphoto')}}",
             Type: "PUT",
-            data: 
-                {
-                    user_id: user_id,
-                    CoverPhoto: CoverPhoto 
-                },
-                success: function(data) 
-                {
-                    console.log(data);
-                },
-                error: function() 
-                {
-                    console.log(user_id);
-                    console.log(CoverPhoto);
-                    console.log('Error');
-                }
-            }); 
+            data: {
+                user_id: user_id,
+                CoverPhoto: CoverPhoto
+            },
+            success: function(data) {
+                console.log(data);
+            },
+            error: function() {
+                console.log(user_id);
+                console.log(CoverPhoto);
+                console.log('Error');
+            }
+        });
     });
-    
+
 
     // upload profile photo
     $('#ProfilePhoto').on('click', function() {
         $('#profile_photo_upload').click();
     });
 
-    $('#profile_photo_upload').on('change',function (){   
+    $('#profile_photo_upload').on('change', function() {
 
-    var user_id =$('#user_id').val();
-    var ProfilePhoto = $('#profile_photo_upload').val();
-    $.ajax({
-        url: "{{url('create.profilephoto')}}",
-        Type: "PUT",
-        data: 
-            {
+        var user_id = $('#user_id').val();
+        var ProfilePhoto = $('#profile_photo_upload').val();
+        $.ajax({
+            url: "{{url('create.profilephoto')}}",
+            Type: "PUT",
+            data: {
                 user_id: user_id,
-                ProfilePhoto: ProfilePhoto 
+                ProfilePhoto: ProfilePhoto
             },
-            success: function(data) 
-            {
+            success: function(data) {
                 console.log(data);
             },
-            error: function() 
-            {
-                console.log(user_id);      
+            error: function() {
+                console.log(user_id);
                 console.log(ProfilePhoto);
                 console.log('Error');
             }
-        }); 
+        });
     });
-    
-    function Comment(post_id) 
-    {
+
+    function Comment(post_id) {
         var comment = $("#CommentForPost" + post_id).val();
-        if (comment.length == 0) 
-        {
+        if (comment.length == 0) {
             return;
         }
 
         $.ajax({
             url: "{{route('comment.add')}}",
             Type: "POST",
-            data: 
-                {
-                    post_id: post_id,
-                    comment: comment
-                },
-                success: function(data) 
-                {
-                    console.log(data);
-                },
-                error: function() 
-                {
-                    console.log(post_id);
-                    console.log(comment);
-                    console.log('Error');
-                }
-            });
+            data: {
+                post_id: post_id,
+                comment: comment
+            },
+            success: function(data) {
+                console.log(data);
+            },
+            error: function() {
+                console.log(post_id);
+                console.log(comment);
+                console.log('Error');
+            }
+        });
     };
 
-    function Reply(post_id, parent_id) 
-    {
+    function Reply(post_id, parent_id) {
         var comment = $("#ReplyForComment" + parent_id).val();
-        if (comment.length == 0) 
-        {
+        if (comment.length == 0) {
             return;
         }
         $.ajax({
-                url: "{{route('reply.add')}}",
-                Type: "POST",
-                data: 
-                {
-                    post_id: post_id,
-                    parent_id: parent_id,
-                    comment: comment
-                },
-                success: function(data) 
-                {
-                    console.log(data);
-                },
-                error: function() 
-                {
-                    console.log(post_id);
-                    console.log(comment);
-                    console.log('Error');
-                }
-            });
+            url: "{{route('reply.add')}}",
+            Type: "POST",
+            data: {
+                post_id: post_id,
+                parent_id: parent_id,
+                comment: comment
+            },
+            success: function(data) {
+                console.log(data);
+            },
+            error: function() {
+                console.log(post_id);
+                console.log(comment);
+                console.log('Error');
+            }
+        });
     };
-
-        </script>
-    </div>
+</script>
+</div>
 </div>
 
 @endsection

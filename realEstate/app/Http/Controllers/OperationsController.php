@@ -31,6 +31,7 @@ class OperationsController extends Controller
     public static function create()
     {
 
+        
         try {
             $operations=operations::create([
                 'Item_Id' => 1,

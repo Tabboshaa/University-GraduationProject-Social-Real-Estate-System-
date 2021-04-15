@@ -374,7 +374,8 @@ class CustomerHomeController extends Controller
 
         $comments= $comments->groupby('Post_Id');
         $replies= $replies->groupby('Parent_Comment');
-    
+        
+        
         return view("website.frontend.customer.Customer_Own_Profile",
         ['User' => $User ,
          'Cover_Photo' => $Cover_Photo , 'Profile_Photo' => $Profile_Photo,
