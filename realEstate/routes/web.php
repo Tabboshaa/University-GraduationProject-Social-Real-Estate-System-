@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -64,7 +65,7 @@ Route::post('reserve','PaymentController@create');
 Route::get('/reservejj', function () {
     return view('website\backend.database pages.add-Reservation');
 });
-
+Route::get('/Payment/{item_id}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}', 'PaymentController@show_payment');
 
 
 //items Profile Pages

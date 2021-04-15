@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\operations;
 use App\operation__types;
 use App\Operation__Detail_Name;
+use App\Operation__Detail_Value;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 class OperationsController extends Controller
@@ -82,6 +83,32 @@ public static function createDetail()
         }
     }
 }
+public static function createValue($Operation_Id,$Type_Id,$Detail_Id,$Value)
+{
+
+     try {
+        $reservation=Operation__Detail_Value::create(
+            [
+                'Operation_Id' => $Operation_Id,
+                'Operation_Type_Id' => $Type_Id,  
+                'Detail_Id'=>$Detail_Id,
+                'Operation_Detail_Value'=> $Value,
+            ]
+            );
+
+    
+        return back()->with('success', 'Detail Created Successfully');
+    } catch (\Illuminate\Database\QueryException $e) {
+        $errorCode = $e->errorInfo[1];
+        if ($errorCode == 1062) {
+            return back()->with('error', 'Detail Already Exists !!');
+        }
+        if ($errorCode == 1048) {
+            return back()->with('error', 'You must select all values!!');
+        }
+    }
+}
+
 
     /**
      * Store a newly created resource in storage.
@@ -98,11 +125,11 @@ public static function createDetail()
         $start_date=new \Carbon\Carbon(request('start'));
         $end_date=new \Carbon\Carbon(request('end'));
 
-        $result = ($start_date->diffInDays($end_date)+1)*$price_per_night;
+        $totalPrice = ($start_date->diffInDays($end_date)+1)*$price_per_night;
         $totalDays =($start_date->diffInDays($end_date)+1);
 // return $result;//
 // return redirect()->jason(['totalDays'=>$totalDays,'Result'=>$result]);
-return (['result'=>$result,'totalDays'=>$totalDays]);
+return (['totalPrice'=>$totalPrice,'totalDays'=>$totalDays, "price_per_night"=>$price_per_night,"start_date"=>$start_date,"end_date"=>$end_date]);
     }
 
     /**
