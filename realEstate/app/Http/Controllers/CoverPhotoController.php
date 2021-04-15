@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CoverPhoto;
+use App\attachment;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,24 @@ class CoverPhotoController extends Controller
      */
     public function create()
     {
+      
         //
+        return 'null';
+    //     try{
+    //         $attachment = attachment::create([    
+    //             'File_Path'=>request('CoverPhoto'),
+    //         ]);
+    //         $coverPhoto = CoverPhoto::create([
+    //             'User_Id'=>request('user_id'),
+    //             'Cover_Photo'=>$attachment->Attachment_Id 
+    //         ]);
+    //         return back()->with('success', 'Item Created Successfully');
+    //     } catch (\Illuminate\Database\QueryException $e) {
+    //         $errorCode = $e->errorInfo[1];
+    //         if ($errorCode == 1062) {
+    //             return back()->with('error', 'Already Exist !!');
+    //         }
+    //    }
     }
 
     /**
@@ -56,6 +74,7 @@ class CoverPhotoController extends Controller
      * @param  \App\CoverPhoto  $coverPhoto
      * @return \Illuminate\Http\Response
      */
+    //badeeh el user id w bygbly el cover photo bta3too
     public static function getPhoto($id)
     {
         //

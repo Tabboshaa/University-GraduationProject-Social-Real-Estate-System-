@@ -291,7 +291,11 @@ Route::get('/timeline',function () {
     return view('website.frontend.customer.TimeLine');
 });
 
+//Cover and Profile Photo
+Route::post('/CreatCoverPhoto','CoverPhotoController@create')->name('create.coverphoto');
+Route::post('/CreateProfilePhoto','ProfilePhotoController@create')->name('create.profilephoto');
 //Follow 
+//Follow
 Route::get('/FollowItem/{id?}','AddUserController@FollowedItem');
 Route::get('/UnfollowItem/{id?}','AddUserController@UnfollowItem');
 
@@ -305,3 +309,5 @@ Route::get('/getComment', 'CommentsController@GetComments')->name('get.comments'
 Route::get('/EditCustomerProfile',function () {
     return view('website.frontend.customer.Customer_Own_Profile');
 });
+Route::get('/EditCustomerProfile','CustomerHomeController@showMyProfile');
+Route::get('ReservationShow','ReservationController@show');
