@@ -268,7 +268,7 @@
         var user_id = $('#user_id').val();
         var CoverPhoto = $('#cover_photo_upload').val();
         $.ajax({
-            url: "{{url('create.coverphoto')}}",
+            url: "{{route('create.coverphoto')}}",
             Type: "PUT",
             data: {
                 user_id: user_id,
@@ -296,7 +296,7 @@
         var user_id = $('#user_id').val();
         var ProfilePhoto = $('#profile_photo_upload').val();
         $.ajax({
-            url: "{{url('create.profilephoto')}}",
+            url: "{{route('create.profilephoto')}}",
             Type: "PUT",
             data: {
                 user_id: user_id,
@@ -304,6 +304,7 @@
             },
             success: function(data) {
                 console.log(data);
+                console.log(ProfilePhoto);
             },
             error: function() {
                 console.log(user_id);

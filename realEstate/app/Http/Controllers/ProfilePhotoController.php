@@ -40,15 +40,16 @@ class ProfilePhotoController extends Controller
     public function create()
     {
         //
+        return 'null';           
         try{
             $attachment = attachment::create([    
-                'File_Path'=>request('ProfilePhoto '),
+                'File_Path'=>request('ProfilePhoto'),
             ]);
             $ProfilePhoto  = ProfilePhoto::create([
                 'User_Id'=>request('user_id'),
                 'Profile_Picture '=>$attachment->Attachment_Id 
             ]);
-            return back()->with('success', 'Item Created Successfully');
+            return $ProfilePhoto;
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
