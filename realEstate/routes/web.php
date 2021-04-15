@@ -284,6 +284,7 @@ Route::get('/timeline',function () {
 Route::post('/CreatCoverPhoto','CoverPhotoController@create')->name('create.coverphoto');
 Route::post('/CreateProfilePhoto','ProfilePhotoController@create')->name('create.profilephoto');
 //Follow 
+//Follow
 Route::get('/FollowItem/{id?}','AddUserController@FollowedItem');
 Route::get('/UnfollowItem/{id?}','AddUserController@UnfollowItem');
 
@@ -295,3 +296,4 @@ Route::get('/getRepliesFromComment', 'CommentsController@GetCommentReply')->name
 Route::get('/getComment', 'CommentsController@GetComments')->name('get.comments');
 
 Route::get('/EditCustomerProfile','CustomerHomeController@showMyProfile');
+Route::get('ReservationShow','ReservationController@show');

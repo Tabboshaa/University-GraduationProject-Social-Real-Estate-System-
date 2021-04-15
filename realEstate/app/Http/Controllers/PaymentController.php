@@ -24,7 +24,7 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        // try {
+        try {
             $Operation_Id = OperationsController::create();
             
             $payment=payment::create([
@@ -34,15 +34,6 @@ class PaymentController extends Controller
                 'Paid_Amount'=> request('Country_Name'),
                 'confirmed'=> request('Country_Name')
             ]);
-<<<<<<< Updated upstream
-            return back()->with('success','Payment Created Successfully');
-        // }catch (\Illuminate\Database\QueryException $e){
-        //     $errorCode = $e->errorInfo[1];
-        //     if($errorCode == 1062){
-        //         return back()->with('error','Payment Already Exist !!');
-        //     }
-        // }
-=======
             return back()->with('success','City Created Successfully');
         }catch (\Illuminate\Database\QueryException $e){
             $errorCode = $e->errorInfo[1];
@@ -52,7 +43,6 @@ class PaymentController extends Controller
             //     return back()->with('error','You must select all values!!');
             // }
         }
->>>>>>> Stashed changes
         }
     
     
@@ -115,7 +105,7 @@ class PaymentController extends Controller
         if(request()->has('id'))
        {
         try {
-            payments::destroy($request->id);
+            payment::destroy($request->id);
         return redirect()->route('Card_Show')->with('success', 'Card Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
 
@@ -129,10 +119,10 @@ class PaymentController extends Controller
         try {
 
             //hygeb el country eli el ID bt3ha da
-        $payment= payments::all()->find(request('Payment_Id'));
+        $payment= payment::all()->find(request('Payment_Id'));
         //hy7ot el name el gded f column el country name
         $payment->Card_Number=request('Card_Num');
-        $country->save();
+        $payment->save();
                 return back()->with('info','Card Edited Successfully');
             }catch (\Illuminate\Database\QueryException $e){
                 $errorCode = $e->errorInfo[1];

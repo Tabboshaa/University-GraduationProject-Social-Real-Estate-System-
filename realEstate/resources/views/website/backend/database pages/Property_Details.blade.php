@@ -85,7 +85,7 @@
                         <div class="col-md-2">
                             <select id="MainTypeName" style="border-radius: 3pt" class="form-control @error('Main Type Name') is-invalid @enderror" name="Main_Type_Name" value="{{ old('Main Type Name') }}" required autocomplete="Main Type Name">
                                 <option value="0" selected disabled>Select Main Type</option>;
-                                 <!-- For loop  --> 
+                                 <!-- For loop  -->
                                  @foreach($main_type as $main_type)
                                      <option value="{{$main_type->Main_Type_Id}}">{{$main_type->Main_Type_Name}}</option>
                                     @endforeach
@@ -150,7 +150,7 @@
                                     </span>
                             @enderror
                         </div>
-                  
+
  <!-- Data Type -->
 
     <label for="Data Type Name" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
@@ -160,7 +160,7 @@
     <div class="col-md-2">
         <select id="DataTypeName" style="border-radius: 3pt" class="form-control @error('Data Type Name') is-invalid @enderror" name="Data_Type_Name" value="{{ old('Data Type Name') }}" required autocomplete="Data Type Name">
             <option value="0" selected disabled>Select Data Type</option>;
-             <!-- For loop  --> 
+             <!-- For loop  -->
              @foreach($data_type as $data_type)
                  <option value="{{$data_type->id}}">{{$data_type->datatype}}</option>
                 @endforeach
@@ -173,20 +173,19 @@
         @enderror
     </div>
 </div>
-
-                    <div class="form-group row mb-0">
+                        <div class="form-group row mb-0">
                         <div class="col-md-2 offset-md-2">
                             <button type="submit" id="btun1"class="btn btn-primary">
                                 {{ __('Add') }}
                             </button>
-                            </form>
+
                             <button id="btun2"  class="btn btn-primary">
                                 <a href="{{url('/Property_Details_show')}}" class="link2" >{{ __('Show') }}</a>
                             </button>
                         </div>
                     </div>
-                
-            </div>
+
+                </form></div>
             <div class="x_panel">
                 <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
                     <div class="row">
@@ -196,6 +195,7 @@
                     <div class="row">
                     </div>
                 </div>
+
             </div>
 
         </div>

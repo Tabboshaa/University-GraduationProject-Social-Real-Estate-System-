@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94e67ae1-48e2-456b-854f-8264ac421576" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CoverPhotoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CoverPhotoController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CustomerHomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CustomerHomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfilePhotoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfilePhotoController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/customer/Customer_Own_Profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/Customer_Own_Profile.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/layouts/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/layouts/header.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OperationsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OperationsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_04_04_180428_operation.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_04_04_180428_operation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Property_Details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Property_Details.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/customer/Item_Profile_Details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/Item_Profile_Details.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -218,7 +217,14 @@
       <workItem from="1617546056098" duration="3583000" />
       <workItem from="1617550392877" duration="941000" />
       <workItem from="1617552123445" duration="594000" />
-      <workItem from="1617888483963" duration="452000" />
+      <workItem from="1617698954751" duration="271000" />
+      <workItem from="1617887607907" duration="591000" />
+      <workItem from="1617973317548" duration="909000" />
+      <workItem from="1617976270852" duration="1429000" />
+      <workItem from="1617978355401" duration="1307000" />
+      <workItem from="1617981162229" duration="8174000" />
+      <workItem from="1618144745959" duration="4353000" />
+      <workItem from="1618317818844" duration="608000" />
     </task>
     <servers />
   </component>
