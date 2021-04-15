@@ -28,22 +28,21 @@ class CoverPhotoController extends Controller
     {
       
         //
-        return 'null';
-    //     try{
-    //         $attachment = attachment::create([    
-    //             'File_Path'=>request('CoverPhoto'),
-    //         ]);
-    //         $coverPhoto = CoverPhoto::create([
-    //             'User_Id'=>request('user_id'),
-    //             'Cover_Photo'=>$attachment->Attachment_Id 
-    //         ]);
-    //         return back()->with('success', 'Item Created Successfully');
-    //     } catch (\Illuminate\Database\QueryException $e) {
-    //         $errorCode = $e->errorInfo[1];
-    //         if ($errorCode == 1062) {
-    //             return back()->with('error', 'Already Exist !!');
-    //         }
-    //    }
+        try{
+            $attachment = attachment::create([    
+                'File_Path'=>request('CoverPhoto'),
+            ]);
+            $coverPhoto = CoverPhoto::create([
+                'User_Id'=>request('user_id'),
+                'Cover_Photo'=>$attachment->Attachment_Id 
+            ]);
+            return back()->with('success', 'Item Created Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Already Exist !!');
+            }
+       }
     }
 
     /**
