@@ -15,10 +15,7 @@
                     <img class="background" src="{{asset('FrontEnd/images/cover page/Default1.jpeg')}}" alt="">
                 </div>
                 <div class="screnshot" id="OpenImgUpload">
-
-                    <input id="user_id" type="hidden" value={{$User->id}}>
-                    <input id="cover_photo_upload" name="CoverPhoto" type="file" class="hidden">
-
+                        <input id="cover_photo_upload" name="CoverPhoto" type="file" class="hidden" >    
                 </div>
                 @endif
             </div>
@@ -26,13 +23,20 @@
                 <div class=" dash-profile">
                     {{-- profile photo --}}
                     @if(!empty($Profile_Photo))
-                    <img class="profile" src="{{asset('FrontEnd/images/cover page/'.$Cover_Photo)}}" alt="">
+                    <img class="profile" src="{{asset('storage/cover page/'.$Profile_Photo)}}" alt="">
                     @else
                     <div id="ProfilePhoto">
-                        <img class="profile" src="{{asset('FrontEnd/images/cover page/pic.png')}}" alt="">
+                        <img class="profile" src="{{asset('storage/cover page/pic.png')}}" alt="">
                     </div>
                     <div class="screnshot" id="OpenImgUpload">
-                        <input id="profile_photo_upload" name="ProfilePhoto" type="file" class="hidden">
+                    <!-- New simple code hena ya Shaimaaa -->
+                    <form method="POST" action="{{url('/CreateProfilePhoto')}}" enctype="multipart/form-data">
+                        @csrf
+                        <input id="profile_photo_upload" name="ProfilePhoto" type="file" class="hidden" onchange="javascript:this.form.submit();">
+                    <!-- onchange="javascript:this.form.submit();" 3shan y3ml submit lel form awl ma ad5l photo -->
+                    <!-- w yrooo7 ll controller -->
+                    </form>
+                    <!-- 5ls hna -->
                     </div>
                     @endif
                 </div>
@@ -185,11 +189,10 @@
                     <div class="rightboxs">
                         <form method="POST" action="{{ url('/add_item_post') }}" enctype="multipart/form-data">
                             @csrf
-                            @csrf
                             <div class="heading1">
                                 <img src="{{asset('FrontEnd/images/icon/user.html')}}" alt="">
                                 <h3>
-                                {{$User->First_Name}} {{$User->Middle_Name}} {{$User->Last_Name}}</a></p>
+                                    {{$User->First_Name}} {{$User->Middle_Name}} {{$User->Last_Name}}</a></p>
                                     <p>now</p>
                                 </h3>
                             </div>
@@ -261,29 +264,29 @@
         $('#cover_photo_upload').click();
     });
 
-    $('#cover_photo_upload').on('change', function() {
+    // $('#cover_photo_upload').on('change', function() {
 
 
-        // bageb user id by input id
-        var user_id = $('#user_id').val();
-        var CoverPhoto = $('#cover_photo_upload').val();
-        $.ajax({
-            url: "{{route('create.coverphoto')}}",
-            Type: "PUT",
-            data: {
-                user_id: user_id,
-                CoverPhoto: CoverPhoto
-            },
-            success: function(data) {
-                console.log(data);
-            },
-            error: function() {
-                console.log(user_id);
-                console.log(CoverPhoto);
-                console.log('Error');
-            }
-        });
-    });
+    //     // bageb user id by input id
+    //     var user_id = $('#user_id').val();
+    //     var CoverPhoto = $('#cover_photo_upload').val();
+    //     $.ajax({
+    //         url: "{{route('create.coverphoto')}}",
+    //         Type: "PUT",
+    //         data: {
+    //             user_id: user_id,
+    //             CoverPhoto: CoverPhoto
+    //         },
+    //         success: function(data) {
+    //             console.log(data);
+    //         },
+    //         error: function() {
+    //             console.log(user_id);
+    //             console.log(CoverPhoto);
+    //             console.log('Error');
+    //         }
+    //     });
+    // });
 
 
     // upload profile photo
@@ -291,28 +294,36 @@
         $('#profile_photo_upload').click();
     });
 
-    $('#profile_photo_upload').on('change', function() {
+    // $('#profile_photo_upload').on('change', function() {
 
-        var user_id = $('#user_id').val();
-        var ProfilePhoto = $('#profile_photo_upload').val();
-        $.ajax({
-            url: "{{route('create.profilephoto')}}",
-            Type: "PUT",
-            data: {
-                user_id: user_id,
-                ProfilePhoto: ProfilePhoto
-            },
-            success: function(data) {
-                console.log(data);
-                console.log(ProfilePhoto);
-            },
-            error: function() {
-                console.log(user_id);
-                console.log(ProfilePhoto);
-                console.log('Error');
-            }
-        });
-    });
+    //     var user_id = $('#user_id').val();
+    //     var ProfilePhoto = $('#profile_photo_upload')[0].files;
+    //     var test = ProfilePhoto[0];
+    //     console.log(test);
+
+    //     $.ajax({
+    //         url: "{{route('create.profilephoto')}}",
+    //         enctype: 'multipart/form-data',
+
+    //         Type: "get",
+    //         data: {
+    //             user_id: user_id,
+    //             ProfilePhoto: test
+    //         },
+    //         cache: false,
+    //     contentType: false,
+    //     processData: false,
+    //         success: function(data) {
+    //             console.log(data);
+    //             // console.log(ProfilePhoto);
+    //         },
+    //         error: function() {
+    //             console.log(user_id);
+    //             console.log(ProfilePhoto);
+    //             console.log('Error');
+    //         }
+    //     });
+    // });
 
     function Comment(post_id) {
         var comment = $("#CommentForPost" + post_id).val();
