@@ -112,7 +112,7 @@ class PaymentController extends Controller
     // Will Destroy each column with id form action
     if (request()->has('id')) {
         try {
-            payments::destroy($request->id);
+            payment::destroy($request->id);
             return redirect()->route('Card_Show')->with('success', 'Card Deleted Successfully');
         }catch (\Illuminate\Database\QueryException $e)
         {
