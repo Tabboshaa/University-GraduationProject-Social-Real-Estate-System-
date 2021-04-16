@@ -412,33 +412,25 @@ public function editPost()
     //fe el blade in the same time the route passes me to the blade 
     public function showMyProfile ()
     {
-        $User_Id = Auth::id();
-        $User = User::all()->where ('id','=',$User_Id)->first();
-        $Cover_Photo = CoverPhotoController::getPhoto($User_Id); 
-        $Profile_Photo = ProfilePhotoController::getPhoto($User_Id);
-        $posts = PostsController::userPosts($User_Id);
+        $id = Auth::id();
+        $user = User::all()->where('id','=',$id)->first();
+        $posts= PostsController::userPosts($id);
+        $profile_photo=ProfilePhotoController::getPhoto($id);
+        $cover_photo=CoverPhotoController::getPhoto($id);
+        $post_images = AttachmentController::getAttachmentsOfPosts($id);
 
-        $comments = [];
-        $replies = [];
+        $post_images = [];
+        
         foreach ($posts as $post)
         {
-            $comment = CommentsController::getPostCommentsHomePage($post->Post_Id);
+            $post_image = AttachmentController::getAttachmentsOfPosts($post->Post_Id);
            
-            $comments=collect($comments)->merge($comment);
+            $post_images=collect($post_images)->merge($post_image);
            
-
-            $reply = CommentsController::getPostrepliesHomePage($post->Post_Id);
-            $replies=collect($replies)->merge($reply);
         }
 
-        $comments= $comments->groupby('Post_Id');
-        $replies= $replies->groupby('Parent_Comment');
-        
-        
-        return view("website.frontend.customer.Customer_Own_Profile",
-        ['User' => $User ,
-         'Cover_Photo' => $Cover_Photo , 'Profile_Photo' => $Profile_Photo,
-         'posts' => $posts , 'comments' => $comments , 'replies' => $replies ]);
-    }
+        $post_images= $post_images->groupby('Post_Id');
+            return view('website\frontend\customer\Customer_Own_Profile',['First_Name'=>$user->First_Name,'Middle_Name'=>$user->Middle_Name,'Last_Name'=>$user->Last_Name,'Cover_Photo'=>$cover_photo,'Profile_Photo'=>$profile_photo,'posts'=>$posts,'post_images'=>$post_images]);
+        }
 }
 

@@ -43,7 +43,7 @@
                 {{-- User Name --}}
                 <div class="prompr">
                     <div class="dashname">
-                        {{$User->First_Name}} {{$User->Middle_Name}} {{$User->Last_Name}}
+                    {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}
                     </div>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                             <img src="{{asset('FrontEnd/images/icon/user.html')}}" alt="">
                             <h3>
 
-                                {{$User->First_Name}} {{$User->Middle_Name}} {{$User->Last_Name}}
+                                {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}
                                 <p>{{ $today->diffForHumans($end)}} </p>
                             </h3>
                         </div>
@@ -192,7 +192,7 @@
                             <div class="heading1">
                                 <img src="{{asset('FrontEnd/images/icon/user.html')}}" alt="">
                                 <h3>
-                                    {{$User->First_Name}} {{$User->Middle_Name}} {{$User->Last_Name}}</a></p>
+                                    {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}</a></p>
                                     <p>now</p>
                                 </h3>
                             </div>
@@ -219,7 +219,7 @@
                 <img src="images/banner/Icon4.png" alt="">
                 <span>Owner</span>
                 <p><a href="#">@
-                        {{$User->First_Name}} {{$User->Middle_Name}} {{$User->Last_Name}}</a></p>
+                        {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}</a></p>
                 <div id="test"></div>
             </div>
         </div>

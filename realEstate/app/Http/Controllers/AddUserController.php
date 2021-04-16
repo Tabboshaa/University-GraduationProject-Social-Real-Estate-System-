@@ -105,8 +105,6 @@ class AddUserController extends Controller
         $post_images = AttachmentController::getAttachmentsOfPosts($id);
 
         $post_images = [];
-       
-        
         
         foreach ($posts as $post)
         {

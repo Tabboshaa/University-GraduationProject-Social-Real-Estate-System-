@@ -275,6 +275,7 @@ Route::get('/edit_operation_type', 'OperationsController@edit')->name('operation
     Route::get('/edit_User_Name', 'AddUserController@editUserName')->name('UserName.update');
     Route::get('/edit_User_Email', 'AddUserController@editUserEmail')->name('UserEmail.update');
     Route::get('/edit_User_PhoneNumber', 'AddUserController@editUserPhoneNumber')->name('UserPhoneNumber.update');
+    Route::get('/veiw_User/{id}', 'AddUserController@show');
 
     Route::Post('/item_created', 'ItemController@itemShow');
 
