@@ -7,6 +7,7 @@ use App\ProfilePhoto;
 use App\attachment;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfilePhotoController extends Controller
 {
@@ -27,7 +28,6 @@ class ProfilePhotoController extends Controller
         try {
             $attachment_id = ProfilePhoto::all()->where('User_Id', '=', $id)->first()->Profile_Picture;
             return AttachmentController::getAttachment($attachment_id);
-
         } catch (Exception $e) {
             return null;
         }
@@ -40,22 +40,31 @@ class ProfilePhotoController extends Controller
     public function create()
     {
         //
-        return 'null';           
-        try{
-            $attachment = attachment::create([    
-                'File_Path'=>request('ProfilePhoto'),
-            ]);
-            $ProfilePhoto  = ProfilePhoto::create([
-                'User_Id'=>request('user_id'),
-                'Profile_Picture '=>$attachment->Attachment_Id 
-            ]);
-            return $ProfilePhoto;
-        } catch (\Illuminate\Database\QueryException $e) {
-            $errorCode = $e->errorInfo[1];
-            if ($errorCode == 1062) {
-                return back()->with('error', 'Already Exist !!');
+
+        if ($files = request()->file('ProfilePhoto')) {
+
+            // foreach ($files as $file) {
+
+            $filename = $files->getClientOriginalName();
+            $files->storeAs('/cover page', $filename, 'public');
+
+            $attachment = attachment::create(['File_Path' => $filename]);
+
+            // }
+            try {
+             
+                $ProfilePhoto  = ProfilePhoto::create([
+                    'User_Id' => Auth::id(),
+                    'Profile_Picture' => $attachment->Attachment_Id
+                ]);
+                return back();
+            } catch (\Illuminate\Database\QueryException $e) {
+                $errorCode = $e->errorInfo[1];
+                if ($errorCode == 1062) {
+                    return back()->with('error', 'Already Exist !!');
+                }
             }
-       }
+        }
     }
 
     /**

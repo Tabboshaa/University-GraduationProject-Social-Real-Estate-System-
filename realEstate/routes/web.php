@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -64,7 +65,7 @@ Route::post('reserve','PaymentController@create');
 Route::get('/reservejj', function () {
     return view('website\backend.database pages.add-Reservation');
 });
-
+Route::get('/Payment/{item_id}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}', 'PaymentController@show_payment');
 
 
 //items Profile Pages
@@ -274,6 +275,7 @@ Route::get('/edit_operation_type', 'OperationsController@edit')->name('operation
     Route::get('/edit_User_Name', 'AddUserController@editUserName')->name('UserName.update');
     Route::get('/edit_User_Email', 'AddUserController@editUserEmail')->name('UserEmail.update');
     Route::get('/edit_User_PhoneNumber', 'AddUserController@editUserPhoneNumber')->name('UserPhoneNumber.update');
+    Route::get('/veiw_User/{id}', 'AddUserController@show');
 
     Route::Post('/item_created', 'ItemController@itemShow');
 
@@ -293,7 +295,7 @@ Route::get('/timeline',function () {
 
 //Cover and Profile Photo
 Route::get('/CreatCoverPhoto','CoverPhotoController@create')->name('create.coverphoto');
-Route::get('/CreateProfilePhoto','ProfilePhotoController@create')->name('create.profilephoto');
+Route::post('/CreateProfilePhoto','ProfilePhotoController@create')->name('create.profilephoto');
 //Follow 
 //Follow
 Route::get('/FollowItem/{id?}','AddUserController@FollowedItem');
