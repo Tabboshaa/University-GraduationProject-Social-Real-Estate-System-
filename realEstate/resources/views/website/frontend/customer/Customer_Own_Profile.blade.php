@@ -202,7 +202,7 @@
                                     <input type="file" name="images[]" placeholder="upload Images" multiple>
                                     <br>
                                 </div>
-                                </hr>
+                               
                             </div>
                             <button class="btn" type="submit">Submit</button>
                     </div>
@@ -265,21 +265,29 @@
 
 
         // bageb user id by input id
-        var user_id = $('#user_id').val();
-        var CoverPhoto = $('#cover_photo_upload').val();
+        var formdata= new FormData();
+        var CoverPhoto = $('#cover_photo_upload')[0].files;
+        var file=CoverPhoto[0];
+        formdata.append('file',file);
+        
+        
         $.ajax({
             url: "{{route('create.coverphoto')}}",
-            Type: "PUT",
+            Type: "get",
             data: {
                 user_id: user_id,
-                CoverPhoto: CoverPhoto
+                CoverPhoto: file
+            
             },
+            cache: false,
+            contentType: 'multipart/form-data',
+             processData: false,
             success: function(data) {
+                console.log("omniaaaaa");
                 console.log(data);
             },
             error: function() {
-                console.log(user_id);
-                console.log(CoverPhoto);
+            
                 console.log('Error');
             }
         });
