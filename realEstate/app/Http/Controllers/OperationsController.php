@@ -29,13 +29,13 @@ class OperationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public static function create()
+    public static function create($item_Id)
     {
 
-        
+
         try {
             $operations=operations::create([
-                'Item_Id' => 1,
+                'Item_Id' => $item_Id,
                 'User_Id'=> Auth::id()
             ]);
             return $operations->Operation_Id;
@@ -90,13 +90,13 @@ public static function createValue($Operation_Id,$Type_Id,$Detail_Id,$Value)
         $reservation=Operation__Detail_Value::create(
             [
                 'Operation_Id' => $Operation_Id,
-                'Operation_Type_Id' => $Type_Id,  
+                'Operation_Type_Id' => $Type_Id,
                 'Detail_Id'=>$Detail_Id,
                 'Operation_Detail_Value'=> $Value,
             ]
             );
 
-    
+
         return back()->with('success', 'Detail Created Successfully');
     } catch (\Illuminate\Database\QueryException $e) {
         $errorCode = $e->errorInfo[1];

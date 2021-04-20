@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Datatype;
 use App\Main_Type;
+use App\Operation__Detail_Value;
 use App\Property_Details;
 use App\Sub_Type;
 use App\Sub_Type_Property;
@@ -14,7 +15,22 @@ class ReservationController extends Controller
 {
     public function show()
     {
-        //
+
+        //1-Price_Per_Night
+        //2-Start_Date
+        //3-End_Date
+        //4-Total_Price
+        $values=DB::table('operation__detail_value')
+            ->join('operation__detail_name', 'operation__detail_value.Detail_Id', '=', 'operation__detail_name.Detail_Id')
+            ->select('operation__detail_value.*','operation__detail_name.Operation_Detail_Name');
+//        return dd( $values);
+//        $reservation = DB::table('operation___detail__values')
+//            ->groupBy('Operation_Type_Id')
+//            ->having('Operation_Type_Id', '=', 1)
+//            ->get()->all();
+//        return dd( $reservation);
+
+
         $sub_types = Sub_Type::all();
         $main_types = Main_Type::all();
         $property = Sub_Type_Property::all();

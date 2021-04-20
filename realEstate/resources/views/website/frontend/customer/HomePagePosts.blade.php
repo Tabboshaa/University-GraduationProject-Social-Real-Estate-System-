@@ -20,13 +20,13 @@
                                 $end = \Carbon\Carbon::parse($post->updated_at);
                                 ?>
                                 <a href="{{url('/itemProfile/'.$post->Item_Id)}}">
-                                    <img height="50" width="70" src="{{asset('FrontEnd/images/cover page/'.$post_image->File_Path)}}" alt="">
+                                    <img height="50" width="70" src="{{asset('FrontEnd/images/coverpage/'.$post_image->File_Path)}}" alt="">
                                 </a>
                                 <a href="{{url('/itemProfile/'.$post->Item_Id)}}">
                                     {{ $post->Item_Name }}
                                 </a>
                                 <p>{{$post->created_at}}</p>
-                          
+
                             </h4>
                         </th>
                     </tr>
@@ -42,10 +42,10 @@
                             </p>
                             @if($User_Id== $post->User_Id )
                                 <a href="{{url('/deletePost/'.$post->Post_Id)}}"  name="del_post" id="del_post"> Delete</a>
-                                @endif 
+                                @endif
                                 @if($User_Id== $post->User_Id )
                                 <a href="javascript:void(0)" onclick="setPost('{{$post->Post_Id}}','{{$post->Post_Content}}')"  name="editpost" > Edit</a>
-                                @endif 
+                                @endif
                                 <div class="modal fade" id="EditPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -68,7 +68,7 @@
                                             </div>
                                             </div>
                                             </div>
-                               
+
                         </td>
                     </tr>
 
@@ -99,10 +99,10 @@
 
                                 @if($User_Id== $comment->User_Id )
                                 <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}"  name="del_Comment" id="del_Comment"> Delete</a>
-                                @endif 
+                                @endif
                                 @if($User_Id== $comment->User_Id )
                                 <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')"  name="editComment" id="edit_Comment"> Edit</a>
-                                @endif 
+                                @endif
                                 </div>
                                 <div class="modal fade" id="EditCommentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -126,8 +126,8 @@
                                             </div>
                                             </div>
                                             </div>
-                                        
-           
+
+
                             </div>
                         </td>
                     </tr>
@@ -176,7 +176,7 @@
                                         @if( count($cover__pages) != 0)
                                         @foreach($cover__pages as $cover__page)
                                         <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
-                                            <img height="50" width="70" src="{{asset('FrontEnd/images/cover page/'.$cover__page->path)}}" alt="">
+                                            <img height="50" width="70" src="{{asset('FrontEnd/images/coverpage/'.$cover__page->path)}}" alt="">
                                         </a>
                                         <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
                                             {{ $item->Item_Name }}
@@ -212,7 +212,7 @@ $(document).ready(function (){
     $("#ImageModel").modal("toggle");
 });
     function view(id) {
-        // if value view reply 
+        // if value view reply
         value = document.getElementById("viewReplies" + id).innerHTML;
         console.log('one');
 
@@ -283,7 +283,7 @@ $(document).ready(function (){
 
         });
     };
-    
+
     function setComment(id,name){
         console.log("sdsdsdds");
     }
@@ -319,7 +319,7 @@ data:{
 success:function (){
     console.log('Success');
     $("#EditCommentModal").modal("toggle");
- 
+
 },
 error:function ()
 {
@@ -361,7 +361,7 @@ data:{
 success:function (){
     console.log('Success');
     $("#EditPostModal").modal("toggle");
- 
+
 },
 error:function ()
 {

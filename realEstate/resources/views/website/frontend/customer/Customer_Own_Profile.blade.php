@@ -9,13 +9,13 @@
             <div class="advertisment-banner1 col-md-12">
                 {{-- Cover photo --}}
                 @if(!empty($Cover_Photo))
-                <img class="background" src="{{asset('FrontEnd/images/cover page/'.$Cover_Photo)}}" alt="">
+                <img class="background" src="{{asset('FrontEnd/images/coverpage/'.$Cover_Photo)}}" alt="">
                 @else
                 <div id="coverPhoto">
-                    <img class="background" src="{{asset('FrontEnd/images/cover page/Default1.jpeg')}}" alt="">
+                    <img class="background" src="{{asset('FrontEnd/images/coverpage/Default1.jpeg')}}" alt="">
                 </div>
                 <div class="screnshot" id="OpenImgUpload">
-                        <input id="cover_photo_upload" name="CoverPhoto" type="file" class="hidden" >    
+                        <input id="cover_photo_upload" name="CoverPhoto" type="file" class="hidden" >
                 </div>
                 @endif
             </div>
@@ -23,10 +23,10 @@
                 <div class=" dash-profile">
                     {{-- profile photo --}}
                     @if(!empty($Profile_Photo))
-                    <img class="profile" src="{{asset('storage/cover page/'.$Profile_Photo)}}" alt="">
+                    <img class="profile" src="{{asset('storage/app/coverpage/'.$Profile_Photo)}}" alt="">
                     @else
                     <div id="ProfilePhoto">
-                        <img class="profile" src="{{asset('storage/cover page/pic.png')}}" alt="">
+                        <img class="profile" src="{{asset('storage/coverpage/pic.png')}}" alt="">
                     </div>
                     <div class="screnshot" id="OpenImgUpload">
                     <!-- New simple code hena ya Shaimaaa -->
@@ -205,7 +205,7 @@
                                     <input type="file" name="images[]" placeholder="upload Images" multiple>
                                     <br>
                                 </div>
-                                </hr>
+                                e</hr>
                             </div>
                             <button class="btn" type="submit">Submit</button>
                     </div>
