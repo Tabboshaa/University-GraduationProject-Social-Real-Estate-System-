@@ -44,8 +44,6 @@ class ProfilePhotoController extends Controller
         Artisan::call('storage:link');
         if ($files = request()->file('ProfilePhoto')) {
 
-            // foreach ($files as $file) {
-
             $filename = $files->getClientOriginalName();
             $files->storeAs('/coverpage', $filename, 'public');
 

@@ -6,6 +6,7 @@ use App\CoverPhoto;
 use App\attachment;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CoverPhotoController extends Controller
 {
@@ -33,7 +34,7 @@ class CoverPhotoController extends Controller
 
 
         $filename = $files->getClientOriginalName();
-        $files->storeAs('/coverpage', $filename, 'public');
+        $files->storeAs('/cover page', $filename, 'public');
 
         $attachment = attachment::create(['File_Path' => $filename]);
 
