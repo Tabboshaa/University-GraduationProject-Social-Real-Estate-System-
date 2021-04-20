@@ -296,6 +296,8 @@ Route::get('/timeline',function () {
 //Cover and Profile Photo
 Route::post('/CreateCoverPhoto','CoverPhotoController@create')->name('create.coverphoto');
 Route::post('/CreateProfilePhoto','ProfilePhotoController@create')->name('create.profilephoto');
+Route::post('/UpdateCoverPhoto','CoverPhotoController@edit')->name('create.coverphoto');
+Route::post('/UpdateProfilePhoto','ProfilePhotoController@edit')->name('create.profilephoto');
 //Follow 
 //Follow
 Route::get('/FollowItem/{id?}','AddUserController@FollowedItem');
