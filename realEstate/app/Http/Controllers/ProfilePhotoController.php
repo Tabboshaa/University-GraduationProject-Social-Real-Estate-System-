@@ -43,8 +43,6 @@ class ProfilePhotoController extends Controller
 
         if ($files = request()->file('ProfilePhoto')) {
 
-            // foreach ($files as $file) {
-
             $filename = $files->getClientOriginalName();
             $files->storeAs('/cover page', $filename, 'public');
 
