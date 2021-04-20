@@ -6,7 +6,7 @@
         <!-- Banner -->
         <div class="dashboard">
             <div class="advertisment-banner1 col-md-12">
-        <img src="{{asset('FrontEnd/images/cover page/'.$cover->path)}}" alt="">
+        <img src="{{asset('FrontEnd/images/coverpage/'.$cover->path)}}" alt="">
             </div>
             <div class="main-page">
                 <div class="dash-profile">
@@ -16,21 +16,21 @@
                     <ul class="widths">
                         <li class="number"><i class="fa fa-phone" aria-hidden="true"></i> &nbsp; +91 1234 567 890</li>
                         <li class="number"><i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp; Location here...</li>
-                        
+
                         @if ($check_follow=="[]")
                         <li class="saved">
                             <i class="fa fa-heart-o" aria-hidden="true"></i>
                             <a href="{{url('/FollowItem/'.$item->Item_Id)}}">Follow</a>
                         </li>
-                        
+
                         @else
-                        <li class="saved"> 
-                            
-                            <i class="fa fa-heart-o" aria-hidden="true"></i> 
+                        <li class="saved">
+
+                            <i class="fa fa-heart-o" aria-hidden="true"></i>
                             <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}">Un Follow</a>
-                            
+
                         </li>
-                        @endif 
+                        @endif
                         <li class="Reivew">
                             <a href="{{url('/itemReviews')}}">Add Review </a>
                         </li>
@@ -41,7 +41,7 @@
                         {{ $item->Item_Name }}
                         <p><a href="#">@ {{$item->First_Name}} {{$item->Middle_Name}} {{$item->Last_Name}}</a></p>
                     </div>
-        
+
                 </div>
             </div>
             <div class="clearfix">
@@ -78,6 +78,6 @@
     </div>
 </div>
 <script>
-    
+
 </script>
 @endsection

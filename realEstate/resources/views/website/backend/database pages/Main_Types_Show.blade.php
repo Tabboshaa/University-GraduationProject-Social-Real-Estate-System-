@@ -14,10 +14,10 @@
     <thead>
     <tr>
                         <th><h2 style="margin-right:200px; padding-bottom: 5px;">Main Type ID</h2></th>
-                       
+
                         <th ><h2 style="margin-right:250px;padding-bottom: 5px;">Edit</h2></th>
-                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:200px;"></i></th>
-                      
+        <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:200px;"></i></button></th>
+
             <!-- Java Script for select all function -->
                 <script>
                     document.getElementById('selectAll').onclick = function() {

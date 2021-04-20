@@ -26,10 +26,10 @@
                 <div class=" dash-profile">
                     {{-- profile photo --}}
                     @if(!empty($Profile_Photo))
-                    <img class="profile" src="{{asset('storage/cover page/'.$Profile_Photo)}}" alt="">
+                    <img class="profile" src="{{asset('storage/app/coverpage/'.$Profile_Photo)}}" alt="">
                     @else
                     <div id="ProfilePhoto">
-                        <img class="profile" src="{{asset('storage/cover page/pic.png')}}" alt="">
+                        <img class="profile" src="{{asset('storage/coverpage/pic.png')}}" alt="">
                     </div>
                     <div class="screnshot" id="OpenImgUpload">
                     <!-- New simple code hena ya Shaimaaa -->
@@ -208,7 +208,7 @@
                                     <input type="file" name="images[]" placeholder="upload Images" multiple>
                                     <br>
                                 </div>
-                                </hr>
+                                e</hr>
                             </div>
                             <button class="btn" type="submit">Submit</button>
                     </div>

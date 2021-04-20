@@ -52,10 +52,10 @@
                                 <!-- EL FOREARCH HNA -->
                                 @foreach($property as $property_detail)
                                     <tr>
-                                        <td>{{$property_detail->Main_Type_Name}}</td>
-                                        <td>{{$property_detail->Sub_Type_Name}}</td>
-                                        <td>{{$property_detail->Property_Name}}</td>
-                                        <td>{{$property_detail->Detail_Name}}</td>
+                                        <td>{{$property_detail->datatype}}</td>
+                                        <td>{{$property_detail->datatype}}</td>
+                                        <td>{{$property_detail->datatype}}</td>
+                                        <td>{{$property_detail->datatype}}</td>
                                         <td>{{$property_detail->datatype}}</td>
                                         <td>{{$property_detail->datatype}}</td>
                                         <td>{{$property_detail->datatype}}</td>

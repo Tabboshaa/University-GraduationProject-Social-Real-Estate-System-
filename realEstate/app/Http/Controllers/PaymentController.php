@@ -25,10 +25,11 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        try {
-            $Operation_Id = OperationsController::create();
-            
-            $reservation=OperationsController::createValue($Operation_Id,1,1, request('price_per_night'));
+
+
+            $Operation_Id = OperationsController::create(request('item_id'));
+
+            $reservation=OperationsController::createValue($Operation_Id,1,1,request('price_per_night'));
             $reservation=OperationsController::createValue($Operation_Id,1,2,request('start_date'));
             $reservation=OperationsController::createValue($Operation_Id,1,3,request('end_date'));
             $reservation=OperationsController::createValue($Operation_Id,1,4,request('totalCost'));
@@ -40,15 +41,9 @@ class PaymentController extends Controller
                 'Paid_Amount'=> request('totalCost'),
                 'confirmed'=> 1,
             ]);
+
             return back()->with('success',' Created Successfully');
-        }catch (\Illuminate\Database\QueryException $e){
-            $errorCode = $e->errorInfo[1];
-            if($errorCode == 1062){
-                return back()->with('error',' Already Exist !!');
-            }//if($errorCode == 1048 ){
-            //     return back()->with('error','You must select all values!!');
-            // }
-        }
+
         }
 
 
