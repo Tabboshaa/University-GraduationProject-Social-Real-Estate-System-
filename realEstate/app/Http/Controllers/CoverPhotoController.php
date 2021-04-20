@@ -6,6 +6,7 @@ use App\CoverPhoto;
 use App\attachment;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CoverPhotoController extends Controller
 {
@@ -26,24 +27,31 @@ class CoverPhotoController extends Controller
      */
     public function create()
     {
-      
+
         //
-        return 'null';
-    //     try{
-    //         $attachment = attachment::create([    
-    //             'File_Path'=>request('CoverPhoto'),
-    //         ]);
-    //         $coverPhoto = CoverPhoto::create([
-    //             'User_Id'=>request('user_id'),
-    //             'Cover_Photo'=>$attachment->Attachment_Id 
-    //         ]);
-    //         return back()->with('success', 'Item Created Successfully');
-    //     } catch (\Illuminate\Database\QueryException $e) {
-    //         $errorCode = $e->errorInfo[1];
-    //         if ($errorCode == 1062) {
-    //             return back()->with('error', 'Already Exist !!');
-    //         }
-    //    }
+
+       if ($files = request()->file('CoverPhoto')) {
+
+
+        $filename = $files->getClientOriginalName();
+        $files->storeAs('/cover page', $filename, 'public');
+
+        $attachment = attachment::create(['File_Path' => $filename]);
+
+        // }
+        try {
+            $coverPhoto = CoverPhoto::create([
+                'User_Id'=> Auth::id(),
+                'Cover_Photo'=>$attachment->Attachment_Id
+            ]);
+            return back();
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Already Exist !!');
+            }
+        }
+    }
     }
 
     /**

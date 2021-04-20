@@ -9,13 +9,16 @@
             <div class="advertisment-banner1 col-md-12">
                 {{-- Cover photo --}}
                 @if(!empty($Cover_Photo))
-                <img class="background" src="{{asset('FrontEnd/images/cover page/'.$Cover_Photo)}}" alt="">
+                <img class="background" src="{{asset('storage/cover page/'.$Cover_Photo)}}" alt="">
                 @else
                 <div id="coverPhoto">
-                    <img class="background" src="{{asset('FrontEnd/images/cover page/Default1.jpeg')}}" alt="">
+                    <img class="background" src="{{asset('storage/cover page/Default1.jpeg')}}" alt="">
                 </div>
                 <div class="screnshot" id="OpenImgUpload">
-                        <input id="cover_photo_upload" name="CoverPhoto" type="file" class="hidden" >    
+                <form method="POST" action="{{url('/CreateCoverPhoto')}}" enctype="multipart/form-data">
+                        @csrf
+                        <input id="cover_photo_upload" name="CoverPhoto" type="file" class="hidden" onchange="javascript:this.form.submit();">   
+                </form> 
                 </div>
                 @endif
             </div>
