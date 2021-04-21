@@ -41,7 +41,7 @@ class ProfilePhotoController extends Controller
     public function create()
     {
         //
-        Artisan::call('storage:link');
+        
         if ($files = request()->file('ProfilePhoto')) {
 
             $filename = $files->getClientOriginalName();

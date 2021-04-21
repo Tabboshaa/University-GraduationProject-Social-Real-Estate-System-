@@ -20,16 +20,15 @@ class ReservationController extends Controller
         //2-Start_Date
         //3-End_Date
         //4-Total_Price
-        $values=DB::table('operation__detail_value')
-            ->join('operation__detail_name', 'operation__detail_value.Detail_Id', '=', 'operation__detail_name.Detail_Id')
-            ->select('operation__detail_value.*','operation__detail_name.Operation_Detail_Name');
-//        return dd( $values);
-//        $reservation = DB::table('operation___detail__values')
-//            ->groupBy('Operation_Type_Id')
-//            ->having('Operation_Type_Id', '=', 1)
-//            ->get()->all();
-//        return dd( $reservation);
-
+        $values=DB::table('operation___detail__values')
+        ->join('operation__detail_name', 'operation___detail__values.Detail_Id', '=', 'operation__detail_name.Detail_Id')
+            ->join('operations', 'operation___detail__values.Operation_Id', '=', 'operations.Operation_Id')
+            ->where("operation___detail__values.Operation_Type_Id","=",1)
+            ->select('operation___detail__values.*','operation__detail_name.Operation_Detail_Name','operations.Item_Id','operations.User_Id')->get();
+            $values=$values->groupBy('Operation_Id');
+             
+            //  $reservation=Operation__Detail_Value::all()->where("Operation_Type_Id","=",1);
+              return dd($values);
 
         $sub_types = Sub_Type::all();
         $main_types = Main_Type::all();

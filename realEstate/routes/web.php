@@ -314,4 +314,4 @@ Route::get('/EditCustomerProfile',function () {
     return view('website.frontend.customer.Customer_Own_Profile');
 });
 Route::get('/EditCustomerProfile','CustomerHomeController@showMyProfile');
-Route::get('ReservationShow','ReservationController@show');
+Route::get('/ReservationShow','ReservationController@show');
