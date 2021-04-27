@@ -1,7 +1,9 @@
 @extends('website.frontend.layouts.main')
 @section('content')
 <link href="{{asset('css/FrontEndCSS/CustomerHome.css')}}" rel="stylesheet" type="text/css" />
-
+<link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('css/FrontEndCSS/ButtonStyle.css')}}" rel="stylesheet" type="text/css" />
 <div id="content-wrapper">
     <div class="container-fluid">
         <!-- Banner -->
@@ -9,7 +11,8 @@
             <div class="advertisment-banner1 col-md-12">
                 {{-- Cover photo --}}
                 @if(!empty($Cover_Photo))
-                <img class="background" src="{{asset('storage/cover page/'.$Cover_Photo)}}" alt="">
+                {{-- imggggggggggggggggggggggggggggggggg --}}
+                    <img class="background" src="{{asset('storage/cover page/'.$Cover_Photo['File_Path'])}}" alt="">
                 @else
                 <div id="coverPhoto">
                     <img class="background" src="{{asset('storage/cover page/Default1.jpeg')}}" alt="">
@@ -21,6 +24,10 @@
                 </form> 
                 </div>
                 @endif
+                <form method="Post" action="{{url('/DeleteMyCoverPhoto/'.$Cover_Photo['Photo_Id'].'/'.$Cover_Photo['File_Path'].'?_method=delete')}}" enctype="multipart/form-data">
+                @csrf
+                    <button type="submit" id="btun3" class="btn btn-success"></button>
+                </form>
             </div>
             <div class="main-page">
                 <div class=" dash-profile">
