@@ -23,8 +23,8 @@
                         <th ><h2 style="margin-right:60px;padding-bottom: 5px;">Sub Type Name</h2></th>
                         <th ><h2 style="margin-right:60px;padding-bottom: 5px;">Sub Type Property</h2></th>
                         <th ><h2 style="margin-right:60px;padding-bottom: 5px;">Edit</h2></th>
-                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:60px;"></i></th>
-                        
+                    <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:60px;"></i></button></th>
+
                     <!-- Java Script for select all function -->
                     <script>
                         document.getElementById('selectAll').onclick = function() {
@@ -43,13 +43,13 @@
                         <td>{{$property->Main_Type_Name}}</td>
                         <td>{{$property->Sub_Type_Name}}</td>
                         <td>{{$property->Property_Name}}</td>
-                        
+
                         <td><a href="javascript:void(0)" onclick="setSubTypePropertyIdName('{{$property->Property_Id}}','{{$property->Property_Name}}')"><i class="fa fa-edit"> Edit</i></a></td>
                         <td><input type="checkbox" name="id[]" value="{{$property->Property_Id}}"></td>
                  </tr>
                 @endforeach
                 <!-- END OF FOREACH -->
-                
+
             </tbody>
         </table>
         {!! $P1->render() !!}
@@ -69,7 +69,7 @@
                 <form id="EditSubTypeForm">
                     @csrf
                     <input type="hidden" name="id" id="id">
-            
+
                     <div class="form-group">
                         <label for="SubTypePropertyName" style="font-size: 12pt" >Property</label>
                         <input type="text" style="border-radius: 3pt"  name="SubTypePropertyName" id="SubTypePropertyName" class="form-control">
@@ -113,7 +113,7 @@
             // var MainTypeid=$("#MainTypeNameEdit").val();
             var SubTypePropertyName=$("#SubTypePropertyName").val();
             var _token= $("input[name=_token]").val();
-            
+
             $.ajax({
                 url:"{{route('subTypeProperty.update')}}",
                 Type:"PUT",

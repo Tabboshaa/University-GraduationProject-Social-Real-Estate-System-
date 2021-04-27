@@ -12,7 +12,7 @@
                         <tr class="postinfo">
                             <th colspan="3">
                                 <h4>
-                                    <img height="50" width="70" src="{{asset('FrontEnd/images/cover page/'.$item->path)}}" alt="">
+                                    <img height="50" width="70" src="{{asset('FrontEnd/images/coverpage/'.$item->path)}}" alt="">
                                     {{ $item->Item_Name }}
                                     <p> {{ $item->created_at }}</p>
                                 </h4>

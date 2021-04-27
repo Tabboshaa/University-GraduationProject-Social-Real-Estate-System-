@@ -64,7 +64,7 @@ class CustomerHomeController extends Controller
     public function itemProfile($id = null)
     {
         //
-        
+
         $state = StateController::getStates();
         $posts = PostsController::getItemPosts($id);
         $comments = CommentsController::getPostComments($id);
@@ -75,7 +75,7 @@ class CustomerHomeController extends Controller
 
         $User_Id = Auth::id();
         $check_follow=followeditemsbyuser::all()->where('Item_Id','=',$id)->where('User_ID','=',$User_Id);
-       
+
         return view(
             'website\frontend\customer\Item_Profile_Posts',
             [
@@ -285,23 +285,23 @@ class CustomerHomeController extends Controller
         return view('website.frontend.customer.TimeLine', ['posts' => $posts]);
 
     }
-    
+
 
     public function HomePagePosts ()
     {
         $User_Id = Auth::id();
-        
-        
+
+
         $user = User :: all()->where ('id','=',$User_Id);
-        
+
         $posts = DB::table('followeditemsbyusers')
         ->join('posts','followeditemsbyusers.Item_Id','posts.Item_Id')
         ->join('items','followeditemsbyusers.Item_Id','items.Item_Id')
         ->select('posts.*','items.Item_Name')
         ->where('followeditemsbyusers.User_ID','=',$User_Id )
         ->get();
-        
-        
+
+
 
         $cover__pages = DB::table('cover__pages')
         ->join('items','items.Item_Id','cover__pages.Item_Id')
@@ -311,7 +311,7 @@ class CustomerHomeController extends Controller
         $items = item::all();
 
         $post_images = DB::table('post_attachments')
-        ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id') 
+        ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
         ->join('followeditemsbyusers','followeditemsbyusers.Item_Id','post_attachments.Item_Id')
         ->select('post_attachments.*', 'attachments.File_Path')
         ->get()
@@ -319,14 +319,14 @@ class CustomerHomeController extends Controller
 
         $comments = [];
         $replies = [];
-        
+
         if($posts!=null){
         foreach ($posts as $post)
         {
             $comment = CommentsController::getPostCommentsHomePage($post->Post_Id);
-           
+
             $comments=collect($comments)->merge($comment);
-           
+
 
             $reply = CommentsController::getPostrepliesHomePage($post->Post_Id);
             $replies=collect($replies)->merge($reply);
@@ -334,11 +334,11 @@ class CustomerHomeController extends Controller
     }
 
         $comments= $comments->groupBy('Post_Id');
-        $replies= $replies->groupby('Parent_Comment');  
+        $replies= $replies->groupby('Parent_Comment');
         // return $replies;
-        
+
         $check_follow=followeditemsbyuser::all()->where('User_ID','=',$User_Id);
-        
+
         return view("website.frontend.customer.HomePagePosts",
         [
             'posts'=>$posts ,
@@ -355,23 +355,23 @@ class CustomerHomeController extends Controller
     }
     public function DestroyComment(Request $request, $id=null)
     {
-     
-    
+
+
             comments::destroy($request->id);
          return redirect()->route('HomePage')->with('success', 'Comment Deleted Successfully');
-    
- 
+
+
  }
  public function editComment()
  {
-     
-    
+
+
      try {
-       
+
          $comment = comments::all()->find(request('id'));
          $comment-> Comment = request('edit_Comment');
          $comment->save();
-    
+
          return back()->with('info', 'Comment Edited Successfully');
      } catch (\Illuminate\Database\QueryException $e) {
          $errorCode = $e->errorInfo[1];
@@ -382,23 +382,23 @@ class CustomerHomeController extends Controller
  }
  public function DestroyPost(Request $request, $id=null)
  {
-  
- 
+
+
          posts::destroy($request->id);
       return redirect()->route('HomePage')->with('success', 'Post Deleted Successfully');
- 
+
 
 }
 public function editPost()
  {
-     
-    
+
+
      try {
-       
+
          $post = posts::all()->find(request('id'));
          $post-> Post_Content = request('edit_Post');
          $post->save();
-    
+
          return back()->with('info', 'post Edited Successfully');
      } catch (\Illuminate\Database\QueryException $e) {
          $errorCode = $e->errorInfo[1];
@@ -409,7 +409,7 @@ public function editPost()
  }
 
     //route byro7 3la index aw function show da bst5dmo lma ha show variables
-    //fe el blade in the same time the route passes me to the blade 
+    //fe el blade in the same time the route passes me to the blade
     public function showMyProfile ()
     {
         $id = Auth::id();

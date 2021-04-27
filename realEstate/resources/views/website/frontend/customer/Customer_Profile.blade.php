@@ -8,13 +8,13 @@
         <div class="dashboard">
             <div class="advertisment-banner1 col-md-12">
             @if(!empty($Cover_Photo))
-            
-             <img class="background" src="{{asset('FrontEnd/images/cover page/'.$Cover_Photo)}}" alt="">
+
+             <img class="background" src="{{asset('FrontEnd/images/coverpage/'.$Cover_Photo)}}" alt="">
              @endif
             </div>
             <div class="main-page">
                 <div class=" dash-profile">
-                    <img class="profile" src="{{asset('FrontEnd/images/cover page/'.$Cover_Photo)}}" alt="">
+                    <img class="profile" src="{{asset('FrontEnd/images/coverpage/'.$Cover_Photo)}}" alt="">
                 </div>
                 <div class="prompr">
                     <div class="dashname">
@@ -33,7 +33,7 @@
                     <span class="navbar-toggler-icon "></span>
                 </button>
                 <div class="collapse navbar-collapse  visible-title" id="navbarNav">
-                   
+
                 </div>
             </div>
 
@@ -90,7 +90,7 @@
                         <button type="submit" id="btun1" class="btn btn-primary">
                             {{ __('Add') }}
                         </button>
-    
+
                     </div>
                 </div>
             </form>

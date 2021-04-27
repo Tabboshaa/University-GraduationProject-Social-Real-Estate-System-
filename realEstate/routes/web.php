@@ -62,7 +62,7 @@ Route::get('/creditCard', function(){
 
 });
 Route::post('reserve','PaymentController@create');
-Route::get('/reservejj', function () {
+Route::get('/reserve', function () {
     return view('website\backend.database pages.add-Reservation');
 });
 Route::get('/Payment/{item_id}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}', 'PaymentController@show_payment');
@@ -297,6 +297,8 @@ Route::get('/timeline',function () {
 Route::post('/CreateCoverPhoto','CoverPhotoController@create')->name('create.coverphoto');
 Route::delete('/DeleteMyCoverPhoto/{id?}/{File_Path?}','CoverPhotoController@destroy');
 Route::post('/CreateProfilePhoto','ProfilePhotoController@create')->name('create.profilephoto');
+Route::post('/UpdateCoverPhoto','CoverPhotoController@edit')->name('create.coverphoto');
+Route::post('/UpdateProfilePhoto','ProfilePhotoController@edit')->name('create.profilephoto');
 //Follow 
 //Follow
 Route::get('/FollowItem/{id?}','AddUserController@FollowedItem');
@@ -313,4 +315,4 @@ Route::get('/EditCustomerProfile',function () {
     return view('website.frontend.customer.Customer_Own_Profile');
 });
 Route::get('/EditCustomerProfile','CustomerHomeController@showMyProfile');
-Route::get('ReservationShow','ReservationController@show');
+Route::get('/ReservationShow','ReservationController@show');
