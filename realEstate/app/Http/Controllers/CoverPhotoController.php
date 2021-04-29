@@ -108,6 +108,32 @@ class CoverPhotoController extends Controller
     public function update(Request $request, CoverPhoto $coverPhoto)
     {
         //
+        if ($files = request()->file('CoverPhoto')) {
+
+
+            $filename = $files->getClientOriginalName();
+            $files->storeAs('/cover page', $filename, 'public');
+    
+            $attachment = attachment::create(['File_Path' => $filename]);
+    
+            // }
+            try {
+                $coverPhoto = CoverPhoto::create([
+                    'User_Id'=> Auth::id(),
+                    'Cover_Photo'=>$attachment->Attachment_Id
+                ]);
+                $coverPhoto= CoverPhoto::all()->find(request('Photo_Id'));
+                //hy7ot el name el gded f column el country name
+                $coverPhoto->Cover_Photo=$attachment->Attachment_Id;
+                $coverPhoto->save();
+                return back();
+            } catch (\Illuminate\Database\QueryException $e) {
+                $errorCode = $e->errorInfo[1];
+                if ($errorCode == 1062) {
+                    return back()->with('error', 'Already Exist !!');
+                }
+            }
+        }
     }
 
     /**

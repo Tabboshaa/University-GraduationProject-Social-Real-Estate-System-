@@ -316,3 +316,10 @@ Route::get('/EditCustomerProfile',function () {
 });
 Route::get('/EditCustomerProfile','CustomerHomeController@showMyProfile');
 Route::get('/ReservationShow','ReservationController@show');
+
+Route::get('/owneritemProfile/{id?}', 'ItemProfileController@itemProfile');
+Route::get('/owneritemDetails/{id?}', 'ItemProfileController@itemDetails');
+Route::get('/owneritemGallery/{id?}', 'ItemProfileController@itemProfileGallery');
+Route::get('/owneritemReviews/{id?}', 'ItemProfileController@itemProfileReviews');
+Route::get('/owneritemReservations/{id?}', 'ItemProfileController@itemReservations');
+Route::get('/owneritemManageSchedule/{id?}', 'ItemProfileController@itemManageSchedule');
