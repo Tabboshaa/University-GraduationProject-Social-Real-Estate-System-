@@ -78,36 +78,41 @@ class AddUserController extends Controller
 
     }
 
-    public function BeOwner($user_id)
+    public function BeOwner($user_id=null)
     {
-        $user = User::all()->find($user_id);
+        if($user_id==null){
+            return 'done';
+        }else{
+            $user = User::all()->find($user_id);
 
-        $user->First_Name=request('First');
-        $user->Middle_Name=request('Middle');
-        $user->Last_Name=request('Last');
-        $user->National_ID=request('National');
-        $user->save();
+            $user->First_Name=request('First');
+            $user->Middle_Name=request('Middle');
+            $user->Last_Name=request('Last');
+            $user->National_ID=request('National');
+            $user->save();
 
-        $phone_number = Phone_Numbers::all()->where('User_ID','=',$user->id);
+            $phone_number = Phone_Numbers::all()->where('User_ID','=',$user->id);
 
-        if($phone_number=='[]')
-        {
+            if($phone_number=='[]')
+            {
 
-            $phone_number = Phone_Numbers::create([
-                'User_ID' => $user_id,
-                'phone_number' => request('Phone'),
-                'Default' => 1
+                $phone_number = Phone_Numbers::create([
+                    'User_ID' => $user_id,
+                    'phone_number' => request('Phone'),
+                    'Default' => 1
+                ]);
+            }
+            else
+            {
+                $phone_number->phone_number=request('Phone');
+            }
+            $typeOfUser=Type_Of_User::create([
+                'User_ID' =>$user_id,
+                'User_Type_ID'=>3
             ]);
+            return'done';
         }
-        else
-        {
-            $phone_number->phone_number=request('Phone');
-        }
-        $typeOfUser=Type_Of_User::create([
-           'User_ID' =>$user_id,
-            'User_Type_ID'=>3
-        ]);
-        return'done';
+
     }
     /**
      * Store a newly created resource in storage.

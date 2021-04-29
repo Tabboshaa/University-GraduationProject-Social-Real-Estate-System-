@@ -317,7 +317,8 @@ Route::get('/EditCustomerProfile',function () {
 Route::get('/EditCustomerProfile','CustomerHomeController@showMyProfile');
 Route::get('/ReservationShow','ReservationController@show');
 
-Route::Post('/BeOwner/{id}','AddUserController@BeOwner')->name('BeOwner');
+Route::Post('/BeOwner/{id?}','AddUserController@BeOwner')->name('BeOwner');
+Route::get('/BeOwner/{id?}','AddUserController@BeOwner');
 
 
 Route::get('/owneritemProfile/{id?}', 'ItemProfileController@itemProfile');
