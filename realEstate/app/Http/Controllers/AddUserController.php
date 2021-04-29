@@ -78,6 +78,16 @@ class AddUserController extends Controller
 
     }
 
+    public function checkIfOwner()
+    {
+        $user_id=Auth::id();
+        $user=Type_Of_User::all()->where('User_ID','=',$user_id)->where('User_Type_ID','=',3);
+        if($user=='[]')
+            $user='0';
+        else
+            $user='1';
+        return $user;
+    }
     public function BeOwner($user_id=null)
     {
         if($user_id==null){
@@ -158,7 +168,7 @@ class AddUserController extends Controller
         $post_images= $post_images->groupby('Post_Id');
         }
     }
-    
+
         if($id == Auth::id())
         {
             return view('website\frontend\customer\Customer_Own_Profile',['First_Name'=>$user->First_Name,'Middle_Name'=>$user->Middle_Name,'Last_Name'=>$user->Last_Name,'Cover_Photo'=>$cover_photo,'Profile_Photo'=>$profile_photo,'posts'=>$posts,'post_images'=>$post_images]);
