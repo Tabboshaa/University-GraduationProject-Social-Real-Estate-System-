@@ -215,7 +215,7 @@
                                     <input type="file" name="images[]" placeholder="upload Images" multiple>
                                     <br>
                                 </div>
-                                e</hr>
+                                </hr>
                             </div>
                             <button class="btn" type="submit">Submit</button>
                     </div>

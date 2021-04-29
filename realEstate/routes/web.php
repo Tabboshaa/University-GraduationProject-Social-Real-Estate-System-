@@ -316,3 +316,8 @@ Route::get('/EditCustomerProfile',function () {
 });
 Route::get('/EditCustomerProfile','CustomerHomeController@showMyProfile');
 Route::get('/ReservationShow','ReservationController@show');
+
+//Owner
+Route::get('/OwnerAddItem', function () {
+    return view('website\frontend.Owner.Add_Item');
+});
