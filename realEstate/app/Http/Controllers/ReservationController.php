@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Datatype;
+use App\Emails;
 use App\Main_Type;
 use App\Operation__Detail_Value;
 use App\Property_Details;
 use App\Sub_Type;
 use App\Sub_Type_Property;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,14 +23,26 @@ class ReservationController extends Controller
         //3-End_Date
         //4-Total_Price
         $values=DB::table('operation___detail__values')
-        ->join('operation__detail_name', 'operation___detail__values.Detail_Id', '=', 'operation__detail_name.Detail_Id')
-            ->join('operations', 'operation___detail__values.Operation_Id', '=', 'operations.Operation_Id')
+            ->join('operation__detail_name', 'operation___detail__values.Detail_Id', '=', 'operation__detail_name.Detail_Id')
             ->where("operation___detail__values.Operation_Type_Id","=",1)
-            ->select('operation___detail__values.*','operation__detail_name.Operation_Detail_Name','operations.Item_Id','operations.User_Id')->get();
+            ->select('operation___detail__values.*','operation__detail_name.Operation_Detail_Name')
+            ->get();
+        $test=Operation__Detail_Value::all()->where("Operation_Type_Id","=",1);
             $values=$values->groupBy('Operation_Id');
-             
-            //  $reservation=Operation__Detail_Value::all()->where("Operation_Type_Id","=",1);
-              return dd($values);
+//            return dd($values);
+
+            foreach ($values as $t => $t1)
+            {
+
+                echo "<pre>";
+                echo $t1;
+                echo "<pre>";
+
+            }
+            return;
+
+//            return $values[13][0]->email;
+
 
         $sub_types = Sub_Type::all();
         $main_types = Main_Type::all();
@@ -43,6 +57,6 @@ class ReservationController extends Controller
             ->select('property__details.*', 'main__types.Main_Type_Name', 'sub__types.Sub_Type_Name', 'sub__type__properties.Property_Name', 'datatypes.datatype')
             ->paginate(10);
 
-        return view('website.backend.database pages.Reservation_Show', ['sub_type' => $sub_types, 'main_type' => $main_types, 'property_detail' => $property_details, 'property' => $property, 'data_type' => $data_type]);
+        return view('website.backend.database pages.Reservation_Show', ['values'=>$values,'sub_type' => $sub_types, 'main_type' => $main_types, 'property_detail' => $property_details, 'property' => $property, 'data_type' => $data_type]);
     }
 }

@@ -30,7 +30,7 @@ class CustomerHomeController extends Controller
         //
         $state = StateController::getStates();
         return view("website.frontend.customer.CustomerHome", ['states' => $state ]);
-        // return view('');
+
     }
 
     /**
@@ -420,13 +420,13 @@ public function editPost()
         $post_images = AttachmentController::getAttachmentsOfPosts($id);
 
         $post_images = [];
-        
+
         foreach ($posts as $post)
         {
             $post_image = AttachmentController::getAttachmentsOfPosts($post->Post_Id);
-           
+
             $post_images=collect($post_images)->merge($post_image);
-           
+
         }
 
         $post_images= $post_images->groupby('Post_Id');

@@ -16,7 +16,7 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -35,7 +35,7 @@ class CommentsController extends Controller
                 'Comment'  => request('comment')
             ]);
 
-            $to_user= PostsController::postCreatedBy(request('post_id')); 
+            $to_user= PostsController::postCreatedBy(request('post_id'));
             NotificationController::create(Auth::id(),$to_user,'Commented on your post');
            return response()->json($comment);
         // }catch (\Illuminate\Database\QueryException $e){
@@ -185,7 +185,7 @@ class CommentsController extends Controller
         ->get();
 
 
-        return $comments;  
+        return $comments;
     }
 
     public static function getPostrepliesHomePage ($post_id )
@@ -198,7 +198,7 @@ class CommentsController extends Controller
         ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
         ->get();
 
-        return $comments; 
+        return $comments;
     }
     public static function GetCommentReply ()
     {
@@ -208,7 +208,7 @@ class CommentsController extends Controller
         ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
         ->get();
 
-        return $comments; 
+        return $comments;
     }
     public static function GetComments()
     {
@@ -219,6 +219,6 @@ class CommentsController extends Controller
         ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
         ->get();
 
-        return $comments; 
+        return $comments;
     }
 }

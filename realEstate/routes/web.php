@@ -42,7 +42,7 @@ Route::get('/s', function(){
 Route::group(['middleware' => 'auth.user'], function () {
 Route::get('/', 'CustomerHomeController@index')->name('CustomerHome');
 //Customer HOMEpage
-Route::get('/CustomerHome', 'CustomerHomeController@index');
+Route::get('/HomeRegister', 'CustomerHomeController@index')->name('HomeRegister');
 Route::get('/search_by_place','CustomerHomeController@findItemInState');
 Route::get('/search_by_placedate','CustomerHomeController@findItemInStateAndDate');
 
@@ -286,7 +286,7 @@ Route::get('/edit_operation_type', 'OperationsController@edit')->name('operation
     //search user
 
     Route::post('/search_user', 'AddUserController@search')->name('search');
-    Route::get('/home', 'HomeController@index')->name('home');
+
 // });
 
 Route::get('/timeline',function () {
@@ -298,7 +298,7 @@ Route::post('/CreateCoverPhoto','CoverPhotoController@create')->name('create.cov
 Route::post('/CreateProfilePhoto','ProfilePhotoController@create')->name('create.profilephoto');
 Route::post('/UpdateCoverPhoto','CoverPhotoController@edit')->name('create.coverphoto');
 Route::post('/UpdateProfilePhoto','ProfilePhotoController@edit')->name('create.profilephoto');
-//Follow 
+//Follow
 //Follow
 Route::get('/FollowItem/{id?}','AddUserController@FollowedItem');
 Route::get('/UnfollowItem/{id?}','AddUserController@UnfollowItem');
@@ -315,3 +315,7 @@ Route::get('/EditCustomerProfile',function () {
 });
 Route::get('/EditCustomerProfile','CustomerHomeController@showMyProfile');
 Route::get('/ReservationShow','ReservationController@show');
+
+Route::Post('/BeOwner/{id}','AddUserController@BeOwner')->name('BeOwner');
+
+

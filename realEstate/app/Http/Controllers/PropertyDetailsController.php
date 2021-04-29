@@ -27,7 +27,7 @@ class PropertyDetailsController extends Controller
         // request()->validate([
         // 'property_details' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
         // ]);
-        
+
         try {
             $Property_Detail = Property_Details::create([
                 'Main_Type_Id' => request('Main_Type_Name'),
@@ -60,6 +60,7 @@ class PropertyDetailsController extends Controller
             ->join('datatypes', 'property__details.DataType_Id', '=', 'datatypes.id')
             ->select('property__details.*', 'main__types.Main_Type_Name', 'sub__types.Sub_Type_Name', 'sub__type__properties.Property_Name', 'datatypes.datatype')
             ->paginate(10);
+
 
         return view('website.backend.database pages.Property_Details_Show', ['sub_type' => $sub_types, 'main_type' => $main_types, 'property_detail' => $property_details, 'property' => $property, 'data_type' => $data_type]);
     }
@@ -94,23 +95,23 @@ class PropertyDetailsController extends Controller
        {
         try {
         Property_Details::destroy($request->id);
-        
+
         return redirect()->route('property_detail_show')->with('success', 'Property Detail Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
 
         return redirect()->route('property_detail_show')->with('error', 'Property Detail cannot be deleted');
-                
+
     }
 }else return redirect()->route('property_detail_show')->with('warning', 'No Property Detail was chosen to be deleted.. !!');
     }
-    
+
     public function submit_properties()
     {
         //
         $property = Sub_Type_Property::all()->whereIn('Property_Id',request('property'));
         $details= Property_Details::all();
         return view('website.backend.database pages.Detail_Page', ['property' => $property,'details'=>$details]);
-  
+
     }
     public function findDetailsForForm()
     {
@@ -119,7 +120,7 @@ class PropertyDetailsController extends Controller
             ->select('property__details.*','datatypes.datatype')
             ->get()
             ->where('Property_Id','=',request('id'));
-        
+
         return response()->json($details);
     }
 }
