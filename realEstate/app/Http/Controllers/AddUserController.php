@@ -103,7 +103,10 @@ class AddUserController extends Controller
         {
             $phone_number->phone_number=request('Phone');
         }
-
+        $typeOfUser=Type_Of_User::create([
+            'User_ID' =>$user_id,
+             'User_Type_ID'=>3
+         ]);
         return view('website.frontend.Owner.Add_Item');
     }
     /**

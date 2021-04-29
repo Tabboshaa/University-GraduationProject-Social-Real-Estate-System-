@@ -92,11 +92,12 @@ class AttachmentController extends Controller
     {
         //
         try {
-            return attachment::all()->where('Attachment_Id', '=', $id)->first()->File_Path;
+            return attachment::all()->where('Attachment_Id', '=', $id)->first();
         } catch (Exception $e) {
             return null;
         }
     }
+
 
     /**
      * Update the specified resource in storage.
