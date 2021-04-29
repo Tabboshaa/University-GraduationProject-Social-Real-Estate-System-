@@ -66,6 +66,10 @@ Route::get('/reserve', function () {
     return view('website\backend.database pages.add-Reservation');
 });
 Route::get('/Payment/{item_id}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}', 'PaymentController@show_payment');
+Route::get('/state1', function () {
+    return view('website\backend.database pages.StatePhoto');
+});
+
 
 
 //items Profile Pages
@@ -315,4 +319,7 @@ Route::get('/EditCustomerProfile',function () {
     return view('website.frontend.customer.Customer_Own_Profile');
 });
 Route::get('/EditCustomerProfile','CustomerHomeController@showMyProfile');
-Route::get('/ReservationShow','ReservationController@show');
+Route::get('ReservationShow','ReservationController@show');
+Route::get('/StatesPhotos', 'StatePhotoController@index');
+Route::POST('/add_StatePhoto', 'StatePhotoController@create');
+Route::get('/shaimaa','CustomerHomeController@indexPhoto');
