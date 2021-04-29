@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Schedule;
+use Carbon\Carbon;
+use DateInterval;
+use DatePeriod;
+use DateTime;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -39,6 +43,63 @@ class ScheduleController extends Controller
             return back()->with('error', 'Error creating schedule !!');
         }
     }
+
+    public static function getAvailableTime($item_id)
+    {
+        //     get from Schedule endDate startDate where item id =$item_id
+
+        $schedule = schedule::orderBy('Start_Date')->where('Item_Id', '=', $item_id)->get();
+
+        $days = [];
+        //get day of every schedule
+        foreach ($schedule as $value) {
+
+            $day = ScheduleController::getdays($value->Start_Date, $value->End_Date, $value->schedule_Id);
+            //merge days
+            $days = collect($days)->merge($day)->unique(); //unique 3shan mykrrsh date mrten
+        }
+
+        //group by month of date
+        $days = collect($days)->groupBy(function ($val) {
+            return Carbon::parse($val['date'])->format('m');
+        })->toArray();
+
+        return $days;
+    }
+
+    public static function getdays($start, $end, $schedule_id)
+    {
+
+        $period = new DatePeriod(
+            new DateTime($start),
+            new DateInterval('P1D'),
+            new DateTime($end)
+        );
+
+        $interval = [];
+        //enter start date
+        $interval[] = [
+            'date' => $start,
+            'schedule_Id' => $schedule_id
+        ];
+
+        // }for loop to store interval in array
+        foreach ($period as $key => $value) {
+            $interval[] = [
+                'date' => $value->format('Y-m-d'),
+                'schedule_Id' => $schedule_id
+            ];
+        }
+        //enter end date
+        $interval[] = [
+            'date' => $end,
+            'schedule_Id' => $schedule_id
+        ];
+
+        return $interval;
+    }
+
+
 
     /**
      * Store a newly created resource in storage.

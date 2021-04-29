@@ -78,6 +78,16 @@ class AddUserController extends Controller
 
     }
 
+    public function checkIfOwner()
+    {
+        $user_id=Auth::id();
+        $user=Type_Of_User::all()->where('User_ID','=',$user_id)->where('User_Type_ID','=',3);
+        if($user=='[]')
+            $user='0';
+        else
+            $user='1';
+        return $user;
+    }
     public function BeOwner($user_id=null)
     {
         if($user_id==null){
@@ -155,6 +165,8 @@ class AddUserController extends Controller
         }
 
         $post_images= $post_images->groupby('Post_Id');
+        
+    
 
         if($id == Auth::id())
         {
