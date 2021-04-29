@@ -91,7 +91,7 @@ class ItemProfileController extends Controller
     {
         //
 
-        $schedule = $this->getAvailableTime($id);
+        $schedule = ScheduleController::getAvailableTime($id);
         // return $schedule;
 
         $state = StateController::getStates();
@@ -107,60 +107,6 @@ class ItemProfileController extends Controller
         return view('website\frontend\owner\Item_Profile_Details', ['states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
     }
 
-    public function getAvailableTime($item_id)
-    {
-        //     get from Schedule endDate startDate where item id =$item_id
-
-        $schedule = schedule::orderBy('Start_Date')->where('Item_Id', '=', $item_id)->get();
-
-        $days = [];
-        //get day of every schedule
-        foreach ($schedule as $value) {
-
-            $day = $this->getdays($value->Start_Date, $value->End_Date, $value->schedule_Id);
-            //merge days
-            $days = collect($days)->merge($day)->unique(); //unique 3shan mykrrsh date mrten
-        }
-
-        //group by month of date
-        $days = collect($days)->groupBy(function ($val) {
-            return Carbon::parse($val['date'])->format('m');
-        })->toArray();
-
-        return $days;
-    }
-
-    function getdays($start, $end, $schedule_id)
-    {
-
-        $period = new DatePeriod(
-            new DateTime($start),
-            new DateInterval('P1D'),
-            new DateTime($end)
-        );
-
-        $interval = [];
-        //enter start date
-        $interval[] = [
-            'date' => $start,
-            'schedule_Id' => $schedule_id
-        ];
-
-        // }for loop to store interval in array
-        foreach ($period as $key => $value) {
-            $interval[] = [
-                'date' => $value->format('Y-m-d'),
-                'schedule_Id' => $schedule_id
-            ];
-        }
-        //enter end date
-        $interval[] = [
-            'date' => $end,
-            'schedule_Id' => $schedule_id
-        ];
-
-        return $interval;
-    }
 
 
     public function itemProfileGallery($id)
@@ -227,6 +173,22 @@ class ItemProfileController extends Controller
 // function for page ownerManageSchedule 
     public function itemManageSchedule($id = null)
     {
+        
+        $schedule = ScheduleController::getAvailableTime($id);
+        // return $schedule;
+
+        $state = StateController::getStates();
+
+        $item = AddUserController::getItemWithOwnerName($id);
+        $cover = CoverPageController::getCoverPhotoOfItem($id);
+        //schedule and location
+
+        $User_Id = Auth::id();
+        $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
+
+
+        return view('website\frontend\owner\Item_Profile_Details', ['states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
+  
 
 
     }
