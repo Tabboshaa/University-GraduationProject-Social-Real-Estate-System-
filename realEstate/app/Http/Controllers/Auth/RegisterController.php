@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Emails;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Type_Of_User;
 use App\User;
 use App\ProfilePhoto;
 use http\Env\Request;
+use http\Url;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
@@ -68,20 +70,21 @@ class RegisterController extends Controller
      */
     protected function create()
     {
-//        return User::create([
-//            'name' => $data['name'],
-//            'email' => $data['email'],
-//            'password' => Hash::make($data['password']),
-//        ]);
-
         $user=User::create(['password' => Hash::make(request('password'))]);
 
-
         $user_Id= Arr::get($user, 'id');
+
         $Email=Emails::create([
             'User_ID'=>$user_Id,
             'email' => request()['email']
         ]);
-        return route("CustomerHome");
+
+        $user_type = Type_Of_User::create([
+            'User_ID' => $user_Id,
+            'User_Type_ID'=>2
+        ]);
+
+        //return redirect('/HomeRegister');
+        return redirect()->route('HomeRegister');
     }
 }

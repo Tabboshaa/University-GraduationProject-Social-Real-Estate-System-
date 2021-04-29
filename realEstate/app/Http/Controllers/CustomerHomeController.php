@@ -1,4 +1,4 @@
-<?php
+  <?php
 
 namespace App\Http\Controllers;
 
@@ -30,7 +30,7 @@ class CustomerHomeController extends Controller
         //
         $state = StateController::getStates();
         return view("website.frontend.customer.CustomerHome", ['states' => $state ]);
-        // return view('');
+
     }
 
     /**

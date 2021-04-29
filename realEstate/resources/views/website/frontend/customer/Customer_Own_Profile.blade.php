@@ -20,8 +20,8 @@
                 <div class="screnshot" id="OpenImgUpload">
                 <form method="POST" action="{{url('/CreateCoverPhoto')}}" enctype="multipart/form-data">
                         @csrf
-                        <input id="cover_photo_upload" name="CoverPhoto" type="file" class="hidden" onchange="javascript:this.form.submit();">   
-                </form> 
+                        <input id="cover_photo_upload" name="CoverPhoto" type="file" class="hidden" onchange="javascript:this.form.submit();">
+                </form>
                 </div>
                 @endif
                 <form method="Post" action="{{url('/DeleteMyCoverPhoto/'.$Cover_Photo['Photo_Id'].'/'.$Cover_Photo['File_Path'].'?_method=delete')}}" enctype="multipart/form-data">
@@ -33,10 +33,10 @@
                 <div class=" dash-profile">
                     {{-- profile photo --}}
                     @if(!empty($Profile_Photo))
-                    <img class="profile" src="{{asset('storage/app/coverpage/'.$Profile_Photo)}}" alt="">
+                    <img class="profile" src="{{asset('storage/cover page/'.$Profile_Photo)}}" alt="">
                     @else
                     <div id="ProfilePhoto">
-                        <img class="profile" src="{{asset('storage/coverpage/pic.png')}}" alt="">
+                        <img class="profile" src="{{asset('storage/cover page/pic.png')}}" alt="">
                     </div>
                     <div class="screnshot" id="OpenImgUpload">
                     <!-- New simple code hena ya Shaimaaa -->
@@ -68,9 +68,24 @@
                     <span class="navbar-toggler-icon "></span>
                 </button>
                 <div class="collapse navbar-collapse  visible-title" id="navbarNav">
+                    <ul class="navbar-nav ">
+                        <li>
+                            <a href="">Posts </a>
+                        </li>
+                        <li>
+                            <a href="">Detail </a>
+                        </li>
+                        <li>
+                            <a href="">Review </a>
+                        </li>
+                        <li>
+                            <a href="">Gallery </a>
+                        </li>
+                    </ul>
 
                 </div>
             </div>
+
         </div>
 
         <div class="row">

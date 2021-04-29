@@ -41,11 +41,11 @@ class ProfilePhotoController extends Controller
     public function create()
     {
         //
-        
+
         if ($files = request()->file('ProfilePhoto')) {
 
             $filename = $files->getClientOriginalName();
-            $files->storeAs('/coverpage', $filename, 'public');
+            $files->storeAs('/cover page', $filename, 'public');
 
             $attachment = attachment::create(['File_Path' => $filename]);
 
@@ -80,7 +80,7 @@ class ProfilePhotoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\CoverPhoto  $coverPhoto
+     * @param  \App\ProfilePhoto  $coverPhoto
      * @return \Illuminate\Http\Response
      */
     public function show(CoverPhoto $coverPhoto)
@@ -91,10 +91,10 @@ class ProfilePhotoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\CoverPhoto  $coverPhoto
+     * @param  \App\ProfilePhoto  $coverPhoto
      * @return \Illuminate\Http\Response
      */
-    public function edit(CoverPhoto $coverPhoto)
+    public function edit(ProfilePhoto $profilePhoto)
     {
         //
     }
@@ -106,9 +106,35 @@ class ProfilePhotoController extends Controller
      * @param  \App\CoverPhoto  $coverPhoto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CoverPhoto $coverPhoto)
+    public function update()
     {
         //
+        if ($files = request()->file('ProfilePhoto')) {
+
+
+            $filename = $files->getClientOriginalName();
+            $files->storeAs('/cover page', $filename, 'public');
+    
+            $attachment = attachment::create(['File_Path' => $filename]);
+    
+            // }
+            try {
+                $profilePhoto = ProfilePhoto::create([
+                    'User_Id'=> Auth::id(),
+                    'Cover_Photo'=>$attachment->Attachment_Id
+                ]);
+                $profilePhoto= ProfilePhoto::all()->find(request('Photo_Id'));
+                //hy7ot el name el gded f column el country name
+                $profilePhoto->Profile_Picture=$attachment->Attachment_Id;
+                $profilePhoto->save();
+                return back();
+            } catch (\Illuminate\Database\QueryException $e) {
+                $errorCode = $e->errorInfo[1];
+                if ($errorCode == 1062) {
+                    return back()->with('error', 'Already Exist !!');
+                }
+            }
+        }
     }
 
     /**

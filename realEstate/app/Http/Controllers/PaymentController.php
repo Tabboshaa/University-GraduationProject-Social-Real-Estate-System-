@@ -26,14 +26,14 @@ class PaymentController extends Controller
     public function create()
     {
 
-
+            //create reservation
             $Operation_Id = OperationsController::create(request('item_id'));
-
+            //create reservation details
             $reservation=OperationsController::createValue($Operation_Id,1,1,request('price_per_night'));
             $reservation=OperationsController::createValue($Operation_Id,1,2,request('start_date'));
             $reservation=OperationsController::createValue($Operation_Id,1,3,request('end_date'));
             $reservation=OperationsController::createValue($Operation_Id,1,4,request('totalCost'));
-
+            //create payment
             $payment=payment::create([
                 'Operation_Id' => $Operation_Id,
                 'Payment_Method'=> "Credit",

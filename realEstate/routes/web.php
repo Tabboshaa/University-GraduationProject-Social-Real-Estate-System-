@@ -42,7 +42,7 @@ Route::get('/s', function(){
 Route::group(['middleware' => 'auth.user'], function () {
 Route::get('/', 'CustomerHomeController@index')->name('CustomerHome');
 //Customer HOMEpage
-Route::get('/CustomerHome', 'CustomerHomeController@index');
+Route::get('/HomeRegister', 'CustomerHomeController@index')->name('HomeRegister');
 Route::get('/search_by_place','CustomerHomeController@findItemInState');
 Route::get('/search_by_placedate','CustomerHomeController@findItemInStateAndDate');
 
@@ -286,7 +286,7 @@ Route::get('/edit_operation_type', 'OperationsController@edit')->name('operation
     //search user
 
     Route::post('/search_user', 'AddUserController@search')->name('search');
-    Route::get('/home', 'HomeController@index')->name('home');
+
 // });
 
 Route::get('/timeline',function () {
@@ -299,7 +299,7 @@ Route::delete('/DeleteMyCoverPhoto/{id?}/{File_Path?}','CoverPhotoController@des
 Route::post('/CreateProfilePhoto','ProfilePhotoController@create')->name('create.profilephoto');
 Route::post('/UpdateCoverPhoto','CoverPhotoController@edit')->name('create.coverphoto');
 Route::post('/UpdateProfilePhoto','ProfilePhotoController@edit')->name('create.profilephoto');
-//Follow 
+//Follow
 //Follow
 Route::get('/FollowItem/{id?}','AddUserController@FollowedItem');
 Route::get('/UnfollowItem/{id?}','AddUserController@UnfollowItem');
@@ -321,3 +321,12 @@ Route::get('/ReservationShow','ReservationController@show');
 Route::get('/OwnerAddItem', function () {
     return view('website\frontend.Owner.Add_Item');
 });
+Route::Post('/BeOwner/{id}','AddUserController@BeOwner')->name('BeOwner');
+
+
+Route::get('/owneritemProfile/{id?}', 'ItemProfileController@itemProfile');
+Route::get('/owneritemDetails/{id?}', 'ItemProfileController@itemDetails');
+Route::get('/owneritemGallery/{id?}', 'ItemProfileController@itemProfileGallery');
+Route::get('/owneritemReviews/{id?}', 'ItemProfileController@itemProfileReviews');
+Route::get('/owneritemReservations/{id?}', 'ItemProfileController@itemReservations');
+Route::get('/owneritemManageSchedule/{id?}', 'ItemProfileController@itemManageSchedule');

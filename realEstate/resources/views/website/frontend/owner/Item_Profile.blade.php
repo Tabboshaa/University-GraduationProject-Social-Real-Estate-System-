@@ -6,7 +6,7 @@
         <!-- Banner -->
         <div class="dashboard">
             <div class="advertisment-banner1 col-md-12">
-                <img src="{{asset('storage/cover page/'.$cover->path)}}" alt="">
+        <img src="{{asset('storage/cover page/'.$cover->path)}}" alt="">
             </div>
             <div class="main-page">
                 <div class="dash-profile">
@@ -67,6 +67,12 @@
                         </li>
                         <li>
                             <a href="{{url('/itemGallery/'.$item->Item_Id)}}">Gallery </a>
+                        </li>
+                        <li>
+                            <a href="{{url('/owneritemReservations/'.$item->Item_Id)}}">Reservation history </a>
+                        </li>
+                        <li>
+                            <a href="{{url('/owneritemManageSchedule/'.$item->Item_Id)}}">Manage my calender </a>
                         </li>
                     </ul>
 
