@@ -120,16 +120,18 @@ return view('website\backend.database pages.Add_City',['country'=>$countries , '
     public function destroy(Request $request, $id=null)
     {
         if(request()->has('id'))
-       {
-        try {
-        City::destroy($request->id);
-        return redirect()->route('city_show')->with('success', 'City Deleted Successfully');
-    }catch (\Illuminate\Database\QueryException $e){
-
-        return redirect()->route('city_show')->with('error', 'City cannot be deleted');
-
-    }
-}else return redirect()->route('city_show')->with('warning', 'No City was chosen to be deleted.. !!');
+        {
+            try {
+            City::destroy($request->id);
+            return redirect()->route('city_show')->with('success', 'City Deleted Successfully');
+        }
+            catch (\Illuminate\Database\QueryException $e)
+            {
+                return redirect()->route('city_show')->with('error', 'City cannot be deleted');
+            }
+        }
+        else 
+        return redirect()->route('city_show')->with('warning', 'No City was chosen to be deleted.. !!');
     }
 
     public function findstate(){

@@ -7,6 +7,10 @@ use App\attachment;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+
+
 
 class CoverPhotoController extends Controller
 {
@@ -35,7 +39,6 @@ class CoverPhotoController extends Controller
 
         $filename = $files->getClientOriginalName();
         $files->storeAs('/cover page', $filename, 'public');
-
         $attachment = attachment::create(['File_Path' => $filename]);
 
         // }
@@ -105,6 +108,32 @@ class CoverPhotoController extends Controller
     public function update(Request $request, CoverPhoto $coverPhoto)
     {
         //
+        if ($files = request()->file('CoverPhoto')) {
+
+
+            $filename = $files->getClientOriginalName();
+            $files->storeAs('/cover page', $filename, 'public');
+    
+            $attachment = attachment::create(['File_Path' => $filename]);
+    
+            // }
+            try {
+                $coverPhoto = CoverPhoto::create([
+                    'User_Id'=> Auth::id(),
+                    'Cover_Photo'=>$attachment->Attachment_Id
+                ]);
+                $coverPhoto= CoverPhoto::all()->find(request('Photo_Id'));
+                //hy7ot el name el gded f column el country name
+                $coverPhoto->Cover_Photo=$attachment->Attachment_Id;
+                $coverPhoto->save();
+                return back();
+            } catch (\Illuminate\Database\QueryException $e) {
+                $errorCode = $e->errorInfo[1];
+                if ($errorCode == 1062) {
+                    return back()->with('error', 'Already Exist !!');
+                }
+            }
+        }
     }
 
     /**
@@ -113,8 +142,30 @@ class CoverPhotoController extends Controller
      * @param  \App\CoverPhoto  $coverPhoto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CoverPhoto $coverPhoto)
+    public function destroy($id=null,$File_Path=null)
+    {
+        $myFile = 'storage/cover page/'.$File_Path;
+         Storage::disk('cover page')->delete($myFile);
+
+       
+        
+       // File::delete($myFile);
+        //return $myFile;
+        
+
+    }
+
+    public static function sendCoverPhotoToProfile($id)
     {
         //
+        try {
+            $coverPhoto=CoverPhoto::all()->where('User_Id', '=', $id)->first();
+            // $attachment_id =CoverPhoto::all()->where('User_Id', '=', $id)->first()->Cover_Photo;
+            $File_Path=AttachmentController::getAttachment($coverPhoto->Cover_Photo);
+            return ['Photo_Id'=>$coverPhoto->Photo_Id,'File_Path'=>$File_Path];
+
+        } catch (Exception $e) {
+            return null;
+        }
     }
 }
