@@ -324,9 +324,6 @@ Route::get('/OwnerAddItem', function () {
     return view('website\frontend.Owner.Add_Item');
 });
 
-
-
-Route::Post('/BeOwner/{id}','AddUserController@BeOwner')->name('BeOwner');
 Route::get('/owneritemProfile/{id?}', 'ItemProfileController@itemProfile');
 Route::get('/owneritemDetails/{id?}', 'ItemProfileController@itemDetails');
 Route::get('/owneritemGallery/{id?}', 'ItemProfileController@itemProfileGallery');

@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="col-md-5 col-xs-12 p-left p-right">
-       @if($checkIfOwner=='0')
+       @if($checkIfOwner == '0')
         <div class="add-listing">
             <a href="javascript:void(0)" onclick="ToggleBeOwnerModal()">
                 <img src="{{asset('FrontEnd/images/header/plus-ico.png')}}" alt="">
