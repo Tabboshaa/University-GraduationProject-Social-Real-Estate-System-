@@ -198,26 +198,35 @@ class ItemProfileController extends Controller
 
     public function itemReservations($id = null)
     {
-        $reservations = DB::table('operation___detail__values')
+        $reservation_details = DB::table('operation___detail__values')
         ->join('operation__detail_name', 'operation__detail_name.Detail_Id', '=', 'operation___detail__values.Detail_Id')
         ->join('operations', 'operations.Operation_Id', '=', 'operation___detail__values.Operation_Id')
-        ->join('users', 'users.id', '=', 'operations.User_Id')
-        ->select('operation___detail__values.*','operation__detail_name.Operation_Detail_Name','operations.Item_Id','users.First_Name', 'users.Middle_Name', 'users.Last_Name')
+        ->select('operation___detail__values.*','operation__detail_name.Operation_Detail_Name','operations.Item_Id')
         ->where('operations.Item_Id','=',$id)
         ->get()
         ->groupBy('Operation_Id');
 
-        $reservations = DB::table('operations')
+        $reservations= DB::table('operations')
         ->join('items', 'items.Item_Id', '=', 'operations.Item_Id')
         ->join('users', 'users.id', '=', 'operations.User_Id')
-        ->join('operation___detail__values', 'operation___detail__values.Operation_Id', '=', 'operations.Operation_Id')
-        ->select('operations.*','items.Item_Name','operation___detail__values.Operation_Detail_Value','users.First_Name', 'users.Middle_Name', 'users.Last_Name')
+        ->select('operations.*','items.Item_Name','users.First_Name', 'users.Middle_Name', 'users.Last_Name')
         ->where('operations.Item_Id','=',$id)
-        // ->where('operation___detail__values.Detail_Id','=',2)//start date
         ->get();
-        // ->groupBy('Operation_Id');
+        
+        $User_Id = Auth::id();
+        $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
+        $cover = CoverPageController::getCoverPhotoOfItem($id);
+        $item = AddUserController::getItemWithOwnerName($id);
+        // return dd($reservation_details);
+        return view('website.frontend.owner.Item_Profile_Reservations',['reservations'=>$reservations,'reservation_details'=>$reservation_details,'item' => $item,'cover'=>$cover,'check_follow' => $check_follow]);
 
-        return dd($reservations);
+
+
+    }
+
+// function for page ownerManageSchedule 
+    public function itemManageSchedule($id = null)
+    {
 
 
     }

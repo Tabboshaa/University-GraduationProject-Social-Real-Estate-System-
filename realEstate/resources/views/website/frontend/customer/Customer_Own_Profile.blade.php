@@ -33,7 +33,7 @@
                 <div class=" dash-profile">
                     {{-- profile photo --}}
                     @if(!empty($Profile_Photo))
-                    <img class="profile" src="{{asset('storage/cover page/'.$Profile_Photo)}}" alt="">
+                    <img class="profile" src="{{asset('storage/cover page/'.$Profile_Photo['File_Path'])}}" alt="">
                     @else
                     <div id="ProfilePhoto">
                         <img class="profile" src="{{asset('storage/cover page/pic.png')}}" alt="">
