@@ -90,39 +90,34 @@ class AddUserController extends Controller
     }
     public function BeOwner($user_id=null)
     {
-        if($user_id==null){
-            return 'done';
-        }else{
-            $user = User::all()->find($user_id);
+        $user = User::all()->find($user_id);
 
-            $user->First_Name=request('First');
-            $user->Middle_Name=request('Middle');
-            $user->Last_Name=request('Last');
-            $user->National_ID=request('National');
-            $user->save();
+        $user->First_Name=request('First');
+        $user->Middle_Name=request('Middle');
+        $user->Last_Name=request('Last');
+        $user->National_ID=request('National');
+        $user->save();
 
-            $phone_number = Phone_Numbers::all()->where('User_ID','=',$user->id);
+        $phone_number = Phone_Numbers::all()->where('User_ID','=',$user->id);
 
-            if($phone_number=='[]')
-            {
+        if($phone_number=='[]')
+        {
 
-                $phone_number = Phone_Numbers::create([
-                    'User_ID' => $user_id,
-                    'phone_number' => request('Phone'),
-                    'Default' => 1
-                ]);
-            }
-            else
-            {
-                $phone_number->phone_number=request('Phone');
-            }
-            $typeOfUser=Type_Of_User::create([
-                'User_ID' =>$user_id,
-                'User_Type_ID'=>3
+            $phone_number = Phone_Numbers::create([
+                'User_ID' => $user_id,
+                'phone_number' => request('Phone'),
+                'Default' => 1
             ]);
-            return'done';
         }
-
+        else
+        {
+            $phone_number->phone_number=request('Phone');
+        }
+        $typeOfUser=Type_Of_User::create([
+            'User_ID' =>$user_id,
+             'User_Type_ID'=>3
+         ]);
+        return view('website.frontend.Owner.Add_Item');
     }
     /**
      * Store a newly created resource in storage.
@@ -153,8 +148,6 @@ class AddUserController extends Controller
 
         $post_images = [];
 
-        if($posts=='[]')
-        {
         foreach ($posts as $post)
         {
             $post_image = AttachmentController::getAttachmentsOfPosts($post->Post_Id);
@@ -163,8 +156,6 @@ class AddUserController extends Controller
 
         }
 
-        if($post_images=='[]')
-        {
         $post_images= $post_images->groupby('Post_Id');
         }
     }
