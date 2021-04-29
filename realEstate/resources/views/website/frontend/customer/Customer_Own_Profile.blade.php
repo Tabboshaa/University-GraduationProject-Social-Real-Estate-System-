@@ -33,7 +33,7 @@
                 <div class=" dash-profile">
                     {{-- profile photo --}}
                     @if(!empty($Profile_Photo))
-                    <img class="profile" src="{{asset('storage/cover page/'.$Profile_Photo)}}" alt="">
+                    <img class="profile" src="{{asset('storage/cover page/'.$Profile_Photo['File_Path'])}}" alt="">
                     @else
                     <div id="ProfilePhoto">
                         <img class="profile" src="{{asset('storage/cover page/pic.png')}}" alt="">
@@ -230,7 +230,7 @@
                                     <input type="file" name="images[]" placeholder="upload Images" multiple>
                                     <br>
                                 </div>
-                                e</hr>
+                                </hr>
                             </div>
                             <button class="btn" type="submit">Submit</button>
                     </div>

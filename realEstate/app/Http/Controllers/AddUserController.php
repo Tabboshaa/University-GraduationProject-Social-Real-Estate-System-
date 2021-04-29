@@ -143,6 +143,8 @@ class AddUserController extends Controller
 
         $post_images = [];
 
+        if($posts=='[]')
+        {
         foreach ($posts as $post)
         {
             $post_image = AttachmentController::getAttachmentsOfPosts($post->Post_Id);
@@ -151,8 +153,12 @@ class AddUserController extends Controller
 
         }
 
+        if($post_images=='[]')
+        {
         $post_images= $post_images->groupby('Post_Id');
-
+        }
+    }
+    
         if($id == Auth::id())
         {
             return view('website\frontend\customer\Customer_Own_Profile',['First_Name'=>$user->First_Name,'Middle_Name'=>$user->Middle_Name,'Last_Name'=>$user->Last_Name,'Cover_Photo'=>$cover_photo,'Profile_Photo'=>$profile_photo,'posts'=>$posts,'post_images'=>$post_images]);

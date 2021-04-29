@@ -319,6 +319,11 @@ Route::get('/ReservationShow','ReservationController@show');
 
 Route::Post('/BeOwner/{id?}','AddUserController@BeOwner')->name('BeOwner');
 Route::get('/BeOwner/{id?}','AddUserController@BeOwner');
+//Owner
+Route::get('/OwnerAddItem', function () {
+    return view('website\frontend.Owner.Add_Item');
+});
+
 
 
 Route::get('/owneritemProfile/{id?}', 'ItemProfileController@itemProfile');
