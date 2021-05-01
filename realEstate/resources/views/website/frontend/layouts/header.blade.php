@@ -24,19 +24,13 @@
         </div>
     </div>
     <div class="col-md-5 col-xs-12 p-left p-right">
-       @if($checkIfOwner=='0')
+  
         <div class="add-listing">
             <a href="javascript:void(0)" onclick="ToggleBeOwnerModal()">
                 <img src="{{asset('FrontEnd/images/header/plus-ico.png')}}" alt="">
                 Continue As Owner </a>
         </div>
-        @else
-            <div class="add-listing">
-                <a href="{{url('/BeOwner')}}">
-                    <img src="{{asset('FrontEnd/images/header/plus-ico.png')}}" alt="">
-                    Your Properties </a>
-            </div>
-        @endif
+    
         <div class="home">
            <ul>
                <li>

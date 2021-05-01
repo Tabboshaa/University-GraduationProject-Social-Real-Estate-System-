@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use DateInterval;
 use DatePeriod;
 use DateTime;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -44,6 +45,14 @@ class ScheduleController extends Controller
         }
     }
 
+    public static function getWholeSchedule($item_id)
+    {
+        //     get from Schedule endDate startDate where item id =$item_id
+
+        $schedule = schedule::orderBy('Start_Date')->where('Item_Id', '=', $item_id)->get();
+
+        return $schedule;
+    }
     public static function getAvailableTime($item_id)
     {
         //     get from Schedule endDate startDate where item id =$item_id
@@ -134,13 +143,15 @@ class ScheduleController extends Controller
     public function edit()
     {
         //
+
         try {
             $schedule = Schedule::all()->find(request('id'));
             $schedule->Start_Date = request('StartDate');
             $schedule->End_Date = request('EndDate');
             $schedule->Price_Per_Night = request('Price');
             $schedule->save();
-            return back()->with('info','Schedule Edited Successfully');
+            request()->session()->flash('info','Schedule Edited Successfully');
+            return ('/owneritemManageSchedule/'.$schedule->Item_Id);
         }catch (\Illuminate\Database\QueryException $e){
             $errorCode = $e->errorInfo[1];
             if($errorCode == 1062){

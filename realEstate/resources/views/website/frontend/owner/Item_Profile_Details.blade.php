@@ -1,5 +1,6 @@
-@extends('website.frontend.customer.Item_Profile')
+@extends('website.frontend.owner.Item_Profile')
 @section('profile_Content')
+
 <div class="row">
     <div class="col-md-7">
         <div class=" locatins">

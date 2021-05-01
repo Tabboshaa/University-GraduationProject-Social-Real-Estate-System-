@@ -28,14 +28,9 @@
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         @if(count($users) == 0)
-<<<<<<< Updated upstream
                             <p> There is no data to show </p>
                         @endif    
                         
-=======
-                            <p> Please select user type to show users.</p>
-                        @else
->>>>>>> Stashed changes
 
                         <form method="Post" action="{{ url('/delete_user/?_method=delete') }}" enctype="multipart/form-data">
                             @csrf
