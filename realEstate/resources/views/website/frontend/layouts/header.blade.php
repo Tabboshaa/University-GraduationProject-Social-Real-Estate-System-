@@ -23,14 +23,22 @@
             </form>
         </div>
     </div>
-    <div class="col-md-5 col-xs-12 p-left p-right">
-  
-        <div class="add-listing">
-            <a href="javascript:void(0)" onclick="ToggleBeOwnerModal()">
-                <img src="{{asset('FrontEnd/images/header/plus-ico.png')}}" alt="">
-                Continue As Owner </a>
-        </div>
-    
+    <div  class="col-md-5 col-xs-12 p-left p-right">
+      <div id="checkIfOwnerDiv">
+{{--       @if($checkIfOwner=='0')--}}
+{{--        <div class="add-listing">--}}
+{{--            <a href="javascript:void(0)" onclick="ToggleBeOwnerModal()">--}}
+{{--                <img src="{{asset('FrontEnd/images/header/plus-ico.png')}}" alt="">--}}
+{{--                Continue As Owner </a>--}}
+{{--        </div>--}}
+{{--        @else--}}
+{{--            <div class="add-listing">--}}
+{{--                <a href="{{url('/BeOwner')}}">--}}
+{{--                    <img src="{{asset('FrontEnd/images/header/plus-ico.png')}}" alt="">--}}
+{{--                    Your Properties </a>--}}
+{{--            </div>--}}
+{{--        @endif--}}
+      </div>
         <div class="home">
            <ul>
                <li>
@@ -212,5 +220,36 @@
     {
         $("#BeOwnerModal").modal("toggle");
     }
+    $(document).ready(function() {
+        $.ajax({
+            url:"{{route('checkIfOwner')}}",
+            Type: "",
+            data: {
+
+            },
+            success:function (checkIfOwner){
+                var text="";
+                console.log(checkIfOwner);
+                var checkIfOwnerDiv = $("#checkIfOwnerDiv");
+                console.log(checkIfOwnerDiv);
+                if(checkIfOwner=='0'){
+                    text+=
+                        "<div class='add-listing'> " +
+                        "<a href='javascript:void(0)' onclick='ToggleBeOwnerModal()'> " +
+                        "<img src='{{asset('FrontEnd/images/header/plus-ico.png')}}' alt=''>Continue As Owner </a></div>"
+
+                }else{
+                    text+=
+                        "<div class='add-listing'> " +
+                        "<a href='{{url('/BeOwner')}}'> " +
+                        "<img src=''{{asset('FrontEnd/images/header/plus-ico.png')}}' alt=''> Your Properties</a></div>"
+                }
+                $("#checkIfOwnerDiv").html(text);
+            },
+            error:function (){
+
+            }
+        });
+    });
 
 </script>

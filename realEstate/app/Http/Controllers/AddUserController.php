@@ -78,36 +78,54 @@ class AddUserController extends Controller
 
     }
 
-    public function BeOwner($user_id)
+    public function checkIfOwner()
     {
-        $user = User::all()->find($user_id);
-
-        $user->First_Name=request('First');
-        $user->Middle_Name=request('Middle');
-        $user->Last_Name=request('Last');
-        $user->National_ID=request('National');
-        $user->save();
-
-        $phone_number = Phone_Numbers::all()->where('User_ID','=',$user->id);
-
-        if($phone_number=='[]')
-        {
-
-            $phone_number = Phone_Numbers::create([
-                'User_ID' => $user_id,
-                'phone_number' => request('Phone'),
-                'Default' => 1
-            ]);
-        }
+        $user_id=Auth::id();
+        $user=Type_Of_User::all()->where('User_ID','=',$user_id)->where('User_Type_ID','=',3);
+        if($user=='[]')
+            $user='0';
         else
-        {
-            $phone_number->phone_number=request('Phone');
+            $user='1';
+        return $user;
+    }
+    public function BeOwner($user_id=null)
+    {
+        if($user_id==null){
+             return view('website.frontend.Owner.Add_Item');
+        }else{
+            $user = User::all()->find($user_id);
+
+            $user->First_Name=request('First');
+            $user->Middle_Name=request('Middle');
+            $user->Last_Name=request('Last');
+            $user->National_ID=request('National');
+            $user->save();
+
+            $phone_number = Phone_Numbers::all()->where('User_ID','=',$user->id);
+
+            if($phone_number=='[]')
+            {
+
+                $phone_number = Phone_Numbers::create([
+                    'User_ID' => $user_id,
+                    'phone_number' => request('Phone'),
+                    'Default' => 1
+                ]);
+            }
+            else
+            {
+                $phone_number->phone_number=request('Phone');
+            }
+            $typeOfUser=Type_Of_User::create([
+                'User_ID' =>$user_id,
+                'User_Type_ID'=>3
+            ]);
+            return view('website.frontend.Owner.Add_Item');
+
+
+
         }
-        $typeOfUser=Type_Of_User::create([
-            'User_ID' =>$user_id,
-             'User_Type_ID'=>3
-         ]);
-        return view('website.frontend.Owner.Add_Item');
+
     }
     /**
      * Store a newly created resource in storage.
@@ -147,6 +165,8 @@ class AddUserController extends Controller
         }
 
         $post_images= $post_images->groupby('Post_Id');
+        
+    
 
         if($id == Auth::id())
         {
