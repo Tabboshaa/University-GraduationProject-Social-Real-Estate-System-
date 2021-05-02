@@ -22,13 +22,10 @@
                             <i class="fa fa-heart-o" aria-hidden="true"></i>
                             <a href="{{url('/FollowItem/'.$item->Item_Id)}}">Follow</a>
                         </li>
-
                         @else
                         <li class="saved">
-
                             <i class="fa fa-heart-o" aria-hidden="true"></i>
                             <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}">Un Follow</a>
-
                         </li>
                         @endif
                         <li class="Reivew">
