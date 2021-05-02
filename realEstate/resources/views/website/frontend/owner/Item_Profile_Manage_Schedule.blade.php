@@ -1,127 +1,75 @@
-@extends('website.frontend.customer.Item_Profile')
+@extends('website.frontend.owner.Item_Profile')
 @section('profile_Content')
-<div class="row">
-    <div class="col-md-7">
-        <div class=" locatins">
-            <div class="heading">
-                <img src="{{asset('FrontEnd/images/banner/icon.html')}}" alt="">
-                <h3>
-                    Description
-                </h3>
-            </div>
-            <div class="sub-heading">
-                Description of item.
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        <div class="locatins heading">
-            <img src="images/banner/icon1.html" alt="">
-            <h3>
-                Location
-            </h3>
-            {{-- <div class="map">--}}
-            {{-- <iframe src="https://www.google.com/maps/embed?pb=" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>--}}
-            {{-- </div>--}}
-            <div class="clearfix"></div>
-        </div>
-    </div>
 
+<div class="row">
+    <div class="col-md-12">
     <div class="box-left">
         <div class="rightboxs">
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                <div class="menu_section">
-
-                    <ul class="nav side-menu">
-
-                        <li> <a><span class="fa fa-chevron-down"></span>1-January</a>
-                            @if(isset($schedule["01"]))
-
-                            <ul class="nav child_menu">
-                                @foreach($schedule["01"] as $Dates => $date)
-                                <?php
-                                $day = \Carbon\Carbon::parse($date["date"])->format('d');
-                                $day = $day + 1 - 1;
-                                $SID = $date["schedule_Id"];
-                                $ID = $date["date"];                                        ?>
-                                <li>
-                                    <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
-                                </li>
-                                @endforeach
-                            </ul>
-                            @endif
-                        </li>
-                        <li> <a><span class="fa fa-chevron-down"></span>2-February </a>
-
-                            @if(isset($schedule["02"]))
-
-                            <ul class="nav child_menu">
-                                @foreach($schedule["02"] as $Dates => $date)
-                                <?php
-                                $day = \Carbon\Carbon::parse($date["date"])->format('d');
-                                $day = $day + 1 - 1;
-                                $SID = $date["schedule_Id"];
-                                $ID = $date["date"];                                        ?>
-                                <li>
-                                    <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
-                                </li>
-                                @endforeach
-                            </ul>
-                            @endif
-                        </li>
-
-                        <li> <a><span class="fa fa-chevron-down"></span>3-March </a>
-                            @if(isset($schedule["03"]))
-
-                            <ul class="nav child_menu">
-                                @foreach($schedule["03"] as $Dates => $date)
-                                <?php
-                                $day = \Carbon\Carbon::parse($date["date"])->format('d');
-                                $day = $day + 1 - 1;
-                                $SID = $date["schedule_Id"];
-                                $ID = $date["date"];                                        ?>
-                                <li>
-                                    <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
-                                </li>
-                                @endforeach
-                            </ul>
-                            @endif
-                        </li>
-                        <li> <a><span class="fa fa-chevron-down"></span>4-April </a>
-                            @if(isset($schedule["04"]))
-
-                            <ul class="nav child_menu">
-                                @foreach($schedule["04"] as $Dates => $date)
-                                <?php
-                                $day = \Carbon\Carbon::parse($date["date"])->format('d');
-                                $day = $day + 1 - 1;
-                                $SID = $date["schedule_Id"];
-                                $ID = $date["date"];                                        ?>
-                                <li>
-                                    <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
-                                </li>
-                                @endforeach
-                            </ul>
-                            @endif
-                        </li>
-                        <li> <a><span class="fa fa-chevron-down"></span>5-May </a></li>
-                        <li> <a><span class="fa fa-chevron-down"></span>6-June </a></li>
-                        <li> <a><span class="fa fa-chevron-down"></span>7-July </a></li>
-                        <li> <a><span class="fa fa-chevron-down"></span>8-August </a></li>
-                        <li> <a><span class="fa fa-chevron-down"></span>9-September</a></li>
-                        <li> <a><span class="fa fa-chevron-down"></span>10-October </a></li>
-                        <li> <a><span class="fa fa-chevron-down"></span>11-November</a></li>
-                        <li> <a><span class="fa fa-chevron-down"></span>12-December</a></li>
-                    </ul>
+        @include('website.backend.layouts.flashmessage')
+        <div name="post">
+                <div class="sub-heading">
+                    <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+                        <tr class="rightmsg">
+                            <td class="box" style="background-color:rgb(252, 252, 252);">Start date</td>
+                            <td class="box" style="background-color:rgb(252, 252, 252);">End date</td>
+                            <td class="box" style="background-color:rgb(252, 252, 252);">Price per night</td>
+                            <td class="box" style="background-color:rgb(252, 252, 252);">Edit</td>
+                        </tr>
+                            @foreach($schedules as $schedule)
+                        <tr class="rightmsg">
+                            <td class="box">{{$schedule->Start_Date}}</td>
+                            <td class="box">{{$schedule->End_Date}}</td>
+                            <td class="box">{{$schedule->Price_Per_Night}}</td>
+                        <td><a href="javascript:void(0)" onclick="setSchedule('{{$schedule->schedule_Id}}','{{$schedule->Start_Date}}','{{$schedule->End_Date}}','{{$schedule->Price_Per_Night}}')"><i class="fa fa-edit"> </i></a></td>
+                        </tr>
+                            @endforeach
+                    </table>
                 </div>
-
-            </div>
+                <div class="clearfix"></div>
+        </div>
 
         </div>
     </div>
+    </div>
     <div class="addbtn1">
-        <a href="javascript:void(0)" onclick="goreserve('{{$item_id}}');" id="gobutton" style="display: none; margin-top:90px; margin-left:50px">reserve</a>
+        <!-- <a href="javascript:void(0)" onclick="goreserve('{{$item_id}}');" id="gobutton" style=" margin-top:90px; margin-left:50px">edit Schdule</a> -->
     </div>
 
+</div>
+<div class="modal fade" id="EditScheduleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Need more information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="EditSchedule" method="Post" action="{{url('')}}">
+                    @csrf
+                    <input type="hidden" name="id" id="id">
+                    <div class="form-group">
+                        <label  style="font-size: 12pt">Start Date</label>
+                        <input id="StartDate" type="date" style="border-radius: 3pt" name="StartDate"  class="form-control">
+
+                    </div>
+                    <div class="form-group">
+                        <label style="font-size: 12pt">End Date</label>
+                        <input id="EndDate" type="date" style="border-radius: 3pt" name="EndDate"  class="form-control">
+
+                    </div>
+                    <div class="form-group">
+                        <label style="font-size: 12pt" >Price Per Night</label>
+                        <input id="Price" type="text" style="border-radius: 3pt" name="Price"  class="form-control">
+
+                    </div>
+                    <button type="submit" id="btun3" class="btn btn-success">Continue</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script>
@@ -239,6 +187,43 @@
         });
 
     }
+
+    function setSchedule(schedule_id,start,end,price)
+    {
+        $("#id").val(schedule_id);
+        $("#StartDate").val(start);
+        $("#EndDate").val(end);
+        $("#Price").val(price);
+        $("#EditScheduleModal").modal("toggle");
+    }
+    $('#EditSchedule').submit(function() {
+
+        var id = $("#id").val();
+        var StartDate = $("#StartDate").val();
+        var EndDate = $("#EndDate").val();
+        var Price = $("#Price").val();
+        var _token = $("input[name=_token]").val();
+
+        $.ajax({
+            url: "{{route('schedule.update')}}",
+            Type: "PUT",
+            data: {
+                id: id,
+                StartDate: StartDate,
+                EndDate: EndDate,
+                Price : Price,
+                _token: _token
+            },
+            success: function(response) {
+                console.log(response);
+                location.href = response;
+            },
+            error: function() {
+                console.log('Error');
+            }
+
+        });
+    });
 </script>
 
 <style>

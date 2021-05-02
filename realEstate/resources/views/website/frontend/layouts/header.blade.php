@@ -23,7 +23,16 @@
             </form>
         </div>
     </div>
-    <div  class="col-md-5 col-xs-12 p-left p-right">
+
+    <div class="col-md-5 col-xs-12 p-left p-right">
+
+        <div class="add-listing">
+            <a href="javascript:void(0)" onclick="ToggleBeOwnerModal()">
+                <img src="{{asset('FrontEnd/images/header/plus-ico.png')}}" alt="">
+                Continue As Owner </a>
+        </div>
+
+        <div  class="col-md-5 col-xs-12 p-left p-right">
       <div id="checkIfOwnerDiv">
 {{--       @if($checkIfOwner=='0')--}}
 {{--        <div class="add-listing">--}}
@@ -110,7 +119,7 @@
                             <div class="notification-info visible-title">
                                 <a href="{{ url('/veiw_notification/'.$notification->Notification_Id) }}"> <i class="fa fa-close"></i></a>
                                 <h3><a href="{{ url('/veiw_User/'.$notification->id) }}"> {{$notification->First_Name}} {{$notification->Middle_Name}} {{$notification->Last_Name}}</a> </h3> <h3 style="font-size: 10px;"><p>{{ $notification->Notification }} </p></h3>
-                                <?php $end = \Carbon\Carbon::parse($notification->updated_at); ?>
+                                <?php $end = \Carbon\Carbon::parse($notifications->updated_at); ?>
                                 <p>{{ $end->diffForHumans($today) }}</p>
                             </div>
                             <!--notification-info -->
@@ -163,7 +172,7 @@
                 </div>
             </div>
 
-
+        </div>
 
         </div>
     </div>
@@ -236,13 +245,13 @@
                     text+=
                         "<div class='add-listing'> " +
                         "<a href='javascript:void(0)' onclick='ToggleBeOwnerModal()'> " +
-                        "<img src='{{asset('FrontEnd/images/header/plus-ico.png')}}' alt=''>Continue As Owner </a></div>"
+                        "<img src='{{asset('FrontEnd/images/header/plus-ico.png')}}' alt=''>Continue As Owner </a></div>";
 
                 }else{
                     text+=
                         "<div class='add-listing'> " +
                         "<a href='{{url('/BeOwner')}}'> " +
-                        "<img src=''{{asset('FrontEnd/images/header/plus-ico.png')}}' alt=''> Your Properties</a></div>"
+                        "<img src=''{{asset('FrontEnd/images/header/plus-ico.png')}}' alt=''> Your Properties</a></div>";
                 }
                 $("#checkIfOwnerDiv").html(text);
             },

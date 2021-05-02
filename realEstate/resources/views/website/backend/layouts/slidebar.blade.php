@@ -59,7 +59,7 @@
                       <li><a href="{{url('/sub_type_property_show')}}">Sub Type Property</a></li>
                       <li><a href="{{url('/Property_Details_show')}}">Detail of Property</a></li>
                       
-                      <!-- <li><a href="{{url('/Details_show')}}">Details of Item</a></li> -->
+                      <li><a href="{{url('/Details_show')}}">Details of Item</a></li>
                       </ul>
                       </li>
                       

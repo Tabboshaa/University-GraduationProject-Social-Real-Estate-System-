@@ -65,7 +65,7 @@ Route::post('reserve','PaymentController@create');
 Route::get('/reserve', function () {
     return view('website\backend.database pages.add-Reservation');
 });
-Route::get('/Payment/{item_id}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}', 'PaymentController@show_payment');
+Route::get('/Payment/{item_id}/{schedule}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}', 'PaymentController@show_payment');
 
 
 //items Profile Pages
@@ -335,3 +335,8 @@ Route::get('/owneritemReservations/{id?}', 'ItemProfileController@itemReservatio
 Route::get('/owneritemManageSchedule/{id?}', 'ItemProfileController@itemManageSchedule');
 Route::get('/Amr/{id?}' , 'ItemController@SelectSubType');
 Route::get('/OwnerSelectDetails/{item_id}/{sub_type_id}','ItemController@OwnerSelectProperty');
+Route::get('/OwnerAddItem', function () {
+    return view('website\frontend.Owner.Add_Item');
+});
+
+Route::get('/testsch/{id}/{start}/{end}', 'ScheduleController@cutSchedule');
