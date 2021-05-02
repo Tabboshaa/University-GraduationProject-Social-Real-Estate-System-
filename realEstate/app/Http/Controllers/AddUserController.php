@@ -13,6 +13,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Country;
 
 class AddUserController extends Controller
 {
@@ -90,8 +91,9 @@ class AddUserController extends Controller
     }
     public function BeOwner($user_id=null)
     {
+        $countries = Country::all(); 
         if($user_id==null){
-             return view('website.frontend.Owner.Add_Item');
+             return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
         }else{
             $user = User::all()->find($user_id);
 
@@ -120,7 +122,10 @@ class AddUserController extends Controller
                 'User_ID' =>$user_id,
                 'User_Type_ID'=>3
             ]);
-            return view('website.frontend.Owner.Add_Item');
+
+        
+            return $countries;
+            return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
 
 
 
