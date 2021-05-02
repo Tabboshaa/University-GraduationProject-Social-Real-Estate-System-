@@ -100,11 +100,20 @@ class ItemProfileController extends Controller
         $cover = CoverPageController::getCoverPhotoOfItem($id);
         //schedule and location
 
+        $details = DB::table('details')
+            ->join('main__types', 'details.Main_Type_Id', '=', 'main__types.Main_Type_Id')
+            ->join('sub__types', 'details.Sub_Type_Id', '=', 'sub__types.Sub_Type_Id')
+            ->join('sub__type__properties', 'details.Property_Id', '=', 'sub__type__properties.Property_Id')
+            ->join('property__details', 'details.Property_Detail_Id', '=', 'property__details.Property_Detail_Id')
+            ->select('details.*', 'main__types.Main_Type_Name', 'sub__types.Sub_Type_Name', 'sub__type__properties.Property_Name', 'property__details.Detail_Name')
+            ->get()->where('Item_Id', '=', $id)->groupBy(['Property_Name','Property_diff']);
+
+
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
 
-        return view('website\frontend\owner\Item_Profile_Details', ['states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
+        return view('website\frontend\owner\Item_Profile_Details', ['details'=>$details,'states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
     }
 
     public function itemProfileGallery($id)
@@ -157,7 +166,7 @@ class ItemProfileController extends Controller
         ->select('operations.*','items.Item_Name','users.First_Name', 'users.Middle_Name', 'users.Last_Name')
         ->where('operations.Item_Id','=',$id)
         ->get();
-        
+
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
@@ -165,14 +174,12 @@ class ItemProfileController extends Controller
         // return dd($reservation_details);
         return view('website.frontend.owner.Item_Profile_Reservations',['reservations'=>$reservations,'reservation_details'=>$reservation_details,'item' => $item,'cover'=>$cover,'check_follow' => $check_follow]);
 
-
-
     }
 
-// function for page ownerManageSchedule 
+// function for page ownerManageSchedule
     public function itemManageSchedule($id = null)
     {
-        
+
         $schedule = ScheduleController::getWholeSchedule($id);
         // return $schedule;
 
@@ -185,7 +192,7 @@ class ItemProfileController extends Controller
 
 // return $schedule;
         return view('website\frontend\owner\Item_Profile_Manage_Schedule', [ 'item' => $item, 'cover' => $cover, 'schedules' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
-  
+
 
 
     }
