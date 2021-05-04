@@ -192,7 +192,7 @@ class AddUserController extends Controller
         $item = DB::table('items')
         ->join('users', 'users.id', '=', 'items.User_Id')
         ->select('items.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')->where('Item_Id', '=', $item_id)->first();
-return $item;
+        return $item;
     }
 
     /**

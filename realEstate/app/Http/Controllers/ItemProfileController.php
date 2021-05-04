@@ -182,10 +182,11 @@ class ItemProfileController extends Controller
     {
 
         $schedule = ScheduleController::getWholeSchedule($id);
-        // return $schedule;
+        
 
         $item = AddUserController::getItemWithOwnerName($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
+        
         //schedule and location
 
         $User_Id = Auth::id();
@@ -193,8 +194,6 @@ class ItemProfileController extends Controller
 
 // return $schedule;
         return view('website\frontend\owner\Item_Profile_Manage_Schedule', [ 'item' => $item, 'cover' => $cover, 'schedules' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
-
-
 
     }
 
