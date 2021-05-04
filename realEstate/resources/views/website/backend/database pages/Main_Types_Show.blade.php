@@ -116,7 +116,7 @@
                 error:function (){
 
                 }
-            })
+            });
         }
         $('#EditSubTypeForm').submit(function (){
 

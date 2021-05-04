@@ -229,7 +229,7 @@
                 console.log(data);
                 // return (['totalPrice'=>$totalPric>$start_date,"end_date"=>$end_date]);
 
-                location.href = "/Payment/" + item_id + "/" + data['totalDays'] + "/" + data['totalPrice'] + "/" + data['price_per_night'] +"/" + data['start_date'] +"/" + data['end_date'];
+                location.href = "/Payment/" + item_id + "/" +schedule +"/" + data['totalDays'] + "/" + data['totalPrice'] + "/" + data['price_per_night'] +"/" + data['start_date'] +"/" + data['end_date'];
             },
             error: function(data) {
 

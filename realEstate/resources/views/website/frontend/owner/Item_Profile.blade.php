@@ -22,13 +22,10 @@
                             <i class="fa fa-heart-o" aria-hidden="true"></i>
                             <a href="{{url('/FollowItem/'.$item->Item_Id)}}">Follow</a>
                         </li>
-
                         @else
                         <li class="saved">
-
                             <i class="fa fa-heart-o" aria-hidden="true"></i>
                             <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}">Un Follow</a>
-
                         </li>
                         @endif
                         <li class="Reivew">
@@ -57,16 +54,16 @@
                 <div class="collapse navbar-collapse  visible-title" id="navbarNav">
                     <ul class="navbar-nav ">
                         <li>
-                            <a href="{{url('/itemProfile/'.$item->Item_Id)}}">Posts </a>
+                            <a href="{{url('/owneritemProfile/'.$item->Item_Id)}}">Posts </a>
                         </li>
                         <li>
-                            <a href="{{url('/itemDetails/'.$item->Item_Id)}}">Detail </a>
+                            <a href="{{url('/owneritemDetails/'.$item->Item_Id)}}">Detail </a>
                         </li>
                         <li>
-                            <a href="{{url('/itemReviews/'.$item->Item_Id)}}">Review </a>
+                            <a href="{{url('/owneritemReviews/'.$item->Item_Id)}}">Review </a>
                         </li>
                         <li>
-                            <a href="{{url('/itemGallery/'.$item->Item_Id)}}">Gallery </a>
+                            <a href="{{url('/owneritemGallery/'.$item->Item_Id)}}">Gallery </a>
                         </li>
                         <li>
                             <a href="{{url('/owneritemReservations/'.$item->Item_Id)}}">Reservation history </a>

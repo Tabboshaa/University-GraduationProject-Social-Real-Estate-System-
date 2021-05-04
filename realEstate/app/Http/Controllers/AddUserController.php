@@ -13,6 +13,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Country;
 
 class AddUserController extends Controller
 {
@@ -77,6 +78,59 @@ class AddUserController extends Controller
 
 
     }
+
+    public function checkIfOwner()
+    {
+        $user_id=Auth::id();
+        $user=Type_Of_User::all()->where('User_ID','=',$user_id)->where('User_Type_ID','=',3);
+        if($user=='[]')
+            return 0;
+        else
+            return 1;
+    }
+    public function BeOwner($user_id=null)
+    {
+        $countries = Country::all(); 
+        if($user_id==null){
+             return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
+        }else{
+            $user = User::all()->find($user_id);
+
+            $user->First_Name=request('First');
+            $user->Middle_Name=request('Middle');
+            $user->Last_Name=request('Last');
+            $user->National_ID=request('National');
+            $user->save();
+
+            $phone_number = Phone_Numbers::all()->where('User_ID','=',$user->id);
+
+            if($phone_number=='[]')
+            {
+
+                $phone_number = Phone_Numbers::create([
+                    'User_ID' => $user_id,
+                    'phone_number' => request('Phone'),
+                    'Default' => 1
+                ]);
+            }
+            else
+            {
+                $phone_number->phone_number=request('Phone');
+            }
+            $typeOfUser=Type_Of_User::create([
+                'User_ID' =>$user_id,
+                'User_Type_ID'=>3
+            ]);
+
+        
+            return $countries;
+            return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
+
+
+
+        }
+
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -86,7 +140,7 @@ class AddUserController extends Controller
     public function store(Request $request)
     {
         //
-      
+
     }
 
     /**
@@ -105,16 +159,18 @@ class AddUserController extends Controller
         $post_images = AttachmentController::getAttachmentsOfPosts($id);
 
         $post_images = [];
-        
+
         foreach ($posts as $post)
         {
             $post_image = AttachmentController::getAttachmentsOfPosts($post->Post_Id);
-           
+
             $post_images=collect($post_images)->merge($post_image);
-           
+
         }
 
         $post_images= $post_images->groupby('Post_Id');
+        
+    
 
         if($id == Auth::id())
         {
@@ -248,12 +304,12 @@ return $item;
     {
         $User_Id = Auth::id();
         // DB::table('followeditemsbyusers')->where('User_ID','=',$User_Id,'Item_Id','=',$Item_Id)->delete();
-        
+
         $followed_items=followeditemsbyuser::all()->where('Item_Id','=',$Item_Id)->where('User_ID','=',$User_Id);
-        
+
         followeditemsbyuser::destroy($followed_items[2]->Followed_Item_Id);
          return back();
-        
+
     }
 }
 

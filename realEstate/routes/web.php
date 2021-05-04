@@ -42,7 +42,7 @@ Route::get('/s', function(){
 Route::group(['middleware' => 'auth.user'], function () {
 Route::get('/', 'CustomerHomeController@index')->name('CustomerHome');
 //Customer HOMEpage
-Route::get('/CustomerHome', 'CustomerHomeController@index');
+Route::get('/HomeRegister', 'CustomerHomeController@index')->name('HomeRegister');
 Route::get('/search_by_place','CustomerHomeController@findItemInState');
 Route::get('/search_by_placedate','CustomerHomeController@findItemInStateAndDate');
 
@@ -65,7 +65,7 @@ Route::post('reserve','PaymentController@create');
 Route::get('/reserve', function () {
     return view('website\backend.database pages.add-Reservation');
 });
-Route::get('/Payment/{item_id}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}', 'PaymentController@show_payment');
+Route::get('/Payment/{item_id}/{schedule}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}', 'PaymentController@show_payment');
 Route::get('/state1', function () {
     return view('website\backend.database pages.StatePhoto');
 });
@@ -290,7 +290,7 @@ Route::get('/edit_operation_type', 'OperationsController@edit')->name('operation
     //search user
 
     Route::post('/search_user', 'AddUserController@search')->name('search');
-    Route::get('/home', 'HomeController@index')->name('home');
+
 // });
 
 Route::get('/timeline',function () {
@@ -303,7 +303,7 @@ Route::delete('/DeleteMyCoverPhoto/{id?}/{File_Path?}','CoverPhotoController@des
 Route::post('/CreateProfilePhoto','ProfilePhotoController@create')->name('create.profilephoto');
 Route::post('/UpdateCoverPhoto','CoverPhotoController@edit')->name('create.coverphoto');
 Route::post('/UpdateProfilePhoto','ProfilePhotoController@edit')->name('create.profilephoto');
-//Follow 
+//Follow
 //Follow
 Route::get('/FollowItem/{id?}','AddUserController@FollowedItem');
 Route::get('/UnfollowItem/{id?}','AddUserController@UnfollowItem');
@@ -325,6 +325,16 @@ Route::POST('/add_StatePhoto', 'StatePhotoController@create');
 Route::get('/shaimaa','CustomerHomeController@indexPhoto');
 Route::get('/ReservationShow','ReservationController@show');
 
+Route::Post('/BeOwner/{id?}','AddUserController@BeOwner')->name('BeOwner');
+Route::get('/BeOwner/{id?}','AddUserController@BeOwner');
+
+Route::get('/checkIfOwner','AddUserController@checkIfOwner')->name('checkIfOwner');
+
+
+
+//Owner
+Route::post('/OwnerAddItem', 'ItemController@OwnerAddItem');
+
 Route::get('/owneritemProfile/{id?}', 'ItemProfileController@itemProfile');
 Route::get('/owneritemDetails/{id?}', 'ItemProfileController@itemDetails');
 Route::get('/owneritemGallery/{id?}', 'ItemProfileController@itemProfileGallery');
@@ -332,3 +342,10 @@ Route::get('/owneritemReviews/{id?}', 'ItemProfileController@itemProfileReviews'
 Route::get('/owneritemReservations/{id?}', 'ItemProfileController@itemReservations');
 Route::get('/owneritemManageSchedule/{id?}', 'ItemProfileController@itemManageSchedule');
 Route::get('/MyItems','OwnerController@index');
+Route::get('/Amr/{id?}' , 'ItemController@SelectSubType');
+Route::get('/OwnerSelectDetails/{item_id}/{sub_type_id}','ItemController@OwnerSelectProperty');
+Route::get('/OwnerAddItem', function () {
+    return view('website\frontend.Owner.Add_Item');
+});
+
+Route::get('/testsch/{id}/{start}/{end}', 'ScheduleController@cutSchedule');

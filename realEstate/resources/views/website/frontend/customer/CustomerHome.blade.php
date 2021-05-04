@@ -7,7 +7,8 @@
 
 <div id="content-wrapper">
     <div class="container-fluid">
-<div class="rowe">
+<div class="rowe
+">
     <!-- <img src="Images/h3.jpg" class="background"> -->
     <div class="sreachdiv">
         <div class="shosho">

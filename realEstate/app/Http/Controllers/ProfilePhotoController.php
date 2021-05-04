@@ -41,11 +41,11 @@ class ProfilePhotoController extends Controller
     public function create()
     {
         //
-        
+
         if ($files = request()->file('ProfilePhoto')) {
 
             $filename = $files->getClientOriginalName();
-            $files->storeAs('/coverpage', $filename, 'public');
+            $files->storeAs('/cover page', $filename, 'public');
 
             $attachment = attachment::create(['File_Path' => $filename]);
 

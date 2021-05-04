@@ -52,14 +52,13 @@
                                 <!-- EL FOREARCH HNA -->
                                 @foreach($property as $property_detail)
                                     <tr>
-                                        <td>{{$property_detail->datatype}}</td>
-                                        <td>{{$property_detail->datatype}}</td>
-                                        <td>{{$property_detail->datatype}}</td>
-                                        <td>{{$property_detail->datatype}}</td>
-                                        <td>{{$property_detail->datatype}}</td>
-                                        <td>{{$property_detail->datatype}}</td>
-                                        <td>{{$property_detail->datatype}}</td>
-                                        <td>{{$property_detail->datatype}}</td>
+                                        @foreach($values as $value=>$v)
+
+                                        <td>{{$v->Start_Date}}</td>
+                                        <td>{{$v->End_Date}}</td>
+                                        <td>{{$v->Price_Per_Night}}</td>
+                                        <td>{{$v->Total_Price}}</td>
+                                        @endforeach
 
 
                                         <td><a href="javascript:void(0)" onclick="setPropertyDetailIdName('{{$property_detail->Property_Detail_Id}}','{{$property_detail->Detail_Name}}')"><i class="fa fa-edit"></i></a></td>

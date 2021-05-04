@@ -1,5 +1,6 @@
-@extends('website.frontend.customer.Item_Profile')
+@extends('website.frontend.owner.Item_Profile')
 @section('profile_Content')
+
 <div class="row">
     <div class="col-md-7">
         <div class=" locatins">
@@ -10,7 +11,27 @@
                 </h3>
             </div>
             <div class="sub-heading">
-                Description of item.
+
+                @foreach ($details as $property => $detail)
+                            <ul class="nav side-menu">
+                                <li>{{$property}}
+                                    <!-- {{$i=0}} -->
+                                    @foreach($detail as $diff => $detailValue)
+                                        <!-- {{$i+=1}} -->
+                                        <ul>
+                                            <li>
+                                                <div> <a href="javascript:void(0)" onclick="showDetails('{{$detailValue}}')"><span id=""> {{$property}} {{$i}}</span></a></div>
+                                                @foreach($detailValue as $detailValue)
+                                                <ul class="nav child_menu" id="{{$detailValue->Property_diff}}" >
+                                                </ul>
+                                                @endforeach
+                                            </li>
+                                        @endforeach
+                                        </ul>
+                                </li>
+                            </ul>
+
+                    @endforeach
             </div>
             <div class="clearfix"></div>
         </div>
@@ -238,6 +259,11 @@
 
         });
 
+    }
+
+    function showDetails(detailValue)
+    {
+        console.log(detailValue);
     }
 </script>
 

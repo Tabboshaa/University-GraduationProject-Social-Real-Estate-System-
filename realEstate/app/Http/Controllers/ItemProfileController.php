@@ -91,7 +91,7 @@ class ItemProfileController extends Controller
     {
         //
 
-        $schedule = $this->getAvailableTime($id);
+        $schedule = ScheduleController::getAvailableTime($id);
         // return $schedule;
 
         $state = StateController::getStates();
@@ -100,68 +100,21 @@ class ItemProfileController extends Controller
         $cover = CoverPageController::getCoverPhotoOfItem($id);
         //schedule and location
 
+        $details = DB::table('details')
+            ->join('main__types', 'details.Main_Type_Id', '=', 'main__types.Main_Type_Id')
+            ->join('sub__types', 'details.Sub_Type_Id', '=', 'sub__types.Sub_Type_Id')
+            ->join('sub__type__properties', 'details.Property_Id', '=', 'sub__type__properties.Property_Id')
+            ->join('property__details', 'details.Property_Detail_Id', '=', 'property__details.Property_Detail_Id')
+            ->select('details.*', 'main__types.Main_Type_Name', 'sub__types.Sub_Type_Name', 'sub__type__properties.Property_Name', 'property__details.Detail_Name')
+            ->get()->where('Item_Id', '=', $id)->groupBy(['Property_Name','Property_diff']);
+
+
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
 
-        return view('website\frontend\owner\Item_Profile_Details', ['states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
+        return view('website\frontend\owner\Item_Profile_Details', ['details'=>$details,'states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
     }
-
-    public function getAvailableTime($item_id)
-    {
-        //     get from Schedule endDate startDate where item id =$item_id
-
-        $schedule = schedule::orderBy('Start_Date')->where('Item_Id', '=', $item_id)->get();
-
-        $days = [];
-        //get day of every schedule
-        foreach ($schedule as $value) {
-
-            $day = $this->getdays($value->Start_Date, $value->End_Date, $value->schedule_Id);
-            //merge days
-            $days = collect($days)->merge($day)->unique(); //unique 3shan mykrrsh date mrten
-        }
-
-        //group by month of date
-        $days = collect($days)->groupBy(function ($val) {
-            return Carbon::parse($val['date'])->format('m');
-        })->toArray();
-
-        return $days;
-    }
-
-    function getdays($start, $end, $schedule_id)
-    {
-
-        $period = new DatePeriod(
-            new DateTime($start),
-            new DateInterval('P1D'),
-            new DateTime($end)
-        );
-
-        $interval = [];
-        //enter start date
-        $interval[] = [
-            'date' => $start,
-            'schedule_Id' => $schedule_id
-        ];
-
-        // }for loop to store interval in array
-        foreach ($period as $key => $value) {
-            $interval[] = [
-                'date' => $value->format('Y-m-d'),
-                'schedule_Id' => $schedule_id
-            ];
-        }
-        //enter end date
-        $interval[] = [
-            'date' => $end,
-            'schedule_Id' => $schedule_id
-        ];
-
-        return $interval;
-    }
-
 
     public function itemProfileGallery($id)
     {
@@ -178,9 +131,11 @@ class ItemProfileController extends Controller
         $cover = CoverPageController::getCoverPhotoOfItem($id);
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
+        
 
         return view('website\frontend\owner\Item_Profile_Gallery', ['states' => $state, 'item' => $item, 'cover' => $cover, 'gallery' => $gallery, 'check_follow' => $check_follow]);
     }
+
     public function itemProfileReviews($id = null)
     {
         //
@@ -198,26 +153,47 @@ class ItemProfileController extends Controller
 
     public function itemReservations($id = null)
     {
-        $reservations = DB::table('operation___detail__values')
+        $reservation_details = DB::table('operation___detail__values')
         ->join('operation__detail_name', 'operation__detail_name.Detail_Id', '=', 'operation___detail__values.Detail_Id')
         ->join('operations', 'operations.Operation_Id', '=', 'operation___detail__values.Operation_Id')
-        ->join('users', 'users.id', '=', 'operations.User_Id')
-        ->select('operation___detail__values.*','operation__detail_name.Operation_Detail_Name','operations.Item_Id','users.First_Name', 'users.Middle_Name', 'users.Last_Name')
+        ->select('operation___detail__values.*','operation__detail_name.Operation_Detail_Name','operations.Item_Id')
         ->where('operations.Item_Id','=',$id)
         ->get()
         ->groupBy('Operation_Id');
 
-        $reservations = DB::table('operations')
+        $reservations= DB::table('operations')
         ->join('items', 'items.Item_Id', '=', 'operations.Item_Id')
         ->join('users', 'users.id', '=', 'operations.User_Id')
-        ->join('operation___detail__values', 'operation___detail__values.Operation_Id', '=', 'operations.Operation_Id')
-        ->select('operations.*','items.Item_Name','operation___detail__values.Operation_Detail_Value','users.First_Name', 'users.Middle_Name', 'users.Last_Name')
+        ->select('operations.*','items.Item_Name','users.First_Name', 'users.Middle_Name', 'users.Last_Name')
         ->where('operations.Item_Id','=',$id)
-        // ->where('operation___detail__values.Detail_Id','=',2)//start date
         ->get();
-        // ->groupBy('Operation_Id');
 
-        return dd($reservations);
+        $User_Id = Auth::id();
+        $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
+        $cover = CoverPageController::getCoverPhotoOfItem($id);
+        $item = AddUserController::getItemWithOwnerName($id);
+        // return dd($reservation_details);
+        return view('website.frontend.owner.Item_Profile_Reservations',['reservations'=>$reservations,'reservation_details'=>$reservation_details,'item' => $item,'cover'=>$cover,'check_follow' => $check_follow]);
+
+    }
+
+// function for page ownerManageSchedule
+    public function itemManageSchedule($id = null)
+    {
+
+        $schedule = ScheduleController::getWholeSchedule($id);
+        // return $schedule;
+
+        $item = AddUserController::getItemWithOwnerName($id);
+        $cover = CoverPageController::getCoverPhotoOfItem($id);
+        //schedule and location
+
+        $User_Id = Auth::id();
+        $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
+
+// return $schedule;
+        return view('website\frontend\owner\Item_Profile_Manage_Schedule', [ 'item' => $item, 'cover' => $cover, 'schedules' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
+
 
 
     }

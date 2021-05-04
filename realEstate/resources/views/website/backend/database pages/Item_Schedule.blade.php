@@ -6,7 +6,7 @@
 <div class="right_col" role="main">
     <div class="title_right">
         <div class="x_panel">
-            @include('website.backend.layouts.flashmessage')
+
             <form method="POST" action="{{ url('/add_item_schedule/'.$item_id) }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
@@ -31,7 +31,7 @@
                     </label>
 
                     <div class="col-md-2">
-                        <input style="border-radius: 3pt" type="date" class="form-control @error('departure') is-invalid @enderror" name="departure" value="{{ old('departure') }}" required autocomplete="departure" >
+                        <input style="border-radius: 3pt" type="date" class="form-control @error('departure') is-invalid @enderror" name="departure" value="{{ old('departure') }}" required autocomplete="departure">
 
                         @error('departure')
                         <span class="invalid-feedback" role="alert">
@@ -47,7 +47,7 @@
 
                     <div class="col-md-2">
 
-                    <input style="border-radius: 3pt" type="text" class="form-control @error('Price') is-invalid @enderror" name="price" value="{{ old('Price') }}" required autocomplete="Price" >
+                        <input style="border-radius: 3pt" type="text" class="form-control @error('Price') is-invalid @enderror" name="price" value="{{ old('Price') }}" required autocomplete="Price">
                         @error('Price')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -73,7 +73,8 @@
                 <div class="row">
                 </div>
                 <div class="row">
-                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        @include('website.backend.layouts.flashmessage')
                         @yield('table')
                     </div>
                 </div>
