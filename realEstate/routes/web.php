@@ -331,3 +331,4 @@ Route::get('/owneritemGallery/{id?}', 'ItemProfileController@itemProfileGallery'
 Route::get('/owneritemReviews/{id?}', 'ItemProfileController@itemProfileReviews');
 Route::get('/owneritemReservations/{id?}', 'ItemProfileController@itemReservations');
 Route::get('/owneritemManageSchedule/{id?}', 'ItemProfileController@itemManageSchedule');
+Route::get('/MyItems','OwnerController@index');
