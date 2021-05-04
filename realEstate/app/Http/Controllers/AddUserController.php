@@ -90,7 +90,7 @@ class AddUserController extends Controller
     }
     public function BeOwner($user_id=null)
     {
-        $countries = Country::all(); 
+        $countries = Country::all();
         if($user_id==null){
              return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
         }else{
@@ -122,8 +122,7 @@ class AddUserController extends Controller
                 'User_Type_ID'=>3
             ]);
 
-        
-            return $countries;
+
             return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
 
 
@@ -169,8 +168,8 @@ class AddUserController extends Controller
         }
 
         $post_images= $post_images->groupby('Post_Id');
-        
-    
+
+
 
         if($id == Auth::id())
         {

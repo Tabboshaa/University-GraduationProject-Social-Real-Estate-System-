@@ -18,12 +18,11 @@
                                     <!-- {{$i=0}} -->
                                     @foreach($detail as $diff => $detailValue)
                                         <!-- {{$i+=1}} -->
-                                        <ul>
+                                        <ul >
                                             <li>
-                                                <div> <a href="javascript:void(0)" onclick="showDetails('{{$detailValue}}')"><span id=""> {{$property}} {{$i}}</span></a></div>
                                                 @foreach($detailValue as $detailValue)
-                                                <ul class="nav child_menu" id="{{$detailValue->Property_diff}}" >
-                                                </ul>
+                                                <div> <a href="javascript:void(0)" onclick="showDetails('{{$detailValue->Property_diff}}','{{$detailValue->Detail_Name}}','{{$detailValue->DetailValue}}')"><span id=""> {{$property}} {{$i}}</span></a></div>
+                                                <ul id="diff{{$detailValue->Property_diff}}"></ul>
                                                 @endforeach
                                             </li>
                                         @endforeach
@@ -261,9 +260,15 @@
 
     }
 
-    function showDetails(detailValue)
+    function showDetails(diff,name,value)
     {
-        console.log(detailValue);
+        var check =$("#diff"+diff).html();
+        if(check == ""){
+            var text = "<li>" + name + " : " + value + "</li>";
+            $("#diff" + diff).html(text);
+        }else{
+            $("#diff" + diff).html("");
+        }
     }
 </script>
 

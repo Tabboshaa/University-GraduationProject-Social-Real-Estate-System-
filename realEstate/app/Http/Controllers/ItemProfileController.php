@@ -131,7 +131,7 @@ class ItemProfileController extends Controller
         $cover = CoverPageController::getCoverPhotoOfItem($id);
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
-        
+
 
         return view('website\frontend\owner\Item_Profile_Gallery', ['states' => $state, 'item' => $item, 'cover' => $cover, 'gallery' => $gallery, 'check_follow' => $check_follow]);
     }
