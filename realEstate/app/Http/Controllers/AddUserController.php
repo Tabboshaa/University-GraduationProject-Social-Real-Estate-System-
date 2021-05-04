@@ -84,10 +84,9 @@ class AddUserController extends Controller
         $user_id=Auth::id();
         $user=Type_Of_User::all()->where('User_ID','=',$user_id)->where('User_Type_ID','=',3);
         if($user=='[]')
-            $user='0';
+            return 0;
         else
-            $user='1';
-        return $user;
+            return 1;
     }
     public function BeOwner($user_id=null)
     {
