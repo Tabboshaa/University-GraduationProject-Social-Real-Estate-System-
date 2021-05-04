@@ -1,7 +1,9 @@
 @extends('website.frontend.layouts.main')
 @section('content')
+@include('website.backend.layouts.flashmessage')
 
 <link href="{{asset('css/ItemAddressStyle.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('css/Form.css')}}" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -140,137 +142,41 @@
 
         });
     </script>
-
-    @include('website.backend.layouts.flashmessage')
-    
-    <form id="AddItemForm" method="post" action="{{ url('/addItem') }}" enctype="multipart/form-data">
+    <form id="AddItemForm" method="post" action="{{ url('/OwnerAddItem') }}" enctype="multipart/form-data">
         @csrf
-        <h3 class="header">ADD ITEM LOCATION</h3>
+        <h3>ADD ITEM LOCATION</h3>
+        <label> Item Name :</label>
+        <input type="text" name="Item_Name" id="Item_Name">
         <div class="locationForm" >
-                <label for="phone_number"> Country<span>*</span>
-                </label>
+                <label for="phone_number"> Country<span>*</span></label>
                 <div class="placeform">
                     <select id="CountrySelect" name="Country" value="{{ old('Country') }}">
                         <option value="0" selected disabled>Select Country</option>
                         <!--  For loop  -->
-                        {{-- @foreach($counrty as $counrty)
-                            <option value="{{$counrty->Country_Id}}">{{$counrty->Country_Name}}</option>
-                        @endforeach --}}
+                            @foreach($country as $c)
+                                <option value="{{$c->Country_Id}}">{{$c->Country_Name}}</option>
+                            @endforeach 
                     </select>
                 </div>
-                    <!-- End loop -->
-                <label for="phone_number">State<span >*</span>
-                </label>
+                        <!-- End loop -->
+                <label for="phone_number">State<span >*</span></label>
                 <div class="placeform">
                     <select id="StateSelect"  name="State" value="{{ old('State') }}"></select>
                 </div>
-                <label  for="phone_number"> City<span >*</span>
-                </label>
+                <label  for="phone_number"> City<span >*</span></label>
                 <div class="placeform">
                     <select id="CitySelect"  name="City" value="{{ old('City') }}"></select>
                 </div>
-                <label for="phone_number"> Region<span >*</span>
-                </label>
+                <label for="phone_number"> Region<span >*</span></label>
                 <div class="placeform">
                     <select id="RegionSelect"name="Region" value="{{ old('Region') }}"></select>
                 </div>
-                    <label for="phone_number"> Street<span >*</span>
-                </label>
+                <label for="phone_number"> Street<span >*</span></label>
                 <div class="placeform">
                     <select id="StreetSelect" name="Street" value="{{ old('Street') }}"></select>
                 </div>
         </div>
-                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-        <!-- Circles which indicates the steps of the form: -->
-        
-            <span class="step"></span>
-            <span class="step"></span>
-
+        <button type="submit" id="btun1">Next</button>
     </form>
-    <script>
-        var currentTab = 0; // Current tab is set to be the first tab (0)
-        showTab(currentTab); // Display the current tab
 
-        function showTab(n) {
-            // This function will display the specified tab of the form ...
-            var x = document.getElementsByClassName("tab");
-            x[n].style.display = "block";
-            // ... and fix the Previous/Next buttons:
-            if (n == 0) {
-                document.getElementById("prevBtn").style.display = "none";
-                document.getElementById("nextBtn").style.display = "none";
-
-
-            } else {
-                document.getElementById("prevBtn").style.display = "inline";
-            }
-            if (n == (x.length - 1)) {
-                document.getElementById("nextBtn").innerHTML = "continue";
-            } else {
-                document.getElementById("nextBtn").innerHTML = "Next";
-            }
-            // ... and run a function that displays the correct step indicator:
-            fixStepIndicator(n);
-        }
-
-        function nextPrev(n) {
-            // This function will figure out which tab to display
-            var x = document.getElementsByClassName("tab");
-            // Exit the function if any field in the current tab is invalid:
-            if (n == 1 && !validateForm()) return false;
-            // Hide the current tab:
-            x[currentTab].style.display = "none";
-            // Increase or decrease the current tab by 1:
-            currentTab = currentTab + n;
-            // if you have reached the end of the form... :
-            if (currentTab >= x.length) {
-                //...the form gets submitted:
-                document.getElementById("AddItemForm").submit();
-                return false;
-            }
-            // Otherwise, display the correct tab:
-            showTab(currentTab);
-        }
-
-        function validateForm() {
-            // This function deals with validation of the form fields
-            var x, y, i, valid = true;
-            x = document.getElementsByClassName("tab");
-            y = x[currentTab].getElementsByTagName("input");
-            // A loop that checks every input field in the current tab:
-            for (i = 0; i < y.length; i++) {
-                // If a field is empty...
-                if (y[i].value == "") {
-                    // add an "invalid" class to the field:
-                    y[i].className += " invalid";
-                    // and set the current valid status to false:
-                    valid = false;
-                }
-            }
-            // If the valid status is true, mark the step as finished and valid:
-            if (valid) {
-                document.getElementsByClassName("step")[currentTab].className += " finish";
-            }
-            return valid; // return the valid status
-        }
-
-        function fixStepIndicator(n) {
-            // This function removes the "active" class of all steps...
-            var i, x = document.getElementsByClassName("step");
-            for (i = 0; i < x.length; i++) {
-                x[i].className = x[i].className.replace(" active", "");
-            }
-            //... and adds the "active" class to the current step:
-            x[n].className += " active";
-        }
-
-        $('#AddItemForm').on('keyup keypress', function(e) {
-            var keyCode = e.keyCode || e.which;
-            if (keyCode === 13) {
-                e.preventDefault();
-                return false;
-            }
-        });
-    </script>
 @endsection

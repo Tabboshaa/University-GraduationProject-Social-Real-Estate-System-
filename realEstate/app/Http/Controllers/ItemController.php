@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Location;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
@@ -95,6 +96,32 @@ class ItemController extends Controller
         $sub_types = Sub_Type::all();
         $main_types = Main_Type::all();
         return view('website.backend.database pages.Item_Sub_Type_Show', ['sub_type' => $sub_types, 'main_type' => $main_types, 'item_id' => $id]);
+    }
+
+    public function OwnerSelectProperty($item_id=null,$sub_type_id=null)
+    {
+        //
+        $property = Sub_Type_Property::all()->where('Sub_Type_Id','=',$sub_type_id);
+        return view('website.frontend.Owner.Owner_Select_Details', ['property' => $property,'item_id'=>$item_id]);
+
+    }
+    public function SelectSubType($id = null)
+    {
+        $main_types = Main_Type::all()->where('Main_Type_Id', '=', 1)->first()->Main_Type_Name;
+        $main_type_id = Main_Type::all()->where('Main_Type_Id', '=', 1)->first()->Main_Type_Id;
+        $sub_types = Sub_Type::all()->where('Main_Type_Id', '=', $main_type_id);
+        return view('website.frontend.Owner.Owner_Select_Sub_Type', ['main_type_id'=>$main_type_id ,'sub_type' => $sub_types, 'main_type' => $main_types, 'item_id' => $id]);
+    }
+    public function OwnerAddItem()
+    {
+        $user_id=Auth::id();
+        $item = Item::create([
+            'User_Id' => $user_id,
+            'Street_Id' => request("Street"),
+            'Item_Name' => request("Item_Name"),
+        ]);
+        $item_id = Arr::get($item, 'Item_Id');
+        return $this->SelectSubType($item_id);
     }
     public function create()
     {

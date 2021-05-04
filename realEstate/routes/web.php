@@ -325,9 +325,7 @@ Route::get('/checkIfOwner','AddUserController@checkIfOwner')->name('checkIfOwner
 
 
 //Owner
-Route::get('/OwnerAddItem', function () {
-    return view('website\frontend.Owner.Add_Item');
-});
+Route::post('/OwnerAddItem', 'ItemController@OwnerAddItem');
 
 Route::get('/owneritemProfile/{id?}', 'ItemProfileController@itemProfile');
 Route::get('/owneritemDetails/{id?}', 'ItemProfileController@itemDetails');
@@ -335,6 +333,8 @@ Route::get('/owneritemGallery/{id?}', 'ItemProfileController@itemProfileGallery'
 Route::get('/owneritemReviews/{id?}', 'ItemProfileController@itemProfileReviews');
 Route::get('/owneritemReservations/{id?}', 'ItemProfileController@itemReservations');
 Route::get('/owneritemManageSchedule/{id?}', 'ItemProfileController@itemManageSchedule');
+Route::get('/Amr/{id?}' , 'ItemController@SelectSubType');
+Route::get('/OwnerSelectDetails/{item_id}/{sub_type_id}','ItemController@OwnerSelectProperty');
 Route::get('/OwnerAddItem', function () {
     return view('website\frontend.Owner.Add_Item');
 });
