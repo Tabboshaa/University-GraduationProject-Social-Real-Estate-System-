@@ -6,7 +6,25 @@
         <!-- Banner -->
         <div class="dashboard">
             <div class="advertisment-banner1 col-md-12">
-        <img src="{{asset('storage/cover page/'.$cover->path)}}" alt="">
+                 {{-- Cover photo --}}
+                 @if(!empty($cover))
+                 {{-- imggggggggggggggggggggggggggggggggg --}}
+                     <img class="background" src="{{asset('storage/cover page/'.$cover['File_Path'])}}" alt="">
+                 @else
+                 <div id="coverPhoto">
+                     <img class="background" src="{{asset('storage/cover page/Default1.jpeg')}}" alt="">
+                 </div>
+                 <div class="screnshot" id="OpenImgUpload">
+                 <form method="POST" action="{{url('/CreateCoverPhoto')}}" enctype="multipart/form-data">
+                         @csrf
+                         <input id="cover_photo_upload" name="CoverPhoto" type="file" class="hidden" onchange="javascript:this.form.submit();">
+                 </form>
+                 </div>
+                 @endif
+                 <form method="Post" action="{{url('/DeleteMyCoverPhoto/'.$cover['Photo_Id'].'/'.$cover['File_Path'].'?_method=delete')}}" enctype="multipart/form-data">
+                 @csrf
+                     <button type="submit" id="btun3" class="btn btn-success"></button>
+                 </form>
             </div>
             <div class="main-page">
                 <div class="dash-profile">
