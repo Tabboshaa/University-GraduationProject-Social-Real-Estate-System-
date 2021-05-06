@@ -80,7 +80,7 @@ class ItemController extends Controller
         $Sub_Type_Id = Arr::get(Details::all()->where('Item_Id', '=', $id)->first(), 'Sub_Type_Id');
 
 
-        return view('website.backend.database pages.omniaShowItem', ['user' => $user, 'Location' => $Location, 'details' => $details, 'item_id' => $id, 'subtypeid' => $Sub_Type_Id,'email'=>$email,'phone_number' => $phone_number,'user_id'=>$User_id]);
+        return view('website.backend.database pages.ShowItem', ['user' => $user, 'Location' => $Location, 'details' => $details, 'item_id' => $id, 'subtypeid' => $Sub_Type_Id,'email'=>$email,'phone_number' => $phone_number,'user_id'=>$User_id]);
     }
 
     public function itemShow()

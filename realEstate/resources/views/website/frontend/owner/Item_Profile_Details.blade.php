@@ -14,14 +14,15 @@
 
                 @foreach ($details as $property => $detail)
                             <ul class="nav side-menu">
-                                <li>{{$property}}
+                                <li>{{$property}}  <a href="{{url('')}}" ><i style="padding-left:14px" class="fa fa-plus"></i></a>
                                     <!-- {{$i=0}} -->
                                     @foreach($detail as $diff => $detailValue)
                                         <!-- {{$i+=1}} -->
                                         <ul >
                                             <li>
-                                                @foreach($detailValue as $detailValue)
-                                                <div> <a href="javascript:void(0)" onclick="showDetails('{{$detailValue->Property_diff}}','{{$detailValue->Detail_Name}}','{{$detailValue->DetailValue}}')"><span id=""> {{$property}} {{$i}}</span></a></div>
+                                                @foreach($detailValue as $detailValue)  <!-- sha8ala hena -->
+                                                <div> <a href="javascript:void(0)" onclick="showDetails('{{$detailValue->Property_diff}}','{{$detailValue->Detail_Name}}','{{$detailValue->DetailValue}}','{{$detailValue->Property_Detail_Id}}')"><span id=""> {{$property}} {{$i}}</span></a>
+                                                <a href="javascript:void(0)" onclick="AddDetail('{{$detailValue->Property_Detail_Id}}','{{$property}}')" ><i style="padding-left:14px" class="fa fa-pencil"></i></a></div>
                                                 <ul id="diff{{$detailValue->Property_diff}}"></ul>
                                                 @endforeach
                                             </li>
@@ -62,7 +63,8 @@
                                 $day = \Carbon\Carbon::parse($date["date"])->format('d');
                                 $day = $day + 1 - 1;
                                 $SID = $date["schedule_Id"];
-                                $ID = $date["date"];                                        ?>
+                                $ID = $date["date"];
+                                ?>
                                 <li>
                                     <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
                                 </li>
@@ -141,6 +143,27 @@
     <div class="addbtn1">
         <a href="javascript:void(0)" onclick="goreserve('{{$item_id}}');" id="gobutton" style="display: none; margin-top:90px; margin-left:50px">reserve</a>
     </div>
+
+    <div class="modal fade" id="EditMainTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="data_form">
+                        @csrf
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -260,16 +283,97 @@
 
     }
 
-    function showDetails(diff,name,value)
+    function showDetails(diff,name,value,p)
     {
+        console.log(p);
         var check =$("#diff"+diff).html();
         if(check == ""){
-            var text = "<li>" + name + " : " + value + "</li>";
+            var text = "<li>" + name + " : <input type='text' id='PID"+p+"' value='" + value + "'></li>";
             $("#diff" + diff).html(text);
         }else{
             $("#diff" + diff).html("");
         }
     }
+
+    function AddDetail(id, name) {
+
+        $("#exampleModalLabel").html(name);
+        var Form = '';
+        $.ajax({
+            url: "{{route('propertyDetail.find')}}",
+            Type: "PUT",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                console.log('success');
+                $("#EditMainTypeModal").modal("toggle");
+
+                Object.values(data).forEach(val => {
+
+                    Form += ' <div class="form-group row"> ' +
+                        '<label for="' + val['Property_Detail_Id'] + '" class="col-md-2 col-form-label text-md-right">' + val['Detail_Name'] + '</label>' +
+                        '<div class="col-md-5">' +
+                        '<input type="' + val['datatype'] + '" id="' + val['Property_Detail_Id'] + '" name="DetailItem[]" class="form-control" required autocomplete="DetailName">' +
+                        '</div>' +
+                        '</div>';
+
+                });
+                if (Form == '')
+                    Form = 'No Property Details';
+                else
+                    Form += ' <div class="form-group row mb-0">' +
+                        '<div class="col-md-2 offset-md-2">' +
+                        ' <button type="submit" class="btn btn-primary">' +
+                        ' {{ __("Add") }}';
+                '</button>';
+
+
+                $('#data_form').html(Form);
+                Object.values(data).forEach(val => {
+                    $('#' + val['Property_Detail_Id']).val($('#PID' + val['Property_Detail_Id']).val());
+                });
+                // var FormTag= document.getElementById('data_form').innerHTML()=Form;
+            },
+            error: function() {
+                console.log('Error');
+            }
+
+        });
+
+    }
+    $('#data_form').submit(function() {
+        var data = [];
+        var item_id= $("#item_id").val();
+        //3iza ageeb kol el inputs b get element by name
+        //w b3deen 3iza 27ot el inputs value&id f array
+        $('input[name="DetailItem[]"]').each(function() {
+            data.push({
+                id: this.id,
+                value: this.value,
+            });
+        });
+        var _token = $("input[name=_token]").val();
+        //w b3den 3iza 2b3t el array le el controller
+        $.ajax({
+            type: "post",
+            url: "{{ route('details_submit')}}",
+            data: {
+                data: data,
+                item_id: item_id,
+                _token: _token
+            },
+            success: function() {
+                //hna 3iza anady 3la created succefully
+                console.log('Success');
+            },
+            error: function() {
+                // hna anady 3la not created w kdaho
+                console.log('Error');
+            }
+        });
+
+    });
 </script>
 
 <style>

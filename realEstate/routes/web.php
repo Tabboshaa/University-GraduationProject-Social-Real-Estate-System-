@@ -339,4 +339,4 @@ Route::get('/OwnerAddItem', function () {
     return view('website\frontend.Owner.Add_Item');
 });
 
-Route::get('/testsch/{id}/{start}/{end}', 'ScheduleController@cutSchedule');
+
