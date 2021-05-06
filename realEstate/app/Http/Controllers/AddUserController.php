@@ -123,7 +123,6 @@ class AddUserController extends Controller
             ]);
 
         
-            return $countries;
             return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
 
 
