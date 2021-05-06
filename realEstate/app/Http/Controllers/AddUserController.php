@@ -122,7 +122,6 @@ class AddUserController extends Controller
                 'User_Type_ID'=>3
             ]);
 
-
             return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
 
 
