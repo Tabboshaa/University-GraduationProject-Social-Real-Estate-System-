@@ -7,28 +7,42 @@
         <div class="rightboxs">
         @include('website.backend.layouts.flashmessage')
         <div name="post">
-                <div class="sub-heading">
+            <div class="sub-heading">
+                <form method="Post" action="{{url('/delete_schedule?_method=delete')}}" enctype="multipart/form-data">
+                    @csrf
                     <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
                         <tr class="rightmsg">
                             <td class="box" style="background-color:rgb(252, 252, 252);">Start date</td>
                             <td class="box" style="background-color:rgb(252, 252, 252);">End date</td>
                             <td class="box" style="background-color:rgb(252, 252, 252);">Price per night</td>
                             <td class="box" style="background-color:rgb(252, 252, 252);">Edit</td>
+                            <td>Select all <input type="checkbox" id="selectAll" name="selectAll"> <button class="btn"><i class="fa fa-trash" style="margin-right:200px;"></i></td>
+                        
+                                <script>
+                                    document.getElementById('selectAll').onclick = function() {
+                                        var checkboxes = document.getElementsByName('schedule[]'); //get all check boxes with name delete
+                                        for (var checkbox of checkboxes) { //for loop to set all checkboxes to checked
+                                            checkbox.checked = this.checked;
+                                        }
+                                    }
+                                </script>
+
                         </tr>
-                            @foreach($schedules as $schedule)
+                        @foreach($schedules as $schedule)
                         <tr class="rightmsg">
                             <td class="box">{{$schedule->Start_Date}}</td>
                             <td class="box">{{$schedule->End_Date}}</td>
                             <td class="box">{{$schedule->Price_Per_Night}}</td>
                         <td><a href="javascript:void(0)" onclick="setSchedule('{{$schedule->schedule_Id}}','{{$schedule->Start_Date}}','{{$schedule->End_Date}}','{{$schedule->Price_Per_Night}}')"><i class="fa fa-edit"> </i></a></td>
+                        <td><input type="checkbox" name="schedule[]" value="{{$schedule->schedule_Id}}" id="schedule"></td>
                         </tr>
-                            @endforeach
+                        @endforeach
                     </table>
-                </div>
-                <div class="clearfix"></div>
+                </form>
+            </div>
+            <div class="clearfix"></div>
         </div>
-
-        </div>
+    </div>
     </div>
     </div>
     <div class="addbtn1">

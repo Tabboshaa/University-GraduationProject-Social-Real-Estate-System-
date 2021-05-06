@@ -226,12 +226,12 @@
             },
             success: function(checkIfOwner) {
                 var text = "";
-                console.log(checkIfOwner);
+                // console.log(checkIfOwner);
                 var checkIfOwnerDiv = $("#checkIfOwnerDiv");
-                console.log(checkIfOwnerDiv);
+                // console.log(checkIfOwnerDiv);
                 if (checkIfOwner == '0') {
                     text +=
-                        "<div class='add-listing'> " +
+                        "<div clrass='add-listing'> " +
                         "<a href='javascript:void(0)' onclick='ToggleBeOwnerModal()'> " +
                         "<img src='{{asset('FrontEnd/images/header/plus-ico.png')}}' alt=''>Continue As Owner </a></div>";
 
