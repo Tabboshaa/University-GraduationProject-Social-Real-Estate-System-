@@ -29,21 +29,21 @@ class ScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create($id=null)
     {
-        //
-        try {
-            Schedule::create([
+        try {     
+           $test= Schedule::create([
                 'Item_Id' => $id,
                 'Start_Date' => request('arrival'),
                 'End_Date' => request('departure'),
                 'Price_Per_Night' => request('price'),
-            ]);
-            return back()->with('success', 'Schedule Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
-
-            return back()->with('error', 'Error creating schedule !!');
-        }
+                ]);
+                return;
+            } catch (\Illuminate\Database\QueryException $e) {
+    
+                return back()->with('error', 'Error creating schedule !!');
+            }
+        
     }
 
     public static function createWithVriables($id, $start, $end, $price)
