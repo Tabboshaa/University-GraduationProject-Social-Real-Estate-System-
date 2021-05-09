@@ -1,6 +1,6 @@
 @extends('website.backend.layouts.main')
 @section('content')
-    <script type="text/javascript">
+ <script type="text/javascript">
         $(document).ready(function() {
 
 
@@ -149,7 +149,6 @@
                     <div class="x_panel">
                         <div class="x_title">
                             <h2>Search Owner Of item</h2>
-
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
@@ -325,7 +324,7 @@
                                     var x, y, i, valid = true;
                                     x = document.getElementsByClassName("tab");
                                     y = x[currentTab].getElementsByTagName("input");
-                                    // A loop that checks every input field in the current tab:
+                                    // A loop cthat checks every input field in the current tab:
                                     for (i = 0; i < y.length; i++) {
                                         // If a field is empty...
                                         if (y[i].value == "") {
@@ -359,9 +358,6 @@
                                         return false;
                                     }
                                 });
-
-
-
                             </script>
                         </div>
                     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\attachment;
 use App\post_attachment;
 use Illuminate\Http\Request;
 
@@ -82,4 +83,15 @@ class PostAttachmentController extends Controller
     {
         //
     }
+  public function  deleteImgFromGallery()
+  {
+    
+    if (request()->has('id')) {
+        attachment::destroy(request('id'));
+        }else{
+            return null;
+        }   
+  }
+
+
 }
