@@ -5,8 +5,23 @@
 
 
     <div class="col-md-12">
+        <form method="POST" action="{{url('/add_item_gallery/'.$item_id)}}" enctype="multipart/form-data"   >
+        @csrf
+            <label>Add image to your Property </label>
+            <div class="screnshot" id="OpenImgUpload">
+                <input type="submit" class="btn" value="Choose File">
+                <input type="file" name="images[]" onchange="javascript:this.form.submit();" multiple ><br>
+                <span>Maximum file size 100MB</span>
+            </div>
+        </form>
+        @if( count($gallery) != 0)
         <a href="javascript:void(0)" onclick="SelectImg()">Select</a>
         <a href="javascript:void(0)" id="deleteLinke" onclick="deleteImg()" style="display: none;">Delete</a>
+        @endif
+
+        <table id="result" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+
+        </table>
         <!-- <a href="javascript:void(0)" onclick="deleteImg()">Select</a> -->
         <!-- <a href="{{url('/addItemSteps/')}}" ><i class="fa fa-plus-square-o  w3-xxlarge"></i> -->
         <div class="gallery">
@@ -63,16 +78,12 @@
     function SelectImg() {
 
         var Dcheckboxes = document.getElementsByName("Dcheckbox");
-
-
         if (c == 0) {
             for (var i = 0; i < Dcheckboxes.length; i += 1) {
                 c = 1;
                 Dcheckboxes[i].style.display = 'block';
             }
             document.getElementById('deleteLinke').style.display = "block";
-
-
         } else {
             for (var i = 0; i < Dcheckboxes.length; i += 1) {
                 Dcheckboxes[i].style.display = 'none';
@@ -87,25 +98,33 @@
 
     function deleteImg() {
         var Dcheckboxes = document.getElementsByName("Dcheckbox");
-        var 
+        var id = [];
         for (var i = 0; i < Dcheckboxes.length; i += 1) {
-            if (Dcheckboxes[i].checked == true) {
-                $.ajax({
-                    type: 'get',
-                    url: "{{ url('/') }}",
-                    data: {
-
-                    },
-                    success: function(data) {
-
-                    },
-                    error: function() {
-
-                    }
-                });
-            }
-
+            if (Dcheckboxes[i].checked == true)
+                id.push(Dcheckboxes[i].value);
         }
+
+        $.ajax({
+            type: 'get',
+            url: "{{ url('/deleteImgFromGallery') }}",
+            data: {
+                id: id,
+            },
+
+            success: function(data) {
+                location.reload(true);
+                console.log(data);
+                if (data != null)
+                    $("#result").html("<tr class='table-success'><td> Done! ,Images Deleted Successfully </td></tr>");
+                else
+                    $("#result").html("<tr class='table-success'><td> Done! ,Images Deleted Successfully </td></tr>");
+
+            },
+            error: function() {
+                $("#result").html("<tr class='table-danger'><td>Sorry! , Images cannot be deleted</td></tr>");
+
+            }
+        });
     }
 </script>
 @endsection

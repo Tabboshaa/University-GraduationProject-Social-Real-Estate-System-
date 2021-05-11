@@ -196,7 +196,7 @@ Route::get('/edit_operation_type', 'OperationsController@edit')->name('operation
 
     Route::get('/item_schedule/{id}', 'ScheduleController@index');
     Route::get('/show_item_schedule/{id}', 'ScheduleController@show')->name('show_item_schedule');
-    Route::Post('/add_item_schedule/{id}', 'ScheduleController@create');
+    Route::get('/add_item_schedule/{id?}', 'ScheduleController@create')->name('Add_Schedule');
     Route::delete('/delete_schedule', 'ScheduleController@destroy');
     Route::get('/edit_schedule', 'ScheduleController@edit')->name('schedule.update');
 
@@ -338,6 +338,8 @@ Route::post('/OwnerAddItem', 'ItemController@OwnerAddItem');
 Route::get('/owneritemProfile/{id?}', 'ItemProfileController@itemProfile');
 Route::get('/owneritemDetails/{id?}', 'ItemProfileController@itemDetails');
 Route::get('/owneritemGallery/{id?}', 'ItemProfileController@itemProfileGallery');
+Route::get('/deleteImgFromGallery', 'PostAttachmentController@deleteImgFromGallery')->name('deleteImgFromGallery');
+Route::get('/createAttachment', 'AttachmentControllera@createAttachment');
 Route::get('/owneritemReviews/{id?}', 'ItemProfileController@itemProfileReviews');
 Route::get('/owneritemReservations/{id?}', 'ItemProfileController@itemReservations');
 Route::get('/owneritemManageSchedule/{id?}', 'ItemProfileController@itemManageSchedule');
@@ -348,4 +350,4 @@ Route::get('/OwnerAddItem', function () {
     return view('website\frontend.Owner.Add_Item');
 });
 
-Route::get('/testsch/{id}/{start}/{end}', 'ScheduleController@cutSchedule');
+

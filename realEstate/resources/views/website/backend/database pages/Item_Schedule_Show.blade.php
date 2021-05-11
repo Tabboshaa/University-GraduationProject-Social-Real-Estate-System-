@@ -7,7 +7,6 @@
 
     <div class="clearfix"></div>
 
-
     <form method="Post" action="{{url('/delete_schedule?_method=delete')}}" enctype="multipart/form-data">
         @csrf
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
