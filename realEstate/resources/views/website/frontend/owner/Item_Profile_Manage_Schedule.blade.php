@@ -20,7 +20,7 @@
                                     <td class="box" style="background-color:rgb(252, 252, 252);">Price per night</td>
                                     <td class="box" style="background-color:rgb(252, 252, 252);">Edit</td>
                                     <td>Select all <input type="checkbox" id="selectAll" name="selectAll"> <button class="btn"><i class="fa fa-trash" style="margin-right:200px;"></i></td>
-                                
+
                                         <script>
                                             document.getElementById('selectAll').onclick = function() {
                                                 var checkboxes = document.getElementsByName('schedule[]'); //get all check boxes with name delete

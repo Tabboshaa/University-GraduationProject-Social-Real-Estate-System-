@@ -132,7 +132,7 @@ class ItemProfileController extends Controller
         $cover = CoverPageController::getCoverPhotoOfItem($id);
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
-        
+
         return view('website\frontend\owner\Item_Profile_Gallery', ['item_id'=>$itemID,'states' => $state, 'item' => $item, 'cover' => $cover, 'gallery' => $gallery, 'check_follow' => $check_follow]);
     }
 
@@ -181,12 +181,13 @@ class ItemProfileController extends Controller
     public function itemManageSchedule($id = null)
     {
 
+
         $schedule = ScheduleController::getWholeSchedule($id);
-        
+
 
         $item = AddUserController::getItemWithOwnerName($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
-        
+
         //schedule and location
 
         $User_Id = Auth::id();
