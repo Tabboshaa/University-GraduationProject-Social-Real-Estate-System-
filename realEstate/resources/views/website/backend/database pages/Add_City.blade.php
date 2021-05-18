@@ -95,7 +95,6 @@ $(document).ready(function (){
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
-
                     </div>
                 </div>
 

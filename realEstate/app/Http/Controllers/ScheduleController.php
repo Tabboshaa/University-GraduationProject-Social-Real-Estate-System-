@@ -31,19 +31,21 @@ class ScheduleController extends Controller
      */
     public function create($id=null)
     {
-        try {     
-                $test= Schedule::create([
-                 'Item_Id' => $id,
-                 'Start_Date' => request('arrival'),
-                 'End_Date' => request('departure'),
-                 'Price_Per_Night' => request('price'),
+
+        try {
+            if($id==null){$id=request('id');}
+           $test=Schedule::create([
+                'Item_Id'=>$id,
+                'Start_Date'=>request('arrival'),
+                'End_Date'=>request('departure'),
+                'Price_Per_Night'=>request('price')
                 ]);
-                return;
-            } catch (\Illuminate\Database\QueryException $e) {
-    
+
+            }catch (\Illuminate\Database\QueryException $e) {
+
                 return back()->with('error', 'Error creating schedule !!');
             }
-        
+
     }
 
     public static function createWithVriables($id, $start, $end, $price)
@@ -145,8 +147,8 @@ class ScheduleController extends Controller
                  // create schedule from 01/03/2020 to 14/03/2020
                 ScheduleController::createWithVriables($schedule->Item_Id, $schedule->Start_Date, $start, $schedule->Price_Per_Night);
                //createschedule from 18/03/2020 to 20/03/2020
-                ScheduleController::createWithVriables($schedule->Item_Id, $end, $schedule->End_Date, $schedule->Price_Per_Night); 
-                //delete old schedule 
+                ScheduleController::createWithVriables($schedule->Item_Id, $end, $schedule->End_Date, $schedule->Price_Per_Night);
+                //delete old schedule
                 ScheduleController::destroy($schedule_id);
             }
             return true;
