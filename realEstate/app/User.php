@@ -41,4 +41,8 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    public function items(){
+        return $this->hasMany(Item::class, 'User_Id');
+    }
 }

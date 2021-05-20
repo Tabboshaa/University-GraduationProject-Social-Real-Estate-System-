@@ -42,7 +42,7 @@
 
 <div class="C">
 
-    <h2>{{$user[0]->First_Name}} {{$user[0]->Middle_Name}} {{$user[0]->Last_Name}} Items </h2>
+    <h2>{{$user->First_Name}} {{$user->Middle_Name}} {{$user->Last_Name}} Items </h2>
 
 </div>
 
@@ -51,7 +51,7 @@
         <tr>
             <td class="th1">User</td>
             <td class="td1">
-                Name : {{$user[0]->First_Name}} {{$user[0]->Middle_Name}} {{$user[0]->Last_Name}}
+                Name : {{$user->First_Name}} {{$user->Middle_Name}} {{$user->Last_Name}}
                 <br>Email :{{$email}} <a href="{{ url('/edit_item_user/'.$item_id) }}"><i class="fa fa-edit"> Edit</i></a>
                 <br>Phone Number :{{$phone_number}}
             </td>

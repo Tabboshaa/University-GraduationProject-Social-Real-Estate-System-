@@ -10,6 +10,8 @@ use App\Sub_Type;
 use App\Sub_Type_Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class DetailsController extends Controller
 {
@@ -30,8 +32,8 @@ class DetailsController extends Controller
     {
 
         $detailsInput = request('data');
-        $max= Details::max('Property_diff');
-         $max+=1;
+        $max = Details::max('Property_diff');
+        $max += 1;
 
         foreach ($detailsInput as $detail) {
             $property_details = Property_Details::all()->where('Property_Detail_Id', '=', Arr::get($detail, 'id'))->first();
@@ -44,7 +46,7 @@ class DetailsController extends Controller
                 'Sub_Type_Id' => Arr::get($property_details, 'Sub_Type_Id'),
                 'Property_Id' => Arr::get($property_details, 'Property_Id'),
                 'property_Detail_Id' => Arr::get($property_details, 'Property_Detail_Id'),
-                'Property_diff'=>$max,
+                'Property_diff' => $max,
                 'DetailValue' => Arr::get($detail, 'value')
             ];
         }
@@ -62,6 +64,75 @@ class DetailsController extends Controller
             }
         }
     }
+
+    public function editDetails()
+    {
+
+        $detailsInput = request('data');
+        // return $detailsInput;
+
+        foreach ($detailsInput as $detail) {
+
+            try {
+                $d = Details::all()->find(Arr::get($detail, 'id'));
+                if ($d != null) {
+                    if(Arr::get($detail, 'type')=='checkbox')
+                    {
+                        if(Arr::get($detail, 'value')=='on')
+                        {
+                            $val='yes';
+                        }else{
+                            $val='no';
+                        }
+                    }else {
+                        $val=Arr::get($detail, 'value');
+                    }
+
+                    $d->DetailValue = $val;
+                    $d->save();
+                } else {     
+                    // return  Arr::get($detail, 'type');
+                    // checkbox
+                    $propId = Arr::get($detail, 'id');
+                    $propId = Str::replaceFirst('prop', '', $propId);
+                    $property_details = Property_Details::all()->where('Property_Detail_Id', '=',  $propId)->first();
+
+                    if(Arr::get($detail, 'type')=='checkbox')
+                    {
+                        if(Arr::get($detail, 'value')=='on')
+                        {
+                            $val='yes';
+                        }else{
+                            $val='no';
+                        }
+                    }else {
+                        $val=Arr::get($detail, 'value');
+                    }
+
+                    Details::create(
+                        [
+                            'Item_Id' => 1,
+                            'Main_Type_Id' =>  Arr::get($property_details, 'Main_Type_Id'),
+                            'Sub_Type_Id' =>  Arr::get($property_details, 'Sub_Type_Id'),
+                            'Property_Id' => Arr::get($property_details, 'Property_Id'),
+                            'Property_Detail_Id' => Arr::get($property_details, 'Property_Detail_Id'),
+                            'Property_diff' =>  Arr::get($detail, 'diff'),
+                            'DetailValue' =>  $val
+                        ]
+                    );
+                }
+            } catch (\Illuminate\Database\QueryException $e) {
+                $errorCode = $e->errorInfo[1];
+                if ($errorCode == 1062) {
+                    return back()->with('error', 'Error editing Detail');
+                }
+            }
+        }
+        return 'done';
+        //         return back()->with('info', 'Detail Edited Successfully');
+
+    }
+
     public function show()
     {
         //
@@ -116,5 +187,34 @@ class DetailsController extends Controller
                 return redirect()->back()->with('error', 'Detail cannot be deleted');
             }
         } else return redirect()->back()->with('warning', 'No Detail was chosen to be deleted.. !!');
+    }
+
+    public function destroydetails()
+    {
+        try {
+            $d = Details::all()->where('Property_diff', '=', request('diff'));  
+            foreach($d as $id)
+            {      
+            Details::destroy($id->Detail_Id);
+            }
+
+            return $d;
+        } catch (\Illuminate\Database\QueryException $e) {
+            return;
+        }
+    }
+
+    public function findDetailsForShow()
+    {
+        // return  request('id');
+        $details = DB::table('details')
+            ->join('property__details', 'details.Property_Detail_Id', '=', 'property__details.Property_Detail_Id')
+            ->select('details.*', 'property__details.Detail_Name')
+            ->get()->where('Property_diff', '=', request('id'));
+
+
+        // Details::all()->where('Property_diff','=',request('id'));
+
+        return $details;
     }
 }

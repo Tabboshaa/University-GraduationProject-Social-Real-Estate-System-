@@ -177,6 +177,7 @@ Route::get('/edit_operation_type', 'OperationsController@edit')->name('operation
     Route::get('/Details', 'DetailsController@index')->name('Details');
     Route::get('/Details_show', 'DetailsController@show')->name('details_show');
     Route::post('/add_Details', 'DetailsController@create')->name('details_submit');
+    Route::post('/Edit_Details', 'DetailsController@editDetails')->name('details.edit');
 
 
     // Item  pages #Tabbosha
@@ -264,6 +265,8 @@ Route::get('/edit_operation_type', 'OperationsController@edit')->name('operation
 
     // findDetailsForForm
     Route::get('/findDetailsForForm', 'PropertyDetailsController@findDetailsForForm')->name('propertyDetail.find');
+    Route::get('/findDetailsForShow', 'DetailsController@findDetailsForShow')->name('detail.find');
+    Route::get('/DeleteDetailsOwner', 'DetailsController@destroydetails')->name('delete.details');
 
 
     //User Pages #S
@@ -336,6 +339,9 @@ Route::get('/owneritemReviews/{id?}', 'ItemProfileController@itemProfileReviews'
 Route::get('/owneritemReservations/{id?}', 'ItemProfileController@itemReservations');
 Route::get('/owneritemManageSchedule/{id?}', 'ItemProfileController@itemManageSchedule');
 Route::get('/Amr/{id?}' , 'ItemController@SelectSubType');
+Route::get('/OwnerSelectSubType/{id?}' , 'ItemController@SelectSubType');
+Route::get('/test' , 'DetailsController@test');
+
 Route::get('/OwnerSelectDetails/{item_id}/{sub_type_id}','ItemController@OwnerSelectProperty');
 Route::get('/OwnerAddItem', function () {
     return view('website\frontend.Owner.Add_Item');

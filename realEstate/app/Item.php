@@ -15,4 +15,12 @@ class Item extends Model
         'Item_Name'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'User_Id');
+    }
+
+    public function street(){
+        return $this->belongsTo(User::class, 'User_Id');
+    }
 }
