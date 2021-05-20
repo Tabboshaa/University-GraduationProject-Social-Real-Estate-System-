@@ -41,7 +41,17 @@ class CustomerHomeController extends Controller
          return view("website.frontend.customer.CustomerHome", ['states' => $state,'checkIfOwner'=>$user]);
 
     }
+    public function indexPhoto(){
+       
+        $States = DB::table('state_photos')
+            ->join('states', 'states.State_Id', '=', 'state_photos.State_Id')
+            ->join('attachments', 'attachments.Attachment_Id', '=', 'state_photos.Attachment_Id')
+            ->select('state_photos.*', 'attachments.File_Path','states.State_Name')->get();
 
+            return view('website.frontend.customer.CustomerHome');
+        
+
+    }
     /**
      * Show the form for creating a new resource.
      *

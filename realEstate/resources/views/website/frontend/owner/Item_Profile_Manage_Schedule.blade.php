@@ -1,55 +1,96 @@
 @extends('website.frontend.owner.Item_Profile')
 @section('profile_Content')
+@include('website.backend.layouts.flashmessage')
 
 <div class="row">
     <div class="col-md-12">
-    <div class="box-left">
-        <div class="rightboxs">
-        @include('website.backend.layouts.flashmessage')
-        <div name="post">
-            <div class="sub-heading">
-                <form method="Post" action="{{url('/delete_schedule?_method=delete')}}" enctype="multipart/form-data">
-                    @csrf
-                    <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
-                        <tr class="rightmsg">
-                            <td class="box" style="background-color:rgb(252, 252, 252);">Start date</td>
-                            <td class="box" style="background-color:rgb(252, 252, 252);">End date</td>
-                            <td class="box" style="background-color:rgb(252, 252, 252);">Price per night</td>
-                            <td class="box" style="background-color:rgb(252, 252, 252);">Edit</td>
-                            <td>Select all <input type="checkbox" id="selectAll" name="selectAll"> <button class="btn"><i class="fa fa-trash" style="margin-right:200px;"></i></td>
-                        
-                                <script>
-                                    document.getElementById('selectAll').onclick = function() {
-                                        var checkboxes = document.getElementsByName('schedule[]'); //get all check boxes with name delete
-                                        for (var checkbox of checkboxes) { //for loop to set all checkboxes to checked
-                                            checkbox.checked = this.checked;
-                                        }
-                                    }
-                                </script>
+        <div class="box-left">
+            <div class="rightboxs">
+                <div name="post">
+                    <div class="sub-heading">
+                        <form method="Post" action="{{url('/delete_schedule?_method=delete')}}" enctype="multipart/form-data">
+                            @csrf
+                                <a href="javascript:void(0)" onclick="createSchedule()">
+                                    Add Scedule<i class="fa fa-plus-square"></i>
+                                </a>
+                            <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+                                <tr class="rightmsg">
+                                    <td class="box" style="background-color:rgb(252, 252, 252);">Start date</td>
+                                    <td class="box" style="background-color:rgb(252, 252, 252);">End date</td>
+                                    <td class="box" style="background-color:rgb(252, 252, 252);">Price per night</td>
+                                    <td class="box" style="background-color:rgb(252, 252, 252);">Edit</td>
+                                    <td>Select all <input type="checkbox" id="selectAll" name="selectAll"> <button class="btn"><i class="fa fa-trash" style="margin-right:200px;"></i></td>
 
-                        </tr>
-                        @foreach($schedules as $schedule)
-                        <tr class="rightmsg">
-                            <td class="box">{{$schedule->Start_Date}}</td>
-                            <td class="box">{{$schedule->End_Date}}</td>
-                            <td class="box">{{$schedule->Price_Per_Night}}</td>
-                        <td><a href="javascript:void(0)" onclick="setSchedule('{{$schedule->schedule_Id}}','{{$schedule->Start_Date}}','{{$schedule->End_Date}}','{{$schedule->Price_Per_Night}}')"><i class="fa fa-edit"> </i></a></td>
-                        <td><input type="checkbox" name="schedule[]" value="{{$schedule->schedule_Id}}" id="schedule"></td>
-                        </tr>
-                        @endforeach
-                    </table>
-                </form>
+                                        <script>
+                                            document.getElementById('selectAll').onclick = function() {
+                                                var checkboxes = document.getElementsByName('schedule[]'); //get all check boxes with name delete
+                                                for (var checkbox of checkboxes) { //for loop to set all checkboxes to checked
+                                                    checkbox.checked = this.checked;
+                                                }
+                                            }
+                                        </script>
+
+                                </tr>
+                                @foreach($schedules as $schedule)
+                                <tr class="rightmsg">
+                                    <td class="box">{{$schedule->Start_Date}}</td>
+                                    <td class="box">{{$schedule->End_Date}}</td>
+                                    <td class="box">{{$schedule->Price_Per_Night}}</td>
+                                <td><a href="javascript:void(0)" onclick="setSchedule('{{$schedule->schedule_Id}}','{{$schedule->Start_Date}}','{{$schedule->End_Date}}','{{$schedule->Price_Per_Night}}')"><i class="fa fa-edit"> </i></a></td>
+                                <td><input type="checkbox" name="schedule[]" value="{{$schedule->schedule_Id}}" id="schedule"></td>
+                                </tr>
+                                @endforeach
+                            </table>
+                        </form>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
             </div>
-            <div class="clearfix"></div>
         </div>
-    </div>
-    </div>
     </div>
     <div class="addbtn1">
         <!-- <a href="javascript:void(0)" onclick="goreserve('{{$item_id}}');" id="gobutton" style=" margin-top:90px; margin-left:50px">edit Schdule</a> -->
     </div>
-
 </div>
+
+{{-- Create Scheduale --}}
+<div class="modal fade" id="CreateScheduleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create New Scheduale</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="CreateSchedule" method="get" >
+                    @csrf
+                    <input type="hidden" name="id" id="idNewSchedule"  value="{{$item->Item_Id}}">
+                    <div class="form-group">
+                        <label  style="font-size: 12pt">Start Date</label>
+                        <input id="arrival" type="date" style="border-radius: 3pt" name="StartDate"  class="form-control">
+
+                    </div>
+                    <div class="form-group">
+                        <label style="font-size: 12pt">End Date</label>
+                        <input id="departure" type="date" style="border-radius: 3pt" name="EndDate"  class="form-control">
+
+                    </div>
+                    <div class="form-group">
+                        <label style="font-size: 12pt" >Price Per Night</label>
+                        <input id="price" type="text" style="border-radius: 3pt" name="Price"  class="form-control">
+
+                    </div>
+                    <button type="submit" id="btun3" class="btn btn-success">Continue</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Edit SchedualeModal --}}
 <div class="modal fade" id="EditScheduleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -85,6 +126,8 @@
         </div>
     </div>
 </div>
+
+<script src="{{ asset('js/app.js') }}" defer></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script>
     var s = 0;
@@ -180,7 +223,7 @@
 
         $.ajax({
             url: "{{route('calculate.days')}}",
-            Type: "get",
+            Type: "POST",
             data: {
                 start: start_id,
                 end: End_id,
@@ -201,6 +244,42 @@
         });
 
     }
+
+    function createSchedule()
+    {
+        $("#CreateScheduleModal").modal("toggle");
+    }
+
+    $('#CreateSchedule').submit(function() {
+
+        var id = $("#idNewSchedule").val();
+        console.log(id);
+        var arrival = $("#arrival").val();
+        var departure = $("#departure").val();
+        var price = $("#price").val();
+        var _token = $("input[name=_token]").val();
+
+        $.ajax({
+            url: "{{route('Add_Schedule')}}",
+            Type: "POST",
+            data: {
+                id: id,
+                arrival: arrival,
+                departure: departure,
+                price : price,
+                _token: _token
+            },
+            success:function(response) {
+                console.log(response);
+                // location.href = response;
+            },
+            error:function() {
+                console.log('Error');
+            }
+
+        });
+    });
+
 
     function setSchedule(schedule_id,start,end,price)
     {
@@ -240,6 +319,11 @@
     });
 </script>
 
+<!-- Fonts -->
+<link rel="dns-prefetch" href="//fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+<!-- Styles -->
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <style>
     /*label  {*/
     /*    display: inline-block;*/
@@ -885,14 +969,4 @@
         display: inline-block;
     }
 </style>
-
-
-<!-- Fonts -->
-<link rel="dns-prefetch" href="//fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-<!-- Styles -->
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
-<script src="{{ asset('js/app.js') }}" defer></script>
-
 @endsection

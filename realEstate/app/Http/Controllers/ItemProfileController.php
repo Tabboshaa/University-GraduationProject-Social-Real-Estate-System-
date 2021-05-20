@@ -146,7 +146,7 @@ class ItemProfileController extends Controller
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
-        return view('website\frontend\owner\Item_Profile_Gallery', ['item_id' => $itemID, 'states' => $state, 'item' => $item, 'cover' => $cover, 'gallery' => $gallery, 'check_follow' => $check_follow]);
+        return view('website\frontend\owner\Item_Profile_Gallery', ['item_id'=>$itemID,'states' => $state, 'item' => $item, 'cover' => $cover, 'gallery' => $gallery, 'check_follow' => $check_follow]);
     }
 
     public function itemProfileReviews($id = null)
@@ -192,6 +192,7 @@ class ItemProfileController extends Controller
     // function for page ownerManageSchedule
     public function itemManageSchedule($id = null)
     {
+
 
         $schedule = ScheduleController::getWholeSchedule($id);
 

@@ -66,6 +66,10 @@ Route::get('/reserve', function () {
     return view('website\backend.database pages.add-Reservation');
 });
 Route::get('/Payment/{item_id}/{schedule}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}', 'PaymentController@show_payment');
+Route::get('/state1', function () {
+    return view('website\backend.database pages.StatePhoto');
+});
+
 
 
 //items Profile Pages
@@ -193,7 +197,7 @@ Route::get('/edit_operation_type', 'OperationsController@edit')->name('operation
 
     Route::get('/item_schedule/{id}', 'ScheduleController@index');
     Route::get('/show_item_schedule/{id}', 'ScheduleController@show')->name('show_item_schedule');
-    Route::Post('/add_item_schedule/{id}', 'ScheduleController@create');
+    Route::get('/add_item_schedule/{id?}', 'ScheduleController@create')->name('Add_Schedule');
     Route::delete('/delete_schedule', 'ScheduleController@destroy');
     Route::get('/edit_schedule', 'ScheduleController@edit')->name('schedule.update');
 
@@ -318,6 +322,10 @@ Route::get('/EditCustomerProfile',function () {
     return view('website.frontend.customer.Customer_Own_Profile');
 });
 Route::get('/EditCustomerProfile','CustomerHomeController@showMyProfile');
+Route::get('ReservationShow','ReservationController@show');
+Route::get('/StatesPhotos', 'StatePhotoController@index');
+Route::POST('/add_StatePhoto', 'StatePhotoController@create');
+Route::get('/shaimaa','CustomerHomeController@indexPhoto');
 Route::get('/ReservationShow','ReservationController@show');
 
 Route::Post('/BeOwner/{id?}','AddUserController@BeOwner')->name('BeOwner');
@@ -338,6 +346,7 @@ Route::get('/createAttachment', 'AttachmentControllera@createAttachment');
 Route::get('/owneritemReviews/{id?}', 'ItemProfileController@itemProfileReviews');
 Route::get('/owneritemReservations/{id?}', 'ItemProfileController@itemReservations');
 Route::get('/owneritemManageSchedule/{id?}', 'ItemProfileController@itemManageSchedule');
+Route::get('/MyItems','OwnerController@index');
 Route::get('/Amr/{id?}' , 'ItemController@SelectSubType');
 Route::get('/OwnerSelectSubType/{id?}' , 'ItemController@SelectSubType');
 Route::get('/test' , 'DetailsController@test');
