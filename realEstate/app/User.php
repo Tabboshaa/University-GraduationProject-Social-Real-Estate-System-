@@ -42,9 +42,23 @@ class User extends Authenticatable
      * @var array
      */
 
+    //shaimaa
     public function items(){
-        return $this->hasMany(Item::class, 'User_Id');
+        return $this->hasMany(Item::class, 'id');
     }
+
+    public function emails(){
+        return $this->hasMany(Emails::class, 'id');
+    }
+
+    public function phoneNumbers(){
+        return $this->hasMany(Phone_Numbers::class, 'id');
+    }
+
+    
+
+    
+    
 
 
 }

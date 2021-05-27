@@ -5,17 +5,15 @@
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <link href="{{asset('css/CategoriesDesign.css')}}" rel="stylesheet" type="text/css" />
 
-    <div class="x_title">
-        <h2>Add Item</h2>
-        <div class="clearfix"></div>
-    </div>
-
+  
+        
+    
     <form method="Get" action="{{url('/ShowItem/'.$item_id)}}" enctype="multipart/form-data">
+        <div style="display:block;"> <h2 style="margin-left: 50px; margin-top:50px;">Add Item</h2>
         @csrf
         <div class="row">
             @foreach($property as $p)
         
-            <div class="col-sm-3" id="done">
                 <table id="datatable" class="table table-striped  dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
                     <thead>
                         <th>
@@ -38,7 +36,6 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
             @endforeach
             <br>
         </div>
@@ -51,8 +48,8 @@
             </div>
             </div>
         </div>
+    </div>
     </form>
-
 {{-- ----------------------------------------------------------------------------------------------------- --}}
 <div class="modal fade" id="EditMainTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

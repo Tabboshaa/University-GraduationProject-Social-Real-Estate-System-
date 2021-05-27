@@ -142,51 +142,59 @@
 
         });
     </script>
-    <div class="right_col" role="main" style="margin-left:200px;margin-top: 50px;">
-        <form id="AddItemForm" method="post" action="{{ url('/OwnerAddItem') }}" enctype="multipart/form-data">
-            @csrf
-            <h3>ADD ITEM LOCATION</h3>
-            <label> Item Name :</label>
-            <input type="text" name="Item_Name" id="Item_Name">
-
-
-
-
-
-
-
-
-            
-            
-                    <label for="phone_number" > Country<span>*</span></label>
-                    <div class="placeform">
-                        <select id="CountrySelect" name="Country" value="{{ old('Country') }}">
-                            <option value="0" selected disabled>Select Country</option>
-                            <!--  For loop  -->
-                                @foreach($country as $c)
-                                    <option value="{{$c->Country_Id}}">{{$c->Country_Name}}</option>
-                                @endforeach 
-                        </select>
-                    </div>
-                            <!-- End loop --> 
-                    <label for="phone_number">State<span >*</span></label>
-                    <div class="placeform">
-                        <select id="StateSelect"  name="State" value="{{ old('State') }}" ></select>
-                    </div>
-                    <label  for="phone_number"> City<span >*</span></label>
-                    <div class="placeform">
-                        <select id="CitySelect"  name="City" value="{{ old('City') }}"></select>
-                    </div>
-                    <label for="phone_number"> Region<span >*</span></label>
-                    <div class="placeform">
-                        <select id="RegionSelect"name="Region" value="{{ old('Region') }}"></select>
-                    </div>
-                    <label for="phone_number"> Street<span >*</span></label>
-                    <div class="placeform">
-                        <select id="StreetSelect" name="Street" value="{{ old('Street') }}"></select>
-                    </div>
-            
-            <button type="submit" id="btun1" style="margin-top:20px;">Next</button>
-        </form>
+    <div id="content-wrapper">
+        <div class="container-fluid">
+            <div class="upload_listing">
+         <!-- Banner -->
+                <div class="row">
+					<div class="feedback col-md-10">
+                        <form method="post" action="{{ url('/OwnerAddItem') }}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="email-input" style="margin-top: 50px; margin-right:200px;margin-left: 180px;margin-bottom:150px">
+                            <div class="midemail">
+                                ADD ITEM LOCATION
+                            </div>
+                            <div class="select-left">
+                                
+                               
+                                <div style="margin-left:30px;font-weight:bold;">
+                                    Item Name <span>*</span>
+                                </div>
+                                <input type="text" name="Item_Name" id="Item_Name" placeholder="Name the Item"> 
+                                <div style="margin-left:30px;font-weight:bold;">
+                                    Country<span>*</span>
+                                </div>
+                                <select id="CountrySelect" name="Country" value="{{ old('Country') }}">
+                                    <option value="0" selected disabled>Select Country</option>
+                                    <!--  For loop  -->
+                                        @foreach($country as $c)
+                                            <option value="{{$c->Country_Id}}">{{$c->Country_Name}}</option>
+                                        @endforeach 
+                                </select>
+                                <div style="margin-left:30px;font-weight:bold;">
+                                    State<span >*</span>
+                                </div>
+                                <select id="StateSelect"  name="State" value="{{ old('State') }}"></select>
+                                <div style="margin-left:30px;font-weight:bold;">
+                                    City<span >*</span>
+                                </div>
+                                <select id="CitySelect"  name="City" value="{{ old('City') }}"></select>
+                                <div style="margin-left:30px;font-weight:bold;">  
+                                    Region<span >*</span>
+                                </div>
+                                <select id="RegionSelect"name="Region" value="{{ old('Region') }}"></select>
+                                <div style="margin-left:30px;font-weight:bold;"> 
+                                    Street<span >*</span>
+                                </div>
+                                <select id="StreetSelect" name="Street" value="{{ old('Street') }}"></select> <br><br>
+                                <button type="submit" id="btun1" style="margin-left: 670px">Next</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
 @endsection
