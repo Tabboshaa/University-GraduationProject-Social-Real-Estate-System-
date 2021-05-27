@@ -12,4 +12,7 @@ class CoverPhoto extends Model
         'User_Id',
         'Cover_Photo'
     ];
+    public function user(){
+        return $this->hasOne(User::class, 'User_Id');
+    }
 }

@@ -21,6 +21,14 @@ class Item extends Model
     }
 
     public function street(){
-        return $this->belongsTo(User::class, 'User_Id');
+        return $this->belongsTo(Street::class, 'Street_Id');
     }
+
+    public function coverpage(){
+        return $this->hasOne(Cover_Page::class, 'Item_Id');
+    }
+    public function operations(){
+        return $this->hasMany(operations::class, 'Item_Id');
+    }
+
 }

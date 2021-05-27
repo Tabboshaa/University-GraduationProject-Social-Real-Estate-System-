@@ -6,11 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="94e67ae1-48e2-456b-854f-8264ac421576" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/AddItemSteps.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/AddItemSteps.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/ShowItem.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/ShowItem.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ItemProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ItemProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ScheduleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ScheduleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/owner/Item_Profile_Manage_Schedule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/owner/Item_Profile_Manage_Schedule.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Cover_Page.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Cover_Page.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OwnerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OwnerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Item.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/Owner/Owner_Select_Details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/Owner/Owner_Select_Details.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/Owner/Owner_Select_Sub_Type.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/Owner/Owner_Select_Sub_Type.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/customer/HomePagePosts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/HomePagePosts.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/owner/Item_Profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/owner/Item_Profile.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/owner/Show_Item.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/owner/Show_Item.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -243,10 +247,10 @@
       <workItem from="1619685119835" duration="14773000" />
       <workItem from="1619949558936" duration="938000" />
       <workItem from="1619951682021" duration="23037000" />
-      <workItem from="1620556432226" duration="2973000" />
-      <workItem from="1620724476844" duration="1786000" />
-      <workItem from="1620726706997" duration="1772000" />
-      <workItem from="1620728615727" duration="1493000" />
+      <workItem from="1621293208968" duration="597000" />
+      <workItem from="1621515523026" duration="1805000" />
+      <workItem from="1621517362016" duration="597000" />
+      <workItem from="1621526925081" duration="1257000" />
     </task>
     <servers />
   </component>

@@ -72,8 +72,7 @@ class ItemController extends Controller
             ->leftJoin('regions', 'streets.Region_Id', '=', 'regions.Region_Id')
             ->select('streets.*', 'countries.Country_Name', 'states.State_Name', 'cities.City_Name', 'regions.Region_Name')
             ->get()->where('Street_Id', '=',$Street_id)->pop();
-        dd($Location);
-
+    
         $details = Details::query()
             ->join('main__types', 'details.Main_Type_Id', '=', 'main__types.Main_Type_Id')
             ->join('sub__types', 'details.Sub_Type_Id', '=', 'sub__types.Sub_Type_Id')

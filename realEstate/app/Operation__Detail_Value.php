@@ -14,4 +14,13 @@ class Operation__Detail_Value extends Model
         'Detail_Id',
         'Operation_Detail_Value'
     ];
+
+    public function detailname()
+    {
+        return $this->belongsTo(Operation__Detail_Name::class, 'Detail_Id');
+    }
+    public function operations(){
+        return $this->hasMany(operations::class, 'Item_Id');
+    }
+
 }
