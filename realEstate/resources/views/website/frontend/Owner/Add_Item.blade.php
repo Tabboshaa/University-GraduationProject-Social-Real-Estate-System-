@@ -142,41 +142,51 @@
 
         });
     </script>
-    <form id="AddItemForm" method="post" action="{{ url('/OwnerAddItem') }}" enctype="multipart/form-data">
-        @csrf
-        <h3>ADD ITEM LOCATION</h3>
-        <label> Item Name :</label>
-        <input type="text" name="Item_Name" id="Item_Name">
-        <div class="locationForm" >
-                <label for="phone_number"> Country<span>*</span></label>
-                <div class="placeform">
-                    <select id="CountrySelect" name="Country" value="{{ old('Country') }}">
-                        <option value="0" selected disabled>Select Country</option>
-                        <!--  For loop  -->
-                            @foreach($country as $c)
-                                <option value="{{$c->Country_Id}}">{{$c->Country_Name}}</option>
-                            @endforeach 
-                    </select>
-                </div>
-                        <!-- End loop -->
-                <label for="phone_number">State<span >*</span></label>
-                <div class="placeform">
-                    <select id="StateSelect"  name="State" value="{{ old('State') }}"></select>
-                </div>
-                <label  for="phone_number"> City<span >*</span></label>
-                <div class="placeform">
-                    <select id="CitySelect"  name="City" value="{{ old('City') }}"></select>
-                </div>
-                <label for="phone_number"> Region<span >*</span></label>
-                <div class="placeform">
-                    <select id="RegionSelect"name="Region" value="{{ old('Region') }}"></select>
-                </div>
-                <label for="phone_number"> Street<span >*</span></label>
-                <div class="placeform">
-                    <select id="StreetSelect" name="Street" value="{{ old('Street') }}"></select>
-                </div>
-        </div>
-        <button type="submit" id="btun1">Next</button>
-    </form>
+    <div class="right_col" role="main" style="margin-left:200px;margin-top: 50px;">
+        <form id="AddItemForm" method="post" action="{{ url('/OwnerAddItem') }}" enctype="multipart/form-data">
+            @csrf
+            <h3>ADD ITEM LOCATION</h3>
+            <label> Item Name :</label>
+            <input type="text" name="Item_Name" id="Item_Name">
 
+
+
+
+
+
+
+
+            
+            
+                    <label for="phone_number" > Country<span>*</span></label>
+                    <div class="placeform">
+                        <select id="CountrySelect" name="Country" value="{{ old('Country') }}">
+                            <option value="0" selected disabled>Select Country</option>
+                            <!--  For loop  -->
+                                @foreach($country as $c)
+                                    <option value="{{$c->Country_Id}}">{{$c->Country_Name}}</option>
+                                @endforeach 
+                        </select>
+                    </div>
+                            <!-- End loop --> 
+                    <label for="phone_number">State<span >*</span></label>
+                    <div class="placeform">
+                        <select id="StateSelect"  name="State" value="{{ old('State') }}" ></select>
+                    </div>
+                    <label  for="phone_number"> City<span >*</span></label>
+                    <div class="placeform">
+                        <select id="CitySelect"  name="City" value="{{ old('City') }}"></select>
+                    </div>
+                    <label for="phone_number"> Region<span >*</span></label>
+                    <div class="placeform">
+                        <select id="RegionSelect"name="Region" value="{{ old('Region') }}"></select>
+                    </div>
+                    <label for="phone_number"> Street<span >*</span></label>
+                    <div class="placeform">
+                        <select id="StreetSelect" name="Street" value="{{ old('Street') }}"></select>
+                    </div>
+            
+            <button type="submit" id="btun1" style="margin-top:20px;">Next</button>
+        </form>
+    </div>
 @endsection

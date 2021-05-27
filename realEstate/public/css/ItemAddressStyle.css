@@ -1,7 +1,7 @@
 .locationForm
 {
   margin-top: 50pt;
-  margin-left: 400px;
+  margin-left: 300px;
   
 }
 .header 
@@ -25,6 +25,11 @@ button#btun1
   text-decoration: none;
   overflow: hidden;
   cursor: pointer;
+}
+.select{
+margin-top: 20px;
+width:50%;
+
 }
 
 button#btun1:hover
