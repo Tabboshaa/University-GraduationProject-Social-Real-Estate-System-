@@ -13,4 +13,5 @@ class Operation__Detail_Name extends Model
         'Operation_Type_Id',
         'Operation_Detail_Name'
     ];
+
 }

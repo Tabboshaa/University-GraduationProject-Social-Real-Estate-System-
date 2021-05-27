@@ -13,4 +13,7 @@ class Emails extends Model
         'email',
         'Default'
     ];
+    public function user(){
+        return $this->hasOne(User::class, 'User_Id');
+    }
 }
