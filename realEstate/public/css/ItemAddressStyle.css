@@ -35,3 +35,20 @@ button#btun1:hover
   -webkit-transform: scale(1.1); /* Safari 3-8 */
   transform: scale(1.1); 
 }
+form.AddItemForm
+{
+ 
+}
+div.totl
+{
+ 
+}
+fieldset {
+  background-color: #eeeeee;
+}
+
+legend {
+  background-color: gray;
+  color: white;
+  padding: 5px 10px;
+}

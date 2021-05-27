@@ -13,7 +13,7 @@ class OwnerController extends Controller
     //
     public function index()
     {  
-        $User_Id = Auth::id();
+        $user_Id = Auth::user();
       
         $item = DB::table('items')
         ->join('cover__pages','items.Item_Id','cover__pages.Item_Id')
