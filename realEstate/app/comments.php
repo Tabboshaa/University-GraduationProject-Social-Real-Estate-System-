@@ -16,4 +16,16 @@ class comments extends Model
         'Parent_Comment',
         'Comment'
     ];
+    public function user(){
+        return $this->hasOne(User::class, 'User_Id');
+    }
+    public function post(){
+        return $this->hasOne(posts::class, 'Post_Id');
+    }
+    public function attachment(){
+        return $this->hasOne(attachment::class, 'Attachment_Id');
+    }
+    public function parentcomment(){
+        return $this->hasOne(comments::class, 'Parent_Comment');
+    }
 }

@@ -9,7 +9,6 @@ use App\Sub_Type;
 use App\Sub_Type_Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\VarDumper\Cloner\Data;
 
 class PropertyDetailsController extends Controller
 {
@@ -77,50 +76,58 @@ class PropertyDetailsController extends Controller
     {
         //
         try {
-        $propertydetail = Property_Details::all()->find(request('id'));
-        $propertydetail->Detail_Name = request('PropertyDetailName');
-        $propertydetail->save();
-        return back()->with('info','Property Detail Edited Successfully');
-    }catch (\Illuminate\Database\QueryException $e){
-        $errorCode = $e->errorInfo[1];
-        if($errorCode == 1062){
-            return back()->with('error','Error editing Property Detail');
+            $propertydetail = Property_Details::all()->find(request('id'));
+            $propertydetail->Detail_Name = request('PropertyDetailName');
+            $propertydetail->save();
+            return back()->with('info', 'Property Detail Edited Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Error editing Property Detail');
+            }
         }
     }
-    }
-    public function destroy(Request $request, $id=null)
+    public function destroy(Request $request, $id = null)
     {
         //
-        if(request()->has('id'))
-       {
-        try {
-        Property_Details::destroy($request->id);
+        if (request()->has('id')) {
+            try {
+                Property_Details::destroy($request->id);
 
-        return redirect()->route('property_detail_show')->with('success', 'Property Detail Deleted Successfully');
-    }catch (\Illuminate\Database\QueryException $e){
+                return redirect()->route('property_detail_show')->with('success', 'Property Detail Deleted Successfully');
+            } catch (\Illuminate\Database\QueryException $e) {
 
-        return redirect()->route('property_detail_show')->with('error', 'Property Detail cannot be deleted');
-
-    }
-}else return redirect()->route('property_detail_show')->with('warning', 'No Property Detail was chosen to be deleted.. !!');
+                return redirect()->route('property_detail_show')->with('error', 'Property Detail cannot be deleted');
+            }
+        } else return redirect()->route('property_detail_show')->with('warning', 'No Property Detail was chosen to be deleted.. !!');
     }
 
     public function submit_properties()
     {
         //
-        $property = Sub_Type_Property::all()->whereIn('Property_Id',request('property'));
-        $details= Property_Details::all();
-        return view('website.backend.database pages.Detail_Page', ['property' => $property,'details'=>$details]);
-
+        $property = Sub_Type_Property::all()->whereIn('Property_Id', request('property'));
+        $details = Property_Details::all();
+        return view('website.backend.database pages.Detail_Page', ['property' => $property, 'details' => $details]);
     }
+
     public function findDetailsForForm()
     {
-        $details=DB::table('property__details')
-        ->join('datatypes', 'property__details.DataType_Id', '=', 'datatypes.id')
-            ->select('property__details.*','datatypes.datatype')
+        $details = DB::table('property__details')
+            ->join('datatypes', 'property__details.DataType_Id', '=', 'datatypes.id')
+            ->leftJoin('details', 'details.Property_Detail_Id', '=', 'property__details.Property_Detail_Id')
+            ->select('property__details.*', 'datatypes.datatype', 'details.Detail_Id', 'details.DetailValue', 'details.Property_diff')
             ->get()
-            ->where('Property_Id','=',request('id'));
+            ->where('Property_diff', '=', request('diff'))
+            ->groupBy('Property_Detail_Id');
 
-        return response()->json($details);
+        $properties = DB::table('property__details')
+            ->join('datatypes', 'property__details.DataType_Id', '=', 'datatypes.id')
+            ->select('property__details.Property_Id','property__details.Property_Detail_Id', 'property__details.Detail_Name', 'datatypes.datatype')
+            ->get()
+            ->where('Property_Id', '=', request('id'));
+
+
+
+        return response()->json(['properties'=>$properties,'details'=>$details]);
     }
 }

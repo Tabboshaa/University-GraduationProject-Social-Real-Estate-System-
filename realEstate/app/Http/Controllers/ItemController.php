@@ -24,10 +24,15 @@ use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
+    public function __construct(Item $item, PaymentController $paymentController)
+    {
+        $this->item = $item;
+        $this->paymentController = $paymentController;
+    }
     public function index()
     {
         //
-        $item = Item::all();
+        $item = $this->item->all();
         $main_types = Main_Type::all();
         return view('website.backend.database pages.Item', ['main_type' => $main_types, 'item' => $item]);
     }
@@ -52,7 +57,8 @@ class ItemController extends Controller
 
         $Street_id = Arr::get($item, 'Street_Id');
 
-        $user =User::select('First_Name','Middle_Name','Last_Name')->where('id', '=', $User_id)->get();
+        // $user =User::select('First_Name','Middle_Name','Last_Name')->where('id', '=', $User_id)->get();
+        $user =$item->user;
 
         $email = Arr::get(Emails::all()->where('User_ID', '=', $User_id)->first(),'email');
 
@@ -66,9 +72,8 @@ class ItemController extends Controller
             ->leftJoin('regions', 'streets.Region_Id', '=', 'regions.Region_Id')
             ->select('streets.*', 'countries.Country_Name', 'states.State_Name', 'cities.City_Name', 'regions.Region_Name')
             ->get()->where('Street_Id', '=',$Street_id)->pop();
-
-
-        $details = DB::table('details')
+    
+        $details = Details::query()
             ->join('main__types', 'details.Main_Type_Id', '=', 'main__types.Main_Type_Id')
             ->join('sub__types', 'details.Sub_Type_Id', '=', 'sub__types.Sub_Type_Id')
             ->join('sub__type__properties', 'details.Property_Id', '=', 'sub__type__properties.Property_Id')

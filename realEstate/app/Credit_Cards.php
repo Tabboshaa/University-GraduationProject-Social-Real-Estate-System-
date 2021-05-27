@@ -12,5 +12,7 @@ class Credit_Cards extends Model
         'User_ID',
         'Default'
     ];
-    
+    public function user(){
+        return $this->hasOne(User::class, 'User_Id');
+    }
 }

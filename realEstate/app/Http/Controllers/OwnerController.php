@@ -13,14 +13,16 @@ class OwnerController extends Controller
     //
     public function index()
     {  
-        $user_Id = Auth::user();
-      
-        $item = DB::table('items')
-        ->join('cover__pages','items.Item_Id','cover__pages.Item_Id')
-        ->select('items.*','cover__pages.path')
-        ->where('items.User_ID','=',$User_Id )
-        ->get();
-        return view('website.FrontEnd.Owner.Show_Item', ['items' => $item]);
+        $user = Auth::user();
+    
+        // $item = DB::table('items')
+        // ->join('cover__pages','items.Item_Id','cover__pages.Item_Id')
+        // ->select('items.*','cover__pages.path')
+        // ->where('items.User_ID','=',$User_Id )
+        // ->get();
+
+        $items = $user->items;
+        return view('website.FrontEnd.Owner.Show_Item', ['items' => $items]);
     }
     public function create()
     {
@@ -30,6 +32,12 @@ class OwnerController extends Controller
     public function show()
     {
 
+    }
+    public function getReservations(){
+        $user = Auth::user();
+        $items = $user->items;
+// dd($items[0]->operations[0]->Operation_Id);
+ return view('website.FrontEnd.Owner.Show_Reservations', ['items' => $items]);
     }
 
 }
