@@ -55,7 +55,13 @@ class User extends Authenticatable
         return $this->hasMany(Phone_Numbers::class, 'id');
     }
 
-    
+    public function profilePhoto(){
+        return $this->hasMany(ProfilePhoto::class, 'id');
+    }
+
+    public function coverPhoto(){
+        return $this->hasMany(CoverPhoto::class, 'id');
+    }
 
     
     
