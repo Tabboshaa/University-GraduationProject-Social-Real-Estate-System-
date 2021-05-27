@@ -15,6 +15,7 @@ class posts extends Model
         'Post_Content'
     ];
 
+    //shaimaa
     public function item(){
         return $this->belongsTo(Item::class, 'Item_Id');
     }
