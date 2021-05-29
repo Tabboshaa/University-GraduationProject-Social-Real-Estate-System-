@@ -29,7 +29,7 @@ class ReservationController extends Controller
             ->get();
         $test=Operation__Detail_Value::all()->where("Operation_Type_Id","=",1);
             $values=$values->groupBy('Operation_Id');
-//            return dd($values);
+// //            return dd($values);
 
             foreach ($values as $t => $t1)
             {
@@ -39,9 +39,9 @@ class ReservationController extends Controller
                 echo "<pre>";
 
             }
-            return;
+//             return;
 
-//            return $values[13][0]->email;
+// //            return $values[13][0]->email;
 
 
         $sub_types = Sub_Type::all();

@@ -13,12 +13,16 @@
         <p><small>search for another item</small></p>
     </a>
 
+
+    <a href="{{url('/reservations/'.$item_id)}}"><i style="padding-left:21px" class="fa fa-tasks"></i>
+        <p><small>Reservations</small></p>
+    </a>
     @if(!empty($subtypeid))
-    <a href="{{url('/property_select/'.$item_id.'/'.$subtypeid.'')}}"><i style="padding-left:14px" class="fa fa-plus-square-o"></i>
+    <a href="{{url('/property_select/'.$item_id.'/'.$subtypeid.'')}}"><i style="padding-left:13px" class="fa fa-plus-square-o"></i>
         <p><small>Details</small></p>
     </a>
     @else
-    <a href="{{url('/addItemSteps/'.$item_id)}}"><i style="padding-left:14px" class="fa fa-plus-square-o"></i>
+    <a href="{{url('/addItemSteps/'.$item_id)}}"><i style="padding-left:13px" class="fa fa-plus-square-o"></i>
         <p><small>Details</small></p>
     </a>
     @endif

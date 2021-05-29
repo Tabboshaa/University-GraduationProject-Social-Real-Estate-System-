@@ -56,6 +56,8 @@ Route::group(['middleware' => 'auth.user'], function () {
     //operations
     Route::get('/Payment', 'OperationsController@calculateDays')->name('calculate.days');
     Route::get('/operation_func', 'OperationsController@create');
+    Route::get('/reservations/{item_id?}', 'OperationsController@showreservations');
+    Route::get('/operation_delete/{id?}', 'OperationsController@destroyOperation');
     //Payment
     Route::get('/creditCard', function () {
 
@@ -103,7 +105,7 @@ Route::group(['middleware' => 'auth.user'], function () {
         return view('website.frontend.customer.Customer_Own_Profile');
     });
     Route::get('/EditCustomerProfile', 'CustomerHomeController@showMyProfile');
-    Route::get('ReservationShow', 'ReservationController@show');
+    Route::get('/ReservationShow', 'ReservationController@show');
     Route::get('/StatesPhotos', 'StatePhotoController@index');
     Route::POST('/add_StatePhoto', 'StatePhotoController@create');
     Route::get('/shaimaa', 'CustomerHomeController@indexPhoto');

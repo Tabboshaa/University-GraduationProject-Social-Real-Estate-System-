@@ -1,9 +1,9 @@
 @extends('website.backend.layouts.main')
 @section('content')
-    <div class="right_col" role="main">
-        <div class="title_right">
-            <div class="x_panel">
-                <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
+<div class="right_col" role="main">
+    <div class="title_right">
+        <div class="x_panel">
+            <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
                 <div class="row">
                 </div>
                 <link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
@@ -11,65 +11,57 @@
                 <link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
 
                 <div class="x_title">
-                    <h2>All Details</h2>
+                    <h2>Operations</h2>
 
                     <div class="clearfix"></div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <form method="Post" action="{{ url('/delete_property_detail?_method=delete') }}" enctype="multipart/form-data">
-                            @csrf
+                        @foreach($item->operations as $operations => $reservation)
+                        <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+                        #{{$reservation['Operation_Id']}}
+                            <thead>
 
-                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-                            <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
-                                <thead>
                                 <tr>
-                                <tr>
-                                    <th><h2 style="margin-right:10px; padding-bottom: 5px;">Reservation Id</h2></th>
-                                    <th ><h2 style="margin-right:10px;padding-bottom: 5px;">Property</h2></th>
-                                    <th ><h2 style="margin-right:10px;padding-bottom: 5px;">Start Date</h2></th>
+                                    <th>
+                                        <h2 style="margin-right:10px;padding-bottom: 5px;">Customer</h2>
+                                    </th>
 
-                                    <th> <h2 style="margin-right:10px;padding-bottom: 5px;">End Date</h2></th>
-                                    <th> <h2 style="margin-right:10px;padding-bottom: 5px;">Price Per Night</h2></th>
-                                    <th> <h2 style="margin-right:10px;padding-bottom: 5px;">Total Price</h2></th>
-                                    <th> <h2 style="margin-right:10px;padding-bottom: 5px;">Customer</h2></th>
-                                    <th> <h2 style="margin-right:10px;padding-bottom: 5px;">Owner</h2></th>
-                                    <th ><h2 style="margin-right:10px;padding-bottom: 5px;">Edit</h2></th>
-                                    <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:10px;"></i></button></th>
+                                    @if( isset($reservation->operationdetails) )
+
+                                    @foreach($reservation->operationdetails as $reservation_detail)
+                                    <th>
+                                        <h2 style="margin-right:10px;padding-bottom: 5px;">{{$reservation_detail->detailname['Operation_Detail_Name']}}</h2>
+                                    </th>
+                                    @endforeach
+                                    @endif
+                                    <th>
+                                    <h2 style="margin-right:10px;padding-bottom: 5px;">Delete</th>
                                     <!-- Java Script for select all function -->
-                                    <script>
-                                        document.getElementById('selectAll').onclick = function() {
-                                            var checkboxes = document.getElementsByName('id[]'); //get all check boxes with name delete
-                                            for (var checkbox of checkboxes) { //for loop to set all checkboxes to checked
-                                                checkbox.checked = this.checked;
-                                            }
-                                        }
-                                    </script>
+
                                 </tr>
-                                </thead>
-                                <tbody>
+                            </thead>
+                            <tbody>
                                 <!-- EL FOREARCH HNA -->
-                                @foreach($property as $property_detail)
-                                    <tr>
-                                        @foreach($values as $value=>$v)
 
-                                        <td>{{$v->Start_Date}}</td>
-                                        <td>{{$v->End_Date}}</td>
-                                        <td>{{$v->Price_Per_Night}}</td>
-                                        <td>{{$v->Total_Price}}</td>
-                                        @endforeach
+                                <tr>
 
+                                    <td><a href="{{url('/veiw_User/'.$reservation['User_Id'])}}">{{$reservation->user['First_Name']}} {{$reservation->user['Middle_Name']}} {{$reservation->user['Last_Name']}}</a></td>
+                                    @if( isset($reservation->operationdetails) )
+                                    @foreach($reservation->operationdetails as $reservation_detail)
+                                    <td class="box">{{$reservation_detail['Operation_Detail_Value']}}</td>
+                                    @endforeach
+                                    @endif
+                                    <td> <a href="{{url('/operation_delete/'.$reservation['Operation_Id'])}}"><i class="fa fa-trash-o"></i>
+                                    </td>
+                                </tr>
 
-                                        <td><a href="javascript:void(0)" onclick="setPropertyDetailIdName('{{$property_detail->Property_Detail_Id}}','{{$property_detail->Detail_Name}}')"><i class="fa fa-edit"></i></a></td>
-                                        <td><input type="checkbox" name="id[]" value="{{$property_detail->Property_Detail_Id}}"></td>
-                                    </tr>
-                                @endforeach
                                 <!-- END OF FOREACH -->
-                                </tbody>
-                            </table>
-                            {!! $property->render() !!}
-                        </form>
+                            </tbody>
+                        </table>
+                        @endforeach
+
                     </div>
                 </div>
                 <div class="modal fade" id="EditPropertyDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -87,7 +79,7 @@
                                     <input type="hidden" name="id" id="id">
 
                                     <div class="form-group">
-                                        <label for="PropertyDetailName" style="font-size: 12pt" >Detail </label>
+                                        <label for="PropertyDetailName" style="font-size: 12pt">Detail </label>
                                         <input type="text" style="border-radius: 3pt" name="PropertyDetailName" id="PropertyDetailName" class="form-control">
                                     </div>
                                     <button type="submit" id="btun3" class="btn btn-success">Edit</button>
@@ -117,6 +109,7 @@
                             }
                         }
                     }
+
                     function setPropertyDetailIdName(id, name) {
 
                         $("#id").val(id);
@@ -159,4 +152,4 @@
 
         </div>
 
-    @endsection
+        @endsection
