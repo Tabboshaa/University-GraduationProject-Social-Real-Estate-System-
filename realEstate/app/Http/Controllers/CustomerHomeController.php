@@ -213,6 +213,7 @@ class CustomerHomeController extends Controller
         $reviews = ReviewController::getItemReviews($id);
         $item =AddUserController::getItemWithOwnerName($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
+        
 
         $User_Id = Auth::id();
         $check_follow=followeditemsbyuser::all()->where('Item_Id','=',$id)->where('User_ID','=',$User_Id);
@@ -449,6 +450,11 @@ public function editPost()
 
         $post_images= $post_images->groupby('Post_Id');
             return view('website\frontend\customer\Customer_Own_Profile',['First_Name'=>$user->First_Name,'Middle_Name'=>$user->Middle_Name,'Last_Name'=>$user->Last_Name,'Cover_Photo'=>$cover_photo,'Profile_Photo'=>$profile_photo,'posts'=>$posts,'post_images'=>$post_images]);
+        }
+
+        public function showReservation(){
+
+            
         }
 
 }

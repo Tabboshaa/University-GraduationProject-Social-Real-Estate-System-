@@ -157,7 +157,7 @@ class ItemProfileController extends Controller
         $reviews = ReviewController::getItemReviews($id);
         $item = AddUserController::getItemWithOwnerName($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
-
+        
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
