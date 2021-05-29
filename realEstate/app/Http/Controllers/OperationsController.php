@@ -9,6 +9,7 @@ use App\operations;
 use App\operation__types;
 use App\Operation__Detail_Name;
 use App\Operation__Detail_Value;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -258,6 +259,15 @@ class OperationsController extends Controller
         $item = Item::all()->where('Item_Id', '=', $item_id)->first();
 
         return view('website.backend.database pages.Reservation_Show', ['item' => $item]);
+    }
+    public function showuserreservations($id)
+    {
+       
+        $user= User::all()->where("id",'=',Auth::id());
+        // Auth::user();
+        $operations= $user->operations;
+        return $operations;
+        return view('website.frontend.customer.ShowReservation', ['operations' => $operations]);
     }
     //delete operation
     public function destroyOperation($id)

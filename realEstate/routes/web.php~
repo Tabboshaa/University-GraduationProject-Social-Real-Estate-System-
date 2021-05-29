@@ -21,129 +21,72 @@ use Illuminate\Support\Facades\Route;
 //end test routes
 
 //authntication routes
-Route::get('test', function () {
+Route::get('test',function (){
     return view('calender');
 });
 Auth::routes();
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
 Route::post('/', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
 Route::post('/registerUser', 'Auth\RegisterController@create')->name('registerUser');
-Route::get('/UserRegister', function () {
-    return view('website\frontend\Registration');
-})->name('UserRegister');
-Route::get('/UserLogin', function () {
+Route::get('/UserRegister', function(){
+    return view('website\frontend\Registration');})->name('UserRegister');
+Route::get('/UserLogin', function(){
     return view('website\frontend\login');
 })->name('userLogin');
 
-Route::get('/s', function () {
+Route::get('/s', function(){
     return view('website\frontend\customer\calender');
 });
 
 //Customer Routes with middleware
 Route::group(['middleware' => 'auth.user'], function () {
-    Route::get('/', 'CustomerHomeController@index')->name('CustomerHome');
-    //Customer HOMEpage
-    Route::get('/HomeRegister', 'CustomerHomeController@index')->name('HomeRegister');
-    Route::get('/search_by_place', 'CustomerHomeController@findItemInState');
-    Route::get('/search_by_placedate', 'CustomerHomeController@findItemInStateAndDate');
+Route::get('/', 'CustomerHomeController@index')->name('CustomerHome');
+//Customer HOMEpage
+Route::get('/HomeRegister', 'CustomerHomeController@index')->name('HomeRegister');
+Route::get('/search_by_place','CustomerHomeController@findItemInState');
+Route::get('/search_by_placedate','CustomerHomeController@findItemInStateAndDate');
 
-    //Customer Comment
-    Route::get('/add_comment', 'CommentsController@create')->name('comment.add');
-    Route::get('/add_reply', 'CommentsController@reply')->name('reply.add');
-    Route::get('/addReview', 'ReviewController@create')->name('review.add');
-
-
-    //operations
-    Route::get('/Payment', 'OperationsController@calculateDays')->name('calculate.days');
-    Route::get('/operation_func', 'OperationsController@create');
-    Route::get('/reservations/{item_id?}', 'OperationsController@showreservations');
-    Route::get('/user_reservations/{id?}', 'OperationsController@showuserreservations');
-    Route::get('/operation_delete/{id?}', 'OperationsController@destroyOperation');
-    //Payment
-    Route::get('/creditCard', function () {
-
-        return view('website.frontend.customer.Reservation');
-    });
-    Route::post('reserve', 'PaymentController@create');
-    Route::get('/reserve', function () {
-        return view('website\backend.database pages.add-Reservation');
-    });
-    Route::get('/Payment/{item_id}/{schedule}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}', 'PaymentController@show_payment');
-
-    //items Profile Pages
-    Route::get('/itemProfile/{id?}', 'CustomerHomeController@itemProfile');
-    Route::get('/itemDetails/{id?}', 'CustomerHomeController@itemDetails');
-    Route::get('/itemGallery/{id?}', 'CustomerHomeController@itemProfileGallery');
-    Route::get('/itemReviews/{id?}', 'CustomerHomeController@itemProfileReviews');
-
-    Route::get('/veiw_notification/{id}', 'NotificationController@viewNotification');
+//Customer Comment
+Route::get('/add_comment', 'CommentsController@create')->name('comment.add');
+Route::get('/add_reply', 'CommentsController@reply')->name('reply.add');
+Route::get('/addReview', 'ReviewController@create')->name('review.add');
 
 
-    Route::get('/timeline', function () {
-        return view('website.frontend.customer.TimeLine');
-    });
+//operations
+Route::get('/Payment', 'OperationsController@calculateDays')->name('calculate.days');
+Route::get('/operation_func','OperationsController@create');
+//Payment
+Route::get('/creditCard', function(){
 
-    //Cover and Profile Photo
-    Route::post('/CreateCoverPhoto', 'CoverPhotoController@create')->name('create.coverphoto');
-    Route::delete('/DeleteMyCoverPhoto/{id?}/{File_Path?}', 'CoverPhotoController@destroy');
-    Route::delete('/DeleteMyProfilePhoto/{id?}/{File_Path?}', 'ProfilePhotoController@destroy');
-    Route::post('/CreateProfilePhoto', 'ProfilePhotoController@create')->name('create.profilephoto');
-    Route::post('/UpdateCoverPhoto', 'CoverPhotoController@edit')->name('create.coverphoto');
-    Route::post('/UpdateProfilePhoto', 'ProfilePhotoController@edit')->name('create.profilephoto');
-    //Follow
-    //Follow
-    Route::get('/FollowItem/{id?}', 'AddUserController@FollowedItem');
-    Route::get('/UnfollowItem/{id?}', 'AddUserController@UnfollowItem');
+    return view('website.frontend.customer.Reservation');
 
-    Route::get('/HomePage', 'CustomerHomeController@HomePagePosts')->name('HomePage');
-    Route::post('/Reservation', 'HomeController@Reservation');
-
-    Route::get('/hamada/{id?}', 'CommentsController@getPostrepliesHomePage');
-    Route::get('/getRepliesFromComment', 'CommentsController@GetCommentReply')->name('get.replies');
-    Route::get('/getComment', 'CommentsController@GetComments')->name('get.comments');
-
-    Route::get('/EditCustomerProfile', function () {
-        return view('website.frontend.customer.Customer_Own_Profile');
-    });
-    Route::get('/EditCustomerProfile', 'CustomerHomeController@showMyProfile');
-    Route::get('/ReservationShow', 'ReservationController@show');
-    Route::get('/StatesPhotos', 'StatePhotoController@index');
-    Route::POST('/add_StatePhoto', 'StatePhotoController@create');
-    Route::get('/shaimaa', 'CustomerHomeController@indexPhoto');
-    Route::get('myReservations', 'ReservationController@showReservation');
-
-    Route::Post('/BeOwner/{id?}', 'AddUserController@BeOwner')->name('BeOwner');
-    Route::get('/BeOwner/{id?}', 'AddUserController@BeOwner');
-
-    Route::get('/checkIfOwner', 'AddUserController@checkIfOwner')->name('checkIfOwner');
-
-    //Owner
-    Route::post('/OwnerAddItem', 'ItemController@OwnerAddItem');
-
-    Route::get('/owneritemProfile/{id?}', 'ItemProfileController@itemProfile');
-    Route::get('/owneritemDetails/{id?}', 'ItemProfileController@itemDetails');
-    Route::get('/owneritemGallery/{id?}', 'ItemProfileController@itemProfileGallery');
-    Route::get('/deleteImgFromGallery', 'PostAttachmentController@deleteImgFromGallery')->name('deleteImgFromGallery');
-    Route::get('/createAttachment', 'AttachmentControllera@createAttachment');
-    Route::get('/owneritemReviews/{id?}', 'ItemProfileController@itemProfileReviews');
-    Route::get('/owneritemReservations/{id?}', 'ItemProfileController@itemReservations');
-    Route::get('/owneritemManageSchedule/{id?}', 'ItemProfileController@itemManageSchedule');
-    Route::get('/MyItems', 'OwnerController@index');
-    Route::get('/MyReservations', 'OwnerController@getReservations');//not done
-    
-    Route::get('/Amr/{id?}', 'ItemController@SelectSubType');
-    Route::get('/OwnerSelectSubType/{id?}', 'ItemController@SelectSubType');
-    Route::get('/test', 'DetailsController@test');
-    Route::get('/OwnerSelectDetails/{item_id}/{sub_type_id}', 'ItemController@OwnerSelectProperty');
-    Route::get('/OwnerAddItem', function () {
-        return view('website\frontend.Owner.Add_Item');
-    });
 });
+Route::post('reserve','PaymentController@create');
+Route::get('/reserve', function () {
+    return view('website\backend.database pages.add-Reservation');
+});
+Route::get('/Payment/{item_id}/{schedule}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}', 'PaymentController@show_payment');
 
 
+//items Profile Pages
+Route::get('/itemProfile/{id?}', 'CustomerHomeController@itemProfile');
+Route::get('/itemDetails/{id?}', 'CustomerHomeController@itemDetails');
+Route::get('/itemGallery/{id?}', 'CustomerHomeController@itemProfileGallery');
+Route::get('/itemReviews/{id?}', 'CustomerHomeController@itemProfileReviews');
+
+Route::get('/veiw_notification/{id}', 'NotificationController@viewNotification');
+});
+Route::get('/operationtypes', function () {
+    return view('website\backend.database pages.operationTypes');
+});
+//fullcalender
+Route::get('fullcalendar','FullCalendarController@index');
+Route::post('fullcalendar/create','FullCalendarController@create');
+Route::post('fullcalendar/update','FullCalendarController@update');
+Route::post('fullcalendar/delete','FullCalendarController@destroy');
 
 //Admin Routes with middleware
-Route::group(['middleware' => 'auth.admin'], function () {
+// Route::group(['middleware' => 'auth.admin'], function () {
     Route::get('/openDetail', 'OperationsController@index');
     Route::get('/show_detailop', 'OperationsController@showDetail')->name('detailop_show');
     Route::post('/add_opDetail', 'OperationsController@createDetail');
@@ -158,12 +101,12 @@ Route::group(['middleware' => 'auth.admin'], function () {
     Route::post('/add_main_type', 'MainTypes@create');
     Route::delete('/delete_main_type', 'MainTypes@destroy');
     Route::get('/edit_main_type', 'MainTypes@edit')->name('Maintype.update');
-    //operation types
-    Route::get('/operation_types', 'OperationsController@index');
-    Route::get('/operation_types_show', 'OperationsController@showDetail')->name('operation_types_show');
-    Route::post('/add_operation_type', 'OperationsController@createType');
-    Route::delete('/delete_operation_type', 'OperationsController@destroy');
-    Route::get('/edit_operation_type', 'OperationsController@edit')->name('operationType.update');
+//operation types
+Route::get('/operation_types', 'OperationsController@index');
+Route::get('/operation_types_show', 'OperationsController@showDetail')->name('operation_types_show');
+Route::post('/add_operation_type', 'OperationsController@createType');
+Route::delete('/delete_operation_type', 'OperationsController@destroy');
+Route::get('/edit_operation_type', 'OperationsController@edit')->name('operationType.update');
 
     //sub types pages
     Route::get('/sub_types', 'SubTypes@index');
@@ -234,7 +177,6 @@ Route::group(['middleware' => 'auth.admin'], function () {
     Route::get('/Details', 'DetailsController@index')->name('Details');
     Route::get('/Details_show', 'DetailsController@show')->name('details_show');
     Route::post('/add_Details', 'DetailsController@create')->name('details_submit');
-    Route::post('/Edit_Details', 'DetailsController@editDetails')->name('details.edit');
 
 
     // Item  pages #Tabbosha
@@ -322,8 +264,6 @@ Route::group(['middleware' => 'auth.admin'], function () {
 
     // findDetailsForForm
     Route::get('/findDetailsForForm', 'PropertyDetailsController@findDetailsForForm')->name('propertyDetail.find');
-    Route::get('/findDetailsForShow', 'DetailsController@findDetailsForShow')->name('detail.find');
-    Route::get('/DeleteDetailsOwner', 'DetailsController@destroydetails')->name('delete.details');
 
 
     //User Pages #S
@@ -346,16 +286,62 @@ Route::group(['middleware' => 'auth.admin'], function () {
     //search user
 
     Route::post('/search_user', 'AddUserController@search')->name('search');
-    Route::get('/operationtypes', function () {
-        return view('website\backend.database pages.operationTypes');
-    });
 
-    Route::get('/state1', function () {
-        return view('website\backend.database pages.StatePhoto');
-    });
+// });
+
+Route::get('/timeline',function () {
+    return view('website.frontend.customer.TimeLine');
+});
+
+//Cover and Profile Photo
+Route::post('/CreateCoverPhoto','CoverPhotoController@create')->name('create.coverphoto');
+Route::delete('/DeleteMyCoverPhoto/{id?}/{File_Path?}','CoverPhotoController@destroy');
+Route::post('/CreateProfilePhoto','ProfilePhotoController@create')->name('create.profilephoto');
+Route::post('/UpdateCoverPhoto','CoverPhotoController@edit')->name('create.coverphoto');
+Route::post('/UpdateProfilePhoto','ProfilePhotoController@edit')->name('create.profilephoto');
+//Follow
+//Follow
+Route::get('/FollowItem/{id?}','AddUserController@FollowedItem');
+Route::get('/UnfollowItem/{id?}','AddUserController@UnfollowItem');
+
+Route::get('/HomePage', 'CustomerHomeController@HomePagePosts')->name('HomePage');
+Route::post('/Reservation','HomeController@Reservation');
+
+Route::get('/hamada/{id?}', 'CommentsController@getPostrepliesHomePage');
+Route::get('/getRepliesFromComment', 'CommentsController@GetCommentReply')->name('get.replies');
+Route::get('/getComment', 'CommentsController@GetComments')->name('get.comments');
+
+Route::get('/EditCustomerProfile',function () {
+    return view('website.frontend.customer.Customer_Own_Profile');
+});
+Route::get('/EditCustomerProfile','CustomerHomeController@showMyProfile');
+Route::get('/ReservationShow','ReservationController@show');
+
+Route::Post('/BeOwner/{id?}','AddUserController@BeOwner')->name('BeOwner');
+Route::get('/BeOwner/{id?}','AddUserController@BeOwner');
+
+Route::get('/checkIfOwner','AddUserController@checkIfOwner')->name('checkIfOwner');
+
+
+
+//Owner
+Route::post('/OwnerAddItem', 'ItemController@OwnerAddItem');
+
+Route::get('/owneritemProfile/{id?}', 'ItemProfileController@itemProfile');
+Route::get('/owneritemDetails/{id?}', 'ItemProfileController@itemDetails');
+Route::get('/owneritemGallery/{id?}', 'ItemProfileController@itemProfileGallery');
+Route::get('/deleteImgFromGallery', 'PostAttachmentController@deleteImgFromGallery')->name('deleteImgFromGallery');
+Route::get('/createAttachment', 'AttachmentControllera@createAttachment');
+Route::get('/owneritemReviews/{id?}', 'ItemProfileController@itemProfileReviews');
+Route::get('/owneritemReservations/{id?}', 'ItemProfileController@itemReservations');
+Route::get('/owneritemManageSchedule/{id?}', 'ItemProfileController@itemManageSchedule');
+Route::get('/Amr/{id?}' , 'ItemController@SelectSubType');
+Route::get('/OwnerSelectDetails/{item_id}/{sub_type_id}','ItemController@OwnerSelectProperty');
+Route::get('/OwnerAddItem', function () {
+    return view('website\frontend.Owner.Add_Item');
 });
 //paypal
 
-Route::get('paypalCall/{item_id}/{schedule}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}','PaypalController@index')->name('paypalCall');
+Route::POST('paypalCall/{item_id}/{schedule}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}','PaypalController@index')->name('paypalCall');
 Route::get('paypalReturn','PaypalController@paypalReturn')->name('paypalReturn');
 

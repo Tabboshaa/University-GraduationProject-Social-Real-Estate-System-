@@ -10,9 +10,8 @@
 
                 <link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
                     <div class="col-md-12">
-                        @if( count($items) != 0)
-                        @foreach($items as $item)
-                        @foreach($item->operations as $operations => $reservation)
+                     
+                        @foreach($operations as $operations => $reservation)
 
                         <div name="post">
                             <div class="locatins" style="background-color:rgb(252, 252, 252);">
@@ -53,22 +52,9 @@
                         </div>
 
                         @endforeach
-                        @endforeach
 
                         <!-- in case no posts are there yet -->
-                        @else
-                        <div class="locatins">
-                            <div class="heading1">
-                                {{ $reservation->Item_Name }}
-                                </h3>
-                            </div>
-                            <div class="sub-heading">
-                                No reservations for this item yet..<br />
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-
-                        @endif
+                      
                     </div>
 
             </div>

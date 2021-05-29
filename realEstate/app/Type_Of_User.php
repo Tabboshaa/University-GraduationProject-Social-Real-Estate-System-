@@ -11,6 +11,7 @@ class Type_Of_User extends Model
         'User_ID',
         'User_Type_ID'
     ];
+    
     public function user()
     {
         return $this->belongsTo(User::class, 'User_Id');
