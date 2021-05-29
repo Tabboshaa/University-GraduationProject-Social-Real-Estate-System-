@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Country;
+use App\Item;
 
 class AddUserController extends Controller
 {
@@ -151,6 +152,7 @@ class AddUserController extends Controller
     {
         //
         $user = User::all()->where('id','=',$id)->first();
+        
         $posts= PostsController::userPosts($id);
         $profile_photo=ProfilePhotoController::getPhoto($id);
         $cover_photo=CoverPhotoController::getPhoto($id);
@@ -185,6 +187,8 @@ class AddUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     //ex11
     public static function getItemWithOwnerName($item_id)
     {
         //

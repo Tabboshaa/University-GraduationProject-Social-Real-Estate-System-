@@ -251,5 +251,9 @@ return (['totalPrice'=>$totalPrice,'totalDays'=>$totalDays, "price_per_night"=>$
             ->select('operation___detail__names.*', 'operation__types.Operation_Name')->paginate(10);
 
         return view('website\backend.database pages.Operation_Details_show', ['Detail1' => $operationDetailName, 'Operation__types' => $operationname]);
-    } }
+    }
+
+    
+
+}
 

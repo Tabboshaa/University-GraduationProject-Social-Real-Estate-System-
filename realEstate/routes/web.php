@@ -83,6 +83,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     //Cover and Profile Photo
     Route::post('/CreateCoverPhoto', 'CoverPhotoController@create')->name('create.coverphoto');
     Route::delete('/DeleteMyCoverPhoto/{id?}/{File_Path?}', 'CoverPhotoController@destroy');
+    Route::delete('/DeleteMyProfilePhoto/{id?}/{File_Path?}', 'ProfilePhotoController@destroy');
     Route::post('/CreateProfilePhoto', 'ProfilePhotoController@create')->name('create.profilephoto');
     Route::post('/UpdateCoverPhoto', 'CoverPhotoController@edit')->name('create.coverphoto');
     Route::post('/UpdateProfilePhoto', 'ProfilePhotoController@edit')->name('create.profilephoto');
