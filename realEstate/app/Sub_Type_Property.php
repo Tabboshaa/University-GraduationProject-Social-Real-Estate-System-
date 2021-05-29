@@ -13,4 +13,12 @@ class Sub_Type_Property extends Model
         'Sub_Type_Id',
         'Property_Name'
     ];
+    public function maintype()
+    {
+        return $this->belongsTo(Main_Type::class, 'Main_Type_Id');
+    }
+    public function subtype()
+    {
+        return $this->belongsTo(Sub_Type::class, 'Sub_Type_Id');
+    }
 }

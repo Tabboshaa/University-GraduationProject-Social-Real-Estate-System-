@@ -12,48 +12,74 @@
                 {{-- Cover photo --}}
                 @if(!empty($Cover_Photo))
                 {{-- imggggggggggggggggggggggggggggggggg --}}
-                    <img class="background" src="{{asset('storage/cover page/'.$Cover_Photo['File_Path'])}}" alt="">
+                
+                <form method="Post" action="{{url('/DeleteMyCoverPhoto/'.$Cover_Photo['Photo_Id'].'/'.$Cover_Photo['File_Path']->File_Path.'?_method=delete')}}" enctype="multipart/form-data">
+                    @csrf
+                    <button class="btn" type="submit"><i class="fa fa-trash"></i></button>
+                </form>
+                <div id="coverPhoto">
+                    <img class="background" src="{{asset('storage/cover page/'.$Cover_Photo['File_Path']->File_Path)}}" alt="">
+                </div>
+                <div class="screnshot" id="OpenImgUpload">
+                    <form method="POST" action="{{url('/UpdateCoverPhoto')}}" enctype="multipart/form-data">
+                        @csrf
+                        <input id="cover_photo_upload" name="CoverPhoto" type="file" class="hidden" onchange="javascript:this.form.submit();">
+                    </form>
+                </div>
                 @else
                 <div id="coverPhoto">
                     <img class="background" src="{{asset('storage/cover page/Default1.jpeg')}}" alt="">
                 </div>
                 <div class="screnshot" id="OpenImgUpload">
-                <form method="POST" action="{{url('/CreateCoverPhoto')}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{url('/CreateCoverPhoto')}}" enctype="multipart/form-data">
                         @csrf
                         <input id="cover_photo_upload" name="CoverPhoto" type="file" class="hidden" onchange="javascript:this.form.submit();">
-                </form>
+                    </form>
                 </div>
                 @endif
-                <form method="Post" action="{{url('/DeleteMyCoverPhoto/'.$Cover_Photo['Photo_Id'].'/'.$Cover_Photo['File_Path'].'?_method=delete')}}" enctype="multipart/form-data">
-                @csrf
-                    <button type="submit" id="btun3" class="btn btn-success"></button>
-                </form>
             </div>
             <div class="main-page">
                 <div class=" dash-profile">
                     {{-- profile photo --}}
                     @if(!empty($Profile_Photo))
+                   
+                    <form method="Post" action="{{url('/DeleteMyProfilePhoto/'.$Profile_Photo['Attachment_Id'].'/'.$Profile_Photo['File_Path'].'?_method=delete')}}" enctype="multipart/form-data">
+                    @csrf
+                    <button class="btn" type="submit"><i class="fa fa-trash"></i></button>
+                </form>
+                    <div id="ProfilePhoto">
                     <img class="profile" src="{{asset('storage/cover page/'.$Profile_Photo['File_Path'])}}" alt="">
+                    </div>
+                    <div class="screnshot" id="OpenImgUpload">
+                        <!-- New simple code hena ya Shaimaaa -->
+                        <form method="POST" action="{{url('/UpdateProfilePhoto')}}" enctype="multipart/form-data">
+                            @csrf
+                            <input id="profile_photo_upload" name="ProfilePhoto" type="file" class="hidden" onchange="javascript:this.form.submit();">
+                            <!-- onchange="javascript:this.form.submit();" 3shan y3ml submit lel form awl ma ad5l photo -->
+                            <!-- w yrooo7 ll controller -->
+                        </form>
+                        <!-- 5ls hna -->
+                    </div>
                     @else
                     <div id="ProfilePhoto">
                         <img class="profile" src="{{asset('storage/cover page/pic.png')}}" alt="">
                     </div>
                     <div class="screnshot" id="OpenImgUpload">
-                    <!-- New simple code hena ya Shaimaaa -->
-                    <form method="POST" action="{{url('/CreateProfilePhoto')}}" enctype="multipart/form-data">
-                        @csrf
-                        <input id="profile_photo_upload" name="ProfilePhoto" type="file" class="hidden" onchange="javascript:this.form.submit();">
-                    <!-- onchange="javascript:this.form.submit();" 3shan y3ml submit lel form awl ma ad5l photo -->
-                    <!-- w yrooo7 ll controller -->
-                    </form>
-                    <!-- 5ls hna -->
+                        <!-- New simple code hena ya Shaimaaa -->
+                        <form method="POST" action="{{url('/CreateProfilePhoto')}}" enctype="multipart/form-data">
+                            @csrf
+                            <input id="profile_photo_upload" name="ProfilePhoto" type="file" class="hidden" onchange="javascript:this.form.submit();">
+                            <!-- onchange="javascript:this.form.submit();" 3shan y3ml submit lel form awl ma ad5l photo -->
+                            <!-- w yrooo7 ll controller -->
+                        </form>
+                        <!-- 5ls hna -->
                     </div>
                     @endif
                 </div>
                 {{-- User Name --}}
                 <div class="prompr">
                     <div class="dashname">
-                    {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}
+                        {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}
                     </div>
                 </div>
             </div>

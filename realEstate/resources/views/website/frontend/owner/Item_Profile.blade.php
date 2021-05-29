@@ -1,4 +1,4 @@
-@extends('website.frontend.layouts.main')
+@extends('website.frontend.ownerlayouts.main')
 @section('content')
 
 <div id="content-wrapper">

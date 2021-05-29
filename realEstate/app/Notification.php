@@ -15,4 +15,10 @@ class Notification extends Model
         'Redirect_To',
         'Viewed'
     ];
+    public function touser(){
+        return $this->hasOne(User::class, 'To_User_Id');
+    }
+    public function fromuser(){
+        return $this->hasOne(User::class, 'From_User_Id');
+    }
 }

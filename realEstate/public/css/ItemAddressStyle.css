@@ -1,7 +1,7 @@
 .locationForm
 {
   margin-top: 50pt;
-  margin-left: 400px;
+  margin-left: 300px;
   
 }
 .header 
@@ -26,6 +26,11 @@ button#btun1
   overflow: hidden;
   cursor: pointer;
 }
+.select{
+margin-top: 20px;
+width:50%;
+
+}
 
 button#btun1:hover
 {
@@ -34,4 +39,21 @@ button#btun1:hover
   -ms-transform: scale(1.1); /* IE 9 */
   -webkit-transform: scale(1.1); /* Safari 3-8 */
   transform: scale(1.1); 
+}
+form.AddItemForm
+{
+ 
+}
+div.totl
+{
+ 
+}
+fieldset {
+  background-color: #eeeeee;
+}
+
+legend {
+  background-color: gray;
+  color: white;
+  padding: 5px 10px;
 }

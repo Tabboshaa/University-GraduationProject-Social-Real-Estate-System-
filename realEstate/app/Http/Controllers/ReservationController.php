@@ -12,6 +12,7 @@ use App\Sub_Type_Property;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
@@ -29,7 +30,7 @@ class ReservationController extends Controller
             ->get();
         $test=Operation__Detail_Value::all()->where("Operation_Type_Id","=",1);
             $values=$values->groupBy('Operation_Id');
-//            return dd($values);
+// //            return dd($values);
 
             foreach ($values as $t => $t1)
             {
@@ -39,9 +40,9 @@ class ReservationController extends Controller
                 echo "<pre>";
 
             }
-            return;
+//             return;
 
-//            return $values[13][0]->email;
+// //            return $values[13][0]->email;
 
 
         $sub_types = Sub_Type::all();
@@ -57,6 +58,6 @@ class ReservationController extends Controller
             ->select('property__details.*', 'main__types.Main_Type_Name', 'sub__types.Sub_Type_Name', 'sub__type__properties.Property_Name', 'datatypes.datatype')
             ->paginate(10);
 
-        return view('website.backend.database pages.Reservation_Show', ['values'=>$values,'sub_type' => $sub_types, 'main_type' => $main_types, 'property_detail' => $property_details, 'property' => $property, 'data_type' => $data_type]);
+        return view('website.backend.database pages.Reservation_Show', ['values'=>$values,'sub_type' => $sub_types, 'main_type' => $main_types, 'property_detail' => $property_details,
+         'property' => $property, 'data_type' => $data_type]);
     }
-}

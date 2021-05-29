@@ -1,9 +1,11 @@
-@extends('website.frontend.layouts.main')
+@extends('website.backend.layouts.main')
 @section('content')
-<link href="{{asset('css/ButtonStyle.css')}}" rel="stylesheet" type="text/css" />
-<script type="text/javascript">
 
-$(document).ready(function (){
+<link href="{{asset('css/ButtonStyle.css')}}" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript">
+
+        $(document).ready(function (){
 
         // on change new action will happen when user select new country depending on 'select id' "#country_name"
         $(document).on('change','#country_name',function(){
@@ -47,54 +49,57 @@ $(document).ready(function (){
 
     });
 
-</script>
-<form action="">
-                <div class="form-group row">
-               
-                    <label for="country_name" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
-                        {{ __('Country :') }}
-                    </label>
+    </script>
+    <div class="right_col" role="main">
+        <div class="title_right">
+                <div class="x_panel">
+                    <form method="POST" action="{{ url('/add_StatePhoto') }}" enctype="multipart/form-data">
+                        @csrf
+                        @include('website.backend.layouts.flashmessage')
+                        <div class="form-group row">
+                            <label for="country_name" class="col-md-2 col-form-label text-md-right" style="font-size: 12pt">
+                                {{ __('Country :') }}
+                            </label>
 
-                    <div class="col-md-2">
-                        <select id="country_name" style="border-radius: 3pt" class="form-control @error('country_name') is-invalid @enderror" name="Country_Name" value="{{ old('country_namee') }}" required autocomplete="country_name">
-                        <option value="0" selected disabled>Select Country</option>   
-                        @foreach($country as $country)
-                            <option value="{{$country->Country_Id}}">{{$country->Country_Name}}</option>
-                            @endforeach
-                        </select>
+                        <div class="col-md-2">
+                            <select id="country_name" style="border-radius: 3pt" class="form-control @error('country_name') is-invalid @enderror" name="Country_Name" value="{{ old('country_namee') }}" required autocomplete="country_name">
+                                <option value="0" selected disabled>Select Country</option>   
+                                @foreach($country as $country)
+                                <option value="{{$country->Country_Id}}">{{$country->Country_Name}}</option>
+                                @endforeach
+                            </select>
 
-                        @error('country_name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
+                            @error('country_name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label for="State Name" style="font-size: 12pt" class="col-md-2 col-form-label text-md-right">
-                        {{ __('State :') }}
-                    </label>
+                        <div class="form-group row">
+                            <label for="State Name" style="font-size: 12pt" class="col-md-2 col-form-label text-md-right">
+                            {{ __('State :') }}
+                            </label>
+                        <div class="col-md-2">
+                            <select id="State_Name" style="border-radius: 3pt" class="form-control @error('State Name') is-invalid @enderror" name="State_Id" value="{{ old('State_Id') }}" required autocomplete="State_Name">
 
-                    <div class="col-md-2">
-                        <select id="State_Name" style="border-radius: 3pt" class="form-control @error('State Name') is-invalid @enderror" name="State_Name" value="{{ old('State_Name') }}" required autocomplete="State_Name">
-
-                        </select>
-
-                        @error('State Name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-
+                            </select>
+                            @error('State Name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
                     </div>
-                </div>
-
-                
-                <input type="file" id="myFile" name="filename">
-                <input type="submit">
-    </form>
-            
-
-
+                    <div class="form-group row mb-0">
+                        <div class="col-md-2 offset-md-2">
+                            <input type="file" id="myFile" name="filename"><br>
+                            <button id = "btun1" style="margin-top:20px;"> Upload </button>
+                        </div>
+                    </div>
+            </form>
+            </div> 
+        </div>
+    </div>
 @endsection

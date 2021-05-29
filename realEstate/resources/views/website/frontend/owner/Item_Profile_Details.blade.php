@@ -12,26 +12,39 @@
             </div>
             <div class="sub-heading">
 
-                @foreach ($details as $property => $detail)
-                            <ul class="nav side-menu">
-                                <li>{{$property}}  <a href="{{url('')}}" ><i style="padding-left:14px" class="fa fa-plus"></i></a>
-                                    <!-- {{$i=0}} -->
-                                    @foreach($detail as $diff => $detailValue)
-                                        <!-- {{$i+=1}} -->
-                                        <ul >
-                                            <li>
-                                                @foreach($detailValue as $detailValue)  <!-- sha8ala hena -->
-                                                <div> <a href="javascript:void(0)" onclick="showDetails('{{$detailValue->Property_diff}}','{{$detailValue->Detail_Name}}','{{$detailValue->DetailValue}}','{{$detailValue->Property_Detail_Id}}')"><span id=""> {{$property}} {{$i}}</span></a>
-                                                <a href="javascript:void(0)" onclick="AddDetail('{{$detailValue->Property_Detail_Id}}','{{$property}}')" ><i style="padding-left:14px" class="fa fa-pencil"></i></a></div>
-                                                <ul id="diff{{$detailValue->Property_diff}}"></ul>
-                                                @endforeach
-                                            </li>
-                                        @endforeach
-                                        </ul>
-                                </li>
-                            </ul>
+                @if(!empty($subtype))
+                <a href="{{url('/OwnerSelectDetails/'.$item_id.'/'.$subtype)}}">
+                    <h6>Add A new Detial <i style="padding-left:14px" class="fa fa-plus"></i></h6>
+                </a>
+                @else
+                <a href="{{url('/OwnerSelectSubType/'.$item_id)}}">
+                    <h6>Add A new Detial <i style="padding-left:14px" class="fa fa-plus"></i></h6>
+                </a>
+                @endif
+                @foreach ($details as $Property_Name => $Property_Id_Array)
+                @foreach ($Property_Id_Array as $Property_Id => $Property_diff_Array)
 
-                    @endforeach
+                <ul class="nav side-menu">
+                    <li>{{$Property_Name}}
+                        <!-- {{$i=0}} -->
+                        @foreach ($Property_diff_Array as $Property_diff => $detailValue)
+                        <!-- {{$i+=1}} -->
+                        <ul>
+                            <li>
+                                <div> <a href="javascript:void(0)" onclick="showDetails('{{$Property_diff}}')"><span id=""> {{$Property_Name}} {{$i}}</span></a>
+                                    <a href="javascript:void(0)" onclick="AddDetail('{{$Property_Id}}','{{$Property_Name}}','{{$Property_diff}}')"><i style="padding-left:14px" class="fa fa-pencil"></i></a>
+                                    <a href="javascript:void(0)" onclick="DeleteDetail('{{$Property_diff}}')"><i style="padding-left:14px" class="fa fa-trash"></i></a>
+                                </div>
+                                <!-- sha8ala hena -->
+                                <ul id="diff{{$Property_diff}}"></ul>
+
+                            </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                </ul>
+                @endforeach
+                @endforeach
             </div>
             <div class="clearfix"></div>
         </div>
@@ -154,9 +167,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="data_form">
+                    <input type="hidden" id="item_id" value="{{$item_id}}">
+                    <form id="data_form_edit">
                         @csrf
-
                     </form>
 
                 </div>
@@ -272,7 +285,7 @@
                 console.log(data);
                 // return (['totalPrice'=>$totalPric>$start_date,"end_date"=>$end_date]);
 
-                location.href = "/Payment/" + item_id + "/" + data['totalDays'] + "/" + data['totalPrice'] + "/" + data['price_per_night'] +"/" + data['start_date'] +"/" + data['end_date'];
+                location.href = "/Payment/" + item_id + "/" + data['totalDays'] + "/" + data['totalPrice'] + "/" + data['price_per_night'] + "/" + data['start_date'] + "/" + data['end_date'];
             },
             error: function(data) {
 
@@ -283,57 +296,30 @@
 
     }
 
-    function showDetails(diff,name,value,p)
-    {
-        console.log(p);
-        var check =$("#diff"+diff).html();
-        if(check == ""){
-            var text = "<li>" + name + " : <input type='text' id='PID"+p+"' value='" + value + "'></li>";
-            $("#diff" + diff).html(text);
-        }else{
-            $("#diff" + diff).html("");
-        }
-    }
+    function showDetails(Property_diff) {
+        console.log("2bl el ajax");
 
-    function AddDetail(id, name) {
-
-        $("#exampleModalLabel").html(name);
-        var Form = '';
         $.ajax({
-            url: "{{route('propertyDetail.find')}}",
+            url: "{{route('detail.find')}}",
             Type: "PUT",
             data: {
-                id: id
+                id: Property_diff
             },
             success: function(data) {
-                console.log('success');
-                $("#EditMainTypeModal").modal("toggle");
-
+                console.log('gwa el ajax');
+                console.log(data);
+                var text = "";
                 Object.values(data).forEach(val => {
-
-                    Form += ' <div class="form-group row"> ' +
-                        '<label for="' + val['Property_Detail_Id'] + '" class="col-md-2 col-form-label text-md-right">' + val['Detail_Name'] + '</label>' +
-                        '<div class="col-md-5">' +
-                        '<input type="' + val['datatype'] + '" id="' + val['Property_Detail_Id'] + '" name="DetailItem[]" class="form-control" required autocomplete="DetailName">' +
-                        '</div>' +
-                        '</div>';
-
+                    text += "<li>" + val['Detail_Name'] + " : " + val['DetailValue'] + "</li>";
                 });
-                if (Form == '')
-                    Form = 'No Property Details';
-                else
-                    Form += ' <div class="form-group row mb-0">' +
-                        '<div class="col-md-2 offset-md-2">' +
-                        ' <button type="submit" class="btn btn-primary">' +
-                        ' {{ __("Add") }}';
-                '</button>';
-
-
-                $('#data_form').html(Form);
-                Object.values(data).forEach(val => {
-                    $('#' + val['Property_Detail_Id']).val($('#PID' + val['Property_Detail_Id']).val());
-                });
-                // var FormTag= document.getElementById('data_form').innerHTML()=Form;
+                console.log(text);
+                var check = $("#diff" + Property_diff).html();
+                //   $("#diff" + Property_diff).html(text);
+                if (check == "") {
+                    $("#diff" + Property_diff).html(text);
+                } else {
+                    $("#diff" + Property_diff).html("");
+                }
             },
             error: function() {
                 console.log('Error');
@@ -341,31 +327,117 @@
 
         });
 
+
+
     }
-    $('#data_form').submit(function() {
+
+    function DeleteDetail(diff) {
+        $.ajax({
+            url: "{{route('delete.details')}}",
+            Type: "PUT",
+            data: {
+                diff: diff,
+            },
+            success: function(data) {
+                console.log(data);
+            },
+            error: function() {}
+
+        });
+
+    }
+
+    function AddDetail(id, name, diff) {
+
+        $("#exampleModalLabel").html(name);
+        var Form = '';
+        $.ajax({
+            url: "{{route('propertyDetail.find')}}",
+            Type: "PUT",
+            data: {
+                id: id,
+                diff: diff
+            },
+            success: function(data) {
+
+                var properties = data['properties'];
+                var details = data['details'];
+
+                $("#EditMainTypeModal").modal("toggle");
+                Object.values(properties).forEach(val => {
+                    var detail = details[val['Property_Detail_Id']];
+                    if (detail != undefined) {
+                        // console.log('found');
+                        // console.log(detail[0]['Detail_Name']);
+
+                        Form += ' <div class="form-group row"> ' +
+                            '<label for="' + detail[0]['Detail_Id'] + '" class="col-md-2 col-form-label text-md-right">' + detail[0]['Detail_Name'] + '</label>' +
+                            '<div class="col-md-5">' +
+                            '<input type="' + detail[0]['datatype'] + '" id="' + detail[0]['Detail_Id'] + '" name="DetailItem[]" value=' + detail[0]['DetailValue'] + ' class="form-control" >' +
+                            '</div>' +
+                            '</div>';
+
+                    } else {
+                        Form += ' <div class="form-group row"> ' +
+                            '<label for="new" class="col-md-2 col-form-label text-md-right">' + val['Detail_Name'] + '</label>' +
+                            '<div class="col-md-5">' +
+                            '<input type="' + val['datatype'] + '" name="DetailItem[]" id="prop' + val['Property_Detail_Id'] + '" class="form-control" >' +
+                            '<input type="hidden" id="diff" value="' + diff + '">' +
+                            '</div>' +
+                            '</div>';
+                    }
+                });
+
+                if (Form == '')
+                    Form = 'No Property Details';
+                else
+                    Form += ' <div class="form-group row mb-0">' +
+                    '<div class="col-md-2 offset-md-2">' +
+                    ' <button type="submit" class="btn btn-primary">' +
+                    ' {{ __("Edit") }}';
+                '</button>';
+
+
+                $('#data_form_edit').html(Form);
+                Object.values(data).forEach(val => {
+                    $('#' + val['Property_Detail_Id']).val($('#PID' + val['Property_Detail_Id']).val());
+                });
+
+            },
+            error: function() {
+                console.log('Error');
+            }
+
+        });
+    }
+
+    $('#data_form_edit').submit(function() {
         var data = [];
-        var item_id= $("#item_id").val();
+        var item_id = $("#item_id").val();
+        var diff = $("#diff").val();
         //3iza ageeb kol el inputs b get element by name
         //w b3deen 3iza 27ot el inputs value&id f array
         $('input[name="DetailItem[]"]').each(function() {
             data.push({
                 id: this.id,
                 value: this.value,
+                type: this.type,
+                diff: diff,
             });
         });
         var _token = $("input[name=_token]").val();
         //w b3den 3iza 2b3t el array le el controller
         $.ajax({
             type: "post",
-            url: "{{ route('details_submit')}}",
+            url: "{{ route('details.edit')}}",
             data: {
                 data: data,
                 item_id: item_id,
                 _token: _token
             },
-            success: function() {
+            success: function(s) {
                 //hna 3iza anady 3la created succefully
-                console.log('Success');
+                console.log(s);
             },
             error: function() {
                 // hna anady 3la not created w kdaho

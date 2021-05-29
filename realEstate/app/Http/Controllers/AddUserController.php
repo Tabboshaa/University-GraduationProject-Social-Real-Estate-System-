@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Country;
+use App\Item;
 
 class AddUserController extends Controller
 {
@@ -92,17 +93,20 @@ class AddUserController extends Controller
     {
         $countries = Country::all();
         if($user_id==null){
+          
              return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
         }else{
             $user = User::all()->find($user_id);
-
+            
             $user->First_Name=request('First');
             $user->Middle_Name=request('Middle');
             $user->Last_Name=request('Last');
             $user->National_ID=request('National');
             $user->save();
+          
 
             $phone_number = Phone_Numbers::all()->where('User_ID','=',$user->id);
+            
 
             if($phone_number=='[]')
             {
@@ -117,11 +121,12 @@ class AddUserController extends Controller
             {
                 $phone_number->phone_number=request('Phone');
             }
+            
             $typeOfUser=Type_Of_User::create([
                 'User_ID' =>$user_id,
                 'User_Type_ID'=>3
             ]);
-
+            
             return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
 
 
@@ -151,6 +156,7 @@ class AddUserController extends Controller
     {
         //
         $user = User::all()->where('id','=',$id)->first();
+        
         $posts= PostsController::userPosts($id);
         $profile_photo=ProfilePhotoController::getPhoto($id);
         $cover_photo=CoverPhotoController::getPhoto($id);
@@ -185,6 +191,8 @@ class AddUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     //ex11
     public static function getItemWithOwnerName($item_id)
     {
         //

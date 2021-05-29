@@ -12,4 +12,9 @@ class Cover_Page extends Model
         'Item_Id',
         'path'
     ];
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class, 'Item_Id');
+    }
 }

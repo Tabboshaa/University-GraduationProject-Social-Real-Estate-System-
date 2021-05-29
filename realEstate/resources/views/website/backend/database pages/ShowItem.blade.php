@@ -13,12 +13,16 @@
         <p><small>search for another item</small></p>
     </a>
 
+
+    <a href="{{url('/reservations/'.$item_id)}}"><i style="padding-left:21px" class="fa fa-tasks"></i>
+        <p><small>Reservations</small></p>
+    </a>
     @if(!empty($subtypeid))
-    <a href="{{url('/property_select/'.$item_id.'/'.$subtypeid.'')}}"><i style="padding-left:14px" class="fa fa-plus-square-o"></i>
+    <a href="{{url('/property_select/'.$item_id.'/'.$subtypeid.'')}}"><i style="padding-left:13px" class="fa fa-plus-square-o"></i>
         <p><small>Details</small></p>
     </a>
     @else
-    <a href="{{url('/addItemSteps/'.$item_id)}}"><i style="padding-left:14px" class="fa fa-plus-square-o"></i>
+    <a href="{{url('/addItemSteps/'.$item_id)}}"><i style="padding-left:13px" class="fa fa-plus-square-o"></i>
         <p><small>Details</small></p>
     </a>
     @endif
@@ -42,7 +46,7 @@
 
 <div class="C">
 
-    <h2>{{$user[0]->First_Name}} {{$user[0]->Middle_Name}} {{$user[0]->Last_Name}} Items </h2>
+    <h2>{{$user->First_Name}} {{$user->Middle_Name}} {{$user->Last_Name}} Items </h2>
 
 </div>
 
@@ -51,7 +55,7 @@
         <tr>
             <td class="th1">User</td>
             <td class="td1">
-                Name : {{$user[0]->First_Name}} {{$user[0]->Middle_Name}} {{$user[0]->Last_Name}}
+                Name : {{$user->First_Name}} {{$user->Middle_Name}} {{$user->Last_Name}}
                 <br>Email :{{$email}} <a href="{{ url('/edit_item_user/'.$item_id) }}"><i class="fa fa-edit"> Edit</i></a>
                 <br>Phone Number :{{$phone_number}}
             </td>

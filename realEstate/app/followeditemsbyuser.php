@@ -13,4 +13,11 @@ class followeditemsbyuser extends Model
         'User_ID',
         'Item_Id'
     ];
+    public function user(){
+        return $this->hasOne(User::class, 'User_Id');
+    }
+    public function item()
+    {
+        return $this->belongsTo(Item::class, 'Item_Id');
+    }
 }

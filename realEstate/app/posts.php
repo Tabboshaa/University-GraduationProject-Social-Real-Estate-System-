@@ -14,4 +14,17 @@ class posts extends Model
         'Post_Title',
         'Post_Content'
     ];
+
+    //shaimaa
+    public function item(){
+        return $this->belongsTo(Item::class, 'Item_Id');
+    }
+    
+    public function user(){
+        return $this->belongsTo(User::class, 'User_Id');
+    }
+
+    public function postAttachment(){
+        return $this->hasMany(post_attachment::class, 'Post_Id');
+    }
 }

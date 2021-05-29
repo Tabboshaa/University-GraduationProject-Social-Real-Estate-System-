@@ -8,7 +8,8 @@ use App\attachment;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Artisan;
+use Illuminate\Support\Facades\File;
+
 
 class ProfilePhotoController extends Controller
 {
@@ -94,9 +95,31 @@ class ProfilePhotoController extends Controller
      * @param  \App\ProfilePhoto  $coverPhoto
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProfilePhoto $profilePhoto)
+    public function edit()
     {
         //
+        if ($files = request()->file('ProfilePhoto')) {
+
+
+            $filename = $files->getClientOriginalName();
+            $files->storeAs('/cover page', $filename, 'public');
+
+            $attachment = attachment::create(['File_Path' => $filename]);
+
+            // }
+            try {
+                $profilePhoto = ProfilePhoto::all()->where('User_Id', '=', Auth::id(),)->first();
+                //hy7ot el name el gded f column el country name
+                $profilePhoto->Profile_Picture = $attachment->Attachment_Id;
+                $profilePhoto->save();
+                return back();
+            } catch (\Illuminate\Database\QueryException $e) {
+                $errorCode = $e->errorInfo[1];
+                if ($errorCode == 1062) {
+                    return back()->with('error', 'Already Exist !!');
+                }
+            }
+        }
     }
 
     /**
@@ -114,18 +137,18 @@ class ProfilePhotoController extends Controller
 
             $filename = $files->getClientOriginalName();
             $files->storeAs('/cover page', $filename, 'public');
-    
+
             $attachment = attachment::create(['File_Path' => $filename]);
-    
+
             // }
             try {
                 $profilePhoto = ProfilePhoto::create([
-                    'User_Id'=> Auth::id(),
-                    'Cover_Photo'=>$attachment->Attachment_Id
+                    'User_Id' => Auth::id(),
+                    'Cover_Photo' => $attachment->Attachment_Id
                 ]);
-                $profilePhoto= ProfilePhoto::all()->find(request('Photo_Id'));
+                $profilePhoto = ProfilePhoto::all()->find(request('Photo_Id'));
                 //hy7ot el name el gded f column el country name
-                $profilePhoto->Profile_Picture=$attachment->Attachment_Id;
+                $profilePhoto->Profile_Picture = $attachment->Attachment_Id;
                 $profilePhoto->save();
                 return back();
             } catch (\Illuminate\Database\QueryException $e) {
@@ -137,14 +160,23 @@ class ProfilePhotoController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\CoverPhoto  $coverPhoto
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(CoverPhoto $coverPhoto)
+
+    public function destroy($id, $path)
     {
-        //
+
+        $myFile = 'storage/cover page/' . $path;
+
+        if (File::exists($myFile)) {
+            File::delete($myFile);
+        }
+        try {
+            attachment::destroy($id);
+            return back();
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Already Exist !!');
+            }
+        }
     }
 }
