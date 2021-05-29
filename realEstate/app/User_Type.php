@@ -11,5 +11,8 @@ class User_Type extends Model
     protected $fillable=[
         'Type_Name'
         ];
-    
+
+    public function useres(){
+        return $this->hasMany(Type_Of_User::class, 'User_Type_ID');
+    }
 }

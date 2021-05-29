@@ -120,6 +120,7 @@
     </div>
     <div class="addbtn1">
         <a href="javascript:void(0)" onclick="goreserve('{{$item_id}}');" id="gobutton" style="display: none; margin-top:90px; margin-left:50px">reserve</a>
+{{--        <a href="javascript:void(0)" onclick="goreserve('{{$item_id}}');" id="gobutton" style="display: none; margin-top:90px; margin-left:50px">reserve</a>--}}
     </div>
 
 </div>
@@ -229,7 +230,7 @@
                 console.log(data);
                 // return (['totalPrice'=>$totalPric>$start_date,"end_date"=>$end_date]);
 
-                location.href = "/Payment/" + item_id + "/" +schedule +"/" + data['totalDays'] + "/" + data['totalPrice'] + "/" + data['price_per_night'] +"/" + data['start_date'] +"/" + data['end_date'];
+                location.href = "/paypalCall/" + item_id + "/" +schedule +"/" + data['totalDays'] + "/" + data['totalPrice'] + "/" + data['price_per_night'] +"/" + data['start_date'] +"/" + data['end_date'];
             },
             error: function(data) {
 

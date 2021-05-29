@@ -342,6 +342,6 @@ Route::get('/OwnerAddItem', function () {
 });
 //paypal
 
-Route::get('paypalCall/{item_id}/{schedule}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}','PaypalController@index')->name('paypalCall');
+Route::POST('paypalCall/{item_id}/{schedule}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}','PaypalController@index')->name('paypalCall');
 Route::get('paypalReturn','PaypalController@paypalReturn')->name('paypalReturn');
 
