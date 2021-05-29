@@ -63,6 +63,9 @@ class User extends Authenticatable
         return $this->hasMany(CoverPhoto::class, 'id');
     }
 
+    public function operations(){
+        return $this->hasMany(operations::class, 'Operation_Id');
+    }
     
     
 

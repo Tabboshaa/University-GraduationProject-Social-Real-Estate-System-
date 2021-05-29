@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/Payment', 'OperationsController@calculateDays')->name('calculate.days');
     Route::get('/operation_func', 'OperationsController@create');
     Route::get('/reservations/{item_id?}', 'OperationsController@showreservations');
+    Route::get('/user_reservations/{id?}', 'OperationsController@showuserreservations');
     Route::get('/operation_delete/{id?}', 'OperationsController@destroyOperation');
     //Payment
     Route::get('/creditCard', function () {
