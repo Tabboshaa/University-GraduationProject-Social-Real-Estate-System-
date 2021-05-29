@@ -93,17 +93,20 @@ class AddUserController extends Controller
     {
         $countries = Country::all();
         if($user_id==null){
+          
              return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
         }else{
             $user = User::all()->find($user_id);
-
+            
             $user->First_Name=request('First');
             $user->Middle_Name=request('Middle');
             $user->Last_Name=request('Last');
             $user->National_ID=request('National');
             $user->save();
+          
 
             $phone_number = Phone_Numbers::all()->where('User_ID','=',$user->id);
+            
 
             if($phone_number=='[]')
             {
@@ -118,11 +121,12 @@ class AddUserController extends Controller
             {
                 $phone_number->phone_number=request('Phone');
             }
+            
             $typeOfUser=Type_Of_User::create([
                 'User_ID' =>$user_id,
                 'User_Type_ID'=>3
             ]);
-
+            
             return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
 
 
