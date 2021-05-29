@@ -12,6 +12,7 @@ use App\Sub_Type_Property;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
@@ -57,6 +58,6 @@ class ReservationController extends Controller
             ->select('property__details.*', 'main__types.Main_Type_Name', 'sub__types.Sub_Type_Name', 'sub__type__properties.Property_Name', 'datatypes.datatype')
             ->paginate(10);
 
-        return view('website.backend.database pages.Reservation_Show', ['values'=>$values,'sub_type' => $sub_types, 'main_type' => $main_types, 'property_detail' => $property_details, 'property' => $property, 'data_type' => $data_type]);
+        return view('website.backend.database pages.Reservation_Show', ['values'=>$values,'sub_type' => $sub_types, 'main_type' => $main_types, 'property_detail' => $property_details,
+         'property' => $property, 'data_type' => $data_type]);
     }
-}
