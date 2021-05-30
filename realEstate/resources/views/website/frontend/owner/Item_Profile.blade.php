@@ -1,30 +1,42 @@
 @extends('website.frontend.ownerlayouts.main')
 @section('content')
-
+<link href="{{asset('css/FrontEndCSS/CustomerHome.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('css/FrontEndCSS/ButtonStyle.css')}}" rel="stylesheet" type="text/css" />
 <div id="content-wrapper">
     <div class="container-fluid">
         <!-- Banner -->
         <div class="dashboard">
             <div class="advertisment-banner1 col-md-12">
-                 {{-- Cover photo --}}
-                 @if(!empty($cover))
-                 {{-- imggggggggggggggggggggggggggggggggg --}}
-                     <img class="background" src="{{asset('storage/cover page/'.$cover['File_Path'])}}" alt="">
-                 @else
-                 <div id="coverPhoto">
-                     <img class="background" src="{{asset('storage/cover page/Default1.jpeg')}}" alt="">
-                 </div>
-                 <div class="screnshot" id="OpenImgUpload">
-                 <form method="POST" action="{{url('/CreateCoverPhoto')}}" enctype="multipart/form-data">
-                         @csrf
-                         <input id="cover_photo_upload" name="CoverPhoto" type="file" class="hidden" onchange="javascript:this.form.submit();">
-                 </form>
-                 </div>
-                 @endif
-                 <form method="Post" action="{{url('/DeleteMyCoverPhoto/'.$cover['Photo_Id'].'/'.$cover['File_Path'].'?_method=delete')}}" enctype="multipart/form-data">
-                 @csrf
-                     <button type="submit" id="btun3" class="btn btn-success"></button>
-                 </form>
+                {{-- Cover photo --}}
+                @if(!empty($cover))
+                {{-- imggggggggggggggggggggggggggggggggg --}}
+                <form method="Post" action="{{url('/DeleteMyCoverPage/'.$cover->id.'/'.$cover->path.'?_method=delete')}}" enctype="multipart/form-data">
+                    @csrf
+                    <button class="btn" type="submit"><i class="fa fa-trash"></i></button>
+                </form>
+                <div id="coverPhoto">
+                    <img class="background" height="600" src="{{asset('storage/cover page/'.$cover->path)}}" alt="">
+                </div>
+                <div class="screnshot" id="OpenImgUpload" style="height:0px;">
+                    <form method="POST" action="{{url('/UpdateCoverPage/'.$cover->id)}}" enctype="multipart/form-data">
+                        @csrf
+                        <input id="cover_photo_upload" name="CoverPhoto" type="file" class="hidden" onchange="javascript:this.form.submit();">
+                    </form>
+                </div>
+                @else
+                <div id="coverPhoto">
+                    <img class="background"  height="600" src="{{asset('storage/cover page/Default1.jpeg')}}" alt="">
+                </div>
+                <div class="screnshot" id="OpenImgUpload">
+                    <form method="POST" action="{{url('/CreateCoverPage/'.$item->Item_Id)}}" enctype="multipart/form-data">
+                        @csrf
+                        <input id="cover_photo_upload" name="CoverPhoto" type="file" class="hidden" onchange="javascript:this.form.submit();">
+                    </form>
+                </div>
+                @endif
+
             </div>
             <div class="main-page">
                 <div class="dash-profile">
@@ -54,7 +66,7 @@
                     </ul>
                     <div class="dashname">
                         {{ $item->Item_Name }}
-                        <p><a href="#">@ {{$item->First_Name}} {{$item->Middle_Name}} {{$item->Last_Name}}</a></p>
+                        <p><a href="{{url('/veiw_User/'.$item->user['id'])}}">@ {{$item->user['First_Name']}} {{$item->user['Middle_Name']}} {{$item->user['Last_Name']}}</a></p>
                     </div>
 
                 </div>

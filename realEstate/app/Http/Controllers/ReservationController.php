@@ -61,3 +61,4 @@ class ReservationController extends Controller
         return view('website.backend.database pages.Reservation_Show', ['values'=>$values,'sub_type' => $sub_types, 'main_type' => $main_types, 'property_detail' => $property_details,
          'property' => $property, 'data_type' => $data_type]);
     }
+}

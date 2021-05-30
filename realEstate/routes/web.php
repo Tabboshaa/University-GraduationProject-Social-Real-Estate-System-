@@ -57,7 +57,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/Payment', 'OperationsController@calculateDays')->name('calculate.days');
     Route::get('/operation_func', 'OperationsController@create');
     Route::get('/reservations/{item_id?}', 'OperationsController@showreservations');
-    Route::get('/user_reservations/{id?}', 'OperationsController@showuserreservations');
+    Route::get('/user_reservations', 'OperationsController@showuserreservations');
     Route::get('/operation_delete/{id?}', 'OperationsController@destroyOperation');
     //Payment
     Route::get('/creditCard', function () {
@@ -83,13 +83,18 @@ Route::group(['middleware' => 'auth.user'], function () {
         return view('website.frontend.customer.TimeLine');
     });
 
-    //Cover and Profile Photo
+    //Cover and Profile Photo customer profile
     Route::post('/CreateCoverPhoto', 'CoverPhotoController@create')->name('create.coverphoto');
     Route::delete('/DeleteMyCoverPhoto/{id?}/{File_Path?}', 'CoverPhotoController@destroy');
     Route::delete('/DeleteMyProfilePhoto/{id?}/{File_Path?}', 'ProfilePhotoController@destroy');
     Route::post('/CreateProfilePhoto', 'ProfilePhotoController@create')->name('create.profilephoto');
     Route::post('/UpdateCoverPhoto', 'CoverPhotoController@edit')->name('create.coverphoto');
     Route::post('/UpdateProfilePhoto', 'ProfilePhotoController@edit')->name('create.profilephoto');
+    
+    //owner item coverpage edit
+    Route::post('/UpdateCoverPage/{id?}', 'CoverPageController@edit');
+    Route::delete('/DeleteMyCoverPage/{id?}/{path?}', 'CoverPageController@destroy');
+    Route::post('/CreateCoverPage/{id?}', 'CoverPageController@create');
     //Follow
     //Follow
     Route::get('/FollowItem/{id?}', 'AddUserController@FollowedItem');
