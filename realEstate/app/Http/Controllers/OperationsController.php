@@ -260,13 +260,12 @@ class OperationsController extends Controller
 
         return view('website.backend.database pages.Reservation_Show', ['item' => $item]);
     }
-    public function showuserreservations($id)
+    public function showuserreservations()
     {
        
-        $user= User::all()->where("id",'=',Auth::id());
-        // Auth::user();
+        $user=Auth::user();
         $operations= $user->operations;
-        return $operations;
+        
         return view('website.frontend.customer.ShowReservation', ['operations' => $operations]);
     }
     //delete operation

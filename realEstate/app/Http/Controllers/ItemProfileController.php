@@ -7,6 +7,7 @@ use App\schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\followeditemsbyuser;
+use App\Item;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use DateInterval;
@@ -67,7 +68,7 @@ class ItemProfileController extends Controller
         $replies = CommentsController::getPostreplies($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
         $post_images = AttachmentController::getPostAttachments($id);
-        $item = AddUserController::getItemWithOwnerName($id);
+        $item = Item::find($id);
 
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
@@ -96,7 +97,7 @@ class ItemProfileController extends Controller
 
         $state = StateController::getStates();
 
-        $item = AddUserController::getItemWithOwnerName($id);
+        $item = Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
         //schedule and location
 
@@ -135,7 +136,7 @@ class ItemProfileController extends Controller
         $itemID = $id;
         $state = StateController::getStates();
 
-        $item = AddUserController::getItemWithOwnerName($id);
+        $item = Item::find($id);
 
         $gallery = DB::table('post_attachments')
             ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
@@ -155,7 +156,7 @@ class ItemProfileController extends Controller
 
         $state = StateController::getStates();
         $reviews = ReviewController::getItemReviews($id);
-        $item = AddUserController::getItemWithOwnerName($id);
+        $item = Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
         
         $User_Id = Auth::id();
@@ -184,7 +185,7 @@ class ItemProfileController extends Controller
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
-        $item = AddUserController::getItemWithOwnerName($id);
+        $item = Item::find($id);
         // return dd($reservation_details);
         return view('website.frontend.owner.Item_Profile_Reservations', ['reservations' => $reservations, 'reservation_details' => $reservation_details, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow]);
     }
@@ -197,7 +198,7 @@ class ItemProfileController extends Controller
         $schedule = ScheduleController::getWholeSchedule($id);
 
 
-        $item = AddUserController::getItemWithOwnerName($id);
+        $item = Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
 
         //schedule and location

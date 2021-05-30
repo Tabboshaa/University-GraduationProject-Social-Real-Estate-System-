@@ -185,7 +185,7 @@
             <div class="rightboxs">
                 <img src="images/banner/Icon4.png" alt="">
                 <span>Owner</span>
-                <p><a href="#">@ {{$item->First_Name}} {{$item->Middle_Name}} {{$item->Last_Name}}</a></p>
+                <p><a href="#">@ {{$item->user['First_Name']}} {{$item->user['Middle_Name']}} {{$item->user['Last_Name']}}</a></p>
                 <div id="test"></div>
             </div>
         </div>

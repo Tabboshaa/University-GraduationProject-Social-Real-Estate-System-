@@ -26,8 +26,8 @@
 
                                     <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
                                         <tr class="rightmsg">
-                                            <td class="box" style="background-color:rgb(252, 252, 252);">created at </td>
-                                            <td class="box" style="background-color:rgb(252, 252, 252);">Name</td>
+                                            <td class="box" style="background-color:rgb(252, 252, 252);">Date </td>
+                                            <td class="box" style="background-color:rgb(252, 252, 252);">Item</td>
                                             @if( isset($reservation->operationdetails) )
                                             @foreach($reservation->operationdetails as $reservation_detail)
                                             <td class="box" style="background-color:rgb(252, 252, 252);">{{$reservation_detail->detailname['Operation_Detail_Name']}}</td>
@@ -37,7 +37,7 @@
                                         </tr>
                                         <tr class="rightmsg">
                                             <td class="box">{{$reservation['updated_at']}} </td>
-                                            <td class="box"><a href="{{url('/veiw_User/'.$reservation['User_Id'])}}">{{$reservation->user['First_Name']}} {{$reservation->user['Middle_Name']}} {{$reservation->user['Last_Name']}}</a></td>
+                                            <td class="box"><a href="{{url('/itemProfile/'.$reservation['Item_Id'])}}">{{$reservation->item['Item_Name']}}</a></td>
                                             @if( isset($reservation->operationdetails) )
                                             @foreach($reservation->operationdetails as $reservation_detail)
                                             <td class="box">{{$reservation_detail['Operation_Detail_Value']}}</td>

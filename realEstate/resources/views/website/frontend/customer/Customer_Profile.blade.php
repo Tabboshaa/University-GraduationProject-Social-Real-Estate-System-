@@ -9,12 +9,12 @@
             <div class="advertisment-banner1 col-md-12">
             @if(!empty($Cover_Photo))
 
-             <img class="background" src="{{asset('FrontEnd/images/coverpage/'.$Cover_Photo)}}" alt="">
+             <img class="background" height="600" src="{{asset('FrontEnd/images/coverpage/'.$Cover_Photo)}}" alt="">
              @endif
             </div>
             <div class="main-page">
                 <div class=" dash-profile">
-                    <img class="profile" src="{{asset('FrontEnd/images/coverpage/'.$Cover_Photo)}}" alt="">
+                    <img class="profile" height="600"src="{{asset('FrontEnd/images/coverpage/'.$Cover_Photo)}}" alt="">
                 </div>
                 <div class="prompr">
                     <div class="dashname">

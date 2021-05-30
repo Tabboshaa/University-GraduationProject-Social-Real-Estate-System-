@@ -13,12 +13,12 @@
                 @if(!empty($Cover_Photo))
                 {{-- imggggggggggggggggggggggggggggggggg --}}
                 
-                <form method="Post" action="{{url('/DeleteMyCoverPhoto/'.$Cover_Photo['Photo_Id'].'/'.$Cover_Photo['File_Path']->File_Path.'?_method=delete')}}" enctype="multipart/form-data">
+                <form method="Post" action="{{url('/DeleteMyCoverPhoto/'.$Cover_Photo['Photo_Id'].'/'.$Cover_Photo['File_Path'].'?_method=delete')}}" enctype="multipart/form-data">
                     @csrf
                     <button class="btn" type="submit"><i class="fa fa-trash"></i></button>
                 </form>
                 <div id="coverPhoto">
-                    <img class="background" src="{{asset('storage/cover page/'.$Cover_Photo['File_Path']->File_Path)}}" alt="">
+                    <img class="background"  height="600" src="{{asset('storage/cover page/'.$Cover_Photo['File_Path'])}}" alt="">
                 </div>
                 <div class="screnshot" id="OpenImgUpload">
                     <form method="POST" action="{{url('/UpdateCoverPhoto')}}" enctype="multipart/form-data">
@@ -28,7 +28,7 @@
                 </div>
                 @else
                 <div id="coverPhoto">
-                    <img class="background" src="{{asset('storage/cover page/Default1.jpeg')}}" alt="">
+                    <img class="background"  height="600" src="{{asset('storage/cover page/Default1.jpeg')}}" alt="">
                 </div>
                 <div class="screnshot" id="OpenImgUpload">
                     <form method="POST" action="{{url('/CreateCoverPhoto')}}" enctype="multipart/form-data">
