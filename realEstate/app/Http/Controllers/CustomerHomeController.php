@@ -19,6 +19,7 @@ use DatePeriod;
 use DateTime;
 use App\comments;
 use App\posts;
+
 class CustomerHomeController extends Controller
 {
     /**
@@ -30,27 +31,24 @@ class CustomerHomeController extends Controller
     {
         //
         $state = StateController::getStates();
-        $user_id=Auth::id();
-        $user=Type_Of_User::all()->where('User_ID','=',$user_id)->where('User_Type_ID','=',3);
-         if($user=='[]'){
-         $user='0';
-         }
-         else{
-             $user='1';
-         }
-         return view("website.frontend.customer.CustomerHome", ['states' => $state,'checkIfOwner'=>$user]);
-
+        $user_id = Auth::id();
+        $user = Type_Of_User::all()->where('User_ID', '=', $user_id)->where('User_Type_ID', '=', 3);
+        if ($user == '[]') {
+            $user = '0';
+        } else {
+            $user = '1';
+        }
+        return view("website.frontend.customer.CustomerHome", ['states' => $state, 'checkIfOwner' => $user]);
     }
-    public function indexPhoto(){
-       
+    public function indexPhoto()
+    {
+
         $States = DB::table('state_photos')
             ->join('states', 'states.State_Id', '=', 'state_photos.State_Id')
             ->join('attachments', 'attachments.Attachment_Id', '=', 'state_photos.Attachment_Id')
-            ->select('state_photos.*', 'attachments.File_Path','states.State_Name')->get();
+            ->select('state_photos.*', 'attachments.File_Path', 'states.State_Name')->get();
 
-            return view('website.frontend.customer.CustomerHome');
-        
-
+        return view('website.frontend.customer.CustomerHome');
     }
     /**
      * Show the form for creating a new resource.
@@ -88,12 +86,12 @@ class CustomerHomeController extends Controller
         $posts = PostsController::getItemPosts($id);
         $comments = CommentsController::getPostComments($id);
         $replies = CommentsController::getPostreplies($id);
-        $cover =CoverPageController::getCoverPhotoOfItem($id);
+        $cover = CoverPageController::getCoverPhotoOfItem($id);
         $post_images = AttachmentController::getPostAttachments($id);
-        $item =AddUserController::getItemWithOwnerName($id);
+        $item = AddUserController::getItemWithOwnerName($id);
 
         $User_Id = Auth::id();
-        $check_follow=followeditemsbyuser::all()->where('Item_Id','=',$id)->where('User_ID','=',$User_Id);
+        $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
         return view(
             'website\frontend\customer\Item_Profile_Posts',
@@ -105,7 +103,7 @@ class CustomerHomeController extends Controller
                 'post_images' => $post_images,
                 'comments' => $comments,
                 'replies' => $replies,
-                'check_follow'=>$check_follow
+                'check_follow' => $check_follow
             ]
         );
     }
@@ -119,15 +117,15 @@ class CustomerHomeController extends Controller
 
         $state = StateController::getStates();
 
-        $item =AddUserController::getItemWithOwnerName($id);
-        $cover =CoverPageController::getCoverPhotoOfItem($id);
+        $item = AddUserController::getItemWithOwnerName($id);
+        $cover = CoverPageController::getCoverPhotoOfItem($id);
         //schedule and location
 
         $User_Id = Auth::id();
-        $check_follow=followeditemsbyuser::all()->where('Item_Id','=',$id)->where('User_ID','=',$User_Id);
+        $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
 
-        return view('website\frontend\customer\Item_Profile_Details', ['states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule,'item_id'=>$id,'check_follow'=>$check_follow]);
+        return view('website\frontend\customer\Item_Profile_Details', ['states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
     }
 
     public function getAvailableTime($item_id)
@@ -170,8 +168,7 @@ class CustomerHomeController extends Controller
         ];
 
         // }for loop to store interval in array
-        foreach ($period as $key => $value)
-        {
+        foreach ($period as $key => $value) {
             $interval[] = [
                 'date' => $value->format('Y-m-d'),
                 'schedule_Id' => $schedule_id
@@ -192,7 +189,7 @@ class CustomerHomeController extends Controller
         //
         $state = StateController::getStates();
 
-        $item =AddUserController::getItemWithOwnerName($id);
+        $item = AddUserController::getItemWithOwnerName($id);
 
         $gallery = DB::table('post_attachments')
             ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
@@ -201,9 +198,9 @@ class CustomerHomeController extends Controller
 
         $cover = CoverPageController::getCoverPhotoOfItem($id);
         $User_Id = Auth::id();
-        $check_follow=followeditemsbyuser::all()->where('Item_Id','=',$id)->where('User_ID','=',$User_Id);
+        $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
-        return view('website\frontend\customer\Item_Profile_Gallery', ['states' => $state, 'item' => $item, 'cover' => $cover, 'gallery' => $gallery,'check_follow'=>$check_follow]);
+        return view('website\frontend\customer\Item_Profile_Gallery', ['states' => $state, 'item' => $item, 'cover' => $cover, 'gallery' => $gallery, 'check_follow' => $check_follow]);
     }
     public function itemProfileReviews($id = null)
     {
@@ -211,14 +208,14 @@ class CustomerHomeController extends Controller
 
         $state = StateController::getStates();
         $reviews = ReviewController::getItemReviews($id);
-        $item =AddUserController::getItemWithOwnerName($id);
+        $item = AddUserController::getItemWithOwnerName($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
-        
+
 
         $User_Id = Auth::id();
-        $check_follow=followeditemsbyuser::all()->where('Item_Id','=',$id)->where('User_ID','=',$User_Id);
+        $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
-        return view('website\frontend\customer\Item_Profile_Reviews', ['states' => $state, 'reviews' => $reviews, 'item' => $item, 'cover' => $cover,'check_follow'=>$check_follow]);
+        return view('website\frontend\customer\Item_Profile_Reviews', ['states' => $state, 'reviews' => $reviews, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow]);
     }
 
     /**
@@ -297,165 +294,160 @@ class CustomerHomeController extends Controller
     public function FollowedItemPosts($item_id)
     {
         $posts = DB::table('posts')
-        ->join('items','items.Item_Id','posts.Item_Id')
-        ->where('posts.Item_Id','=',$item_id)
-        ->select('posts.*')
-        ->get();
+            ->join('items', 'items.Item_Id', 'posts.Item_Id')
+            ->where('posts.Item_Id', '=', $item_id)
+            ->select('posts.*')
+            ->get();
 
         return view('website.frontend.customer.TimeLine', ['posts' => $posts]);
-
     }
 
 
-    public function HomePagePosts ()
+    public function HomePagePosts()
     {
+
         $User_Id = Auth::id();
 
-
-        $user = User :: all()->where ('id','=',$User_Id);
+        $user = User::all()->where('id', '=', $User_Id);
 
         $posts = DB::table('followeditemsbyusers')
-        ->join('posts','followeditemsbyusers.Item_Id','posts.Item_Id')
-        ->join('items','followeditemsbyusers.Item_Id','items.Item_Id')
-        ->select('posts.*','items.Item_Name')
-        ->where('followeditemsbyusers.User_ID','=',$User_Id )
-        ->get();
-
+            ->join('posts', 'followeditemsbyusers.Item_Id', 'posts.Item_Id')
+            ->join('items', 'followeditemsbyusers.Item_Id', 'items.Item_Id')
+            ->Leftjoin('cover__pages', 'cover__pages.Item_Id', 'followeditemsbyusers.Item_Id')
+            ->select('posts.*', 'items.Item_Name', 'cover__pages.path')
+            ->where('followeditemsbyusers.User_ID', '=', $User_Id)
+            ->get();
 
 
         $cover__pages = DB::table('cover__pages')
-        ->join('items','items.Item_Id','cover__pages.Item_Id')
-        ->select('cover__pages.path')
-        ->get();
+            ->join('items', 'items.Item_Id', 'cover__pages.Item_Id')
+            ->select('cover__pages.*')
+            ->get();
 
         $items = item::all();
 
         $post_images = DB::table('post_attachments')
-        ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
-        ->join('followeditemsbyusers','followeditemsbyusers.Item_Id','post_attachments.Item_Id')
-        ->select('post_attachments.*', 'attachments.File_Path')
-        ->get()
-        ->groupBy('Post_Id');
+            ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
+            ->join('followeditemsbyusers', 'followeditemsbyusers.Item_Id', 'post_attachments.Item_Id')
+            ->select('post_attachments.*', 'attachments.File_Path')
+            ->get()
+            ->groupBy('Post_Id');
+
 
         $comments = [];
         $replies = [];
 
-        if($posts!=null){
-        foreach ($posts as $post)
-        {
-            $comment = CommentsController::getPostCommentsHomePage($post->Post_Id);
+        if ($posts != null) {
+            foreach ($posts as $post) {
+                $comment = CommentsController::getPostCommentsHomePage($post->Post_Id);
 
-            $comments=collect($comments)->merge($comment);
+                $comments = collect($comments)->merge($comment);
 
 
-            $reply = CommentsController::getPostrepliesHomePage($post->Post_Id);
-            $replies=collect($replies)->merge($reply);
+                $reply = CommentsController::getPostrepliesHomePage($post->Post_Id);
+                $replies = collect($replies)->merge($reply);
+            }
+        }
+        if ($comments != null) {
+            $comments = $comments->groupBy('Post_Id');
+            if ($replies != null) {
+                $replies = $replies->groupby('Parent_Comment');
+            }
+        }
+        // return $replies;
+
+        $check_follow = followeditemsbyuser::all()->where('User_ID', '=', $User_Id);
+
+        return view(
+            "website.frontend.customer.HomePagePosts",
+            [
+                'posts' => $posts,
+                'user' => $user,
+                'items' => $items,
+                'post_images' => $post_images,
+                'comments' => $comments,
+                'replies' => $replies,
+                'cover__pages' => $cover__pages,
+                'check_follow' => $check_follow,
+                'User_Id' => $User_Id
+            ]
+        );
+    }
+    public function DestroyComment(Request $request, $id = null)
+    {
+
+
+        comments::destroy($request->id);
+        return redirect()->route('HomePage')->with('success', 'Comment Deleted Successfully');
+    }
+    public function editComment()
+    {
+
+
+        try {
+
+            $comment = comments::all()->find(request('id'));
+            $comment->Comment = request('edit_Comment');
+            $comment->save();
+
+            return back()->with('info', 'Comment Edited Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Error editing item');
+            }
+        }
+    }
+    public function DestroyPost(Request $request, $id = null)
+    {
+
+
+        posts::destroy($request->id);
+        return redirect()->route('HomePage')->with('success', 'Post Deleted Successfully');
+    }
+    public function editPost()
+    {
+
+
+        try {
+
+            $post = posts::all()->find(request('id'));
+            $post->Post_Content = request('edit_Post');
+            $post->save();
+
+            return back()->with('info', 'post Edited Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Error editing item');
+            }
         }
     }
 
-        $comments= $comments->groupBy('Post_Id');
-        $replies= $replies->groupby('Parent_Comment');
-        // return $replies;
-
-        $check_follow=followeditemsbyuser::all()->where('User_ID','=',$User_Id);
-
-        return view("website.frontend.customer.HomePagePosts",
-        [
-            'posts'=>$posts ,
-            'user'=>$user,
-            'items'=>$items,
-            'post_images'=>$post_images ,
-            'comments'=>$comments,
-            'replies'=>$replies,
-            'cover__pages'=>$cover__pages,
-            '$check_follow'=>$check_follow,
-            'User_Id'=>$User_Id
-        ]);
-
-    }
-    public function DestroyComment(Request $request, $id=null)
-    {
-
-
-            comments::destroy($request->id);
-         return redirect()->route('HomePage')->with('success', 'Comment Deleted Successfully');
-
-
- }
- public function editComment()
- {
-
-
-     try {
-
-         $comment = comments::all()->find(request('id'));
-         $comment-> Comment = request('edit_Comment');
-         $comment->save();
-
-         return back()->with('info', 'Comment Edited Successfully');
-     } catch (\Illuminate\Database\QueryException $e) {
-         $errorCode = $e->errorInfo[1];
-         if ($errorCode == 1062) {
-             return back()->with('error', 'Error editing item');
-         }
-     }
- }
- public function DestroyPost(Request $request, $id=null)
- {
-
-
-         posts::destroy($request->id);
-      return redirect()->route('HomePage')->with('success', 'Post Deleted Successfully');
-
-
-}
-public function editPost()
- {
-
-
-     try {
-
-         $post = posts::all()->find(request('id'));
-         $post-> Post_Content = request('edit_Post');
-         $post->save();
-
-         return back()->with('info', 'post Edited Successfully');
-     } catch (\Illuminate\Database\QueryException $e) {
-         $errorCode = $e->errorInfo[1];
-         if ($errorCode == 1062) {
-             return back()->with('error', 'Error editing item');
-         }
-     }
- }
-
     //route byro7 3la index aw function show da bst5dmo lma ha show variables
     //fe el blade in the same time the route passes me to the blade
-    public function showMyProfile ()
+    public function showMyProfile()
     {
         $id = Auth::id();
-        $user = User::all()->where('id','=',$id)->first();
-        $posts= PostsController::userPosts($id);
-        $profile_photo=ProfilePhotoController::getPhoto($id);
-        $cover_photo=CoverPhotoController::sendCoverPhotoToProfile($id);
+        $user = User::all()->where('id', '=', $id)->first();
+        $posts = PostsController::userPosts($id);
+        $profile_photo = ProfilePhotoController::getPhoto($id);
+        $cover_photo = CoverPhotoController::sendCoverPhotoToProfile($id);
         $post_images = AttachmentController::getAttachmentsOfPosts($id);
 
         $post_images = [];
 
 
-        foreach ($posts as $post)
-        {
+        foreach ($posts as $post) {
             $post_image = AttachmentController::getAttachmentsOfPosts($post->Post_Id);
-            $post_images=collect($post_images)->merge($post_image);
+            $post_images = collect($post_images)->merge($post_image);
         }
 
-        $post_images= $post_images->groupby('Post_Id');
-            return view('website\frontend\customer\Customer_Own_Profile',['First_Name'=>$user->First_Name,'Middle_Name'=>$user->Middle_Name,'Last_Name'=>$user->Last_Name,'Cover_Photo'=>$cover_photo,'Profile_Photo'=>$profile_photo,'posts'=>$posts,'post_images'=>$post_images]);
-        }
+        $post_images = $post_images->groupby('Post_Id');
+        return view('website\frontend\customer\Customer_Own_Profile', ['First_Name' => $user->First_Name, 'Middle_Name' => $user->Middle_Name, 'Last_Name' => $user->Last_Name, 'Cover_Photo' => $cover_photo, 'Profile_Photo' => $profile_photo, 'posts' => $posts, 'post_images' => $post_images]);
+    }
 
-        public function showReservation(){
-
-            
-        }
-
+    public function showReservation()
+    {
+    }
 }
-
