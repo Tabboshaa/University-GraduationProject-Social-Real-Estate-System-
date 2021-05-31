@@ -17,6 +17,7 @@
                 </div>
 
                 <div class="row">
+                    @include('website.backend.layouts.flashmessage')
                     <div class="col-sm-12">
                         @foreach($item->operations as $operations => $reservation)
                         <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">

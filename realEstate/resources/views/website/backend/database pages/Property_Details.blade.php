@@ -21,7 +21,7 @@
                 success:function(data){
                     console.log('success');
 
-                    op+='<option value="0" selected disabled>Select Sub Type</option>';
+                    op+='<option value="0"  sel disabled>Select Sub Type</option>';
                     Object.values(data).forEach(val => {
                         console.log(val);
                         op+='<option value="'+val['Sub_Type_Id']+'">'+val['Sub_Type_Name']+'</option>';
@@ -38,7 +38,7 @@
     });
     $(document).ready(function (){
 
-        $(document).on('change','#SubTypeName',function(){
+            $(document).on('change','#SubTypeName',function(){
 
             var SupType_id=$(this).val();
             console.log(SupType_id);
@@ -51,7 +51,7 @@
                 success:function(data){
                     console.log('success');
 
-                    op+='<option value="0" selected disabled>Select Property Name</option>';
+                    op+='<option value="0"    disabled>Select Property Name</option>';
                     Object.values(data).forEach(val => {
                         console.log(val);
                         op+='<option value="'+val['Property_Id']+'">'+val['Property_Name']+'</option>';
@@ -84,7 +84,7 @@
 
                         <div class="col-md-2">
                             <select id="MainTypeName" style="border-radius: 3pt" class="form-control @error('Main Type Name') is-invalid @enderror" name="Main_Type_Name" value="{{ old('Main Type Name') }}" required autocomplete="Main Type Name">
-                                <option value="0" selected disabled>Select Main Type</option>;
+                                <option value="0"   disabled>Select Main Type</option>;
                                  <!-- For loop  -->
                                  @foreach($main_type as $main_type)
                                      <option value="{{$main_type->Main_Type_Id}}">{{$main_type->Main_Type_Name}}</option>
@@ -107,7 +107,7 @@
                         <div class="col-md-2">
                             <select id="SubTypeName" style="border-radius: 3pt" class="form-control @error('Sub Type Name') is-invalid @enderror" name="Sub_Type_Name" value="{{ old('Sub Type Name') }}" required autocomplete="Sub Type Name">
                                <!--  For loop  -->
-                               <!-- <option value="0" selected disabled>Select Sub Type</option> -->
+                               <!-- <option value="0"   disabled>Select Sub Type</option> -->
                             <!-- End loop -->
                             </select>
                             @error('Sub Type Name')
@@ -126,12 +126,12 @@
                         <div class="col-md-2">
                             <select id="SubTypeProperty" style="border-radius: 3pt" class="form-control @error('Sub_Type_Property') is-invalid @enderror" name="Sub_Type_Property" value="{{ old('Sub_Type_Property') }}" required autocomplete="Sub_Type_Property">
                                 <!--  For loop  -->
-                                <!-- <option value="0" selected disabled>Select Property Name</option> -->
+                                <!-- <option value="0"   disabled>Select Property Name</option> -->
                             <!-- End loop -->
                             </select>
                             @error('Sub Type Name')
                             <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                       <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
                         </div>
@@ -142,7 +142,7 @@
                         </label>
 
                         <div class="col-md-2">
-                            <input id="Detail" style="border-radius: 3pt" type="text" class="form-control @error('Detail') is-invalid @enderror" name="property_details" value="{{ old('Detail') }}" required autocomplete="Detail" autofocus>
+                            <input id="Detail" style="border-radius: 3pt" type="text" class="form-control @error('Detail') is-invalid @enderror" name="property_details" value="{{ old('Detail') }}" required pattern="[A-Z][a-z]+" title="Start with capital letter " autocomplete="Detail" autofocus>
 
                             @error('Detail')
                             <span class="invalid-feedback" role="alert">
@@ -159,7 +159,7 @@
 
     <div class="col-md-2">
         <select id="DataTypeName" style="border-radius: 3pt" class="form-control @error('Data Type Name') is-invalid @enderror" name="Data_Type_Name" value="{{ old('Data Type Name') }}" required autocomplete="Data Type Name">
-            <option value="0" selected disabled>Select Data Type</option>;
+            <option value="0"   disabled>Select Data Type</option>;
              <!-- For loop  -->
              @foreach($data_type as $data_type)
                  <option value="{{$data_type->id}}">{{$data_type->datatype}}</option>
@@ -179,13 +179,16 @@
                                 {{ __('Add') }}
                             </button>
 
-                            <button id="btun2"  class="btn btn-primary">
-                                <a href="{{url('/Property_Details_show')}}" class="link2" >{{ __('Show') }}</a>
-                            </button>
+
                         </div>
                     </div>
 
-                </form></div>
+                </form>
+                <button id="btun2"  class="btn btn-primary">
+                    <a href="{{url('/Property_Details_show')}}" class="link2" >{{ __('Show') }}</a>
+                </button>
+
+            </div>
             <div class="x_panel">
                 <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
                     <div class="row">

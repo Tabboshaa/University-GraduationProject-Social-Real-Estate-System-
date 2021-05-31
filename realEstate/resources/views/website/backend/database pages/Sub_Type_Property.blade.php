@@ -92,7 +92,7 @@
                     </label>
 
                     <div class="col-md-2">
-                        <input id="Sub_Type_Property" style="border-radius: 3pt"  type="text" class="form-control @error('Sub_Type_Property') is-invalid @enderror" name="Sub_Type_Property" value="{{ old('Sub_Type_Property') }}" required autocomplete="Sub_Type_Property" autofocus>
+                        <input id="Sub_Type_Property" style="border-radius: 3pt"  type="text" class="form-control @error('Sub_Type_Property') is-invalid @enderror" name="Sub_Type_Property" value="{{ old('Sub_Type_Property') }}" required pattern="[A-Z][a-z]+" title="Start with capital letter " autocomplete="Sub_Type_Property" autofocus>
 
                         @error('Sub_Type_Property')
                         <span class="invalid-feedback" role="alert">
@@ -106,13 +106,15 @@
                     <div class="col-md-2 offset-md-2">
                         <button type="submit" id="btun1"class="btn btn-primary">
                             {{ __('Add') }}
-                        </button>    </form>
-                        <button id="btun2"  class="btn btn-primary">
-                            <a href="{{url('/sub_type_property_show')}}" class="link2" >{{ __('Show') }}</a>
                         </button>
+
                     </div>
                 </div>
-        
+            </form>
+            <button id="btun2"  class="btn btn-primary">
+                <a href="{{url('/sub_type_property_show')}}" class="link2" >{{ __('Show') }}</a>
+            </button>
+
         </div>
         <div class="x_panel">
             <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
