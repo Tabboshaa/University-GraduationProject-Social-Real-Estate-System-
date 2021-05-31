@@ -4,41 +4,39 @@
 <link href="{{asset('css/FrontEndCSS/CustomerHome.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('css/FrontEndCSS/TimeLine.css')}}" rel="stylesheet" type="text/css" />
 
-<div id="content-wrapper">
-    <div class="container-fluid">
-        <div class="dashboard">
+
             @if( count($posts) != 0)
             @foreach($posts as $post)
-            <table>
-                <thead>
+            <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
+                <div class="card-body p-0 d-flex">
+
                     @if( isset($post_images[$post->Post_Id]) )
                     @foreach($post_images[$post->Post_Id] as $post_image)
-                    <tr class="postinfo">
-                        <th colspan="3">
-                            <h4>
+                   
                                 <?php $today = \Carbon\Carbon::now();
                                 $end = \Carbon\Carbon::parse($post->updated_at);
                                 ?>
+                              
+                                
+                                @endforeach
+                                @endif
                                 <a href="{{url('/itemProfile/'.$post->Item_Id)}}">
-                                    <img height="50" width="70" src="{{asset('FrontEnd/images/coverpage/'.$post_image->File_Path)}}" alt="">
+                                    @if($post->path!=null)
+                                    <figure class="avatar me-3"><img  src="{{asset('storage/cover page/'.$post->path)}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
+                                @else
+                                <figure class="avatar me-3"><img  src="{{asset('storage/cover page/Default1.jpeg')}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
+                                @endif
                                 </a>
-                                <a href="{{url('/itemProfile/'.$post->Item_Id)}}">
+                                <h4 class="fw-700 text-grey-900 font-xssss mt-1"> <a href="{{url('/itemProfile/'.$post->Item_Id)}}">
                                     {{ $post->Item_Name }}
-                                </a>
-                                <p>{{$post->created_at}}</p>
-
-                            </h4>
-                        </th>
-                    </tr>
-                    @endforeach
-                    @endif
-                </thead>
-
-                <tbody>
-                    <tr class="postcontent">
-                        <td colspan="3">
+                                </a> <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">{{$post->created_at}}</span></h4>
+                                
+                            </div>
+                            
                             <p>
-                                {{$post->Post_Content}}
+                                <div class="card-body p-0 me-lg-5">
+                                    <p class="fw-500 text-grey-500 lh-26 font-xssss w-100">{{$post->Post_Content}} <a href="#" class="fw-600 text-primary ms-2">See more</a></p>
+                                </div>
                             </p>
                             @if($User_Id== $post->User_Id )
                             <a href="{{url('/deletePost/'.$post->Post_Id)}}" name="del_post" id="del_post"> Delete</a>
@@ -46,6 +44,10 @@
                             @if($User_Id== $post->User_Id )
                             <a href="javascript:void(0)" onclick="setPost('{{$post->Post_Id}}','{{$post->Post_Content}}')" name="editpost"> Edit</a>
                             @endif
+                            
+                        </div>
+        
+                        <div>
                             <div class="modal fade" id="EditPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -69,25 +71,19 @@
                                     </div>
                                 </div>
 
-                        </td>
-                    </tr>
-
+                            </div>
+                            <a href="#" class="showClick show">Show Comments</a>
+                            <a href="#" class="hideClick hidden">Hide Comments</a>        
+                    <div class="showComments">
                     {{-- Input for comment --}}
-                    <tr>
-                        <td colspan="2">
+                   <div>
                             <input type="text" class="coment" id="CommentForPost{{$post->Post_Id}}" name="comment" placeholder="Write a comment...">
-                        </td>
-                        <td class="arrowStyleL">
                             <a href="javascript:void(0)" onclick="Comment('{{$post->Post_Id}}');"><i class="fas fa-arrow-right arrowStyle"></i></a>
-                        </td>
-                    </tr>
-
+                    </div>
                     {{-- Loop for comments --}}
                     @if( isset($comments[$post->Post_Id]))
                     @foreach($comments[$post->Post_Id] as $comment)
                     {{-- Comment --}}
-                    <tr>
-                        <td colspan="3">
                             <div class="commentt">
                                 <a class="Usr_name" href="">{{$comment->First_Name}} {{$comment->Middle_Name}} {{$comment->Last_Name}} </a><br>
                                 {{ $comment->Comment }}<br>
@@ -126,33 +122,19 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
-                        </td>
-                    </tr>
-
                     {{-- Replies --}}
-                    <tr id="Replies{{$comment->Comment_Id}}"></tr>
-                    <div>
+                    <div id="Replies{{$comment->Comment_Id}}"></div>
+                    <div id="showReplies">
                         {{-- Input for reply --}}
-                        <tr name="writeReplay{{$comment->Comment_Id}}" style="display: none;">
-
-                            <td colspan="2">
+                        <div name="writeReplay{{$comment->Comment_Id}}" style="display: none;">
                                 <input type="text" class="replyyy" id="ReplyForComment{{$comment->Comment_Id}}" name="comment{{$comment->Comment_Id}}" placeholder=" Write a reply...">
-                            </td>
-                            <td class="arrowStyleL">
                                 <a href="javascript:void(0)" onclick="Reply('{{$post->Post_Id}}','{{$comment->Comment_Id}}');"><i class="fas fa-arrow-right arrowStyle"></i></a>
-                            </td>
-                        </tr>
-
-
+                        </div>
                     </div>
-
+                    </div>
                     @endforeach
                     @endif
-                </tbody>
-            </table>
             @endforeach
             @else
             @if( count($items) != 0)
@@ -204,10 +186,7 @@
            
 
             @endif
-        </div>
-    </div>
-</div>
-
+        
 <script>
     $(document).ready(function() {
         $("#ImageModel").modal("toggle");
@@ -430,6 +409,27 @@
 
         });
     };
+
+    $(function (){
+
+        $('.showClick').click(function (){
+ 
+        $('.hidden').show();
+        $('.showComments').show();   
+        $('.show').hide();
+
+        });
+
+        $('.hideClick').click(function (){
+
+        $('.hidden').hide();
+        $('.showComments').hide(); 
+        $('.show').show();
+
+        });
+
+});
+
 </script>
 
 @endsection

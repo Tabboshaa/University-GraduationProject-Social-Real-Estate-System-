@@ -1,251 +1,166 @@
-<nav class="navbar navbar-expand-md navbar-light fixed-top sticky-top nav-menu">
+<!-- navigation top-->
 
-    <div class="col-md-2 col-xs-12 p-left  p-right">
-
-        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle">
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="logo">
-            <a href="#">
-                <img src="{{asset('FrontEnd/images/header/logo.png')}}" alt="logo">
-            </a>
-        </div>
-    </div>
-    <!-- Navbar -->
-    <div class="col-md-5 col-xs-12 p-left  p-right">
-        <div class="searching">
-            <form action="{{url('search_by_place')}}">
-                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                <input type="text" list="states" name="search" placeholder="Search for item by state">
-                <datalist id="states">
-
-                </datalist>
+<div class="nav-header bg-white shadow-xs border-0">
+            <div class="nav-top">
+                <a href="index.html"><i class="feather-zap text-success display1-size me-2 ms-0"></i><span class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">Sociala. </span> </a>
+                <a href="#" class="mob-menu ms-auto me-2 chat-active-btn"><i class="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+                <a href="default-video.html" class="mob-menu me-2"><i class="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+                <a href="#" class="me-2 menu-search-icon mob-menu"><i class="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+                <button class="nav-menu me-0 ms-2"></button>
+            </div>
+            
+            <form action="#" class="float-left header-search">
+                <div class="form-group mb-0 icon-input">
+                    <i class="feather-search font-sm text-grey-400"></i>
+                    <input type="text" placeholder="Start typing to search.." class="bg-grey border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg">
+                </div>
             </form>
-        </div>
-    </div>
+            <a href="default.html" class="p-2 text-center ms-3 menu-icon center-menu-icon"><i class="feather-home font-lg alert-primary btn-round-lg theme-dark-bg text-current "></i></a>
+            <a href="default-storie.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i class="feather-zap font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
+            <a href="default-video.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i class="feather-video font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
+            <a href="default-group.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i class="feather-user font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
+            <a href="shop-2.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i class="feather-shopping-bag font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
 
-
-    <div class="col-md-5 col-xs-12 p-left p-right">
-        <div id="checkIfOwnerDiv">
-            <div class="add-listing">
-                <a href="javascript:void(0)" onclick="ToggleBeOwnerModal()">
-                    <img src="{{asset('FrontEnd/images/header/plus-ico.png')}}" alt=''>Continue As Owner </a>
-            </div>
-        </div>
-        <div class="home">
-            <ul>
-                <li>
-                    <a href="{{url('/HomePage')}}"><img src="{{asset('FrontEnd/images/header/home.png')}}" alt="" title="">
-                        <span>0</span>
-                    </a>
-                </li>
-                <li class="popup" onclick="myFunctionmsg()">
-                    <img src="{{asset('FrontEnd/images/header/mgs.png')}}" alt="" title="">
-                    <span>0</span>
-                    <div class="popuptext" id="message">
-                        <div class="notfication-details">
-                            <div class="noty-user-img">
-                                <img src="{{asset('FrontEnd/images/resources/ny-img1.png')}}" alt="">
-                            </div>
-                            <div class="notification-info">
-                                <h5><a href="message.html">Jassica William</a>
-                                    Lorem ipsum dolor sit amet,
-                                    consectetur adipisicing elit,</h5>
-                                <p>2 min ago</p>
-                            </div>
-                            <!--notification-info -->
-                        </div>
-                        <div class="notfication-details">
-                            <div class="noty-user-img">
-                                <img src="{{asset('FrontEnd/images/resources/ny-img1.png')}}" alt="">
-                            </div>
-                            <div class="notification-info">
-                                <h5><a href="message.html">Jassica William</a>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                    .</h5>
-                                <p>2 min ago</p>
-                            </div>
-                            <!--notification-info -->
-                        </div>
-
-                        <div class="notfication-details">
-                            <div class="noty-user-img">
-                                <img src="{{asset('FrontEnd/images/resources/ny-img1.png')}}" alt="">
-                            </div>
-                            <div class="notification-info">
-                                <h5><a href="message.html">Jassica William</a>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                </h5>
-                                <p>2 min ago</p>
-                            </div>
-                            <!--notification-info -->
-                        </div>
-
-                    </div>
-
-                </li>
-                <?php
-
-                use App\Http\Controllers\NotificationController;
-                use Illuminate\Support\Facades\Auth;
-
-                $notifications = NotificationController::index(Auth::id());
-                $today = \Carbon\Carbon::now();
-                ?>
-                <li class="popup" onclick="myFunctionicon()">
-                    <img src="{{asset('FrontEnd/images/header/notification.png')}}" alt="" title="">
-
-                    <span>{{count($notifications)}}</span>
-                    <!-- do by javascript -->
-                    <div class="popuptext visible-title" id="icon">
-                        @foreach($notifications as $notification)
-                        <div class="notfication-details visible-title">
-                            <div class="noty-user-img visible-title">
-                                <img src="images/resources/ny-img1.png" alt="">
-                            </div>
-                            <div class="notification-info visible-title">
-                                <a href="{{ url('/veiw_notification/'.$notification->Notification_Id) }}"> <i class="fa fa-close"></i></a>
-                                <h3><a href="{{ url('/veiw_User/'.$notification->id) }}"> {{$notification->First_Name}} {{$notification->Middle_Name}} {{$notification->Last_Name}}</a> </h3>
-                                <h3 style="font-size: 10px;">
-                                    <p>{{ $notification->Notification }} </p>
-                                </h3>
-                                <?php $end = \Carbon\Carbon::parse($notification->updated_at); ?>
-                                <p>{{ $end->diffForHumans($today) }}</p>
-                            </div>
-                            <!--notification-info -->
-                        </div>
-                        @endforeach
-                        <p><a href="{{ url('/show_notifications') }}">Click here to view all notifications</a></p>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <!--#Home-->
-        <div class="login popup" onclick="signin()">
-
-            <img src="{{asset('FrontEnd/images/header/u-icon.png')}}" title="" alt="">
-            {{\Illuminate\Support\Facades\Auth::user()->First_Name }}
-            <div class="popuptext1" id="signin">
-                <div class="notfication-details">
-                    <div class="notification-info">
-                        <a href="{{url('/EditCustomerProfile')}}">Profile </a>
-
-                    </div>
+            <a href="#" class="p-2 text-center ms-auto menu-icon" id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false"><span class="dot-count bg-warning"></span><i class="feather-bell font-xl text-current"></i></a>
+            <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" aria-labelledby="dropdownMenu3">
+                
+                <h4 class="fw-700 font-xss mb-4">Notification</h4>
+                <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3">
+                    
+                    <img src="{{asset('FrontEnd/sociala/images/user-8.png')}}"  alt="user" class="w40 position-absolute left-0">
+                    <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">Hendrix Stamp <span class="text-grey-400 font-xsssss fw-600 float-right mt-1"> 3 min</span></h5>
+                    <h6 class="text-grey-500 fw-500 font-xssss lh-4">There are many variations of pass..</h6>
+                </div> 
+                <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3">
+                    <img src="{{asset('FrontEnd/sociala/images/user-4.png')}}" alt="user" class="w40 position-absolute left-0">
+                    <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">Goria Coast <span class="text-grey-400 font-xsssss fw-600 float-right mt-1"> 2 min</span></h5>
+                    <h6 class="text-grey-500 fw-500 font-xssss lh-4">Mobile Apps UI Designer is require..</h6>
                 </div>
-                <div class="notfication-details">
-                    <div class="notification-info">
-                        <a href="my_profile_dashboard.html">Dashboard</a>
-                    </div>
+                
+                <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3">
+                    <img src="{{asset('FrontEnd/sociala/images/user-7.png')}}" alt="user" class="w40 position-absolute left-0">
+                    <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">Surfiya Zakir <span class="text-grey-400 font-xsssss fw-600 float-right mt-1"> 1 min</span></h5>
+                    <h6 class="text-grey-500 fw-500 font-xssss lh-4">Mobile Apps UI Designer is require..</h6>
                 </div>
-                @if (Route::has('login'))
-                <div class="notfication-details">
-                    <div class="notification-info">
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                    <!--notification-info -->
-                    @else
-                    <div class="notfication-details">
-                        <div class="notification-info">
-                            <a href="signin.html">Sign In</a>
-                        </div>
-                        <!--notification-info -->
-                    </div>
-                    @endif
-
+                <div class="card bg-transparent-card w-100 border-0 ps-5">
+                    <img src="{{asset('FrontEnd/sociala/images/user-6.png')}}" alt="user" class="w40 position-absolute left-0">
+                    <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">Victor Exrixon <span class="text-grey-400 font-xsssss fw-600 float-right mt-1"> 30 sec</span></h5>
+                    <h6 class="text-grey-500 fw-500 font-xssss lh-4">Mobile Apps UI Designer is require..</h6>
                 </div>
             </div>
+            <a href="#" class="p-2 text-center ms-3 menu-icon chat-active-btn"><i class="feather-message-square font-xl text-current"></i></a>
+            <div class="p-2 text-center ms-3 position-relative dropdown-menu-icon menu-icon cursor-pointer">
+                <i class="feather-settings animation-spin d-inline-block font-xl text-current"></i>
+                <div class="dropdown-menu-settings switchcolor-wrap">
+                    <h4 class="fw-700 font-sm mb-4">Settings</h4>
+                    <h6 class="font-xssss text-grey-500 fw-700 mb-3 d-block">Choose Color Theme</h6>
+                    <ul>
+                        <li>
+                            <label class="item-radio item-content">
+                                <input type="radio" name="color-radio" value="red" checked=""><i class="ti-check"></i>
+                                <span class="circle-color bg-red" style="background-color: #ff3b30;"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="item-radio item-content">
+                                <input type="radio" name="color-radio" value="green"><i class="ti-check"></i>
+                                <span class="circle-color bg-green" style="background-color: #4cd964;"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="item-radio item-content">
+                                <input type="radio" name="color-radio" value="blue" checked=""><i class="ti-check"></i>
+                                <span class="circle-color bg-blue" style="background-color: #132977;"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="item-radio item-content">
+                                <input type="radio" name="color-radio" value="pink"><i class="ti-check"></i>
+                                <span class="circle-color bg-pink" style="background-color: #ff2d55;"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="item-radio item-content">
+                                <input type="radio" name="color-radio" value="yellow"><i class="ti-check"></i>
+                                <span class="circle-color bg-yellow" style="background-color: #ffcc00;"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="item-radio item-content">
+                                <input type="radio" name="color-radio" value="orange"><i class="ti-check"></i>
+                                <span class="circle-color bg-orange" style="background-color: #ff9500;"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="item-radio item-content">
+                                <input type="radio" name="color-radio" value="gray"><i class="ti-check"></i>
+                                <span class="circle-color bg-gray" style="background-color: #8e8e93;"></span>
+                            </label>
+                        </li>
 
+                        <li>
+                            <label class="item-radio item-content">
+                                <input type="radio" name="color-radio" value="brown"><i class="ti-check"></i>
+                                <span class="circle-color bg-brown" style="background-color: #D2691E;"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="item-radio item-content">
+                                <input type="radio" name="color-radio" value="darkgreen"><i class="ti-check"></i>
+                                <span class="circle-color bg-darkgreen" style="background-color: #228B22;"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="item-radio item-content">
+                                <input type="radio" name="color-radio" value="deeppink"><i class="ti-check"></i>
+                                <span class="circle-color bg-deeppink" style="background-color: #FFC0CB;"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="item-radio item-content">
+                                <input type="radio" name="color-radio" value="cadetblue"><i class="ti-check"></i>
+                                <span class="circle-color bg-cadetblue" style="background-color: #5f9ea0;"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="item-radio item-content">
+                                <input type="radio" name="color-radio" value="darkorchid"><i class="ti-check"></i>
+                                <span class="circle-color bg-darkorchid" style="background-color: #9932cc;"></span>
+                            </label>
+                        </li>
+                    </ul>
+                    
+                    <div class="card bg-transparent-card border-0 d-block mt-3">
+                        <h4 class="d-inline font-xssss mont-font fw-700">Header Background</h4>
+                        <div class="d-inline float-right mt-1">
+                            <label class="toggle toggle-menu-color"><input type="checkbox"><span class="toggle-icon"></span></label>
+                        </div>
+                    </div>
+                    <div class="card bg-transparent-card border-0 d-block mt-3">
+                        <h4 class="d-inline font-xssss mont-font fw-700">Menu Position</h4>
+                        <div class="d-inline float-right mt-1">
+                            <label class="toggle toggle-menu"><input type="checkbox"><span class="toggle-icon"></span></label>
+                        </div>
+                    </div>
+                    <div class="card bg-transparent-card border-0 d-block mt-3">
+                        <h4 class="d-inline font-xssss mont-font fw-700">Dark Mode</h4>
+                        <div class="d-inline float-right mt-1">
+                            <label class="toggle toggle-dark"><input type="checkbox"><span class="toggle-icon"></span></label>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <?php
+            use Illuminate\Support\Facades\Auth;
+            
+            $user= Auth::id();
+            $today = \Carbon\Carbon::now();
+            ?>
+            <a href="{{ url('/veiw_User/'.$user) }}" class="p-0 ms-3 menu-icon"><img src="{{asset('FrontEnd/sociala/images/profile-4.png')}}" alt="user" class="w40 mt--1"></a>
+            
         </div>
 
-    </div>
-    </div>
-</nav>
-<div class="modal fade" id="BeOwnerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Need more information</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="BeOwnerForm" method="Post" action="{{url('BeOwner/'.Auth::id())}}">
-                    @csrf
-                    <input type="hidden" name="id" id="id">
-
-                    <div class="form-group">
-                        <label style="font-size: 12pt">First Name</label>
-                        <input type="text" style="border-radius: 3pt" name="First" class="form-control">
-
-                    </div>
-
-                    <div class="form-group">
-                        <label style="font-size: 12pt">Middle Name</label>
-                        <input type="text" style="border-radius: 3pt" name="Middle" class="form-control">
-
-                    </div>
-                    <div class="form-group">
-                        <label style="font-size: 12pt">Last Name</label>
-                        <input type="text" style="border-radius: 3pt" name="Last" class="form-control">
-
-                    </div>
-                    <div class="form-group">
-                        <label style="font-size: 12pt">Phone Number</label>
-                        <input type="text" style="border-radius: 3pt" name="Phone" class="form-control">
-
-                    </div>
-                    <div class="form-group">
-                        <label style="font-size: 12pt">National ID</label>
-                        <input type="text" style="border-radius: 3pt" name="National" class="form-control">
-                    </div>
-                    <button type="submit" id="btun3" class="btn btn-success">Continue</button>
-                </form>
-
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    function ToggleBeOwnerModal() {
-        $("#BeOwnerModal").modal("toggle");
-    };
-    $(document).ready(function() {
-        $.ajax({
-            url: "{{route('checkIfOwner')}}",
-            Type: "",
-            data: {
-
-            },
-            success: function(checkIfOwner) {
-                var text = "";
-                // console.log(checkIfOwner);
-                var checkIfOwnerDiv = $("#checkIfOwnerDiv");
-                // console.log(checkIfOwnerDiv);
-                if (checkIfOwner == '0') {
-                    text +=
-                        "<div clrass='add-listing'> " +
-                        "<a href='javascript:void(0)' onclick='ToggleBeOwnerModal()'> " +
-                        "<img src='{{asset('FrontEnd/images/header/plus-ico.png')}}' alt=''>Continue As Owner </a></div>";
-
-                } else {
-                    text +=
-                        "<div class='add-listing'> " +
-                        "<a href='{{url('/BeOwner')}}'> " +
-                        "<img src='{{asset('FrontEnd/images/header/plus-ico.png')}}' alt=''> Your Properties</a></div>";
-                }
-                $("#checkIfOwnerDiv").html(text);
-            },
-            error: function() {
-
-            }
-        });
-    });
-</script>
+        
+        <!-- navigation top -->
