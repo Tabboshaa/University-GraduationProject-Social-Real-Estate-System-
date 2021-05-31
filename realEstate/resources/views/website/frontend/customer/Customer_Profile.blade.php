@@ -206,7 +206,7 @@
                 @else
                 <div class=" locatins">
                     <div class="heading1">
-                        {{ $item->Item_Name }}
+                        
                         </h3>
                     </div>
                     <div class="sub-heading">
