@@ -178,7 +178,7 @@ class AddUserController extends Controller
 
         if($id == Auth::id())
         {
-            return view('website\frontend\customer\Customer_Own_Profile',['First_Name'=>$user->First_Name,'Middle_Name'=>$user->Middle_Name,'Last_Name'=>$user->Last_Name,'Cover_Photo'=>$cover_photo,'Profile_Photo'=>$profile_photo,'posts'=>$posts,'post_images'=>$post_images]);
+            return view('website\frontend\customer\Customer_Own_Profile',['First_Name'=>$user->First_Name,'Email'=>$user->email,'Middle_Name'=>$user->Middle_Name,'Last_Name'=>$user->Last_Name,'Cover_Photo'=>$cover_photo,'Profile_Photo'=>$profile_photo,'posts'=>$posts,'post_images'=>$post_images]);
 
         }
 
