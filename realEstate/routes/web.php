@@ -57,7 +57,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/Payment', 'OperationsController@calculateDays')->name('calculate.days');
     Route::get('/operation_func', 'OperationsController@create');
     Route::get('/reservations/{item_id?}', 'OperationsController@showreservations');
-    Route::get('/user_reservations', 'OperationsController@showuserreservations');
+    Route::get('/user_reservations', 'OperationsController@showuserreservations')->name('user_reservations');
     Route::get('/operation_delete/{id?}', 'OperationsController@destroyOperation');
     //Payment
     Route::get('/creditCard', function () {
@@ -90,7 +90,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::post('/CreateProfilePhoto', 'ProfilePhotoController@create')->name('create.profilephoto');
     Route::post('/UpdateCoverPhoto', 'CoverPhotoController@edit')->name('create.coverphoto');
     Route::post('/UpdateProfilePhoto', 'ProfilePhotoController@edit')->name('create.profilephoto');
-    
+
     //owner item coverpage edit
     Route::post('/UpdateCoverPage/{id?}', 'CoverPageController@edit');
     Route::delete('/DeleteMyCoverPage/{id?}/{path?}', 'CoverPageController@destroy');
@@ -135,7 +135,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/owneritemManageSchedule/{id?}', 'ItemProfileController@itemManageSchedule');
     Route::get('/MyItems', 'OwnerController@index');
     Route::get('/MyReservations', 'OwnerController@getReservations');//not done
-    
+
     Route::get('/Amr/{id?}', 'ItemController@SelectSubType');
     Route::get('/OwnerSelectSubType/{id?}', 'ItemController@SelectSubType');
     Route::get('/test', 'DetailsController@test');
@@ -362,5 +362,6 @@ Route::group(['middleware' => 'auth.admin'], function () {
 //paypal
 
 Route::get('paypalCall/{item_id}/{schedule}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}','PaypalController@index')->name('paypalCall');
-Route::get('paypalReturn','PaypalController@paypalReturn')->name('paypalReturn');
+Route::get('paypalReturn/{itemId}/{schedule}/{numberOfDays}/{totalCost}/{pricePerNight}/{startDate}/{endDate}','PaypalController@paypalReturn')->name('paypalReturn');
 
+Route::get('sendMailAfterReservation','PaypalController@sendDoneMail');

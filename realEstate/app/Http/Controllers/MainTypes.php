@@ -28,7 +28,7 @@ class MainTypes extends Controller
     {
         //
         request()->validate([
-           'Main_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
+           'Main_Type_Name' => ['required', 'string','max:225',"regex:/[A-Z][a-z]+/"]
        ]);
 
         try {
@@ -119,7 +119,7 @@ class MainTypes extends Controller
         return redirect()->route('main_types_show')->with('success', 'Item Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         return redirect()->route('main_types_show')->with('error', 'Item cannot be deleted');
-                
+
     }
 }else return redirect()->route('main_types_show')->with('warning', 'No type was chosen to be deleted.. !!');
 }
