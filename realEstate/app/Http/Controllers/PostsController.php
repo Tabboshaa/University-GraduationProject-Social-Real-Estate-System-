@@ -167,8 +167,9 @@ class PostsController extends Controller
         //
         $posts = DB::table('posts')
             ->join('users', 'users.id', '=', 'posts.User_Id')
+            ->LeftJoin('profile_photos','profile_photos.User_Id','=','posts.User_Id')
             ->where('posts.Item_Id', '=', $item_id)
-            ->select('posts.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')
+            ->select('posts.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name','profile_photos.Profile_Picture')
             ->paginate(10);
 
 

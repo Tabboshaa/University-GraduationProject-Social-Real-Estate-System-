@@ -1,5 +1,5 @@
 @extends('website.frontend.layouts.main')
-@section('content')
+@section('profile')
 <link href="{{asset('css/FrontEndCSS/CustomerHome.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('css/FrontEndCSS/TimeLine.css')}}" rel="stylesheet" type="text/css" />
 

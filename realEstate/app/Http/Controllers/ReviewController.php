@@ -29,7 +29,7 @@ class ReviewController extends Controller
            'Review_Content'=>request('review_content'),
            'Number_Of_Stars'=>request('stars')
        ]);
-       return response()->json("ddd");
+       return response()->json("done");
 
     }
     public static function getItemReviews($item_id)

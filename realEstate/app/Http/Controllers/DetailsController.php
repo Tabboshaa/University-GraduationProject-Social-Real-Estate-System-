@@ -203,7 +203,7 @@ class DetailsController extends Controller
             return;
         }
     }
-
+//to be deleted!!!
     public function findDetailsForShow()
     {
         // return  request('id');

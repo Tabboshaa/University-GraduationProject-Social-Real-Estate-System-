@@ -82,13 +82,19 @@ class CustomerHomeController extends Controller
     {
         //
 
+        // return $i->street->country->Country_Name;
         $state = StateController::getStates();
         $posts = PostsController::getItemPosts($id);
         $comments = CommentsController::getPostComments($id);
         $replies = CommentsController::getPostreplies($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
         $post_images = AttachmentController::getPostAttachments($id);
-        $item = AddUserController::getItemWithOwnerName($id);
+        $gallery = DB::table('post_attachments')
+        ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
+        ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
+        ->select('post_attachments.*', 'attachments.File_Path')->where('items.Item_Id', '=', $id)->paginate(6);
+        // $item = AddUserController::getItemWithOwnerName($id);
+        $item=Item::find($id);
 
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
@@ -103,7 +109,9 @@ class CustomerHomeController extends Controller
                 'post_images' => $post_images,
                 'comments' => $comments,
                 'replies' => $replies,
-                'check_follow' => $check_follow
+                'check_follow' => $check_follow,
+                'gallery'=>$gallery
+
             ]
         );
     }
@@ -117,15 +125,21 @@ class CustomerHomeController extends Controller
 
         $state = StateController::getStates();
 
-        $item = AddUserController::getItemWithOwnerName($id);
+      $item=Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
         //schedule and location
 
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
+        $details = DB::table('details')
+        ->join('sub__type__properties', 'details.Property_Id', '=', 'sub__type__properties.Property_Id')
+        ->join('property__details', 'details.Property_Detail_Id', '=', 'property__details.Property_Detail_Id')
+        ->join('datatypes','datatypes.id','=','property__details.DataType_Id')
+        ->select('details.*', 'sub__type__properties.Property_Name', 'property__details.Detail_Name','datatypes.datatype')
+        ->get()->where('Item_Id', '=', $id)->groupBy(['Property_Name', 'Property_Id', 'Property_diff']);
 
-        return view('website\frontend\customer\Item_Profile_Details', ['states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
+        return view('website\frontend\customer\Item_Profile_Details', ['details'=>$details,'states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
     }
 
     public function getAvailableTime($item_id)
@@ -189,7 +203,7 @@ class CustomerHomeController extends Controller
         //
         $state = StateController::getStates();
 
-        $item = AddUserController::getItemWithOwnerName($id);
+      $item=Item::find($id);
 
         $gallery = DB::table('post_attachments')
             ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
@@ -208,7 +222,7 @@ class CustomerHomeController extends Controller
 
         $state = StateController::getStates();
         $reviews = ReviewController::getItemReviews($id);
-        $item = AddUserController::getItemWithOwnerName($id);
+      $item=Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
 
 
@@ -314,10 +328,9 @@ class CustomerHomeController extends Controller
             ->join('posts', 'followeditemsbyusers.Item_Id', 'posts.Item_Id')
             ->join('items', 'followeditemsbyusers.Item_Id', 'items.Item_Id')
             ->Leftjoin('cover__pages', 'cover__pages.Item_Id', 'followeditemsbyusers.Item_Id')
-            ->select('posts.*', 'items.Item_Name', 'cover__pages.path')
+            ->select('posts.*', 'items.Item_Name','cover__pages.path')
             ->where('followeditemsbyusers.User_ID', '=', $User_Id)
             ->get();
-
 
         $cover__pages = DB::table('cover__pages')
             ->join('items', 'items.Item_Id', 'cover__pages.Item_Id')
