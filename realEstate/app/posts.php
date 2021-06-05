@@ -27,4 +27,12 @@ class posts extends Model
     public function postAttachment(){
         return $this->hasMany(post_attachment::class, 'Post_Id');
     }
+
+    public function comments(){
+        return $this->hasMany(comments::class, 'Post_Id')->where('Parent_Comment','=',null);
+    }
+   
+
+
+
 }

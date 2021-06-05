@@ -327,7 +327,7 @@ Route::group(['middleware' => 'auth.admin'], function () {
 
     // findDetailsForForm
     Route::get('/findDetailsForForm', 'PropertyDetailsController@findDetailsForForm')->name('propertyDetail.find');
-    Route::get('/findDetailsForShow', 'DetailsController@findDetailsForShow')->name('detail.find');
+    Route::get('/findDetailsForShow', 'DetailsController@findDetailsForShow')->name('detail.find'); //to be deleted!!
     Route::get('/DeleteDetailsOwner', 'DetailsController@destroydetails')->name('delete.details');
 
 

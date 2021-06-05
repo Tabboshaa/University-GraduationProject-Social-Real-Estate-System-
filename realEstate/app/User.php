@@ -20,6 +20,9 @@ class User extends Model implements
     use Authenticatable, Authorizable, CanResetPassword;
     use Notifiable;
 
+    // ^^
+// done to allow relation because use  Authenticatable doesn't allow it
+
     /**
      * The attributes that are mass assignable.
      *
@@ -66,15 +69,18 @@ class User extends Model implements
     }
 
     public function profilePhoto(){
-        return $this->hasMany(ProfilePhoto::class, 'User_Id');
+        return $this->hasOne(ProfilePhoto::class, 'User_Id');
     }
 
     public function coverPhoto(){
-        return $this->hasMany(CoverPhoto::class, 'User_Id');
+        return $this->hasOne(CoverPhoto::class, 'User_Id');
     }
 
     public function operations(){
         return $this->hasMany(operations::class, 'User_Id');
+    }
+    public function followedItems(){
+        return $this->hasMany(followeditemsbyuser::class, 'User_Id');
     }
 
 }

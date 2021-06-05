@@ -48,6 +48,7 @@
                     </div>
                     <!-- loader wrapper -->
                     <div class="row feed-body">
+                    @yield('profile')
                         <div class="col-xl-8 col-xxl-9 col-lg-8">   
                           @yield('content') 
                         </div>               
@@ -173,19 +174,8 @@
             </div>
         </div> 
     </div>
-
-     
-    
-
-   
-
-
-
-
     
 </body>
 
 @include('website.frontend.layouts.foot')
-
-<!-- Mirrored from uitheme.net/sociala/default.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 27 May 2021 19:14:43 GMT -->
 </html>

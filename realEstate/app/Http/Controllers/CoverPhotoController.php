@@ -34,12 +34,11 @@ class CoverPhotoController extends Controller
 
             $filename = $files->getClientOriginalName();
             $files->storeAs('/cover page', $filename, 'public');
-            $attachment = attachment::create(['File_Path' => $filename]);
-
+            
             try {
             $coverPhoto = CoverPhoto::create([
                 'User_Id' => Auth::id(),
-                'Cover_Photo' => $attachment->Attachment_Id
+                'Cover_Photo' => $filename
             ]);
             return back();
             }catch (\Illuminate\Database\QueryException $e) {
@@ -66,13 +65,11 @@ class CoverPhotoController extends Controller
             $filename = $files->getClientOriginalName();
             $files->storeAs('/cover page', $filename, 'public');
 
-            $attachment = attachment::create(['File_Path' => $filename]);
-
             // }
             try {
                 $coverPhoto = CoverPhoto::all()->where('User_Id', '=', Auth::id(),)->first();
                 //hy7ot el name el gded f column el country name
-                $coverPhoto->Cover_Photo = $attachment->Attachment_Id;
+                $coverPhoto->Cover_Photo = $filename;
                 $coverPhoto->save();
                 return back();
             } catch (\Illuminate\Database\QueryException $e) {
@@ -107,8 +104,8 @@ class CoverPhotoController extends Controller
     {
         //
         try {
-            $attachment_id = CoverPhoto::all()->where('User_Id', '=', $id)->first()->Cover_Photo;
-            return AttachmentController::getAttachment($attachment_id);
+            $photo = CoverPhoto::all()->where('User_Id', '=', $id)->first();
+            return $photo;
         } catch (Exception $e) {
             return null;
         }
@@ -130,17 +127,13 @@ class CoverPhotoController extends Controller
             $filename = $files->getClientOriginalName();
             $files->storeAs('/cover page', $filename, 'public');
 
-            $attachment = attachment::create(['File_Path' => $filename]);
 
             // }
             try {
-                $coverPhoto = CoverPhoto::create([
-                    'User_Id' => Auth::id(),
-                    'Cover_Photo' => $attachment->Attachment_Id
-                ]);
+               
                 $coverPhoto = CoverPhoto::all()->find(request('Photo_Id'));
                 //hy7ot el name el gded f column el country name
-                $coverPhoto->Cover_Photo = $attachment->Attachment_Id;
+                $coverPhoto->Cover_Photo = $filename;
                 $coverPhoto->save();
                 return back();
             } catch (\Illuminate\Database\QueryException $e) {
@@ -167,7 +160,7 @@ class CoverPhotoController extends Controller
             File::delete($myFile);
         }
         try {
-            attachment::destroy($id);
+            coverPhoto::destroy($id);
             return back();
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
@@ -183,7 +176,7 @@ class CoverPhotoController extends Controller
         try {
             $coverPhoto = CoverPhoto::all()->where('User_Id', '=', $id)->first();
             // $attachment_id =CoverPhoto::all()->where('User_Id', '=', $id)->first()->Cover_Photo;
-            $File_Path = AttachmentController::getAttachment($coverPhoto->Cover_Photo);
+            $File_Path =$coverPhoto->Cover_Photo;
             return ['Photo_Id' => $coverPhoto->Photo_Id, 'File_Path' => $File_Path];
         } catch (Exception $e) {
             return null;
