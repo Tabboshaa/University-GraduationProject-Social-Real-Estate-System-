@@ -21,7 +21,7 @@
                 success:function(data){
                     console.log('success');
 
-                    op+='<option value="0"  sel disabled>Select Sub Type</option>';
+                    op+='<option value="0"  selected disabled>Select Sub Type</option>';
                     Object.values(data).forEach(val => {
                         console.log(val);
                         op+='<option value="'+val['Sub_Type_Id']+'">'+val['Sub_Type_Name']+'</option>';
@@ -84,7 +84,7 @@
 
                         <div class="col-md-2">
                             <select id="MainTypeName" style="border-radius: 3pt" class="form-control @error('Main Type Name') is-invalid @enderror" name="Main_Type_Name" value="{{ old('Main Type Name') }}" required autocomplete="Main Type Name">
-                                <option value="0"   disabled>Select Main Type</option>;
+                                <option value="0" selected disabled>Select Main Type</option>;
                                  <!-- For loop  -->
                                  @foreach($main_type as $main_type)
                                      <option value="{{$main_type->Main_Type_Id}}">{{$main_type->Main_Type_Name}}</option>
