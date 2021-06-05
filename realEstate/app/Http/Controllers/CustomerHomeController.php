@@ -388,10 +388,8 @@ class CustomerHomeController extends Controller
     }
     public function DestroyComment(Request $request, $id = null)
     {
-
-
         comments::destroy($request->id);
-        return redirect()->route('HomePage')->with('success', 'Comment Deleted Successfully');
+        return redirect()->back()->with('success', 'Comment Deleted Successfully');
     }
     public function editComment()
     {

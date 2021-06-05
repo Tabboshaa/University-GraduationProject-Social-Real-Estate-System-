@@ -5,7 +5,8 @@
 @include('website.frontend.layouts.head')
 
 <body class="color-theme-blue mont-font">
-
+    
+    @include('website.frontend.layouts.modals')
     <div class="preloader"></div>
 
     

@@ -180,6 +180,10 @@
                 @endif
                 <h4 class="fw-700 text-grey-900 font-xssss mt-1">
                     {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}
+                    @if($User_Id== $post->User_Id )
+                    <a href="{{url('/deletePost/'.$post->Post_Id)}}" name="del_post" id="del_post"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
+                    <a href="javascript:void(0)" onclick="setPost('{{$post->Post_Id}}','{{$post->Post_Content}}')" name="editpost"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
+                    @endif
                     <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"><?php $today = \Carbon\Carbon::now();
                                                                                     $end = \Carbon\Carbon::parse($post->updated_at);
                                                                                     ?>{{ $end->diffForHumans($today)}}</span>
@@ -228,12 +232,6 @@
                 </div>
             </div>
             @endif
-            @if($User_Id== $post->User_Id )
-            <a href="{{url('/deletePost/'.$post->Post_Id)}}" name="del_post" id="del_post"> Delete</a>
-            @endif
-            @if($User_Id== $post->User_Id )
-            <a href="javascript:void(0)" onclick="setPost('{{$post->Post_Id}}','{{$post->Post_Content}}')" name="editpost"> Edit</a>
-            @endif
             @if( isset($post->comments) )
             <a href="javascript:void(0)" id="more" onclick="$('#allcomments{{$post->Post_Id}}').slideToggle(function(){$('#more').html($('#allcomments{{$post->Post_Id}}').is(':visible')?'Hide Comments':'{{count($post->comments)}} Comment');});" onclick="viewComment('{{$post->Post_Id}}')" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>{{count($post->comments)}} Comment</span></a>
             @else
@@ -259,17 +257,15 @@
                             @endif
                             <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
                                 <a href="{{url('veiw_User/'.$comment->User_Id)}}">
-                                    <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">{{$comment->user->First_Name}} {{$comment->user->Middle_Name}} {{$comment->user->Last_Name}}
+                                <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">{{$comment->user->First_Name}} {{$comment->user->Middle_Name}} {{$comment->user->Last_Name}}
+                                        @if($User_Id== $comment->User_Id )
+                                        <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
+                                        <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
+                                        @endif
                                 </a></h4>
                                 <div class="time"><?php $end = \Carbon\Carbon::parse($comment->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0"> {{ $end->diffForHumans($today) }}</p>
                                 </div>
                                 <p class="fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0">{{ $comment->Comment }}</p>
-                                @if($User_Id== $comment->User_Id )
-                                <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"> Delete</a>
-                                @endif
-                                @if($User_Id== $comment->User_Id )
-                                <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"> Edit</a>
-                                @endif
                             </div>
                         </div>
                         @if( isset($comment->replies))
@@ -295,16 +291,14 @@
                                 @endif <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
                                     <a href="{{url('veiw_User/'.$reply->User_Id)}}">
                                         <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">{{$reply->user->First_Name}} {{$reply->user->Middle_Name}} {{$reply->user->Last_Name}}
+                                            @if($User_Id== $reply->User_Id )
+                                            <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
+                                            <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
+                                            @endif
                                     </a></h4>
                                     <div class="time"><?php $end = \Carbon\Carbon::parse($reply->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">{{ $end->diffForHumans($today) }}</p>
                                     </div>
                                     <p class="fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0">{{ $reply->Comment }}</p>
-                                    @if($User_Id== $reply->User_Id )
-                                    <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"> Delete</a>
-                                    @endif
-                                    @if($User_Id== $comment->User_Id )
-                                    <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"> Edit</a>
-                                    @endif
                                 </div>
                             </div>
                             @endforeach
@@ -320,135 +314,8 @@
         @endif
     </div>
 </div>
-<div class="modal fade" id="EditCommentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Comment</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="EditCommentForm">
-                    @csrf
-                    <input type="hidden" name="id" id="id">
-                    <div class="form-group">
-                        <label for="edit_Comment" style="font-size: 12pt">Edit Comment</label>
-                        <input type="text" style="border-radius: 3pt" name="edit_Comment" id="editComment" class="form-control">
-                    </div>
-                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
-                </form>
-            </div>
-        </div>
-    </div>
 
 
-</div>
-<div class="modal fade" id="EditPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Post</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="EditPostForm">
-                    @csrf
-                    <input type="hidden" name="id" id="id">
-                    <div class="form-group">
-                        <label for="edit_Post" style="font-size: 12pt">Edit Post</label>
-                        <input type="text" style="border-radius: 3pt" name="edit_Post" id="editPost" class="form-control">
-                    </div>
-                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    </td>
-    </tr>
-
-    {{-- Input for comment --}}
-    <tr>
-        <td colspan="2">
-            <input type="text" class="coment" id="CommentForPost{{$post->Post_Id}}" name="comment" placeholder="Write a comment...">
-        </td>
-        <td class="arrowStyleL">
-            <a href="javascript:void(0)" onclick="Comment('{{$post->Post_Id}}');"><i class="fas fa-arrow-right arrowStyle"></i></a>
-        </td>
-    </tr>
-
-    {{-- Loop for comments --}}
-    @if( isset($comments[$post->Post_Id]))
-    @foreach($comments[$post->Post_Id] as $comment)
-    {{-- Comment --}}
-    <tr>
-        <td colspan="3">
-            <div class="commentt">
-                <a class="Usr_name" href="">{{$comment->First_Name}} {{$comment->Middle_Name}} {{$comment->Last_Name}} </a><br>
-                {{ $comment->Comment }}<br>
-                <?php
-                $end = \Carbon\Carbon::parse($comment->updated_at); ?>
-                {{ $end->diffForHumans($today) }}
-                <a id="viewReplies{{$comment->Comment_Id}}" href="javascript:void(0)" onclick="view('{{$comment->Comment_Id}}')">View Replies</a>
-                <a href="javascript:void(0)" onclick="writeReplay('{{ $comment->Comment_Id}}')"> reply</a>
-
-                @if($User_Id== $comment->User_Id )
-                <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"> Delete</a>
-                <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"> Edit</a>
-                @endif
-            </div>
-            <div class="modal fade" id="EditCommentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit Comment</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="EditCommentForm">
-                                @csrf
-                                <input type="hidden" name="id" id="id">
-                                <div class="form-group">
-                                    <label for="edit_Comment" style="font-size: 12pt">Edit Comment</label>
-                                    <input type="text" style="border-radius: 3pt" name="edit_Comment" id="editComment" class="form-control">
-                                </div>
-                                <button type="submit" id="btun3" class="btn btn-success">Edit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </td>
-    </tr>
-
-    {{-- Replies --}}
-    <tr id="Replies{{$comment->Comment_Id}}"></tr>
-    <div>
-        {{-- Input for reply --}}
-        <tr name="writeReplay{{$comment->Comment_Id}}" style="display: none;">
-
-            <td colspan="2">
-                <input type="text" class="replyyy" id="ReplyForComment{{$comment->Comment_Id}}" name="comment{{$comment->Comment_Id}}" placeholder=" Write a reply...">
-            </td>
-            <td class="arrowStyleL">
-                <a href="javascript:void(0)" onclick="Reply('{{$post->Post_Id}}','{{$comment->Comment_Id}}');"><i class="fas fa-arrow-right arrowStyle"></i></a>
-            </td>
-        </tr>
-
-
-    </div>
-
-    @endforeach
-    @endif
-    </tbody>
-    </table>
-</div>
 
 <script>
     function Comment(post_id) {
