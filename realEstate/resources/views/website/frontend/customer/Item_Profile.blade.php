@@ -1,9 +1,13 @@
 @extends('website.frontend.layouts.main')
 @section('profile')
+<!-- Modal Receipte -->
+
+
+
 <div class="row">
     <div class="col-xl-12">
         <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3 overflow-hidden">
-            @if($cover->path != null)
+            @if($cover != null)
             <div class="card-body position-relative h240 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/'.$cover->path)}}');"></div>
             @else
             <div class="card-body position-relative h240 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/Default1.jpeg')}}');"></div>

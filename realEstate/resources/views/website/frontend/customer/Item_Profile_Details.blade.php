@@ -1,5 +1,35 @@
 @extends('website.frontend.customer.Item_Profile')
 @section('profile_Content')
+
+<!-- Modal Receipte -->
+<div class="modal bottom fade" style="overflow-y: scroll;" id="ReceipteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="ti-close text-grey-500"></i></button>
+            <div class="modal-body p-3 d-flex align-items-center bg-none">
+                <div class="card shadow-none rounded-0 w-100 p-2 pt-3 border-0">
+                    <div class="card-body rounded-0 text-left p-3">
+                        <h2 class="fw-700 display1-size display2-md-size mb-4">Receipte</h2>                        
+                        <form>
+                            
+                            <h2 class="fw-700 display1-size display2-md-size mb-4">Item Name : </h2> <h2 class="fw-700 display1-size display2-md-size mb-4">POWER up </h2> 
+                            <h2 class="fw-700 display1-size display2-md-size mb-4">Start Date:</h2>  <h2 class="fw-700 display1-size display2-md-size mb-4">15/6/2021</h2>
+                            <h2 class="fw-700 display1-size display2-md-size mb-4">End Date:</h2>  <h2 class="fw-700 display1-size display2-md-size mb-4">17/6/2021</h2>
+                            <h2 class="fw-700 display1-size display2-md-size mb-4">Number Of Days :</h2>  <h2 class="fw-700 display1-size display2-md-size mb-4">3 days</h2>
+                            <h2 class="fw-700 display1-size display2-md-size mb-4">Price Per Night :</h2>  <h2 class="fw-700 display1-size display2-md-size mb-4">100</h2>
+                            <h2 class="fw-700 display1-size display2-md-size mb-4">Total Price:</h2>  <h2 class="fw-700 display1-size display2-md-size mb-4">300</h2>
+                            
+                            <div class="form-group mb-1">
+                                <input type="submit" value="Pay"  class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">
+                            </div>
+                        </form>
+                    </div>
+                </div>                    
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="col-xl-4 col-xxl-3 col-lg-4 pe-0">
     <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3">
         <div class="card-body d-block p-4">
@@ -431,6 +461,7 @@
 </div>
 
 
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script>
     var s = 0;
@@ -536,8 +567,18 @@
             success: function(data) {
                 console.log(data);
                 // return (['totalPrice'=>$totalPric>$start_date,"end_date"=>$end_date]);
+                
+                var text="<h6><strong>Item Name :</strong> </h6> <h6>POWER up </h6>"
+                            +"<h6><strong>Start Date:</strong> </h6> <h6>"+ data['start_date'] +"</h6>"
+                            +"<h6><strong>End Date:</strong> </h6> <h6>"+ data['end_date']+"</h6>"
+                            +"<h6><strong>Number Of Days :</strong> </h6> <h6>"+data['totalDays'] +"</h6>"
+                            +"<h6><strong>Price Per Night :</strong> </h6> <h6>"+data['price_per_night']+" </h6>"
+                            +"<h6><strong>Total Price:</strong> </h6> <h6>"+data['totalPrice']+" </h6>";
+                $("#resetdiv").html(text);
+                $("#ReceipteModal").modal("toggle");
+               
+                //location.href = "/paypalCall/" + item_id + "/" + schedule + "/" + data['totalDays'] + "/" + data['totalPrice'] + "/" + data['price_per_night'] + "/" + data['start_date'] + "/" + data['end_date'];
 
-                location.href = "/paypalCall/" + item_id + "/" + schedule + "/" + data['totalDays'] + "/" + data['totalPrice'] + "/" + data['price_per_night'] + "/" + data['start_date'] + "/" + data['end_date'];
             },
             error: function(data) {
 

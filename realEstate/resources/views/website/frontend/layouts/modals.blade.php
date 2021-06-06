@@ -44,3 +44,25 @@
         </div>
     </div>
 </div>
+<div class="modal bottom fade" style="overflow-y: scroll;" id="ReceipteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="ti-close text-grey-500"></i></button>
+            <div class="modal-body p-3 d-flex align-items-center bg-none">
+                <div class="card shadow-none rounded-0 w-100 p-2 pt-3 border-0">
+                    <div class="card-body rounded-0 text-left p-3">
+                        <h2 class="fw-700 display1-size display2-md-size mb-4">Receipte</h2>                        
+                        <form>
+                            
+                           <div id="resetdiv">
+                           </div>
+                            <div class="form-group mb-1">
+                                <input type="submit" value="Pay"  class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">
+                            </div>
+                        </form>
+                    </div>
+                </div>                    
+            </div>
+        </div>
+    </div>
+</div>
