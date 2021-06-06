@@ -1,16 +1,11 @@
-@extends('website.frontend.ownerlayouts.main')
+@extends('website.frontend.layouts.main')
 @section('content')
-
-<div id="content-wrapper">
-    <div class="container-fluid">
-        <!-- Banner -->
-        <div class="dashboard">
-            <div class="row">
                 <link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
 
                 <link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
-                    <div class="col-md-12">
+            
                      
+
                         @foreach($operations as $operations => $reservation)
 
                         <div name="post">
