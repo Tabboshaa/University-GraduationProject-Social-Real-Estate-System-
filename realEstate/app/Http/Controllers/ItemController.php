@@ -118,12 +118,16 @@ class ItemController extends Controller
         return view('website.frontend.Owner.Owner_Select_Sub_Type', ['main_type_id'=>$main_type_id ,'sub_type' => $sub_types, 'main_type' => $main_types, 'item_id' => $id]);
     }
     public function OwnerAddItem()
-    {
+    { 
+          return dd(request()->all());
+           
         $user_id=Auth::id();
         $item = Item::create([
             'User_Id' => $user_id,
             'Street_Id' => request("Street"),
             'Item_Name' => request("Item_Name"),
+            'address_longitude'=>request('address_longitude'),
+            'address_latitude'=>request('address_latitude'),
         ]);
         $item_id = Arr::get($item, 'Item_Id');
         return $this->SelectSubType($item_id);

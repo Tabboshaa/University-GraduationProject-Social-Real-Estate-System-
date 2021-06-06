@@ -167,7 +167,6 @@
 
     </div>
 
-    <div>
         <div class="modal fade" id="EditPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -191,11 +190,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    
 
     @endforeach
-@else
-@endif
+    @else
+    @endif
 </div>
 
 <script>
