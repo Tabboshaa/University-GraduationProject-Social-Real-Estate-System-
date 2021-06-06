@@ -5,46 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94e67ae1-48e2-456b-854f-8264ac421576" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/SocialController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Mail/Mymail.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/FrontEnd.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/css/locatorplus.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/locatorplus.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/mapInput.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/redirect($service)" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/Policy.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/emails/MyMails.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/locatorplus.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/terms.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/realEstate.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/realEstate.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ItemProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ItemProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OperationsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OperationsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PaypalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PaypalController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PropertyDetailsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PropertyDetailsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/StreetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/StreetController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SubTypePropertyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SubTypePropertyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Item.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Street.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Street.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/operations.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/operations.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/session.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/session.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/AdminBackEnd/vendors/jqvmap/create/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/public/AdminBackEnd/vendors/jqvmap/create/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/map.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/map.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/map.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Main_Types.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Main_Types.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Properties_Select.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Properties_Select.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/Owner/Add_Item.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/Owner/Add_Item.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/Registration.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/Registration.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/customer/Item_Profile_Reviews.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/Item_Profile_Reviews.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/owner/Item_Profile_Reviews.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/owner/Item_Profile_Reviews.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/customer/Item_Profile_Details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/Item_Profile_Details.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/layouts/modals.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/layouts/modals.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -311,7 +282,12 @@
       <workItem from="1622722450049" duration="774000" />
       <workItem from="1622728627811" duration="292000" />
       <workItem from="1622731074322" duration="2911000" />
-      <workItem from="1622993358184" duration="999000" />
+      <workItem from="1622993358184" duration="1594000" />
+      <workItem from="1622998310303" duration="1853000" />
+      <workItem from="1623000219865" duration="1771000" />
+      <workItem from="1623002038834" duration="1769000" />
+      <workItem from="1623003847537" duration="1351000" />
+      <workItem from="1623005844738" duration="284000" />
     </task>
     <servers />
   </component>
