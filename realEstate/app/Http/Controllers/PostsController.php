@@ -46,6 +46,7 @@ class PostsController extends Controller
      */
     public function create($id = null)
     {
+
         //
         if($id !=null){
         $item = Item::all()->find($id);
@@ -57,7 +58,7 @@ class PostsController extends Controller
             $post=posts::create([
                 'Item_Id' => $id,
                 'User_Id' => $user_id,
-                'Post_Title' => ' ',
+                'Post_Title' => request('Post_Title'),
                 'Post_Content' => request('Post_Content'),
             ]);
 

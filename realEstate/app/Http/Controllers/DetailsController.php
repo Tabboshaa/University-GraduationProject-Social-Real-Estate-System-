@@ -76,54 +76,50 @@ class DetailsController extends Controller
             try {
                 $d = Details::all()->find(Arr::get($detail, 'id'));
                 if ($d != null) {
-                    if (Arr::get($detail, 'type') == 'checkbox') {
-                        if (Arr::get($detail, 'value') == 'on') {
-                            $val = 'yes';
-                        } else {
-                            $val = 'no';
+                    if(Arr::get($detail, 'type')=='checkbox')
+                    {
+                        if(Arr::get($detail, 'value')=='on')
+                        {
+                            $val='yes';
+                        }else{
+                            $val='no';
                         }
-                    } else if (Arr::get($detail, 'type') == 'file') {
-                        if ($files = request()->file('DetailItem[]')) {
-                            foreach ($files as $file) {
-                                $filename = $file->getClientOriginalName();
-                                $file->storeAs('/profile gallery', $filename, 'public');
-                            }
-                            $val = $filename;
-                        } else {
-                            $val = Arr::get($detail, 'value');
-                        }
-
-                        $d->DetailValue = $val;
-                        $d->save();
-                    } else {
-                        // return  Arr::get($detail, 'type');
-                        // checkbox
-                        $propId = Arr::get($detail, 'id');
-                        $propId = Str::replaceFirst('prop', '', $propId);
-                        $property_details = Property_Details::all()->where('Property_Detail_Id', '=',  $propId)->first();
-
-                        if (Arr::get($detail, 'type') == 'checkbox') {
-                            if (Arr::get($detail, 'value') == 'on') {
-                                $val = 'yes';
-                            } else {
-                                $val = 'no';
-                            }
-                        } else {
-                            $val = Arr::get($detail, 'value');
-                        }
-
-                        Details::create(
-                            [
-                                'Item_Id' => 1,
-                                'Main_Type_Id' =>  Arr::get($property_details, 'Main_Type_Id'),
-                                'Sub_Type_Id' =>  Arr::get($property_details, 'Sub_Type_Id'),
-                                'Property_Id' => Arr::get($property_details, 'Property_Id'),
-                                'Property_Detail_Id' => Arr::get($property_details, 'Property_Detail_Id'),
-                                'Property_diff' =>  Arr::get($detail, 'diff'),
-                                'DetailValue' =>  $val
-                            ]
-                        );
+                    }else {
+                        $val=Arr::get($detail, 'value');
                     }
+
+                    $d->DetailValue = $val;
+                    $d->save();
+                } else {     
+                    // return  Arr::get($detail, 'type');
+                    // checkbox
+                    $propId = Arr::get($detail, 'id');
+                    $propId = Str::replaceFirst('prop', '', $propId);
+                    $property_details = Property_Details::all()->where('Property_Detail_Id', '=',  $propId)->first();
+
+                    if(Arr::get($detail, 'type')=='checkbox')
+                    {
+                        if(Arr::get($detail, 'value')=='on')
+                        {
+                            $val='yes';
+                        }else{
+                            $val='no';
+                        }
+                    }else {
+                        $val=Arr::get($detail, 'value');
+                    }
+
+                    Details::create(
+                        [
+                            'Item_Id' => 1,
+                            'Main_Type_Id' =>  Arr::get($property_details, 'Main_Type_Id'),
+                            'Sub_Type_Id' =>  Arr::get($property_details, 'Sub_Type_Id'),
+                            'Property_Id' => Arr::get($property_details, 'Property_Id'),
+                            'Property_Detail_Id' => Arr::get($property_details, 'Property_Detail_Id'),
+                            'Property_diff' =>  Arr::get($detail, 'diff'),
+                            'DetailValue' =>  $val
+                        ]
+                    );
                 }
             } catch (\Illuminate\Database\QueryException $e) {
                 $errorCode = $e->errorInfo[1];
@@ -196,9 +192,10 @@ class DetailsController extends Controller
     public function destroydetails()
     {
         try {
-            $d = Details::all()->where('Property_diff', '=', request('diff'));
-            foreach ($d as $id) {
-                Details::destroy($id->Detail_Id);
+            $d = Details::all()->where('Property_diff', '=', request('diff'));  
+            foreach($d as $id)
+            {      
+            Details::destroy($id->Detail_Id);
             }
 
             return $d;
@@ -206,7 +203,7 @@ class DetailsController extends Controller
             return;
         }
     }
-    //to be deleted!!!
+//to be deleted!!!
     public function findDetailsForShow()
     {
         // return  request('id');

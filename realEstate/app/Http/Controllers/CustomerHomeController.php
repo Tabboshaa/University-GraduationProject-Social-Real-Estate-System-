@@ -120,7 +120,7 @@ class CustomerHomeController extends Controller
     {
         //
 
-        $schedule = ScheduleController::getAvailableTime($id);
+        $schedule = $this->getAvailableTime($id);
         // return $schedule;
 
         $state = StateController::getStates();
@@ -142,7 +142,28 @@ class CustomerHomeController extends Controller
         return view('website\frontend\customer\Item_Profile_Details', ['details'=>$details,'states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
     }
 
-  
+    public function getAvailableTime($item_id)
+    {
+        //     get from Schedule endDate startDate where item id =$item_id
+
+        $schedule = schedule::orderBy('Start_Date')->where('Item_Id', '=', $item_id)->get();
+
+        $days = [];
+        //get day of every schedule
+        foreach ($schedule as $value) {
+
+            $day = $this->getdays($value->Start_Date, $value->End_Date, $value->schedule_Id);
+            //merge days
+            $days = collect($days)->merge($day)->unique(); //unique 3shan mykrrsh date mrten
+        }
+
+        //group by month of date
+        $days = collect($days)->groupBy(function ($val) {
+            return Carbon::parse($val['date'])->format('m');
+        })->toArray();
+
+        return $days;
+    }
 
     function getdays($start, $end, $schedule_id)
     {
