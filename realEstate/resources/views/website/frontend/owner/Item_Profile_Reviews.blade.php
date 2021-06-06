@@ -54,34 +54,34 @@
                         <span> overall rating </span>
                         &nbsp; &nbsp;
                         <label onclick="review(1)" class="fa  fa-star-o" name="starLabel" for="star1">
-                            <input type="radio" value="1" name="stars" id="star1">
+                            <input style="display:none;  visibility:hidden;" type="radio" value="1" name="stars" id="star1">
                         </label>
                         <label onclick="review(2)" class="fa  fa-star-o" name="starLabel" for="star2">
                             <input type="radio" value="2" name="stars" id="star2">
                         </label>
                         <label onclick="review(3)" class="fa  fa-star-o" name="starLabel" for="star3">
-                            <input type="radio" value="3" name="stars" id="star3">
+                            <input style="display:none;  visibility:hidden; "  type="radio" value="3" name="stars" id="star3">
                         </label>
                         <label onclick="review(4)" class="fa  fa-star-o" name="starLabel" for="star4">
-                            <input type="radio" value="4" name="stars" id="star4">
+                            <input  type="radio" value="4" name="stars" id="star4">
                         </label>
                         <label onclick="review(5)" class="fa  fa-star-o" name="starLabel" for="star5">
-                            <input type="radio" value="5" name="stars" id="star5">
+                            <input style="  display : none;"   type="radio" value="5" name="stars" id="star5">
                         </label>
                         <label onclick="review(6)" class="fa  fa-star-o" name="starLabel" for="star6">
-                            <input type="radio" value="6" name="stars" id="star6">
+                            <input style="  display : none;"   type="radio" value="6" name="stars" id="star6">
                         </label>
                         <label onclick="review(7)" class="fa  fa-star-o" name="starLabel" for="star7">
-                            <input type="radio" value="7" name="stars" id="star7">
+                            <input  style="  display : none;"  type="radio" value="7" name="stars" id="star7">
                         </label>
                         <label onclick="review(8)" class="fa  fa-star-o" name="starLabel" for="star8">
-                            <input type="radio" value="8" name="stars" id="star8">
+                            <input  style="  display : none;"  type="radio" value="8" name="stars" id="star8">
                         </label>
                         <label onclick="review(9)" class="fa  fa-star-o" name="starLabel" for="star9">
-                            <input type="radio" value="9" name="stars" id="star9">
+                            <input  style="  display : none;"  type="radio" value="9" name="stars" id="star9">
                         </label>
                         <label onclick="review(10)" class="fa  fa-star-o" name="starLabel" for="star10">
-                            <input type="radio" value="10" name="stars" id="star10">
+                            <input  style="display:none;"  type="radio" value="10" name="stars" id="star10">
                         </label>
 
                     </div>

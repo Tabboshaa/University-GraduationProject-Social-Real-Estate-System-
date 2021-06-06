@@ -161,13 +161,13 @@
     <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg switchcolor-wrap" aria-labelledby="dropdownMenu2">
 
 
-        <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3">
+        <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" >
             <!--
                     <img src="{{asset('FrontEnd/sociala/images/user-8.png')}}"  alt="user" class="w40 position-absolute left-0"> -->
             <h5 class="font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block"> <a href="{{url('/EditCustomerProfile')}}"> profile</a></h5>
             <!-- <h6 class="text-grey-500 fw-500 font-xssss lh-4">There are many variations of pass..</h6> -->
         </div>
-        <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3">
+        <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" id ="checkIfOwnerDiv">
 
             <!-- <img src="{{asset('FrontEnd/sociala/images/user-8.png')}}"  alt="user" class="w40 position-absolute left-0"> -->
             <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block"> <a href='javascript:void(0)'  onclick='ToggleBeOwnerModal()'  data-backdrop="false"> Switch to Owner</span></h5>
@@ -201,15 +201,15 @@
                 // console.log(checkIfOwnerDiv);
                 if (checkIfOwner == '0') {
                     text +=
-                        "<div clrass='add-listing'> " +
+                        "<div class='card bg-transparent-card w-100 border-0 ps-0 mb-3'> " +
                         "<a href='javascript:void(0)' onclick='ToggleBeOwnerModal()'> " +
-                        "<img src='{{asset('FrontEnd/images/header/plus-ico.png')}}' alt=''>Continue As Owner </a></div>";
+                        "Continue As Owner </a></div>";
 
                 } else {
                     text +=
-                        "<div class='add-listing'> " +
+                        "<div class='card bg-transparent-card w-100 border-0 ps-0 mb-3'> " +
                         "<a href='{{url('/BeOwner')}}'> " +
-                        "<img src='{{asset('FrontEnd/images/header/plus-ico.png')}}' alt=''> Your Properties</a></div>";
+                        " Your Properties</a></div>";
                 }
                 $("#checkIfOwnerDiv").html(text);
             },
