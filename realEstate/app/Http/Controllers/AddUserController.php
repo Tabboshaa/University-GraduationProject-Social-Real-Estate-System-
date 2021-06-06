@@ -169,13 +169,13 @@ class AddUserController extends Controller
             $post_images = $post_images->groupby('Post_Id');
         }
 
-        $User_Id = Auth::id();
+        $User = Auth::user();
 
         // commented for test only
         if ($id == Auth::id()) {
             return view('website\frontend\customer\Customer_Own_Profile', [
                 'id' => $id,
-                'User_Id'=>$User_Id,
+                'User'=>$User,
                 'First_Name' => $user->First_Name,
                 'Email' => $user->email,
                 'Middle_Name' => $user->Middle_Name,
