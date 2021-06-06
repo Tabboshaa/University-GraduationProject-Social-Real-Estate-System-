@@ -40,7 +40,7 @@
                     </label>
 
                     <div class="col-md-2">
-                        <input id="Sub Type Name"  style="border-radius: 3pt" type="text" class="form-control @error('Sub_Type_Name') is-invalid @enderror" name="Sub_Type_Name" value="{{ old('Sub Type Name') }}" required pattern="[A-Z][a-z]+" title="Start with capital letter " autocomplete="Sub Type Name" autofocus>
+                        <input id="Sub Type Name"  style="border-radius: 3pt" pattern="/^[A-Z]pa-z][A-Za-z\'\-]+([\ A-Za-z][A-Za-z\'\-]+)*/" title="First Letter must br Capital"  type="text" class="form-control @error('Sub_Type_Name') is-invalid @enderror" name="Sub_Type_Name" value="{{ old('Sub Type Name') }}" required pattern="[A-Z][a-z]+" title="Start with capital letter " autocomplete="Sub Type Name" autofocus>
 
                         @error('Sub_Type_Name')
                         <span class="invalid-feedback" role="alert">

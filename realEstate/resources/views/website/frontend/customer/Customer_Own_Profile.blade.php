@@ -4,27 +4,9 @@
 <link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('css/FrontEndCSS/ButtonStyle.css')}}" rel="stylesheet" type="text/css" />
-
-<div class="card w-100 border-0 p-0 bg-white shadow-xss rounded-xxl">
-    <div class="card-body h250 p-0 rounded-xxl overflow-hidden m-3">
-        <img src="images/u-bg.jpg" alt="image">
-    </div>
-    <div class="card-body p-0 position-relative">
-        <figure class="avatar position-absolute w100 z-index-1" style="top:-40px; left: 30px;">
-            <img src="images/user-12.png" alt="image" class="float-right p-1 bg-white rounded-circle w-100">
-        </figure>
-        <h4 class="fw-700 font-sm mt-2 mb-lg-5 mb-4 pl-15">
-            {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}<span class="fw-500 font-xssss text-grey-500 mt-1 mb-3 d-block">support@gmail.com</span>
-        </h4>
-        <div class="d-flex align-items-center justify-content-center position-absolute-md right-15 top-0 me-2">
-            <a href="#" class="d-none d-lg-block bg-success p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">Edit Profile</a>
-            <a href="#" class="d-none d-lg-block bg-success p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">De</a>
-            <a href="#" id="dropdownMenu4" class="d-none d-lg-block bg-greylight btn-round-lg ms-2 rounded-3 text-grey-700" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="ti-more font-md tetx-dark"></i>
-            </a>
-        </div>
-    </div>
-</div>
+<div class="main-page">
+                <div class=" dash-profile">
+               
                 {{-- Cover photo --}}
                 @if(!empty($Cover_Photo))
                 {{-- imggggggggggggggggggggggggggggggggg --}}
@@ -43,6 +25,7 @@
                     </form>
                 </div>
                 @else
+                @if(!empty($Profile_Photo))
                 <div id="coverPhoto">
                     <img class="background"  height="600" src="{{asset('storage/cover page/Default1.jpeg')}}" alt="">
                 </div>
@@ -54,8 +37,7 @@
                 </div>
                 @endif
             </div>
-            <div class="main-page">
-                <div class=" dash-profile">
+           
                     {{-- profile photo --}}
                     @if(!empty($Profile_Photo))
                    
@@ -425,6 +407,6 @@
     };
 </script>
 </div>
-</div>
+
 
 @endsection

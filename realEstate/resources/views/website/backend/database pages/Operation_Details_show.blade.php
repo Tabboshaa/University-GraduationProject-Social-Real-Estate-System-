@@ -20,7 +20,7 @@
         <th><h2 style="margin-right:155px; padding-bottom: 5px;">Operation Name</h2></th>
                         <th ><h2 style="margin-right:155px;padding-bottom: 5px;">Operation Details</h2></th>
                         <th ><h2 style="margin-right:200px;padding-bottom: 5px;">Edit</h2></th>
-                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:160px;"></i></th>
+                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:160px;"></i></th>
                    
              <!-- Java Script for select all function -->
              <script>

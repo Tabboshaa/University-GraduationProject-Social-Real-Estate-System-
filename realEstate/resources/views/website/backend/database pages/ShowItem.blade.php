@@ -38,7 +38,7 @@
     <a href="{{url('/item_gallery/'.$item_id)}}"><i style="padding-left:14px" class="fa fa-image"></i>
         <p><small>Gallery</small></p>
     </a>
-    <a href="{{url('/item_delete/'.$item_id)}}"><i style="padding-left:14px" class="fa fa-trash-o"></i>
+    <a href="{{url('/item_delete/'.$item_id)}}" onclick="return confirm('Are you sure you want to delete?')"><i style="padding-left:14px" class="fa fa-trash-o"></i>
         <p><small>Delete</small></p>
     </a>
 </div>

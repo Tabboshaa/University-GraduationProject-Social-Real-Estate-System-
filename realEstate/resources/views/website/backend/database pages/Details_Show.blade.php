@@ -24,7 +24,7 @@
                     <th>Main Type ID</th>
                     <th>Property ID</th>
                     <th>Detail Value</th>
-                    <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <input type="submit" value="Delete Selected" class="btn btn-secondary"></th>
+                    <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <input type="submit" value="Delete Selected" class="btn btn-secondary" onclick="return confirm('Are you sure you want to delete?')"></th>
                     <th>Edit</th>
                     <!-- Java Script for select all function -->
                     <script>

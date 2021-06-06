@@ -171,9 +171,9 @@ class AddUserController extends Controller
             $post_images=collect($post_images)->merge($post_image);
 
         }
-
+if($post_images!=null){
         $post_images= $post_images->groupby('Post_Id');
-
+} 
 
 
         if($id == Auth::id())

@@ -24,7 +24,7 @@
                         <th> <h2 style="margin-right:30px;padding-bottom: 5px;">Region Name </th>
                         <th><h2 style="margin-right:30px; padding-bottom: 5px;">Street Name</h2></th>
                         <th ><h2 style="margin-right:30px;padding-bottom: 5px;">Edit</h2></th>
-                        <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:30px;"></i></th>
+                        <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" onclick="return confirm('Are you sure?')"><i class="fa fa-trash" style="margin-right:30px;"></i></th>
                        
                 <!-- Java Script for select all function -->
                 <script>
@@ -105,6 +105,7 @@
             }
         }
     }
+    
     function setStreetIdName(id, name) {
 
         // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty

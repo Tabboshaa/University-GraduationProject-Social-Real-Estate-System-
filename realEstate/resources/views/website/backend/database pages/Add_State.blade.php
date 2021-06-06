@@ -37,7 +37,7 @@
                         {{ __('State :') }}
                     </label>
                     <div class="col-md-2">
-                        <input id="State_Name" type="text" style="border-radius: 3pt"class="form-control @error('State Name') is-invalid @enderror" name="State_Name" value="{{ old('State Name') }}" required autocomplete="State Name" autofocus>
+                        <input id="State_Name" type="text" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must br Capital" style="border-radius: 3pt"class="form-control @error('State Name') is-invalid @enderror" name="State_Name" value="{{ old('State Name') }}" required autocomplete="State Name" autofocus>
 
                         @error('State_Name')
                         <span class="invalid-feedback" role="alert">
@@ -53,13 +53,17 @@
                             {{ __('Add') }}
                         </button>
                         </form>
+                        
                         <button id="btun2"  class="btn btn-primary">
                             <a href="{{url('/show_state')}}" class="link2" >{{ __('Show') }}</a>
                         </button>
+                        
+                        
                     </div>
                 </div>
            
         </div>
+
         <div class="x_panel">
             <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
                 <div class="row">

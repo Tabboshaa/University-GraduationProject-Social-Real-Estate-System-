@@ -66,9 +66,9 @@ class SubTypes extends Controller
     {
         //
 
-        request()->validate([
-             'Sub_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
-        ]);
+        // request()->validate([
+        //      'Sub_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
+        // ]);
 
         try {
             $Sub_Type = Sub_Type::create([

@@ -92,7 +92,7 @@
                     </label>
 
                     <div class="col-md-2">
-                        <input id="Sub_Type_Property" style="border-radius: 3pt"  type="text" class="form-control @error('Sub_Type_Property') is-invalid @enderror" name="Sub_Type_Property" value="{{ old('Sub_Type_Property') }}" required pattern="[A-Z][a-z]+" title="Start with capital letter " autocomplete="Sub_Type_Property" autofocus>
+                        <input id="Sub_Type_Property" style="border-radius: 3pt" pattern="(^([A-Z][a-z]+)?$)" title="First Letter must br Capital"   type="text" class="form-control @error('Sub_Type_Property') is-invalid @enderror" name="Sub_Type_Property" value="{{ old('Sub_Type_Property') }}" required pattern="[A-Z][a-z]+" title="Start with capital letter " autocomplete="Sub_Type_Property" autofocus>
 
                         @error('Sub_Type_Property')
                         <span class="invalid-feedback" role="alert">

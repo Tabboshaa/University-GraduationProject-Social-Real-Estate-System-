@@ -17,7 +17,7 @@
                         </label>
 
                         <div class="col-md-2">
-                            <input id="User_Type_Name"style="border-radius: 3pt" type="text" class="form-control @error('User_Type_Name') is-invalid @enderror" name="User_Type_Name" value="{{ old('User_Type_Name') }}" required autocomplete="User_Type_Name" autofocus>
+                            <input id="User_Type_Name"style="border-radius: 3pt" pattern="(^([A-Z][a-z]+)?$)" title="First Letter must br Capital" type="text" class="form-control @error('User_Type_Name') is-invalid @enderror" name="User_Type_Name" value="{{ old('User_Type_Name') }}" required autocomplete="User_Type_Name" autofocus>
                             @error('User_Type_Name')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

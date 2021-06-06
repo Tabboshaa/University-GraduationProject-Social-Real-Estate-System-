@@ -142,7 +142,7 @@
                         </label>
 
                         <div class="col-md-2">
-                            <input id="Detail" style="border-radius: 3pt" type="text" class="form-control @error('Detail') is-invalid @enderror" name="property_details" value="{{ old('Detail') }}" required pattern="[A-Z][a-z]+" title="Start with capital letter " autocomplete="Detail" autofocus>
+                            <input id="Detail" style="border-radius: 3pt" type="text" pattern="[A-Z][a-z]{2,}\s*[A-Z][a-z]*" title="First Letter must br Capital"  class="form-control @error('Detail') is-invalid @enderror" name="property_details" value="{{ old('Detail') }}" required pattern="[A-Z][a-z]+" title="Start with capital letter " autocomplete="Detail" autofocus>
 
                             @error('Detail')
                             <span class="invalid-feedback" role="alert">

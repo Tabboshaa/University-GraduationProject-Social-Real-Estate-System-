@@ -37,7 +37,7 @@
                         {{ __('Operation Detail :') }}
                     </label>
                     <div class="col-md-2">
-                        <input id="Operation_Detail" type="text" style="border-radius: 3pt"class="form-control @error('Operation_Detail') is-invalid @enderror" name="Operation_Detail" value="{{ old('Operation_Detail') }}" required autocomplete="Operation_Detail" autofocus>
+                        <input id="Operation_Detail" type="text" pattern="(^([A-Z][a-z]+)?$)" title="First Letter must br Capital"  style="border-radius: 3pt"class="form-control @error('Operation_Detail') is-invalid @enderror" name="Operation_Detail" value="{{ old('Operation_Detail') }}" required autocomplete="Operation_Detail" autofocus>
 
                         @error('Operation_Detail')
                         <span class="invalid-feedback" role="alert">

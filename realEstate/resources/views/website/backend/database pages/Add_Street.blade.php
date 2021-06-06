@@ -190,7 +190,7 @@
                         {{ __('Street :') }}
                     </label>
                     <div class="col-md-2">
-                        <input id="Street_Name" style="border-radius: 3pt"  type="text" class="form-control @error('Street Name') is-invalid @enderror" name="Street_Name" value="{{ old('Street Name') }}" required autocomplete="Street Name" autofocus>
+                        <input id="Street_Name" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must br Capital" type="text" class="form-control @error('Street Name') is-invalid @enderror" name="Street_Name" value="{{ old('Street Name') }}" required autocomplete="Street Name" autofocus>
 
                         @error('Street_Name')
                         <span class="invalid-feedback" role="alert">
@@ -204,13 +204,13 @@
                     <div class="col-md-2 offset-md-2">
                         <button type="submit" id="btun1"class="btn btn-primary">
                             {{ __('Add') }}
-                        </button>
+                        </button></form>
                         <button id="btun2"  class="btn btn-primary">
                             <a href="{{url('/show_street')}}" class="link2" >{{ __('Show') }}</a>
                         </button>
                     </div>
                 </div>
-            </form>
+            
         </div>
         <div class="x_panel">
             <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">

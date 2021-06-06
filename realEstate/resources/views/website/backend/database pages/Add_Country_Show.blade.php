@@ -18,7 +18,7 @@
         <tr>
             <th style="margin-right:50px; padding-bottom: 5px;"><h2>Country Name</h2></th>
             <th ><h2 style="margin-right:60px;padding-bottom: 5px;">Edit</h2></th>
-            <th>Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" style="margin-right:50px;"><i class="fa fa-trash"></i></button></th>
+            <th>Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" style="margin-right:50px;" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i></button></th>
             
             <script>
                 //will select all row with id -> id[]
