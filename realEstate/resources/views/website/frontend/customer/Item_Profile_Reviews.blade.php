@@ -6,42 +6,42 @@
             <a href="#" class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>How did you find us?</a>
         </div>
         <div class="card-body border-top-xs d-flex">
-            <form id="reviewForm" class="form-group">
+            <form id="reviewForm" class="form-group" action="{{url('/addReview')}}}">
                 @csrf
                 <!-- <figure class="avatar position-absolute ms-2 mt-1 top-5"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w30"></figure> -->
                 <textarea id="content" name="review_content" class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?"></textarea>
                 <div class="rating margin">
                     <span> overall rating </span>
                     &nbsp; &nbsp;
-                    <label onclick="review(1)" class="fa  fa-star-o" name="starLabel" for="star1">
-                        <input type="radio" value="1" name="stars" id="star1">
-                    </label>
+                    <i onclick="review(1)" class="fa  fa-star-o" name="starLabel" for="star1">
+                        <input type="radio" style="display: none;" value="1" name="stars" id="star1">
+                    </i>
                     <label onclick="review(2)" class="fa  fa-star-o" name="starLabel" for="star2">
-                        <input type="radio" value="2" name="stars" id="star2">
+                        <input type="radio" style="display: none;" value="2" name="stars" id="star2">
                     </label>
                     <label onclick="review(3)" class="fa  fa-star-o" name="starLabel" for="star3">
-                        <input type="radio" value="3" name="stars" id="star3">
+                        <input type="radio" style="display: none;" value="3" name="stars" id="star3">
                     </label>
                     <label onclick="review(4)" class="fa  fa-star-o" name="starLabel" for="star4">
-                        <input type="radio" value="4" name="stars" id="star4">
+                        <input type="radio" style="display: none;" value="4" name="stars" id="star4">
                     </label>
                     <label onclick="review(5)" class="fa  fa-star-o" name="starLabel" for="star5">
-                        <input type="radio" value="5" name="stars" id="star5">
+                        <input type="radio" style="display: none;" value="5" name="stars" id="star5">
                     </label>
                     <label onclick="review(6)" class="fa  fa-star-o" name="starLabel" for="star6">
-                        <input type="radio" value="6" name="stars" id="star6">
+                        <input type="radio" style="display: none;" value="6" name="stars" id="star6">
                     </label>
                     <label onclick="review(7)" class="fa  fa-star-o" name="starLabel" for="star7">
-                        <input type="radio" value="7" name="stars" id="star7">
+                        <input type="radio" style="display: none;" value="7" name="stars" id="star7">
                     </label>
-                    <label onclick="review(8)" class="fa  fa-star-o" name="starLabel" for="star8">
-                        <input type="radio" value="8" name="stars" id="star8" style="display: none;">
+                    <label onclick="review(8)" class="fa  fa-star-o" name="starLabel" for="star8" >
+                        <input type="radio" style="display: none;" value="8" name="stars" id="star8">
                     </label>
                     <label onclick="review(9)" class="fa  fa-star-o" name="starLabel" for="star9">
-                        <input type="radio" value="9" name="stars" id="star9">
+                        <input type="radio" style="display: none;" value="9" name="stars" id="star9">
                     </label>
                     <label onclick="review(10)" class="fa  fa-star-o" name="starLabel" for="star10">
-                        <input type="radio" value="10" name="stars" id="star10">
+                        <input type="radio" style="display: none;" value="10" name="stars" id="star10">
                     </label>
                 </div>
                 <input type="hidden" id="item_id" value="{{$item->Item_Id}}">
@@ -163,10 +163,10 @@
         var i, x = document.getElementsByName("starLabel");
 
         for (i = 0; i < x.length; i++) {
-            x[i].className = "fa fa-star-o";
+            x[i].className = "font-md  feather-star  me-2";
         }
         for (i = 0; i < starNumber; i++) {
-            x[i].className = "fa blue fa-star-o";
+            x[i].className = "font-md text-success  feather-star  me-2";
         }
     }
 </script>

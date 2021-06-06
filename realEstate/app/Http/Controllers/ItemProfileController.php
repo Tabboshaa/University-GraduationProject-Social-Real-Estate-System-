@@ -69,10 +69,9 @@ class ItemProfileController extends Controller
         $cover = CoverPageController::getCoverPhotoOfItem($id);
         $post_images = AttachmentController::getPostAttachments($id);
         $item = Item::find($id);
-
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
-
+       
         return view(
             'website\frontend\owner\Item_Profile_Posts',
             [

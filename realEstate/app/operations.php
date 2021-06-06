@@ -9,6 +9,7 @@ class operations extends Model
     //
     protected $primaryKey='Operation_Id';
     protected $fillable = [
+        'Operation_Type_Id',
         'Item_Id',
         'User_Id'
     ];

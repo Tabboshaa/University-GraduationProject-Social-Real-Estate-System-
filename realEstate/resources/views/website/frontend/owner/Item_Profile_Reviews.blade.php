@@ -22,22 +22,6 @@
             {{$review->Review_Title}} <br />
                     {{$review->Review_Content}} <br />
             </div>
-            <!-- <div class="rating">
-                <i class="fa fa-check" aria-hidden="true"></i>
-                <span> overall rating </span>
-                &nbsp; &nbsp;
-                <i class="fa blue fa-star-o" aria-hidden="true"></i>
-                <i class="fa blue fa-star-o" aria-hidden="true"></i>
-                <i class="fa blue fa-star-o" aria-hidden="true"></i>
-                <i class="fa blue fa-star-o" aria-hidden="true"></i>
-                <i class="fa blue fa-star-o" aria-hidden="true"></i>
-                <i class="fa blue fa-star-o" aria-hidden="true"></i>
-                <i class="fa blue fa-star-o" aria-hidden="true"></i>
-                <i class="fa blue fa-star-o" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div> -->
-
             <div class="clearfix"></div>
         </div>
         @endforeach
@@ -53,6 +37,7 @@
                     <div class="rating margin">
                         <span> overall rating </span>
                         &nbsp; &nbsp;
+                    
                         <label onclick="review(1)" class="fa  fa-star-o" name="starLabel" for="star1">
                             <input style="display:none;  visibility:hidden;" type="radio" value="1" name="stars" id="star1">
                         </label>
