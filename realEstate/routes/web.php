@@ -261,6 +261,7 @@ Route::group(['middleware' => 'auth.admin'], function () {
 
     Route::get('/item_posts/{id}', 'PostsController@index');
     Route::Post('/add_item_post/{id?}', 'PostsController@create');
+    Route::Post('/add_user_post', 'PostsController@create');
     Route::get('/delete_posts/{id?}', 'PostsController@destroy');
 
     Route::get('/item_gallery/{id}', 'AttachmentController@index');
@@ -327,6 +328,7 @@ Route::group(['middleware' => 'auth.admin'], function () {
 
     // findDetailsForForm
     Route::get('/findDetailsForForm', 'PropertyDetailsController@findDetailsForForm')->name('propertyDetail.find');
+    Route::get('/findDetails', 'PropertyDetailsController@findDetailsForForminOwner')->name('Details.find');
     Route::get('/findDetailsForShow', 'DetailsController@findDetailsForShow')->name('detail.find'); //to be deleted!!
     Route::get('/DeleteDetailsOwner', 'DetailsController@destroydetails')->name('delete.details');
 
