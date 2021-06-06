@@ -13,7 +13,9 @@ class Item extends Model
     protected $fillable = [
         'Street_Id',
         'User_Id',
-        'Item_Name'
+        'Item_Name',
+        'address_longitude',
+        'address_latitude'
     ];
 
     public function user()

@@ -115,7 +115,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/StatesPhotos', 'StatePhotoController@index');
     Route::POST('/add_StatePhoto', 'StatePhotoController@create');
     Route::get('/shaimaa', 'CustomerHomeController@indexPhoto');
-    Route::get('/myReservations', 'ReservationController@showReservation');
+    Route::get('/myReservations', 'ReservationController@show');
 
     Route::Post('/BeOwner/{id?}', 'AddUserController@BeOwner')->name('BeOwner');
     Route::get('/BeOwner/{id?}', 'AddUserController@BeOwner');
@@ -365,3 +365,16 @@ Route::get('paypalCall/{item_id}/{schedule}/{numberOfDays}/{totalCost}/{price_pe
 Route::get('paypalReturn/{itemId}/{schedule}/{numberOfDays}/{totalCost}/{pricePerNight}/{startDate}/{endDate}','PaypalController@paypalReturn')->name('paypalReturn');
 
 Route::get('sendMailAfterReservation','PaypalController@sendDoneMail');
+Route::get('terms',function() {
+    return view('terms');
+});
+Route::get('policy',function() {
+    return view('Policy');
+});
+
+Route::get('redirect/{service}','SocialController@redirect');
+Route::get('callback/{service}','SocialController@callback');
+
+Route::get('map',function (){
+    return view('map');
+});
