@@ -72,7 +72,7 @@ class ItemController extends Controller
             ->leftJoin('regions', 'streets.Region_Id', '=', 'regions.Region_Id')
             ->select('streets.*', 'countries.Country_Name', 'states.State_Name', 'cities.City_Name', 'regions.Region_Name')
             ->get()->where('Street_Id', '=',$Street_id)->pop();
-    
+
         $details = Details::query()
             ->join('main__types', 'details.Main_Type_Id', '=', 'main__types.Main_Type_Id')
             ->join('sub__types', 'details.Sub_Type_Id', '=', 'sub__types.Sub_Type_Id')
@@ -118,9 +118,8 @@ class ItemController extends Controller
         return view('website.frontend.Owner.Owner_Select_Sub_Type', ['main_type_id'=>$main_type_id ,'sub_type' => $sub_types, 'main_type' => $main_types, 'item_id' => $id]);
     }
     public function OwnerAddItem()
-    { 
-          return dd(request()->all());
-           
+    {
+            return \request()->all();
         $user_id=Auth::id();
         $item = Item::create([
             'User_Id' => $user_id,

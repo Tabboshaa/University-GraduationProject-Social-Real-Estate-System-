@@ -1,18 +1,16 @@
 @extends('website.frontend.owner.Item_Profile')
 @section('profile_Content')
-
-<div class="row">
-
-
-    <div class="col-md-12">
-        <form method="POST" action="{{url('/add_item_gallery/'.$item_id)}}" enctype="multipart/form-data"   >
+<div class="class=" col-xl-12">
+<form method="POST" action="{{url('/add_item_gallery/'.$item_id)}}" enctype="multipart/form-data">
         @csrf
+        <div class="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3 mt-3">
             <label>Add image to your Property </label>
-            <div class="screnshot" id="OpenImgUpload">
+            <div class="form-group" id="OpenImgUpload" >
                 <input type="submit" class="btn" value="Choose File">
                 <input type="file" name="images[]" onchange="javascript:this.form.submit();" multiple ><br>
                 <span>Maximum file size 100MB</span>
             </div>
+        </div>
         </form>
         @if( count($gallery) != 0)
         <a href="javascript:void(0)" onclick="SelectImg()">Select</a>
@@ -22,33 +20,28 @@
         <table id="result" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
 
         </table>
-        <!-- <a href="javascript:void(0)" onclick="deleteImg()">Select</a> -->
-        <!-- <a href="{{url('/addItemSteps/')}}" ><i class="fa fa-plus-square-o  w3-xxlarge"></i> -->
-        <div class="gallery">
-            @if( count($gallery) != 0)
+    @if( count($gallery) != 0)
+    <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
+            <div class=row>
             @foreach($gallery as $Image)
-            <div class="col-md-0 col-sm-3">
-                <div class="gallery">
-                    <!-- <a href="{{url('')}}"> <i class="fa fa-trash w3-large"></i></a> -->
-                    <a href="javascript:void(0)" onclick="viewImage('{{$Image->File_Path}}')">
-                        <img height="200px" width="270px" src="{{asset('storage/profile gallery/'.$Image->File_Path)}}" alt="">
-                    </a>
-                    <input type="checkbox" name="Dcheckbox" value="{{$Image->Attachment_Id}}" style="display: none;">
+            <div class="col-6 mb-2 pe-1"><a href="{{asset('storage/profile gallery/'.$Image->File_Path)}}" data-lightbox="roadtrip"><img src="{{asset('storage/profile gallery/'.$Image->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+            <input type="checkbox" name="Dcheckbox" value="{{$Image->Attachment_Id}}" style="display: none;">
 
-                </div>
-            </div>
             @endforeach
-            @else
-            <div class=" locatins">
-                <div class="sub-heading">
-                    No Images are posted for this item yet..<br />
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            @endif
         </div>
     </div>
+    @else
+    <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
+        <div class="card-body p-0 d-flex">
+            <p class="fw-500 text-grey-500 lh-26 font-xssss w-100">
+                No Images are posted for this item yet..<br />
+            </p>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    @endif
 </div>
+
 <div class="modal fade" id="ImageModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
 
