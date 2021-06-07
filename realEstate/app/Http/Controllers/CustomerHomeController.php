@@ -99,6 +99,7 @@ class CustomerHomeController extends Controller
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
+        
         return view(
             'website\frontend\customer\Item_Profile_Posts',
             [
@@ -127,6 +128,7 @@ class CustomerHomeController extends Controller
 
       $item=Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
+        
         //schedule and location
 
         $User_Id = Auth::id();

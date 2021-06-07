@@ -265,8 +265,12 @@ class OperationsController extends Controller
     {
 
         $user=Auth::user();
+<<<<<<< Updated upstream
         $operations= $user->operations;
 
+=======
+        $operations= $user->operations; 
+>>>>>>> Stashed changes
         return view('website.frontend.customer.ShowReservation', ['operations' => $operations]);
     }
     //delete operation
