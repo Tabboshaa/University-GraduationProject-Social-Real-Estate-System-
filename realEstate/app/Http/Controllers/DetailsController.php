@@ -82,13 +82,15 @@ class DetailsController extends Controller
                         } else {
                             $val = 'no';
                         }
-                    } else if (Arr::get($detail, 'type') == 'file') {
-                        if ($files = request()->file('DetailItem[]')) {
-                            foreach ($files as $file) {
+                    } else if(Arr::get($detail, 'type') == 'file') {
+                    
+                        if ($file = Arr::get($detail, 'value')) {
+                           
                                 $filename = $file->getClientOriginalName();
                                 $file->storeAs('/profile gallery', $filename, 'public');
-                            }
+                          
                             $val = $filename;
+                         
                         } else {
                             $val = Arr::get($detail, 'value');
                         }
