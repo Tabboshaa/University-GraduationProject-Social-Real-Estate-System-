@@ -1,5 +1,3 @@
-@extends('website.frontend.owner.Item_Profile')
-@section('profile_Content')
 <div class="modal fade" id="EditMainTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -19,6 +17,8 @@
         </div>
     </div>
 </div>
+@extends('website.frontend.owner.Item_Profile')
+@section('profile_Content')
 
 <div class="col-xl-4 col-xxl-3 col-lg-4 pe-0">
     <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3">
@@ -645,7 +645,7 @@
                     var detail = details[val['Property_Detail_Id']];
                     if (detail != undefined) {
                         // console.log('found');
-                        // console.log(detail[0]['Detail_Name']);
+                        console.log(detail[0]['DetailValue']);
 
                         Form += ' <div class="form-group row"> ' +
                             '<label for="' + detail[0]['Detail_Id'] + '" class="col-md-2 col-form-label text-md-right">' + detail[0]['Detail_Name'] + '</label>' +
@@ -653,21 +653,21 @@
 
                         if (detail[0]['datatype'] == "checkbox") {
                             if (detail[0]['DetailValue'] == "yes") {
-                                Form += '<div class="form-check"><input type="' + detail[0]['datatype'] + '" id="' + detail[0]['Detail_Id'] + '" name="DetailItem[]" value=' + detail[0]['DetailValue'] + ' class="form-check-input" checked>' +
-                                    '</div></div>' +
+                                Form += '<input type="' + detail[0]['datatype'] + '" id="' + detail[0]['Detail_Id'] + '" name="DetailItem[]" value="' + detail[0]['DetailValue'] + '" class="form-check-input" checked>' +
+                                    '</div>' +
                                     '</div>';
                             } else {
-                                Form += '<input type="' + detail[0]['datatype'] + '" id="' + detail[0]['Detail_Id'] + '" name="DetailItem[]" value=' + detail[0]['DetailValue'] + ' class="form-check-input" >' +
+                                Form += '<input type="' + detail[0]['datatype'] + '" id="' + detail[0]['Detail_Id'] + '" name="DetailItem[]" value="' + detail[0]['DetailValue'] + '" class="form-check-input" >' +
                                     '</div>' +
                                     '</div>';
                             }
                         } else {
-                            Form += '<input type="' + detail[0]['datatype'] + '" id="' + detail[0]['Detail_Id'] + '" name="DetailItem[]" value=' + detail[0]['DetailValue'] + ' class="form-control" >' +
+                            Form += '<input type="' + detail[0]['datatype'] + '" id="' + detail[0]['Detail_Id'] + '" name="DetailItem[]" value="' + detail[0]['DetailValue'] + '" class="form-control" >' +
                                 '</div>' +
                                 '</div>';
                         }
 
-
+                     
 
                     } else {
                         Form += ' <div class="form-group row"> ' +
@@ -707,6 +707,7 @@
         var data = [];
         var item_id = $("#item_id").val();
         var diff = $("#diff").val();
+
         //3iza ageeb kol el inputs b get element by name
         //w b3deen 3iza 27ot el inputs value&id f array
         $('input[name="DetailItem[]"]').each(function() {
