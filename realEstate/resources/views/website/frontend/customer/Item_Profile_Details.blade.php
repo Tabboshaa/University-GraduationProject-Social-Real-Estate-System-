@@ -9,22 +9,22 @@
             <div class="modal-body p-3 d-flex align-items-center bg-none">
                 <div class="card shadow-none rounded-0 w-100 p-2 pt-3 border-0">
                     <div class="card-body rounded-0 text-left p-3">
-                        <h2 class="fw-700 display1-size display2-md-size mb-4">Receipte</h2>                        
+                        <h2 class="fw-700 display1-size display2-md-size mb-4">Receipte</h2>
                         <form>
-                            
-                            <h2 class="fw-700 display1-size display2-md-size mb-4">Item Name : </h2> <h2 class="fw-700 display1-size display2-md-size mb-4">POWER up </h2> 
+
+                            <h2 class="fw-700 display1-size display2-md-size mb-4">Item Name : </h2> <h2 class="fw-700 display1-size display2-md-size mb-4">POWER up </h2>
                             <h2 class="fw-700 display1-size display2-md-size mb-4">Start Date:</h2>  <h2 class="fw-700 display1-size display2-md-size mb-4">15/6/2021</h2>
                             <h2 class="fw-700 display1-size display2-md-size mb-4">End Date:</h2>  <h2 class="fw-700 display1-size display2-md-size mb-4">17/6/2021</h2>
                             <h2 class="fw-700 display1-size display2-md-size mb-4">Number Of Days :</h2>  <h2 class="fw-700 display1-size display2-md-size mb-4">3 days</h2>
                             <h2 class="fw-700 display1-size display2-md-size mb-4">Price Per Night :</h2>  <h2 class="fw-700 display1-size display2-md-size mb-4">100</h2>
                             <h2 class="fw-700 display1-size display2-md-size mb-4">Total Price:</h2>  <h2 class="fw-700 display1-size display2-md-size mb-4">300</h2>
-                            
+
                             <div class="form-group mb-1">
                                 <input type="submit" value="Pay"  class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">
                             </div>
                         </form>
                     </div>
-                </div>                    
+                </div>
             </div>
         </div>
     </div>
@@ -472,6 +472,7 @@
     var start_id;
     var End_id;
     var schedule;
+    var item_id_global;
 
     function test(day, schedule_Id) {
         var date2;
@@ -554,6 +555,7 @@
         console.log(start_id);
         console.log(End_id);
         console.log(schedule);
+        item_id_global=item_id;
 
         $.ajax({
             url: "{{route('calculate.days')}}",
@@ -567,17 +569,21 @@
             success: function(data) {
                 console.log(data);
                 // return (['totalPrice'=>$totalPric>$start_date,"end_date"=>$end_date]);
-                
-                var text="<h6><strong>Item Name :</strong> </h6> <h6>POWER up </h6>"
-                            +"<h6><strong>Start Date:</strong> </h6> <h6>"+ data['start_date'] +"</h6>"
-                            +"<h6><strong>End Date:</strong> </h6> <h6>"+ data['end_date']+"</h6>"
-                            +"<h6><strong>Number Of Days :</strong> </h6> <h6>"+data['totalDays'] +"</h6>"
-                            +"<h6><strong>Price Per Night :</strong> </h6> <h6>"+data['price_per_night']+" </h6>"
-                            +"<h6><strong>Total Price:</strong> </h6> <h6>"+data['totalPrice']+" </h6>";
-                $("#resetdiv").html(text);
-                $("#ReceipteModal").modal("toggle");
-               
-                //location.href = "/paypalCall/" + item_id + "/" + schedule + "/" + data['totalDays'] + "/" + data['totalPrice'] + "/" + data['price_per_night'] + "/" + data['start_date'] + "/" + data['end_date'];
+                location.href = "/paypalCall/" + item_id + "/" + schedule + "/" + data['totalDays'] + "/" + data['totalPrice'] + "/" + data['price_per_night'] + "/" + data['start_date'] + "/" + data['end_date'];
+
+               //  var text="<h6><strong>Item Name :</strong> </h6> <h6>POWER up </h6>"
+               //              +"<h6><strong>Start Date:</strong> </h6> <h6>"+ data['start_date'] +"</h6>"
+               //              +"<h6><strong>End Date:</strong> </h6> <h6>"+ data['end_date']+"</h6>"
+               //              +"<h6><strong>Number Of Days :</strong> </h6> <h6>"+data['totalDays'] +"</h6>"
+               //              +"<h6><strong>Price Per Night :</strong> </h6> <h6>"+data['price_per_night']+" </h6>"
+               //              +"<h6><strong>Total Price:</strong> </h6> <h6>"+data['totalPrice']+" </h6>";
+               //  $("#resetdiv").html(text);
+               //  $("#ReceipteModal").modal("toggle");
+               //
+               // $("#reserveForm").on("submit", function (){
+               //     location.href = "/paypalCall/" + item_id + "/" + schedule + "/" + data['totalDays'] + "/" + data['totalPrice'] + "/" + data['price_per_night'] + "/" + data['start_date'] + "/" + data['end_date'];
+               // });
+
 
             },
             error: function(data) {
@@ -588,6 +594,8 @@
         });
 
     }
+
+
 
 
 </script>

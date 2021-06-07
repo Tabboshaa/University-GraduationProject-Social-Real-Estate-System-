@@ -51,9 +51,9 @@
             <div class="modal-body p-3 d-flex align-items-center bg-none">
                 <div class="card shadow-none rounded-0 w-100 p-2 pt-3 border-0">
                     <div class="card-body rounded-0 text-left p-3">
-                        <h2 class="fw-700 display1-size display2-md-size mb-4">Receipte</h2>                        
-                        <form>
-                            
+                        <h2 class="fw-700 display1-size display2-md-size mb-4">Receipte</h2>
+                        <form id="reserveForm" >
+
                            <div id="resetdiv">
                            </div>
                             <div class="form-group mb-1">
@@ -61,7 +61,7 @@
                             </div>
                         </form>
                     </div>
-                </div>                    
+                </div>
             </div>
         </div>
     </div>
