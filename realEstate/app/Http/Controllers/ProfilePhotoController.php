@@ -28,8 +28,8 @@ class ProfilePhotoController extends Controller
     {
         //
         try {
-            $attachment_id = ProfilePhoto::all()->where('User_Id', '=', $id)->first()->Profile_Picture;
-            return AttachmentController::getAttachment($attachment_id);
+            $photo = ProfilePhoto::all()->where('User_Id', '=', $id)->first();
+            return $photo;
         } catch (Exception $e) {
             return null;
         }
@@ -48,14 +48,13 @@ class ProfilePhotoController extends Controller
             $filename = $files->getClientOriginalName();
             $files->storeAs('/cover page', $filename, 'public');
 
-            $attachment = attachment::create(['File_Path' => $filename]);
 
             // }
             try {
 
                 $ProfilePhoto  = ProfilePhoto::create([
                     'User_Id' => Auth::id(),
-                    'Profile_Picture' => $attachment->Attachment_Id
+                    'Profile_Picture' => $filename
                 ]);
                 return back();
             } catch (\Illuminate\Database\QueryException $e) {
@@ -104,13 +103,12 @@ class ProfilePhotoController extends Controller
             $filename = $files->getClientOriginalName();
             $files->storeAs('/cover page', $filename, 'public');
 
-            $attachment = attachment::create(['File_Path' => $filename]);
 
             // }
             try {
                 $profilePhoto = ProfilePhoto::all()->where('User_Id', '=', Auth::id(),)->first();
                 //hy7ot el name el gded f column el country name
-                $profilePhoto->Profile_Picture = $attachment->Attachment_Id;
+                $profilePhoto->Profile_Picture =$filename;
                 $profilePhoto->save();
                 return back();
             } catch (\Illuminate\Database\QueryException $e) {
@@ -138,17 +136,13 @@ class ProfilePhotoController extends Controller
             $filename = $files->getClientOriginalName();
             $files->storeAs('/cover page', $filename, 'public');
 
-            $attachment = attachment::create(['File_Path' => $filename]);
 
             // }
             try {
-                $profilePhoto = ProfilePhoto::create([
-                    'User_Id' => Auth::id(),
-                    'Cover_Photo' => $attachment->Attachment_Id
-                ]);
+              
                 $profilePhoto = ProfilePhoto::all()->find(request('Photo_Id'));
                 //hy7ot el name el gded f column el country name
-                $profilePhoto->Profile_Picture = $attachment->Attachment_Id;
+                $profilePhoto->Profile_Picture = $filename;
                 $profilePhoto->save();
                 return back();
             } catch (\Illuminate\Database\QueryException $e) {
@@ -170,7 +164,7 @@ class ProfilePhotoController extends Controller
             File::delete($myFile);
         }
         try {
-            attachment::destroy($id);
+            ProfilePhoto::destroy($id);
             return back();
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];

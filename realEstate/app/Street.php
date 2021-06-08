@@ -8,7 +8,8 @@ class Street extends Model
 {
     //
     protected $primaryKey='Street_Id';
-    protected $fillable=['Street_Name','Region_Id' , 'City_Id' , 'State_Id' , 'Country_Id'];
+    protected $fillable=['Street_Name','Region_Id' , 'City_Id' , 'State_Id' , 'Country_Id','address_latitude',
+        'address_longitude'];
 
     public function region(){
         return $this->belongsTo(Region::class, 'Region_Id');

@@ -1,200 +1,225 @@
 @extends('website.frontend.layouts.main')
-@section('content')
+@section('profile')
 @include('website.backend.layouts.flashmessage')
 
-<link href="{{asset('css/ItemAddressStyle.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('css/Form.css')}}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/css/map.css">
+<script src="/js/map.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCUywuD0K3ICLer31HgVIJ-Uhi_Suj2jA&libraries=places&callback=initialize"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-
-
-            $(document).on('change', '#CountrySelect', function() {
-
-                var country_id = $(this).val();
-                //  console.log(MainType_id);
-
-                var FormTag = $(this).parent().parent().parent();
-                var op = " ";
-                $.ajax({
-                    type: 'get',
-                    url: "{{ url('/D4') }}",
-                    data: {
-                        'id': country_id
-                    },
-                    success: function(data) {
-                        //console.log('success');
-
-                        op += '<option value="0" selected disabled>Select State</option>';
-
-                        Object.values(data).forEach(val => {
-                            //   console.log(val);
-
-                            op += '<option value="' + val['State_Id'] + '">' + val['State_Name'] + '</option>';
-                        });
+<script type="text/javascript">
+    $(document).ready(function() {
 
 
+        $(document).on('change', '#CountrySelect', function() {
 
-                        FormTag.find('#StateSelect').html(" ");
-                        FormTag.find('#StateSelect').append(op);
-                    },
-                    error: function() {
-                        //  console.log('error');
-                    }
-                });
+            var country_id = $(this).val();
+            //  console.log(MainType_id);
+
+            var FormTag = $(this).parent().parent().parent();
+            var op = " ";
+            $.ajax({
+                type: 'get',
+                url: "{{ url('/D4') }}",
+                data: {
+                    'id': country_id
+                },
+                success: function(data) {
+                    //console.log('success');
+
+                    op += '<option value="0" selected disabled>Select State</option>';
+
+                    Object.values(data).forEach(val => {
+                        //   console.log(val);
+
+                        op += '<option value="' + val['State_Id'] + '">' + val['State_Name'] + '</option>';
+                    });
+
+
+
+                    FormTag.find('#StateSelect').html(" ");
+                    FormTag.find('#StateSelect').append(op);
+                },
+                error: function() {
+                    //  console.log('error');
+                }
             });
-
-            $(document).on('change', '#StateSelect', function() {
-
-                var state_id = $(this).val();
-                //  console.log(MainType_id);
-                var FormTag = $(this).parent().parent().parent();
-                var opp = " ";
-
-                $.ajax({
-                    type: 'get',
-                    url: "{{ url('/D5') }}",
-                    data: {
-                        'id': state_id
-                    },
-                    success: function(data) {
-                        //console.log('success');
-                        opp += '<option value="0" selected disabled>Select City</option>';
-
-                        Object.values(data).forEach(val => {
-                            //   console.log(val);
-
-                            opp += '<option value="' + val['City_Id'] + '">' + val['City_Name'] + '</option>';
-                        });
-
-                        FormTag.find('#CitySelect').html(" ");
-                        FormTag.find('#CitySelect').append(opp);
-                    },
-                    error: function() {
-                        //  console.log('error');
-                    }
-                });
-            });
-
-            $(document).on('change', '#CitySelect', function() {
-
-                var city_id = $(this).val();
-                //  console.log(MainType_id);
-                var FormTag = $(this).parent().parent().parent();
-                var oppp = " ";
-
-                $.ajax({
-                    type: 'get',
-                    url: "{{ url('/D6') }}",
-                    data: {
-                        'id': city_id
-                    },
-                    success: function(data) {
-                        //console.log('success');
-                        oppp += '<option value="0" selected disabled>Select Region</option>';
-
-                        Object.values(data).forEach(val => {
-                            //   console.log(val);
-
-                            oppp += '<option value="' + val['Region_Id'] + '">' + val['Region_Name'] + '</option>';
-                        });
-
-                        FormTag.find('#RegionSelect').html(" ");
-                        FormTag.find('#RegionSelect').append(oppp);
-                    },
-                    error: function() {
-                        //  console.log('error');
-                    }
-                });
-            });
-
-            $(document).on('change', '#RegionSelect', function() {
-
-                var region_id = $(this).val();
-                //  console.log(MainType_id);
-                var FormTag = $(this).parent().parent().parent();
-                var opppp = " ";
-
-                $.ajax({
-                    type: 'get',
-                    url: "{{ url('/D7') }}",
-                    data: {
-                        'id': region_id
-                    },
-                    success: function(data) {
-                        //console.log('success');
-                        opppp += '<option value="0" selected disabled>Select Street</option>';
-
-                        Object.values(data).forEach(val => {
-                            console.log(val);
-
-                            opppp += '<option value="' + val['Street_Id'] + '">' + val['Street_Name'] + '</option>';
-                        });
-
-                        FormTag.find('#StreetSelect').html(" ");
-                        FormTag.find('#StreetSelect').append(opppp);
-                    },
-                    error: function() {
-                        //  console.log('error');
-                    }
-                });
-            });
-
         });
-    </script>
-    <div id="content-wrapper">
-        <div class="container-fluid">
-            <div class="upload_listing">
-         <!-- Banner -->
+
+        $(document).on('change', '#StateSelect', function() {
+
+            var state_id = $(this).val();
+            //  console.log(MainType_id);
+            var FormTag = $(this).parent().parent().parent();
+            var opp = " ";
+
+            $.ajax({
+                type: 'get',
+                url: "{{ url('/D5') }}",
+                data: {
+                    'id': state_id
+                },
+                success: function(data) {
+                    //console.log('success');
+                    opp += '<option value="0" selected disabled>Select City</option>';
+
+                    Object.values(data).forEach(val => {
+                        //   console.log(val);
+
+                        opp += '<option value="' + val['City_Id'] + '">' + val['City_Name'] + '</option>';
+                    });
+
+                    FormTag.find('#CitySelect').html(" ");
+                    FormTag.find('#CitySelect').append(opp);
+                },
+                error: function() {
+                    //  console.log('error');
+                }
+            });
+        });
+
+        $(document).on('change', '#CitySelect', function() {
+
+            var city_id = $(this).val();
+            //  console.log(MainType_id);
+            var FormTag = $(this).parent().parent().parent();
+            var oppp = " ";
+
+            $.ajax({
+                type: 'get',
+                url: "{{ url('/D6') }}",
+                data: {
+                    'id': city_id
+                },
+                success: function(data) {
+                    //console.log('success');
+                    oppp += '<option value="0" selected disabled>Select Region</option>';
+
+                    Object.values(data).forEach(val => {
+                        //   console.log(val);
+
+                        oppp += '<option value="' + val['Region_Id'] + '">' + val['Region_Name'] + '</option>';
+                    });
+
+                    FormTag.find('#RegionSelect').html(" ");
+                    FormTag.find('#RegionSelect').append(oppp);
+                },
+                error: function() {
+                    //  console.log('error');
+                }
+            });
+        });
+
+        $(document).on('change', '#RegionSelect', function() {
+
+            var region_id = $(this).val();
+            //  console.log(MainType_id);
+            var FormTag = $(this).parent().parent().parent();
+            var opppp = " ";
+
+            $.ajax({
+                type: 'get',
+                url: "{{ url('/D7') }}",
+                data: {
+                    'id': region_id
+                },
+                success: function(data) {
+                    //console.log('success');
+                    opppp += '<option value="0" selected disabled>Select Street</option>';
+
+                    Object.values(data).forEach(val => {
+                        console.log(val);
+
+                        opppp += '<option value="' + val['Street_Id'] + '">' + val['Street_Name'] + '</option>';
+                    });
+
+                    FormTag.find('#StreetSelect').html(" ");
+                    FormTag.find('#StreetSelect').append(opppp);
+                },
+                error: function() {
+                    //  console.log('error');
+                }
+            });
+        });
+
+    });
+</script>
+
+
+<div class="col-xl-12">
+    <div class="card w-1`00 border-0 bg-white shadow-xs p-0 mb-4">
+        <div class="card-body p-4 w-100 bg-current border-0 d-flex rounded-3">
+            <a href="default-settings.html" class="d-inline-block mt-2"><i class="ti-arrow-left font-sm text-white"></i></a>
+            <h4 class="font-xs text-white fw-600 ms-4 mb-0 mt-2"> ADD ITEM LOCATION</h4>
+        </div>
+        <div class="card-body p-lg-5 p-4 w-100 border-0 mb-0">
+
+            <form method="Post" action="{{ url('/OwnerAddItem') }}" enctype="multipart/form-data">
+                @csrf
                 <div class="row">
-					<div class="feedback col-md-10">
-                        <form method="post" action="{{ url('/OwnerAddItem') }}" enctype="multipart/form-data">
-                        @csrf
-                        <div class="email-input" style="margin-top: 50px; margin-right:200px;margin-left: 180px;margin-bottom:150px">
-                            <div class="midemail">
-                                ADD ITEM LOCATION
-                            </div>
-                            <div class="select-left">
-                                
-                               
-                                <div style="margin-left:30px;font-weight:bold;">
-                                    Item Name <span>*</span>
-                                </div>
-                                <input type="text" name="Item_Name" id="Item_Name" placeholder="Name the Item"> 
-                                <div style="margin-left:30px;font-weight:bold;">
-                                    Country<span>*</span>
-                                </div>
-                                <select id="CountrySelect" name="Country" value="{{ old('Country') }}">
+                    <div class="col-lg-6 mb-0">
+                        <div class="form-group">
+                            <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload">
+                                <h6>Item Name</h6>
+                            </label>
+                            <input type="text" class="form-control" name="Item_Name" id="Item_Name" placeholder="Name the Item">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 mb-0">
+                            <div class="form-group">
+                                <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload">
+                                    <h6>Country</h6>
+                                </label>
+                                <select id="CountrySelect" class="date-picker form-control" name="Country" value="{{ old('Country') }}">
                                     <option value="0" selected disabled>Select Country</option>
                                     <!--  For loop  -->
-                                        @foreach($country as $c)
-                                            <option value="{{$c->Country_Id}}">{{$c->Country_Name}}</option>
-                                        @endforeach 
+                                    @foreach($country as $c)
+                                    <option value="{{$c->Country_Id}}">{{$c->Country_Name}}</option>
+                                    @endforeach
                                 </select>
-                                <div style="margin-left:30px;font-weight:bold;">
-                                    State<span >*</span>
-                                </div>
-                                <select id="StateSelect"  name="State" value="{{ old('State') }}"></select>
-                                <div style="margin-left:30px;font-weight:bold;">
-                                    City<span >*</span>
-                                </div>
-                                <select id="CitySelect"  name="City" value="{{ old('City') }}"></select>
-                                <div style="margin-left:30px;font-weight:bold;">  
-                                    Region<span >*</span>
-                                </div>
-                                <select id="RegionSelect"name="Region" value="{{ old('Region') }}"></select>
-                                <div style="margin-left:30px;font-weight:bold;"> 
-                                    Street<span >*</span>
-                                </div>
-                                <select id="StreetSelect" name="Street" value="{{ old('Street') }}"></select> <br><br>
-                                <button type="submit" id="btun1" style="margin-left: 670px">Next</button>
+                                <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload">
+                                    <h6>State</h6>
+                                </label>
+                                <select id="StateSelect" class="date-picker form-control" name="State" value="{{ old('State') }}"></select>
+
+                                <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload">
+                                    <h6>City</h6>
+                                </label>
+                                <select id="CitySelect" class="date-picker form-control" name="CitySelect" value="{{ old('City') }}"></select>
+                                <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload">
+                                    <h6>Region</h6>
+                                </label>
+                                <select id="RegionSelect" class="date-picker form-control" name="Region" value="{{ old('Region') }}"></select>
+
+                                <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload">
+                                    <h6>Street</h6>
+                                </label>
+                                <select id="StreetSelect" class="date-picker form-control" name="StreetSelect" value="{{ old('Street') }}"></select> <br><br>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 mb-3">
+                            <div class="form-group">
+                                <label for="">Address: <input id="map-search" class="controls" type="text" placeholder="Search Box" size="104"></label><br>
+                                <label for="">City <input type="text" name="City" class="reg-input-city" placeholder="City"></label>
+                                <label for="">Street <input type="text" name="Street" class="reg-input-street" placeholder="Street"></label>
+                                <input type="text" name="latitude" class="latitude">
+                                <input type="text" name="longitude" class="longitude">
+                            </div>
+                        </div>
+                        <div id="map-canvas"></div>
+                    </div>
+                    <div class="col-lg-12 mb-0 mt-2 ps-0">
+                        <input type="submit" value="Next " class="bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-3 d-inline-block">
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
+
+
 
 @endsection

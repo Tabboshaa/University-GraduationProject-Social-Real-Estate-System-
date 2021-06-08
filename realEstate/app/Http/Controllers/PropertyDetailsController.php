@@ -112,6 +112,15 @@ class PropertyDetailsController extends Controller
 
     public function findDetailsForForm()
     {
+        $properties = DB::table('property__details')
+            ->join('datatypes', 'property__details.DataType_Id', '=', 'datatypes.id')
+            ->select('property__details.Property_Id', 'property__details.Property_Detail_Id', 'property__details.Detail_Name', 'datatypes.datatype')
+            ->get()
+            ->where('Property_Id', '=', request('id'));
+        return $properties;
+    }
+    public function findDetailsForForminOwner()
+    {
         $details = DB::table('property__details')
             ->join('datatypes', 'property__details.DataType_Id', '=', 'datatypes.id')
             ->leftJoin('details', 'details.Property_Detail_Id', '=', 'property__details.Property_Detail_Id')

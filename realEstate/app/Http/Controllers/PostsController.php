@@ -46,7 +46,6 @@ class PostsController extends Controller
      */
     public function create($id = null)
     {
-
         //
         if($id !=null){
         $item = Item::all()->find($id);
@@ -58,7 +57,7 @@ class PostsController extends Controller
             $post=posts::create([
                 'Item_Id' => $id,
                 'User_Id' => $user_id,
-                'Post_Title' => request('Post_Title'),
+                'Post_Title' => ' ',
                 'Post_Content' => request('Post_Content'),
             ]);
 
@@ -167,9 +166,10 @@ class PostsController extends Controller
         //
         $posts = DB::table('posts')
             ->join('users', 'users.id', '=', 'posts.User_Id')
+            ->LeftJoin('profile_photos','profile_photos.User_Id','=','posts.User_Id')
             ->where('posts.Item_Id', '=', $item_id)
             ->select('posts.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')
-            ->paginate(10);
+            ->get();
 
 
 

@@ -1,116 +1,71 @@
-@extends('website.frontend.ownerlayouts.main')
-@section('content')
-<link href="{{asset('css/FrontEndCSS/CustomerHome.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('css/FrontEndCSS/ButtonStyle.css')}}" rel="stylesheet" type="text/css" />
-<div id="content-wrapper">
-    <div class="container-fluid">
-        <!-- Banner -->
-        <div class="dashboard">
-            <div class="advertisment-banner1 col-md-12">
-                {{-- Cover photo --}}
-                @if(!empty($cover))
-                {{-- imggggggggggggggggggggggggggggggggg --}}
-                <form method="Post" action="{{url('/DeleteMyCoverPage/'.$cover->id.'/'.$cover->path.'?_method=delete')}}" enctype="multipart/form-data">
-                    @csrf
-                    <button class="btn" type="submit"><i class="fa fa-trash"></i></button>
-                </form>
-                <div id="coverPhoto">
-                    <img class="background" height="600" src="{{asset('storage/cover page/'.$cover->path)}}" alt="">
-                </div>
-                <div class="screnshot" id="OpenImgUpload" style="height:0px;">
-                    <form method="POST" action="{{url('/UpdateCoverPage/'.$cover->id)}}" enctype="multipart/form-data">
-                        @csrf
-                        <input id="cover_photo_upload" name="CoverPhoto" type="file" class="hidden" onchange="javascript:this.form.submit();">
-                    </form>
-                </div>
-                @else
-                <div id="coverPhoto">
-                    <img class="background"  height="600" src="{{asset('storage/cover page/Default1.jpeg')}}" alt="">
-                </div>
-                <div class="screnshot" id="OpenImgUpload">
-                    <form method="POST" action="{{url('/CreateCoverPage/'.$item->Item_Id)}}" enctype="multipart/form-data">
-                        @csrf
-                        <input id="cover_photo_upload" name="CoverPhoto" type="file" class="hidden" onchange="javascript:this.form.submit();">
-                    </form>
-                </div>
-                @endif
+@extends('website.frontend.layouts.main')
+@section('profile')
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3 overflow-hidden">
+            @if($cover != null)
+            <div class="card-body position-relative h240 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/'.$cover->path)}}');"></div>
+            @else
+            <div class="card-body position-relative h240 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/Default1.jpeg')}}');"></div>
+            @endif
+            <div class="card-body d-block pt-4 text-center position-relative">
+                <h4 class="font-xs ls-1 fw-700 text-grey-900"> {{ $item->Item_Name }}<span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">@ {{$item->user->First_Name}} {{$item->user->Middle_Name}} {{$item->user->Last_Name}}</span></h4>
 
-            </div>
-            <div class="main-page">
-                <div class="dash-profile">
-                    <img src="" alt="">
+                <div class="d-flex align-items-center pt-0 position-absolute left-15 top-10 mt-4 ms-2">
+                    <h4 class="font-xsssss text-center d-none d-lg-block text-grey-500 fw-600 ms-2 me-2"><b class="text-grey-900 mb-1 font-sm fw-700 d-inline-block ls-3 text-dark">{{($item->posts == null)?0:count($item->posts)}} </b> Posts</h4>
+                    <h4 class="font-xsssss text-center d-none d-lg-block text-grey-500 fw-600 ms-2 me-2"><b class="text-grey-900 mb-1 font-sm fw-700 d-inline-block ls-3 text-dark">{{($item->followers == null)?0:count($item->followers)}} </b> Followers</h4>
                 </div>
-                <div class="prompr">
-                    <ul class="widths">
-                        <li class="number"><i class="fa fa-phone" aria-hidden="true"></i> &nbsp; +91 1234 567 890</li>
-                        <li class="number"><i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp; Location here...</li>
+                <div class="d-flex align-items-center justify-content-center position-absolute right-15 top-10 mt-2 me-2">
 
-                        @if ($check_follow=="[]")
-                        <li class="saved">
-                            <i class="fa fa-heart-o" aria-hidden="true"></i>
-                            <a href="{{url('/FollowItem/'.$item->Item_Id)}}">Follow</a>
-                        </li>
+                    @if ($check_follow=="[]")
+                    <a href="{{url('/FollowItem/'.$item->Item_Id)}}" class="d-none d-lg-block bg-success p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3"> <i class="fa fa-heart-o" aria-hidden="true"></i> Follow</a>
+                    @else
+                    <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}" class="d-none d-lg-block bg-success p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3"> <i class="fa fa-heart-o" aria-hidden="true"></i> Un Follow</a>
+                    @endif
+
+                    <a href="#" class="p-2 text-center ms-auto menu-icon show" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-bs-toggle="dropdown"><i class="ti-more font-md"></i></a>
+                    <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg show" aria-labelledby="dropdownMenu3" style="margin: 0px; position: absolute; inset: 0px auto auto 0px; transform: translate(567.2px, 76px);" data-popper-placement="bottom-end">
+
+                        @if(!empty($cover))
+                        <div class="card-body p-0 d-flex">
+                            <form method="Post" action="{{url('/DeleteMyCoverPage/'.$cover->id.'/'.$cover->path.'?_method=delete')}}" enctype="multipart/form-data">
+                                @csrf
+                                <button class="btn" type="submit"><label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_page_delete"><i class="feather-trash-2 text-grey-500 me-3 font-sm"></i>Cover Page</label></button>
+                            </form>
+                            <form method="POST" action="{{url('/UpdateCoverPage')}}" enctype="multipart/form-data">
+                                @csrf
+                                <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_page_upload"><i class="feather-edit text-grey-500 me-3 font-sm"></i>Cover Page</label>
+                                <input id="cover_page_upload" name="CoverPage" type="file" style="display:none" onchange="javascript:this.form.submit();">
+                            </form>
+                        </div>
                         @else
-                        <li class="saved">
-                            <i class="fa fa-heart-o" aria-hidden="true"></i>
-                            <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}">Un Follow</a>
-                        </li>
+                        <div class="card-body p-0 d-flex">
+                            <form method="POST" action="{{url('/CreateCoverPhoto')}}" enctype="multipart/form-data">
+                                @csrf
+                                <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload"><i class="feather-plus text-grey-500 me-3 font-sm"></i>Cover Photo</label>
+                                <input id="cover_photo_upload" name="CoverPhoto" type="file" style="display:none" onchange="javascript:this.form.submit();">
+                            </form>
+                        </div>
                         @endif
-                        <li class="Reivew">
-                            <a href="{{url('/itemReviews')}}">Add Review </a>
-                        </li>
-                        <li class="borders"><i class="fa fa-share-alt" aria-hidden="true"></i></li>
-                        <li class="borders"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></li>
-                    </ul>
-                    <div class="dashname">
-                        {{ $item->Item_Name }}
-                        <p><a href="{{url('/veiw_User/'.$item->user['id'])}}">@ {{$item->user['First_Name']}} {{$item->user['Middle_Name']}} {{$item->user['Last_Name']}}</a></p>
                     </div>
-
                 </div>
-            </div>
-            <div class="clearfix">
-            </div>
-        </div>
-
-        <!-- Banner Area-->
-        <div class="settingmenu">
-            <div class="navbar navbar-expand-md navbar-light">
-                <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav">
-                    <span class="navbar-toggler-icon "></span>
-                </button>
-                <div class="collapse navbar-collapse  visible-title" id="navbarNav">
-                    <ul class="navbar-nav ">
-                        <li>
-                            <a href="{{url('/owneritemProfile/'.$item->Item_Id)}}">Posts </a>
-                        </li>
-                        <li>
-                            <a href="{{url('/owneritemDetails/'.$item->Item_Id)}}">Detail </a>
-                        </li>
-                        <li>
-                            <a href="{{url('/owneritemReviews/'.$item->Item_Id)}}">Review </a>
-                        </li>
-                        <li>
-                            <a href="{{url('/owneritemGallery/'.$item->Item_Id)}}">Gallery </a>
-                        </li>
-                        <li>
-                            <a href="{{url('/owneritemReservations/'.$item->Item_Id)}}">Reservation history </a>
-                        </li>
-                        <li>
-                            <a href="{{url('/owneritemManageSchedule/'.$item->Item_Id)}}">Manage my calender </a>
-                        </li>
+                <div class="card-body d-block w-100 shadow-none mb-0 p-0 border-top-xs">
+                    <ul class="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4" id="pills-tab" role="tablist">
+                        <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('/owneritemProfile/'.$item->Item_Id)}}" data-toggle="tab">Posts</a></li>
+                        <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('/owneritemDetails/'.$item->Item_Id)}}" data-toggle="tab">Detail</a></li>
+                        <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('/owneritemReviews/'.$item->Item_Id)}}" data-toggle="tab">Reviews</a></li>
+                        <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('/owneritemGallery/'.$item->Item_Id)}}" data-toggle="tab">Gallery</a></li>
                     </ul>
-
                 </div>
             </div>
-
         </div>
-        @yield('profile_Content')
-    </div>
-</div>
-<script>
+    </div>  
 
-</script>
-@endsection
+        <!-- start of post -->
+        @yield('profile_Content')
+        <!-- end of post -->
+
+
+    </div>
+
+    @endsection

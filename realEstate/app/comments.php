@@ -16,8 +16,10 @@ class comments extends Model
         'Parent_Comment',
         'Comment'
     ];
+
+
     public function user(){
-        return $this->hasOne(User::class, 'User_Id');
+        return $this->belongsTo(User::class, 'User_Id');
     }
     public function post(){
         return $this->hasOne(posts::class, 'Post_Id');
@@ -26,6 +28,10 @@ class comments extends Model
         return $this->hasOne(attachment::class, 'Attachment_Id');
     }
     public function parentcomment(){
-        return $this->hasOne(comments::class, 'Parent_Comment');
+        return $this->belongsTo(comments::class, 'Comment_Id');
+    }
+
+    public function replies(){
+        return $this->hasMany(comments::class, 'Parent_Comment');
     }
 }

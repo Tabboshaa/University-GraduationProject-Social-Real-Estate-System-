@@ -27,7 +27,7 @@ Route::get('test', function () {
 Auth::routes();
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
 Route::post('/', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
-Route::post('/registerUser', 'Auth\RegisterController@create')->name('registerUser');
+Route::get('/registerUser', 'Auth\RegisterController@create')->name('registerUser');
 Route::get('/UserRegister', function () {
     return view('website\frontend\Registration');
 })->name('UserRegister');
@@ -115,7 +115,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/StatesPhotos', 'StatePhotoController@index');
     Route::POST('/add_StatePhoto', 'StatePhotoController@create');
     Route::get('/shaimaa', 'CustomerHomeController@indexPhoto');
-    Route::get('myReservations', 'ReservationController@showReservation');
+    Route::get('/myReservations', 'ReservationController@show');
 
     Route::Post('/BeOwner/{id?}', 'AddUserController@BeOwner')->name('BeOwner');
     Route::get('/BeOwner/{id?}', 'AddUserController@BeOwner');
@@ -261,6 +261,7 @@ Route::group(['middleware' => 'auth.admin'], function () {
 
     Route::get('/item_posts/{id}', 'PostsController@index');
     Route::Post('/add_item_post/{id?}', 'PostsController@create');
+    Route::Post('/add_user_post', 'PostsController@create');
     Route::get('/delete_posts/{id?}', 'PostsController@destroy');
 
     Route::get('/item_gallery/{id}', 'AttachmentController@index');
@@ -327,7 +328,8 @@ Route::group(['middleware' => 'auth.admin'], function () {
 
     // findDetailsForForm
     Route::get('/findDetailsForForm', 'PropertyDetailsController@findDetailsForForm')->name('propertyDetail.find');
-    Route::get('/findDetailsForShow', 'DetailsController@findDetailsForShow')->name('detail.find');
+    Route::get('/findDetails', 'PropertyDetailsController@findDetailsForForminOwner')->name('Details.find');
+    Route::get('/findDetailsForShow', 'DetailsController@findDetailsForShow')->name('detail.find'); //to be deleted!!
     Route::get('/DeleteDetailsOwner', 'DetailsController@destroydetails')->name('delete.details');
 
 
@@ -365,3 +367,16 @@ Route::get('paypalCall/{item_id}/{schedule}/{numberOfDays}/{totalCost}/{price_pe
 Route::get('paypalReturn/{itemId}/{schedule}/{numberOfDays}/{totalCost}/{pricePerNight}/{startDate}/{endDate}','PaypalController@paypalReturn')->name('paypalReturn');
 
 Route::get('sendMailAfterReservation','PaypalController@sendDoneMail');
+Route::get('terms',function() {
+    return view('terms');
+});
+Route::get('policy',function() {
+    return view('Policy');
+});
+
+Route::get('redirect/{service}','SocialController@redirect');
+Route::get('callback/{service}','SocialController@callback');
+
+Route::get('map',function (){
+    return view('map');
+});

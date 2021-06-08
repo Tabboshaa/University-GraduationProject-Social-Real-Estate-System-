@@ -131,7 +131,7 @@ A sample `my-map.json` configuration file would look something like this:
   {
     "name": "write_data",
     "format": "jqvmap",
-    "file_name": "./output/jquery.vmap.my-map.js",
+    "file_name": "./output/jquery.vmap.my-locatorplus.js",
     "params": {
       "code_field": "iso_column",
       "name_field": "name_column",

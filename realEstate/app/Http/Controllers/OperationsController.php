@@ -32,14 +32,15 @@ class OperationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public static function create($item_Id)
+    public static function create($item_Id,$Operation_Type_Id)
     {
-
 
         try {
             $operations = operations::create([
+                'Operation_Type_Id'=>$Operation_Type_Id,
                 'Item_Id' => $item_Id,
                 'User_Id' => Auth::id()
+
             ]);
             return $operations->Operation_Id;
         } catch (\Illuminate\Database\QueryException $e) {
@@ -49,7 +50,7 @@ class OperationsController extends Controller
             }
             if ($errorCode == 1048) {
                 return back()->with('error', 'You must select all values!!');
-            }
+            }else{ return 'Error';}
         }
     }
     public static function createType()
@@ -253,7 +254,7 @@ class OperationsController extends Controller
         return view('website\backend.database pages.Operation_Details_show', ['Detail1' => $operationDetailName, 'Operation__types' => $operationname]);
     }
 
-    //show reservations for an item in admin     
+    //show reservations for an item in admin
     public function showreservations($item_id)
     {
         $item = Item::all()->where('Item_Id', '=', $item_id)->first();
@@ -262,10 +263,10 @@ class OperationsController extends Controller
     }
     public function showuserreservations()
     {
-       
+
         $user=Auth::user();
         $operations= $user->operations;
-        
+
         return view('website.frontend.customer.ShowReservation', ['operations' => $operations]);
     }
     //delete operation

@@ -135,6 +135,17 @@ class AttachmentController extends Controller
         return $post_attachment;
     }
 
+    public static function getAttachmentsOfuser($id)
+    {
+        //
+        $post_attachment = DB::table('post_attachments')
+            ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
+            ->join('posts','posts.Post_Id','=','post_attachments.Post_Id')
+            ->select('post_attachments.*', 'attachments.File_Path')->where('posts.User_Id', '=', $id)
+            ->paginate(4);
+        return $post_attachment;
+    }
+
     /**
      * Remove the specified resource from storage.
      *

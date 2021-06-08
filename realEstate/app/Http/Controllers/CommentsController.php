@@ -148,9 +148,10 @@ class CommentsController extends Controller
         $comments=DB::table('comments')
         ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
         ->join('users', 'users.id', '=', 'comments.User_Id')
+        ->LeftJoin('profile_photos','profile_photos.User_Id','=','comments.User_Id')
         ->where('Parent_Comment','=',null)
         ->where('posts.Item_Id','=',$item_id)
-        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
+        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name','profile_photos.Profile_Picture')
         ->get()
         ->groupBy('Post_Id');
 
@@ -165,11 +166,14 @@ class CommentsController extends Controller
         $comments=DB::table('comments')
         ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
         ->join('users', 'users.id', '=', 'comments.User_Id')
+        ->LeftJoin('profile_photos','profile_photos.User_Id','=','comments.User_Id')
         ->where('comments.Parent_Comment','!=',null)
         ->where('posts.Item_Id','=',$item_id)
-        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
+        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name','profile_photos.Profile_Picture')
         ->get()
         ->groupBy('Parent_Comment');
+
+
 
         return $comments;
     }
@@ -179,9 +183,10 @@ class CommentsController extends Controller
         $comments=DB::table('comments')
         ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
         ->join('users', 'users.id', '=', 'comments.User_Id')
+        ->LeftJoin('profile_photos','profile_photos.User_Id','=','comments.User_Id')
         ->where('Parent_Comment','=',null)
         ->where('comments.Post_Id','=',$post_id )
-        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
+        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name','profile_photos.Profile_Picture')
         ->get();
 
 
@@ -193,9 +198,10 @@ class CommentsController extends Controller
         $comments=DB::table('comments')
         ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
         ->join('users', 'users.id', '=', 'comments.User_Id')
+        ->LeftJoin('profile_photos','profile_photos.User_Id','=','comments.User_Id')
         ->where('comments.Parent_Comment','!=',null)
         ->where('comments.Post_Id','=',$post_id )
-        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
+        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name','profile_photos.Profile_Picture')
         ->get();
 
         return $comments;
@@ -204,8 +210,9 @@ class CommentsController extends Controller
     {
         $comments=DB::table('comments')
         ->join('users', 'users.id', '=', 'comments.User_Id')
+        ->LeftJoin('profile_photos','profile_photos.User_Id','=','comments.User_Id')
         ->where('comments.Parent_Comment','=',request('comment_id'))
-        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
+        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name','profile_photos.Profile_Picture')
         ->get();
 
         return $comments;
@@ -214,9 +221,10 @@ class CommentsController extends Controller
     {
         $comments=DB::table('comments')
         ->join('users', 'users.id', '=', 'comments.User_Id')
+        ->LeftJoin('profile_photos','profile_photos.User_Id','=','comments.User_Id')
         ->where('comments.Parent_Comment','!=',null)
         ->where('comments.Post_Id','=',request('post_id'))
-        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name')
+        ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name','profile_photos.Profile_Picture')
         ->get();
 
         return $comments;

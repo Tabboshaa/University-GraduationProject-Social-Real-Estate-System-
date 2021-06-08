@@ -1,5 +1,4 @@
 <!-- navigation left -->
-
 <nav class="navigation scroll-bar">
 	<div class="container ps-0 pe-0">
 		<div class="nav-content">
