@@ -258,33 +258,32 @@ class CustomerHomeController extends Controller
             ->select('items.*', 'cover__pages.path')
             ->get();
         $state = StateController::getStates();
-
-        return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items]);
+        
+        return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items ]);
     }
 
     public function findItemInStateAndDate() 
     {
-        $state_id = StateController::findstatebyname(request('search')); //3
+        $state_id = StateController::findstatebyname(request('state')); //3
         $arrivaldate = request('arrivaldate');
         $departuredate = request('departuredate');
-
-
+        
+        $User_Id = Auth::id();
         $items = DB::table('items')
-            ->join('streets', 'streets.Street_Id', '=', 'items.Street_Id')
-            ->join('schedules', 'schedules.Item_Id', '=', 'items.Item_Id')
-            ->join('cover__pages', 'cover__pages.Item_Id', '=', 'items.Item_Id')
-            ->where('streets.State_Id', '=', $state_id)
-            ->WhereDate('schedules.Start_Date', '<=', $arrivaldate)
-            ->WhereDate('schedules.End_Date', '>=', $departuredate)
-            ->select('items.*', 'cover__pages.path')
-            ->get();
-
-            return $items;
-
-        $state = StateController::getStates();
+        ->join('streets', 'streets.Street_Id', '=', 'items.Street_Id')
+        ->join('schedules', 'schedules.Item_Id', '=', 'items.Item_Id')
+        ->LeftJoin('cover__pages', 'cover__pages.Item_Id', '=', 'items.Item_Id')
+        ->where('streets.State_Id', '=', $state_id)
+        ->WhereDate('schedules.Start_Date', '<=', $arrivaldate)
+        ->WhereDate('schedules.End_Date', '>=', $departuredate)
+        ->select('items.*', 'cover__pages.path')
+        ->get(); 
+        
+        $check_follow = followeditemsbyuser::all()->where('User_ID', '=', $User_Id)->groupBy('Item_Id');
 
         $state = StateController::getStates();
-        return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items]);
+
+        return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items, 'check_follow' => $check_follow]);
     }
 
     public function FollowedItemPosts($item_id)
