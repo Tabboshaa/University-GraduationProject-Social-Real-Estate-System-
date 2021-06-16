@@ -47,6 +47,7 @@ class   LoginControllerUser extends Controller
 
     public function loginViaEmail()
     {
+        
         $email=request('email');
         $password=request('password');
 

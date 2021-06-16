@@ -61,8 +61,6 @@
         });
     });
 
-
-
     function review(starNumber) {
         n = starNumber;
         var content = document.getElementById('content').valueOf();
@@ -78,67 +76,7 @@
             x[i].className = "fa blue fa-star-o";
         }
     }
-
-
-    function Comment(post_id) {
-
-        var comment = $("#CommentForReview" + post_id).val();
-
-        if (comment.length == 0) {
-            return;
-        }
-
-        $.ajax({
-            url: "{{route('comment.add')}}",
-            Type: "POST",
-            data: {
-                post_id: post_id,
-                comment: comment
-
-            },
-            success: function(data) {
-
-                console.log(data);
-            },
-            error: function() {
-                console.log(post_id);
-                console.log(comment);
-                console.log('Error');
-            }
-
-        });
-    };
-
-    function Reply(post_id, parent_id) {
-
-        var comment = $("#ReplyForComment" + parent_id).val();
-
-        if (comment.length == 0) {
-            return;
-        }
-
-        $.ajax({
-            url: "{{route('reply.add')}}",
-            Type: "POST",
-            data: {
-                post_id: post_id,
-                parent_id: parent_id,
-                comment: comment
-
-            },
-            success: function(data) {
-
-                console.log(data);
-            },
-            error: function() {
-                console.log(post_id);
-                console.log(comment);
-                console.log('Error');
-            }
-
-        });
-    };
-</script>
+ </script>
 
 
 

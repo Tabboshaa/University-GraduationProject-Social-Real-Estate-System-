@@ -16,7 +16,7 @@
                 <div class="col-lg-12 mb-3">
                     <div class="form-group">
                         <i class="fa fa-search icn " aria-hidden="true"></i>
-                        <input type="text" class="form-control" name="state placeholder=" placeholder="Search for item by state....">
+                        <input type="text" class="form-control" name="state" placeholder="Search for item by state....">
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 </script>
 
                 <div class="col-lg-12 mb-0 mt-2 ps-0">
-                    <a href="" onclick="javascript:this.form.submit();" class="bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-3 d-inline-block">Search</a>
+                    <input type="submit" class="bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-3 d-inline-block" value="Search">
                 </div>
         </form>
     </div>

@@ -1,54 +1,6 @@
 `@extends('website.frontend.layouts.main')
 @section('profile')
 <link href="{{asset('css/FrontEndCSS/CustomerHome.css')}}" rel="stylesheet" type="text/css" />
-<!-- Model -->
-<div class="modal fade" id="EditCommentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Comment</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="EditCommentForm">
-                    @csrf
-                    <input type="hidden" name="id" id="id">
-                    <div class="form-group">
-                        <label for="edit_Comment" style="font-size: 12pt">Edit Comment</label>
-                        <input type="text" style="border-radius: 3pt" name="edit_Comment" id="editComment" class="form-control">
-                    </div>
-                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="EditPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Post</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="EditPostForm">
-                    @csrf
-                    <input type="hidden" name="id" id="id">
-                    <div class="form-group">
-                        <label for="edit_Post" style="font-size: 12pt">Edit Post</label>
-                        <input type="text" style="border-radius: 3pt" name="edit_Post" id="editPost" class="form-control">
-                    </div>
-                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 
 <!-- top box -->
@@ -226,8 +178,8 @@
                     <a class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>Create Post</a>
                 </div>
                 <div class="card-body p-0 mt-3 position-relative">
-                    <!-- <figure class="avatar position-absolute ms-2 mt-1 top-5"><img class="shadow-sm rounded-circle w30" src="{{asset('storage/cover page/'.$User->profilePhoto['Profile_Picture'])}}" alt="image"></figure> -->
-                    <textarea name="Post_Content" value="{{ old('Post_Content') }}"  style="padding-left:50pt;" class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?" required></textarea>
+                    <!-- <figure class="avatar position-absolute ms-2 mt-1 top-5"><img class="shadow-sm rounded-circle w30" src="{{asset('storage/cover page/'.$User->profilePhoto->Profile_Picture)}}" alt="image"></figure> -->
+                    <textarea name="Post_Content" value="{{ old('Post_Content') }}" style="padding-left:50pt;" class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?" required></textarea>
                 </div>
                 <div class="card-body d-flex p-2 mt-0">
                     <label for="uploadImages" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 pt-2"><i class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Add Photo</span></label>
@@ -404,7 +356,30 @@
 
             },
             success: function(data) {
-
+                console.log(data);
+                if(data['Profile_Picture'] == null)
+                {
+                    data['Profile_Picture']='pic.png';
+                }
+                $("#allcomments" + post_id).prepend("<div class='chat-body messages-content pb-5 card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10'>" 
+                    +"<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/"+data['Profile_Picture']+"\" alt='image' class='shadow-sm rounded-circle w35'></figure>" 
+                    +"<div class='chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg'>" 
+                    +"<a href=\"/veiw_User/"+data['User_Id']+"\">" 
+                    +"<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> "+data['First_Name']+" "+data['Middle_Name']+" "+" "+data['Last_Name']+"" 
+                    +"<a href=\"/deletecomment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" 
+                    +"<a href=\"javascript:void(0)\" onclick=\"setComment('" + data['Comment_Id'] + "','" + data['Comment'] + "')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>" 
+                    +"</a></h4>"
+                    +"<div class=\"time\"><\?php $end = \Carbon\Carbon::parse(" + data['updated_at'] + "); ?><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> {{ $end->diffForHumans($today) }}</p></div>" 
+                    +"<p class=\"fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0\">" + data['Comment'] + "</p>" 
+                    +"</div>"
+                    +"</div>" 
+                    +"<a href=\"javascript:void(0)\" id=\"morereplies\" onclick=\"$('#allreplies" + data['Comment_Id'] + "').slideToggle(function(){$('#morereplies').html($('#allreplies" + data['Comment_Id'] + "').is(':visible')?'Hide Replies':'0 Relpies');});\" class=\"ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss\"><i class=\"feather-message-circle text-dark text-grey-900 btn-round-sm font-lg\"></i>0 Relpies</span></a>" 
+                    +"<div id=\"allreplies" + data['Comment_Id'] + "\" style=\"display: none;\">" 
+                    +"<div class=\"form-group\">" 
+                    +"<input id=\"ReplyForComment" + data['Comment_Id'] + "\" name=\"comment" + data['Comment_Id'] + "\" placeholder=\"Write a reply...\" type=\"text\" style=\"background-color:#0055ff1a;width:770px;\" class=\"border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xsssss fw-500 rounded-xl w300 theme-dark-bg\">" 
+                    +"<a href=\"javascript:void(0)]\" onclick=\"Reply('" + post_id + "','" + data['Comment_Id'] + "');\"><i class=\"btn-round-sm bg-primary-gradiant text-white font-sm ti-arrow-right text-blue\"></i></a>" 
+                    +"</div>" 
+                    +"</div></div>");
                 console.log(data);
             },
             error: function() {
@@ -434,6 +409,17 @@
 
             },
             success: function(data) {
+                $("#allreplies" + parent_id).append("<div class=\"card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative\">" 
+                    +"<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/"+data['Profile_Picture']+"\" alt='image' class='shadow-sm rounded-circle w35'></figure>" 
+                    +"<div class=\"chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg\">" 
+                    +"<a href=\"/veiw_User/"+data['User_Id']+"\">" 
+                    +"<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> "+data['First_Name']+" "+data['Middle_Name']+" "+" "+data['Last_Name']+"" 
+                    +"<a href=\"javascript:void(0)\" onclick=\"setComment('"+ data['Comment_Id']+"','"+ data['Comment']+"')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>"           
+                    +"</a></h4>"
+                    +"<div class=\"time\"><\?php $end = \Carbon\Carbon::parse(" + data['updated_at'] + "); ?><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> {{ $end->diffForHumans($today) }}</p></div>" 
+                    +"<p class=\"fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0\">" + data['Comment'] + "</p>" 
+                    +"</div>"
+                    +"</div>");
 
                 console.log(data);
             },

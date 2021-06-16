@@ -99,6 +99,7 @@ class CustomerHomeController extends Controller
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
+        
         return view(
             'website\frontend\customer\Item_Profile_Posts',
             [
@@ -127,6 +128,7 @@ class CustomerHomeController extends Controller
 
       $item=Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
+        
         //schedule and location
 
         $User_Id = Auth::id();
@@ -256,32 +258,32 @@ class CustomerHomeController extends Controller
             ->select('items.*', 'cover__pages.path')
             ->get();
         $state = StateController::getStates();
-
-        return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items]);
+        
+        return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items ]);
     }
 
-    public function findItemInStateAndDate()
+    public function findItemInStateAndDate() 
     {
-        $state_id = StateController::findstatebyname(request('search')); //3
+        $state_id = StateController::findstatebyname(request('state')); //3
         $arrivaldate = request('arrivaldate');
         $departuredate = request('departuredate');
-
-
+        
+        $User_Id = Auth::id();
         $items = DB::table('items')
-            ->join('streets', 'streets.Street_Id', '=', 'items.Street_Id')
-            ->join('schedules', 'schedules.Item_Id', '=', 'items.Item_Id')
-            ->join('cover__pages', 'cover__pages.Item_Id', '=', 'items.Item_Id')
-            ->where('streets.State_Id', '=', $state_id)
-            ->orWhereDate('schedules.Start_Date', '<=', $arrivaldate)
-            ->orWhereDate('schedules.End_Date', '>=', $departuredate)
-            ->select('items.*', 'cover__pages.path')
-            ->get();
-
+        ->join('streets', 'streets.Street_Id', '=', 'items.Street_Id')
+        ->join('schedules', 'schedules.Item_Id', '=', 'items.Item_Id')
+        ->LeftJoin('cover__pages', 'cover__pages.Item_Id', '=', 'items.Item_Id')
+        ->where('streets.State_Id', '=', $state_id)
+        ->WhereDate('schedules.Start_Date', '<=', $arrivaldate)
+        ->WhereDate('schedules.End_Date', '>=', $departuredate)
+        ->select('items.*', 'cover__pages.path')
+        ->get(); 
+        
+        $check_follow = followeditemsbyuser::all()->where('User_ID', '=', $User_Id)->groupBy('Item_Id');
 
         $state = StateController::getStates();
 
-        $state = StateController::getStates();
-        return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items]);
+        return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items, 'check_follow' => $check_follow]);
     }
 
     public function FollowedItemPosts($item_id)
@@ -299,16 +301,17 @@ class CustomerHomeController extends Controller
     public function HomePagePosts()
     {
 
-        $User_Id = Auth::id();
+        $User = Auth::user();
 
-        $user = User::all()->where('id', '=', $User_Id);
+        
 
         $posts = DB::table('followeditemsbyusers')
             ->join('posts', 'followeditemsbyusers.Item_Id', 'posts.Item_Id')
             ->join('items', 'followeditemsbyusers.Item_Id', 'items.Item_Id')
             ->Leftjoin('cover__pages', 'cover__pages.Item_Id', 'followeditemsbyusers.Item_Id')
             ->select('posts.*', 'items.Item_Name','cover__pages.path')
-            ->where('followeditemsbyusers.User_ID', '=', $User_Id)
+            ->where('followeditemsbyusers.User_ID', '=', $User->id)
+            ->orderBy('updated_at','DESC')
             ->get();
 
         $cover__pages = DB::table('cover__pages')
@@ -348,20 +351,19 @@ class CustomerHomeController extends Controller
         }
         // return $replies;
 
-        $check_follow = followeditemsbyuser::all()->where('User_ID', '=', $User_Id);
+        $check_follow = followeditemsbyuser::all()->where('User_ID', '=', $User->id);
 
         return view(
             "website.frontend.customer.HomePagePosts",
             [
                 'posts' => $posts,
-                'user' => $user,
                 'items' => $items,
                 'post_images' => $post_images,
                 'comments' => $comments,
                 'replies' => $replies,
                 'cover__pages' => $cover__pages,
                 'check_follow' => $check_follow,
-                'User_Id' => $User_Id
+                'User' => $User
             ]
         );
     }
@@ -393,7 +395,7 @@ class CustomerHomeController extends Controller
 
 
         posts::destroy($request->id);
-        return redirect()->route('HomePage')->with('success', 'Post Deleted Successfully');
+        return redirect()->back()->with('success', 'Post Deleted Successfully');
     }
     public function editPost()
     {

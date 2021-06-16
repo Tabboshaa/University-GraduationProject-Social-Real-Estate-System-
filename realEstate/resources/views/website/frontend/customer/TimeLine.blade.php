@@ -1,52 +1,37 @@
 @extends('website.frontend.layouts.main')
-@section('content')
-<div class="row">
-    <div class="container-fluid">
-        <div class="dashboard">
-            <link href="{{asset('css/FrontEndCSS/TimeLine.css')}}" rel="stylesheet" type="text/css" />
+@section('profile')
+
+<div style="margin-left:150px;"class="row">
+    <div class="col-xl-12 ">
+        <div class="row ps-2 pe-1">
             {{-- Posts --}}
             @foreach($items as $item)
-            <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
-                <table>
-                    <thead>
-                        <tr class="postinfo">
-                            <th colspan="3">
-                                <h4>
-                                    <img height="50" width="70" src="{{asset('FrontEnd/images/coverpage/'.$item->path)}}" alt="">
-                                    {{ $item->Item_Name }}
-                                    <p> {{ $item->created_at }}</p>
-                                </h4>
-                            </th>
-
-                        </tr>
-                    </thead>
-
-                    <form>
-                        <tbody>
-                            <tr class="postcontent">
-                                <td colspan="3">
-                                    <p>
-                                        This paragraph contains a lot of lines in the source code, but the browser ignores it.
-                                        This paragraph contains a lot of spaces in the source code, but the browser ignores it.
-                                        The number of lines in a paragraph depends on the size of the browser window. If you
-                                        resize the browser window, the number of lines in this paragraph will change.
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr class="postfooter">
-
-                                <td colspan="3">
-                                    <input type="submit" id="btun2" value="Rent">
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </form>
-                    <div class="clearfix"></div>
-                </table>
-            </a>
+                    <div class="col-md-12 col-sm-12 pe-2 ps-2">
+                        <div class="card d-block border-0 shadow-xss rounded-3 overflow-hidden mb-3">
+                            <div class="card-body position-relative h200 bg-image-cover bg-image-center" style="background-image:url('{{asset('FrontEnd/Images/coverpage/'.$item->path)}}')"></div>
+                            
+                            <div  class="card-body d-block w-100 pl-5 pe-4 pb-4 pt-0 text-left position-relative">
+                                <div class="clearfix"></div>
+                                <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
+                                    <h4 class="fw-700 font-xsss mt-3 mb-1" >{{ $item->Item_Name }}</h4>
+                                </a>
+                                <span class="position-absolute right-15 top-0 d-flex align-items-center">
+                                    @if (isset($check_follow[$item->Item_Id]))
+                                        <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}" class="text-center p-2 lh-24 w100 ms-1 ls-3 d-inline-block rounded-xl bg-current font-xsssss fw-700 ls-lg text-white"> <i class="fa fa-heart" aria-hidden="true"></i> Un Follow</a>
+                                    @else
+                                        <a href="{{url('/FollowItem/'.$item->Item_Id)}}" class="text-center p-2 lh-24 w100 ms-1 ls-3 d-inline-block rounded-xl bg-current font-xsssss fw-700 ls-lg text-white"> <i class="fa fa-heart-o" aria-hidden="true"></i> Follow</a>
+                                    @endif
+                                </span>
+                                <br><br>
+                            <p  >Rooms:3 Number of rooms  Number of rooms  Number of rooms  Number of rooms  Number of rooms  Number of rooms </p>
+                            </div>
+                        </div>
+                    </div>
             @endforeach
+
         </div>
     </div>
 </div>
+
+                        
 @endsection
