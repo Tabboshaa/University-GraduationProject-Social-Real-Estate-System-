@@ -15,7 +15,7 @@
                     </label>
 
                     <div class="col-md-2">
-                        <input id="Main Type Name" style="border-radius: 3pt" type="text" class="form-control @error('Main_Type_Name') is-invalid @enderror" name="Main_Type_Name" value="{{ old('Main_Type_Name') }}" required autocomplete="Main_Type_Name" autofocus>
+                        <input id="Main Type Name" style="border-radius: 3pt" type="text" class="form-control @error('Main_Type_Name') is-invalid @enderror" name="Main_Type_Name" value="{{ old('Main_Type_Name') }}" required autocomplete="Main_Type_Name" pattern="[A-Z][a-z]+" title="Start with capital letter " autofocus>
 
                         @error('Main_Type_Name')
                         <span class="invalid-feedback" role="alert">
