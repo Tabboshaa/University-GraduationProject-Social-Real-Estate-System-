@@ -16,7 +16,7 @@
                 <div class="col-lg-12 mb-3">
                     <div class="form-group">
                         <i class="fa fa-search icn " aria-hidden="true"></i>
-                        <input type="text" class="form-control" name="search" placeholder="Search for item by state....">
+                        <input type="text" class="form-control" name="state" placeholder="Search for item by state....">
                     </div>
                 </div>
             </div>

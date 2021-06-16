@@ -47,8 +47,10 @@ class LoginController extends Controller
 
     public function loginViaEmailAdmin()
     {
+        
         $email=request('email');
         $password=request('password');
+        
 
         if ($emailModel = Emails::all()->where('email', $email)->first())
         {

@@ -159,8 +159,9 @@ class StateController extends Controller
     {
 
         $state = State::where('State_Name', 'like', '%' . $statename . '%')->get('State_Id')->first();
-
+        if($state != null)
         return $state->State_Id;
+        else return null;
     }
 
     public static function getStates()

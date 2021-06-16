@@ -265,8 +265,7 @@ class OperationsController extends Controller
     {
 
         $user=Auth::user();
-        $operations= $user->operations;
-
+        $operations= $user->operations; 
         return view('website.frontend.customer.ShowReservation', ['operations' => $operations]);
     }
     //delete operation
