@@ -2,251 +2,79 @@
 @section('profile_Content')
 @include('website.backend.layouts.flashmessage')
 
+
 <div class="row">
-    <div class="col-md-12">
-        <div class="box-left">
-            <div class="rightboxs">
-                <div name="post">
-                    <div class="sub-heading">
-                        <form method="Post" action="{{url('/delete_schedule?_method=delete')}}" enctype="multipart/form-data">
-                            @csrf
-                                <a href="javascript:void(0)" onclick="createSchedule()">
-                                    Add Scedule<i class="fa fa-plus-square"></i>
-                                </a>
-                            <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
-                                <tr class="rightmsg">
-                                    <td class="box" style="background-color:rgb(252, 252, 252);">Start date</td>
-                                    <td class="box" style="background-color:rgb(252, 252, 252);">End date</td>
-                                    <td class="box" style="background-color:rgb(252, 252, 252);">Price per night</td>
-                                    <td class="box" style="background-color:rgb(252, 252, 252);">Edit</td>
-                                    <td>Select all <input type="checkbox" id="selectAll" name="selectAll"> <button class="btn"><i class="fa fa-trash" style="margin-right:200px;"></i></td>
+    <div class="col-xl-12">
+        <form method="Post" action="{{url('/delete_schedule?_method=delete')}}" enctype="multipart/form-data">
+            @csrf
+            <div class="row ms-10 mb-10">
+                <a class="d-none d-lg-block bg-blue-gradiant p-3 mb-3 ms-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 w-auto" href="javascript:void(0)" onclick="createSchedule('{{$item_id}}')">
+                    Add Scedule <i class="fa fa-plus-square"></i>
+                </a>
+            </div>
+            <div class="clearfix"></div>
 
-                                        <script>
-                                            document.getElementById('selectAll').onclick = function() {
-                                                var checkboxes = document.getElementsByName('schedule[]'); //get all check boxes with name delete
-                                                for (var checkbox of checkboxes) { //for loop to set all checkboxes to checked
-                                                    checkbox.checked = this.checked;
-                                                }
-                                            }
-                                        </script>
+            <div class="row">
+                <span class="d-flex font-xssss fw-500 mt-2 lh-3 text-black-500 ps-3">
+                    <p class="fw-700 lh-3 font-xss"> Select all <input type="checkbox" id="selectAll" name="selectAll"><button class="btn"><i class="feather-trash"></i></button>
+                    </p>
+                </span>
+                <script>
+                    document.getElementById('selectAll').onclick = function() {
+                        var checkboxes = document.getElementsByName('schedule[]'); //get all check boxes with name delete
+                        for (var checkbox of checkboxes) { //for loop to set all checkboxes to checked
+                            checkbox.checked = this.checked;
+                        }
+                    }
+                </script>
+                
+                @foreach($schedules as $schedule)
+                <div class="col-lg-4 col-md-6 pe-2 ps-2" style="display:table;">
+                    <div class="card p-0 bg-white w-100 hover-card border-0 shadow-xss rounded-xxl border-0 mb-3 overflow-hidden ">
 
-                                </tr>
-                                @foreach($schedules as $schedule)
-                                <tr class="rightmsg">
-                                    <td class="box">{{$schedule->Start_Date}}</td>
-                                    <td class="box">{{$schedule->End_Date}}</td>
-                                    <td class="box">{{$schedule->Price_Per_Night}}</td>
-                                <td><a href="javascript:void(0)" onclick="setSchedule('{{$schedule->schedule_Id}}','{{$schedule->Start_Date}}','{{$schedule->End_Date}}','{{$schedule->Price_Per_Night}}')"><i class="fa fa-edit"> </i></a></td>
-                                <td><input type="checkbox" name="schedule[]" value="{{$schedule->schedule_Id}}" id="schedule"></td>
-                                </tr>
-                                @endforeach
-                            </table>
-                        </form>
+                        <span class="d-flex font-xssss fw-500 mt-2 lh-3 text-black-500 ps-3">
+                            <p class="fw-700 lh-3 font-xss">
+                                Select <input type="checkbox" name="schedule[]" value="{{$schedule->schedule_Id}}" id="schedule"> <a href="javascript:void(0)" onclick="setSchedule('{{$schedule->schedule_Id}}','{{$schedule->Start_Date}}','{{$schedule->End_Date}}','{{$schedule->Price_Per_Night}}')"><i class="feather-edit"> </i></a>
+                            </p>
+                        </span>
+
+                        <span class="d-flex font-xssss fw-500 mt-2 lh-3 text-black-500 ps-3">
+                            <p class="fw-700 lh-3 font-xss">Start date : {{$schedule->Start_Date}}
+                            </p>
+                        </span>
+
+                        <span class="d-flex font-xssss fw-500 mt-2 lh-3 text-black-500 ps-3">
+                            <p class="fw-700 lh-3 font-xss">End date : {{$schedule->End_Date}}
+                            </p>
+                        </span>
+
+                        <span class="d-flex font-xssss fw-500 mt-2 lh-3 text-black-500 ps-3">
+                            <p class="fw-700 lh-3 font-xss">Price per night : {{$schedule->Price_Per_Night}}
+                            </p>
+                        </span>
+
+
                     </div>
-                    <div class="clearfix"></div>
                 </div>
-            </div>
-        </div>
+                @endforeach
+
+        </form>
     </div>
-    <div class="addbtn1">
-        <!-- <a href="javascript:void(0)" onclick="goreserve('{{$item_id}}');" id="gobutton" style=" margin-top:90px; margin-left:50px">edit Schdule</a> -->
-    </div>
+    <div class="clearfix"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="addbtn1">
+    <!-- <a href="javascript:void(0)" onclick="goreserve('{{$item_id}}');" id="gobutton" style=" margin-top:90px; margin-left:50px">edit Schdule</a> -->
+</div>
 </div>
 
-{{-- Create Scheduale --}}
-<div class="modal fade" id="CreateScheduleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Create New Scheduale</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="CreateSchedule" method="get" >
-                    @csrf
-                    <input type="hidden" name="id" id="idNewSchedule"  value="{{$item->Item_Id}}">
-                    <div class="form-group">
-                        <label  style="font-size: 12pt">Start Date</label>
-                        <input id="arrival" type="date" style="border-radius: 3pt" name="StartDate"  class="form-control">
 
-                    </div>
-                    <div class="form-group">
-                        <label style="font-size: 12pt">End Date</label>
-                        <input id="departure" type="date" style="border-radius: 3pt" name="EndDate"  class="form-control">
-
-                    </div>
-                    <div class="form-group">
-                        <label style="font-size: 12pt" >Price Per Night</label>
-                        <input id="price" type="text" style="border-radius: 3pt" name="Price"  class="form-control">
-
-                    </div>
-                    <button type="submit" id="btun3" class="btn btn-success">Continue</button>
-                </form>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- Edit SchedualeModal --}}
-<div class="modal fade" id="EditScheduleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Need more information</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="EditSchedule" method="Post" action="{{url('')}}">
-                    @csrf
-                    <input type="hidden" name="id" id="id">
-                    <div class="form-group">
-                        <label  style="font-size: 12pt">Start Date</label>
-                        <input id="StartDate" type="date" style="border-radius: 3pt" name="StartDate"  class="form-control">
-
-                    </div>
-                    <div class="form-group">
-                        <label style="font-size: 12pt">End Date</label>
-                        <input id="EndDate" type="date" style="border-radius: 3pt" name="EndDate"  class="form-control">
-
-                    </div>
-                    <div class="form-group">
-                        <label style="font-size: 12pt" >Price Per Night</label>
-                        <input id="Price" type="text" style="border-radius: 3pt" name="Price"  class="form-control">
-
-                    </div>
-                    <button type="submit" id="btun3" class="btn btn-success">Continue</button>
-                </form>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="{{ asset('js/app.js') }}" defer></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script>
-    var s = 0;
-    var start;
-    var end;
-    var start_date;
-    var end_Date;
-    var start_id;
-    var End_id;
-    var schedule;
+    function createSchedule(item_id) {
 
-    function test(day, schedule_Id) {
-        var date2;
-        var clicked = document.getElementById(day);
-        var clicked_id = clicked.getAttribute('id');
-        var schedule_Id2;
-        var disable;
-
-
-        // if(clicked_id==start_id){clicked.className="calendar-table__item"; s=0; start_id=null; start=nu }// reset all days if s=0 or 1 or
-        // else if(clicked_id==End_id){clicked.className="calendar-table__item"; s=1;}
-
-        if (s == 0) {
-            clicked.className = 'calendar-table__item_Start';
-            s = 1;
-            start = clicked;
-            start_id = clicked.getAttribute('id');
-            start_date = new Date(start_id);
-
-            disable = document.getElementsByClassName("calendar-table__item");
-            // console.log(disable.length); //44
-
-            $('.calendar-table__item').each(function() {
-                var $this = $(this);
-                // console.log($this);
-                schedule_Id2 = $this[0].getAttribute("name");
-                date2 = new Date($this[0].getAttribute("id"));
-
-                if (schedule_Id2 != schedule_Id) {
-                    $this.removeClass('calendar-table__item').addClass('calendar-table__item_isdisable');
-                }
-                if (date2 < start_date) {
-                    $this.removeClass('calendar-table__item').addClass('calendar-table__item_isdisable');
-                }
-            });
-        } else if (s == 1) {
-
-            clicked.className = 'calendar-table__item_End';
-            end = clicked;
-            End_id = end.getAttribute('id');
-            end_Date = new Date(End_id);
-            s = 2;
-            if (End_id == start_id) {
-                end.className = 'one_day';
-            }
-
-            $('.calendar-table__item').each(function() {
-                var $this = $(this);
-                date2 = new Date($this[0].getAttribute("id"));
-                if (date2 > start_date && date2 < end_Date) {
-                    // console.log($this);
-                    $this.removeClass('calendar-table__item').addClass('calendar-table__item_Rang');
-
-                }
-            });
-            // $("#gobutton").style.display = "none";
-            schedule = schedule_Id;
-            console.log(schedule);
-            document.getElementById("gobutton").style.display = "inline";
-
-        } else {
-            end.className = 'calendar-table__item';
-            start.className = 'calendar-table__item';
-            $('.calendar-table__item_Rang').each(function() {
-                var $this = $(this);
-                $this.removeClass('calendar-table__item_Rang ').addClass('calendar-table__item');
-            });
-            $('.calendar-table__item_isdisable').each(function() {
-                var $this = $(this);
-                $this.removeClass('calendar-table__item_isdisable ').addClass('calendar-table__item');
-            });
-            s = 0;
-            schedule = null;
-            document.getElementById("gobutton").style.display = "none";
-        }
-
-    }
-
-    function goreserve(item_id) {
-        console.log(start_id);
-        console.log(End_id);
-        console.log(schedule);
-
-        $.ajax({
-            url: "{{route('calculate.days')}}",
-            Type: "POST",
-            data: {
-                start: start_id,
-                end: End_id,
-                schedule_Id: schedule,
-
-            },
-            success: function(data) {
-                console.log(data);
-                // return (['totalPrice'=>$totalPric>$start_date,"end_date"=>$end_date]);
-
-                location.href = "/Payment/" + item_id + "/" + data['totalDays'] + "/" + data['totalPrice'] + "/" + data['price_per_night'] +"/" + data['start_date'] +"/" + data['end_date'];
-            },
-            error: function(data) {
-
-                console.log(data['totalDays']);
-            }
-
-        });
-
-    }
-
-    function createSchedule()
-    {
+        $("#idNewSchedule").val(item_id);
         $("#CreateScheduleModal").modal("toggle");
     }
 
@@ -266,14 +94,14 @@
                 id: id,
                 arrival: arrival,
                 departure: departure,
-                price : price,
+                price: price,
                 _token: _token
             },
-            success:function(response) {
+            success: function(response) {
                 console.log(response);
                 // location.href = response;
             },
-            error:function() {
+            error: function() {
                 console.log('Error');
             }
 
@@ -281,8 +109,7 @@
     });
 
 
-    function setSchedule(schedule_id,start,end,price)
-    {
+    function setSchedule(schedule_id, start, end, price) {
         $("#id").val(schedule_id);
         $("#StartDate").val(start);
         $("#EndDate").val(end);
@@ -304,7 +131,7 @@
                 id: id,
                 StartDate: StartDate,
                 EndDate: EndDate,
-                Price : Price,
+                Price: Price,
                 _token: _token
             },
             success: function(response) {

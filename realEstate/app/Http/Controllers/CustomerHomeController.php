@@ -300,16 +300,17 @@ class CustomerHomeController extends Controller
     public function HomePagePosts()
     {
 
-        $User_Id = Auth::id();
+        $User = Auth::user();
 
-        $user = User::all()->where('id', '=', $User_Id);
+        
 
         $posts = DB::table('followeditemsbyusers')
             ->join('posts', 'followeditemsbyusers.Item_Id', 'posts.Item_Id')
             ->join('items', 'followeditemsbyusers.Item_Id', 'items.Item_Id')
             ->Leftjoin('cover__pages', 'cover__pages.Item_Id', 'followeditemsbyusers.Item_Id')
             ->select('posts.*', 'items.Item_Name','cover__pages.path')
-            ->where('followeditemsbyusers.User_ID', '=', $User_Id)
+            ->where('followeditemsbyusers.User_ID', '=', $User->id)
+            ->orderBy('updated_at','DESC')
             ->get();
 
         $cover__pages = DB::table('cover__pages')
@@ -349,20 +350,19 @@ class CustomerHomeController extends Controller
         }
         // return $replies;
 
-        $check_follow = followeditemsbyuser::all()->where('User_ID', '=', $User_Id);
+        $check_follow = followeditemsbyuser::all()->where('User_ID', '=', $User->id);
 
         return view(
             "website.frontend.customer.HomePagePosts",
             [
                 'posts' => $posts,
-                'user' => $user,
                 'items' => $items,
                 'post_images' => $post_images,
                 'comments' => $comments,
                 'replies' => $replies,
                 'cover__pages' => $cover__pages,
                 'check_follow' => $check_follow,
-                'User_Id' => $User_Id
+                'User' => $User
             ]
         );
     }
@@ -394,7 +394,7 @@ class CustomerHomeController extends Controller
 
 
         posts::destroy($request->id);
-        return redirect()->route('HomePage')->with('success', 'Post Deleted Successfully');
+        return redirect()->back()->with('success', 'Post Deleted Successfully');
     }
     public function editPost()
     {

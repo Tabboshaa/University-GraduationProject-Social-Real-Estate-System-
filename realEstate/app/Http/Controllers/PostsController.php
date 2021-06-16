@@ -113,7 +113,13 @@ class PostsController extends Controller
     public static function userPosts($id)
     {
         //
-         $posts=posts::all()->where('User_Id','=',$id);
+         $posts=DB::table('posts')
+         ->join('users', 'users.id', '=', 'posts.User_Id')
+         ->where('User_Id','=',$id)
+         ->select('posts.*')
+         ->orderBy('updated_at','DESC')
+         ->get();
+         
         return $posts;
     }
 
@@ -169,6 +175,7 @@ class PostsController extends Controller
             ->LeftJoin('profile_photos','profile_photos.User_Id','=','posts.User_Id')
             ->where('posts.Item_Id', '=', $item_id)
             ->select('posts.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')
+            ->orderBy('updated_at','DESC')
             ->get();
 
 

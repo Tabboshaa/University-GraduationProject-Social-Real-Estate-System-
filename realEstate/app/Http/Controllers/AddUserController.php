@@ -192,7 +192,7 @@ class AddUserController extends Controller
 
         return view('website\frontend\customer\Customer_Profile', [
             'id' => $id,
-            'User_Id'=>$User_Id,
+            'User_Id'=>$user->id,
             'First_Name' => $user->First_Name,
             'Middle_Name' => $user->Middle_Name,
             'Last_Name' => $user->Last_Name,

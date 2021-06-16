@@ -14,7 +14,7 @@
 
             <div class="card-body d-block pt-4 text-center position-relative">
                 <figure class="avatar mt--6 position-relative w75 z-index-1 w100 z-index-1 ms-auto me-auto"><img src="{{asset('storage/cover page/'.$Profile_Photo)}}" alt="image" class="p-1 bg-white rounded-xl w-100"></figure>
-               
+
                 <h4 class="font-xs ls-1 fw-700 text-grey-900"> {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}<span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"></span></h4>
                 <div class="d-flex align-items-center pt-0 position-absolute left-15 top-10 mt-4 ms-2">
                     <h4 class="font-xsssss text-center d-none d-lg-block text-grey-500 fw-600 ms-2 me-2"><b class="text-grey-900 mb-1 font-sm fw-700 d-inline-block ls-3 text-dark">{{count($posts)}} </b> Posts</h4>
@@ -24,9 +24,9 @@
             <div class="card-body d-block w-100 shadow-none mb-0 p-0 border-top-xs">
                 <ul class="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4" id="pills-tab" role="tablist">
                     <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('veiw_User'.$id)}}" data-toggle="tab">Profile</a></li>
-                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('veiw_User'.$id)}}" data-toggle="tab">Owned items</a></li>
-                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('veiw_User'.$id)}}" data-toggle="tab">Followed items</a></li>
-                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('veiw_User'.$id)}}" data-toggle="tab">Gallery</a></li>
+                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('owner_items'.$id)}}" data-toggle="tab">Owned items</a></li>
+                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('followed_items'.$id)}}" data-toggle="tab">Followed items</a></li>
+                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('user_gallery'.$id)}}" data-toggle="tab">Gallery</a></li>
                 </ul>
             </div>
         </div>
@@ -38,7 +38,7 @@
         <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3">
             <div class="card-body d-block p-4">
                 <h4 class="fw-700 mb-3 font-xsss text-grey-900">Owned items</h4>
-                <p class="fw-500 text-grey-500 lh-24 font-xssss mb-0">Items of  {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}</p>
+                <p class="fw-500 text-grey-500 lh-24 font-xssss mb-0">Items of {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}</p>
 
             </div>
             <div class="card-body border-top-xs d-flex">
@@ -50,13 +50,13 @@
                         @else
                         <div class="card-body position-relative h90 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/Default1.jpeg')}}');"></div>
                         @endif
-                           <a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block active" href="{{url('/itemProfile/'.$item->Item_Id)}}" data-toggle="tab">{{$item->Item_Name}}</a>
-                            @if(count($item->checkfollow) == 0)
-                            <a href="{{url('/FollowItem/'.$item->Item_Id)}}"> <i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                            @else
-                            <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}"> <i class="fa fa-heart" aria-hidden="true"></i></a>
-                            @endif
-                            
+                        <a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block active" href="{{url('/itemProfile/'.$item->Item_Id)}}" data-toggle="tab">{{$item->Item_Name}}</a>
+                        @if(count($item->checkfollow) == 0)
+                        <a href="{{url('/FollowItem/'.$item->Item_Id)}}"> <i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                        @else
+                        <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}"> <i class="fa fa-heart" aria-hidden="true"></i></a>
+                        @endif
+
                     </div>
                     @endforeach
                 </div>
@@ -77,13 +77,13 @@
                         @else
                         <div class="card-body position-relative h90 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/Default1.jpeg')}}');"></div>
                         @endif
-                           <a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block active" href="{{url('/itemProfile/'.$item->item->Item_Id)}}" data-toggle="tab">{{$item->item->Item_Name}}</a>
-                            @if(count($item->item->checkfollow) == 0)
-                            <a href="{{url('/FollowItem/'.$item->item->Item_Id)}}"> <i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                            @else
-                            <a href="{{url('/UnfollowItem/'.$item->item->Item_Id)}}"> <i class="fa fa-heart" aria-hidden="true"></i></a>
-                            @endif
-                            
+                        <a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block active" href="{{url('/itemProfile/'.$item->item->Item_Id)}}" data-toggle="tab">{{$item->item->Item_Name}}</a>
+                        @if(count($item->item->checkfollow) == 0)
+                        <a href="{{url('/FollowItem/'.$item->item->Item_Id)}}"> <i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                        @else
+                        <a href="{{url('/UnfollowItem/'.$item->item->Item_Id)}}"> <i class="fa fa-heart" aria-hidden="true"></i></a>
+                        @endif
+
                     </div>
                     @endforeach
                 </div>
@@ -195,7 +195,7 @@
                     <div class="messages-content pb-5">
                         @foreach($post->comments as $comment)
                         <div class="card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10">
-                        
+
                             @if($comment->user->profilePhoto !=null)
                             <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/'.$comment->user->profilePhoto->Profile_Picture)}}" alt="image" class="shadow-sm rounded-circle w35"></figure>
                             @else
@@ -217,12 +217,12 @@
                         @endif
 
                         <div id="allreplies{{$comment->Comment_Id}}" style="display: none;">
-                        <div class="form-group">
-                            <input id="ReplyForComment{{$comment->Comment_Id}}" name="comment{{$comment->Comment_Id}}" placeholder="Write a reply..." type="text" style="background-color:#0055ff1a;width:770px;" class="border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xsssss fw-500 rounded-xl w300 theme-dark-bg">
-                            <a href="javascript:void(0)" onclick="Reply('{{$post->Post_Id}}','{{$comment->Comment_Id}}');"><i class="btn-round-sm bg-primary-gradiant text-white font-sm ti-arrow-right text-blue"></i></a>
-                        </div>
-                        <!-- 0055FF -->
-                        @if( isset($comment->replies) )
+                            <div class="form-group">
+                                <input id="ReplyForComment{{$comment->Comment_Id}}" name="comment{{$comment->Comment_Id}}" placeholder="Write a reply..." type="text" style="background-color:#0055ff1a;width:770px;" class="border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xsssss fw-500 rounded-xl w300 theme-dark-bg">
+                                <a href="javascript:void(0)" onclick="Reply('{{$post->Post_Id}}','{{$comment->Comment_Id}}');"><i class="btn-round-sm bg-primary-gradiant text-white font-sm ti-arrow-right text-blue"></i></a>
+                            </div>
+                            <!-- 0055FF -->
+                            @if( isset($comment->replies) )
                             @foreach($comment->replies as $reply)
                             <div class="card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative">
                                 @if($reply->user->profilePhoto !=null)
@@ -239,7 +239,7 @@
                                 </div>
                             </div>
                             @endforeach
-                        @endif
+                            @endif
                         </div>
                         @endforeach
                     </div>
@@ -258,62 +258,98 @@
 <script>
     function Comment(post_id) {
 
-        var comment = $("#CommentForPost" + post_id).val();
+var comment = $("#CommentForPost" + post_id).val();
 
-        if (comment.length == 0) {
-            return;
+if (comment.length == 0) {
+    return;
+}
+
+$.ajax({
+    url: "{{route('comment.add')}}",
+    Type: "POST",
+    data: {
+        post_id: post_id,
+        comment: comment
+
+    },
+    success: function(data) {
+        console.log(data);
+        if(data['Profile_Picture'] == null)
+        {
+            data['Profile_Picture']='pic.png';
         }
+        $("#allcomments" + post_id).prepend("<div class='chat-body messages-content pb-5 card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10'>" 
+            +"<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/"+data['Profile_Picture']+"\" alt='image' class='shadow-sm rounded-circle w35'></figure>" 
+            +"<div class='chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg'>" 
+            +"<a href=\"/veiw_User/"+data['User_Id']+"\">" 
+            +"<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> "+data['First_Name']+" "+data['Middle_Name']+" "+" "+data['Last_Name']+"" 
+            +"<a href=\"/deletecomment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" 
+            +"<a href=\"javascript:void(0)\" onclick=\"setComment('" + data['Comment_Id'] + "','" + data['Comment'] + "')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>" 
+            +"</a></h4>"
+            +"<div class=\"time\"><\?php $end = \Carbon\Carbon::parse(" + data['updated_at'] + "); ?><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> {{ $end->diffForHumans($today) }}</p></div>" 
+            +"<p class=\"fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0\">" + data['Comment'] + "</p>" 
+            +"</div>"
+            +"</div>" 
+            +"<a href=\"javascript:void(0)\" id=\"morereplies\" onclick=\"$('#allreplies" + data['Comment_Id'] + "').slideToggle(function(){$('#morereplies').html($('#allreplies" + data['Comment_Id'] + "').is(':visible')?'Hide Replies':'0 Relpies');});\" class=\"ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss\"><i class=\"feather-message-circle text-dark text-grey-900 btn-round-sm font-lg\"></i>0 Relpies</span></a>" 
+            +"<div id=\"allreplies" + data['Comment_Id'] + "\" style=\"display: none;\">" 
+            +"<div class=\"form-group\">" 
+            +"<input id=\"ReplyForComment" + data['Comment_Id'] + "\" name=\"comment" + data['Comment_Id'] + "\" placeholder=\"Write a reply...\" type=\"text\" style=\"background-color:#0055ff1a;width:770px;\" class=\"border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xsssss fw-500 rounded-xl w300 theme-dark-bg\">" 
+            +"<a href=\"javascript:void(0)]\" onclick=\"Reply('" + post_id + "','" + data['Comment_Id'] + "');\"><i class=\"btn-round-sm bg-primary-gradiant text-white font-sm ti-arrow-right text-blue\"></i></a>" 
+            +"</div>" 
+            +"</div></div>");
+        console.log(data);
+    },
+    error: function() {
+        console.log(post_id);
+        console.log(comment);
+        console.log('Error');
+    }
 
-        $.ajax({
-            url: "{{route('comment.add')}}",
-            Type: "POST",
-            data: {
-                post_id: post_id,
-                comment: comment
+});
+};
 
-            },
-            success: function(data) {
+function Reply(post_id, parent_id) {
 
-                console.log(data);
-            },
-            error: function() {
-                console.log(post_id);
-                console.log(comment);
-                console.log('Error');
-            }
+var comment = $("#ReplyForComment" + parent_id).val();
 
-        });
-    };
+if (comment.length == 0) {
+    return;
+}
 
-    function Reply(post_id, parent_id) {
+$.ajax({
+    url: "{{route('reply.add')}}",
+    Type: "POST",
+    data: {
+        post_id: post_id,
+        parent_id: parent_id,
+        comment: comment
 
-        var comment = $("#ReplyForComment" + parent_id).val();
+    },
+    success: function(data) {
+        $("#allreplies" + parent_id).append("<div class=\"card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative\">" 
+            +"<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/"+data['Profile_Picture']+"\" alt='image' class='shadow-sm rounded-circle w35'></figure>" 
+            +"<div class=\"chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg\">" 
+            +"<a href=\"/veiw_User/"+data['User_Id']+"\">" 
+            +"<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> "+data['First_Name']+" "+data['Middle_Name']+" "+" "+data['Last_Name']+"" 
+            +"<a href=\"/deletecomment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" 
+            +"<a href=\"javascript:void(0)\" onclick=\"setComment('"+ data['Comment_Id']+"','"+ data['Comment']+"')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>"           
+            +"</a></h4>"
+            +"<div class=\"time\"><\?php $end = \Carbon\Carbon::parse(" + data['updated_at'] + "); ?><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> {{ $end->diffForHumans($today) }}</p></div>" 
+            +"<p class=\"fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0\">" + data['Comment'] + "</p>" 
+            +"</div>"
+            +"</div>");
 
-        if (comment.length == 0) {
-            return;
-        }
+        console.log(data);
+    },
+    error: function() {
+        console.log(post_id);
+        console.log(comment);
+        console.log('Error');
+    }
 
-        $.ajax({
-            url: "{{route('reply.add')}}",
-            Type: "POST",
-            data: {
-                post_id: post_id,
-                parent_id: parent_id,
-                comment: comment
+});
+};
 
-            },
-            success: function(data) {
-
-                console.log(data);
-            },
-            error: function() {
-                console.log(post_id);
-                console.log(comment);
-                console.log('Error');
-            }
-
-        });
-    };
 </script>
 
 @endsection

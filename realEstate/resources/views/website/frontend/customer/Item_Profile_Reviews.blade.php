@@ -6,6 +6,7 @@
             <a href="#" class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>How did you find us?</a>
         </div>
         <div class="card-body border-top-xs d-flex">
+        
             <form id="reviewForm" class="form-group" action="{{url('/addReview')}}}">
                 @csrf
                 <!-- <figure class="avatar position-absolute ms-2 mt-1 top-5"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w30"></figure> -->

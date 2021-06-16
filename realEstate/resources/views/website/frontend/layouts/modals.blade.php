@@ -66,3 +66,145 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="EditMainTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="item_id">
+                <form id="data_form_edit">
+                    @csrf
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{-- Create Scheduale --}}
+<div class="modal fade" id="CreateScheduleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create New Scheduale</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="CreateSchedule" method="get">
+                    @csrf
+                    <input type="hidden" name="id" id="idNewSchedule">
+                    <div class="form-group">
+                        <label style="font-size: 12pt">Start Date</label>
+                        <input id="arrival" type="date" style="border-radius: 3pt" name="StartDate" class="form-control">
+
+                    </div>
+                    <div class="form-group">
+                        <label style="font-size: 12pt">End Date</label>
+                        <input id="departure" type="date" style="border-radius: 3pt" name="EndDate" class="form-control">
+
+                    </div>
+                    <div class="form-group">
+                        <label style="font-size: 12pt">Price Per Night</label>
+                        <input id="price" type="text" style="border-radius: 3pt" name="Price" class="form-control">
+
+                    </div>
+                    <button type="submit" id="btun3" class="btn btn-success">Continue</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Edit SchedualeModal --}}
+<div class="modal fade" id="EditScheduleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Need more information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="EditSchedule" method="Post" action="{{url('')}}">
+                    @csrf
+                    <input type="hidden" name="id" id="id">
+                    <div class="form-group">
+                        <label style="font-size: 12pt">Start Date</label>
+                        <input id="StartDate" type="date" style="border-radius: 3pt" name="StartDate" class="form-control">
+
+                    </div>
+                    <div class="form-group">
+                        <label style="font-size: 12pt">End Date</label>
+                        <input id="EndDate" type="date" style="border-radius: 3pt" name="EndDate" class="form-control">
+
+                    </div>
+                    <div class="form-group">
+                        <label style="font-size: 12pt">Price Per Night</label>
+                        <input id="Price" type="text" style="border-radius: 3pt" name="Price" class="form-control">
+
+                    </div>
+                    <button type="submit" id="btun3" class="btn btn-success">Continue</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Model -->
+<div class="modal fade" id="EditCommentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="EditCommentForm">
+                    @csrf
+                    <input type="hidden" name="id" id="id">
+                    <div class="form-group">
+                        <label for="edit_Comment" style="font-size: 12pt">Edit Comment</label>
+                        <input type="text" style="border-radius: 3pt" name="edit_Comment" id="editComment" class="form-control">
+                    </div>
+                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="EditPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Post</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="EditPostForm">
+                    @csrf
+                    <input type="hidden" name="id" id="id">
+                    <div class="form-group">
+                        <label for="edit_Post" style="font-size: 12pt">Edit Post</label>
+                        <input type="text" style="border-radius: 3pt" name="edit_Post" id="editPost" class="form-control">
+                    </div>
+                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

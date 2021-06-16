@@ -158,7 +158,7 @@
               -->
     <!-- hena ya aziz -->
     <a id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" class="p-0 ms-3 menu-icon"><img src="{{asset('FrontEnd/sociala/images/profile-4.png')}}" alt="user" class="w40 mt--1"></a>
-    <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg switchcolor-wrap" aria-labelledby="dropdownMenu2">
+    <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" aria-labelledby="dropdownMenu2">
 
 
         <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" >
