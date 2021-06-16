@@ -89,7 +89,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::delete('/DeleteMyProfilePhoto/{id?}/{File_Path?}', 'ProfilePhotoController@destroy');
     Route::post('/CreateProfilePhoto', 'ProfilePhotoController@create')->name('create.profilephoto');
     Route::post('/UpdateCoverPhoto', 'CoverPhotoController@edit')->name('create.coverphoto');
-    Route::post('/UpdateProfilePhoto', 'ProfilePhotoController@edit')->name('create.profilephoto');
+    Route::POST('/UpdateProfilePhoto', 'ProfilePhotoController@edit')->name('create.profilephoto');
 
     //owner item coverpage edit
     Route::post('/UpdateCoverPage/{id?}', 'CoverPageController@edit');
@@ -380,3 +380,6 @@ Route::get('callback/{service}','SocialController@callback');
 Route::get('map',function (){
     return view('map');
 });
+
+Route::get('EditUserProfile','AddUserController@EditUserProfileVeiw');
+Route::POST('/EditUserProfile1','AddUserController@EditUserProfile');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ProfilePhoto;
 use App\Type_Of_User;
 use Illuminate\Http\Request;
 use App\User;
@@ -78,6 +79,51 @@ class AddUserController extends Controller
         }
     }
 
+    Public function EditUserProfileVeiw()
+    {
+        $User_ID=Auth::id();
+        $user=User::all()->where('id','=',$User_ID)->first();
+
+        $email=Emails::all()->where('User_ID','=',$User_ID)->first();
+        $phone=Phone_Numbers::all()->where('User_ID','=',$User_ID)->first();
+        $image= ProfilePhoto::all()->where('User_Id','=',$User_ID)->first();
+
+        return view('website.frontend.customer.EditUserProfile',['user'=>$user,'email'=>$email,'phone'=>$phone,'image'=>$image]);
+    }
+    public function EditUserProfile()
+    {
+        try{
+        $User_ID = Auth::id();
+        $user = User::all()->find($User_ID);
+        $email= Emails::all()->where('User_ID','=',$User_ID)->first();
+        $phone= Phone_Numbers::all()->where('User_ID','=',$User_ID)->first();
+        $image= ProfilePhoto::all()->where('User_ID','=',$User_ID)->first();
+
+        $email->email = request('email');
+        $email->save();
+
+        $phone->phone_number = request('phone');
+        $phone->save();
+
+        $user->First_Name = request('Fname');
+        $user->Last_Name = request('Lname');
+        $user->save();
+
+            return back()->with('error','City Already Exist !!');
+    }catch (\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == 1062){
+            return back()->with('error','City Already Exist !!');
+        }if($errorCode == 1048 ){
+            return back()->with('error','You must select all values!!');
+        }else{
+            return $e->errorInfo;
+        }
+        }
+
+
+    }
+
     public function checkIfOwner()
     {
         $user_id = Auth::id();
@@ -150,7 +196,7 @@ class AddUserController extends Controller
 
 
         $posts = PostsController::userPosts($id);
-        $profile_photo = ProfilePhotoController::getPhoto($id);
+            $profile_photo = ProfilePhotoController::getPhoto($id);
         $cover_photo = CoverPhotoController::getPhoto($id);
         $post_images = AttachmentController::getPostAttachments($id);
         $gallery = AttachmentController::getAttachmentsOfuser($id);
@@ -192,7 +238,7 @@ class AddUserController extends Controller
 
         return view('website\frontend\customer\Customer_Profile', [
             'id' => $id,
-            'User_Id'=>$User_Id,
+            'User````'=>$User,
             'First_Name' => $user->First_Name,
             'Middle_Name' => $user->Middle_Name,
             'Last_Name' => $user->Last_Name,

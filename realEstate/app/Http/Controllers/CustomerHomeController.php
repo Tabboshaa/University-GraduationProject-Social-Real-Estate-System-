@@ -142,7 +142,7 @@ class CustomerHomeController extends Controller
         return view('website\frontend\customer\Item_Profile_Details', ['details'=>$details,'states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
     }
 
-  
+
 
     function getdays($start, $end, $schedule_id)
     {

@@ -4,7 +4,6 @@
 
 <link rel="stylesheet" href="/css/map.css">
 <script src="/js/map.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCUywuD0K3ICLer31HgVIJ-Uhi_Suj2jA&libraries=places&callback=initialize"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -204,7 +203,7 @@
                             <div class="form-group">
                                 <label for="">Address: <input id="map-search" class="controls" type="text" placeholder="Search Box" size="104"></label><br>
                                 <label for="">City <input type="text" name="City" class="reg-input-city" placeholder="City"></label>
-                                <label for="">Street <input type="text" name="Street" class="reg-input-street" placeholder="Street"></label>
+                                <label for="">Street <input type="text"  class="reg-input-street" placeholder="Street"></label>
                                 <input type="text" name="latitude" class="latitude">
                                 <input type="text" name="longitude" class="longitude">
                             </div>
@@ -221,5 +220,6 @@
 </div>
 
 
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCUywuD0K3ICLer31HgVIJ-Uhi_Suj2jA&libraries=places&callback=initialize"></script>
 
 @endsection

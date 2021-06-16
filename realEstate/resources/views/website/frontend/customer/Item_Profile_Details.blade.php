@@ -1,7 +1,15 @@
 @extends('website.frontend.customer.Item_Profile')
 @section('profile_Content')
 
-<!-- Modal Receipte -->
+
+    <link rel="stylesheet" href="/css/GeneralMap.css">
+    <script src="/js/GeneralMap.js"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCUywuD0K3ICLer31HgVIJ-Uhi_Suj2jA&callback=initMap&libraries=&v=weekly"
+        async
+    ></script>
+
+    <!-- Modal Receipte -->
 <div class="modal bottom fade" style="overflow-y: scroll;" id="ReceipteModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content border-0">
@@ -41,10 +49,10 @@
         <!--January  -->
         <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
             @if(isset($schedule["01"]))
-            <div class="bg-success me-2 p-3 rounded-xxl">
+            <div class="bg-skype me-2 p-3 rounded-xxl w125">
                 <a href="javascript:void(0)" id="morejan" onclick="$('#jan')
             .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">January</span></h4>
+                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">January</span></h4>
                 </a>
             </div>
             <h4 class="fw-700 text-grey-900 font-xssss mt-2">
@@ -62,18 +70,18 @@
                 </ul>
             </h4>
             @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">January</span></h4>
+            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
+                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">January</span></h4>
             </div>
             @endif
         </div>
         <!-- February -->
         <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
             @if(isset($schedule["02"]))
-            <div class="bg-success me-2 p-3 rounded-xxl">
+            <div class="bg-primary-gradiant me-2 p-3 rounded-xxl w125">
                 <a href="javascript:void(0)" id="morefeb" onclick="$('#feb')
             .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">February</span></h4>
+                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">February</span></h4>
                 </a>
             </div>
             <h4 class="fw-700 text-grey-900 font-xssss mt-2">
@@ -91,18 +99,18 @@
                 </ul>
             </h4>
             @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">February</span></h4>
+            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
+                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">February</span></h4>
             </div>
             @endif
         </div>
         <!-- March -->
         <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
             @if(isset($schedule["03"]))
-            <div class="bg-success me-2 p-3 rounded-xxl">
+            <div class="bg-cyan me-2 p-3 rounded-xxl w125">
                 <a href="javascript:void(0)" id="moremar" onclick="$('#mar')
             .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">March</span></h4>
+                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">March</span></h4>
                 </a>
             </div>
             <h4 class="fw-700 text-grey-900 font-xssss mt-2">
@@ -114,14 +122,14 @@
                     $SID = $date["schedule_Id"];
                     $ID = $date["date"];                                        ?>
                     <li>
-                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
+                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')"><span style="font-size:large;">{{$day}}</span></span></div>
                     </li>
                     @endforeach
                 </ul>
             </h4>
             @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">March</span></h4>
+            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
+                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">March</span></h4>
             </div>
             @endif
 
@@ -129,10 +137,10 @@
         <!-- April -->
         <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
             @if(isset($schedule["04"]))
-            <div class="bg-success me-2 p-3 rounded-xxl">
+            <div class="bg-tumblr me-2 p-3 rounded-xxl w125">
                 <a href="javascript:void(0)" id="moreapril" onclick="$('#april')
             .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">April</span></h4>
+                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">April</span></h4>
                 </a>
             </div>
             <h4 class="fw-700 text-grey-900 font-xssss mt-2">
@@ -150,8 +158,8 @@
                 </ul>
             </h4>
             @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">April</span></h4>
+            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125 align-middle">
+                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">April</span></h4>
             </div>
             @endif
 
@@ -159,10 +167,10 @@
         <!-- May -->
         <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
             @if(isset($schedule["05"]))
-            <div class="bg-success me-2 p-3 rounded-xxl">
+            <div class="bg-instagram me-2 p-3 rounded-xxl w125">
                 <a href="javascript:void(0)" id="moremay" onclick="$('#may')
             .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">May</span></h4>
+                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">May</span></h4>
                 </a>
             </div>
             <h4 class="fw-700 text-grey-900 font-xssss mt-2">
@@ -180,18 +188,18 @@
                 </ul>
             </h4>
             @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">May</span></h4>
+            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
+                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">May</span></h4>
             </div>
             @endif
         </div>
         <!-- June -->
         <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
             @if(isset($schedule["06"]))
-            <div class="bg-success me-2 p-3 rounded-xxl">
+            <div class="bg-linkedin me-2 p-3 rounded-xxl w125">
                 <a href="javascript:void(0)" id="morejune" onclick="$('#june')
             .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">June</span></h4>
+                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">June</span></h4>
                 </a>
             </div>
             <h4 class="fw-700 text-grey-900 font-xssss mt-2">
@@ -209,18 +217,18 @@
                 </ul>
             </h4>
             @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">June</span></h4>
+            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
+                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">June</span></h4>
             </div>
             @endif
         </div>
         <!-- July -->
         <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
             @if(isset($schedule["07"]))
-            <div class="bg-success me-2 p-3 rounded-xxl">
+            <div class="bg-skype me-2 p-3 rounded-xxl w125">
                 <a href="javascript:void(0)" id="morejuly" onclick="$('#july')
             .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">July</span></h4>
+                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">July</span></h4>
                 </a>
             </div>
             <h4 class="fw-700 text-grey-900 font-xssss mt-2">
@@ -238,18 +246,18 @@
                 </ul>
             </h4>
             @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">July</span></h4>
+            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
+                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">July</span></h4>
             </div>
             @endif
         </div>
         <!-- August -->
         <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
             @if(isset($schedule["08"]))
-            <div class="bg-success me-2 p-3 rounded-xxl">
+            <div class="bg-success me-2 p-3 rounded-xxl w125">
                 <a href="javascript:void(0)" id="moreaug" onclick="$('#aug')
             .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">August</span></h4>
+                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">August</span></h4>
                 </a>
             </div>
             <h4 class="fw-700 text-grey-900 font-xssss mt-2">
@@ -267,18 +275,18 @@
                 </ul>
             </h4>
             @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">August</span></h4>
+            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
+                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">August</span></h4>
             </div>
             @endif
         </div>
         <!-- September -->
         <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
             @if(isset($schedule["09"]))
-            <div class="bg-success me-2 p-3 rounded-xxl">
+            <div class="bg-success me-2 p-3 rounded-xxl w125">
                 <a href="javascript:void(0)" id="moresep" onclick="$('#sep')
             .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">September</span></h4>
+                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">September</span></h4>
                 </a>
             </div>
             <h4 class="fw-700 text-grey-900 font-xssss mt-2">
@@ -296,18 +304,18 @@
                 </ul>
             </h4>
             @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">September</span></h4>
+            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
+                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">September</span></h4>
             </div>
             @endif
         </div>
         <!-- October -->
         <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
             @if(isset($schedule["10"]))
-            <div class="bg-success me-2 p-3 rounded-xxl">
+            <div class="bg-success me-2 p-3 rounded-xxl w125">
                 <a href="javascript:void(0)" id="moreoct" onclick="$('#oct')
             .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">October</span></h4>
+                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">October</span></h4>
                 </a>
             </div>
             <h4 class="fw-700 text-grey-900 font-xssss mt-2">
@@ -325,18 +333,18 @@
                 </ul>
             </h4>
             @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">October</span></h4>
+            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
+                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">October</span></h4>
             </div>
             @endif
         </div>
         <!-- November -->
         <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
             @if(isset($schedule["11"]))
-            <div class="bg-success me-2 p-3 rounded-xxl">
+            <div class="bg-success me-2 p-3 rounded-xxl w125">
                 <a href="javascript:void(0)" id="morenov" onclick="$('#nov')
             .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">November</span></h4>
+                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">November</span></h4>
                 </a>
             </div>
             <h4 class="fw-700 text-grey-900 font-xssss mt-2">
@@ -354,18 +362,18 @@
                 </ul>
             </h4>
             @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">November</span></h4>
+            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
+                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">November</span></h4>
             </div>
             @endif
         </div>
         <!-- December -->
         <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
             @if(isset($schedule["12"]))
-            <div class="bg-success me-2 p-3 rounded-xxl">
+            <div class="bg-success me-2 p-3 rounded-xxl w125">
                 <a href="javascript:void(0)" id="moredec" onclick="$('#dec')
             .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">December</span></h4>
+                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">December</span></h4>
                 </a>
             </div>
             <h4 class="fw-700 text-grey-900 font-xssss mt-2">
@@ -383,8 +391,8 @@
                 </ul>
             </h4>
             @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600">December</span></h4>
+            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
+                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">December</span></h4>
             </div>
             @endif
         </div>
@@ -447,17 +455,19 @@
         </div>
         <div class="clearfix"></div>
     </div>
-    <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
-        <div class="card-body p-0 d-flex">
+    <div class="card w-100 shadow-xss rounded-xxl border-0 p-2 pe-0 mb-3" >
+        <div class="card-body ps-2 d-flex">
             <h3>
                 Location
             </h3>
-            <div class="map">
-                <iframe src="https://www.google.com/maps/embed?pb=" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
-            </div>
+
             <div class="clearfix"></div>
         </div>
-    </div>
+        <div id="map">
+            <input type="hidden" id="lang" value="{{$item->address_latitude}}">
+            <input type="hidden" id="lat" value="{{$item->address_longitude}}">
+
+        </div>
 </div>
 
 
@@ -614,7 +624,7 @@
         color: black;
         font-size: 12px;
         font-weight: 700;
-        width: 40%;
+        width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
@@ -634,7 +644,7 @@
         color: #424588;
         font-size: 12px;
         font-weight: 700;
-        width: 40%;
+        width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
@@ -649,7 +659,7 @@
         color: #424588;
         font-size: 12px;
         font-weight: 700;
-        width: 40%;
+        width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
@@ -680,7 +690,7 @@
         color: #fff;
         font-size: 12px;
         font-weight: 700;
-        width: 40%;
+        width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
@@ -700,7 +710,7 @@
         color: #fff;
         font-size: 12px;
         font-weight: 700;
-        width: 40%;
+        width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
@@ -722,7 +732,7 @@
         color: #fff;
         font-size: 12px;
         font-weight: 700;
-        width: 40%;
+        width: 100%;
         height: 100%;
         display: flex;
         align-items: center;

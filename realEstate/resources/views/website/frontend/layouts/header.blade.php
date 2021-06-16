@@ -152,7 +152,7 @@
         </div>
     </div>
 
-    <!--    
+    <!--
                <a> <h4 class="fw-700 font-xsssss mb-4">profile</h4></a>
                <a> <h4 class="fw-700 font-xsssss mb-4">Continue as Owner</h4></a>
               -->
@@ -160,9 +160,8 @@
     <a id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" class="p-0 ms-3 menu-icon"><img src="{{asset('FrontEnd/sociala/images/profile-4.png')}}" alt="user" class="w40 mt--1"></a>
     <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg switchcolor-wrap" aria-labelledby="dropdownMenu2">
 
-
         <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" >
-            <!--
+        <!--
                     <img src="{{asset('FrontEnd/sociala/images/user-8.png')}}"  alt="user" class="w40 position-absolute left-0"> -->
             <h5 class="font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block"> <a href="{{url('/EditCustomerProfile')}}"> profile</a></h5>
             <!-- <h6 class="text-grey-500 fw-500 font-xssss lh-4">There are many variations of pass..</h6> -->
@@ -187,7 +186,7 @@
 
 <script>
     function ToggleBeOwnerModal() {
-        
+
         $("#BeOwnerModal").modal("toggle");
     };
     $(document).ready(function() {

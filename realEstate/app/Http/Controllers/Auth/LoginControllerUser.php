@@ -57,7 +57,7 @@ class   LoginControllerUser extends Controller
 
         }
 
-        return false;
+        return 'False';
     }
 
     public function login($id, $password)
