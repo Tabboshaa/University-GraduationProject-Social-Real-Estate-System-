@@ -21,7 +21,7 @@ class OwnerController extends Controller
         // ->where('items.User_ID','=',$User_Id )
         // ->get();
 
-        $items = $user->items;
+        $items = $user->items;  
         return view('website.FrontEnd.Owner.Show_Item', ['items' => $items]);
     }
     public function create()
