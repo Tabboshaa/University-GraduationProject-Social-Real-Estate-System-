@@ -104,8 +104,8 @@
                                 <img src="images/resources/ny-img1.png" alt="">
                             </div>
                             <div class="notification-info visible-title">
-                                <a href="{{ url('/veiw_notification/'.$notification->Notification_Id) }}"> <i class="fa fa-close"></i></a>
-                                <h3><a href="{{ url('/veiw_User/'.$notification->id) }}"> {{$notification->First_Name}} {{$notification->Middle_Name}} {{$notification->Last_Name}}</a> </h3>
+                                <a href="{{ url('/view_notification/'.$notification->Notification_Id) }}"> <i class="fa fa-close"></i></a>
+                                <h3><a href="{{ url('/view_User/'.$notification->id) }}"> {{$notification->First_Name}} {{$notification->Middle_Name}} {{$notification->Last_Name}}</a> </h3>
                                 <h3 style="font-size: 10px;">
                                     <p>{{ $notification->Notification }} </p>
                                 </h3>

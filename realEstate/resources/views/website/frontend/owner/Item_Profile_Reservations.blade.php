@@ -21,7 +21,7 @@
                         <p class="fw-700 lh-3 ">created at : {{$reservation->updated_at}} </p>
                     </span>
                     <span class="d-flex font-xssss fw-500 mt-2 lh-3 text-black-500 ps-3">
-                        <p class="fw-700 lh-3 ">Name : <a href="{{url('/veiw_User/'.$reservation->User_Id)}}">{{$reservation->First_Name}} {{$reservation->Middle_Name}} {{$reservation->Last_Name}}</a></p>
+                        <p class="fw-700 lh-3 ">Name : <a href="{{url('/view_User/'.$reservation->User_Id)}}">{{$reservation->First_Name}} {{$reservation->Middle_Name}} {{$reservation->Last_Name}}</a></p>
                     </span>
                     @if( isset($reservation_details[$reservation->Operation_Id]) )
                     @foreach($reservation_details[$reservation->Operation_Id] as $reservation_detail)

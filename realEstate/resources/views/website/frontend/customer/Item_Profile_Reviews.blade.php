@@ -79,7 +79,7 @@
             <?php $today = \Carbon\Carbon::now();
             $end = \Carbon\Carbon::parse($review->updated_at);
             ?>
-            <h4 class="fw-700 text-grey-900 font-xssss mt-1"><a href="{{url('veiw_User/'.$review->User_Id)}}">
+            <h4 class="fw-700 text-grey-900 font-xssss mt-1"><a href="{{url('view_User/'.$review->User_Id)}}">
                     {{$review->First_Name}} {{$review->Middle_Name}} {{$review->Last_Name}}
                 </a> <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"><?php $today = \Carbon\Carbon::now();
                                                                                         $end = \Carbon\Carbon::parse($review->updated_at);

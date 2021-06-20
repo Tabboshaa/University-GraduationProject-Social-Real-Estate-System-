@@ -38,7 +38,7 @@
                                         </tr>
                                         <tr class="rightmsg">
                                             <td class="box">{{$reservation['updated_at']}} </td>
-                                            <td class="box"><a href="{{url('/veiw_User/'.$reservation['User_Id'])}}">{{$reservation->user['First_Name']}} {{$reservation->user['Middle_Name']}} {{$reservation->user['Last_Name']}}</a></td>
+                                            <td class="box"><a href="{{url('/view_User/'.$reservation['User_Id'])}}">{{$reservation->user['First_Name']}} {{$reservation->user['Middle_Name']}} {{$reservation->user['Last_Name']}}</a></td>
                                             @if( isset($reservation->operationdetails) )
                                             @foreach($reservation->operationdetails as $reservation_detail)
                                             <td class="box">{{$reservation_detail['Operation_Detail_Value']}}</td>

@@ -29,6 +29,8 @@ class ReviewController extends Controller
            'Review_Content'=>request('review_content'),
            'Number_Of_Stars'=>request('stars')
        ]);
+       $to_user= ItemController::getowner(request('id'));
+       NotificationController::createRedirect(Auth::id(),$to_user, Auth::user()->First_Name.' '.Auth::user()->Middle_Name.' '.Auth::user()->Last_Name.' Reviewed your Item','/owneritemReviews/'.request('id'));
        return response()->json("done");
 
     }
@@ -42,6 +44,18 @@ class ReviewController extends Controller
 
 
         return $review;
+    }
+
+    public static function getItemRate($item_id)
+    {
+        //
+        $review= review::all()->where('Item_Id','=',$item_id)->sum('Number_Of_Stars');
+        $count= review::all()->where('Item_Id','=',$item_id)->count();
+
+        if($count != 0)
+        return ($review/$count);
+
+        return 0;
     }
 
     public function destroy($id)
