@@ -19,7 +19,9 @@ use Illuminate\Support\Facades\Route;
 //test routes here
 
 //end test routes
-
+Route::get('/Land', function () {
+    return view('website\LandingPadge');
+});
 //authntication routes
 Route::get('test', function () {
     return view('calender');
@@ -380,3 +382,5 @@ Route::get('callback/{service}','SocialController@callback');
 Route::get('map',function (){
     return view('map');
 });
+
+

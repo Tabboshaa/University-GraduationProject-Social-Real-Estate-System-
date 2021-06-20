@@ -119,11 +119,11 @@ class ItemController extends Controller
     }
     public function OwnerAddItem()
     {
-            return \request()->all();
+            
         $user_id=Auth::id();
         $item = Item::create([
             'User_Id' => $user_id,
-            'Street_Id' => request("Street"),
+            'Street_Id' => request("StreetSelect"),
             'Item_Name' => request("Item_Name"),
             'address_longitude'=>request('address_longitude'),
             'address_latitude'=>request('address_latitude'),

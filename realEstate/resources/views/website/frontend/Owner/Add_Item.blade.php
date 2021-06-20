@@ -145,11 +145,11 @@
 </script>
 
 
-<div class="col-xl-12">
+<div style="margin-left:135px;"class="col-xl-12">
     <div class="card w-1`00 border-0 bg-white shadow-xs p-0 mb-4">
         <div class="card-body p-4 w-100 bg-current border-0 d-flex rounded-3">
             <a href="default-settings.html" class="d-inline-block mt-2"><i class="ti-arrow-left font-sm text-white"></i></a>
-            <h4 class="font-xs text-white fw-600 ms-4 mb-0 mt-2"> ADD ITEM LOCATION</h4>
+            <h4 class="font-xs text-white fw-600 ms-4 mb-0 mt-2">  Adding Item Step 1</h4>
         </div>
         <div class="card-body p-lg-5 p-4 w-100 border-0 mb-0">
 
@@ -161,17 +161,17 @@
                             <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload">
                                 <h6>Item Name</h6>
                             </label>
-                            <input type="text" class="form-control" name="Item_Name" id="Item_Name" placeholder="Name the Item">
+                            <input type="text" style="width: 865px;" class="form-control" name="Item_Name" id="Item_Name"  placeholder="Name the Item">
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-6 mb-0">
-                            <div class="form-group">
+                        <div class="col-lg-6 mb-0" style="margin-right:0px;">
+                            <div class="form-group" >
                                 <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload">
                                     <h6>Country</h6>
                                 </label>
-                                <select id="CountrySelect" class="date-picker form-control" name="Country" value="{{ old('Country') }}">
+                                <select id="CountrySelect"style="width: 865px;" class="date-picker form-control" name="Country" value="{{ old('Country') }}">
                                     <option value="0" selected disabled>Select Country</option>
                                     <!--  For loop  -->
                                     @foreach($country as $c)
@@ -181,38 +181,42 @@
                                 <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload">
                                     <h6>State</h6>
                                 </label>
-                                <select id="StateSelect" class="date-picker form-control" name="State" value="{{ old('State') }}"></select>
+                                <select id="StateSelect"style="width: 865px;" class="date-picker form-control" name="State" value="{{ old('State') }}"></select>
 
                                 <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload">
                                     <h6>City</h6>
                                 </label>
-                                <select id="CitySelect" class="date-picker form-control" name="CitySelect" value="{{ old('City') }}"></select>
+                                <select id="CitySelect"style="width: 865px;" class="date-picker form-control" name="CitySelect" value="{{ old('City') }}"></select>
                                 <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload">
                                     <h6>Region</h6>
                                 </label>
-                                <select id="RegionSelect" class="date-picker form-control" name="Region" value="{{ old('Region') }}"></select>
+                                <select id="RegionSelect"style="width: 865px;" class="date-picker form-control" name="Region" value="{{ old('Region') }}"></select>
 
                                 <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload">
                                     <h6>Street</h6>
                                 </label>
-                                <select id="StreetSelect" class="date-picker form-control" name="StreetSelect" value="{{ old('Street') }}"></select> <br><br>
+                                <select id="StreetSelect" style="width: 865px;"class="date-picker form-control" name="StreetSelect" value="{{ old('Street') }}"></select> <br><br>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6 mb-3">
+                        <div class="col-lg-4 mb-3">
                             <div class="form-group">
-                                <label for="">Address: <input id="map-search" class="controls" type="text" placeholder="Search Box" size="104"></label><br>
+                                <label for="">Address: <input id="map-search" class="controls" type="text" placeholder="Search Box" ></label><br>
                                 <label for="">City <input type="text" name="City" class="reg-input-city" placeholder="City"></label>
                                 <label for="">Street <input type="text" name="Street" class="reg-input-street" placeholder="Street"></label>
-                                <input type="text" name="latitude" class="latitude">
-                                <input type="text" name="longitude" class="longitude">
+                                
+                                <input type="text" style="margin-top:15px;margin-left:10px;"name="latitude" class="latitude">
+                                <input type="text" style="margin-top:15px;margin-left:10px;"name="longitude" class="longitude">
                             </div>
+                            
                         </div>
+                        <div class="col-lg-6 mb-3">
                         <div id="map-canvas"></div>
+                        </div>
                     </div>
-                    <div class="col-lg-12 mb-0 mt-2 ps-0">
-                        <input type="submit" value="Next " class="bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-3 d-inline-block">
+                    <div class="col-lg-12 text-right mb-0 mt-2 ps-0" style="margin-right:50px;">
+                        <input type="submit" value="Next " style="margin-right:70px;"class="bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-3 d-inline-block">
                     </div>
                 </div>
             </form>
