@@ -37,7 +37,7 @@ class FollowedusersController extends Controller
         $followed->save();
 
         $to_user = $id;
-        NotificationController::createRedirect(Auth::id(), $to_user, Auth::user()->First_Name.' '.Auth::user()->Middle_Name.' '.Auth::user()->Last_Name.' Started following you', '/view_User/' . Auth::id());
+        NotificationController::createRedirect(Auth::id(), $to_user, 'Started following you', '/view_User/' . Auth::id());
         return back();
     }
     public static function UnfollowUser($id)

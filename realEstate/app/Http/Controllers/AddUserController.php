@@ -325,7 +325,7 @@ class AddUserController extends Controller
         $followed_items->save();
 
         $to_user = ItemController::getowner($Item_Id);
-        NotificationController::createRedirect(Auth::id(), $to_user,  Auth::user()->First_Name.' '.Auth::user()->Middle_Name.' '.Auth::user()->Last_Name.' Started Following your item', '/view_User/' . Auth::id());
+        NotificationController::createRedirect(Auth::id(), $to_user,  'Started Following your item', '/view_User/' . Auth::id());
         return back();
     }
     public static function UnfollowItem($Item_Id)

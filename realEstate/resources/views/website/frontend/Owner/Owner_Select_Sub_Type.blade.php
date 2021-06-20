@@ -1,6 +1,6 @@
 @extends('website.frontend.layouts.main')
 @section('profile')
-<div style="margin-left:150px;" class="row">
+<div class="row">
     <div class="col-xl-12 col-xxl-12 col-lg-12">
         <div class="row">
             <div class="col-lg-12">

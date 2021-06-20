@@ -30,7 +30,7 @@ class ReviewController extends Controller
            'Number_Of_Stars'=>request('stars')
        ]);
        $to_user= ItemController::getowner(request('id'));
-       NotificationController::createRedirect(Auth::id(),$to_user, Auth::user()->First_Name.' '.Auth::user()->Middle_Name.' '.Auth::user()->Last_Name.' Reviewed your Item','/owneritemReviews/'.request('id'));
+       NotificationController::createRedirect(Auth::id(),$to_user, 'Reviewed your Item','/owneritemReviews/'.request('id'));
        return response()->json("done");
 
     }
