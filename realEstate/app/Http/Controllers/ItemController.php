@@ -107,8 +107,9 @@ class ItemController extends Controller
     public function OwnerSelectProperty($item_id = null, $sub_type_id = null)
     {
         //
+        $sub_type= Sub_Type::all()->where('Sub_Type_Id', '=', $sub_type_id)->first()->Sub_Type_Name;
         $property = Sub_Type_Property::all()->where('Sub_Type_Id', '=', $sub_type_id);
-        return view('website.frontend.Owner.Owner_Select_Details', ['property' => $property, 'item_id' => $item_id]);
+        return view('website.frontend.Owner.Owner_Select_Details', ['property' => $property, 'item_id' => $item_id,'sub_type'=>$sub_type]);
     }
     public function SelectSubType($id = null)
     {

@@ -31,7 +31,7 @@
                     <div class="card w-100 border-0 shadow-none p-4 rounded-xxl mb-3" style="background-color: #e5f6ff;">
                         <div class="card-body d-flex p-0">
                             <i class="btn-round-lg d-inline-block me-3 bg-primary-gradiant feather-home font-md text-white"></i>
-                            <h4 class="text-primary font-xl fw-700">Flat 4 <span class="fw-500 mt-0 d-block text-grey-500 font-xssss">Add Your Item</span></h4>
+                            <h4 class="text-primary font-xl fw-700">{{$sub_type}} <span class="fw-500 mt-0 d-block text-grey-500 font-xssss">Add Your Item</span></h4>
                         </div>
                         @foreach($property as $p)
                         <ul class="mt-3">

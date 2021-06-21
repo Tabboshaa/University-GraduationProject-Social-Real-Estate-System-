@@ -378,7 +378,6 @@
                 @if(!empty($subtype))
                 <a href="{{url('/OwnerSelectDetails/'.$item_id.'/'.$subtype)}}">
                 <h6>Add A new Detial <i style="padding-left:14px" class="fa fa-plus"></i></h6>
-               L <h6>Add A new Detial <i style="padding-left:14px" class="fa fa-plus"></i></h6>
                 </a>
                 @else
                 <a href="{{url('/OwnerSelectSubType/'.$item_id)}}">
