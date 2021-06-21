@@ -202,5 +202,13 @@ class ItemController extends Controller
             }
         } else return redirect()->route('Details')->with('warning', 'No Item was chosen to be deleted.. !!');
     }
+    public function EditItemMap($itemId=null){
+
+            $item=Item::all()->find($itemId);
+            $item->address_latitude=\request('lat');
+            $item->address_longitude=\request('lang');
+            $item->save();
+            return redirect()->back()->with('success','Location Changed Successfully');
+    }
 
 }

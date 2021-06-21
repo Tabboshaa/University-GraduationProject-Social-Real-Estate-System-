@@ -13,9 +13,8 @@ use App\followeditemsbyuser;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 use App\Country;
-use App\Item;
+use Auth;
 
 class AddUserController extends Controller
 {
@@ -135,41 +134,55 @@ class AddUserController extends Controller
     }
     public function BeOwner($user_id = null)
     {
+
         $countries = Country::all();
-        if ($user_id == null) {
-
-            return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
-        } else {
-            $user = User::all()->find($user_id);
-
-            $user->First_Name = request('First');
-            $user->Middle_Name = request('Middle');
-            $user->Last_Name = request('Last');
-            $user->National_ID = request('National');
-            $user->save();
-
-
-            $phone_number = Phone_Numbers::all()->where('User_ID', '=', $user->id);
-
-
-            if ($phone_number == '[]') {
-
-                $phone_number = Phone_Numbers::create([
-                    'User_ID' => $user_id,
-                    'phone_number' => request('Phone'),
-                    'Default' => 1
-                ]);
-            } else {
-                $phone_number->phone_number = request('Phone');
-            }
+        if(\request('allDone')){
 
             $typeOfUser = Type_Of_User::create([
                 'User_ID' => $user_id,
                 'User_Type_ID' => 3
             ]);
-
             return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
         }
+        if($user_id == null)
+        {
+            return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
+        }else{
+                $user = User::all()->find($user_id);
+
+                $user->First_Name = request('First');
+                $user->Middle_Name = request('Middle');
+                $user->Last_Name = request('Last');
+                $user->National_ID = request('National');
+                $user->save();
+
+
+                $phone_number = Phone_Numbers::all()->where('User_ID', '=', $user->id);
+
+
+                if ($phone_number == '[]') {
+
+                    $phone_number = Phone_Numbers::create([
+                        'User_ID' => $user_id,
+                        'phone_number' => request('Phone'),
+                        'Default' => 1
+                    ]);
+                } else {
+                    $phone_number->phone_number = request('Phone');
+                }
+
+                if (\request('check') == 'BeOwner') {
+                    $typeOfUser = Type_Of_User::create([
+                        'User_ID' => $user_id,
+                        'User_Type_ID' => 3
+                    ]);
+                    return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
+                }
+                return redirect()->back();
+
+
+            }
+
     }
     /**
      * Store a newly created resource in storage.
@@ -382,5 +395,19 @@ class AddUserController extends Controller
 
         followeditemsbyuser::destroy($followed_items->Followed_Item_Id);
         return back();
+    }
+
+    public function changePassword(){
+
+        $user = Auth::user();
+        $password=request('password');
+
+        if(Hash::check($password,$user->password))
+        {
+            $user->password=Hash::make(request('newpassword'));
+            $user->save();
+            return true;
+        }else return false;
+
     }
 }

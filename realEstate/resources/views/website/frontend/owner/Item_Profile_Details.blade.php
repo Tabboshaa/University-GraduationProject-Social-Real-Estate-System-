@@ -1,6 +1,6 @@
-
 @extends('website.frontend.owner.Item_Profile')
 @section('profile_Content')
+<link rel="stylesheet" href="/css/map.css">
 
 <div class="col-xl-4 col-xxl-3 col-lg-4 pe-0">
     <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3">
@@ -374,17 +374,18 @@
         </div>
         <div class="card-body p-0 me-lg-5">
             <p class="fw-500 text-grey-500 lh-26 font-xssss w-100">
-                
+
                 @if(!empty($subtype))
                 <a href="{{url('/OwnerSelectDetails/'.$item_id.'/'.$subtype)}}">
-                    <h6>Add A new Detial <i style="padding-left:14px" class="fa fa-plus"></i></h6>
+                <h6>Add A new Detial <i style="padding-left:14px" class="fa fa-plus"></i></h6>
+               L <h6>Add A new Detial <i style="padding-left:14px" class="fa fa-plus"></i></h6>
                 </a>
                 @else
                 <a href="{{url('/OwnerSelectSubType/'.$item_id)}}">
                     <h6>Add A new Detial <i style="padding-left:14px" class="fa fa-plus"></i></h6>
                 </a>
                 @endif
-                
+
 
                 @foreach ($details as $Property_Name => $Property_Id_Array)
                 @foreach ($Property_Id_Array as $Property_Id => $Property_diff_Array)
@@ -436,14 +437,22 @@
         <div class="clearfix"></div>
     </div>
     <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
+        <h3>
+            Location <a  href="javascript:void(0)" onclick="EditLoaction();"><i class="feather-edit text-grey-500 me-3 font-sm"></i></a>
+        </h3>
         <div class="card-body p-0 d-flex">
-            <h3>
-                Location
-            </h3>
-            <div class="map">
-                <iframe src="https://www.google.com/maps/embed?pb=" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+            <div class="clearfix">
+               <form action="{{url('EditItemMap/'.$item->Item_Id)}}" method="POST" >
+                   @CSRF
+                <div id="edit" style="display: none;"><label for="">Location:<input id="map-search" class="form-control" type="text" placeholder="Search Box" size="30"></label><button type="submit" class="btn btn-primary">Edit</button><br></div>
+                                 <input type="hidden" name="lat" class="latitude">
+                                 <input type="hidden" name="lang" class="longitude">
+                <input type="hidden" id="lat" value="{{$item->address_latitude}}">
+                <input type="hidden" id="lang" value="{{$item->address_longitude}}">
+                <div id="map-canvas"></div>
+               </form>
             </div>
-            <div class="clearfix"></div>
         </div>
     </div>
 </div>
@@ -459,6 +468,10 @@
     var start_id;
     var End_id;
     var schedule;
+
+    function EditLoaction(){
+        document.getElementById('edit').style.display='block';
+    }
 
     function test(day, schedule_Id) {
         var date2;
@@ -660,7 +673,7 @@
                                 '</div>';
                         }
 
-                     
+
 
                     } else {
                         Form += ' <div class="form-group row"> ' +
@@ -1388,5 +1401,6 @@
 <!-- Styles -->
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <script src="/js/map.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCUywuD0K3ICLer31HgVIJ-Uhi_Suj2jA&libraries=places&callback=initialize"></script>
 @endsection

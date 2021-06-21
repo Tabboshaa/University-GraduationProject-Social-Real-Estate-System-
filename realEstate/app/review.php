@@ -14,13 +14,14 @@ class review extends Model
         'Review_Content',
         'Number_Of_Stars'
     ];
-    public function item{
+
+    public function item(){
         return $this->belongsTo(Item::class, 'Item_Id');
     }
-    public function user{
+    public function user(){
         return $this->belongsTo(User::class, 'User_Id');
     }
 
-  
-    
+
+
 }

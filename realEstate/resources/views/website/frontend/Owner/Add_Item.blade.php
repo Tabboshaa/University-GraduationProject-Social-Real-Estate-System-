@@ -2,8 +2,9 @@
 @section('profile')
 @include('website.backend.layouts.flashmessage')
 
-<link rel="stylesheet" href="/css/map.css">
 <script src="/js/map.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCUywuD0K3ICLer31HgVIJ-Uhi_Suj2jA&libraries=places&callback=initialize"></script>
+<link rel="stylesheet" href="/css/map.css">
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -201,14 +202,16 @@
                     <div class="row">
                         <div class="col-lg-6 mb-3">
                             <div class="form-group">
-                                <label for="">Address: <input id="map-search" class="controls" type="text" placeholder="Search Box" size="104"></label><br>
-                                <label for="">City <input type="text" name="City" class="reg-input-city" placeholder="City"></label>
-                                <label for="">Street <input type="text"  class="reg-input-street" placeholder="Street"></label>
-                                <input type="text" name="latitude" class="latitude">
-                                <input type="text" name="longitude" class="longitude">
+                                <label for="">Address:<input id="map-search" class="form-control" type="text" placeholder="Search Box" size="30"></label><br>
+{{--                                <label for="">City <input type="text" name="City" class="reg-input-city" placeholder="City"></label>--}}
+{{--                                <label for="">Street <input type="text"  class="reg-input-street" placeholder="Street"></label>--}}
+                                <label> Location latitude <input type="text" name="latitude" class="form-control" class="latitude"></label>
+                                <label> Location longitude <input type="text" name="longitude" class="form-control" class="longitude"></label>
+                                <div id="map-canvas"></div>
+
                             </div>
                         </div>
-                        <div id="map-canvas"></div>
+
                     </div>
                     <div class="col-lg-12 mb-0 mt-2 ps-0">
                         <input type="submit" value="Next " class="bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-3 d-inline-block">
@@ -218,8 +221,5 @@
         </div>
     </div>
 </div>
-
-
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCUywuD0K3ICLer31HgVIJ-Uhi_Suj2jA&libraries=places&callback=initialize"></script>
-
 @endsection
+

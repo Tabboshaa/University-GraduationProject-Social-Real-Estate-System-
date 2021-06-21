@@ -44,6 +44,31 @@
         </div>
     </div>
 </div>
+<!--BeOwnerLightModal!-->
+<div class="modal fade" id="BeOwnerLightModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"  id="exampleModalLabel">Try Owner Experience</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="BeOwnerForm" method="Post" action="{{url('BeOwner/'.Auth::id())}}">
+                    @csrf
+
+                    <label class="link-info"><h3>You are Ready Now To Be Owner!</h3></label>
+
+                    <input type="hidden" name="allDone" value="yes">
+
+                    <button type="submit" id="btun3" class="btn btn-success">CLick Now And try Owner experience</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal bottom fade" style="overflow-y: scroll;" id="ReceipteModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content border-0">
@@ -52,8 +77,8 @@
                 <div class="card shadow-none rounded-0 w-100 p-2 pt-3 border-0">
                     <div class="card-body rounded-0 text-left p-3">
                         <h2 class="fw-700 display1-size display2-md-size mb-4">Receipte</h2>
-                        <form id="reserveForm" >
-
+                        <form id="reserveForm" action="{{route('paypalCall')}}" method="post">
+                            @CSRF
                            <div id="resetdiv">
                            </div>
                             <div class="form-group mb-1">
@@ -184,6 +209,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="EditPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -207,4 +233,30 @@
         </div>
     </div>
 </div>
+{{--Edit Item Location--}}
+
+<div class="modal fade" id="EditLocation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Post</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="EditPostForm">
+                    @csrf
+                    <input type="hidden" name="id" id="id">
+                    <div class="form-group">
+                        <label for="edit_Post" style="font-size: 12pt">Edit Post</label>
+                        <input type="text" style="border-radius: 3pt" name="edit_Post" id="editPost" class="form-control">
+                    </div>
+                    <button type="submit" id="btun3" class="btn btn-success">Edit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 

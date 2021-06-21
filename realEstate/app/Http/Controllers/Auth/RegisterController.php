@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Emails;
 use App\Http\Controllers\Controller;
+use App\Phone_Numbers;
 use App\Providers\RouteServiceProvider;
 use App\Type_Of_User;
 use App\User;
@@ -12,6 +13,7 @@ use http\Env\Request;
 use http\Url;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -87,4 +89,5 @@ class RegisterController extends Controller
         //return redirect('/HomeRegister');
         return redirect()->route('HomeRegister');
     }
+
 }

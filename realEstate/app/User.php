@@ -83,4 +83,8 @@ class User extends Model implements
         return $this->hasMany(followeditemsbyuser::class, 'User_Id');
     }
 
+    public function usertype(){
+        return $this->hasMany(Type_Of_User::class, 'User_Id');
+    }
+
 }

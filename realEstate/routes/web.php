@@ -21,11 +21,9 @@ use Illuminate\Support\Facades\Route;
 //end test routes
 
 //authntication routes
-Route::get('test', function () {
-    return view('calender');
-});
+Route::get('test',);
 Auth::routes();
-Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
+Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin')->middleware('RedirectIfAuthenticatedUser');
 Route::post('/', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
 Route::get('/registerUser', 'Auth\RegisterController@create')->name('registerUser');
 Route::get('/UserRegister', function () {
@@ -199,7 +197,7 @@ Route::group(['middleware' => 'auth.admin'], function () {
     Route::post('/add_country', 'CountryController@create');
 
     //State
-    Route::get('/state', 'StateController@index');
+    Route::get('/state', 'StateController@index')->middleware('Owner');
     Route::post('/add_state', 'StateController@create');
     Route::get('/show_state', 'StateController@show')->name('state_show');
 
@@ -363,7 +361,7 @@ Route::group(['middleware' => 'auth.admin'], function () {
 });
 //paypal
 
-Route::get('paypalCall/{item_id}/{schedule}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}','PaypalController@index')->name('paypalCall');
+Route::POST('paypalCall/{item_id?}/{schedule?}/{numberOfDays?}/{totalCost?}/{price_per_night?}/{start_date?}/{end_date?}','PaypalController@index')->name('paypalCall');
 Route::get('paypalReturn/{itemId}/{schedule}/{numberOfDays}/{totalCost}/{pricePerNight}/{startDate}/{endDate}','PaypalController@paypalReturn')->name('paypalReturn');
 
 Route::get('sendMailAfterReservation','PaypalController@sendDoneMail');
@@ -383,3 +381,11 @@ Route::get('map',function (){
 
 Route::get('EditUserProfile','AddUserController@EditUserProfileVeiw');
 Route::POST('/EditUserProfile1','AddUserController@EditUserProfile');
+Route::POST("/EditItemMap/{id?}",'ItemController@EditItemMap');
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::POST('/ForgotPassword','Auth\ForgotPasswordController@forgotPassword');
+//Route::get('/ForgotPassword' ,function () {
+//    return view('website\frontend\login');
+//});
+Route::get('changePassword','AddUserController@changePassword')->name('changePassword');
+Route::post('continueRegistration','RegisterController@continueRegistration');

@@ -1,4 +1,51 @@
 @extends('website.frontend.layouts.main')
+<div class="modal bottom fade" style="overflow-y: scroll;" id="BeOwnerModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="ti-close text-grey-500"></i></button>
+            <div class="modal-body p-3 d-flex align-items-center bg-none">
+                <div class="card shadow-none rounded-0 w-100 p-2 pt-3 border-0">
+                    <div class="card-body rounded-0 text-left p-3">
+                        <h5 class="modal-title" id="exampleModalLabel">Continue Your Registration</h5>
+                        <form id="BeOwnerForm" method="Post" action="{{url('BeOwner/'.Auth::id())}}">
+                            @csrf
+                            <input type="hidden" name="id" id="id">
+                            <input type="hidden" value="{{Auth::user()->First_Name}}" id="userid">
+                            <div class="form-group">
+                                <label style="font-size: 12pt">First Name</label>
+                                <input type="text" style="border-radius: 3pt" name="First" class="form-control">
+
+                            </div>
+
+                            <div class="form-group">
+                                <label style="font-size: 12pt">Middle Name</label>
+                                <input type="text" style="border-radius: 3pt" name="Middle" class="form-control">
+
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size: 12pt">Last Name</label>
+                                <input type="text" style="border-radius: 3pt" name="Last" class="form-control">
+
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size: 12pt">Phone Number</label>
+                                <input type="text" style="border-radius: 3pt" name="Phone" class="form-control">
+
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size: 12pt">National ID</label>
+                                <input type="text" style="border-radius: 3pt" name="National" class="form-control">
+                            </div>
+                            <input type="hidden"  id="check" name="check" value="BeOwner">
+                            <div class="form-group"><a href="javascript:void(0)" onclick="check();" class="btn btn-info" > Just Save Information! Or</a></div>
+                            <button type="submit" id="btun3" class="btn btn-success">Be Owner to Manage Your Properties!</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @section('profile')
 <link href="{{asset('css/FrontEndCSS/CustomerHome.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('css/FrontEndCSS/TimeLine.css')}}" rel="stylesheet" type="text/css" />
@@ -65,6 +112,21 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    var username=$('#userid').val();
+    var theButtonJustIsClicked=0;
+    console.log(username);
+      if(username==''){
+        $(window).on('load', function() {
+            $('#BeOwnerModal').modal('show');
+        });
+      }
 
+    function check(){
+        $('#check').val('just');
+        $('#BeOwnerForm').submit();
+
+    }
+</script>
 
 @endsection

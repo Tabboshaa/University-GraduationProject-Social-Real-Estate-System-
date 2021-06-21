@@ -8,7 +8,7 @@ class Operation__Detail_Value extends Model
 {
     //
     protected $primaryKey='Value_Id';
-    protected $table = 'operation__detail_value';
+    protected $table = 'operation___detail__values';
     protected $fillable = [
         'Operation_Id',
         'Operation_Type_Id',

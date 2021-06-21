@@ -1,6 +1,25 @@
 @extends('website.frontend.customer.Item_Profile')
-@section('profile_Content')
 
+
+{{--<div class="modal bottom fade" style="overflow-y: scroll;" id="EditLocation" tabindex="-1" role="dialog">--}}
+{{--    <div class="modal-dialog modal-dialog-centered" role="document">--}}
+{{--        <div class="modal-content border-0">--}}
+{{--            <div class="modal-body p-3 d-flex align-items-center bg-none">--}}
+{{--                <div class="card shadow-none rounded-0 w-100 p-2 pt-3 border-0" style="height: 700px; width: 800px;">--}}
+{{--                    <div class="card-body rounded-0 text-left p-3">--}}
+{{--                        <h3 class="fw-700 display1-size display2-md-size mb-4">EditLocation</h3>--}}
+{{--                        <form id="reserveForm" >--}}
+{{--                            <label for="">Address: <input id="map-search" class="controls" type="text" placeholder="Search Box" size="30"></label><br>--}}
+{{--                            <div id="map-canvas" style="width: 300px; height: 400px ;"></div>--}}
+{{--                        </form>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
+
+@section('profile_Content')
 
     <link rel="stylesheet" href="/css/GeneralMap.css">
     <script src="/js/GeneralMap.js"></script>
@@ -456,17 +475,16 @@
         <div class="clearfix"></div>
     </div>
     <div class="card w-100 shadow-xss rounded-xxl border-0 p-2 pe-0 mb-3" >
-        <div class="card-body ps-2 d-flex">
-            <h3>
-                Location
-            </h3>
-
-            <div class="clearfix"></div>
-        </div>
-        <div id="map">
-            <input type="hidden" id="lang" value="{{$item->address_latitude}}">
-            <input type="hidden" id="lat" value="{{$item->address_longitude}}">
-
+        <h3>
+            Location <a  href="javascript:void(0)" onclick="openEditLoaction();"><i class="feather-edit text-grey-500 me-3 font-sm"></i></a>
+        </h3>
+        <div class="card-body ps-2 d-flex" >
+            <div class="clearfix">
+                <div id="map">
+                    <input type="hidden" id="lang" value="{{$item->address_latitude}}">
+                    <input type="hidden" id="lat" value="{{$item->address_longitude}}">
+                </div>
+            </div>
         </div>
 </div>
 
@@ -483,6 +501,11 @@
     var End_id;
     var schedule;
     var item_id_global;
+
+    function openEditLoaction()
+    {
+        $("#EditLocation").modal("toggle");
+    }
 
     function test(day, schedule_Id) {
         var date2;
@@ -561,7 +584,7 @@
 
     }
 
-    function goreserve(item_id) {
+        function goreserve(item_id) {
         console.log(start_id);
         console.log(End_id);
         console.log(schedule);
@@ -579,17 +602,25 @@
             success: function(data) {
                 console.log(data);
                 // return (['totalPrice'=>$totalPric>$start_date,"end_date"=>$end_date]);
-                location.href = "/paypalCall/" + item_id + "/" + schedule + "/" + data['totalDays'] + "/" + data['totalPrice'] + "/" + data['price_per_night'] + "/" + data['start_date'] + "/" + data['end_date'];
+                // location.href = "/paypalCall/" + item_id + "/" + schedule + "/" + data['totalDays'] + "/" + data['totalPrice'] + "/" + data['price_per_night'] + "/" + data['start_date'] + "/" + data['end_date'];
 
-               //  var text="<h6><strong>Item Name :</strong> </h6> <h6>POWER up </h6>"
-               //              +"<h6><strong>Start Date:</strong> </h6> <h6>"+ data['start_date'] +"</h6>"
-               //              +"<h6><strong>End Date:</strong> </h6> <h6>"+ data['end_date']+"</h6>"
-               //              +"<h6><strong>Number Of Days :</strong> </h6> <h6>"+data['totalDays'] +"</h6>"
-               //              +"<h6><strong>Price Per Night :</strong> </h6> <h6>"+data['price_per_night']+" </h6>"
-               //              +"<h6><strong>Total Price:</strong> </h6> <h6>"+data['totalPrice']+" </h6>";
-               //  $("#resetdiv").html(text);
-               //  $("#ReceipteModal").modal("toggle");
-               //
+                var text="<h6><strong>Item Name :</strong> </h6> <h6>POWER up </h6>"
+                            +"<h6><strong>Start Date:</strong> </h6> <h6>"+ data['start_date'] +"</h6>"
+                            +"<h6><strong>End Date:</strong> </h6> <h6>"+ data['end_date']+"</h6>"
+                            +"<h6><strong>Number Of Days :</strong> </h6> <h6>"+data['totalDays'] +"</h6>"
+                            +"<h6><strong>Price Per Night :</strong> </h6> <h6>"+data['price_per_night']+" </h6>"
+                            +"<h6><strong>Total Price:</strong> </h6> <h6>"+data['totalPrice']+" </h6>"
+                            +"<input type='hidden'name='itemid' value='"+item_id+"'>"
+                            +"<input type='hidden' name='schedule' value='"+schedule+"'>"
+                            +"<input type='hidden' name='numberOfDays' value='"+data['totalDays']+"'>"
+                            +"<input type='hidden' name='pricePerNight' value='"+data['price_per_night']+"'>"
+                            +"<input type='hidden' name='totalCost' value='"+data['totalPrice']+"'>"
+                            +"<input type='hidden' name='endDate' value='"+data['end_date']+"'>"
+                            +"<input type='hidden' name='startDate' value='"+data['start_date']+"'>";
+                $("#resetdiv").html(text);
+
+                $("#ReceipteModal").modal("toggle");
+
                // $("#reserveForm").on("submit", function (){
                //     location.href = "/paypalCall/" + item_id + "/" + schedule + "/" + data['totalDays'] + "/" + data['totalPrice'] + "/" + data['price_per_night'] + "/" + data['start_date'] + "/" + data['end_date'];
                // });

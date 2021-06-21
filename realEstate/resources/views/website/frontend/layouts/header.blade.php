@@ -173,22 +173,18 @@
             <!-- <h6 class="text-grey-500 fw-500 font-xssss lh-4">There are many variations of pass..</h6> -->
         </div>
         <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" >
-            <h5 class="font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block"> <a href="{{route('userLogin')}}"> Log Out</a></h5>
+            <h5 class="font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block"> <a href="{{ url('/logout') }}"> Log Out</a></h5>
         </div>
 
     </div>
 </div>
 <!-- Modal -->
 
-
+<input type="hidden" id="checkDone" value="{{Auth::user()->First_Name}}">
 
 
 
 <script>
-    function ToggleBeOwnerModal() {
-
-        $("#BeOwnerModal").modal("toggle");
-    };
     $(document).ready(function() {
         $.ajax({
             url: "{{route('checkIfOwner')}}",
@@ -220,6 +216,19 @@
             }
         });
     });
+
+    function ToggleBeOwnerModal() {
+
+        if($('#checkDone').val()==null)
+        {
+            $("#BeOwnerModal").modal("toggle");
+        }else{$("#BeOwnerLightModal").modal("toggle"); }
+
+    };
+    function allInfoDone()
+    {
+
+    }
 </script>
 
 

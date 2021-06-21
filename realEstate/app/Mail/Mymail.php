@@ -17,7 +17,7 @@ class Mymail extends Mailable
      *
      * @return void
      */
-    public function __construct($details,$item_name,$numberOfDays,$totalCost,$price_per_night,$start_date,$end_date)
+    public function __constuct($details,$item_name,$numberOfDays,$totalCost,$price_per_night,$start_date,$end_date)
     {
         //
         $this->details = $details;
@@ -28,6 +28,7 @@ class Mymail extends Mailable
         $this->start_date = $start_date;
         $this->end_date = $end_date;
     }
+
 
     /**
      * Build the message.

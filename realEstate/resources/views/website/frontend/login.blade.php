@@ -12,7 +12,7 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('FrontEnd/sociala/images/favicon.png')}}">
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="{{asset('FrontEnd/sociala/css/style.css')}}"> 
+    <link rel="stylesheet" href="{{asset('FrontEnd/sociala/css/style.css')}}">
 
      <!-- Bootstrap core CSS-->
      <link href="{{asset('FrontEnd/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -20,7 +20,7 @@
      <link href="{{asset('FrontEnd/css/responsive.css')}}" rel="stylesheet">
      <!-- Custom fonts for this template-->
      <link href="{{asset('FrontEnd/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
- 
+
 </head>
 
 <body class="color-theme-blue">
@@ -41,8 +41,8 @@
                 <a href="{{ route('UserRegister') }}" class="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">Register</a>
 
             </div>
-            
-            
+
+
         </div>
 
         <div class="row">
@@ -61,7 +61,7 @@
 
                             <div class="form-group icon-input mb-3">
                                 <i class="font-sm ti-email text-grey-500 pe-0"></i>
-                                <input type="text" name="email" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address">                        
+                                <input type="text" name="email" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address">
                             </div>
                             <div class="form-group icon-input mb-1">
                                 <input name="password"type="Password" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Password">
@@ -70,9 +70,9 @@
                             <div class="form-check text-left mb-3">
                                 <input type="checkbox" class="form-check-input mt-2" id="exampleCheck5">
                                 <label class="form-check-label font-xsss text-grey-500" for="exampleCheck5">Remember me</label>
-                                <a href="forgot.html" class="fw-600 font-xsss text-grey-700 mt-1 float-right">Forgot your Password?</a>
+                                <a href="#" class="fw-600 font-xsss text-grey-700 mt-1 float-right"  data-bs-toggle="modal" data-bs-target="#Modallogin">Forgot your Password?</a>
                             </div>
-                        
+
                             <div class="col-sm-12 p-0 text-left">
                                 <div class="form-group mb-1">
                                     <input type="submit" value="LOGIN"  class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">
@@ -81,13 +81,13 @@
                             </div>
                         </form>
                         <div class="col-sm-12 p-0 text-center mt-2">
-                            
+
                             <h6 class="mb-0 d-inline-block bg-white fw-500 font-xsss text-grey-500 mb-3">Or, Sign in with your social account </h6>
                             <div class="form-group mb-1"><a href="#" class="form-control text-left style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2"><img src="{{asset('FrontEnd/sociala/images/icon-1.png')}}" alt="icon" class="ms-2 w40 mb-1 me-5"> Sign in with Google</a></div>
                             <div class="form-group mb-1"><a href="#" class="form-control text-left style2-input text-white fw-600 bg-twiiter border-0 p-0 "><img src="{{asset('FrontEnd/sociala/images/icon-3.png')}}" alt="icon" class="ms-2 w40 mb-1 me-5"> Sign in with Facebook</a></div>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
     </div>
@@ -99,7 +99,34 @@
 
     <script src="{{asset('FrontEnd/sociala/js/plugin.js')}}"></script>
     <script src="{{asset('FrontEnd/sociala/js/scripts.js')}}"></script>
-    
+
+    <!-- Modal Login -->
+    <div class="modal bottom fade" style="overflow-y: scroll;" id="Modallogin" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content border-0">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="ti-close text-grey-500"></i></button>
+                <div class="modal-body p-3 d-flex align-items-center bg-none">
+                    <div class="card shadow-none rounded-0 w-100 p-2 pt-3 border-0">
+                        <div class="card-body rounded-0 text-left p-3">
+                            <h2 class="fw-700 display1-size display2-md-size mb-4">Enter Your Email</h2>
+                            <form method="post" action="{{url('ForgotPassword')}}">
+                                @CSRF
+                                <div class="form-group icon-input mb-3">
+                                    <i class="font-sm ti-email text-grey-500 pe-0"></i>
+                                    <input type="text" name="UserEmail" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address">
+                                </div>
+                                <b><span>An email with a New Password code will send to you </span> </b>
+                                <div class="form-group mb-1">
+                                    <input type="submit"  value="send me new password "  class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 

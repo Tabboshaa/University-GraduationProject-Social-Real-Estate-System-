@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\review;
 use App\Type_Of_User;
 use App\User;
 use App\Item;
@@ -99,7 +100,7 @@ class CustomerHomeController extends Controller
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
-        
+
         return view(
             'website\frontend\customer\Item_Profile_Posts',
             [
@@ -128,7 +129,7 @@ class CustomerHomeController extends Controller
 
       $item=Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
-        
+
         //schedule and location
 
         $User_Id = Auth::id();
@@ -203,14 +204,17 @@ class CustomerHomeController extends Controller
 
         $state = StateController::getStates();
         $reviews = ReviewController::getItemReviews($id);
-      $item=Item::find($id);
-        $cover = CoverPageController::getCoverPhotoOfItem($id);
 
+        $item=Item::find($id);
+        $cover = CoverPageController::getCoverPhotoOfItem($id);
 
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
-        return view('website\frontend\customer\Item_Profile_Reviews', ['states' => $state, 'reviews' => $reviews, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow]);
+        $AuthReview=review::all()->where('Item_Id','=',$id)->where('User_Id','=',$User_Id)->first();
+
+
+        return view('website\frontend\customer\Item_Profile_Reviews', ['states' => $state, 'reviews' => $reviews, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow,'itemID'=>$id,'AuthReview'=>$AuthReview]);
     }
 
     /**
@@ -258,16 +262,16 @@ class CustomerHomeController extends Controller
             ->select('items.*', 'cover__pages.path')
             ->get();
         $state = StateController::getStates();
-        
+
         return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items ]);
     }
 
-    public function findItemInStateAndDate() 
+    public function findItemInStateAndDate()
     {
         $state_id = StateController::findstatebyname(request('state')); //3
         $arrivaldate = request('arrivaldate');
         $departuredate = request('departuredate');
-        
+
         $User_Id = Auth::id();
         $items = DB::table('items')
         ->join('streets', 'streets.Street_Id', '=', 'items.Street_Id')
@@ -277,8 +281,8 @@ class CustomerHomeController extends Controller
         ->WhereDate('schedules.Start_Date', '<=', $arrivaldate)
         ->WhereDate('schedules.End_Date', '>=', $departuredate)
         ->select('items.*', 'cover__pages.path')
-        ->get(); 
-        
+        ->get();
+
         $check_follow = followeditemsbyuser::all()->where('User_ID', '=', $User_Id)->groupBy('Item_Id');
 
         $state = StateController::getStates();
@@ -303,7 +307,7 @@ class CustomerHomeController extends Controller
 
         $User = Auth::user();
 
-        
+
 
         $posts = DB::table('followeditemsbyusers')
             ->join('posts', 'followeditemsbyusers.Item_Id', 'posts.Item_Id')
