@@ -14,6 +14,7 @@ use DateInterval;
 use DatePeriod;
 use DateTime;
 use Exception;
+use Illuminate\Support\Arr;
 
 class ItemProfileController extends Controller
 {
@@ -118,8 +119,10 @@ class ItemProfileController extends Controller
             ->join('datatypes', 'datatypes.id', '=', 'property__details.DataType_Id')
             ->select('details.*', 'sub__type__properties.Property_Name', 'property__details.Detail_Name', 'datatypes.datatype')
             ->get()->where('Item_Id', '=', $id)->groupBy(['Property_Name', 'Property_Id', 'Property_diff']);
-
-        return view('website\frontend\owner\Item_Profile_Details', ['details' => $details, 'states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
+            
+            $Sub_Type_Id = Arr::get(Details::all()->where('Item_Id', '=', $id)->first(), 'Sub_Type_Id');
+            
+        return view('website\frontend\owner\Item_Profile_Details', ['details' => $details, 'states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow,'subtype'=>$Sub_Type_Id]);
     }
 
     public function itemProfileGallery($id)

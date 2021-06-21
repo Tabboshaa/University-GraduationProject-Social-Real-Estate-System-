@@ -4,7 +4,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -74,11 +73,25 @@
                 Object.values(data).forEach(val => {
 
                     Form += ' <div class="form-group row"> ' +
-                        '<label for="' + val['Property_Detail_Id'] + '" class="col-md-2 col-form-label text-md-right">' + val['Detail_Name'] + '</label>' +
-                        '<div class="col-md-5">' +
-                        '<input type="' + val['datatype'] + '" id="' + val['Property_Detail_Id'] + '" name="DetailItem[]" class="form-control"  autocomplete="DetailName">' +
-                        '</div>' +
-                        '</div>';
+                            '<label for="' + val['Property_Detail_Id'] + '" class="col-md-2 col-form-label text-md-right">' + val['Detail_Name'] + '</label>' +
+                            '<div class="col-md-5">';
+
+                        if (val['datatype'] == "checkbox") {
+                            if (val['DetailValue'] == "yes") {
+                                Form += '<input type="' + val['datatype'] + '" id="' + val['Property_Detail_Id'] + '" name="DetailItem[]"  class="form-check-input" checked>' +
+                                    '</div>' +
+                                    '</div>';
+                            } else {
+                                Form += '<input type="' + val['datatype'] + '" id="' + val['Property_Detail_Id'] + '" name="DetailItem[]"  class="form-check-input" >' +
+                                    '</div>' +
+                                    '</div>';
+                            }
+                        } else {
+                            Form += '<input type="' + val['datatype'] + '" id="' + val['Property_Detail_Id'] + '" name="DetailItem[]"  class="form-control" >' +
+                                '</div>' +
+                                '</div>';
+                        }
+
                 });
                 if (Form == '')
                     Form = 'No Property Details';
