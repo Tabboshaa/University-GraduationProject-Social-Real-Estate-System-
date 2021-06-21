@@ -19,7 +19,9 @@ use Illuminate\Support\Facades\Route;
 //test routes here
 
 //end test routes
-
+Route::get('/Land', function () {
+    return view('website\LandingPadge');
+});
 //authntication routes
 Route::get('test',);
 Auth::routes();
@@ -74,7 +76,8 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/itemGallery/{id?}', 'CustomerHomeController@itemProfileGallery');
     Route::get('/itemReviews/{id?}', 'CustomerHomeController@itemProfileReviews');
 
-    Route::get('/veiw_notification/{id}', 'NotificationController@viewNotification');
+    //notification soft delete
+    Route::get('/view_notification', 'NotificationController@viewNotification')->name('view_notification');
 
 
     Route::get('/timeline', function () {
@@ -97,8 +100,12 @@ Route::group(['middleware' => 'auth.user'], function () {
     //Follow
     Route::get('/FollowItem/{id?}', 'AddUserController@FollowedItem');
     Route::get('/UnfollowItem/{id?}', 'AddUserController@UnfollowItem');
+    
+    Route::get('/FollowUser/{id?}', 'FollowedusersController@FollowedUser');
+    Route::get('/UnfollowUser/{id?}', 'FollowedusersController@UnfollowUser');
 
     Route::get('/HomePage', 'CustomerHomeController@HomePagePosts')->name('HomePage');
+    Route::get('/HomepageUserPosts', 'CustomerHomeController@HomePageUserPosts')->name('HomePageuser');
     Route::post('/Reservation', 'HomeController@Reservation');
 
     Route::get('/hamada/{id?}', 'CommentsController@getPostrepliesHomePage');
@@ -136,11 +143,11 @@ Route::group(['middleware' => 'auth.user'], function () {
 
     Route::get('/Amr/{id?}', 'ItemController@SelectSubType');
     Route::get('/OwnerSelectSubType/{id?}', 'ItemController@SelectSubType');
-    Route::get('/test', 'DetailsController@test');
     Route::get('/OwnerSelectDetails/{item_id}/{sub_type_id}', 'ItemController@OwnerSelectProperty');
     Route::get('/OwnerAddItem', function () {
         return view('website\frontend.Owner.Add_Item');
     });
+    Route::get('/test', 'NotificationController@index');
 });
 
 
@@ -161,9 +168,11 @@ Route::group(['middleware' => 'auth.admin'], function () {
     Route::post('/add_main_type', 'MainTypes@create');
     Route::delete('/delete_main_type', 'MainTypes@destroy');
     Route::get('/edit_main_type', 'MainTypes@edit')->name('Maintype.update');
+    
     //operation types
     Route::get('/operation_types', 'OperationsController@index');
-    Route::get('/operation_types_show', 'OperationsController@showDetail')->name('operation_types_show');
+    Route::get('/operation_types_show', 'OperationsController@show')->name('operation_types_show');
+    Route::get('/operation_details_show', 'OperationsController@showDetail')->name('operation_types_show');
     Route::post('/add_operation_type', 'OperationsController@createType');
     Route::delete('/delete_operation_type', 'OperationsController@destroy');
     Route::get('/edit_operation_type', 'OperationsController@edit')->name('operationType.update');
@@ -340,7 +349,7 @@ Route::group(['middleware' => 'auth.admin'], function () {
     Route::get('/edit_User_Name', 'AddUserController@editUserName')->name('UserName.update');
     Route::get('/edit_User_Email', 'AddUserController@editUserEmail')->name('UserEmail.update');
     Route::get('/edit_User_PhoneNumber', 'AddUserController@editUserPhoneNumber')->name('UserPhoneNumber.update');
-    Route::get('/veiw_User/{id}', 'AddUserController@show');
+    Route::get('/view_User/{id}', 'AddUserController@show');
 
     Route::Post('/item_created', 'ItemController@itemShow');
 

@@ -53,6 +53,18 @@ class ReviewController extends Controller
         return $review;
     }
 
+    public static function getItemRate($item_id)
+    {
+        //
+        $review= review::all()->where('Item_Id','=',$item_id)->sum('Number_Of_Stars');
+        $count= review::all()->where('Item_Id','=',$item_id)->count();
+
+        if($count != 0)
+        return ($review/$count);
+
+        return 0;
+    }
+
     public function destroy($id)
     {
         //

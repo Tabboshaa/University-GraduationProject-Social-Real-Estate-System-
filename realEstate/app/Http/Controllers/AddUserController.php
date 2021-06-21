@@ -207,15 +207,12 @@ class AddUserController extends Controller
         //
         $user = User::all()->where('id', '=', $id)->first();
 
-
         $posts = PostsController::userPosts($id);
             $profile_photo = ProfilePhotoController::getPhoto($id);
         $cover_photo = CoverPhotoController::getPhoto($id);
         $post_images = AttachmentController::getPostAttachments($id);
         $gallery = AttachmentController::getAttachmentsOfuser($id);
-
-
-
+        $check_follow = FollowedusersController::checkFollow($id);
         $post_images = [];
 
         foreach ($posts as $post) {
@@ -234,7 +231,7 @@ class AddUserController extends Controller
         if ($id == Auth::id()) {
             return view('website\frontend\customer\Customer_Own_Profile', [
                 'id' => $id,
-                'User'=>$User,
+                'User' => $User,
                 'First_Name' => $user->First_Name,
                 'Email' => $user->email,
                 'Middle_Name' => $user->Middle_Name,
@@ -251,7 +248,7 @@ class AddUserController extends Controller
 
         return view('website\frontend\customer\Customer_Profile', [
             'id' => $id,
-            'User_Id'=>$user->id,
+            'User' => $User,
             'First_Name' => $user->First_Name,
             'Middle_Name' => $user->Middle_Name,
             'Last_Name' => $user->Last_Name,
@@ -262,6 +259,7 @@ class AddUserController extends Controller
             'followedItems' => $user->followedItems,
             'gallery' => $gallery,
             'items' => $user->items,
+            'check_follow' =>  $check_follow,
 
         ]);
     }
@@ -384,6 +382,9 @@ class AddUserController extends Controller
             'User_ID' => Auth::id()
         ]);
         $followed_items->save();
+
+        $to_user = ItemController::getowner($Item_Id);
+        NotificationController::createRedirect(Auth::id(), $to_user,  'Started Following your item', '/view_User/' . Auth::id());
         return back();
     }
     public static function UnfollowItem($Item_Id)

@@ -113,12 +113,7 @@ class PostsController extends Controller
     public static function userPosts($id)
     {
         //
-         $posts=DB::table('posts')
-         ->join('users', 'users.id', '=', 'posts.User_Id')
-         ->where('User_Id','=',$id)
-         ->select('posts.*')
-         ->orderBy('updated_at','DESC')
-         ->get();
+         $posts=posts::all()->where('User_Id','=',$id)->sortByDesc('updated_at');
          
         return $posts;
     }

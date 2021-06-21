@@ -35,6 +35,7 @@ class DetailsController extends Controller
         $max = Details::max('Property_diff');
         $max += 1;
 
+
         foreach ($detailsInput as $detail) {
             $property_details = Property_Details::all()->where('Property_Detail_Id', '=', Arr::get($detail, 'id'))->first();
 
@@ -49,6 +50,8 @@ class DetailsController extends Controller
                 'Property_diff' => $max,
                 'DetailValue' => Arr::get($detail, 'value')
             ];
+
+            
         }
 
         // request()->validate([
@@ -56,7 +59,8 @@ class DetailsController extends Controller
         // ]);
         try {
             Details::insert($details);
-            return 'eshta';
+            return back()->with('success', 'Detail Added');
+
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {

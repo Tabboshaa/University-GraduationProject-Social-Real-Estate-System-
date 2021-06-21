@@ -1,5 +1,3 @@
-
-
 <!-- navigation top-->
 <div class="nav-header bg-white shadow-xs border-0">
     <div class="nav-top">
@@ -21,32 +19,32 @@
     <a href="default-group.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i class="feather-user font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
     <a href="shop-2.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i class="feather-shopping-bag font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
 
-    <a href="#" class="p-2 text-center ms-auto menu-icon" id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false"><span class="dot-count bg-warning"></span><i class="feather-bell font-xl text-current"></i></a>
-    <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" aria-labelledby="dropdownMenu3">
+    <?php
 
+    use App\Http\Controllers\NotificationController;
+    use Illuminate\Support\Facades\Auth;
+
+    $notifications = NotificationController::index(Auth::id());
+    $today = \Carbon\Carbon::now();
+    ?>
+    <a href="#" class="p-2 text-center ms-auto menu-icon" id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false">@if(count($notifications)!=0)<span class="dot-count bg-warning"></span>@endif<i class="feather-bell font-xl text-current"></i></a>
+    <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" style="max-height: 650px; overflow: auto;" aria-labelledby="dropdownMenu3">
         <h4 class="fw-700 font-xss mb-4">Notification</h4>
-        <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3">
+        @foreach($notifications as $notification)
+        <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3" id="notif{{$notification->Notification_Id}}">
 
-            <img src="{{asset('FrontEnd/sociala/images/user-8.png')}}" alt="user" class="w40 position-absolute left-0">
-            <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">Hendrix Stamp <span class="text-grey-400 font-xsssss fw-600 float-right mt-1"> 3 min</span></h5>
-            <h6 class="text-grey-500 fw-500 font-xssss lh-4">There are many variations of pass..</h6>
+            @if($notification->fromuser->profilePhoto !=null)
+            <img src="{{asset('storage/cover page/'.$notification->fromuser->profilePhoto['Profile_Picture'])}}" alt="user" class="w40 position-absolute left-0">
+            @else
+            <img src="{{asset('storage/cover page/pic.png')}}" alt="user" class="w40 position-absolute left-0">
+            @endif
+            <a href="javascript:void(0)" onclick="deletenotification('{{$notification->Notification_Id}}')"> <i class="fa fa-close float-right mt-1"></i></a>
+            @if($notification->Redirect_To !=null)<a href="{{url(''.$notification->Redirect_To)}}">@else <a href="{{ url('/view_User/'.$notification->From_User_Id) }}"> @endif
+                    <h5 class="font-xssss text-grey-900 mb-1 mt-0 fw-700 d-block">{{$notification->fromuser->First_Name}} {{$notification->fromuser->Middle_Name}} {{$notification->fromuser['Last_Name']}}<span class="text-grey-400 font-xsssss fw-600 float-right mt-1"> <?php $end = \Carbon\Carbon::parse($notification->updated_at); ?>{{ $end->diffForHumans($today) }}</span></h5>
+                    <h6 class="text-grey-500 fw-500 font-xssss lh-4">{{ $notification->Notification }}</h6>
+                </a>
         </div>
-        <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3">
-            <img src="{{asset('FrontEnd/sociala/images/user-4.png')}}" alt="user" class="w40 position-absolute left-0">
-            <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">Goria Coast <span class="text-grey-400 font-xsssss fw-600 float-right mt-1"> 2 min</span></h5>
-            <h6 class="text-grey-500 fw-500 font-xssss lh-4">Mobile Apps UI Designer is require..</h6>
-        </div>
-
-        <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3">
-            <img src="{{asset('FrontEnd/sociala/images/user-7.png')}}" alt="user" class="w40 position-absolute left-0">
-            <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">Surfiya Zakir <span class="text-grey-400 font-xsssss fw-600 float-right mt-1"> 1 min</span></h5>
-            <h6 class="text-grey-500 fw-500 font-xssss lh-4">Mobile Apps UI Designer is require..</h6>
-        </div>
-        <div class="card bg-transparent-card w-100 border-0 ps-5">
-            <img src="{{asset('FrontEnd/sociala/images/user-6.png')}}" alt="user" class="w40 position-absolute left-0">
-            <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">Victor Exrixon <span class="text-grey-400 font-xsssss fw-600 float-right mt-1"> 30 sec</span></h5>
-            <h6 class="text-grey-500 fw-500 font-xssss lh-4">Mobile Apps UI Designer is require..</h6>
-        </div>
+        @endforeach
     </div>
     <a href="#" class="p-2 text-center ms-3 menu-icon chat-active-btn"><i class="feather-message-square font-xl text-current"></i></a>
     <div class="p-2 text-center ms-3 position-relative dropdown-menu-icon menu-icon cursor-pointer">
@@ -166,10 +164,10 @@
             <h5 class="font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block"> <a href="{{url('/EditCustomerProfile')}}"> profile</a></h5>
             <!-- <h6 class="text-grey-500 fw-500 font-xssss lh-4">There are many variations of pass..</h6> -->
         </div>
-        <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" id ="checkIfOwnerDiv">
+        <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" id="checkIfOwnerDiv">
 
             <!-- <img src="{{asset('FrontEnd/sociala/images/user-8.png')}}"  alt="user" class="w40 position-absolute left-0"> -->
-            <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block"> <a href='javascript:void(0)'  onclick='ToggleBeOwnerModal()'  data-backdrop="false"> Switch to Owner</span></h5>
+            <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block"> <a href='javascript:void(0)' onclick='ToggleBeOwnerModal()' data-backdrop="false"> Switch to Owner</span></h5>
             <!-- <h6 class="text-grey-500 fw-500 font-xssss lh-4">There are many variations of pass..</h6> -->
         </div>
         <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" >

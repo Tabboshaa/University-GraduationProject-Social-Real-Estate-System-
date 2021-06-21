@@ -1,213 +1,288 @@
 @extends('website.frontend.layouts.main')
-@section('content')
+@section('profile')
 
 <link href="{{asset('css/FrontEndCSS/CustomerHome.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('css/FrontEndCSS/TimeLine.css')}}" rel="stylesheet" type="text/css" />
 <?php $today = \Carbon\Carbon::now(); ?>
+<div class="row">
+    <div class="col-xl-8 col-xxl-9 col-lg-8">
 
-<div class="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3 overflow-hidden">
-    <div class="card-body d-block w-100 shadow-none mb-0 p-0 border-top-xs">
-        <ul class="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4" id="pills-tab" role="tablist">
-            <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="http://127.0.0.1:8000/veiw_User1" data-toggle="tab">items</a></li>
-            <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="http://127.0.0.1:8000/veiw_User1" data-toggle="tab">Followed users</a></li>
-        </ul>
-    </div>
-</div>
-
-@if( count($posts) != 0)
-@foreach($posts as $post)
-<div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
-    <div class="card-body p-0 d-flex">
-        @if($post->path!=null)
-        <figure class="avatar me-3"><img src="{{asset('storage/cover page/'.$post->path)}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
-        @else
-        <figure class="avatar me-3"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
-        @endif
-
-        <h4 class="fw-700 text-grey-900 font-xssss mt-1"><a href="{{url('/itemProfile/'.$post->Item_Id)}}">
-                {{ $post->Item_Name }}
-                @if($User->id== $post->User_Id )
-                <a href="{{url('/deletePost/'.$post->Post_Id)}}" name="del_post" id="del_post"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
-                <a href="javascript:void(0)" onclick="setPost('{{$post->Post_Id}}','{{$post->Post_Content}}')" name="editpost"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
-                @endif
-            </a> <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"><?php $today = \Carbon\Carbon::now();
-                                                                                    $end = \Carbon\Carbon::parse($post->updated_at);
-                                                                                    ?>{{ $end->diffForHumans($today)}}</span></h4>
-    </div>
-    <div class="card-body p-0 me-lg-5">
-        <p class="fw-500 text-grey-500 lh-26 font-xssss w-100">{{$post->Post_Title}} <br />
-            {{$post->Post_Content}} <br />
-        </p>
-    </div>
-    @if( isset($post_images[$post->Post_Id]) )
-    <div class="card-body d-block p-0">
-        <div class="row ps-2 pe-2">
-            @if(count($post_images[$post->Post_Id])==1)
-            @foreach($post_images[$post->Post_Id] as $Image)
-            <div class="col-sm-12 p-1"><a href="{{asset('storage/profile gallery/'.$Image->File_Path)}}" data-lightbox="roadtr"><img src="{{asset('storage/profile gallery/'.$Image->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
-            @endforeach
-            @elseif(count($post_images[$post->Post_Id])==2)
-            @foreach($post_images[$post->Post_Id] as $Image)
-            <div class="col-xs-6 col-sm-6 p-1"><a href="{{asset('storage/profile gallery/'.$Image->File_Path)}}" data-lightbox="roadtri"><img style="max-height: 370px;" src="{{asset('storage/profile gallery/'.$Image->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
-            @endforeach
-            @elseif(count($post_images[$post->Post_Id])==3||count($post_images[$post->Post_Id])==4)
-            @foreach($post_images[$post->Post_Id] as $Image)
-            <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$Image->File_Path)}}" data-lightbox="roadtrip"><img style="max-height: 370px;" src="{{asset('storage/profile gallery/'.$Image->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
-            @endforeach
-            @elseif(count($post_images[$post->Post_Id])==5)
-            @foreach($post_images[$post->Post_Id] as $Image)
-            <!-- two med -->
-            <div class="col-xs-6 col-sm-6 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][0]->File_Path)}}" data-lightbox="roadtri"><img style="max-height: 370px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][0]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
-            <div class="col-xs-6 col-sm-6 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][1]->File_Path)}}" data-lightbox="roadtri"><img style="max-height: 370px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][1]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
-            <!-- two small -->
-            <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][2]->File_Path)}}" data-lightbox="roadtrip"><img style="max-height: 220px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][2]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
-            <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][3]->File_Path)}}" data-lightbox="roadtrip"><img style="max-height: 220px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][3]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
-            <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][4]->File_Path)}}" data-lightbox="roadtrip"><img style="max-height: 220px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][4]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
-            @endforeach
-            @else
-            <!-- two med -->
-            <div class="col-xs-6 col-sm-6 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][0]->File_Path)}}" data-lightbox="roadtri"><img style="max-height: 370px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][0]->File_Path)}}" class="rounded-3 w-100" alt="image" width="220px" hieght="142px"></a></div>
-            <div class="col-xs-6 col-sm-6 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][1]->File_Path)}}" data-lightbox="roadtri"><img style="max-height: 370px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][1]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
-            <!-- two small -->
-            <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][2]->File_Path)}}" data-lightbox="roadtrip"><img style="max-height: 220px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][2]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
-            <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][3]->File_Path)}}" data-lightbox="roadtrip"><img style="max-height: 220px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][3]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
-            <!-- the span -->
-            <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][3]->File_Path)}}" data-lightbox="roadtri" class="position-relative d-block"><img style="max-height: 220px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][4]->File_Path)}}" class="rounded-3 w-100" alt="image"><span class="img-count font-sm text-white ls-3 fw-600"><b>+{{(-5+count($post_images[$post->Post_Id]))}}</b></span></a></div>
-            @endif
-        </div>
-    </div>
-    @endif
-
-
-    @if( isset($post->comments) )
-    <a href="javascript:void(0)" id="more" onclick="$('#allcomments{{$post->Post_Id}}').slideToggle(function(){$('#more').html($('#allcomments{{$post->Post_Id}}').is(':visible')?'Hide Comments':'{{count($post->comments)}} Comment');});" onclick="viewComment('{{$post->Post_Id}}')" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>{{count($post->comments)}} Comment</span></a>
-    @else
-    <div class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>0 Comments</span></div>
-    @endif
-    <!-- 0055FF -->
-    <div class="form-group">
-        <input id="CommentForPost{{$post->Post_Id}}" type="text" placeholder="Say something nice." style="background-color:#0055ff1a;width:770px;" class="border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg">
-        <a href="javascript:void(0)" onclick="Comment('{{$post->Post_Id}}');"><i class="btn-round-sm bg-primary-gradiant text-white font-sm ti-arrow-right text-blue"></i></a>
-
-    </div>
-    @if( isset($post->comments) )
-    <div id="allcomments{{$post->Post_Id}}" style="display: none;">
-        <div class="chat-body p-3 ">
-            <div class="messages-content pb-5">
-                @foreach($post->comments as $comment)
-                <div class="card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10">
-
-                    @if($comment->user->profilePhoto !=null)
-                    <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/'.$comment->user->profilePhoto->Profile_Picture)}}" alt="image" class="shadow-sm rounded-circle w35"></figure>
-                    @else
-                    <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w35"></figure>
-                    @endif
-                    <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
-                        <a href="{{url('veiw_User/'.$comment->User_Id)}}">
-                            <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">{{$comment->user->First_Name}} {{$comment->user->Middle_Name}} {{$comment->user->Last_Name}}
-                                @if($User->id== $comment->User_Id )
-                                <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
-                                <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
-                                @endif
-                        </a></h4>
-                        <div class="time"><?php $end = \Carbon\Carbon::parse($comment->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0"> {{ $end->diffForHumans($today) }}</p>
-                        </div>
-                        <p class="fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0">{{ $comment->Comment }}</p>
-                    </div>
-                </div>
-                @if( isset($comment->replies))
-                <a href="javascript:void(0)" id="morereplies" onclick="$('#allreplies{{$comment->Comment_Id}}').slideToggle(function(){$('#morereplies').html($('#allreplies{{$comment->Comment_Id}}').is(':visible')?'Hide Replies':'{{count($comment->replies)}} Relpy');});" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>{{count($comment->replies)}} Relpy</span></a>
-                @else
-                <a href="javascript:void(0)" id="morereplies" onclick="$('#allreplies{{$comment->Comment_Id}}').slideToggle(function(){$('#morereplies').html($('#allreplies{{$comment->Comment_Id}}').is(':visible')?'Hide Replies':'0 Relpies');});" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>0 Relpies</span></a>
-                @endif
-
-                <div id="allreplies{{$comment->Comment_Id}}" style="display: none;">
-                    <div class="form-group">
-                        <input id="ReplyForComment{{$comment->Comment_Id}}" name="comment{{$comment->Comment_Id}}" placeholder="Write a reply..." type="text" style="background-color:#0055ff1a;width:770px;" class="border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xsssss fw-500 rounded-xl w300 theme-dark-bg">
-                        <a href="javascript:void(0)" onclick="Reply('{{$post->Post_Id}}','{{$comment->Comment_Id}}');"><i class="btn-round-sm bg-primary-gradiant text-white font-sm ti-arrow-right text-blue"></i></a>
-
-                    </div>
-                    <!-- 0055FF -->
-                    @if( isset($comment->replies) )
-                    @foreach($comment->replies as $reply)
-                    <div class="card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative">
-                        @if($reply->user->profilePhoto !=null)
-                        <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/'.$reply->user->profilePhoto->Profile_Picture)}}" alt="image" class="shadow-sm rounded-circle w35"></figure>
-                        @else
-                        <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w35"></figure>
-                        @endif <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
-                            <a href="{{url('veiw_User/'.$reply->User_Id)}}">
-                                <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">{{$reply->user->First_Name}} {{$reply->user->Middle_Name}} {{$reply->user->Last_Name}}
-                                    @if($User->id== $reply->User_Id )
-                                    <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
-                                    <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
-                                    @endif
-                            </a></h4>
-                            <div class="time"><?php $end = \Carbon\Carbon::parse($reply->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">{{ $end->diffForHumans($today) }}</p>
-                            </div>
-                            <p class="fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0">{{ $reply->Comment }}</p>
-                        </div>
-                    </div>
-                    @endforeach
-                    @endif
-                </div>
-                @endforeach
+        <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3 overflow-hidden">
+            <div class="card-body d-block w-100 shadow-none mb-0 p-0 border-top-xs">
+                <ul class="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4" id="pills-tab" role="tablist">
+                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block active" href="{{url('/HomePage')}}" data-toggle="tab">items</a></li>
+                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('/HomepageUserPosts')}}" data-toggle="tab">Followed users</a></li>
+                </ul>
             </div>
         </div>
+
+
+        @if( count($posts) != 0)
+        @foreach($posts as $post)
+        <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
+            <div class="card-body p-0 d-flex">
+                @if($post->path!=null)
+                <figure class="avatar me-3"><img src="{{asset('storage/cover page/'.$post->path)}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
+                @else
+                <figure class="avatar me-3"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
+                @endif
+
+                <h4 class="fw-700 text-grey-900 font-xssss mt-1"><a href="{{url('/itemProfile/'.$post->Item_Id)}}">
+                        {{ $post->Item_Name }}
+                        @if($User->id== $post->User_Id )
+                        <a href="{{url('/deletePost/'.$post->Post_Id)}}" name="del_post" id="del_post"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
+                        <a href="javascript:void(0)" onclick="setPost('{{$post->Post_Id}}','{{$post->Post_Content}}')" name="editpost"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
+                        @endif
+                    </a> <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"><?php $today = \Carbon\Carbon::now();
+                                                                                            $end = \Carbon\Carbon::parse($post->updated_at);
+                                                                                            ?>{{ $end->diffForHumans($today)}}</span></h4>
+            </div>
+            <div class="card-body p-0 me-lg-5">
+                <p class="fw-500 text-grey-500 lh-26 font-xssss w-100">{{$post->Post_Title}} <br />
+                    {{$post->Post_Content}} <br />
+                </p>
+            </div>
+            @if( isset($post_images[$post->Post_Id]) )
+            <div class="card-body d-block p-0">
+                <div class="row ps-2 pe-2">
+                    @if(count($post_images[$post->Post_Id])==1)
+                    @foreach($post_images[$post->Post_Id] as $Image)
+                    <div class="col-sm-12 p-1"><a href="{{asset('storage/profile gallery/'.$Image->File_Path)}}" data-lightbox="roadtr"><img src="{{asset('storage/profile gallery/'.$Image->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                    @endforeach
+                    @elseif(count($post_images[$post->Post_Id])==2)
+                    @foreach($post_images[$post->Post_Id] as $Image)
+                    <div class="col-xs-6 col-sm-6 p-1"><a href="{{asset('storage/profile gallery/'.$Image->File_Path)}}" data-lightbox="roadtri"><img style="max-height: 370px;" src="{{asset('storage/profile gallery/'.$Image->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                    @endforeach
+                    @elseif(count($post_images[$post->Post_Id])==3||count($post_images[$post->Post_Id])==4)
+                    @foreach($post_images[$post->Post_Id] as $Image)
+                    <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$Image->File_Path)}}" data-lightbox="roadtrip"><img style="max-height: 370px;" src="{{asset('storage/profile gallery/'.$Image->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                    @endforeach
+                    @elseif(count($post_images[$post->Post_Id])==5)
+                    @foreach($post_images[$post->Post_Id] as $Image)
+                    <!-- two med -->
+                    <div class="col-xs-6 col-sm-6 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][0]->File_Path)}}" data-lightbox="roadtri"><img style="max-height: 370px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][0]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                    <div class="col-xs-6 col-sm-6 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][1]->File_Path)}}" data-lightbox="roadtri"><img style="max-height: 370px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][1]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                    <!-- two small -->
+                    <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][2]->File_Path)}}" data-lightbox="roadtrip"><img style="max-height: 220px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][2]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                    <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][3]->File_Path)}}" data-lightbox="roadtrip"><img style="max-height: 220px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][3]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                    <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][4]->File_Path)}}" data-lightbox="roadtrip"><img style="max-height: 220px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][4]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                    @endforeach
+                    @else
+                    <!-- two med -->
+                    <div class="col-xs-6 col-sm-6 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][0]->File_Path)}}" data-lightbox="roadtri"><img style="max-height: 370px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][0]->File_Path)}}" class="rounded-3 w-100" alt="image" width="220px" hieght="142px"></a></div>
+                    <div class="col-xs-6 col-sm-6 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][1]->File_Path)}}" data-lightbox="roadtri"><img style="max-height: 370px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][1]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                    <!-- two small -->
+                    <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][2]->File_Path)}}" data-lightbox="roadtrip"><img style="max-height: 220px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][2]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                    <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][3]->File_Path)}}" data-lightbox="roadtrip"><img style="max-height: 220px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][3]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                    <!-- the span -->
+                    <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][3]->File_Path)}}" data-lightbox="roadtri" class="position-relative d-block"><img style="max-height: 220px;" src="{{asset('storage/profile gallery/'.$post_images[$post->Post_Id][4]->File_Path)}}" class="rounded-3 w-100" alt="image"><span class="img-count font-sm text-white ls-3 fw-600"><b>+{{(-5+count($post_images[$post->Post_Id]))}}</b></span></a></div>
+                    @endif
+                </div>
+            </div>
+            @endif
+
+
+            @if( isset($comments[$post->Post_Id]) )
+            <a href="javascript:void(0)" id="more" onclick="$('#allcomments{{$post->Post_Id}}').slideToggle(function(){$('#more').html($('#allcomments{{$post->Post_Id}}').is(':visible')?'Hide Comments':'{{count($comments[$post->Post_Id])}} Comment');});" onclick="viewComment('{{$post->Post_Id}}')" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>{{count($comments[$post->Post_Id])}} Comment</span></a>
+            @else
+            <div class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>0 Comments</span></div>
+            @endif
+            <!-- 0055FF -->
+            <div class="form-group">
+                <input id="CommentForPost{{$post->Post_Id}}" type="text" placeholder="Say something nice." style="background-color:#0055ff1a;width:770px;" class="border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg">
+                <a href="javascript:void(0)" onclick="Comment('{{$post->Post_Id}}');"><i class="btn-round-sm bg-primary-gradiant text-white font-sm ti-arrow-right text-blue"></i></a>
+
+            </div>
+            @if( isset($comments[$post->Post_Id]) )
+            <div id="allcomments{{$post->Post_Id}}" style="display: none;">
+                <div class="chat-body p-3 ">
+                    <div class="messages-content pb-5">
+                        @foreach($comments[$post->Post_Id] as $comment)
+                        <div class="card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10">
+
+                            @if($comment->Profile_Picture !=null)
+                            <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/'.$comment->Profile_Picture)}}" alt="image" class="shadow-sm rounded-circle w35"></figure>
+                            @else
+                            <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w35"></figure>
+                            @endif
+                            <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
+                                <a href="{{url('view_User/'.$comment->User_Id)}}">
+                                    <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">{{$comment->First_Name}} {{$comment->Middle_Name}} {{$comment->Last_Name}}
+                                        @if($User->id== $comment->User_Id )
+                                        <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
+                                        <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
+                                        @endif
+                                </a></h4>
+                                <div class="time"><?php $end = \Carbon\Carbon::parse($comment->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0"> {{ $end->diffForHumans($today) }}</p>
+                                </div>
+                                <p class="fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0">{{ $comment->Comment }}</p>
+                            </div>
+                        </div>
+                        @if( isset($replies[$comment->Comment_Id]))
+                        <a href="javascript:void(0)" id="morereplies" onclick="$('#allreplies{{$comment->Comment_Id}}').slideToggle(function(){$('#morereplies').html($('#allreplies{{$comment->Comment_Id}}').is(':visible')?'Hide Replies':'{{count($replies[$comment->Comment_Id])}} Relpy');});" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>{{count($replies[$comment->Comment_Id])}} Relpy</span></a>
+                        @else
+                        <a href="javascript:void(0)" id="morereplies" onclick="$('#allreplies{{$comment->Comment_Id}}').slideToggle(function(){$('#morereplies').html($('#allreplies{{$comment->Comment_Id}}').is(':visible')?'Hide Replies':'0 Relpies');});" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>0 Relpies</span></a>
+                        @endif
+
+                        <div id="allreplies{{$comment->Comment_Id}}" style="display: none;">
+                            <div class="form-group">
+                                <input id="ReplyForComment{{$comment->Comment_Id}}" name="comment{{$comment->Comment_Id}}" placeholder="Write a reply..." type="text" style="background-color:#0055ff1a;width:770px;" class="border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xsssss fw-500 rounded-xl w300 theme-dark-bg">
+                                <a href="javascript:void(0)" onclick="Reply('{{$post->Post_Id}}','{{$comment->Comment_Id}}');"><i class="btn-round-sm bg-primary-gradiant text-white font-sm ti-arrow-right text-blue"></i></a>
+
+                            </div>
+                            <!-- 0055FF -->
+                            @if( isset($replies[$comment->Comment_Id]) )
+                            @foreach($replies[$comment->Comment_Id] as $reply)
+                            <div class="card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative">
+                                @if($reply->Profile_Picture !=null)
+                                <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/'.$reply->Profile_Picture)}}" alt="image" class="shadow-sm rounded-circle w35"></figure>
+                                @else
+                                <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w35"></figure>
+                                @endif <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
+                                    <a href="{{url('view_User/'.$reply->User_Id)}}">
+                                        <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">{{$reply->First_Name}} {{$reply->Middle_Name}} {{$reply->Last_Name}}
+                                            @if($User->id== $reply->User_Id )
+                                            <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
+                                            <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
+                                            @endif
+                                    </a></h4>
+                                    <div class="time"><?php $end = \Carbon\Carbon::parse($reply->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">{{ $end->diffForHumans($today) }}</p>
+                                    </div>
+                                    <p class="fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0">{{ $reply->Comment }}</p>
+                                </div>
+                            </div>
+                            @endforeach
+                            @endif
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            @endif
+        </div>
+        @endforeach
+    </div>
+
+    <div class="col-xl-4 col-xxl-3 col-lg-4 pe-0">
+        <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3">
+            <div class="card-body d-block p-4">
+                <h4 class="fw-700 mb-3 font-xsss text-grey-900"> Popular items <i class="fa fa-fire"></i></h4>
+                <p class="fw-500 text-grey-500 lh-24 font-xssss mb-0">Popular items right now </p>
+
+            </div>
+            <div class="card-body border-top-xs d-flex">
+                <div class=row>
+                    @foreach($mostPopularitems as $item)
+                    <div class="col-6 mb-2 pe-1">
+                        @isset($item->coverpage->path )
+                        <div class="card-body position-relative h90 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/'.$item->coverpage->path)}}');"></div>
+                        @else
+                        <div class="card-body position-relative h90 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/Default1.jpeg')}}');"></div>
+                        @endif
+                        <a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block active" href="{{url('/itemProfile/'.$item->Item_Id)}}" data-toggle="tab">{{$item->Item_Name}}</a>
+                        @if(count($item->checkfollow) == 0)
+                        <a href="{{url('/FollowItem/'.$item->Item_Id)}}"> <i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                        @else
+                        <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}"> <i class="fa fa-heart" aria-hidden="true"></i></a>
+                        @endif
+
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+        <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3">
+            <div class="card-body d-block p-4">
+                <h4 class="fw-700 mb-3 font-xsss text-grey-900">Newest items <i class="fa fa-certificate"></i></h4>
+                <p class="fw-500 text-grey-500 lh-24 font-xssss mb-0">See Our Newest Items </p>
+            </div>
+            <div class="card-body border-top-xs d-flex">
+                <div class=row>
+                    @foreach($newestitems as $item)
+                    <div class="col-6 mb-2 pe-1">
+                        @isset($item->coverpage->path )
+
+                        <div class="card-body position-relative h90 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/'.$item->coverpage->path)}}');"></div>
+                        @else
+                        <div class="card-body position-relative h90 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/Default1.jpeg')}}');"></div>
+                        @endif
+                        <a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block active" href="{{url('/itemProfile/'.$item->Item_Id)}}" data-toggle="tab">{{$item->Item_Name}}</a>
+                        @if(count($item->checkfollow) == 0)
+                        <a href="{{url('/FollowItem/'.$item->Item_Id)}}"> <i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                        @else
+                        <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}"> <i class="fa fa-heart" aria-hidden="true"></i></a>
+                        @endif
+
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    @else
+    <div class="col-xl-12">
+        <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3">
+            <div class="card-body d-block p-4">
+                <h4 class="fw-700 mb-3 font-xsss text-grey-900"> Popular items <i class="fa fa-fire"></i></h4>
+                <p class="fw-500 text-grey-500 lh-24 font-xssss mb-0">Popular items right now </p>
+
+            </div>
+            <div class="card-body border-top-xs d-flex">
+                <div class=row>
+                    @foreach($mostPopularitems as $item)
+                    <div class="col-6 mb-2 pe-1">
+                        @isset($item->coverpage->path )
+                        <div class="card-body position-relative h90 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/'.$item->coverpage->path)}}');"></div>
+                        @else
+                        <div class="card-body position-relative h90 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/Default1.jpeg')}}');"></div>
+                        @endif
+                        <a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block active" href="{{url('/itemProfile/'.$item->Item_Id)}}" data-toggle="tab">{{$item->Item_Name}}</a>
+                        @if(count($item->checkfollow) == 0)
+                        <a href="{{url('/FollowItem/'.$item->Item_Id)}}"> <i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                        @else
+                        <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}"> <i class="fa fa-heart" aria-hidden="true"></i></a>
+                        @endif
+
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+        <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3">
+            <div class="card-body d-block p-4">
+                <h4 class="fw-700 mb-3 font-xsss text-grey-900">Newest items <i class="fa fa-certificate"></i></h4>
+                <p class="fw-500 text-grey-500 lh-24 font-xssss mb-0">See Our Newest Items </p>
+            </div>
+            <div class="card-body border-top-xs d-flex">
+                <div class=row>
+                    @foreach($newestitems as $item)
+                    <div class="col-6 mb-2 pe-1">
+                        @isset($item->coverpage->path )
+
+                        <div class="card-body position-relative h90 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/'.$item->coverpage->path)}}');"></div>
+                        @else
+                        <div class="card-body position-relative h90 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/Default1.jpeg')}}');"></div>
+                        @endif
+                        <a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block active" href="{{url('/itemProfile/'.$item->Item_Id)}}" data-toggle="tab">{{$item->Item_Name}}</a>
+                        @if(count($item->checkfollow) == 0)
+                        <a href="{{url('/FollowItem/'.$item->Item_Id)}}"> <i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                        @else
+                        <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}"> <i class="fa fa-heart" aria-hidden="true"></i></a>
+                        @endif
+
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
     </div>
     @endif
 </div>
-@endforeach
-
-
-@else
-@if( count($items) != 0)
-<div class="modal fade" id="ImageModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-content" style="background-color: #00000000; border: 0px; padding-top:10%;">
-        <div class="modal-dialog">
-            <table>
-                <thead>
-                    <tr>
-                        <td colspan="3">
-                            <p>
-                                Follow items that you are interested in.
-                            </p>
-                        </td>
-                    </tr>
-                </thead>
-                @foreach($items as $item)
-                <tbody>
-                    <tr>
-                        <td colspan="3">
-                            @if( count($cover__pages) != 0)
-                            @foreach($cover_pages as $cover_page)
-                            <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
-                                <img height="50" width="70" src="{{asset('FrontEnd/images/coverpage/'.$cover__page->path)}}" alt="">
-                            </a>
-                            <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
-                                {{ $item->Item_Name }}
-                            </a>
-                            @if ($check_follow=="[]")
-                            <a href="{{url('/FollowItem/'.$item->Item_Id)}}">Follow</a>
-                            @else
-                            <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}">Un Follow</a>
-                            @endif
-                            @endforeach
-                            @else
-                            <a href="{{url('/itemProfile/'.$item->Item_Id)}}">
-                                {{ $item->Item_Name }}
-                            </a>
-                            @endif
-                        </td>
-                    </tr>
-                </tbody>
-                @endforeach
-            </table>
-        </div>
-    </div>
-</div>
-@endif
-@endif
 
 <script>
     $(document).ready(function() {
@@ -393,7 +468,7 @@
                 $("#allcomments" + post_id).prepend("<div class='chat-body messages-content pb-5 card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10'>" +
                     "<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/" + data['Profile_Picture'] + "\" alt='image' class='shadow-sm rounded-circle w35'></figure>" +
                     "<div class='chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg'>" +
-                    "<a href=\"/veiw_User/" + data['User_Id'] + "\">" +
+                    "<a href=\"/view_User/" + data['User_Id'] + "\">" +
                     "<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> " + data['First_Name'] + " " + data['Middle_Name'] + " " + " " + data['Last_Name'] + "" +
                     "<a href=\"/deletecomment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" +
                     "<a href=\"javascript:void(0)\" onclick=\"setComment('" + data['Comment_Id'] + "','" + data['Comment'] + "')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>" +
@@ -441,7 +516,7 @@
                 $("#allreplies" + parent_id).append("<div class=\"card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative\">" +
                     "<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/" + data['Profile_Picture'] + "\" alt='image' class='shadow-sm rounded-circle w35'></figure>" +
                     "<div class=\"chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg\">" +
-                    "<a href=\"/veiw_User/" + data['User_Id'] + "\">" +
+                    "<a href=\"/view_User/" + data['User_Id'] + "\">" +
                     "<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> " + data['First_Name'] + " " + data['Middle_Name'] + " " + " " + data['Last_Name'] + "" +
                     "<a href=\"/deletecomment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" +
                     "<a href=\"javascript:void(0)\" onclick=\"setComment('" + data['Comment_Id'] + "','" + data['Comment'] + "')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>" +

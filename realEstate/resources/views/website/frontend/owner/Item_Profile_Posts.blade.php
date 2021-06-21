@@ -53,7 +53,7 @@
     <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3">
         <div class="card-body d-block p-4">
             <h4 class="fw-700 mb-3 font-xsss text-grey-900">Owner</h4>
-            <p class="fw-500 text-grey-500 lh-24 font-xssss mb-0"><a href="{{url('/veiw_User/'.$item->User_Id)}}">@ {{$item->user->First_Name}} {{$item->user->Middle_Name}} {{$item->user->Last_Name}}</p>
+            <p class="fw-500 text-grey-500 lh-24 font-xssss mb-0"><a href="{{url('/view_User/'.$item->User_Id)}}">@ {{$item->user->First_Name}} {{$item->user->Middle_Name}} {{$item->user->Last_Name}}</p>
         </div>
         <div class="card-body d-flex pt-0">
             <i class="feather-map-pin text-grey-500 me-3 font-lg"></i>
@@ -195,7 +195,7 @@
                         <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w35"></figure>
                         @endif
                         <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
-                            <a href="{{url('veiw_User/'.$comment->User_Id)}}">
+                            <a href="{{url('view_User/'.$comment->User_Id)}}">
                                 <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">{{$comment->First_Name}} {{$comment->Middle_Name}} {{$comment->Last_Name}}
                             </a></h4>
                             <div class="time"><?php $end = \Carbon\Carbon::parse($comment->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0"> {{ $end->diffForHumans($today) }}</p>
@@ -221,7 +221,7 @@
                             @else
                             <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w35"></figure>
                             @endif <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
-                                <a href="{{url('veiw_User/'.$reply->User_Id)}}">
+                                <a href="{{url('view_User/'.$reply->User_Id)}}">
                                     <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">{{$reply->First_Name}} {{$reply->Middle_Name}} {{$reply->Last_Name}}
                                 </a></h4>
                                 <div class="time"><?php $end = \Carbon\Carbon::parse($reply->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">{{ $end->diffForHumans($today) }}</p>
@@ -271,7 +271,7 @@ $.ajax({
         $("#allcomments" + post_id).prepend("<div class='chat-body messages-content pb-5 card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10'>" 
             +"<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/"+data['Profile_Picture']+"\" alt='image' class='shadow-sm rounded-circle w35'></figure>" 
             +"<div class='chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg'>" 
-            +"<a href=\"/veiw_User/"+data['User_Id']+"\">" 
+            +"<a href=\"/view_User/"+data['User_Id']+"\">" 
             +"<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> "+data['First_Name']+" "+data['Middle_Name']+" "+" "+data['Last_Name']+"" 
             +"<a href=\"/deletecomment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" 
             +"<a href=\"javascript:void(0)\" onclick=\"setComment('" + data['Comment_Id'] + "','" + data['Comment'] + "')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>" 
@@ -319,7 +319,7 @@ $.ajax({
         $("#allreplies" + parent_id).append("<div class=\"card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative\">" 
             +"<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/"+data['Profile_Picture']+"\" alt='image' class='shadow-sm rounded-circle w35'></figure>" 
             +"<div class=\"chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg\">" 
-            +"<a href=\"/veiw_User/"+data['User_Id']+"\">" 
+            +"<a href=\"/view_User/"+data['User_Id']+"\">" 
             +"<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> "+data['First_Name']+" "+data['Middle_Name']+" "+" "+data['Last_Name']+"" 
             +"<a href=\"/deletecomment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" 
             +"<a href=\"javascript:void(0)\" onclick=\"setComment('"+ data['Comment_Id']+"','"+ data['Comment']+"')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>"           

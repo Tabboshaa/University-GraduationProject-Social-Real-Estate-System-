@@ -44,7 +44,7 @@
                     <div class="heading">
                         <img src="images/banner/icon.html" alt="">
                         <h3>
-                            <a href="{{ url('/veiw_User/'.$notification->id) }}"> {{$notification->First_Name}} {{$notification->Middle_Name}} {{$notification->Last_Name}}</a>
+                            <a href="{{ url('/view_User/'.$notification->id) }}"> {{$notification->First_Name}} {{$notification->Middle_Name}} {{$notification->Last_Name}}</a>
                         </h3>
                     </div>
                     <div class="sub-heading">
