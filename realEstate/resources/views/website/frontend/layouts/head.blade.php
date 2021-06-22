@@ -5,17 +5,17 @@
     <title>Semsar <3 </title>
 
     <link rel="stylesheet" href="{{asset('FrontEnd/sociala/css/themify-icons.css')}}">
-    
+
     <link rel="stylesheet" href="{{asset('FrontEnd/sociala/css/feather.css')}}">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('FrontEnd/sociala/images/favicon.png')}}">
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="{{asset('FrontEnd/sociala/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('FrontEnd/sociala/css/emoji.css')}}">
-    
+
     <link rel="stylesheet" href="{{asset('FrontEnd/sociala/css/lightbox.css')}}">
- 
-    -- Bootstrap -->
+
+   <!-- Bootstrap -->
     <link href="{{asset('AdminBackEnd/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="{{asset('AdminBackEnd/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">

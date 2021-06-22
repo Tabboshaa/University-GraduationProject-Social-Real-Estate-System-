@@ -35,6 +35,7 @@ class DetailsController extends Controller
         $max = Details::max('Property_diff');
         $max += 1;
 
+
         foreach ($detailsInput as $detail) {
             $property_details = Property_Details::all()->where('Property_Detail_Id', '=', Arr::get($detail, 'id'))->first();
 
@@ -49,6 +50,8 @@ class DetailsController extends Controller
                 'Property_diff' => $max,
                 'DetailValue' => Arr::get($detail, 'value')
             ];
+
+            
         }
 
         // request()->validate([
@@ -56,7 +59,8 @@ class DetailsController extends Controller
         // ]);
         try {
             Details::insert($details);
-            return 'eshta';
+            return back()->with('success', 'Detail Added');
+
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -76,57 +80,52 @@ class DetailsController extends Controller
             try {
                 $d = Details::all()->find(Arr::get($detail, 'id'));
                 if ($d != null) {
+             
                     if (Arr::get($detail, 'type') == 'checkbox') {
+                   
+
                         if (Arr::get($detail, 'value') == 'on') {
                             $val = 'yes';
                         } else {
                             $val = 'no';
                         }
-                    } else if(Arr::get($detail, 'type') == 'file') {
-                    
+                    } else if (Arr::get($detail, 'type') == 'file') {
+
                         if ($file = Arr::get($detail, 'value')) {
-                           
-                                $filename = $file->getClientOriginalName();
-                                $file->storeAs('/profile gallery', $filename, 'public');
-                          
+
+                            $filename = $file->getClientOriginalName();
+                            $file->storeAs('/profile gallery', $filename, 'public');
+
                             $val = $filename;
-                         
                         } else {
                             $val = Arr::get($detail, 'value');
                         }
-
-                        $d->DetailValue = $val;
-                        $d->save();
                     } else {
-                        // return  Arr::get($detail, 'type');
-                        // checkbox
-                        $propId = Arr::get($detail, 'id');
-                        $propId = Str::replaceFirst('prop', '', $propId);
-                        $property_details = Property_Details::all()->where('Property_Detail_Id', '=',  $propId)->first();
-
-                        if (Arr::get($detail, 'type') == 'checkbox') {
-                            if (Arr::get($detail, 'value') == 'on') {
-                                $val = 'yes';
-                            } else {
-                                $val = 'no';
-                            }
-                        } else {
-                            $val = Arr::get($detail, 'value');
-                        }
-
-                        Details::create(
-                            [
-                                'Item_Id' => 1,
-                                'Main_Type_Id' =>  Arr::get($property_details, 'Main_Type_Id'),
-                                'Sub_Type_Id' =>  Arr::get($property_details, 'Sub_Type_Id'),
-                                'Property_Id' => Arr::get($property_details, 'Property_Id'),
-                                'Property_Detail_Id' => Arr::get($property_details, 'Property_Detail_Id'),
-                                'Property_diff' =>  Arr::get($detail, 'diff'),
-                                'DetailValue' =>  $val
-                            ]
-                        );
+                        $val = Arr::get($detail, 'value');
                     }
+
+                    $d->DetailValue = $val;
+                    $d->save();
+                } else {
+                    $propId = Arr::get($detail, 'id');
+                    $propId = Str::replaceFirst('prop', '', $propId);
+                    $property_details = Property_Details::all()->where('Property_Detail_Id', '=',  $propId)->first();
+                    $val = Arr::get($detail, 'value');
+
+                    Details::create(
+                        [
+                            'Item_Id' => request('item_id'),
+                            'Main_Type_Id' =>  Arr::get($property_details, 'Main_Type_Id'),
+                            'Sub_Type_Id' =>  Arr::get($property_details, 'Sub_Type_Id'),
+                            'Property_Id' => Arr::get($property_details, 'Property_Id'),
+                            'Property_Detail_Id' => Arr::get($property_details, 'Property_Detail_Id'),
+                            'Property_diff' =>  Arr::get($detail, 'diff'),
+                            'DetailValue' =>  $val
+                        ]
+                    );
                 }
+
+                return 'done';
             } catch (\Illuminate\Database\QueryException $e) {
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
@@ -134,7 +133,6 @@ class DetailsController extends Controller
                 }
             }
         }
-        return 'done';
         //         return back()->with('info', 'Detail Edited Successfully');
 
     }

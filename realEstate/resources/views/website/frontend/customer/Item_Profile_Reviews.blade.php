@@ -3,14 +3,24 @@
 <div class="col-xl-4 col-xxl-3 col-lg-4 pe-0">
     <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3">
         <div class="card-body d-block p-4">
-            <a href="#" class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>How did you find us?</a>
+            @if($AuthReview!=null)
+            <a href="#" class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>This is your Review Do you want to Change it? </a>
+            <h6>{{$AuthReview->Number_Of_Stars}}/10</h6>
+            @else
+                <a href="#" class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>How did you find us?</a>
+            @endif
         </div>
         <div class="card-body border-top-xs d-flex">
-            <form id="reviewForm" class="form-group" action="{{url('/addReview')}}}">
+
+            <form id="reviewForm" class="form-group" action="">
                 @csrf
                 <!-- <figure class="avatar position-absolute ms-2 mt-1 top-5"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w30"></figure> -->
-                <textarea id="content" name="review_content" class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?"></textarea>
-                <div class="rating margin">
+               @if($AuthReview!=null)
+                <textarea id="content" value="{{$AuthReview->Number_Of_Stars}}" placeholder=""name="{{$AuthReview->Number_Of_Stars}}" class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" >{{$AuthReview->Review_Content}}</textarea>
+                @else
+                <textarea id="content" value=""name="review_content" class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?"></textarea>
+                @endif
+                    <div class="rating margin">
                     <span> overall rating </span>
                     &nbsp; &nbsp;
                     <i onclick="review(1)" class="fa  fa-star-o" name="starLabel" for="star1">
@@ -42,9 +52,10 @@
                     </label>
                     <label onclick="review(10)" class="fa  fa-star-o" name="starLabel" for="star10">
                         <input type="radio" style="display: none;" value="10" name="stars" id="star10">
+                        <input type="hidden" id="itemid" value="{{$itemID}}">
                     </label>
                 </div>
-                <input type="hidden" id="item_id" value="{{$item->Item_Id}}">
+
                 <input class="bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-3 d-inline-block" type="submit" value="submit review">
             </form>
         </div>
@@ -78,7 +89,7 @@
             <?php $today = \Carbon\Carbon::now();
             $end = \Carbon\Carbon::parse($review->updated_at);
             ?>
-            <h4 class="fw-700 text-grey-900 font-xssss mt-1"><a href="{{url('veiw_User/'.$review->User_Id)}}">
+            <h4 class="fw-700 text-grey-900 font-xssss mt-1"><a href="{{url('view_User/'.$review->User_Id)}}">
                     {{$review->First_Name}} {{$review->Middle_Name}} {{$review->Last_Name}}
                 </a> <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"><?php $today = \Carbon\Carbon::now();
                                                                                         $end = \Carbon\Carbon::parse($review->updated_at);
@@ -128,11 +139,17 @@
 
 
 <script>
+
+    var AuthReviewStars=document.getElementById('content').name;
+    console.log(AuthReviewStars);
+    if(AuthReviewStars!=null){
+        review(AuthReviewStars);
+    }
     var n = 0;
     $("#reviewForm").submit(function() {
 
         var review_content = $('#content').val();
-        var item_id = $('#item_id').val();
+        var item_id =document.getElementById('itemid').value;
         console.log(review_content);
         console.log(item_id);
         console.log(n);
@@ -145,7 +162,7 @@
                 review_content: review_content
             },
             success: function(data) {
-                console.log("Success");
+                console.log(data);
             },
             error: function() {
                 console.log('Error');
@@ -153,6 +170,7 @@
 
         });
     });
+
 
     function review(starNumber) {
         n = starNumber;

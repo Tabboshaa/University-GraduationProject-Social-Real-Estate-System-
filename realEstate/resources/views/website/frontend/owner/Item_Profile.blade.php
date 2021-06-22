@@ -1,3 +1,4 @@
+
 @extends('website.frontend.layouts.main')
 @section('profile')
 <div class="row">
@@ -55,6 +56,8 @@
                         <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('/owneritemDetails/'.$item->Item_Id)}}" data-toggle="tab">Detail</a></li>
                         <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('/owneritemReviews/'.$item->Item_Id)}}" data-toggle="tab">Reviews</a></li>
                         <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('/owneritemGallery/'.$item->Item_Id)}}" data-toggle="tab">Gallery</a></li>
+                        <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('/owneritemReservations/'.$item->Item_Id)}}" data-toggle="tab">Item Reservations</a></li>
+                        <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('/owneritemManageSchedule/'.$item->Item_Id)}}" data-toggle="tab">Manage Schedule</a></li>
                     </ul>
                 </div>
             </div>

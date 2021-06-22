@@ -22,13 +22,22 @@ class ReviewController extends Controller
     public function create()
     {
 
-       $review=review::create([
-           'Item_Id'=>request('id'),
-           'User_Id'=>Auth::id(),
-           'Review_Title'=>' ',
-           'Review_Content'=>request('review_content'),
-           'Number_Of_Stars'=>request('stars')
-       ]);
+        $AuthReview=review::all()->where('Item_Id','=',request('id'))->where('User_Id','=',Auth::id())->first();
+
+        if($AuthReview){
+            $AuthReview->Review_Content=request('review_content');
+            $AuthReview->Number_Of_Stars=request('stars');
+            $AuthReview->save();
+        }else{
+            $review=review::create([
+                'Item_Id'=>request('id'),
+                'User_Id'=>Auth::id(),
+                'Review_Title'=>' ',
+                'Review_Content'=>request('review_content'),
+                'Number_Of_Stars'=>request('stars')
+            ]);
+        }
+
        return response()->json("done");
 
     }
@@ -44,6 +53,18 @@ class ReviewController extends Controller
         return $review;
     }
 
+    public static function getItemRate($item_id)
+    {
+        //
+        $review= review::all()->where('Item_Id','=',$item_id)->sum('Number_Of_Stars');
+        $count= review::all()->where('Item_Id','=',$item_id)->count();
+
+        if($count != 0)
+        return ($review/$count);
+
+        return 0;
+    }
+
     public function destroy($id)
     {
         //
@@ -57,5 +78,7 @@ class ReviewController extends Controller
      }
 
     }
+
+
 
 }

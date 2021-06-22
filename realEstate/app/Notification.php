@@ -16,9 +16,9 @@ class Notification extends Model
         'Viewed'
     ];
     public function touser(){
-        return $this->hasOne(User::class, 'To_User_Id');
+        return $this->belongsTo(User::class, 'To_User_Id');
     }
     public function fromuser(){
-        return $this->hasOne(User::class, 'From_User_Id');
+        return $this->belongsTo(User::class, 'From_User_Id');
     }
 }

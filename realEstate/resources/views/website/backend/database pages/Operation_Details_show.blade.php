@@ -47,7 +47,7 @@
 
     </tbody>
 </table>
-    {!! $Detail1->render() !!}
+    
 </form>
 
 <div class="modal fade" id="EditOpDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

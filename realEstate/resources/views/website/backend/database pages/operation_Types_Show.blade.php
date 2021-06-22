@@ -31,7 +31,7 @@
     </thead>
     <tbody>
         <!-- EL FOREARCH HNA-->
-        @foreach($operation_types1 as $operation_type)
+        @foreach($operation_types as $operation_type)
 
         <tr>
             <td>{{$operation_type->Operation_Name}}</td>
@@ -46,7 +46,7 @@
                 <!-- END OF FOREACH -->
     </tbody>
 </table>
-{!! $operation_types1->render() !!}
+
 </form>
 
 <div class="modal fade" id="EditOpertionTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

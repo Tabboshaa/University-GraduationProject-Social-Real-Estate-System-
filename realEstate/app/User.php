@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Controllers\TypeOfUserController;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Authenticatable;
@@ -81,6 +82,10 @@ class User extends Model implements
     }
     public function followedItems(){
         return $this->hasMany(followeditemsbyuser::class, 'User_Id');
+    }
+
+    public function usertype(){
+        return $this->hasMany(Type_Of_User::class, 'User_Id');
     }
 
 }

@@ -23,9 +23,9 @@ class PropertyDetailsController extends Controller
 
     public function create()
     {
-        // request()->validate([
-        // 'property_details' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
-        // ]);
+         request()->validate([
+         'property_details' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
+         ]);
 
         try {
             $Property_Detail = Property_Details::create([

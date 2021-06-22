@@ -14,27 +14,12 @@ class NotificationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public static function index($id)
+    public static function index()
     {
         //
-        $notification= DB::table('notifications')
-        ->join('users', 'users.id', '=', 'notifications.From_User_Id')
-        ->select('notifications.*', 'users.First_Name','users.Middle_Name','users.Last_Name','users.id')
-        ->where('Viewed', '=', 0)
-        ->get()
-        ->sortBy('created_at')
-        ->reverse();
+        $notification = Notification::all()->where('To_User_Id', '=', Auth::id())->where('Viewed', '=', 0)->sortByDesc('created_at');
 
         return $notification;
-
-
-
-
-        // return  Notification::all()
-        //     ->where('To_User_Id', '=', $id)
-        //     ->where('Viewed', '=', 0)
-        //     ->sortBy('created_at')
-        //     ->reverse();
     }
 
     /**
@@ -42,7 +27,7 @@ class NotificationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public static function create($From_id,$To_id ,$notification)
+    public static function create($From_id, $To_id, $notification)
     {
         //
         try {
@@ -50,7 +35,25 @@ class NotificationController extends Controller
                 'To_User_Id' => $To_id,
                 'From_User_Id' => $From_id,
                 'Notification' => $notification,
-                'Viewed'=> 0
+                'Viewed' => 0
+            ]);
+            return back();
+        } catch (\Illuminate\Database\QueryException $e) {
+
+            return back();
+        }
+    }
+
+    public static function createRedirect($From_id, $To_id, $notification, $redirect_to)
+    {
+        //
+        try {
+            Notification::create([
+                'To_User_Id' => $To_id,
+                'From_User_Id' => $From_id,
+                'Notification' => $notification,
+                'Redirect_To' => $redirect_to,
+                'Viewed' => 0
             ]);
             return back();
         } catch (\Illuminate\Database\QueryException $e) {
@@ -65,12 +68,12 @@ class NotificationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public static function viewNotification($id)
+    public static function viewNotification()
     {
         //
         try {
-            $notification=Notification::all()->find($id);
-            $notification->Viewed=1; 
+            $notification = Notification::all()->find(request('notification_id'));
+            $notification->Viewed = 1;
             $notification->save();
 
             return back()->with('success', 'Notification Created Successfully');
@@ -89,14 +92,13 @@ class NotificationController extends Controller
     public function show()
     {
         //
-             $notification =  DB::table('notifications')
-             ->join('users', 'users.id', '=', 'notifications.From_User_Id')
-             ->select('notifications.*', 'users.First_Name','users.Middle_Name','users.Last_Name','users.id')
-             ->get()
-             ->sortBy('created_at')
-             ->reverse();
-             return view('website.frontend.customer.Notification',['notifications' => $notification]);
-
+        $notification =  DB::table('notifications')
+            ->join('users', 'users.id', '=', 'notifications.From_User_Id')
+            ->select('notifications.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name', 'users.id')
+            ->get()
+            ->sortBy('created_at')
+            ->reverse();
+        return view('website.frontend.customer.Notification', ['notifications' => $notification]);
     }
 
     /**

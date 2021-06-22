@@ -19,13 +19,13 @@ use Illuminate\Support\Facades\Route;
 //test routes here
 
 //end test routes
-
-//authntication routes
-Route::get('test', function () {
-    return view('calender');
+Route::get('/Land', function () {
+    return view('website\LandingPadge');
 });
+//authntication routes
+Route::get('test',);
 Auth::routes();
-Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
+Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin')->middleware('RedirectIfAuthenticatedUser');
 Route::post('/', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
 Route::get('/registerUser', 'Auth\RegisterController@create')->name('registerUser');
 Route::get('/UserRegister', function () {
@@ -76,7 +76,8 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/itemGallery/{id?}', 'CustomerHomeController@itemProfileGallery');
     Route::get('/itemReviews/{id?}', 'CustomerHomeController@itemProfileReviews');
 
-    Route::get('/veiw_notification/{id}', 'NotificationController@viewNotification');
+    //notification soft delete
+    Route::get('/view_notification', 'NotificationController@viewNotification')->name('view_notification');
 
 
     Route::get('/timeline', function () {
@@ -89,7 +90,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::delete('/DeleteMyProfilePhoto/{id?}/{File_Path?}', 'ProfilePhotoController@destroy');
     Route::post('/CreateProfilePhoto', 'ProfilePhotoController@create')->name('create.profilephoto');
     Route::post('/UpdateCoverPhoto', 'CoverPhotoController@edit')->name('create.coverphoto');
-    Route::post('/UpdateProfilePhoto', 'ProfilePhotoController@edit')->name('create.profilephoto');
+    Route::POST('/UpdateProfilePhoto', 'ProfilePhotoController@edit')->name('create.profilephoto');
 
     //owner item coverpage edit
     Route::post('/UpdateCoverPage/{id?}', 'CoverPageController@edit');
@@ -99,8 +100,12 @@ Route::group(['middleware' => 'auth.user'], function () {
     //Follow
     Route::get('/FollowItem/{id?}', 'AddUserController@FollowedItem');
     Route::get('/UnfollowItem/{id?}', 'AddUserController@UnfollowItem');
+    
+    Route::get('/FollowUser/{id?}', 'FollowedusersController@FollowedUser');
+    Route::get('/UnfollowUser/{id?}', 'FollowedusersController@UnfollowUser');
 
     Route::get('/HomePage', 'CustomerHomeController@HomePagePosts')->name('HomePage');
+    Route::get('/HomepageUserPosts', 'CustomerHomeController@HomePageUserPosts')->name('HomePageuser');
     Route::post('/Reservation', 'HomeController@Reservation');
 
     Route::get('/hamada/{id?}', 'CommentsController@getPostrepliesHomePage');
@@ -138,11 +143,11 @@ Route::group(['middleware' => 'auth.user'], function () {
 
     Route::get('/Amr/{id?}', 'ItemController@SelectSubType');
     Route::get('/OwnerSelectSubType/{id?}', 'ItemController@SelectSubType');
-    Route::get('/test', 'DetailsController@test');
     Route::get('/OwnerSelectDetails/{item_id}/{sub_type_id}', 'ItemController@OwnerSelectProperty');
     Route::get('/OwnerAddItem', function () {
         return view('website\frontend.Owner.Add_Item');
     });
+    Route::get('/test', 'NotificationController@index');
 });
 
 
@@ -163,9 +168,11 @@ Route::group(['middleware' => 'auth.admin'], function () {
     Route::post('/add_main_type', 'MainTypes@create');
     Route::delete('/delete_main_type', 'MainTypes@destroy');
     Route::get('/edit_main_type', 'MainTypes@edit')->name('Maintype.update');
+    
     //operation types
     Route::get('/operation_types', 'OperationsController@index');
-    Route::get('/operation_types_show', 'OperationsController@showDetail')->name('operation_types_show');
+    Route::get('/operation_types_show', 'OperationsController@show')->name('operation_types_show');
+    Route::get('/operation_details_show', 'OperationsController@showDetail')->name('operation_types_show');
     Route::post('/add_operation_type', 'OperationsController@createType');
     Route::delete('/delete_operation_type', 'OperationsController@destroy');
     Route::get('/edit_operation_type', 'OperationsController@edit')->name('operationType.update');
@@ -199,7 +206,7 @@ Route::group(['middleware' => 'auth.admin'], function () {
     Route::post('/add_country', 'CountryController@create');
 
     //State
-    Route::get('/state', 'StateController@index');
+    Route::get('/state', 'StateController@index')->middleware('Owner');
     Route::post('/add_state', 'StateController@create');
     Route::get('/show_state', 'StateController@show')->name('state_show');
 
@@ -342,7 +349,7 @@ Route::group(['middleware' => 'auth.admin'], function () {
     Route::get('/edit_User_Name', 'AddUserController@editUserName')->name('UserName.update');
     Route::get('/edit_User_Email', 'AddUserController@editUserEmail')->name('UserEmail.update');
     Route::get('/edit_User_PhoneNumber', 'AddUserController@editUserPhoneNumber')->name('UserPhoneNumber.update');
-    Route::get('/veiw_User/{id}', 'AddUserController@show');
+    Route::get('/view_User/{id}', 'AddUserController@show');
 
     Route::Post('/item_created', 'ItemController@itemShow');
 
@@ -363,7 +370,7 @@ Route::group(['middleware' => 'auth.admin'], function () {
 });
 //paypal
 
-Route::get('paypalCall/{item_id}/{schedule}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}','PaypalController@index')->name('paypalCall');
+Route::POST('paypalCall/{item_id?}/{schedule?}/{numberOfDays?}/{totalCost?}/{price_per_night?}/{start_date?}/{end_date?}','PaypalController@index')->name('paypalCall');
 Route::get('paypalReturn/{itemId}/{schedule}/{numberOfDays}/{totalCost}/{pricePerNight}/{startDate}/{endDate}','PaypalController@paypalReturn')->name('paypalReturn');
 
 Route::get('sendMailAfterReservation','PaypalController@sendDoneMail');
@@ -380,3 +387,14 @@ Route::get('callback/{service}','SocialController@callback');
 Route::get('map',function (){
     return view('map');
 });
+
+Route::get('EditUserProfile','AddUserController@EditUserProfileVeiw');
+Route::POST('/EditUserProfile1','AddUserController@EditUserProfile');
+Route::POST("/EditItemMap/{id?}",'ItemController@EditItemMap');
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::POST('/ForgotPassword','Auth\ForgotPasswordController@forgotPassword');
+//Route::get('/ForgotPassword' ,function () {
+//    return view('website\frontend\login');
+//});
+Route::get('changePassword','AddUserController@changePassword')->name('changePassword');
+Route::post('continueRegistration','RegisterController@continueRegistration');

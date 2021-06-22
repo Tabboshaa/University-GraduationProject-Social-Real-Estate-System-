@@ -3,16 +3,16 @@
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <link href="{{asset('css/CategoriesDesign.css')}}" rel="stylesheet" type="text/css" />
         <div class="x_title">
-            
+
             <h2>Add Item</h2>
             <div class="clearfix"></div>
-        
-        </div>   
+
+        </div>
 <form method="Get" action="{{url('/ShowItem/'.$item_id)}}" enctype="multipart/form-data">
     @csrf
     <div class="row">
         @foreach($property as $p)
-    
+
         <div class="col-sm-3" id="done">
             <table id="datatable" class="table table-striped  dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
                 <thead>
@@ -24,9 +24,9 @@
                         </h6>
                     </th>
                 </thead>
-    
+
                 <tbody>
-                  
+
                     <tr>
                         <td>
                             <a class="two" href="javascript:void(0)" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')">
@@ -49,8 +49,9 @@
         </div>
         </div>
     </div>
+    </div>
 </form>
-    
+
 
 {{-- ----------------------------------------------------------------------------------------------------- --}}
 

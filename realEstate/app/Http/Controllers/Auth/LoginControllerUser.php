@@ -47,7 +47,7 @@ class   LoginControllerUser extends Controller
 
     public function loginViaEmail()
     {
-        
+
         $email=request('email');
         $password=request('password');
 
@@ -58,12 +58,13 @@ class   LoginControllerUser extends Controller
 
         }
 
-        return false;
+        return 'False';
     }
 
     public function login($id, $password)
     {
         $user = User::find($id);
+
 
         if(Hash::check($password, $user->password))
         {

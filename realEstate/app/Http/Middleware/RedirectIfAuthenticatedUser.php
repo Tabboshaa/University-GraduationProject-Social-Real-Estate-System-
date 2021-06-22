@@ -21,7 +21,6 @@ class RedirectIfAuthenticatedUser
         if (Auth::guard($guard)->check()) {
             return redirect()->route('CustomerHome');
         }
-
         return $next($request);
     }
 }

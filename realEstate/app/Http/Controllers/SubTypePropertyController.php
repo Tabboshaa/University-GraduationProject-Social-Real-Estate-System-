@@ -35,8 +35,8 @@ class SubTypePropertyController extends Controller
         //
 
         request()->validate([
-            
-            'Sub_Type_Property' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"] 
+
+            'Sub_Type_Property' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
         ]);
 
 
@@ -64,7 +64,7 @@ class SubTypePropertyController extends Controller
     public static function getAllSubtypeProperties($id = null)
     {
         //
-            
+
     }
 
     /**
@@ -158,6 +158,7 @@ class SubTypePropertyController extends Controller
     {
         //
         $property = Sub_Type_Property::all()->where('Sub_Type_Id','=',$sub_type_id);
+
         return view('website.backend.database pages.Properties_Select', ['property' => $property,'item_id'=>$item_id]);
 
     }

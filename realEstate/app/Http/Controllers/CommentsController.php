@@ -34,9 +34,19 @@ class CommentsController extends Controller
                 'User_Id'=> Auth::id(),
                 'Comment'  => request('comment')
             ]);
-
+//send notification to poster 
             $to_user= PostsController::postCreatedBy(request('post_id'));
-            NotificationController::create(Auth::id(),$to_user,'Commented on your post');
+            NotificationController::create(Auth::id(),$to_user, 'Commented on your post');
+            
+            $comment=DB::table('comments')
+            ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
+            ->join('users', 'users.id', '=', 'comments.User_Id')
+            ->LeftJoin('profile_photos','profile_photos.User_Id','=','comments.User_Id')
+            ->where('Parent_Comment','=',null)
+            ->where('comments.Comment_Id','=',$comment->Comment_Id)
+            ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name','profile_photos.Profile_Picture')
+            ->get()->first();
+
            return response()->json($comment);
         // }catch (\Illuminate\Database\QueryException $e){
 
@@ -53,9 +63,19 @@ class CommentsController extends Controller
                 'Parent_Comment' => request('parent_id'),
                 'Comment'  => request('comment')
             ]);
-
+            //send notification to comment owner 
             $to_user= CommentsController::CommentCreatedBy(request('parent_id'));
-            NotificationController::create(Auth::id(),$to_user,'Replyed to your comment');
+            NotificationController::create(Auth::id(),$to_user, 'Replyed to your comment');
+
+            $comment=DB::table('comments')
+            ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
+            ->join('users', 'users.id', '=', 'comments.User_Id')
+            ->LeftJoin('profile_photos','profile_photos.User_Id','=','comments.User_Id')
+            ->where('Parent_Comment','=',request('parent_id'))
+            ->where('comments.Comment_Id','=',$comment->Comment_Id)
+            ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name','profile_photos.Profile_Picture')
+            ->get()->first();
+
            return response()->json($comment);
         // }catch (\Illuminate\Database\QueryException $e){
 

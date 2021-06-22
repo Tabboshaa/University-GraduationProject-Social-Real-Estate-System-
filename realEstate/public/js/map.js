@@ -1,22 +1,29 @@
+
+
 function initialize() {
 
     var mapOptions, map, marker, searchBox, city,street
         infoWindow = '',
         addressEl = document.querySelector( '#map-search' ),
-        latEl = document.querySelector( '.latitude' ),
-        longEl = document.querySelector( '.longitude' ),
-        element = document.getElementById( 'map-canvas' );
+         latEl = document.querySelector( '.latitude' ),
+         longEl = document.querySelector( '.longitude' ),
+         element = document.getElementById( 'map-canvas' );
     city = document.querySelector( '.reg-input-city' );
     street= document.querySelector( '.reg-input-street' );
+      var lat =parseFloat(document.getElementById('lat').value);
+     var long =parseFloat(document.getElementById('lang').value) ;
+
+    console.log(lat);
+    console.log(long);
     mapOptions = {
         // How far the maps zooms in.
-        zoom: 8,
+        zoom: 18,
         // Current Lat and Long position of the pin/
-        center: new google.maps.LatLng( 18.5204, 73.8567 ),
-        // center : {
-        // 	lat: -34.397,
-        // 	lng: 150.644
-        // },
+        // center: new google.maps.LatLng( latEl, longEl ),
+        center : {
+        	lat: lat,
+        	lng: long,
+        },
         disableDefaultUI: false, // Disables the controls like zoom control on the map if set to true
         scrollWheel: true, // If set to false disables the scrolling on the map.
         draggable: true, // If set to false , you cannot move the map around.

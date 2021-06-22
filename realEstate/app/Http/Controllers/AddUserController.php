@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ProfilePhoto;
 use App\Type_Of_User;
 use Illuminate\Http\Request;
 use App\User;
@@ -12,9 +13,8 @@ use App\followeditemsbyuser;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 use App\Country;
-use App\Item;
+use Auth;
 
 class AddUserController extends Controller
 {
@@ -78,6 +78,51 @@ class AddUserController extends Controller
         }
     }
 
+    Public function EditUserProfileVeiw()
+    {
+        $User_ID=Auth::id();
+        $user=User::all()->where('id','=',$User_ID)->first();
+
+        $email=Emails::all()->where('User_ID','=',$User_ID)->first();
+        $phone=Phone_Numbers::all()->where('User_ID','=',$User_ID)->first();
+        $image= ProfilePhoto::all()->where('User_Id','=',$User_ID)->first();
+
+        return view('website.frontend.customer.EditUserProfile',['user'=>$user,'email'=>$email,'phone'=>$phone,'image'=>$image]);
+    }
+    public function EditUserProfile()
+    {
+        try{
+        $User_ID = Auth::id();
+        $user = User::all()->find($User_ID);
+        $email= Emails::all()->where('User_ID','=',$User_ID)->first();
+        $phone= Phone_Numbers::all()->where('User_ID','=',$User_ID)->first();
+        $image= ProfilePhoto::all()->where('User_ID','=',$User_ID)->first();
+
+        $email->email = request('email');
+        $email->save();
+
+        $phone->phone_number = request('phone');
+        $phone->save();
+
+        $user->First_Name = request('Fname');
+        $user->Last_Name = request('Lname');
+        $user->save();
+
+            return back()->with('error','City Already Exist !!');
+    }catch (\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == 1062){
+            return back()->with('error','City Already Exist !!');
+        }if($errorCode == 1048 ){
+            return back()->with('error','You must select all values!!');
+        }else{
+            return $e->errorInfo;
+        }
+        }
+
+
+    }
+
     public function checkIfOwner()
     {
         $user_id = Auth::id();
@@ -89,41 +134,55 @@ class AddUserController extends Controller
     }
     public function BeOwner($user_id = null)
     {
+
         $countries = Country::all();
-        if ($user_id == null) {
-
-            return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
-        } else {
-            $user = User::all()->find($user_id);
-
-            $user->First_Name = request('First');
-            $user->Middle_Name = request('Middle');
-            $user->Last_Name = request('Last');
-            $user->National_ID = request('National');
-            $user->save();
-
-
-            $phone_number = Phone_Numbers::all()->where('User_ID', '=', $user->id);
-
-
-            if ($phone_number == '[]') {
-
-                $phone_number = Phone_Numbers::create([
-                    'User_ID' => $user_id,
-                    'phone_number' => request('Phone'),
-                    'Default' => 1
-                ]);
-            } else {
-                $phone_number->phone_number = request('Phone');
-            }
+        if(\request('allDone')){
 
             $typeOfUser = Type_Of_User::create([
                 'User_ID' => $user_id,
                 'User_Type_ID' => 3
             ]);
-
             return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
         }
+        if($user_id == null)
+        {
+            return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
+        }else{
+                $user = User::all()->find($user_id);
+
+                $user->First_Name = request('First');
+                $user->Middle_Name = request('Middle');
+                $user->Last_Name = request('Last');
+                $user->National_ID = request('National');
+                $user->save();
+
+
+                $phone_number = Phone_Numbers::all()->where('User_ID', '=', $user->id);
+
+
+                if ($phone_number == '[]') {
+
+                    $phone_number = Phone_Numbers::create([
+                        'User_ID' => $user_id,
+                        'phone_number' => request('Phone'),
+                        'Default' => 1
+                    ]);
+                } else {
+                    $phone_number->phone_number = request('Phone');
+                }
+
+                if (\request('check') == 'BeOwner') {
+                    $typeOfUser = Type_Of_User::create([
+                        'User_ID' => $user_id,
+                        'User_Type_ID' => 3
+                    ]);
+                    return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
+                }
+                return redirect()->back();
+
+
+            }
+
     }
     /**
      * Store a newly created resource in storage.
@@ -148,13 +207,12 @@ class AddUserController extends Controller
         //
         $user = User::all()->where('id', '=', $id)->first();
 
-
         $posts = PostsController::userPosts($id);
-        $profile_photo = ProfilePhotoController::getPhoto($id);
+            $profile_photo = ProfilePhotoController::getPhoto($id);
         $cover_photo = CoverPhotoController::getPhoto($id);
         $post_images = AttachmentController::getPostAttachments($id);
         $gallery = AttachmentController::getAttachmentsOfuser($id);
-
+        $check_follow = FollowedusersController::checkFollow($id);
         $post_images = [];
 
         foreach ($posts as $post) {
@@ -173,7 +231,7 @@ class AddUserController extends Controller
         if ($id == Auth::id()) {
             return view('website\frontend\customer\Customer_Own_Profile', [
                 'id' => $id,
-                'User'=>$User,
+                'User' => $User,
                 'First_Name' => $user->First_Name,
                 'Email' => $user->email,
                 'Middle_Name' => $user->Middle_Name,
@@ -190,7 +248,7 @@ class AddUserController extends Controller
 
         return view('website\frontend\customer\Customer_Profile', [
             'id' => $id,
-            'User_Id'=>$User_Id,
+            'User' => $User,
             'First_Name' => $user->First_Name,
             'Middle_Name' => $user->Middle_Name,
             'Last_Name' => $user->Last_Name,
@@ -201,6 +259,7 @@ class AddUserController extends Controller
             'followedItems' => $user->followedItems,
             'gallery' => $gallery,
             'items' => $user->items,
+            'check_follow' =>  $check_follow,
 
         ]);
     }
@@ -323,6 +382,9 @@ class AddUserController extends Controller
             'User_ID' => Auth::id()
         ]);
         $followed_items->save();
+
+        $to_user = ItemController::getowner($Item_Id);
+        NotificationController::createRedirect(Auth::id(), $to_user,  'Started Following your item', '/view_User/' . Auth::id());
         return back();
     }
     public static function UnfollowItem($Item_Id)
@@ -334,5 +396,19 @@ class AddUserController extends Controller
 
         followeditemsbyuser::destroy($followed_items->Followed_Item_Id);
         return back();
+    }
+
+    public function changePassword(){
+
+        $user = Auth::user();
+        $password=request('password');
+
+        if(Hash::check($password,$user->password))
+        {
+            $user->password=Hash::make(request('newpassword'));
+            $user->save();
+            return true;
+        }else return false;
+
     }
 }

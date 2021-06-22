@@ -61,7 +61,7 @@ class ProfilePhotoController extends Controller
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
-                }
+                }else{return $e->getMessage();}
             }
         }
     }
@@ -115,7 +115,7 @@ class ProfilePhotoController extends Controller
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
-                }
+                }else{ return $e->getMessage();}
             }
         }
     }
@@ -139,7 +139,7 @@ class ProfilePhotoController extends Controller
 
             // }
             try {
-              
+
                 $profilePhoto = ProfilePhoto::all()->find(request('Photo_Id'));
                 //hy7ot el name el gded f column el country name
                 $profilePhoto->Profile_Picture = $filename;
@@ -155,9 +155,10 @@ class ProfilePhotoController extends Controller
     }
 
 
-    public function destroy($id, $path)
+    public function destroy($id=null, $path=null)
     {
 
+        return $path;
         $myFile = 'storage/cover page/' . $path;
 
         if (File::exists($myFile)) {

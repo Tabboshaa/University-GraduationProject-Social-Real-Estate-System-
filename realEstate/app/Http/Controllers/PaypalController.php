@@ -10,7 +10,7 @@ use PayPal\Api\ExecutePayment;
 use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
 use PayPal\Api\Transaction;
-use PayPal\Rest\ApiContext;     
+use PayPal\Rest\ApiContext;
 
 use App\Emails;
 use App\Item;
@@ -48,9 +48,19 @@ class PaypalController extends Controller
     }
 
 
-    public function index($itemId, $schedule, $numberOfDays, $totalCost, $pricePerNight, $startDate, $endDate){
+    public function index($itemId=null, $schedule=null, $numberOfDays=null, $totalCost=null, $pricePerNight=null, $startDate=null, $endDate=null){
 
 
+        if($itemId==null){
+
+            $itemId=\request('itemid');
+            $schedule=\request('schedule');
+            $numberOfDays=\request('numberOfDays');
+            $totalCost=\request('totalCost');
+            $pricePerNight=\request('pricePerNight');
+            $startDate=\request('startDate');
+            $endDate=\request('endDate');
+        }
         $apiContext = new \PayPal\Rest\ApiContext(
             new \PayPal\Auth\OAuthTokenCredential(
                 'AVC3OItZqKXxpU7LUbFL8XTFVd2NgeBn_HYeieeXHll2JsUM9ucD3mqMoHDjrS8nSaxjcGyvzU9YW5-h',// ClientID
