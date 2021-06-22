@@ -41,7 +41,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone Number</th>
-                                        <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:90px;"></i></th>
+                                        <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:90px;"></i></th>
                                         
                         
                                         <script>
@@ -79,13 +79,13 @@
                                             <input type="hidden" name="id" id="editnameid">
                                             <div class="form-group">
                                                 <label for="UserFirstName" style="font-size: 12pt" >First Name</label>
-                                                <input type="text"  style="border-radius: 3pt"name="User_First_Name" id="User_First_Name" class="form-control">
+                                                <input type="text"  style="border-radius: 3pt"name="User_First_Name" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" id="User_First_Name" class="form-control">
                                             
                                                 <label for="UserMiddleName" style="font-size: 12pt" >Middle Name</label>
-                                                <input type="text" style="border-radius: 3pt" name="User_Middle_Name" id="User_Middle_Name" class="form-control">
+                                                <input type="text" style="border-radius: 3pt" name="User_Middle_Name" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" id="User_Middle_Name" class="form-control">
                                             
                                                 <label for="UserLastName" style="font-size: 12pt" >Last Name</label>
-                                                <input type="text" style="border-radius: 3pt" name="User_Last_Name" id="User_Last_Name" class="form-control">
+                                                <input type="text" style="border-radius: 3pt" name="User_Last_Name" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" id="User_Last_Name" class="form-control">
                                             
                                             </div>
                                             
@@ -114,7 +114,7 @@
                                             <input type="hidden" name="id" id="editemailid">
                                             <div class="form-group">
                                                 <label for="UserEmail" style="font-size: 12pt" >Email</label>
-                                                <input type="text" style="border-radius: 3pt" name="User_Email" id="User_Email" class="form-control">
+                                                <input type="text" style="border-radius: 3pt"  name="User_Email" id="User_Email" class="form-control">
                                             </div>
                                             
                                             <button type="submit"  id="btun3" class="btn btn-success">Edit</button>

@@ -35,9 +35,7 @@ return view('website\backend.database pages.Add_City',['country'=>$countries , '
      */
     public function create()
     {
-        // request()->validate([
-        //     'City_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"
-        // ]]);
+        
  
         //
         try {
@@ -54,6 +52,7 @@ return view('website\backend.database pages.Add_City',['country'=>$countries , '
         }if($errorCode == 1048 ){
             return back()->with('error','You must select all values!!');
         }
+        return back()->withError($e->getMessage())->withInput();
     }
     }
 
@@ -128,7 +127,9 @@ return view('website\backend.database pages.Add_City',['country'=>$countries , '
             catch (\Illuminate\Database\QueryException $e)
             {
                 return redirect()->route('city_show')->with('error', 'City cannot be deleted');
+                return back()->withError($e->getMessage())->withInput();
             }
+           
         }
         else 
         return redirect()->route('city_show')->with('warning', 'No City was chosen to be deleted.. !!');
@@ -171,6 +172,7 @@ return view('website\backend.database pages.Add_City',['country'=>$countries , '
             if($errorCode == 1062){
                 return back()->with('error','Error editing item');
             }
+            return back()->withError($e->getMessage())->withInput();
         }
 
     }

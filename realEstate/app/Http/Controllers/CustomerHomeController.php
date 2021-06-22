@@ -501,6 +501,7 @@ class CustomerHomeController extends Controller
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing item');
             }
+            return back()->withError($e->getMessage())->withInput();
         }
     }
     public function DestroyPost(Request $request, $id = null)
@@ -526,6 +527,7 @@ class CustomerHomeController extends Controller
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing item');
             }
+            return back()->withError($e->getMessage())->withInput();
         }
     }
 

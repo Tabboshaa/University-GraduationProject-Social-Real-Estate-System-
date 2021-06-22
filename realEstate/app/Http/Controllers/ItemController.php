@@ -194,9 +194,15 @@ class ItemController extends Controller
                 Item::destroy($id);
                 return redirect()->route('Details')->with('success', 'Item Deleted Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
+<<<<<<< Updated upstream
 
                 return redirect()->route('Details') > with('error', 'Item cannot be deleted');
+=======
+                return back()->withError($e->getMessage())->withInput();
+                return redirect()->route('Details')->with('error', 'Item cannot be deleted');
+>>>>>>> Stashed changes
             }
+            
         } else return redirect()->route('Details')->with('warning', 'No Item was chosen to be deleted.. !!');
     }
     public function EditItemMap($itemId=null){

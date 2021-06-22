@@ -25,11 +25,7 @@ class DatatypeController extends Controller
      */
     public function create()
     {
-        // //
-        // request()->validate([
-            
-        //     'Data_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"] 
-        // ]);
+        
         try {
             $Data_Type = Datatype::create([
                 'datatype' => request('Data_Type_Name')
@@ -40,6 +36,7 @@ class DatatypeController extends Controller
             if ($errorCode == 1062) {
                 return back()->with('error', 'Datatype Already Exist !!');
             }
+            return back()->withError($e->getMessage())->withInput();
         }
     }
 
@@ -88,6 +85,7 @@ class DatatypeController extends Controller
                 if($errorCode == 1062){
                     return back()->with('error','Error editing Datatype');
                 }
+                return back()->withError($e->getMessage())->withInput();
             }
     }
 
@@ -121,8 +119,9 @@ class DatatypeController extends Controller
     }catch (\Illuminate\Database\QueryException $e){
 
         return redirect()->route('data_type_show')->with('error', 'Datatype cannot be deleted');
-                
+        return back()->withError($e->getMessage())->withInput();           
     }
+    
 }else return redirect()->route('data_type_show')->with('warning', 'No Datatype was chosen to be deleted.. !!');
     }
 
