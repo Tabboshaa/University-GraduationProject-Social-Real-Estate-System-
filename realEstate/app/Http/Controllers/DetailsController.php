@@ -72,8 +72,8 @@ class DetailsController extends Controller
     public function editDetails()
     {
 
-        $detailsInput = request('data');
-        // return $detailsInput;
+        $detailsInput = request('DetailItem');
+        return dd(request()->all());
 
         foreach ($detailsInput as $detail) {
 

@@ -548,7 +548,7 @@ class CustomerHomeController extends Controller
             $post_images = collect($post_images)->merge($post_image);
         }
 
-        $post_images = $post_images->groupby('Post_Id');
+        $post_images = $post_images->('Post_Id');
         return view('website\frontend\customer\Customer_Own_Profile', ['First_Name' => $user->First_Name, 'Middle_Name' => $user->Middle_Name, 'Last_Name' => $user->Last_Name, 'Cover_Photo' => $cover_photo, 'Profile_Photo' => $profile_photo, 'posts' => $posts, 'post_images' => $post_images]);
     }
 

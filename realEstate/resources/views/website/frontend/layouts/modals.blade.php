@@ -102,8 +102,9 @@
             </div>
             <div class="modal-body">
                 <input type="hidden" id="item_id">
-                <form id="data_form_edit">
+                <form method="post" action="{{ route('details.edit')}}" id="data_form_edit">
                     @csrf
+                    
                 </form>
 
             </div>
@@ -129,17 +130,14 @@
                     <div class="form-group">
                         <label style="font-size: 12pt">Start Date</label>
                         <input id="arrival" type="date" style="border-radius: 3pt" name="StartDate" class="form-control">
-
                     </div>
                     <div class="form-group">
                         <label style="font-size: 12pt">End Date</label>
                         <input id="departure" type="date" style="border-radius: 3pt" name="EndDate" class="form-control">
-
                     </div>
                     <div class="form-group">
                         <label style="font-size: 12pt">Price Per Night</label>
                         <input id="price" type="text" style="border-radius: 3pt" name="Price" class="form-control">
-
                     </div>
                     <button type="submit" id="btun3" class="btn btn-success">Continue</button>
                 </form>
