@@ -65,7 +65,7 @@
                     <input type="hidden" name="id" id="id">
                     <div class="form-group">
                         <label for="operationDet" style="font-size: 12pt">Operation Detail </label>
-                        <input type="text"  style="border-radius: 3pt"  name="operation_det" id="operation_det" class="form-control">
+                        <input type="text"  style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital"  name="operation_det" id="operation_det" class="form-control">
                     </div>
 
                     <button  type="submit" id="btun3" class="btn btn-success">Edit</button>

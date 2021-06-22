@@ -75,7 +75,7 @@
 
                     <div class="form-group">
                         <label for="Street_Name" style="font-size: 12pt">Street</label>
-                        <input type="text" style="border-radius: 3pt" name="Street_Name" id="StreetName" class="form-control">
+                        <input type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" name="Street_Name" id="StreetName" class="form-control">
                     </div>
 
                     <button type="submit" id="btun3" class="btn btn-success">Edit</button>

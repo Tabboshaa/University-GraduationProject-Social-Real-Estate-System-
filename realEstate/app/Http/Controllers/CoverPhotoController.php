@@ -46,6 +46,7 @@ class CoverPhotoController extends Controller
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
                 }
+                return back()->withError($e->getMessage())->withInput();
             }
         }
     }
@@ -77,6 +78,7 @@ class CoverPhotoController extends Controller
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
                 }
+                return back()->withError($e->getMessage())->withInput();
             }
         }
     }
@@ -107,7 +109,7 @@ class CoverPhotoController extends Controller
             $photo = CoverPhoto::all()->where('User_Id', '=', $id)->first();
             return $photo;
         } catch (Exception $e) {
-            return null;
+            return back()->withError($e->getMessage())->withInput();
         }
     }
 
@@ -141,6 +143,7 @@ class CoverPhotoController extends Controller
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
                 }
+                return back()->withError($e->getMessage())->withInput();
             }
         }
     }
@@ -163,9 +166,7 @@ class CoverPhotoController extends Controller
             coverPhoto::destroy($id);
             return back();
         } catch (\Illuminate\Database\QueryException $e) {
-            $errorCode = $e->errorInfo[1];
-            if ($errorCode == 1062) {
-                return back()->with('error', 'Already Exist !!');
+            return back()->withError($e->getMessage())->withInput();
             }
         }
     }
@@ -179,7 +180,7 @@ class CoverPhotoController extends Controller
             $File_Path =$coverPhoto->Cover_Photo;
             return ['Photo_Id' => $coverPhoto->Photo_Id, 'File_Path' => $File_Path];
         } catch (Exception $e) {
-            return null;
+            return back()->withError($e->getMessage())->withInput();
         }
     }
 }

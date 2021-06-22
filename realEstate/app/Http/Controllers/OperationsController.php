@@ -50,7 +50,8 @@ class OperationsController extends Controller
             }
             if ($errorCode == 1048) {
                 return back()->with('error', 'You must select all values!!');
-            }else{ return 'Error';}
+            }
+            return back()->withError($e->getMessage())->withInput();
         }
     }
     public static function createType()
@@ -65,6 +66,7 @@ class OperationsController extends Controller
             if ($errorCode == 1062) {
                 return back()->with('error', 'Already Exist !!');
             }
+            return back()->withError($e->getMessage())->withInput();
         }
     }
     public static function createDetail()
@@ -85,6 +87,7 @@ class OperationsController extends Controller
             if ($errorCode == 1048) {
                 return back()->with('error', 'You must select all values!!');
             }
+            return back()->withError($e->getMessage())->withInput();
         }
     }
     public static function createValue($Operation_Id, $Type_Id, $Detail_Id, $Value)
@@ -110,6 +113,7 @@ class OperationsController extends Controller
             if ($errorCode == 1048) {
                 return back()->with('error', 'You must select all values!!');
             }
+            return back()->withError($e->getMessage())->withInput();
         }
     }
 
@@ -176,6 +180,7 @@ class OperationsController extends Controller
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing item');
             }
+            return back()->withError($e->getMessage())->withInput();
         }
     }
     public function editDetail()
@@ -196,6 +201,7 @@ class OperationsController extends Controller
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing item');
             }
+            return back()->withError($e->getMessage())->withInput();
         }
     }
 
@@ -226,6 +232,7 @@ class OperationsController extends Controller
                 return redirect()->route('operation_types_show')->with('success', 'operation Deleted Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->route('operation_types_show')->with('error', 'operation cannot be deleted');
+                return back()->withError($e->getMessage())->withInput();
             }
         } else return redirect()->route('operation_types_show')->with('warning', 'No type was chosen to be deleted.. !!');
     }
@@ -239,6 +246,7 @@ class OperationsController extends Controller
             } catch (\Illuminate\Database\QueryException $e) {
 
                 return redirect()->route('detailop_show')->with('error', 'Detail cannot be deleted');
+                return back()->withError($e->getMessage())->withInput();
             }
         } else return redirect()->route('detailop_show')->with('warning', 'No Delete was chosen to be deleted.. !!');
     }
@@ -247,9 +255,9 @@ class OperationsController extends Controller
     {
 
         $operationname = operation__types::all();
-        $operationDetailName = DB::table('operation__detail_name')
-            ->join('operation__types', 'operation__detail_name.Operation_Type_Id', '=', 'operation__types.Operation_Type_Id')
-            ->select('operation__detail_name.*', 'operation__types.Operation_Name')->paginate(10);
+        $operationDetailName = DB::table('operation___detail__names')
+            ->join('operation__types', 'operation___detail__names.Operation_Type_Id', '=', 'operation__types.Operation_Type_Id')
+            ->select('operation___detail__names.*', 'operation__types.Operation_Name')->paginate(10);
 
         return view('website\backend.database pages.Operation_Details_show', ['Detail1' => $operationDetailName, 'Operation__types' => $operationname]);
     }
@@ -277,6 +285,7 @@ class OperationsController extends Controller
             return redirect()->back()->with('success', 'operation Deleted Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect()->back()->with('error', 'operation cannot be deleted');
+            return back()->withError($e->getMessage())->withInput();
         }
     }
 }

@@ -31,9 +31,7 @@ class UserTypes extends Controller
      */
     public function create()
     {
-        request()->validate([
-            'User_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
-        ]);
+       
         //
         try {
             $User_Type = User_Type::create([
@@ -45,6 +43,7 @@ class UserTypes extends Controller
             if ($errorCode == 1062) {
                 return back()->with('error', 'Already Exist !!');
             }
+            return back()->withError($e->getMessage())->withInput();
         }
     }
     /**
@@ -92,6 +91,7 @@ class UserTypes extends Controller
         if($errorCode == 1062){
             return back()->with('error','Already Exist !!');
         }
+        return back()->withError($e->getMessage())->withInput();
     }
     }
 
@@ -123,6 +123,7 @@ class UserTypes extends Controller
         return redirect()->route('usertype_show')->with('success', 'Type Deleted Successfully');
             }catch (\Illuminate\Database\QueryException $e){
         return redirect()->route('usertype_show')->with('error', 'Type cannot be deleted');
+        return back()->withError($e->getMessage())->withInput();
     }
 }else return redirect()->route('usertype_show')->with('warning', 'No type was chosen to be deleted.. !!');
     }

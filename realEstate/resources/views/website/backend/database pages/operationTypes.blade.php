@@ -15,7 +15,7 @@
                     </label>
 
                     <div class="col-md-2">
-                        <input id="Operation_Name" pattern="(^([A-Z][a-z]+)?$)" title="First Letter must br Capital"  name="Operation_Type_Name" style="border-radius: 3pt" type="text" class="form-control @error('Main_Type_Name') is-invalid @enderror" name="Main_Type_Name" value="{{ old('Main_Type_Name') }}" required autocomplete="Main_Type_Name" autofocus>
+                        <input id="Operation_Name" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital"  name="Operation_Type_Name" style="border-radius: 3pt" type="text" class="form-control @error('Main_Type_Name') is-invalid @enderror" name="Main_Type_Name" value="{{ old('Main_Type_Name') }}" required autocomplete="Main_Type_Name" autofocus>
 
                         @error('Operation_Type_Name')
                         <span class="invalid-feedback" role="alert">
@@ -29,9 +29,9 @@
                         <button type="submit" id="btun1"class="btn btn-primary">
                             {{ __('Add') }}
                         </button>
-                        <button id="btun2"  class="btn btn-primary">
-                            <a href="{{url('/operation_types_show')}}" class="link2" >{{ __('Show') }}</a>
-                        </button>
+                        
+                            <a href="{{url('/operation_types_show')}}" class="btn btn-primary" >{{ __('Show') }}</a>
+                        
                     </div>
                 </div>
             </form>

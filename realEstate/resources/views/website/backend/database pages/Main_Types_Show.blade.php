@@ -65,7 +65,7 @@
 
                     <div class="form-group">
                         <label for="MainTypeName" style="font-size: 12pt" >Main Type</label>
-                        <input type="text" style="border-radius: 3pt" name="MainTypeName" id="MainTypeName" class="form-control">
+                        <input type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" name="MainTypeName" id="MainTypeName" class="form-control">
 
                     </div>
                     <button type="submit" id="btun3" class="btn btn-success">Edit</button>

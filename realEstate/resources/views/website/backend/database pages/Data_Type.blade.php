@@ -31,9 +31,9 @@
                                 {{ __('Add') }}
                             </button>
                             </form>
-                            <button id="btun2"  class="btn btn-primary">
-                                <a href="{{url('/data_types_show')}}" class="link2" >{{ __('Show') }}</a>
-                            </button>
+                           
+                                <a href="{{url('/data_types_show')}}" class="btn btn-primary" >{{ __('Show') }}</a>
+                           
                         </div>
                     </div>
                

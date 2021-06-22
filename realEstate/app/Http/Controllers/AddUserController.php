@@ -336,6 +336,7 @@ class AddUserController extends Controller
                 return back()->with('error', 'Already Exist !!');
             }
         }
+        return back()->withError($e->getMessage())->withInput();
     }
 
     public function editUserEmail(Request $request)
@@ -351,6 +352,7 @@ class AddUserController extends Controller
                 return back()->with('error', 'Already Exist !!');
             }
         }
+        return back()->withError($e->getMessage())->withInput();
     }
 
     public function editUserPhoneNumber(Request $request)
