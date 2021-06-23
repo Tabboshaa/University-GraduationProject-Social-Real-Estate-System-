@@ -6,6 +6,7 @@
         <div class="x_panel">
             <h2>Item Reviews</h2>
             @include('website.backend.layouts.flashmessage')
+            @if(count($reviews))
             @foreach($reviews as $review)
             <div class="x_panel">
                 <div class="x_title">
@@ -32,6 +33,15 @@
                 <div class="clearfix"></div>
             </div>
             @endforeach
+            @else
+            <div class=" x_panel">
+                <div class="x_content">
+                    No Reviews are posted for this item yet..<br />
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            @endif
         </div>
     </div>
 </div>
@@ -76,7 +86,7 @@
             x[i].className = "fa blue fa-star-o";
         }
     }
- </script>
+</script>
 
 
 

@@ -132,7 +132,7 @@ class UserTypes extends Controller
     {
         //
         $user_types = User_Type::all();
-        $Users=User_Type::all();
+        $Users=User::all();
         return view('website/backend.database pages.Users_Show', ['user_typess' => $user_types,'users'=>$Users]);
 
     }
@@ -145,7 +145,7 @@ class UserTypes extends Controller
          ->join('emails', 'type__of__users.User_ID', '=', 'emails.User_ID')
          ->join('phone__numbers', 'type__of__users.User_ID', '=', 'phone__numbers.User_ID')
          ->select('users.*','type__of__users.*','emails.*','phone__numbers.*','users.First_Name','users.Middle_Name','users.Last_Name')
-         ->where('User_Type_ID', '=', $id)->paginate(10);
+         ->where('User_Type_ID', '=', $id)->get();
 
 
          return  response()->json($Users);

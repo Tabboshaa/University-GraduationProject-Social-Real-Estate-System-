@@ -32,7 +32,8 @@ class PostsController extends Controller
             ->groupBy('Post_Id');
 
         return view('website.backend.database pages.Item_Posts', [
-            'item_id' => $id, 'posts' => $posts,
+            'item_id' => $id, 
+            'posts' => $posts,
             'post_images' => $post_images,
             'comments' => $comments,
             'replies' => $replies

@@ -156,7 +156,7 @@ class DetailsController extends Controller
             $detail->DetailValue = request('DetailName');
             $detail->save();
 
-            return back()->with('info', 'Detail Edited Successfully');
+              return back()->with('info', 'Detail Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {

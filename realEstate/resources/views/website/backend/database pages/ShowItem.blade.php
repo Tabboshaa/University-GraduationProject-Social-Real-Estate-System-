@@ -80,7 +80,7 @@
                             <h4>{{$property}} detail</h4>
                         </td>
                         <th class="th2">value</th>
-                        <th class="th2">Select all <input type="checkbox" id="selectAll" name="selectAll"> </a> <button class="btn"><i class="fa fa-trash" style="margin-right:155px;"></i></th>
+                        <th class="th2">Select all <input type="checkbox" id="selectAll" name="selectAll"> </a> <button class="btn" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:155px;"></i></th>
                         <th class="th2">Edit</th>
                         <!-- Java Script for select all function -->
                         <script>
@@ -111,7 +111,7 @@
                             <h6>{{$detailValue->DetailValue}}</h6>
                         </td>
                         <td><input type="checkbox" name="id[]" value="{{$detailValue->Detail_Id}}"></td>
-                        <td><a href="javascript:void(0)" onclick="setDetailIdName('{{$detailValue->Detail_Id}}','{{$detailValue->DetailValue}}')"><i class="fa fa-edit"></i></a></td>
+                        <td><a href="javascript:void(0)" onclick="setDetailIdName('{{$item_id}}','{{$detailValue->Detail_Id}}','{{$detailValue->DetailValue}}')"><i class="fa fa-edit"></i></a></td>
 
                     </tr>
 
@@ -152,6 +152,7 @@
                 <form id="EditDetailForm">
                     @csrf
                     <input type="hidden" name="id" id="id">
+                    <input type="hidden" name="Item" id="item">
 
                     <div class="form-group">
                         <label for="DetailName" style="font-size: 12pt">Detail Value</label>
@@ -166,9 +167,10 @@
 </div>
 
 <script>
-    function setDetailIdName(id, name) {
+    function setDetailIdName(item,id, name) {
 
         $("#id").val(id);
+        $("#item").val(item);
         $("#DetailName").val(name);
         $("#EditDetailModal").modal("toggle");
     }
@@ -176,6 +178,7 @@
     $('#EditDetailForm').submit(function() {
 
         var id = $("#id").val();
+        var item = $("#item").val();
         // var MainTypeid=$("#MainTypeNameEdit").val();
         var DetailName = $("#DetailName").val();
         var _token = $("input[name=_token]").val();
@@ -185,7 +188,7 @@
             Type: "PUT",
             data: {
                 id: id,
-                // MainTypeid:MainTypeid,
+                Item: item,
                 DetailName: DetailName,
                 _token: _token
             },

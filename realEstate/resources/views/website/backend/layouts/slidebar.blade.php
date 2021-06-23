@@ -82,7 +82,6 @@
                       <li><a>Other<span class="fa fa-chevron-down"></span> </a>
                       <ul class="nav child_menu">
                       <li><a href="{{url('/data_types_show')}}">Data Types for details</a></li>
-                      <li><a href="{{url('/viewaddreserve')}}">Reserve</a></li>
                       </ul></li>
                     </ul>
             </li>

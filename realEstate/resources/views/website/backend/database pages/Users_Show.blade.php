@@ -6,7 +6,7 @@
 
 <div class="right_col" role="main">
     <div class="title_right">
-        
+
         <div class="x_panel">
             <div class="x_title">
                 <h2> Users </h2>
@@ -16,21 +16,21 @@
                     </li>
                 </ul>
                 <div class="clearfix"></div>
-                
+
                 <div class="x_content">
-                @include('website.backend.layouts.flashmessage')
+                    @include('website.backend.layouts.flashmessage')
                     <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
                         @foreach($user_typess as $user_types)
                         <li class="nav-item">
-                            <a class="nav-link" id="usertypes-tab"  href="javascript:void(0)" onclick="showUsers('{{$user_types->User_Type_ID}}')" role="tab" aria-controls="usertypes" aria-selected="true">{{$user_types->Type_Name}}</a>
+                            <a class="nav-link" id="usertypes-tab" href="javascript:void(0)" onclick="showUsers('{{$user_types->User_Type_ID}}')" role="tab" aria-controls="usertypes" aria-selected="true" activ>{{$user_types->Type_Name}}</a>
                         </li>
                         @endforeach
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         @if(count($users) == 0)
-                            <p> There is no data to show </p>
-                        @endif    
-                        
+                        <p> There is no data to show </p>
+                        @endif
+
 
                         <form method="Post" action="{{ url('/delete_user/?_method=delete') }}" enctype="multipart/form-data">
                             @csrf
@@ -41,9 +41,9 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone Number</th>
-                                        <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:90px;"></i></th>
-                                        
-                        
+                                        <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <button class="btn" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:90px;"></i></th>
+
+
                                         <script>
                                             document.getElementById('selectAll').onclick = function() {
                                                 var checkboxes = document.getElementsByName('id[]'); //get all check boxes with name delete
@@ -55,12 +55,12 @@
                                     </tr>
                                 </thead>
                                 <tbody id="Table">
-                                    
+
                                 </tbody>
                             </table>
-                        
+
                         </form>
-                     
+
 
                         <!-- form of editing user name -->
                         <div class="modal fade" id="EditUserNameModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -78,20 +78,20 @@
 
                                             <input type="hidden" name="id" id="editnameid">
                                             <div class="form-group">
-                                                <label for="UserFirstName" style="font-size: 12pt" >First Name</label>
-                                                <input type="text"  style="border-radius: 3pt"name="User_First_Name" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" id="User_First_Name" class="form-control">
-                                            
-                                                <label for="UserMiddleName" style="font-size: 12pt" >Middle Name</label>
+                                                <label for="UserFirstName" style="font-size: 12pt">First Name</label>
+                                                <input type="text" style="border-radius: 3pt" name="User_First_Name" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" id="User_First_Name" class="form-control">
+
+                                                <label for="UserMiddleName" style="font-size: 12pt">Middle Name</label>
                                                 <input type="text" style="border-radius: 3pt" name="User_Middle_Name" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" id="User_Middle_Name" class="form-control">
-                                            
-                                                <label for="UserLastName" style="font-size: 12pt" >Last Name</label>
+
+                                                <label for="UserLastName" style="font-size: 12pt">Last Name</label>
                                                 <input type="text" style="border-radius: 3pt" name="User_Last_Name" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" id="User_Last_Name" class="form-control">
-                                            
+
                                             </div>
-                                            
+
                                             <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                                         </form>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -113,16 +113,16 @@
 
                                             <input type="hidden" name="id" id="editemailid">
                                             <div class="form-group">
-                                                <label for="UserEmail" style="font-size: 12pt" >Email</label>
-                                                <input type="text" style="border-radius: 3pt"  name="User_Email" id="User_Email" class="form-control">
+                                                <label for="UserEmail" style="font-size: 12pt">Email</label>
+                                                <input type="text" style="border-radius: 3pt" name="User_Email" id="User_Email" class="form-control">
                                             </div>
-                                            
-                                            <button type="submit"  id="btun3" class="btn btn-success">Edit</button>
+
+                                            <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                                         </form>
-                                        
+
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
 
                         <!-- form of editing user phone number -->
@@ -141,13 +141,13 @@
 
                                             <input type="hidden" name="id" id="editphonenumberid">
                                             <div class="form-group">
-                                                <label for="UserPhoneNumber" style="font-size: 12pt" >PhoneNumber</label>
+                                                <label for="UserPhoneNumber" style="font-size: 12pt">PhoneNumber</label>
                                                 <input type="text" style="border-radius: 3pt" name="User_PhoneNumber" id="User_PhoneNumber" class="form-control">
                                             </div>
-                                            
+
                                             <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                                         </form>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -161,7 +161,7 @@
 </div>
 
 <script>
- function myFunction() {
+    function myFunction() {
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("myInput");
         filter = input.value.toUpperCase();
@@ -180,74 +180,65 @@
         }
     }
 
-        function setUserNameIdName(id, First_Name , Middle_Name , Last_Name ) {
-            
-            $("#editnameid").val(id);
-            $("#User_First_Name").val(First_Name);
-            $("#User_Middle_Name").val(Middle_Name);
-            $("#User_Last_Name").val(Last_Name);
-            $("#EditUserNameModel").modal("toggle");
-        }
+    function setUserNameIdName(id, First_Name, Middle_Name, Last_Name) {
 
-        function setUserEmailIdName(id, email) {
-            $("#editemailid").val(id);
-            $("#User_Email").val(email);
-            $("#EditUserEmailModel").modal("toggle");
-        }
+        $("#editnameid").val(id);
+        $("#User_First_Name").val(First_Name);
+        $("#User_Middle_Name").val(Middle_Name);
+        $("#User_Last_Name").val(Last_Name);
+        $("#EditUserNameModel").modal("toggle");
+    }
 
-        function setUserPhoneNumberIdName(id, phonenumber) {
-            $("#editphonenumberid").val(id);
-            $("#User_PhoneNumber").val(phonenumber);
-            $("#EditUserPhoneNumberModel").modal("toggle");
-        }
+    function setUserEmailIdName(id, email) {
+        $("#editemailid").val(id);
+        $("#User_Email").val(email);
+        $("#EditUserEmailModel").modal("toggle");
+    }
 
-    // Submit New User Name
-
-    
+    function setUserPhoneNumberIdName(id, phonenumber) {
+        $("#editphonenumberid").val(id);
+        $("#User_PhoneNumber").val(phonenumber);
+        $("#EditUserPhoneNumberModel").modal("toggle");
+    }
 
     function showUsers(id) {
 
 
-var Table = '';
-$.ajax({
-    url: "{{route('users_show')}}",
-    Type: "get",
-    data: {
-        id: id
-    },
-    success: function(data) {
-        console.log(data);
+        var Table = '';
+        $.ajax({
+            url: "{{route('users_show')}}",
+            Type: "get",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                console.log(data);
 
-        Object.values(data).forEach(val => {
-            
-            Table += 
-            '<tr>'+
-            '<td>'+val['First_Name']+' '+ val['Middle_Name'] +' '+val['Last_Name'] +' '+'<a href="javascript:void(0)" onclick="setUserNameIdName('+val['First_Name']+','+val['Middle_Name']+' , '+val['Last_Name']+')">'+'<i class="fa fa-edit">'+'</i>'+'</a>'+'</td>' +
-            '<td>'+val['email']+'<a href="javascript:void(0)" >'+'<i class="fa fa-edit" onclick="setUserEmailIdName('+val['Email_Id']+','+val['email']+')">'+'</i>'+'</a>'+'</td>'+
-            '<td>'+val['phone_number']+'<a href="javascript:void(0)">'+'<i class="fa fa-edit" onclick="setUserPhoneNumberIdName('+val['PhoneNumber_Id']+','+val['phone_number']+')">'+'</i>'+'</a>'+'</td>'+
-            '<td>'+'<input type="checkbox" name="id[]"'+ val['User_ID']+'">'+'</td>'+
-            '</tr>';
+                Object.values(data).forEach(val => {
+                    console.log(val);
+                    Table +=
+                        '<tr>' +
+                        '<td>' + val['First_Name'] + ' ' + val['Middle_Name'] + ' ' + val['Last_Name'] + ' ' + '<a href="javascript:void(0)" onclick="setUserNameIdName('+val['User_ID'] + ',\'' + val['First_Name'] + '\',\'' + val['Middle_Name'] + '\',\'' + val['Last_Name'] + '\')">' + '<i class="fa fa-edit">' + '</i>' + '</a>' + '</td>' +
+                        '<td>' + val['email'] + '<a href="javascript:void(0)" onclick="setUserEmailIdName(' + val['Email_Id'] + ', \'' + val['email'] + '\')">' + '<i class="fa fa-edit" >' + '</i>' + '</a>' + '</td>' +
+                        '<td>' + val['phone_number'] + '<a href="javascript:void(0)">' + '<i class="fa fa-edit" onclick="setUserPhoneNumberIdName(' + val['PhoneNumber_Id'] + ',\'' + val['phone_number'] + '\')">' + '</i>' + '</a>' + '</td>' +
+                        '<td>' + '<input type="checkbox" name="id[]"' + val['User_ID'] + '">' + '</td>' +
+                        '</tr>';
+                });
+                if (Table == '')
+                    Table = 'No Users';
+
+
+
+                $('#Table').html(Table);
+                // var FormTag= document.getElementById('data_form').innerHTML()=Form;
+            },
+            error: function() {
+                console.log('Error');
+            }
+
         });
-        if (Table == '')
-        Table = 'No Property Details';
-        else
-        Table += ' <div class="form-group row mb-0">' +
-            '<div class="col-md-2 offset-md-2">' +
-            ' <button type="submit" class="btn btn-primary">' +
-            ' {{ __("Add") }}';
-        '</button>';
 
-
-        $('#Table').html(Table);
-        // var FormTag= document.getElementById('data_form').innerHTML()=Form;
-    },
-    error: function() {
-        console.log('Error');
     }
-
-});
-
-}
     $('#EditUserNameForm').submit(function() {
 
         var id = $("#editnameid").val();
@@ -267,7 +258,7 @@ $.ajax({
                 _token: _token
             },
             success: function(response) {
-                console.log('Sucess');
+                console.log(response);
                 $("#EditUserNameModel").modal("toggle");
                 // $("#EditSubTypeModal")[0].reset();
             },
@@ -282,15 +273,15 @@ $.ajax({
     $('#EditUserEmailForm').submit(function() {
 
         var id = $("#editemailid").val();
-        var email= $("#User_Email").val();
+        var email = $("#User_Email").val();
         var _token = $("input[name=_token]").val();
 
         $.ajax({
             url: "{{route('UserEmail.update')}}",
             Type: "PUT",
             data: {
-                id:id,
-                email:email,
+                id: id,
+                email: email,
                 _token: _token
             },
             success: function() {
@@ -305,7 +296,7 @@ $.ajax({
         });
     })
 
-         $('#EditUserPhoneNumberForm').submit(function() {
+    $('#EditUserPhoneNumberForm').submit(function() {
 
         var id = $("#editphonenumberid").val();
         //byb3t el value el gdeda
@@ -330,7 +321,11 @@ $.ajax({
             }
 
         });
-        })
+    });
+
+    $(document).ready(function (){
+        showUsers(1);
+    });
 </script>
 
 @endsection

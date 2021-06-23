@@ -255,9 +255,9 @@ class OperationsController extends Controller
     {
 
         $operationname = operation__types::all();
-        $operationDetailName = DB::table('operation___detail__names')
-            ->join('operation__types', 'operation___detail__names.Operation_Type_Id', '=', 'operation__types.Operation_Type_Id')
-            ->select('operation___detail__names.*', 'operation__types.Operation_Name')->paginate(10);
+        $operationDetailName = DB::table('operation__detail_name')
+            ->join('operation__types', 'operation__detail_name.Operation_Type_Id', '=', 'operation__types.Operation_Type_Id')
+            ->select('operation__detail_name.*', 'operation__types.Operation_Name')->paginate(10);
 
         return view('website\backend.database pages.Operation_Details_show', ['Detail1' => $operationDetailName, 'Operation__types' => $operationname]);
     }

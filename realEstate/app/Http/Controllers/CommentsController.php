@@ -28,7 +28,7 @@ class CommentsController extends Controller
     {
         //
 
-        // try {
+        try {
             $comment=comments::create([
                 'Post_Id' => request('post_id'),
                 'User_Id'=> Auth::id(),
@@ -56,7 +56,7 @@ class CommentsController extends Controller
     {
         //
 
-        // try {
+        try {
             $comment=comments::create([
                 'Post_Id' => request('post_id'),
                 'User_Id'=> Auth::id(),

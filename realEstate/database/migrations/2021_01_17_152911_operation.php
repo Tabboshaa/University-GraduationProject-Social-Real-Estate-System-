@@ -26,7 +26,7 @@ class Operation extends Migration
              $table->timestamps();
          });
 
-       Schema::create('operation___detail__names', function (Blueprint $table) {
+       Schema::create('operation__detail_name', function (Blueprint $table) {
            $table->id('Detail_Id');
            $table->foreignId('Operation_Type_Id')->references('Operation_Type_Id')->on('operation__types')->onDelete('cascade');
            $table->string('Operation_Detail_Name');
