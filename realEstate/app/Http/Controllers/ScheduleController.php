@@ -10,6 +10,7 @@ use DateTime;
 use Exception;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ScheduleController extends Controller
 {
@@ -77,24 +78,66 @@ class ScheduleController extends Controller
     {
         //     get from Schedule endDate startDate where item id =$item_id
 
-        $schedule = schedule::orderBy('Start_Date')->where('Item_Id', '=', $item_id)->get();
+//        $schedule = schedule::orderBy('Start_Date')->where('Item_Id', '=', $item_id)->get();
 
-        $days = [];
-        //get day of every schedule
-        foreach ($schedule as $value) {
+       $schedule= DB::table("schedules")
+            ->selectRaw('schedule_Id,Start_Date,YEAR(Start_Date) as year,MONTH(Start_Date) as month,End_Date')
+            ->orderBy('Start_Date')
+            ->get()
+            ->groupBy(DB::raw("year"));
 
-            $day = ScheduleController::getdays($value->Start_Date, $value->End_Date, $value->schedule_Id);
-            //merge days
-            $days = collect($days)->merge($day)->unique(); //unique 3shan mykrrsh date mrten
-        }
-
-        //group by month of date
-        $days = collect($days)->groupBy(function ($val) {
-            return Carbon::parse($val['date'])->format('m');
-        })->toArray();
-
-        return $days;
+       return $schedule;
+////        $myDate = '01/07/2020';
+////        $date = Carbon::createFromFormat('m/d/Y', $myDate);
+//
+//
+////        $monthName = $date->format('F');
+//
+//        foreach ($schedule as $year => $schedules)
+//        {
+//            echo 'year';
+//            echo $year;
+//            echo '\r\n';
+//
+//
+//            foreach ($schedules as $s){
+//                $test= date('m/d/y',strtotime($s->Start_Date));
+//                $date = Carbon::createFromFormat('m/d/Y', $test);
+//                $monthName = $date->format('F');
+//                echo 'Month';
+//                echo $monthName;
+//                echo '\r\n';
+//
+//                $period =\Carbon\CarbonPeriod::create($s->Start_Date, $s->End_Date);
+//
+//// Iterate over the period
+//                foreach ($period as $date) {
+//                    echo $date->format('d');
+//                    echo '\r\n';
+//
+//                }
+//            }
+//        }
+//        return 0;
     }
+
+
+//        $days = [];
+//        //get day of every schedule
+//        foreach ($schedule as $value) {
+//
+//            $day = ScheduleController::getdays($value->Start_Date, $value->End_Date, $value->schedule_Id);
+//            //merge days
+//            $days = collect($days)->merge($day)->unique(); //unique 3shan mykrrsh date mrten
+//        }
+//
+//        //group by month of date
+//        $days = collect($days)->groupBy(function ($val) {
+//            return Carbon::parse($val['date'])->format('m');
+//        })->toArray();
+//
+//        $days;
+
 
     public static function getdays($start, $end, $schedule_id)
     {

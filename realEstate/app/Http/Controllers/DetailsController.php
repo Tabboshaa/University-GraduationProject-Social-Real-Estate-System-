@@ -51,7 +51,7 @@ class DetailsController extends Controller
                 'DetailValue' => Arr::get($detail, 'value')
             ];
 
-            
+
         }
 
         // request()->validate([
@@ -80,9 +80,9 @@ class DetailsController extends Controller
             try {
                 $d = Details::all()->find(Arr::get($detail, 'id'));
                 if ($d != null) {
-             
+
                     if (Arr::get($detail, 'type') == 'checkbox') {
-                   
+
 
                         if (Arr::get($detail, 'value') == 'on') {
                             $val = 'yes';

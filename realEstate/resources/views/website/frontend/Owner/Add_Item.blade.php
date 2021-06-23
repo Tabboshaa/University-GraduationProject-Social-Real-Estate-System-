@@ -2,9 +2,9 @@
 @section('profile')
 @include('website.backend.layouts.flashmessage')
 
+<link rel="stylesheet" href="/css/map.css">
 <script src="/js/map.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCUywuD0K3ICLer31HgVIJ-Uhi_Suj2jA&libraries=places&callback=initialize"></script>
-<link rel="stylesheet" href="/css/map.css">
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -223,5 +223,7 @@
         </div>
     </div>
 </div>
-@endsection
 
+
+
+@endsection

@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ScheduleController;
+use App\Schedule;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +26,7 @@ Route::get('/Land', function () {
     return view('website\LandingPadge');
 });
 //authntication routes
-Route::get('test',);
+Route::get('/meshtest/{item_id}','ScheduleController@getAvailableTime');
 Auth::routes();
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin')->middleware('RedirectIfAuthenticatedUser');
 Route::post('/', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
@@ -100,7 +103,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     //Follow
     Route::get('/FollowItem/{id?}', 'AddUserController@FollowedItem');
     Route::get('/UnfollowItem/{id?}', 'AddUserController@UnfollowItem');
-    
+
     Route::get('/FollowUser/{id?}', 'FollowedusersController@FollowedUser');
     Route::get('/UnfollowUser/{id?}', 'FollowedusersController@UnfollowUser');
 
@@ -168,7 +171,7 @@ Route::group(['middleware' => 'auth.admin'], function () {
     Route::post('/add_main_type', 'MainTypes@create');
     Route::delete('/delete_main_type', 'MainTypes@destroy');
     Route::get('/edit_main_type', 'MainTypes@edit')->name('Maintype.update');
-    
+
     //operation types
     Route::get('/operation_types', 'OperationsController@index');
     Route::get('/operation_types_show', 'OperationsController@show')->name('operation_types_show');
@@ -206,7 +209,7 @@ Route::group(['middleware' => 'auth.admin'], function () {
     Route::post('/add_country', 'CountryController@create');
 
     //State
-    Route::get('/state', 'StateController@index')->middleware('Owner');
+    Route::get('/state', 'StateController@index')->middleware('Admin');
     Route::post('/add_state', 'StateController@create');
     Route::get('/show_state', 'StateController@show')->name('state_show');
 

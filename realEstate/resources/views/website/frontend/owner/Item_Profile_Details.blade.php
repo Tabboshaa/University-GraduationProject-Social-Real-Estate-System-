@@ -709,6 +709,9 @@
     }
 
     $('#data_form_edit').submit(function() {
+
+        var fd = new FormData();
+        console.log(fd);
         var data = [];
         var item_id = $("#item_id").val();
         var diff = $("#diff").val();
@@ -716,6 +719,7 @@
         //3iza ageeb kol el inputs b get element by name
         //w b3deen 3iza 27ot el inputs value&id f array
         $('input[name="DetailItem[]"]').each(function() {
+
             data.push({
                 id: this.id,
                 value: this.value,
@@ -729,16 +733,19 @@
             type: "post",
             url: "{{ route('details.edit')}}",
             data: {
-                data: data,
+                data: fd,
                 item_id: item_id,
-                _token: _token
+                _token: '{{csrf_token()}}'
             },
+            contentType: false,
+            processData: false,
             success: function(s) {
                 //hna 3iza anady 3la created succefully
                 console.log(s);
             },
-            error: function() {
+            error: function(s) {
                 // hna anady 3la not created w kdaho
+                console.log(s)
                 console.log('Error');
             }
         });

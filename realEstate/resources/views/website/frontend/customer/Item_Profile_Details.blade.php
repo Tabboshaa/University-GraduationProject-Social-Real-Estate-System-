@@ -65,356 +65,428 @@
                 <span class="font-xsssss fw-700 ps-3 pe-3 lh-32 text-uppercase rounded-3 ls-2 alert-info d-inline-block text-info"> <a href="javascript:void(0)" onclick="goreserve('{{$item_id}}');" id="gobutton" style="display: none;text-align: center;"> All done?</a></span>
             </div>
         </div>
-        <!--January  -->
+                {{--FOR EACH TO PRINT YEARS--}}
+        @foreach($schedule as $year => $schedules)
+            <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
+                <div class="bg-gold-gradiant me-2 p-3 rounded-xxl w125">
+                    <a href="javascript:void(0)" id="" onclick=""></a>
+                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">{{$year}}</span></h4>
+                </div>
+            </div>
+            <?php $temp='';?>
+            @foreach($schedules as $s)
+                {{-- END...FOR EACH TO PRINT YEARS--}}
+                <?php
+                $test= date('m/d/y',strtotime($s->Start_Date));
+                $date = \Carbon\Carbon::createFromFormat('m/d/Y', $test);
+                $monthName = $date->format('F');
+                $period = \Carbon\CarbonPeriod::create($s->Start_Date,$s->End_Date);
+                 // Iterate over the period
+                ?>
+
+                <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
+                    <div class="bg-skype me-2 p-3 rounded-xxl w125">
+                        <a href="javascript:void(0)" id="" onclick="$('#ul')
+            .slideToggle();"></a>
+                        <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">{{$monthName}}</span></h4>
+                    </div>
+                </div>
+
+                        <h4 class="fw-700 text-grey-900 font-xssss mt-2">
+                            <ul id="ul  " style="display: none;">
+                                @foreach ($period as $date)
+                                    <?php $day=$date->format('d');?>
+                            <li>
+                                <div> <span id="" name="" class="calendar-table__item" href="javascript:void(0)" onclick="" style="color: #0C0C0C">{{$day}}</span></div>
+                            </li>
+                                @endforeach
+                            </ul>
+                        </h4>
+
+            @endforeach
+        @endforeach
         <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
+
             @if(isset($schedule["01"]))
-            <div class="bg-skype me-2 p-3 rounded-xxl w125">
-                <a href="javascript:void(0)" id="morejan" onclick="$('#jan')
+                <div class="bg-skype me-2 p-3 rounded-xxl w125">
+                    <a href="javascript:void(0)" id="morejan" onclick="$('#jan')
             .slideToggle();">
+                        <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">January</span></h4>
+                    </a>
+                </div>
+                <h4 class="fw-700 text-grey-900 font-xssss mt-2">
+                    <ul id="jan" style="display: none;">
+                        @foreach($schedule["01"] as $Dates => $date)
+                            <?php
+                            $day = \Carbon\Carbon::parse($date["date"])->format('d');
+                            $day = $day + 1 - 1;
+                            $SID = $date["schedule_Id"];
+                            $ID = $date["date"];                                        ?>
+                            <li>
+                                <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
+                            </li>
+                        @endforeach
+                    </ul>
+                </h4>
+            @else
+                <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
                     <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">January</span></h4>
-                </a>
-            </div>
-            <h4 class="fw-700 text-grey-900 font-xssss mt-2">
-                <ul id="jan" style="display: none;">
-                    @foreach($schedule["01"] as $Dates => $date)
-                    <?php
-                    $day = \Carbon\Carbon::parse($date["date"])->format('d');
-                    $day = $day + 1 - 1;
-                    $SID = $date["schedule_Id"];
-                    $ID = $date["date"];                                        ?>
-                    <li>
-                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
-                    </li>
-                    @endforeach
-                </ul>
-            </h4>
-            @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">January</span></h4>
-            </div>
+                </div>
             @endif
         </div>
-        <!-- February -->
-        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
-            @if(isset($schedule["02"]))
-            <div class="bg-primary-gradiant me-2 p-3 rounded-xxl w125">
-                <a href="javascript:void(0)" id="morefeb" onclick="$('#feb')
-            .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">February</span></h4>
-                </a>
-            </div>
-            <h4 class="fw-700 text-grey-900 font-xssss mt-2">
-                <ul id="feb" style="display: none;">
-                    @foreach($schedule["02"] as $Dates => $date)
-                    <?php
-                    $day = \Carbon\Carbon::parse($date["date"])->format('d');
-                    $day = $day + 1 - 1;
-                    $SID = $date["schedule_Id"];
-                    $ID = $date["date"];                                        ?>
-                    <li>
-                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
-                    </li>
-                    @endforeach
-                </ul>
-            </h4>
-            @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">February</span></h4>
-            </div>
-            @endif
-        </div>
-        <!-- March -->
-        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
-            @if(isset($schedule["03"]))
-            <div class="bg-cyan me-2 p-3 rounded-xxl w125">
-                <a href="javascript:void(0)" id="moremar" onclick="$('#mar')
-            .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">March</span></h4>
-                </a>
-            </div>
-            <h4 class="fw-700 text-grey-900 font-xssss mt-2">
-                <ul id="mar" style="display: none;">
-                    @foreach($schedule["03"] as $Dates => $date)
-                    <?php
-                    $day = \Carbon\Carbon::parse($date["date"])->format('d');
-                    $day = $day + 1 - 1;
-                    $SID = $date["schedule_Id"];
-                    $ID = $date["date"];                                        ?>
-                    <li>
-                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')"><span style="font-size:large;">{{$day}}</span></span></div>
-                    </li>
-                    @endforeach
-                </ul>
-            </h4>
-            @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">March</span></h4>
-            </div>
-            @endif
 
-        </div>
-        <!-- April -->
-        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
-            @if(isset($schedule["04"]))
-            <div class="bg-tumblr me-2 p-3 rounded-xxl w125">
-                <a href="javascript:void(0)" id="moreapril" onclick="$('#april')
-            .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">April</span></h4>
-                </a>
-            </div>
-            <h4 class="fw-700 text-grey-900 font-xssss mt-2">
-                <ul id="april" style="display: none;">
-                    @foreach($schedule["04"] as $Dates => $date)
-                    <?php
-                    $day = \Carbon\Carbon::parse($date["date"])->format('d');
-                    $day = $day + 1 - 1;
-                    $SID = $date["schedule_Id"];
-                    $ID = $date["date"];                                        ?>
-                    <li>
-                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
-                    </li>
-                    @endforeach
-                </ul>
-            </h4>
-            @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125 align-middle">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">April</span></h4>
-            </div>
-            @endif
+{{--        <div>--}}
+{{--        <!--January  -->--}}
+{{--        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">--}}
+{{--            @if(isset($schedule["01"]))--}}
+{{--            <div class="bg-skype me-2 p-3 rounded-xxl w125">--}}
+{{--                <a href="javascript:void(0)" id="morejan" onclick="$('#jan')--}}
+{{--            .slideToggle();">--}}
+{{--                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">January</span></h4>--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--            <h4 class="fw-700 text-grey-900 font-xssss mt-2">--}}
+{{--                <ul id="jan" style="display: none;">--}}
+{{--                    @foreach($schedule["01"] as $Dates => $date)--}}
+{{--                    <?php--}}
+{{--                    $day = \Carbon\Carbon::parse($date["date"])->format('d');--}}
+{{--                    $day = $day + 1 - 1;--}}
+{{--                    $SID = $date["schedule_Id"];--}}
+{{--                    $ID = $date["date"];                                        ?>--}}
+{{--                    <li>--}}
+{{--                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>--}}
+{{--                    </li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+{{--            </h4>--}}
+{{--            @else--}}
+{{--            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">--}}
+{{--                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">January</span></h4>--}}
+{{--            </div>--}}
+{{--            @endif--}}
+{{--        </div>--}}
+{{--        <!-- February -->--}}
+{{--        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">--}}
+{{--            @if(isset($schedule["02"]))--}}
+{{--            <div class="bg-primary-gradiant me-2 p-3 rounded-xxl w125">--}}
+{{--                <a href="javascript:void(0)" id="morefeb" onclick="$('#feb')--}}
+{{--            .slideToggle();">--}}
+{{--                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">February</span></h4>--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--            <h4 class="fw-700 text-grey-900 font-xssss mt-2">--}}
+{{--                <ul id="feb" style="display: none;">--}}
+{{--                    @foreach($schedule["02"] as $Dates => $date)--}}
+{{--                    <?php--}}
+{{--                    $day = \Carbon\Carbon::parse($date["date"])->format('d');--}}
+{{--                    $day = $day + 1 - 1;--}}
+{{--                    $SID = $date["schedule_Id"];--}}
+{{--                    $ID = $date["date"];                                        ?>--}}
+{{--                    <li>--}}
+{{--                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>--}}
+{{--                    </li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+{{--            </h4>--}}
+{{--            @else--}}
+{{--            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">--}}
+{{--                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">February</span></h4>--}}
+{{--            </div>--}}
+{{--            @endif--}}
+{{--        </div>--}}
+{{--        <!-- March -->--}}
+{{--        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">--}}
+{{--            @if(isset($schedule["03"]))--}}
+{{--            <div class="bg-cyan me-2 p-3 rounded-xxl w125">--}}
+{{--                <a href="javascript:void(0)" id="moremar" onclick="$('#mar')--}}
+{{--            .slideToggle();">--}}
+{{--                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">March</span></h4>--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--            <h4 class="fw-700 text-grey-900 font-xssss mt-2">--}}
+{{--                <ul id="mar" style="display: none;">--}}
+{{--                    @foreach($schedule["03"] as $Dates => $date)--}}
+{{--                    <?php--}}
+{{--                    $day = \Carbon\Carbon::parse($date["date"])->format('d');--}}
+{{--                    $day = $day + 1 - 1;--}}
+{{--                    $SID = $date["schedule_Id"];--}}
+{{--                    $ID = $date["date"];                                        ?>--}}
+{{--                    <li>--}}
+{{--                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')"><span style="font-size:large;">{{$day}}</span></span></div>--}}
+{{--                    </li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+{{--            </h4>--}}
+{{--            @else--}}
+{{--            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">--}}
+{{--                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">March</span></h4>--}}
+{{--            </div>--}}
+{{--            @endif--}}
 
-        </div>
-        <!-- May -->
-        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
-            @if(isset($schedule["05"]))
-            <div class="bg-instagram me-2 p-3 rounded-xxl w125">
-                <a href="javascript:void(0)" id="moremay" onclick="$('#may')
-            .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">May</span></h4>
-                </a>
-            </div>
-            <h4 class="fw-700 text-grey-900 font-xssss mt-2">
-                <ul id="may" style="display: none;">
-                    @foreach($schedule["05"] as $Dates => $date)
-                    <?php
-                    $day = \Carbon\Carbon::parse($date["date"])->format('d');
-                    $day = $day + 1 - 1;
-                    $SID = $date["schedule_Id"];
-                    $ID = $date["date"];                                        ?>
-                    <li>
-                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
-                    </li>
-                    @endforeach
-                </ul>
-            </h4>
-            @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">May</span></h4>
-            </div>
-            @endif
-        </div>
-        <!-- June -->
-        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
-            @if(isset($schedule["06"]))
-            <div class="bg-linkedin me-2 p-3 rounded-xxl w125">
-                <a href="javascript:void(0)" id="morejune" onclick="$('#june')
-            .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">June</span></h4>
-                </a>
-            </div>
-            <h4 class="fw-700 text-grey-900 font-xssss mt-2">
-                <ul id="june" style="display: none;">
-                    @foreach($schedule["06"] as $Dates => $date)
-                    <?php
-                    $day = \Carbon\Carbon::parse($date["date"])->format('d');
-                    $day = $day + 1 - 1;
-                    $SID = $date["schedule_Id"];
-                    $ID = $date["date"];                                        ?>
-                    <li>
-                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
-                    </li>
-                    @endforeach
-                </ul>
-            </h4>
-            @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">June</span></h4>
-            </div>
-            @endif
-        </div>
-        <!-- July -->
-        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
-            @if(isset($schedule["07"]))
-            <div class="bg-skype me-2 p-3 rounded-xxl w125">
-                <a href="javascript:void(0)" id="morejuly" onclick="$('#july')
-            .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">July</span></h4>
-                </a>
-            </div>
-            <h4 class="fw-700 text-grey-900 font-xssss mt-2">
-                <ul id="july" style="display: none;">
-                    @foreach($schedule["07"] as $Dates => $date)
-                    <?php
-                    $day = \Carbon\Carbon::parse($date["date"])->format('d');
-                    $day = $day + 1 - 1;
-                    $SID = $date["schedule_Id"];
-                    $ID = $date["date"];                                        ?>
-                    <li>
-                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
-                    </li>
-                    @endforeach
-                </ul>
-            </h4>
-            @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">July</span></h4>
-            </div>
-            @endif
-        </div>
-        <!-- August -->
-        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
-            @if(isset($schedule["08"]))
-            <div class="bg-success me-2 p-3 rounded-xxl w125">
-                <a href="javascript:void(0)" id="moreaug" onclick="$('#aug')
-            .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">August</span></h4>
-                </a>
-            </div>
-            <h4 class="fw-700 text-grey-900 font-xssss mt-2">
-                <ul id="aug" style="display: none;">
-                    @foreach($schedule["08"] as $Dates => $date)
-                    <?php
-                    $day = \Carbon\Carbon::parse($date["date"])->format('d');
-                    $day = $day + 1 - 1;
-                    $SID = $date["schedule_Id"];
-                    $ID = $date["date"];                                        ?>
-                    <li>
-                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
-                    </li>
-                    @endforeach
-                </ul>
-            </h4>
-            @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">August</span></h4>
-            </div>
-            @endif
-        </div>
-        <!-- September -->
-        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
-            @if(isset($schedule["09"]))
-            <div class="bg-success me-2 p-3 rounded-xxl w125">
-                <a href="javascript:void(0)" id="moresep" onclick="$('#sep')
-            .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">September</span></h4>
-                </a>
-            </div>
-            <h4 class="fw-700 text-grey-900 font-xssss mt-2">
-                <ul id="sep" style="display: none;">
-                    @foreach($schedule["09"] as $Dates => $date)
-                    <?php
-                    $day = \Carbon\Carbon::parse($date["date"])->format('d');
-                    $day = $day + 1 - 1;
-                    $SID = $date["schedule_Id"];
-                    $ID = $date["date"];                                        ?>
-                    <li>
-                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
-                    </li>
-                    @endforeach
-                </ul>
-            </h4>
-            @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">September</span></h4>
-            </div>
-            @endif
-        </div>
-        <!-- October -->
-        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
-            @if(isset($schedule["10"]))
-            <div class="bg-success me-2 p-3 rounded-xxl w125">
-                <a href="javascript:void(0)" id="moreoct" onclick="$('#oct')
-            .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">October</span></h4>
-                </a>
-            </div>
-            <h4 class="fw-700 text-grey-900 font-xssss mt-2">
-                <ul id="oct" style="display: none;">
-                    @foreach($schedule["10"] as $Dates => $date)
-                    <?php
-                    $day = \Carbon\Carbon::parse($date["date"])->format('d');
-                    $day = $day + 1 - 1;
-                    $SID = $date["schedule_Id"];
-                    $ID = $date["date"];                                        ?>
-                    <li>
-                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
-                    </li>
-                    @endforeach
-                </ul>
-            </h4>
-            @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">October</span></h4>
-            </div>
-            @endif
-        </div>
-        <!-- November -->
-        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
-            @if(isset($schedule["11"]))
-            <div class="bg-success me-2 p-3 rounded-xxl w125">
-                <a href="javascript:void(0)" id="morenov" onclick="$('#nov')
-            .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">November</span></h4>
-                </a>
-            </div>
-            <h4 class="fw-700 text-grey-900 font-xssss mt-2">
-                <ul id="nov" style="display: none;">
-                    @foreach($schedule["11"] as $Dates => $date)
-                    <?php
-                    $day = \Carbon\Carbon::parse($date["date"])->format('d');
-                    $day = $day + 1 - 1;
-                    $SID = $date["schedule_Id"];
-                    $ID = $date["date"];                                        ?>
-                    <li>
-                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
-                    </li>
-                    @endforeach
-                </ul>
-            </h4>
-            @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">November</span></h4>
-            </div>
-            @endif
-        </div>
-        <!-- December -->
-        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
-            @if(isset($schedule["12"]))
-            <div class="bg-success me-2 p-3 rounded-xxl w125">
-                <a href="javascript:void(0)" id="moredec" onclick="$('#dec')
-            .slideToggle();">
-                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">December</span></h4>
-                </a>
-            </div>
-            <h4 class="fw-700 text-grey-900 font-xssss mt-2">
-                <ul id="dec" style="display: none;">
-                    @foreach($schedule["12"] as $Dates => $date)
-                    <?php
-                    $day = \Carbon\Carbon::parse($date["date"])->format('d');
-                    $day = $day + 1 - 1;
-                    $SID = $date["schedule_Id"];
-                    $ID = $date["date"];                                        ?>
-                    <li>
-                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>
-                    </li>
-                    @endforeach
-                </ul>
-            </h4>
-            @else
-            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">
-                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">December</span></h4>
-            </div>
-            @endif
-        </div>
+{{--        </div>--}}
+{{--        <!-- April -->--}}
+{{--        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">--}}
+{{--            @if(isset($schedule["04"]))--}}
+{{--            <div class="bg-tumblr me-2 p-3 rounded-xxl w125">--}}
+{{--                <a href="javascript:void(0)" id="moreapril" onclick="$('#april')--}}
+{{--            .slideToggle();">--}}
+{{--                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">April</span></h4>--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--            <h4 class="fw-700 text-grey-900 font-xssss mt-2">--}}
+{{--                <ul id="april" style="display: none;">--}}
+{{--                    @foreach($schedule["04"] as $Dates => $date)--}}
+{{--                    <?php--}}
+{{--                    $day = \Carbon\Carbon::parse($date["date"])->format('d');--}}
+{{--                    $day = $day + 1 - 1;--}}
+{{--                    $SID = $date["schedule_Id"];--}}
+{{--                    $ID = $date["date"];                                        ?>--}}
+{{--                    <li>--}}
+{{--                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>--}}
+{{--                    </li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+{{--            </h4>--}}
+{{--            @else--}}
+{{--            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125 align-middle">--}}
+{{--                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">April</span></h4>--}}
+{{--            </div>--}}
+{{--            @endif--}}
+
+{{--        </div>--}}
+{{--        <!-- May -->--}}
+{{--        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">--}}
+{{--            @if(isset($schedule["05"]))--}}
+{{--            <div class="bg-instagram me-2 p-3 rounded-xxl w125">--}}
+{{--                <a href="javascript:void(0)" id="moremay" onclick="$('#may')--}}
+{{--            .slideToggle();">--}}
+{{--                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">May</span></h4>--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--            <h4 class="fw-700 text-grey-900 font-xssss mt-2">--}}
+{{--                <ul id="may" style="display: none;">--}}
+{{--                    @foreach($schedule["05"] as $Dates => $date)--}}
+{{--                    <?php--}}
+{{--                    $day = \Carbon\Carbon::parse($date["date"])->format('d');--}}
+{{--                    $day = $day + 1 - 1;--}}
+{{--                    $SID = $date["schedule_Id"];--}}
+{{--                    $ID = $date["date"];                                        ?>--}}
+{{--                    <li>--}}
+{{--                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>--}}
+{{--                    </li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+{{--            </h4>--}}
+{{--            @else--}}
+{{--            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">--}}
+{{--                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">May</span></h4>--}}
+{{--            </div>--}}
+{{--            @endif--}}
+{{--        </div>--}}
+{{--        <!-- June -->--}}
+{{--        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">--}}
+{{--            @if(isset($schedule["06"]))--}}
+{{--            <div class="bg-linkedin me-2 p-3 rounded-xxl w125">--}}
+{{--                <a href="javascript:void(0)" id="morejune" onclick="$('#june')--}}
+{{--            .slideToggle();">--}}
+{{--                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">June</span></h4>--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--            <h4 class="fw-700 text-grey-900 font-xssss mt-2">--}}
+{{--                <ul id="june" style="display: none;">--}}
+{{--                    @foreach($schedule["06"] as $Dates => $date)--}}
+{{--                    <?php--}}
+{{--                    $day = \Carbon\Carbon::parse($date["date"])->format('d');--}}
+{{--                    $day = $day + 1 - 1;--}}
+{{--                    $SID = $date["schedule_Id"];--}}
+{{--                    $ID = $date["date"];                                        ?>--}}
+{{--                    <li>--}}
+{{--                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>--}}
+{{--                    </li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+{{--            </h4>--}}
+{{--            @else--}}
+{{--            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">--}}
+{{--                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">June</span></h4>--}}
+{{--            </div>--}}
+{{--            @endif--}}
+{{--        </div>--}}
+{{--        <!-- July -->--}}
+{{--        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">--}}
+{{--            @if(isset($schedule["07"]))--}}
+{{--            <div class="bg-skype me-2 p-3 rounded-xxl w125">--}}
+{{--                <a href="javascript:void(0)" id="morejuly" onclick="$('#july')--}}
+{{--            .slideToggle();">--}}
+{{--                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">July</span></h4>--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--            <h4 class="fw-700 text-grey-900 font-xssss mt-2">--}}
+{{--                <ul id="july" style="display: none;">--}}
+{{--                    @foreach($schedule["07"] as $Dates => $date)--}}
+{{--                    <?php--}}
+{{--                    $day = \Carbon\Carbon::parse($date["date"])->format('d');--}}
+{{--                    $day = $day + 1 - 1;--}}
+{{--                    $SID = $date["schedule_Id"];--}}
+{{--                    $ID = $date["date"];                                        ?>--}}
+{{--                    <li>--}}
+{{--                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>--}}
+{{--                    </li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+{{--            </h4>--}}
+{{--            @else--}}
+{{--            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">--}}
+{{--                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">July</span></h4>--}}
+{{--            </div>--}}
+{{--            @endif--}}
+{{--        </div>--}}
+{{--        <!-- August -->--}}
+{{--        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">--}}
+{{--            @if(isset($schedule["08"]))--}}
+{{--            <div class="bg-success me-2 p-3 rounded-xxl w125">--}}
+{{--                <a href="javascript:void(0)" id="moreaug" onclick="$('#aug')--}}
+{{--            .slideToggle();">--}}
+{{--                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">August</span></h4>--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--            <h4 class="fw-700 text-grey-900 font-xssss mt-2">--}}
+{{--                <ul id="aug" style="display: none;">--}}
+{{--                    @foreach($schedule["08"] as $Dates => $date)--}}
+{{--                    <?php--}}
+{{--                    $day = \Carbon\Carbon::parse($date["date"])->format('d');--}}
+{{--                    $day = $day + 1 - 1;--}}
+{{--                    $SID = $date["schedule_Id"];--}}
+{{--                    $ID = $date["date"];                                        ?>--}}
+{{--                    <li>--}}
+{{--                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>--}}
+{{--                    </li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+{{--            </h4>--}}
+{{--            @else--}}
+{{--            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">--}}
+{{--                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">August</span></h4>--}}
+{{--            </div>--}}
+{{--            @endif--}}
+{{--        </div>--}}
+{{--        <!-- September -->--}}
+{{--        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">--}}
+{{--            @if(isset($schedule["09"]))--}}
+{{--            <div class="bg-success me-2 p-3 rounded-xxl w125">--}}
+{{--                <a href="javascript:void(0)" id="moresep" onclick="$('#sep')--}}
+{{--            .slideToggle();">--}}
+{{--                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">September</span></h4>--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--            <h4 class="fw-700 text-grey-900 font-xssss mt-2">--}}
+{{--                <ul id="sep" style="display: none;">--}}
+{{--                    @foreach($schedule["09"] as $Dates => $date)--}}
+{{--                    <?php--}}
+{{--                    $day = \Carbon\Carbon::parse($date["date"])->format('d');--}}
+{{--                    $day = $day + 1 - 1;--}}
+{{--                    $SID = $date["schedule_Id"];--}}
+{{--                    $ID = $date["date"];                                        ?>--}}
+{{--                    <li>--}}
+{{--                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>--}}
+{{--                    </li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+{{--            </h4>--}}
+{{--            @else--}}
+{{--            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">--}}
+{{--                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">September</span></h4>--}}
+{{--            </div>--}}
+{{--            @endif--}}
+{{--        </div>--}}
+{{--        <!-- October -->--}}
+{{--        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">--}}
+{{--            @if(isset($schedule["10"]))--}}
+{{--            <div class="bg-success me-2 p-3 rounded-xxl w125">--}}
+{{--                <a href="javascript:void(0)" id="moreoct" onclick="$('#oct')--}}
+{{--            .slideToggle();">--}}
+{{--                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">October</span></h4>--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--            <h4 class="fw-700 text-grey-900 font-xssss mt-2">--}}
+{{--                <ul id="oct" style="display: none;">--}}
+{{--                    @foreach($schedule["10"] as $Dates => $date)--}}
+{{--                    <?php--}}
+{{--                    $day = \Carbon\Carbon::parse($date["date"])->format('d');--}}
+{{--                    $day = $day + 1 - 1;--}}
+{{--                    $SID = $date["schedule_Id"];--}}
+{{--                    $ID = $date["date"];                                        ?>--}}
+{{--                    <li>--}}
+{{--                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>--}}
+{{--                    </li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+{{--            </h4>--}}
+{{--            @else--}}
+{{--            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">--}}
+{{--                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">October</span></h4>--}}
+{{--            </div>--}}
+{{--            @endif--}}
+{{--        </div>--}}
+{{--        <!-- November -->--}}
+{{--        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">--}}
+{{--            @if(isset($schedule["11"]))--}}
+{{--            <div class="bg-success me-2 p-3 rounded-xxl w125">--}}
+{{--                <a href="javascript:void(0)" id="morenov" onclick="$('#nov')--}}
+{{--            .slideToggle();">--}}
+{{--                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">November</span></h4>--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--            <h4 class="fw-700 text-grey-900 font-xssss mt-2">--}}
+{{--                <ul id="nov" style="display: none;">--}}
+{{--                    @foreach($schedule["11"] as $Dates => $date)--}}
+{{--                    <?php--}}
+{{--                    $day = \Carbon\Carbon::parse($date["date"])->format('d');--}}
+{{--                    $day = $day + 1 - 1;--}}
+{{--                    $SID = $date["schedule_Id"];--}}
+{{--                    $ID = $date["date"];                                        ?>--}}
+{{--                    <li>--}}
+{{--                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>--}}
+{{--                    </li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+{{--            </h4>--}}
+{{--            @else--}}
+{{--            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">--}}
+{{--                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">November</span></h4>--}}
+{{--            </div>--}}
+{{--            @endif--}}
+{{--        </div>--}}
+{{--        <!-- December -->--}}
+{{--        <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">--}}
+{{--            @if(isset($schedule["12"]))--}}
+{{--            <div class="bg-success me-2 p-3 rounded-xxl w125">--}}
+{{--                <a href="javascript:void(0)" id="moredec" onclick="$('#dec')--}}
+{{--            .slideToggle();">--}}
+{{--                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">December</span></h4>--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--            <h4 class="fw-700 text-grey-900 font-xssss mt-2">--}}
+{{--                <ul id="dec" style="display: none;">--}}
+{{--                    @foreach($schedule["12"] as $Dates => $date)--}}
+{{--                    <?php--}}
+{{--                    $day = \Carbon\Carbon::parse($date["date"])->format('d');--}}
+{{--                    $day = $day + 1 - 1;--}}
+{{--                    $SID = $date["schedule_Id"];--}}
+{{--                    $ID = $date["date"];                                        ?>--}}
+{{--                    <li>--}}
+{{--                        <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')">{{$day}}</span></div>--}}
+{{--                    </li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+{{--            </h4>--}}
+{{--            @else--}}
+{{--            <div class="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg w125">--}}
+{{--                <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span class="ls-1 d-block font-xsss text-white fw-600 text-center">December</span></h4>--}}
+{{--            </div>--}}
+{{--            @endif--}}
+{{--        </div>--}}
+{{--        </div>--}}
     </div>
 
 
@@ -513,12 +585,7 @@
         var clicked_id = clicked.getAttribute('id');
         var schedule_Id2;
         var disable;
-
-
-        // if(clicked_id==start_id){clicked.className="calendar-table__item"; s=0; start_id=null; start=nu }// reset all days if s=0 or 1 or
-        // else if(clicked_id==End_id){clicked.className="calendar-table__item"; s=1;}
-
-        if (s == 0) {
+        if (s == 0){
             clicked.className = 'calendar-table__item_Start';
             s = 1;
             start = clicked;
