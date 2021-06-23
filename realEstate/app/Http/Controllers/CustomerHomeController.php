@@ -122,7 +122,7 @@ class CustomerHomeController extends Controller
         $schedule = ScheduleController::getAvailableTime($id);
         // return $schedule;
 
-        $state = StateController::getStates();
+        $state = StateController::getStates(); 
 
         $item = Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);

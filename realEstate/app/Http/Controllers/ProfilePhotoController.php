@@ -61,12 +61,7 @@ class ProfilePhotoController extends Controller
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
-<<<<<<< Updated upstream
                 }else{return $e->getMessage();}
-=======
-                }
-                return back()->withError($e->getMessage())->withInput();
->>>>>>> Stashed changes
             }
         }
     }
@@ -120,12 +115,7 @@ class ProfilePhotoController extends Controller
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
-<<<<<<< Updated upstream
                 }else{ return $e->getMessage();}
-=======
-                }
-                return back()->withError($e->getMessage())->withInput();
->>>>>>> Stashed changes
             }
         }
     }
