@@ -14,7 +14,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Country;
-use Auth;
+// use Auth;/
+use Illuminate\Support\Facades\Auth;
 
 class AddUserController extends Controller
 {
@@ -78,49 +79,48 @@ class AddUserController extends Controller
         }
     }
 
-    Public function EditUserProfileVeiw()
+    public function EditUserProfileVeiw()
     {
-        $User_ID=Auth::id();
-        $user=User::all()->where('id','=',$User_ID)->first();
+        $User_ID = Auth::id();
+        $user = User::all()->where('id', '=', $User_ID)->first();
 
-        $email=Emails::all()->where('User_ID','=',$User_ID)->first();
-        $phone=Phone_Numbers::all()->where('User_ID','=',$User_ID)->first();
-        $image= ProfilePhoto::all()->where('User_Id','=',$User_ID)->first();
+        $email = Emails::all()->where('User_ID', '=', $User_ID)->first();
+        $phone = Phone_Numbers::all()->where('User_ID', '=', $User_ID)->first();
+        $image = ProfilePhoto::all()->where('User_Id', '=', $User_ID)->first();
 
-        return view('website.frontend.customer.EditUserProfile',['user'=>$user,'email'=>$email,'phone'=>$phone,'image'=>$image]);
+        return view('website.frontend.customer.EditUserProfile', ['user' => $user, 'email' => $email, 'phone' => $phone, 'image' => $image]);
     }
     public function EditUserProfile()
     {
-        try{
-        $User_ID = Auth::id();
-        $user = User::all()->find($User_ID);
-        $email= Emails::all()->where('User_ID','=',$User_ID)->first();
-        $phone= Phone_Numbers::all()->where('User_ID','=',$User_ID)->first();
-        $image= ProfilePhoto::all()->where('User_ID','=',$User_ID)->first();
+        try {
+            $User_ID = Auth::id();
+            $user = User::all()->find($User_ID);
+            $email = Emails::all()->where('User_ID', '=', $User_ID)->first();
+            $phone = Phone_Numbers::all()->where('User_ID', '=', $User_ID)->first();
+            $image = ProfilePhoto::all()->where('User_ID', '=', $User_ID)->first();
 
-        $email->email = request('email');
-        $email->save();
+            $email->email = request('email');
+            $email->save();
 
-        $phone->phone_number = request('phone');
-        $phone->save();
+            $phone->phone_number = request('phone');
+            $phone->save();
 
-        $user->First_Name = request('Fname');
-        $user->Last_Name = request('Lname');
-        $user->save();
+            $user->First_Name = request('Fname');
+            $user->Last_Name = request('Lname');
+            $user->save();
 
-            return back()->with('error','City Already Exist !!');
-    }catch (\Illuminate\Database\QueryException $e){
-        $errorCode = $e->errorInfo[1];
-        if($errorCode == 1062){
-            return back()->with('error','City Already Exist !!');
-        }if($errorCode == 1048 ){
-            return back()->with('error','You must select all values!!');
-        }else{
-            return $e->errorInfo;
+            return back()->with('error', 'City Already Exist !!');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'City Already Exist !!');
+            }
+            if ($errorCode == 1048) {
+                return back()->with('error', 'You must select all values!!');
+            } else {
+                return $e->errorInfo;
+            }
         }
-        }
-
-
     }
 
     public function checkIfOwner()
@@ -136,7 +136,7 @@ class AddUserController extends Controller
     {
 
         $countries = Country::all();
-        if(\request('allDone')){
+        if (\request('allDone')) {
 
             $typeOfUser = Type_Of_User::create([
                 'User_ID' => $user_id,
@@ -144,45 +144,41 @@ class AddUserController extends Controller
             ]);
             return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
         }
-        if($user_id == null)
-        {
+        if ($user_id == null) {
             return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
-        }else{
-                $user = User::all()->find($user_id);
+        } else {
+            $user = User::all()->find($user_id);
 
-                $user->First_Name = request('First');
-                $user->Middle_Name = request('Middle');
-                $user->Last_Name = request('Last');
-                $user->National_ID = request('National');
-                $user->save();
-
-
-                $phone_number = Phone_Numbers::all()->where('User_ID', '=', $user->id);
+            $user->First_Name = request('First');
+            $user->Middle_Name = request('Middle');
+            $user->Last_Name = request('Last');
+            $user->National_ID = request('National');
+            $user->save();
 
 
-                if ($phone_number == '[]') {
-
-                    $phone_number = Phone_Numbers::create([
-                        'User_ID' => $user_id,
-                        'phone_number' => request('Phone'),
-                        'Default' => 1
-                    ]);
-                } else {
-                    $phone_number->phone_number = request('Phone');
-                }
-
-                if (\request('check') == 'BeOwner') {
-                    $typeOfUser = Type_Of_User::create([
-                        'User_ID' => $user_id,
-                        'User_Type_ID' => 3
-                    ]);
-                    return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
-                }
-                return redirect()->back();
+            $phone_number = Phone_Numbers::all()->where('User_ID', '=', $user->id);
 
 
+            if ($phone_number == '[]') {
+
+                $phone_number = Phone_Numbers::create([
+                    'User_ID' => $user_id,
+                    'phone_number' => request('Phone'),
+                    'Default' => 1
+                ]);
+            } else {
+                $phone_number->phone_number = request('Phone');
             }
 
+            if (\request('check') == 'BeOwner') {
+                $typeOfUser = Type_Of_User::create([
+                    'User_ID' => $user_id,
+                    'User_Type_ID' => 3
+                ]);
+                return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
+            }
+            return redirect()->back();
+        }
     }
     /**
      * Store a newly created resource in storage.
@@ -208,7 +204,7 @@ class AddUserController extends Controller
         $user = User::all()->where('id', '=', $id)->first();
 
         $posts = PostsController::userPosts($id);
-            $profile_photo = ProfilePhotoController::getPhoto($id);
+        $profile_photo = ProfilePhotoController::getPhoto($id);
         $cover_photo = CoverPhotoController::getPhoto($id);
         $post_images = AttachmentController::getPostAttachments($id);
         $gallery = AttachmentController::getAttachmentsOfuser($id);
@@ -321,7 +317,7 @@ class AddUserController extends Controller
         }
     }
 
-    public function editUserName(Request $request)
+    public function editUserName()
     {
         try {
             $user = User::all()->find(request('id'));
@@ -336,6 +332,7 @@ class AddUserController extends Controller
                 return back()->with('error', 'Already Exist !!');
             }
         }
+        return back()->withError($e->getMessage())->withInput();
     }
 
     public function editUserEmail(Request $request)
@@ -351,6 +348,7 @@ class AddUserController extends Controller
                 return back()->with('error', 'Already Exist !!');
             }
         }
+        return back()->withError($e->getMessage())->withInput();
     }
 
     public function editUserPhoneNumber(Request $request)
@@ -398,17 +396,18 @@ class AddUserController extends Controller
         return back();
     }
 
-    public function changePassword(){
+    public function changePassword()
+    {
 
-        $user = Auth::user();
-        $password=request('password');
+        $User_ID = Auth::id();
+        $user = User::all()->find($User_ID);
 
-        if(Hash::check($password,$user->password))
-        {
-            $user->password=Hash::make(request('newpassword'));
+        $password = request('password');
+
+        if (Hash::check($password, $user->password)) {
+            $user->password = Hash::make(request('newpassword'));
             $user->save();
             return true;
-        }else return false;
-
+        } else return false;
     }
 }

@@ -31,7 +31,7 @@ class ProfilePhotoController extends Controller
             $photo = ProfilePhoto::all()->where('User_Id', '=', $id)->first();
             return $photo;
         } catch (Exception $e) {
-            return null;
+            return back()->withError($e->getMessage())->withInput();
         }
     }
     /**
@@ -61,7 +61,12 @@ class ProfilePhotoController extends Controller
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
+<<<<<<< Updated upstream
                 }else{return $e->getMessage();}
+=======
+                }
+                return back()->withError($e->getMessage())->withInput();
+>>>>>>> Stashed changes
             }
         }
     }
@@ -115,7 +120,12 @@ class ProfilePhotoController extends Controller
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
+<<<<<<< Updated upstream
                 }else{ return $e->getMessage();}
+=======
+                }
+                return back()->withError($e->getMessage())->withInput();
+>>>>>>> Stashed changes
             }
         }
     }
@@ -150,6 +160,7 @@ class ProfilePhotoController extends Controller
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
                 }
+                return back()->withError($e->getMessage())->withInput();
             }
         }
     }
@@ -172,6 +183,7 @@ class ProfilePhotoController extends Controller
             if ($errorCode == 1062) {
                 return back()->with('error', 'Already Exist !!');
             }
+            return back()->withError($e->getMessage())->withInput();
         }
     }
 }

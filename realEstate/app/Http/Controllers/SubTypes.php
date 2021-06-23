@@ -53,6 +53,7 @@ class SubTypes extends Controller
         if($errorCode == 1062){
             return back()->with('error','Error editing item');
         }
+        return back()->withError($e->getMessage())->withInput();
     }
     }
 
@@ -66,9 +67,9 @@ class SubTypes extends Controller
     {
         //
 
-        request()->validate([
-             'Sub_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
-        ]);
+        // request()->validate([
+        //      'Sub_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
+        // ]);
 
         try {
             $Sub_Type = Sub_Type::create([
@@ -81,6 +82,7 @@ class SubTypes extends Controller
             if ($errorCode == 1062) {
                 return back()->with('error', 'Type Already Exists !!');
             }
+            return back()->withError($e->getMessage())->withInput();
         }
         return $this->index();
     }
@@ -164,7 +166,7 @@ class SubTypes extends Controller
         Sub_Type::destroy($request->id);
         return redirect()->route('subtype_show')->with('success', 'Type Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
-
+        return back()->withError($e->getMessage())->withInput();
         return redirect()->route('subtype_show')->with('error', 'Type cannot be deleted');
     }
 }else return redirect()->route('subtype_show')->with('warning', 'No type was chosen to be deleted.. !!');

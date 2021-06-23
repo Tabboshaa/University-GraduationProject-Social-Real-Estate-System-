@@ -27,14 +27,14 @@
                                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">First Name <span class="required">*  :</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 ">
-                                            <input type="text" style="border-radius: 3pt" id="first-name" required="required" class="form-control " name="first_name">
+                                            <input type="text" pattern="(^([A-Z][a-z]+)?$)" title="First Letter must br Capital" style="border-radius: 3pt" id="first-name" required="required" class="form-control " name="first_name">
                                         </div>
                                     </div>
 
                                     <div class="item form-group">
                                         <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Middle Name <span class="required">*  :</span></label>
                                         <div class="col-md-6 col-sm-6 ">
-                                            <input id="middle-name" style="border-radius: 3pt" class="form-control" type="text" name="middle-name">
+                                            <input id="middle-name" pattern="(^([A-Z][a-z]+)?$)" title="First Letter must br Capital" style="border-radius: 3pt" class="form-control" type="text" name="middle-name">
                                         </div>
                                     </div>
 
@@ -42,7 +42,7 @@
                                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Last Name <span class="required">*  :</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 ">
-                                            <input type="text" style="border-radius: 3pt" id="last-name" name="last-name" required="required" class="form-control">
+                                            <input type="text" style="border-radius: 3pt" pattern="(^([A-Z][a-z]+)?$)" title="First Letter must br Capital" id="last-name" name="last-name" required="required" class="form-control">
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -91,7 +91,7 @@
                                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="phone_number">Phone Number <span class="required">*  :</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 ">
-                                            <input type="phone" style="border-radius: 3pt" id="phone_number" name="phone_number" required="required" class="form-control">
+                                            <input type="phone" style="border-radius: 3pt" pattern="^01[0-2]\d{8}$" title="01XXXXXXXXX" id="phone_number" name="phone_number" required="required" class="form-control">
                                         </div>
                                     </div>
 

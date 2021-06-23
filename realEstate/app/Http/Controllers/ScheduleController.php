@@ -43,7 +43,7 @@ class ScheduleController extends Controller
                 ]);
 
             }catch (\Illuminate\Database\QueryException $e) {
-
+                return back()->withError($e->getMessage())->withInput();
                 return back()->with('error', 'Error creating schedule !!');
             }
 
@@ -61,7 +61,7 @@ class ScheduleController extends Controller
             ]);
             return;
         } catch (\Illuminate\Database\QueryException $e) {
-
+            return back()->withError($e->getMessage())->withInput();
             return back()->with('error', 'Error creating schedule !!');
         }
     }
@@ -196,7 +196,7 @@ class ScheduleController extends Controller
             }
             return true;
         } catch (Exception $e) {
-            return false;
+            return back()->withError($e->getMessage())->withInput();
         }
     }
 
@@ -247,6 +247,7 @@ class ScheduleController extends Controller
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing Schedule');
             }
+            return back()->withError($e->getMessage())->withInput();
         }
     }
 
@@ -278,7 +279,7 @@ class ScheduleController extends Controller
 
                 return redirect()->back()->with('success', 'Schedule Deleted Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
-
+                return back()->withError($e->getMessage())->withInput();
                 return redirect()->back()->with('error', 'Schedule cannot be deleted');
             }
         } else if ($id != null) {
