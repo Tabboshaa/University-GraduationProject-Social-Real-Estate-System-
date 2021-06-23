@@ -84,7 +84,7 @@ class ScheduleController extends Controller
             ->selectRaw('schedule_Id,Start_Date,YEAR(Start_Date) as year,MONTH(Start_Date) as month,End_Date')
             ->orderBy('Start_Date')
             ->get()
-            ->groupBy(DB::raw("year"));
+            ->groupby(['year','month']);
 
        return $schedule;
 ////        $myDate = '01/07/2020';
