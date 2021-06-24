@@ -6,7 +6,258 @@
   <component name="ChangeListManager">
     <list default="true" id="94e67ae1-48e2-456b-854f-8264ac421576" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ScheduleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ScheduleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/Other.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/assets/js/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/assets/owlcarousel/assets/owl.carousel.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/assets/owlcarousel/assets/owl.theme.default.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/assets/owlcarousel/assets/owl.video.play.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/assets/owlcarousel/owl.carousel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/assets/vendors/highlight.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/assets/vendors/jquery.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/car_bike.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/comment.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/css/dropdown.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/css/font-awesome.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/css/font-awesome.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/css/icofont.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/css/jquery.mCustomScrollbar.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/css/mCSB_buttons.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/css/owlslider.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/css/portfolio.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/css/responsive.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/css/sb-admin.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/electronics.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/feedback.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/find_profiles.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/followers.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/following.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/fonts/fontawesome-webfont3e6e.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/fonts/fontawesome-webfont3e6e.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/fonts/fontawesome-webfont3e6e.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/fonts/fontawesome-webfont3e6e.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/fonts/fontawesome-webfont3e6e.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/fonts/fontawesome-webfontd41d.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/gallery.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/helps.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/historical_place.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/house_sale.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/01_cdp.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/01_edp.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/70_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/71_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/72_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/Car-bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/Car-dp.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/Icon3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/Icon4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/Icon6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/Icon9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/M-bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/M-dp.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/c-Bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/c-dp.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/e-bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/h-bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/h-dp.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/icon.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/icon1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/r-bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/banner/r-dp.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/cover page/01c8f13df2be0c5bc0366b0e5c4c6a91.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/cover page/28_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/cover page/29_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/cover page/29f835613eeac7da3cfb772b4a49dbf2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/cover page/2b58941d255378b4697038170e2cf959.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/cover page/30_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/cover page/31_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/cover page/32_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/cover page/33_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/cover page/34_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/cover page/35_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/cover page/6e91cd76d916e56255317d19dbb9a21d.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/cover page/Beware of This Scam Targeting Travel Photographers and Instagram Influencers.jfif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/cover page/Default1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/cover page/pic.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/cover page/r-bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/electronics/55_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/electronics/56_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/electronics/57_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/electronics/58_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/electronics/59_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/electronics/60_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/electronics/61_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/electronics/62_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/electronics/63_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/electronics/64_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/electronics/65_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/electronics/66_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/event/13_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/event/14_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/event/15_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/event/16_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/event/17_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/event/18_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/event/19_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/event/20_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/feedback/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/feedback/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/feedback/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/feedback/4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/feedback/email.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/feedback/img1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/feedback/img2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/feedback/link-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/feedback/link.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/feedback/screen.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/header/Log.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/header/fav.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/header/home.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/header/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/header/mgs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/header/notification.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/header/plus-ico.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/header/u-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/homepage/Ad_banner.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/homepage/latest/01_dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/homepage/latest/01_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/homepage/latest/02_dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/homepage/latest/02_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/homepage/latest/03_dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/homepage/latest/03_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/homepage/place/7_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/homepage/place/8_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/homepage/place/9_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/homepage/realestate/10_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/homepage/realestate/11_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/homepage/realestate/12_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/homepage/recomanded/04_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/homepage/recomanded/05_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/homepage/recomanded/06_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/icon/comment.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/icon/reader.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/icon/user.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/icon/user.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/icon/view.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/listing/Electronic.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/listing/car.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/listing/mob.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/listing/place.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/listing/search.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/listing/sell.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/menu-icon/Categoryicon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/menu-icon/Homeicon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/menu-icon/Shape.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/menu-icon/card-payment.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/menu-icon/eye.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/menu-icon/favicon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/menu-icon/flag.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/menu-icon/info.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/menu-icon/message.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/menu-icon/setting.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/menu-icon/user.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/messages/1_chat.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/messages/2_chat.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/messages/3_chat.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/messages/5_chat_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/messages/6_chat_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/place/13_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/place/14_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/place/15_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/place/16_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/place/17_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/place/18_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/place/19_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/place/20_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/place/21_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/place/22_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/place/23_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/place/24_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/product/01_liked_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/product/02_liked_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/product/03_liked_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/product/04_liked_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/product/05_liked_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/product/06_liked_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/profile gallery.lnk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/profile/editicon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/profile/profile.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/profile/singup-profile.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/radar/radar.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/realestate/28_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/realestate/29_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/realestate/30_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/realestate/31_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/realestate/32_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/realestate/33_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/realestate/34_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/realestate/35_img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/resources/mt-img1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/resources/mt-img2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/resources/mt-img3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/resources/ny-img1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/images/smley.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/index-2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/js/Scrollbar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/js/crausal1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/js/dropdown.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/js/jquery.mCustomScrollbar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/js/menurght.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/js/portfolio.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/js/sb-admin.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/js/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/js/slick.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/js/you-listing.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/listing.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/message.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/my_listing.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/my_profile_account.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/my_profile_dashboard.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/my_profile_view_account.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/my_profile_view_detail.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/notification.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/other_user.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/place_event.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/privacy.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/radar.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/resturent_post_review.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/saved.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/setting.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/signin.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/signup.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/signupnext.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/signupprofile.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/singupcover.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/upload.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/bootstrap/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/bootstrap/js/bootstrap.bundle.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/chart.js/Chart.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/datatables/dataTables.bootstrap4.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/datatables/jquery.dataTables.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/css/all.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/webfonts/fa-brands-400.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/webfonts/fa-brands-400.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/webfonts/fa-brands-400.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/webfonts/fa-brands-400.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/webfonts/fa-brands-400.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/webfonts/fa-brands-400d41d.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/webfonts/fa-regular-400.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/webfonts/fa-regular-400.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/webfonts/fa-regular-400.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/webfonts/fa-regular-400.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/webfonts/fa-regular-400d41d.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/webfonts/fa-solid-900.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/webfonts/fa-solid-900.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/webfonts/fa-solid-900.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/webfonts/fa-solid-900.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/webfonts/fa-solid-900.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/fontawesome-free/webfonts/fa-solid-900d41d.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/jquery-easing/jquery.easing.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/vendor/jquery/jquery.min.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -398,7 +649,10 @@
       <workItem from="1624445823532" duration="874000" />
       <workItem from="1624461997455" duration="900000" />
       <workItem from="1624463194450" duration="1181000" />
-      <workItem from="1624465712536" duration="1191000" />
+      <workItem from="1624465712536" duration="1811000" />
+      <workItem from="1624467577689" duration="2390000" />
+      <workItem from="1624470042080" duration="160000" />
+      <workItem from="1624523225799" duration="911000" />
     </task>
     <servers />
   </component>
