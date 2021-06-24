@@ -42,6 +42,7 @@ class CoverPageController extends Controller
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
                 }
+                return back()->withError($e->getMessage())->withInput();
             }
         }
     }
@@ -109,6 +110,7 @@ class CoverPageController extends Controller
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
                 }
+                return back()->withError($e->getMessage())->withInput();
             }
         }
     }
@@ -130,11 +132,9 @@ class CoverPageController extends Controller
         try {
             Cover_Page::destroy($id);
             return back();
-        } catch (\Illuminate\Database\QueryException $e) {
-            $errorCode = $e->errorInfo[1];
-            if ($errorCode == 1062) {
-                return back()->with('error', 'Already Exist !!');
-            }
+        } catch (\Illuminate\Database\QueryException $e){
+            return back()->withError($e->getMessage())->withInput();
+
         }
     }
 }

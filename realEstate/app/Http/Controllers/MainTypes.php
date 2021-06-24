@@ -41,6 +41,7 @@ class MainTypes extends Controller
             if($errorCode == 1062){
                 return back()->with('error','Already Exist !!');
             }
+            return back()->withError($e->getMessage())->withInput();
         }
 
     }
@@ -89,6 +90,7 @@ class MainTypes extends Controller
                 if($errorCode == 1062){
                     return back()->with('error','Error editing item');
                 }
+                return back()->withError($e->getMessage())->withInput();
             }
     }
 
@@ -119,7 +121,7 @@ class MainTypes extends Controller
         return redirect()->route('main_types_show')->with('success', 'Item Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
         return redirect()->route('main_types_show')->with('error', 'Item cannot be deleted');
-
+        return back()->withError($e->getMessage())->withInput();
     }
 }else return redirect()->route('main_types_show')->with('warning', 'No type was chosen to be deleted.. !!');
 }

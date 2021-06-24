@@ -21,7 +21,7 @@
                         <th ><h2 style="margin-right:90px;padding-bottom: 5px;">State Name</h2></th>
                         <th ><h2 style="margin-right:90px;padding-bottom: 5px;">City Name</h2></th>
                         <th ><h2 style="margin-right:90px;padding-bottom: 5px;">Edit</h2></th>
-                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:90px;"></i></th>
+                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:90px;"></i></th>
                         
 
                 <script>
@@ -68,7 +68,7 @@
 
                     <div class="form-group">
                         <label for="City_Name" style="font-size: 12pt">City</label>
-                        <input type="text" style="border-radius: 3pt" name="City_Name" id="CityName" class="form-control">
+                        <input type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" name="City_Name" id="CityName" class="form-control">
                     </div>
 
                     <button  type="submit" id="btun3" class="btn btn-success">Edit</button>

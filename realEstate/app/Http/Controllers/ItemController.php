@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\schedule;
 use App\Street;
 use App\City;
 use App\Country;
@@ -13,14 +12,11 @@ use App\Phone_Numbers;
 use App\Item;
 use App\Main_Type;
 use App\Sub_Type;
-use App\User;
 use App\User_Type;
 use App\Details;
 use App\Sub_Type_Property;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use phpDocumentor\Reflection\Location;
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
@@ -48,13 +44,12 @@ class ItemController extends Controller
     public  function show($id = null)
     {
         //lw gy mn el ajax fe el detail blade
+      
         if ($id == null && request()->has('Item')) $id = request('Item');
+        
         $item = Item::all()->where('Item_Id', '=', $id)->first();
-        // return $item;
 
         $User_id = Arr::get($item, 'User_Id');
-
-        $Item_id = Arr::get($item, 'Item_Id');
 
         $Street_id = Arr::get($item, 'Street_Id');
 
@@ -173,10 +168,14 @@ class ItemController extends Controller
 
     public function EditUser($id = null)
     {
+        try{
         $item = Item::all()->find(request('id'));
         $item->User_Id = request('userIdHiddenInput');
         $item->save();
         return $this->show($id);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return back()->withError($e->getMessage())->withInput();
+        }
     }
 
     public function searchEmail()
@@ -194,9 +193,10 @@ class ItemController extends Controller
                 Item::destroy($id);
                 return redirect()->route('Details')->with('success', 'Item Deleted Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
-
-                return redirect()->route('Details') > with('error', 'Item cannot be deleted');
+                return back()->withError($e->getMessage())->withInput();
+                return redirect()->route('Details')->with('error', 'Item cannot be deleted');
             }
+            
         } else return redirect()->route('Details')->with('warning', 'No Item was chosen to be deleted.. !!');
     }
     public function EditItemMap($itemId=null){

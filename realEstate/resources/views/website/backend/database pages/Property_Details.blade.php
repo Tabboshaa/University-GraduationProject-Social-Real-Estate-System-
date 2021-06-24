@@ -142,7 +142,7 @@
                         </label>
 
                         <div class="col-md-2">
-                            <input id="Detail" style="border-radius: 3pt" type="text" class="form-control @error('Detail') is-invalid @enderror" name="property_details" value="{{ old('Detail') }}" required pattern="[A-Z][a-z]+" title="Start with capital letter " autocomplete="Detail" autofocus>
+                            <input id="Detail" style="border-radius: 3pt" type="text" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital"  class="form-control @error('Detail') is-invalid @enderror" name="property_details" value="{{ old('Detail') }}" required pattern="[A-Z][a-z]+" title="Start with capital letter " autocomplete="Detail" autofocus>
 
                             @error('Detail')
                             <span class="invalid-feedback" role="alert">
@@ -180,13 +180,13 @@
                             </button>
 
 
-                        </div>
-                    </div>
+                     
 
                 </form>
-                <button id="btun2"  class="btn btn-primary">
-                    <a href="{{url('/Property_Details_show')}}" class="link2" >{{ __('Show') }}</a>
-                </button>
+                
+                    <a href="{{url('/Property_Details_show')}}" class="btn btn-primary" >{{ __('Show') }}</a>
+                    </div>
+                    </div>
 
             </div>
             <div class="x_panel">

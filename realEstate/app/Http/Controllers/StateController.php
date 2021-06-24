@@ -52,6 +52,7 @@ class StateController extends Controller
             if ($errorCode == 1048) {
                 return back()->with('error', 'You must select all values!!');
             }
+            return back()->withError($e->getMessage())->withInput();
         }
     }
 
@@ -122,7 +123,10 @@ class StateController extends Controller
             } catch (\Illuminate\Database\QueryException $e) {
 
                 return redirect()->route('state_show')->with('error', 'State cannot be deleted');
+                return back()->withError($e->getMessage())->withInput();
             }
+        
+
         } else return redirect()->route('state_show')->with('warning', 'No State was chosen to be deleted.. !!');
     }
     public function findstate()
@@ -152,6 +156,7 @@ class StateController extends Controller
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing item');
             }
+            return back()->withError($e->getMessage())->withInput();
         }
     }
 

@@ -34,6 +34,11 @@
                       <li><a href="{{url('/User')}}">Add User</a></li>
                       
                       </ul></li>
+                      <li><a>Operation<span class="fa fa-chevron-down"></span> </a>
+                      <ul class="nav child_menu">
+                      <li><a href="{{url('/operationtypes')}}">Operation Type</a></li>
+                      <li><a href="{{url('/operation_types')}}">Operation Detail</a></li>
+                      </ul></li>
 
                       <li><a>Other<span class="fa fa-chevron-down"></span> </a>
                       <ul class="nav child_menu">
@@ -68,11 +73,15 @@
                       <li><a href="{{url('/user_types_show')}}">User Types</a></li>
                       <li><a href="{{url('/show_users')}}">Show Users</a></li>
                       </ul></li>
+                      <li><a>Operation<span class="fa fa-chevron-down"></span> </a>
+                      <ul class="nav child_menu">
+                      <li><a href="{{url('/operation_types_show')}}">Operation Type</a></li>
+                      <li><a href="{{url('/show_detailop')}}">Operation Detail</a></li>
+                      </ul></li>
 
                       <li><a>Other<span class="fa fa-chevron-down"></span> </a>
                       <ul class="nav child_menu">
                       <li><a href="{{url('/data_types_show')}}">Data Types for details</a></li>
-                      <li><a href="{{url('/viewaddreserve')}}">Reserve</a></li>
                       </ul></li>
                     </ul>
             </li>

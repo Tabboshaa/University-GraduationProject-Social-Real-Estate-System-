@@ -28,10 +28,7 @@ class CountryController extends Controller
      */
     public function create()
     {
-        request()->validate([
-            'country_name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
-        ]);
-        //
+        
         try {
         $country=Country::create([
             'Country_Name' => request('country_name'),
@@ -42,6 +39,8 @@ class CountryController extends Controller
         if($errorCode == 1062){
             return back()->with('error','Country Already Exist !!');
         }
+        return back()->withError($e->getMessage())->withInput();
+
     }
 
     }
@@ -108,8 +107,9 @@ class CountryController extends Controller
     }catch (\Illuminate\Database\QueryException $e){
 
         return redirect()->route('country_show')->with('error', 'Country cannot be deleted');
-
+        return back()->withError($e->getMessage())->withInput();
     }
+   
 }else return redirect()->route('country_show')->with('warning', 'No Country was chosen to be deleted.. !!');
     }
     //  function  EDIT: AJAX
@@ -129,6 +129,7 @@ class CountryController extends Controller
                 if($errorCode == 1062){
                     return back()->with('error','Error editing Country');
                 }
+                return back()->withError($e->getMessage())->withInput();
             }
 
     }

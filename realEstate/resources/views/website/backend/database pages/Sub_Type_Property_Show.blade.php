@@ -23,7 +23,7 @@
                         <th ><h2 style="margin-right:60px;padding-bottom: 5px;">Sub Type Name</h2></th>
                         <th ><h2 style="margin-right:60px;padding-bottom: 5px;">Sub Type Property</h2></th>
                         <th ><h2 style="margin-right:60px;padding-bottom: 5px;">Edit</h2></th>
-                    <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:60px;"></i></button></th>
+                    <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:60px;"></i></button></th>
 
                     <!-- Java Script for select all function -->
                     <script>

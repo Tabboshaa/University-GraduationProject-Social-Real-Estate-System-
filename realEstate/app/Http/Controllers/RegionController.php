@@ -54,6 +54,7 @@ class RegionController extends Controller
         }if($errorCode == 1048 ){
             return back()->with('error','You must select all values!!');
         }
+        return back()->withError($e->getMessage())->withInput();
     }
     }
 
@@ -127,7 +128,7 @@ class RegionController extends Controller
         Region::destroy($request->id);
         return redirect()->route('region_show')->with('success', 'Region Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
-
+        return back()->withError($e->getMessage())->withInput();
         return redirect()->route('region_show')->with('error', 'Region cannot be deleted');
 
     }
@@ -183,6 +184,7 @@ class RegionController extends Controller
         if($errorCode == 1062){
             return back()->with('error','Error editing Region');
         }
+        return back()->withError($e->getMessage())->withInput();
     }
 
     }
