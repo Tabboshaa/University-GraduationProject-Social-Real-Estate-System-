@@ -64,9 +64,6 @@ class AttachmentController extends Controller
 
             return back()->with('error', 'Error creating Attachment !!');
         }
-        catch (\Illuminate\Database\QueryException $e) {
-        return back()->withError($e->getMessage())->withInput();
-        }
     }
 
     /**
@@ -103,7 +100,7 @@ class AttachmentController extends Controller
         try {
             return attachment::all()->where('Attachment_Id', '=', $id)->first();
         } catch (Exception $e) {
-            return back()->withError($e->getMessage())->withInput();
+            return null;
         }
     }
 
@@ -164,8 +161,6 @@ class AttachmentController extends Controller
         } catch (\Illuminate\Database\QueryException $e) {
 
             return redirect()->back()->with('error', 'Attachment cannot be deleted');
-            return back()->withError($e->getMessage())->withInput();
         }
-       
-}
+    }
 }

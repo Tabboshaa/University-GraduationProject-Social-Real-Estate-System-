@@ -34,19 +34,18 @@ class CoverPhotoController extends Controller
 
             $filename = $files->getClientOriginalName();
             $files->storeAs('/cover page', $filename, 'public');
-
+            
             try {
-                $coverPhoto = CoverPhoto::create([
-                    'User_Id' => Auth::id(),
-                    'Cover_Photo' => $filename
-                ]);
-                return back();
-            } catch (\Illuminate\Database\QueryException $e) {
+            $coverPhoto = CoverPhoto::create([
+                'User_Id' => Auth::id(),
+                'Cover_Photo' => $filename
+            ]);
+            return back();
+            }catch (\Illuminate\Database\QueryException $e) {
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
                 }
-                return back()->withError($e->getMessage())->withInput();
             }
         }
     }
@@ -78,7 +77,6 @@ class CoverPhotoController extends Controller
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
                 }
-                return back()->withError($e->getMessage())->withInput();
             }
         }
     }
@@ -109,7 +107,7 @@ class CoverPhotoController extends Controller
             $photo = CoverPhoto::all()->where('User_Id', '=', $id)->first();
             return $photo;
         } catch (Exception $e) {
-            return back()->withError($e->getMessage())->withInput();
+            return null;
         }
     }
 
@@ -130,9 +128,9 @@ class CoverPhotoController extends Controller
             $files->storeAs('/cover page', $filename, 'public');
 
 
-
+            // }
             try {
-
+               
                 $coverPhoto = CoverPhoto::all()->find(request('Photo_Id'));
                 //hy7ot el name el gded f column el country name
                 $coverPhoto->Cover_Photo = $filename;
@@ -143,7 +141,6 @@ class CoverPhotoController extends Controller
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
                 }
-                return back()->withError($e->getMessage())->withInput();
             }
         }
     }
@@ -166,10 +163,12 @@ class CoverPhotoController extends Controller
             coverPhoto::destroy($id);
             return back();
         } catch (\Illuminate\Database\QueryException $e) {
-            return back()->withError($e->getMessage())->withInput();
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Already Exist !!');
+            }
         }
     }
-
 
     public static function sendCoverPhotoToProfile($id)
     {
@@ -177,10 +176,10 @@ class CoverPhotoController extends Controller
         try {
             $coverPhoto = CoverPhoto::all()->where('User_Id', '=', $id)->first();
             // $attachment_id =CoverPhoto::all()->where('User_Id', '=', $id)->first()->Cover_Photo;
-            $File_Path = $coverPhoto->Cover_Photo;
+            $File_Path =$coverPhoto->Cover_Photo;
             return ['Photo_Id' => $coverPhoto->Photo_Id, 'File_Path' => $File_Path];
         } catch (Exception $e) {
-            return back()->withError($e->getMessage())->withInput();
+            return null;
         }
     }
 }

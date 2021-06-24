@@ -41,7 +41,6 @@ class PropertyDetailsController extends Controller
             if ($errorCode == 1062) {
                 return back()->with('error', 'Property Detail Already Exists !!');
             }
-            return back()->withError($e->getMessage())->withInput();
         }
     }
 
@@ -86,7 +85,6 @@ class PropertyDetailsController extends Controller
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing Property Detail');
             }
-            return back()->withError($e->getMessage())->withInput();
         }
     }
     public function destroy(Request $request, $id = null)
@@ -98,7 +96,7 @@ class PropertyDetailsController extends Controller
 
                 return redirect()->route('property_detail_show')->with('success', 'Property Detail Deleted Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
-                return back()->withError($e->getMessage())->withInput();
+
                 return redirect()->route('property_detail_show')->with('error', 'Property Detail cannot be deleted');
             }
         } else return redirect()->route('property_detail_show')->with('warning', 'No Property Detail was chosen to be deleted.. !!');

@@ -56,9 +56,7 @@ class StreetController extends Controller
             return back()->with('error','Street Already Exists !!');
         }        if($errorCode == 1048 ){
             return back()->with('error','You must select all values!!');
-     
-       }
-       return back()->withError($e->getMessage())->withInput();
+        }
     }
     }
 
@@ -135,7 +133,7 @@ class StreetController extends Controller
         Street::destroy($request->id);
         return redirect()->route('street_show')->with('success', 'Street Deleted Successfully');
     }catch (\Illuminate\Database\QueryException $e){
-        return back()->withError($e->getMessage())->withInput();
+
         return redirect()->route('street_show')->with('error', 'Street cannot be deleted');
 
     }
@@ -157,7 +155,6 @@ class StreetController extends Controller
         if($errorCode == 1062){
             return back()->with('error','Error editing Street');
         }
-        return back()->withError($e->getMessage())->withInput();
     }
     }
 

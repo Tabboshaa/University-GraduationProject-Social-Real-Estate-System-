@@ -31,7 +31,9 @@ class UserTypes extends Controller
      */
     public function create()
     {
-       
+        request()->validate([
+            'User_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
+        ]);
         //
         try {
             $User_Type = User_Type::create([
@@ -43,7 +45,6 @@ class UserTypes extends Controller
             if ($errorCode == 1062) {
                 return back()->with('error', 'Already Exist !!');
             }
-            return back()->withError($e->getMessage())->withInput();
         }
     }
     /**
@@ -91,7 +92,6 @@ class UserTypes extends Controller
         if($errorCode == 1062){
             return back()->with('error','Already Exist !!');
         }
-        return back()->withError($e->getMessage())->withInput();
     }
     }
 
@@ -123,7 +123,6 @@ class UserTypes extends Controller
         return redirect()->route('usertype_show')->with('success', 'Type Deleted Successfully');
             }catch (\Illuminate\Database\QueryException $e){
         return redirect()->route('usertype_show')->with('error', 'Type cannot be deleted');
-        return back()->withError($e->getMessage())->withInput();
     }
 }else return redirect()->route('usertype_show')->with('warning', 'No type was chosen to be deleted.. !!');
     }
@@ -132,7 +131,7 @@ class UserTypes extends Controller
     {
         //
         $user_types = User_Type::all();
-        $Users=User::all();
+        $Users=User_Type::all();
         return view('website/backend.database pages.Users_Show', ['user_typess' => $user_types,'users'=>$Users]);
 
     }
@@ -145,7 +144,7 @@ class UserTypes extends Controller
          ->join('emails', 'type__of__users.User_ID', '=', 'emails.User_ID')
          ->join('phone__numbers', 'type__of__users.User_ID', '=', 'phone__numbers.User_ID')
          ->select('users.*','type__of__users.*','emails.*','phone__numbers.*','users.First_Name','users.Middle_Name','users.Last_Name')
-         ->where('User_Type_ID', '=', $id)->get();
+         ->where('User_Type_ID', '=', $id)->paginate(10);
 
 
          return  response()->json($Users);

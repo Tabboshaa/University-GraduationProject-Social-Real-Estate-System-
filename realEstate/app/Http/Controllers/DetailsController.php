@@ -54,6 +54,9 @@ class DetailsController extends Controller
 
         }
 
+        // request()->validate([
+        //     'DetailValue' => ['required', 'string','max:225',"regex:'([A-Z][a-z]\s[A-Z][a-z])|([A-Z][a-z]*)'"]
+        // ]);
         try {
             Details::insert($details);
             return back()->with('success', 'Detail Added');
@@ -63,15 +66,14 @@ class DetailsController extends Controller
             if ($errorCode == 1062) {
                 return back()->with('error', 'Detail Already Exist !!');
             }
-            return back()->withError($e->getMessage())->withInput();
         }
     }
 
     public function editDetails()
     {
 
-        $detailsInput = request('DetailItem');
-        return dd(request()->all());
+        $detailsInput = request('data');
+        // return $detailsInput;
 
         foreach ($detailsInput as $detail) {
 
@@ -129,7 +131,6 @@ class DetailsController extends Controller
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Error editing Detail');
                 }
-                return back()->withError($e->getMessage())->withInput();
             }
         }
         //         return back()->with('info', 'Detail Edited Successfully');
@@ -156,13 +157,12 @@ class DetailsController extends Controller
             $detail->DetailValue = request('DetailName');
             $detail->save();
 
-              return back()->with('info', 'Detail Edited Successfully');
+            return back()->with('info', 'Detail Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing Detail');
             }
-            return back()->withError($e->getMessage())->withInput();
         }
     }
     public function destroy(Request $request)
@@ -175,9 +175,7 @@ class DetailsController extends Controller
             } catch (\Illuminate\Database\QueryException $e) {
 
                 return redirect()->route('details_show')->with('error', 'Detail cannot be deleted');
-                return back()->withError($e->getMessage())->withInput();
             }
-          
         } else return redirect()->route('details_show')->with('warning', 'No Detail was chosen to be deleted.. !!');
     }
 
@@ -189,10 +187,9 @@ class DetailsController extends Controller
                 Details::destroy($request->id);
                 return redirect()->back()->with('success', 'Detail Deleted Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
-                return back()->withError($e->getMessage())->withInput();
+
                 return redirect()->back()->with('error', 'Detail cannot be deleted');
             }
-           
         } else return redirect()->back()->with('warning', 'No Detail was chosen to be deleted.. !!');
     }
 

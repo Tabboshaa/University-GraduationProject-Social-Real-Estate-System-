@@ -40,7 +40,7 @@
                     </label>
 
                     <div class="col-md-2">
-                        <input id="Sub Type Name"  style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital"  type="text" class="form-control @error('Sub_Type_Name') is-invalid @enderror" name="Sub_Type_Name" value="{{ old('Sub Type Name') }}" required pattern="[A-Z][a-z]+" title="Start with capital letter " autocomplete="Sub Type Name" autofocus>
+                        <input id="Sub Type Name"  style="border-radius: 3pt" type="text" class="form-control @error('Sub_Type_Name') is-invalid @enderror" name="Sub_Type_Name" value="{{ old('Sub Type Name') }}" required pattern="[A-Z][a-z]+" title="Start with capital letter " autocomplete="Sub Type Name" autofocus>
 
                         @error('Sub_Type_Name')
                         <span class="invalid-feedback" role="alert">
@@ -55,9 +55,9 @@
                             {{ __('Add') }}
                         </button>
                         </form>
-                        
-                            <a href="{{url('/sub_types_show')}}" class="btn btn-primary" >{{ __('Show') }}</a>
-                       
+                        <button id="btun2"  class="btn btn-primary">
+                            <a href="{{url('/sub_types_show')}}" class="link2" >{{ __('Show') }}</a>
+                        </button>
                     </div>
                 </div>
 

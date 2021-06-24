@@ -32,8 +32,7 @@ class PostsController extends Controller
             ->groupBy('Post_Id');
 
         return view('website.backend.database pages.Item_Posts', [
-            'item_id' => $id, 
-            'posts' => $posts,
+            'item_id' => $id, 'posts' => $posts,
             'post_images' => $post_images,
             'comments' => $comments,
             'replies' => $replies
@@ -82,7 +81,7 @@ class PostsController extends Controller
 
             return back()->with('success', 'Post Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
-            return back()->withError($e->getMessage())->withInput();
+
             return back()->with('error', 'Error creating Post !!');
         }
     }
@@ -156,7 +155,7 @@ class PostsController extends Controller
          posts::destroy($id);
          return  redirect()->back()->with('success', 'Post Deleted Successfully');
      }catch (\Illuminate\Database\QueryException $e){
-        return back()->withError($e->getMessage())->withInput();
+
          return redirect()->back()->with('error', 'Post cannot be deleted');
 
      }

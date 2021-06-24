@@ -37,7 +37,7 @@
                         {{ __('Operation Detail :') }}
                     </label>
                     <div class="col-md-2">
-                        <input id="Operation_Detail" type="text" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital"  style="border-radius: 3pt"class="form-control @error('Operation_Detail') is-invalid @enderror" name="Operation_Detail" value="{{ old('Operation_Detail') }}" required autocomplete="Operation_Detail" autofocus>
+                        <input id="Operation_Detail" type="text" style="border-radius: 3pt"class="form-control @error('Operation_Detail') is-invalid @enderror" name="Operation_Detail" value="{{ old('Operation_Detail') }}" required autocomplete="Operation_Detail" autofocus>
 
                         @error('Operation_Detail')
                         <span class="invalid-feedback" role="alert">
@@ -53,9 +53,9 @@
                             {{ __('Add') }}
                         </button>
                         </form>
-                        
-                            <a href="{{url('/show_detailop')}}" class="btn btn-primary" >{{ __('Show') }}</a>
-                       
+                        <button id="btun2"  class="btn btn-primary">
+                            <a href="{{url('/show_detailop')}}" class="link2" >{{ __('Show') }}</a>
+                        </button>
                     </div>
                 </div>
            

@@ -19,7 +19,7 @@
            
         <th><h2 style="margin-right:200px; padding-bottom: 5px;">Data Type Name</h2></th>
                         <th ><h2 style="margin-right:250px;padding-bottom: 5px;">Edit</h2></th>
-                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:200px;"></i></th>
+                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:200px;"></i></th>
                      
             <script>
                 document.getElementById('selectAll').onclick = function() {
@@ -64,7 +64,7 @@
                     <input type="hidden" name="id" id="id">
                     <div class="form-group">
                         <label for="DataTypeName" style="font-size: 12pt">Data Type</label>
-                        <input type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" name="DataTypeName" id="DataTypeName" class="form-control">
+                        <input type="text" style="border-radius: 3pt" name="DataTypeName" id="DataTypeName" class="form-control">
                     </div>
                     <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>

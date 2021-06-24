@@ -19,7 +19,7 @@
                         <th><h2 style="margin-right:160px; padding-bottom: 5px;">Main Type ID</h2></th>
                         <th ><h2 style="margin-right:175px;padding-bottom: 5px;">Sub Type Name</h2></th>
                         <th ><h2 style="margin-right:200px;padding-bottom: 5px;">Edit</h2></th>
-                        <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:155px;"></i></th>
+                        <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:155px;"></i></th>
                         <!-- Java Script for select all function -->
                         <script>
                             document.getElementById('selectAll').onclick = function() {
@@ -81,7 +81,7 @@
                     </div>
                     <div class="form-group">
                         <label for="SubTypeName" style="font-size: 12pt" >Sub Type</label>
-                        <input type="text" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" style="border-radius: 3pt" name="SubTypeName" id="SubTypeName" class="form-control">
+                        <input type="text" style="border-radius: 3pt" name="SubTypeName" id="SubTypeName" class="form-control">
                     </div>
                     <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>

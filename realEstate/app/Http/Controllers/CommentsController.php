@@ -28,7 +28,7 @@ class CommentsController extends Controller
     {
         //
 
-        try {
+        // try {
             $comment=comments::create([
                 'Post_Id' => request('post_id'),
                 'User_Id'=> Auth::id(),
@@ -48,15 +48,15 @@ class CommentsController extends Controller
             ->get()->first();
 
            return response()->json($comment);
-        }catch (\Illuminate\Database\QueryException $e){
-            return back()->withError($e->getMessage())->withInput();
-        }
+        // }catch (\Illuminate\Database\QueryException $e){
+
+        // }
     }
     public function reply()
     {
         //
 
-        try {
+        // try {
             $comment=comments::create([
                 'Post_Id' => request('post_id'),
                 'User_Id'=> Auth::id(),
@@ -77,9 +77,9 @@ class CommentsController extends Controller
             ->get()->first();
 
            return response()->json($comment);
-        }catch (\Illuminate\Database\QueryException $e){
-            return back()->withError($e->getMessage())->withInput();
-        }
+        // }catch (\Illuminate\Database\QueryException $e){
+
+        // }
     }
 
     /**
@@ -144,10 +144,9 @@ class CommentsController extends Controller
         }catch (\Illuminate\Database\QueryException $e){
 
             return redirect()->back()->with('error', 'Comment cannot be deleted');
-            return back()->withError($e->getMessage())->withInput();
+
         }
-      
-}
+    }
 
     public function destroyReply($id)
     {
@@ -158,9 +157,8 @@ class CommentsController extends Controller
         }catch (\Illuminate\Database\QueryException $e){
 
             return redirect()->back()->with('error', 'Reply cannot be deleted');
-            return back()->withError($e->getMessage())->withInput();
+
         }
-        
     }
 
     public static function getPostComments($item_id)

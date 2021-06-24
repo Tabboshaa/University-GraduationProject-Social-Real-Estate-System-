@@ -181,6 +181,10 @@
                             <!-- in case no posts are there yet -->
                             @else
                             <div class=" x_panel">
+                                <div class="x_title">
+                                    {{ $item->Item_Name }}
+                                    </h3>
+                                </div>
                                 <div class="x_content">
                                     No Posts are posted for this item yet..<br />
                                 </div>

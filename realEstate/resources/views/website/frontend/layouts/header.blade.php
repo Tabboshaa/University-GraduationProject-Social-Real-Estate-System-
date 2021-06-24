@@ -159,10 +159,16 @@
     <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" aria-labelledby="dropdownMenu2">
 
         <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" >
+        <!--
+                    <img src="{{asset('FrontEnd/sociala/images/user-8.png')}}"  alt="user" class="w40 position-absolute left-0"> -->
             <h5 class="font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block"> <a href="{{url('/EditCustomerProfile')}}"> profile</a></h5>
+            <!-- <h6 class="text-grey-500 fw-500 font-xssss lh-4">There are many variations of pass..</h6> -->
         </div>
         <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" id="checkIfOwnerDiv">
+
+            <!-- <img src="{{asset('FrontEnd/sociala/images/user-8.png')}}"  alt="user" class="w40 position-absolute left-0"> -->
             <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block"> <a href='javascript:void(0)' onclick='ToggleBeOwnerModal()' data-backdrop="false"> Switch to Owner</span></h5>
+            <!-- <h6 class="text-grey-500 fw-500 font-xssss lh-4">There are many variations of pass..</h6> -->
         </div>
         <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" >
             <h5 class="font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block"> <a href="{{ url('/logout') }}"> Log Out</a></h5>
@@ -198,8 +204,8 @@
                 } else {
                     text +=
                         "<div class='card bg-transparent-card w-100 border-0 ps-0 mb-3'> " +
-                        "<h5 class='font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block'> <a href='{{url('/BeOwner')}}'> " +
-                        " Your Properties</a></h5></div>";
+                        "<a href='{{url('/BeOwner')}}'> " +
+                        " Your Properties</a></div>";
                 }
                 $("#checkIfOwnerDiv").html(text);
             },
@@ -217,25 +223,10 @@
         }else{$("#BeOwnerLightModal").modal("toggle"); }
 
     };
-
-
-    function deletenotification(id){
-        $.ajax({
-            url: "{{route('view_notification')}}",
-            data: {
-                notification_id:id
-            },
-            success: function() {
-                $("#notif"+id).remove();
-            },
-            error: function() {
-
-            }
-        });
-
+    function allInfoDone()
+    {
 
     }
-   
 </script>
 
 

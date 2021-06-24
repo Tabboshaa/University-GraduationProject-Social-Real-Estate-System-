@@ -54,7 +54,6 @@ class StatePhotoController extends Controller
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
                 }
-                return back()->withError($e->getMessage())->withInput();
            }
 
 

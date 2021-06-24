@@ -58,7 +58,7 @@ class NotificationController extends Controller
             return back();
         } catch (\Illuminate\Database\QueryException $e) {
 
-            return back()->withError($e->getMessage())->withInput();
+            return back();
         }
     }
 
@@ -78,7 +78,7 @@ class NotificationController extends Controller
 
             return back()->with('success', 'Notification Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
-            return back()->withError($e->getMessage())->withInput();
+
             return back()->with('error', 'Error creating Notification !!');
         }
     }

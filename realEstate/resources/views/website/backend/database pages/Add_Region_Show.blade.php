@@ -23,7 +23,7 @@
                         <th> <h2 style="margin-right:50px;padding-bottom: 5px;">Region Name</th>
 
                         <th ><h2 style="margin-right:60px;padding-bottom: 5px;">Edit</h2></th>
-                        <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:50px;"></i></th>
+                        <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:50px;"></i></th>
                         <!-- Java Script for select all function -->
                        
                 <script>
@@ -72,7 +72,7 @@
 
                     <div class="form-group">
                         <label for="Region_Name" style="font-size: 12pt">Region :</label>
-                        <input type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" name="Region_Name" id="RegionName" class="form-control">
+                        <input type="text" style="border-radius: 3pt" name="Region_Name" id="RegionName" class="form-control">
                     </div>
 
                     <button type="submit" id="btun3" class="btn btn-success">Edit</button>

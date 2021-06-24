@@ -48,7 +48,6 @@ class PaymentController extends Controller
         return back()->with('success', 'Created Successfully');
         }catch(Exception $e){
             return back()->with('error', 'Error creating');
-            return back()->withError($e->getMessage())->withInput();
         }
 
     }
@@ -117,7 +116,7 @@ class PaymentController extends Controller
                 payment::destroy($request->id);
                 return redirect()->route('Card_Show')->with('success', 'Card Deleted Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
-                return back()->withError($e->getMessage())->withInput();
+
                 return redirect()->route('Card_Show')->with('error', 'Card cannot be deleted');
             }
         } else
@@ -138,7 +137,6 @@ class PaymentController extends Controller
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing Card');
             }
-            return back()->withError($e->getMessage())->withInput();
         }
     }
 }

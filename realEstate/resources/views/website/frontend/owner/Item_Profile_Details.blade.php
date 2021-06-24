@@ -361,6 +361,8 @@
             @endif
         </div>
     </div>
+
+
 </div>
 
 <div class=" col-xl-8 col-xxl-9 col-lg-8">
@@ -393,8 +395,8 @@
                     <ul id="property{{$Property_Id}}" style="display: none;">
                         @foreach ($Property_diff_Array as $Property_diff => $detailValue)
                         <!-- {{$i+=1}} -->
-                        <li id="lidiff{{$Property_diff}}">
-                          
+                        <li>
+
                             <a href="javascript:void(0)" id="more{{$Property_diff}}" onclick="$('#diff{{$Property_diff}}').slideToggle(function(){$('#more{{$Property_diff}}').html($('#diff{{$Property_diff}}').is(':visible')?'Hide {{$Property_Name}} {{$i}}':'{{$Property_Name}} {{$i}}');});" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss">{{$Property_Name}} {{$i}}</span></a>
                             <a href="javascript:void(0)" onclick="AddDetail('{{$item_id}}','{{$Property_Id}}','{{$Property_Name}}','{{$Property_diff}}')"><i style="padding-left:14px" class="feather-edit"></i></a>
                             <a href="javascript:void(0)" onclick="DeleteDetail('{{$Property_diff}}')"><i style="padding-left:14px" class="feather-trash-2"></i></a>
@@ -420,7 +422,7 @@
                                 <li> no data for this {{$Property_Name}} yet </li>
                                 @endif
                             </ul>
-                        
+
                         </li>
                         @endforeach
                     </ul>
@@ -619,7 +621,7 @@
                 diff: diff,
             },
             success: function(data) {
-              $("#lidiff"+diff).remove();
+                console.log(data);
             },
             error: function() {}
 
@@ -650,7 +652,7 @@
                         // console.log('found');
                         console.log(detail[0]['datatype']);
 
-                        Form += '@csrf <div class="form-group row"> ' +
+                        Form += ' <div class="form-group row"> ' +
                             '<label for="' + detail[0]['Detail_Id'] + '" class="col-md-2 col-form-label text-md-right">' + detail[0]['Detail_Name'] + '</label>' +
                             '<div class="col-md-5">';
 

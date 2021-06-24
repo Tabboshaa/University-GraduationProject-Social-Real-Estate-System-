@@ -20,7 +20,7 @@
         <th><h2 style="margin-right:155px; padding-bottom: 5px;">Country Name</h2></th>
                         <th ><h2 style="margin-right:155px;padding-bottom: 5px;">State Name</h2></th>
                         <th ><h2 style="margin-right:200px;padding-bottom: 5px;">Edit</h2></th>
-                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:160px;"></i></th>
+                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"><i class="fa fa-trash" style="margin-right:160px;"></i></th>
                    
              <!-- Java Script for select all function -->
              <script>
@@ -69,7 +69,7 @@
 
                     <div class="form-group">
                         <label for="State_Name" style="font-size: 12pt">State </label>
-                        <input type="text"  style="border-radius: 3pt"  name="State_Name" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" id="StateName" class="form-control">
+                        <input type="text"  style="border-radius: 3pt"  name="State_Name" id="StateName" class="form-control">
                     </div>
 
                     <button  type="submit" id="btun3" class="btn btn-success">Edit</button>

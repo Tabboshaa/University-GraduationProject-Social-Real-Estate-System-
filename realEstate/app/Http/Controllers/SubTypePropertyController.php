@@ -51,9 +51,7 @@ class SubTypePropertyController extends Controller
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Property Already Exists !!');
-
             }
-            return back()->withError($e->getMessage())->withInput();
         }
     }
 
@@ -118,7 +116,6 @@ class SubTypePropertyController extends Controller
         if($errorCode == 1062){
             return back()->with('error','Error editing Property');
         }
-        return back()->withError($e->getMessage())->withInput();
     }
     }
 
@@ -152,7 +149,7 @@ class SubTypePropertyController extends Controller
     }catch (\Illuminate\Database\QueryException $e){
 
         return redirect()->route('subtypeproperty_show')->with('error', 'Property cannot be deleted');
-        return back()->withError($e->getMessage())->withInput();
+
     }
     }else return redirect()->route('subtypeproperty_show')->with('warning', 'No Property was chosen to be deleted.. !!');
     }

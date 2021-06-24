@@ -28,27 +28,22 @@ Route::get('/Land', function () {
 //authntication routes
 Route::get('/meshtest/{item_id}','ScheduleController@getAvailableTime');
 Auth::routes();
-Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
-Route::post('/admin', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
+Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin')->middleware('RedirectIfAuthenticatedUser');
+Route::post('/', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
 Route::get('/registerUser', 'Auth\RegisterController@create')->name('registerUser');
 Route::get('/UserRegister', function () {
     return view('website\frontend\Registration');
 })->name('UserRegister');
-
 Route::get('/UserLogin', function () {
     return view('website\frontend\login');
 })->name('userLogin');
-
-Route::get('/AdminLogin', function () {
-    return view('auth\login');
-})->name('AdminLogin');
 
 Route::get('/s', function () {
     return view('website\frontend\customer\calender');
 });
 
 //Customer Routes with middleware
-Route::group(['middleware' => 'Customer'], function () {
+Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/', 'CustomerHomeController@index')->name('CustomerHome');
     //Customer HOMEpage
     Route::get('/HomeRegister', 'CustomerHomeController@index')->name('HomeRegister');
@@ -161,7 +156,7 @@ Route::group(['middleware' => 'Customer'], function () {
 
 
 //Admin Routes with middleware
-Route::group(['middleware' => 'Admin'], function () {
+Route::group(['middleware' => 'auth.admin'], function () {
     Route::get('/openDetail', 'OperationsController@index');
     Route::get('/show_detailop', 'OperationsController@showDetail')->name('detailop_show');
     Route::post('/add_opDetail', 'OperationsController@createDetail');
