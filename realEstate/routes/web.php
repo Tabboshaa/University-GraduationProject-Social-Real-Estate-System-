@@ -32,7 +32,7 @@ Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('log
 Route::post('/admin', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
 Route::get('/registerUser', 'Auth\RegisterController@create')->name('registerUser');
 Route::get('/UserRegister', function () {
-    return view('w\frontend\Registration');
+    return view('website\frontend\Registration');
 })->name('UserRegister');
 
 Route::get('/UserLogin', function () {
