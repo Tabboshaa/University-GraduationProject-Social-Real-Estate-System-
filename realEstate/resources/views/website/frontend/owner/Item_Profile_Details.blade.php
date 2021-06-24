@@ -470,13 +470,12 @@
         document.getElementById('edit').style.display='block';
     }
 
-    function test(day, schedule_Id) {
+    function  test (day, schedule_Id) {
         var date2;
         var clicked = document.getElementById(day);
         var clicked_id = clicked.getAttribute('id');
         var schedule_Id2;
         var disable;
-
 
         // if(clicked_id==start_id){clicked.className="calendar-table__item"; s=0; start_id=null; start=nu }// reset all days if s=0 or 1 or
         // else if(clicked_id==End_id){clicked.className="calendar-table__item"; s=1;}

@@ -30,23 +30,23 @@ class ScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id=null)
+    public function create($id = null)
     {
 
         try {
-            if($id==null){$id=request('id');}
-           $test=Schedule::create([
-                'Item_Id'=>$id,
-                'Start_Date'=>request('arrival'),
-                'End_Date'=>request('departure'),
-                'Price_Per_Night'=>request('price')
-                ]);
-
-            }catch (\Illuminate\Database\QueryException $e) {
-                return back()->withError($e->getMessage())->withInput();
-                return back()->with('error', 'Error creating schedule !!');
+            if ($id == null) {
+                $id = request('id');
             }
-
+            $test = Schedule::create([
+                'Item_Id' => $id,
+                'Start_Date' => request('arrival'),
+                'End_Date' => request('departure'),
+                'Price_Per_Night' => request('price')
+            ]);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return back()->withError($e->getMessage())->withInput();
+            return back()->with('error', 'Error creating schedule !!');
+        }
     }
 
     public static function createWithVriables($id, $start, $end, $price)
@@ -78,66 +78,87 @@ class ScheduleController extends Controller
     {
         //     get from Schedule endDate startDate where item id =$item_id
 
-//        $schedule = schedule::orderBy('Start_Date')->where('Item_Id', '=', $item_id)->get();
+        //        $schedule = schedule::orderBy('Start_Date')->where('Item_Id', '=', $item_id)->get();
 
-       $schedule= DB::table("schedules")
-            ->selectRaw('schedule_Id,Start_Date,YEAR(Start_Date) as year,MONTH(Start_Date) as month,End_Date')
+        $schedule = DB::table("schedules")
+            ->selectRaw('schedule_Id,Start_Date,YEAR(Start_Date) as year ,MONTH(Start_Date) as month,End_Date')
             ->orderBy('Start_Date')
-            ->get()
-            ->groupby(['year','month']);
+            ->get();
 
-       return $schedule;
-////        $myDate = '01/07/2020';
-////        $date = Carbon::createFromFormat('m/d/Y', $myDate);
-//
-//
-////        $monthName = $date->format('F');
-//
-//        foreach ($schedule as $year => $schedules)
-//        {
-//            echo 'year';
-//            echo $year;
-//            echo '\r\n';
-//
-//
-//            foreach ($schedules as $s){
-//                $test= date('m/d/y',strtotime($s->Start_Date));
-//                $date = Carbon::createFromFormat('m/d/Y', $test);
-//                $monthName = $date->format('F');
-//                echo 'Month';
-//                echo $monthName;
-//                echo '\r\n';
-//
-//                $period =\Carbon\CarbonPeriod::create($s->Start_Date, $s->End_Date);
-//
-//// Iterate over the period
-//                foreach ($period as $date) {
-//                    echo $date->format('d');
-//                    echo '\r\n';
-//
-//                }
-//            }
-//        }
-//        return 0;
+
+
+        $days = [];
+        //get day of every schedule
+        foreach ($schedule as $value) {
+
+            $day = ScheduleController::getdays($value->Start_Date, $value->End_Date, $value->schedule_Id);
+            //merge days
+            $days = collect($days)->merge($day)->unique(); //unique 3shan mykrrsh date mrten
+        }
+
+        //group by month of date
+        $days = collect($days)->groupBy([function ($val) {
+            return Carbon::parse($val['date'])->format('Y');
+        }, function ($val) {
+            return Carbon::parse($val['date'])->format('m');
+        }])->toArray();
+
+
+        //             foreach ($days  as $year =>$months){
+        //             foreach ($months  as $month =>$schedules){
+        //             foreach ($schedules  as $sch){
+        //         return ($sch['date']);
+        //         }
+        //     }
+        // }
+
+        return $days;
+
+        //   return $schedule;
+        //        $myDate = '01/07/2020';
+        //        $date = Carbon::createFromFormat('m/d/Y', $myDate);
+
+
+        //        $monthName = $date->format('F');
+
+        //    foreach ($schedule as $year=>$schedules)
+        //    {
+        //        echo 'year';
+        //        echo $year;
+
+
+        //        foreach ($schedules  as $month =>$days){
+        //         $dateObj   = DateTime::createFromFormat('!m', $month);
+        //         $month = $dateObj->format('F'); // name of month    
+        //            echo 'Month';
+        //            echo $month;
+        //            echo '       ';
+        //            echo 'schedules';
+
+        //           foreach($days as $d){
+
+        //         echo $d->Start_Date;  
+        //         }
+
+        //            }
+
+
+        //    $period =\Carbon\CarbonPeriod::create($s->Start_Date, $s->End_Date);
+
+        // Iterate over the period
+        //    foreach ($period as $date) {
+        //        echo $date->format('d');
+        //        echo '\r\n';
+
+        //    }
+        //        }
+
+        //    return 0;
+        // }
+
+        //
+        //        $days;
     }
-
-
-//        $days = [];
-//        //get day of every schedule
-//        foreach ($schedule as $value) {
-//
-//            $day = ScheduleController::getdays($value->Start_Date, $value->End_Date, $value->schedule_Id);
-//            //merge days
-//            $days = collect($days)->merge($day)->unique(); //unique 3shan mykrrsh date mrten
-//        }
-//
-//        //group by month of date
-//        $days = collect($days)->groupBy(function ($val) {
-//            return Carbon::parse($val['date'])->format('m');
-//        })->toArray();
-//
-//        $days;
-
 
     public static function getdays($start, $end, $schedule_id)
     {
@@ -187,9 +208,9 @@ class ScheduleController extends Controller
             } else { //customer chose 15/03/2020 to 17/03/2020
                 $start = date('Y-m-d', strtotime('-1 day', strtotime($start))); //14/03/2020
                 $end =  date('Y-m-d', strtotime('+1 day', strtotime($end))); //18/03/2020
-                 // create schedule from 01/03/2020 to 14/03/2020
+                // create schedule from 01/03/2020 to 14/03/2020
                 ScheduleController::createWithVriables($schedule->Item_Id, $schedule->Start_Date, $start, $schedule->Price_Per_Night);
-               //createschedule from 18/03/2020 to 20/03/2020
+                //createschedule from 18/03/2020 to 20/03/2020
                 ScheduleController::createWithVriables($schedule->Item_Id, $end, $schedule->End_Date, $schedule->Price_Per_Night);
                 //delete old schedule
                 ScheduleController::destroy($schedule_id);
