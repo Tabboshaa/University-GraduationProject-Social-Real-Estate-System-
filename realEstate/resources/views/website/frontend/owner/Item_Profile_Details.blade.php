@@ -99,7 +99,7 @@
                             <a href="javascript:void(0)" onclick="DeleteDetail('{{$Property_diff}}')"><i style="padding-left:14px" class="feather-trash-2"></i></a>
 
                             <label for="uploadImages"><i class="text-primary feather-image ps-3"></i></label>
-                            <input type="file" style="display:none;" id="uploadImages" name="images[]" placeholder="upload Images" multiple>
+                            <input type="file" style="display:none;" id="uploadImages" name="images[]" accept="image/*" onchange="javascript:this.form.submit();"  multiple>
                            </form>
                            
                            

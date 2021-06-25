@@ -22,7 +22,7 @@
                                     <form method="POST" action="{{url('/UpdateProfilePhoto')}}" enctype="multipart/form-data">
                                         @csrf
                                         <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="profile_photo_upload"><i class="feather-edit text-grey-500 me-3 font-sm"></i></label>
-                                        <input id="profile_photo_upload" name="ProfilePhoto" type="file" style="display:none" onchange="javascript:this.form.submit();">
+                                        <input id="profile_photo_upload" name="ProfilePhoto" type="file" accept="image/*" style="display:none" onchange="javascript:this.form.submit();">
                                     </form>
                                     <h2 class="fw-700 font-sm text-grey-900 mt-3">{{$user->First_Name}}  {{$user->Last_Name}}</h2>
                                     <!-- <a href="#" class="p-3 alert-primary text-primary font-xsss fw-500 mt-2 rounded-3">Upload New Photo</a> -->

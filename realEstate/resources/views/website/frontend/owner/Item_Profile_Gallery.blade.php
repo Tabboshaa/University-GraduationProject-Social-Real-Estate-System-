@@ -7,7 +7,7 @@
             <label>Add image to your Property </label>
             <div class="form-group" id="OpenImgUpload" >
                 <input type="submit" class="btn" value="Choose File">
-                <input class="d-none d-lg-block bg-blue-gradiant p-3 mb-3 ms-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 w-auto" type="file" name="images[]" onchange="javascript:this.form.submit();" multiple ><br>
+                <input class="d-none d-lg-block bg-blue-gradiant p-3 mb-3 ms-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 w-auto" type="file" name="images[]" accept="image/*"  onchange="javascript:this.form.submit();" multiple ><br>
                 <span>Maximum file size 100MB</span>
             </div>
         </div>
