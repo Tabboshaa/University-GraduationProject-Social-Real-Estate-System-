@@ -71,7 +71,7 @@ class DetailsController extends Controller
     {
 
         $detailsInput = request('DetailItem');
-        return dd(request()->all());
+ 
 
         foreach ($detailsInput as $detail) {
 
@@ -89,15 +89,7 @@ class DetailsController extends Controller
                         }
                     } else if (Arr::get($detail, 'type') == 'file') {
 
-                        if ($file = Arr::get($detail, 'value')) {
-
-                            $filename = $file->getClientOriginalName();
-                            $file->storeAs('/profile gallery', $filename, 'public');
-
-                            $val = $filename;
-                        } else {
-                            $val = Arr::get($detail, 'value');
-                        }
+                      
                     } else {
                         $val = Arr::get($detail, 'value');
                     }
@@ -131,6 +123,48 @@ class DetailsController extends Controller
                 }
                 return back()->withError($e->getMessage())->withInput();
             }
+        }
+        //         return back()->with('info', 'Detail Edited Successfully');
+
+    }
+
+    public function AddImage($item_id,$property_id,$diff)
+    {
+
+ 
+            try {
+                if ($files = request()->file('images')) {
+                    $property_details = Property_Details::all()->where('Property_Detail_Id', '=',  $property_id)->first();
+
+                
+                    foreach ($files as $file) {
+                        $filename = $file->getClientOriginalName();
+                        $file->storeAs('/profile gallery', $filename, 'public');
+
+                            Details::create(
+                                [
+                                    'Item_Id' => $item_id,
+                                    'Main_Type_Id' =>  Arr::get($property_details, 'Main_Type_Id'),
+                                    'Sub_Type_Id' =>  Arr::get($property_details, 'Sub_Type_Id'),
+                                    'Property_Id' => Arr::get($property_details, 'Property_Id'),
+                                    'Property_Detail_Id' => Arr::get($property_details, 'Property_Detail_Id'),
+                                    'Property_diff' =>  $diff,
+                                    'DetailValue' =>   $filename
+                                ]
+                            );
+                        }
+                   
+                
+                    }
+                return 'done';
+
+            } catch (\Illuminate\Database\QueryException $e) {
+                $errorCode = $e->errorInfo[1];
+                if ($errorCode == 1062) {
+                    return back()->with('error', 'Error editing Detail');
+                }
+                return back()->withError($e->getMessage())->withInput();
+            
         }
         //         return back()->with('info', 'Detail Edited Successfully');
 
