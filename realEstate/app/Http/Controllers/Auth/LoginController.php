@@ -47,10 +47,10 @@ class LoginController extends Controller
 
     public function loginViaEmailAdmin()
     {
-        
+
         $email=request('email');
         $password=request('password');
-        
+
 
         if ($emailModel = Emails::all()->where('email', $email)->first())
         {
@@ -67,15 +67,17 @@ class LoginController extends Controller
     public function login($id, $password)
     {
         $user = User::find($id);
-       
+
         if(Hash::check( $password, $user->password))
         {
             Auth::loginUsingId($id);
             return view('home');
-           
+
         }
 
         return false;
     }
+
+
 
 }

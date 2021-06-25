@@ -29,8 +29,8 @@ Route::get('/Land', function () {
 Route::get('/meshtest/{item_id}','ScheduleController@getAvailableTime');
 Auth::routes();
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
-Route::post('/admin', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
-Route::get('/registerUser', 'Auth\RegisterController@create')->name('registerUser');
+Route::post('/login', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
+Route::POST('/registerUser', 'Auth\RegisterController@create')->name('registerUser');
 Route::get('/UserRegister', function () {
     return view('website\frontend\Registration');
 })->name('UserRegister');
@@ -48,7 +48,7 @@ Route::get('/s', function () {
 });
 
 //Customer Routes with middleware
-Route::group(['middleware' => 'Customer'], function () {
+Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/', 'CustomerHomeController@index')->name('CustomerHome');
     //Customer HOMEpage
     Route::get('/HomeRegister', 'CustomerHomeController@index')->name('HomeRegister');
@@ -405,4 +405,4 @@ Route::POST('/ForgotPassword','Auth\ForgotPasswordController@forgotPassword');
 //    return view('website\frontend\login');
 //});
 Route::get('changePassword','AddUserController@changePassword')->name('changePassword');
-Route::post('continueRegistration','RegisterController@continueRegistration');
+Route::POST('activateRegister','Auth\RegisterController@activateRegister')->name('activateRegister');

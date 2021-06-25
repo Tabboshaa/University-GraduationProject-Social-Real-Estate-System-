@@ -84,7 +84,7 @@
             @foreach($schedulesInYear as $month => $schedules)
             {{-- END...FOR EACH TO PRINT YEARS--}}
             <?php $dateObj   = DateTime::createFromFormat('!m', $month);
-            $month = $dateObj->format('F'); // name of month    
+            $month = $dateObj->format('F'); // name of month
             ?>
             <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
                 <div class="bg-skype me-2 p-3 rounded-xxl w125">
@@ -100,7 +100,7 @@
                 $day = \Carbon\Carbon::parse($date["date"])->format('d');
                 $day = $day + 1 - 1;
                 $SID = $date["schedule_Id"];
-                $ID = $date["date"];   
+                $ID = $date["date"];
                 ?>
                        <!-- {{-- @foreach ($period as $date) --}} -->
                         <li>
@@ -175,7 +175,7 @@
     </div>
     <div class="card w-100 shadow-xss rounded-xxl border-0 p-2 pe-0 mb-3">
         <h3>
-            Location <a href="javascript:void(0)" onclick="openEditLoaction();"><i class="feather-edit text-grey-500 me-3 font-sm"></i></a>
+            Location
         </h3>
         <div class="card-body ps-2 d-flex">
             <div class="clearfix">

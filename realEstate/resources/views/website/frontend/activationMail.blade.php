@@ -26,12 +26,21 @@
         <div class="col-xl-7 vh-100 align-items-center d-flex bg-white rounded-3 overflow-hidden">
             <div class="card shadow-none border-0 ms-auto me-auto login-card">
                 <div class="card-body rounded-0 text-left">
-                    <h2 class="fw-700 display1-size display2-md-size-size mb-4">Account Recovery</h2>
-                    <form>
-                        <h4 >An email  <span style="color: #aa0000">with your new password </span>was just sent to your mail</h4>
+                    <h2 class="fw-700 display1-size display2-md-size-size mb-4">Account Activation</h2>
+                    <form method="post" action="{{route('registerUser')}}" id="registerForm">
+                        @CSRF
+                        <h4 >An email  <span style="color: #aa0000">with Activation Code </span>was just sent to your mail</h4>
+                       <label >Activation Code</label>
+                        <div class="">
+                        <strong id="alert"></strong>
+                        </div>
+                        <input type="text" class="form-control" name="code" id="userinput">
+                        <input type="hidden" value="{{$code}}" id="code">
+                        <input type="hidden" name="email" value="{{$email}}" >
+                        <input type="hidden" name="password" value="{{$password}}" >
                         <a href="" class="" data-bs-toggle="modal" data-bs-target="#ModallForgot">Send Again ?</a>
                         <div class="col-sm-12 p-0 text-left">
-                            <div class="form-group mb-1"><a href="{{ url('UserLogin') }}"class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">LOG IN</a></div>
+                            <div class="form-group mb-1"><a href="javascript:void(0)" onclick="checkCode()" class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">LOG IN</a></div>
 
                         </div>
                     </form>
@@ -54,7 +63,7 @@
                     <div class="card-body rounded-0 text-left p-3">
                         <h2 class="fw-700 display1-size display2-md-size mb-4">Login into <br>your account</h2>
                         <form>
-
+                            @CSRF
                             <div class="form-group icon-input mb-3">
                                 <i class="font-sm ti-email text-grey-500 pe-0"></i>
                                 <input type="text" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address">
@@ -92,6 +101,7 @@
                             @csrf
                             @if ($message = Session::get('error'))
                                 <div class="alert alert-danger alert-block">
+
                                     <strong>{{ $message }}</strong>
                                 </div>
                             @endif
@@ -215,7 +225,19 @@
     </div>
 </div>
 
-
+<script>
+    function checkCode(){
+        let code=document.getElementById('code').value;
+        let userInput=document.getElementById('userinput').value;
+        let alert=document.getElementById('alert');
+        if(code!=userInput){
+            alert.parentElement.className="alert alert-danger alert-block";
+            alert.innerText='Wrong Code';
+        }else{
+            $('#registerForm').submit();
+        }
+    }
+</script>
 <script src="js/plugin.js"></script>
 <script src="js/scripts.js"></script>
 

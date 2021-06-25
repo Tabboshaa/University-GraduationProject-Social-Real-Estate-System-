@@ -90,4 +90,20 @@ class RegisterController extends Controller
         return redirect()->route('HomeRegister');
     }
 
+    function activateRegister(){
+        $code = rand(11111,99999);
+        $email= \request('email');
+        $password = \request('password');
+        $confirmPassword=\request('confirm');
+        $search=Emails::all()->where('email','=',$email)->first();
+
+        if($search==null) {
+       \Mail::to($email)->send(new \App\Mail\activationMail($code));
+                return view('website.frontend.activationMail', ['code' => $code, 'email' => $email, 'password' => $password]);
+
+        }else{
+            return redirect()->back()->with('error', 'This email Already Registered');
+        }
+    }
+
 }
