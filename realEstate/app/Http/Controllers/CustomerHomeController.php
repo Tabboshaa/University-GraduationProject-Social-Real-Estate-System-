@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Phone_Numbers;
 use App\review;
 use Illuminate\Support\Arr;
 use App\Type_Of_User;
@@ -31,12 +32,14 @@ class CustomerHomeController extends Controller
         $state = StateController::getStates();
         $user_id = Auth::id();
         $user = Type_Of_User::all()->where('User_ID', '=', $user_id)->where('User_Type_ID', '=', 3);
+
+        $phone=Phone_Numbers::all()->where('User_ID', '=', $user_id)->first();
         if ($user == '[]') {
             $user = '0';
         } else {
             $user = '1';
         }
-        return view("website.frontend.customer.CustomerHome", ['states' => $state, 'checkIfOwner' => $user]);
+        return view("website.frontend.customer.CustomerHome", ['states' => $state, 'checkIfOwner' => $user,'phone'=>$phone]);
     }
     public function indexPhoto()
     {
@@ -122,7 +125,7 @@ class CustomerHomeController extends Controller
         $schedule = ScheduleController::getAvailableTime($id);
         // return $schedule;
 
-        $state = StateController::getStates(); 
+        $state = StateController::getStates();
 
         $item = Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);

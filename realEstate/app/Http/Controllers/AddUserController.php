@@ -149,10 +149,14 @@ class AddUserController extends Controller
         } else {
             $user = User::all()->find($user_id);
 
-            $user->First_Name = request('First');
-            $user->Middle_Name = request('Middle');
-            $user->Last_Name = request('Last');
-            $user->National_ID = request('National');
+            if(request('First')!=null)
+                $user->First_Name = request('First');
+            if(request('Middle')!=null)
+                $user->Middle_Name = request('Middle');
+            if(request('Last')!=null)
+                $user->Last_Name = request('Last');
+            if(request('National')!=null)
+                $user->National_ID = request('National');
             $user->save();
 
 
