@@ -141,7 +141,7 @@ class RegionController extends Controller
         $state=State::all()->where('Country_Id','=',request('id'));
 
         // will send all values in state object by json
-        return  response()->json($state);
+        return  $state;
 
 
     }

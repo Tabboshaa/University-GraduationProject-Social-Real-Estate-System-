@@ -81,7 +81,7 @@
                     </div>
                     <div class="form-group">
                         <label for="SubTypeName" style="font-size: 12pt" >Sub Type</label>
-                        <input type="text" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" style="border-radius: 3pt" name="SubTypeName" id="SubTypeName" class="form-control">
+                        <input type="text" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" style="border-radius: 3pt" name="SubTypeName" id="SubTypeName" class="form-control" required>
                     </div>
                     <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>

@@ -65,7 +65,7 @@
 
                     <div class="form-group">
                         <label for="operationTypeName" style="font-size: 12pt" >Operation Type</label>
-                        <input type="text" style="border-radius: 3pt" name="OperationTypeName" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" id="OperationTypeName" class="form-control">
+                        <input type="text" style="border-radius: 3pt" name="OperationTypeName" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" id="OperationTypeName" class="form-control" required>
 
                     </div>
                     <button type="submit" id="btun3" class="btn btn-success">Edit</button>

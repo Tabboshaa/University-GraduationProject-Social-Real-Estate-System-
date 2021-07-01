@@ -28,8 +28,8 @@
 
                     op += '<option value="0" selected disabled>Select State</option>';
 
+                    console.log(data);
                     Object.values(data).forEach(val => {
-                        //   console.log(val);
 
                         op += '<option value="' + val['State_Id'] + '">' + val['State_Name'] + '</option>';
                     });
@@ -181,16 +181,16 @@
                                 <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload">
                                     <h6>State</h6>
                                 </label>
-                                <select id="StateSelect"style="width: 865px;" class="date-picker form-control" name="State" value="{{ old('State') }}"></select>
+                                <select id="StateSelect" style="width: 865px;" class="date-picker form-control" name="State" value="{{ old('State') }}"></select>
 
                                 <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload">
                                     <h6>City</h6>
                                 </label>
-                                <select id="CitySelect"style="width: 865px;" class="date-picker form-control" name="CitySelect" value="{{ old('City') }}"></select>
+                                <select id="CitySelect" style="width: 865px;" class="date-picker form-control" name="CitySelect" value="{{ old('City') }}"></select>
                                 <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload">
                                     <h6>Region</h6>
                                 </label>
-                                <select id="RegionSelect"style="width: 865px;" class="date-picker form-control" name="Region" value="{{ old('Region') }}"></select>
+                                <select id="RegionSelect" style="width: 865px;" class="date-picker form-control" name="Region" value="{{ old('Region') }}"></select>
 
                                 <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload">
                                     <h6>Street</h6>

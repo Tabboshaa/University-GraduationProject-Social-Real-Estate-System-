@@ -63,7 +63,7 @@
                     <input type="hidden" name="id" id="id">
                     <div class="form-group">
                         <label for="UserTypeName"  style="font-size: 12pt">User Type</label>
-                        <input type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" name="UserTypeName" id="UserTypeName" class="form-control">
+                        <input type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" name="UserTypeName" id="UserTypeName" class="form-control" required>
                     </div>
                     <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>
