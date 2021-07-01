@@ -26,7 +26,7 @@
             @foreach($schedulesInYear as $month => $schedules)
             {{-- END...FOR EACH TO PRINT YEARS--}}
             <?php $dateObj   = DateTime::createFromFormat('!m', $month);
-            $month = $dateObj->format('F'); // name of month    
+            $month = $dateObj->format('F'); // name of month
             ?>
             <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
                 <div class="bg-skype me-2 p-3 rounded-xxl w125">
@@ -87,7 +87,7 @@
 
             <ul>
                 <li><a href="javascript:void(0)" id="moreprop{{$Property_Id}}" onclick="$('#property{{$Property_Id}}').slideToggle(function(){$('#moreprop{{$Property_Id}}').html($('#property{{$Property_Id}}').is(':visible')?'Hide {{$Property_Name}}':'{{$Property_Name}}');});" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss">{{$Property_Name}}</a>
-                            <form id="imageform" method="post" action="" enctype="multipart/form-data">
+                <form id="imageform" method="post" action="" enctype="multipart/form-data">
                     <!-- {{$i=0}} -->
                     <ul id="property{{$Property_Id}}" style="display: none;">
                         @foreach ($Property_diff_Array as $Property_diff => $detailValue)
@@ -100,7 +100,7 @@
                                 <a href="javascript:void(0)" onclick="DeleteDetail('{{$Property_diff}}')"><i style="padding-left:14px" class="feather-trash-2"></i></a>
 
                                 <label for="uploadImages{{$Property_diff}}"><i class="text-primary feather-image ps-3"></i></label>
-                                <input type="file" style="display:none;" id="uploadImages{{$Property_diff}}" name="images[]" accept="image/*" onchange="formImage('{{$item_id}}','{{$Property_Id}}','{{$Property_diff}}')" multiple>
+                                <input type="file" style="display:none;" id="uploadImages{{$Property_diff}}" name="eee[]" accept="image/*" multiple onchange="formImage('{{$item_id}}','{{$Property_Id}}','{{$Property_diff}}')" >
 
 
                             <!-- sha8ala hena -->
@@ -129,11 +129,13 @@
                         </li>
                         @endforeach
                     </ul>
+                </form>
                 </li>
+
             </ul>
             @endforeach
             @endforeach
-                            </form>
+
 
             </p>
         </div>
@@ -326,6 +328,7 @@
                 diff: diff
             },
             success: function(data) {
+                console.log(data);
 
                 var properties = data['properties'];
                 var details = data['details'];
@@ -359,15 +362,15 @@
                                     '</div>' +
                                     '</div>';
                             }
-                        } 
+                        }
                         else {
                             Form += '<input type="' + detail[0]['datatype'] + '" id="' + detail[0]['Detail_Id'] + '" name="DetailItem[]" value="' + detail[0]['DetailValue'] + '" class="form-control" >' +
                                 '</div>' +
                                 '</div>';
                         }
-                        
-                        
-                        
+
+
+
                     } else {
                         if (val['datatype'] == "file") {
 
@@ -383,18 +386,18 @@
                         if (val['datatype'] == "file") {
                         }
                         else if (val['datatype']  == "checkbox") {
-                           
+
                                 Form += '<input type="' + val['datatype'] + '"  name="DetailItem[]"  class="form-check-input" >' +
                                     '</div>' +
                                     '</div>';
-                            
-                        } 
+
+                        }
                         else {
                             Form += '<input type="' + val['datatype'] + '" name="DetailItem[]" class="form-control" >' +
                                 '</div>' +
                                 '</div>';
                         }
-                        
+
                     }
                 });
                 Form += '<input type="hidden" id="diff" value="' + diff + '">' +

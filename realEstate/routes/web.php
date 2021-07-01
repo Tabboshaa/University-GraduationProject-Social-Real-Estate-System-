@@ -255,7 +255,7 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/Details_show', 'DetailsController@show')->name('details_show');
     Route::post('/add_Details', 'DetailsController@create')->name('details_submit');
     Route::post('/Edit_Details', 'DetailsController@editDetails')->name('details.edit');
-    Route::post('/addImageForAProperty/{item_id?}/{property_id?}/{diff?}', 'DetailsController@AddImage');
+    Route::POST('/addImageForAProperty/{item_id?}/{property_id?}/{diff?}', 'DetailsController@AddImage');
 
 
     // Item  pages #Tabbosha
@@ -281,7 +281,7 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/delete_posts/{id?}', 'PostsController@destroy');
 
     Route::get('/item_gallery/{id}', 'AttachmentController@index');
-    Route::Post('/add_item_gallery/{id}', 'AttachmentController@create');
+    Route::POST('/add_item_gallery/{id}', 'AttachmentController@create');
     Route::get('/delete_gallery/{id?}', 'AttachmentController@destroy');
     Route::get('/edit_Comment', 'CustomerHomeController@editComment')->name('Comment.update');
     Route::get('/deletecomment/{id?}', 'CustomerHomeController@DestroyComment');

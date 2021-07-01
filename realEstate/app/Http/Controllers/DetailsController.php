@@ -123,10 +123,11 @@ class DetailsController extends Controller
     }
 
 
-    public function AddImage()
+    public function AddImage(Request $request)
     {
-            return request()->all();
+//         return $request->allFiles();
         // try {
+//        return request()->file('images');
 
         if ($files = request()->file('images')) {
 
@@ -134,6 +135,7 @@ class DetailsController extends Controller
 
             foreach ($files as $file) {
                 $filename = $file->getClientOriginalName();
+//                return $filename;
                 $file->storeAs('/profile gallery', $filename, 'public');
 
                 $detail = Details::create(
@@ -147,6 +149,7 @@ class DetailsController extends Controller
                         'DetailValue' =>   $filename
                     ]
                 );
+
             }
         }
 
@@ -214,7 +217,7 @@ class DetailsController extends Controller
         if (request()->has('id')) {
             try {
                 Details::destroy(request('id'));
-                
+
                 return redirect()->back()->with('success', 'Detail Deleted Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
                 return back()->withError($e->getMessage())->withInput();

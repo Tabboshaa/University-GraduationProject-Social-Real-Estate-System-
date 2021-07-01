@@ -1,17 +1,19 @@
 @extends('website.frontend.owner.Item_Profile')
 @section('profile_Content')
-<div class="class="col-xl-12">
-<form method="POST" action="{{url('/add_item_gallery/'.$item_id)}}" enctype="multipart/form-data">
+
+<form id="testform" method="post" action="{{url('/add_item_gallery/'.$item_id)}}" enctype="multipart/form-data">
         @csrf
         <div class="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3 mt-3">
             <label>Add image to your Property </label>
             <div class="form-group" id="OpenImgUpload" >
                 <input type="submit" class="btn" value="Choose File">
-                <input class="d-none d-lg-block bg-blue-gradiant p-3 mb-3 ms-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 w-auto" type="file" name="images[]" accept="image/*"  onchange="javascript:this.form.submit();" multiple ><br>
+                <input type="file" name="images[]"  class="d-none d-lg-block bg-blue-gradiant p-3 mb-3 ms-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 w-auto" accept="image/*" onchange="javascript:$('#testform').submit();"  multiple ><br>
+                <input type="hidden" value="test" name="test">
                 <span>Maximum file size 100MB</span>
             </div>
         </div>
-        </form>
+</form>
+
         @if( count($gallery) != 0)
         <a class="d-none d-lg-block bg-blue-gradiant p-3 mb-3 ms-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 w-auto" href="javascript:void(0)" onclick="SelectImg()">Select</a>
         <a href="javascript:void(0)" id="deleteLinke" onclick="deleteImg()" style="display: none;"><i class="feather-trash font-lg ms-3"></i></a>

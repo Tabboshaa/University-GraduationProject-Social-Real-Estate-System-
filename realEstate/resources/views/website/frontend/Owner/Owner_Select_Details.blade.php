@@ -26,7 +26,7 @@
                 <span aria-hidden="true">&times;</span>
             </div>
             <div class="modal-body">
-                <form id="details_images_form" method="post" action="{{url('/addImageForAProperty')}}" enctype="multipart/form-data"  >
+                <form id="details_images_form" method="POST" action="{{url('/addImageForAProperty')}}" enctype="multipart/form-data"  >
                     @csrf
                     <div class="card-body d-flex justify-content-between align-items-end p-0">
                         <div class="form-group mb-0 w-100">
@@ -35,7 +35,6 @@
                                 <i class="ti-cloud-down large-icon me-3 d-block"></i>
                                 <span id="detailImageSpan" class="js-fileName">Drag and drop or click to replace</span>
                             </label>
-
                             <input type="file" id="detailImageInput" name="images[]"  multiple>
                         </div>
                     </div>
@@ -107,7 +106,7 @@
                 $('#item_id').val(item);
                 $('#detailimageitemid').val(item);
                 $('#detailimagepropertyid').val(id);
-             
+
                 $("#EditMainTypeModal").modal("toggle");
 
                 Object.values(data).forEach(val => {
@@ -127,7 +126,7 @@
                                 '</div>';
                         }
                     } else if (val['datatype'] == "file"){
-                      
+
                     }else{
                         Form += '<input type="' + val['datatype'] + '" id="' + val['Property_Detail_Id'] + '" name="DetailItem[]"  class="form-control" >' +
                             '</div>' +
@@ -187,7 +186,7 @@
                 console.log( $('#detailimageitemid').val());
                 console.log( $('#detailimagediff').val());
                 console.log( $('#detailimagepropertyid').val());
-                
+
                 if(max != ""){
                     $("#EditMainTypeModal").modal("hide");
                     $('#detailimagediff').val(max);
@@ -204,9 +203,9 @@
 
     });
 
-  
-    
-  
+
+
+
 </script>
 
 @endsection
