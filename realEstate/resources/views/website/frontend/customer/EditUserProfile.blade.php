@@ -105,7 +105,9 @@
                                     </div>
                                     <div class="col-lg-6 mb-3">
 
-                                        <p id="alert"class=""></p>
+                                        <div class="">
+                                            <strong id="alert"></strong>
+                                        </div>
                                         <div class="form-group">
                                            <a href="javascript:void(0)" onclick="check()" class="bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-3 d-inline-block">Change</a>
                                         </div>
@@ -114,10 +116,10 @@
                                 </div>
                                 </div>
                                 </div>
-                                    <div class="col-lg-12 mb-3">
-                                        <label class="mont-font fw-600 font-xsss">Description</label>
-                                        <textarea class="form-control mb-0 p-3 h100 bg-greylight lh-16" rows="5" placeholder="Write your message..." spellcheck="false"></textarea>
-                                    </div>
+{{--                                    <div class="col-lg-12 mb-3">--}}
+{{--                                        <label class="mont-font fw-600 font-xsss">Description</label>--}}
+{{--                                        <textarea class="form-control mb-0 p-3 h100 bg-greylight lh-16" rows="5" placeholder="Write your message..." spellcheck="false"></textarea>--}}
+{{--                                    </div>--}}
 
                                     <div class="col-lg-12">
                                       <input type="submit" value="Edit Information" class="bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-3 d-inline-block">
@@ -163,10 +165,10 @@
             success:function (data){
                 console.log(data);
                 if(data){
-                    document.getElementById('alert').className='link-success';
+                    document.getElementById('alert').parentElement.className='alert alert-success alert-block';
                     document.getElementById('alert').innerText='Password Change Successfully';
                 }else{
-                    document.getElementById('alert').className='link-danger';
+                    document.getElementById('alert').parentElement.className='alert alert-danger alert-block';
                     document.getElementById('alert').innerText='You Entered Wrong Password ';
                 }
             },

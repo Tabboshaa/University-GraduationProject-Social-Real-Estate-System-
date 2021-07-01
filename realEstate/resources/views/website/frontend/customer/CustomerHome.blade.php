@@ -11,12 +11,14 @@
                             @csrf
                             <input type="hidden" name="id" id="id">
                             <input type="hidden" value="{{Auth::user()->First_Name}}" id="userid">
+                            @if(Auth::user()->First_Name)
                             <div class="form-group">
                                 <label style="font-size: 12pt">First Name</label>
                                 <input type="text" style="border-radius: 3pt" name="First" class="form-control">
 
                             </div>
-
+                            @elseif()
+                            @if(Auth::user()->Middle_Name)
                             <div class="form-group">
                                 <label style="font-size: 12pt">Middle Name</label>
                                 <input type="text" style="border-radius: 3pt" name="Middle" class="form-control">

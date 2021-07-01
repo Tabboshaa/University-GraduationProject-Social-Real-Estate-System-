@@ -109,15 +109,18 @@
                     <div class="card shadow-none rounded-0 w-100 p-2 pt-3 border-0">
                         <div class="card-body rounded-0 text-left p-3">
                             <h2 class="fw-700 display1-size display2-md-size mb-4">Enter Your Email</h2>
-                            <form method="post" action="{{url('ForgotPassword')}}">
+                            <form method="post"  id="ForgotForm">
                                 @CSRF
+                                <div id="alertParent" >
+                                <strong id="Emailalert"></strong>
+                                </div>
                                 <div class="form-group icon-input mb-3">
                                     <i class="font-sm ti-email text-grey-500 pe-0"></i>
-                                    <input type="text" name="UserEmail" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address">
+                                    <input type="text" id="email" name="UserEmail" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address">
                                 </div>
                                 <b><span>An email with a New Password code will send to you </span> </b>
                                 <div class="form-group mb-1">
-                                    <input type="submit"  value="send me new password "  class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">
+                                    <a href="javascript:void(0)" onclick="validateForm()" class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">send me new password</a>
                                 </div>
                             </form>
                         </div>
@@ -132,3 +135,22 @@
 
 <!-- Mirrored from uitheme.net/sociala/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 27 May 2021 19:34:54 GMT -->
 </html>
+<script>
+    function validateForm(){
+        console.log('rrrrrrr');
+        let emailRegx= /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let email=$('#email');
+        let emailalert= $('#Emailalert');
+        if(!emailRegx.test(email.val())){
+            console.log(email.val());
+           emailalert.html("Un Valid Email Format");
+           $('#alertParent').addClass("alert alert-danger alert-block");
+
+         }
+             else{
+             $('#ForgotForm').submit();
+         }
+
+
+    }
+</script>
