@@ -130,7 +130,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/shaimaa', 'CustomerHomeController@indexPhoto');
     Route::get('/myReservations', 'ReservationController@show');
 
-    Route::Post('/BeOwner/{id?}', 'AddUserController@BeOwner')->name('BeOwner');
+            Route::Post('/BeOwner/{id?}', 'AddUserController@BeOwner')->name('BeOwner');
     Route::get('/BeOwner/{id?}', 'AddUserController@BeOwner');
 
     Route::get('/checkIfOwner', 'AddUserController@checkIfOwner')->name('checkIfOwner');

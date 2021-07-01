@@ -1,4 +1,65 @@
 <!-- navigation top-->
+<div class="modal bottom fade" style="overflow-y: scroll;" id="BeOwnerModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="ti-close text-grey-500"></i></button>
+            <div class="modal-body p-3 d-flex align-items-center bg-none">
+                <div class="card shadow-none rounded-0 w-100 p-2 pt-3 border-0">
+                    <div class="card-body rounded-0 text-left p-3">
+                        <h5 class="modal-title" id="exampleModalLabel">Continue Your Registration</h5>
+                        <form id="BeOwnerForm" method="Post" action="{{url('BeOwner/'.Auth::id())}}">
+                            @csrf
+                            <input type="hidden" name="id" id="id">
+                            @if(!Auth::user()->First_Name)
+                                <div class="form-group">
+                                    <label style="font-size: 12pt">First Name</label>
+                                    <input type="text" style="border-radius: 3pt" name="First" class="form-control">
+                                    <input type="hidden" value="true" id="show">
+                                </div>
+                            @endif
+                            @if(!Auth::user()->Middle_Name)
+                                <div class="form-group">
+                                    <label style="font-size: 12pt">Middle Name</label>
+                                    <input type="text" style="border-radius: 3pt" name="Middle" class="form-control">
+                                    <input type="hidden" value="true" id="show">
+                                </div>
+                            @endif
+                            @if(!Auth::user()->Last_Name)
+                                <div class="form-group">
+                                    <label style="font-size: 12pt">Last Name</label>
+                                    <input type="text" style="border-radius: 3pt" name="Last" class="form-control">
+                                    <input type="hidden" value="true" id="show">
+                                </div>
+                            @endif
+                            @if(!$phone)
+                                <div class="form-group">
+                                    <label style="font-size: 12pt">Phone Number</label>
+                                    <input type="text" style="border-radius: 3pt" name="Phone" class="form-control">
+                                    <input type="hidden" value="true" id="show">
+                                </div>
+                            @endif
+                            @if(!Auth::user()->National_ID)
+                                <div class="form-group">
+                                    <label style="font-size: 12pt">National ID</label>
+                                    <input type="text" style="border-radius: 3pt" name="National" class="form-control">
+                                    <input type="hidden" value="true" id="show">
+                                </div>
+                            @endif
+                            <input type="hidden"  id="check" name="check" value="BeOwner">
+                            @if($checkIfOwner)
+                                <div class="form-group"><a href="javascript:void(0)" onclick="check();" class="btn btn-info" > Save Information</a></div>
+                            @else
+                                <div class="form-group"><a href="javascript:void(0)" onclick="check();" class="btn btn-info" > Just Save Information! Or</a></div>
+                                <button type="submit" id="btun3" class="btn btn-success">Be Owner to Manage Your Properties!</button>
+                            @endif
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="nav-header bg-white shadow-xs border-0">
     <div class="nav-top">
         <a href="index.html"><i class="feather-zap text-success display1-size me-2 ms-0"></i><span class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">Sociala. </span> </a>
@@ -172,7 +233,6 @@
 </div>
 <!-- Modal -->
 
-<input type="hidden" id="checkDone" value="{{Auth::user()->First_Name}}">
 
 
 
@@ -210,8 +270,8 @@
     });
 
     function ToggleBeOwnerModal() {
-
-        if($('#checkDone').val()==null)
+        let $show=$('#show').val();
+        if($show=='true')
         {
             $("#BeOwnerModal").modal("toggle");
         }else{$("#BeOwnerLightModal").modal("toggle"); }
@@ -235,7 +295,7 @@
 
 
     }
-   
+
 </script>
 
 

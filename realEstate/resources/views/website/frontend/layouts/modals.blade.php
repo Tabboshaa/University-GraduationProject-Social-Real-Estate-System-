@@ -8,37 +8,55 @@
                 </button>
             </div>
             <div class="modal-body">
+                @if($checkIfOwner)
                 <form id="BeOwnerForm" method="Post" action="{{url('BeOwner/'.Auth::id())}}">
                     @csrf
                     <input type="hidden" name="id" id="id">
-
-                    <div class="form-group">
-                        <label style="font-size: 12pt">First Name</label>
-                        <input type="text" style="border-radius: 3pt" name="First" class="form-control">
-
-                    </div>
-
-                    <div class="form-group">
-                        <label style="font-size: 12pt">Middle Name</label>
-                        <input type="text" style="border-radius: 3pt" name="Middle" class="form-control">
-
-                    </div>
-                    <div class="form-group">
-                        <label style="font-size: 12pt">Last Name</label>
-                        <input type="text" style="border-radius: 3pt" name="Last" class="form-control">
-
-                    </div>
-                    <div class="form-group">
-                        <label style="font-size: 12pt">Phone Number</label>
-                        <input type="text" style="border-radius: 3pt" name="Phone" class="form-control">
-
-                    </div>
-                    <div class="form-group">
-                        <label style="font-size: 12pt">National ID</label>
-                        <input type="text" style="border-radius: 3pt" name="National" class="form-control">
-                    </div>
-                    <button type="submit" id="btun3" class="btn btn-success">Continue</button>
+                    @if(!Auth::user()->First_Name)
+                        <div class="form-group">
+                            <label style="font-size: 12pt">First Name</label>
+                            <input type="text" style="border-radius: 3pt" name="First" class="form-control">
+                            <input type="hidden" value="true" id="show">
+                        </div>
+                    @endif
+                    @if(!Auth::user()->Middle_Name)
+                        <div class="form-group">
+                            <label style="font-size: 12pt">Middle Name</label>
+                            <input type="text" style="border-radius: 3pt" name="Middle" class="form-control">
+                            <input type="hidden" value="true" id="show">
+                        </div>
+                    @endif
+                    @if(!Auth::user()->Last_Name)
+                        <div class="form-group">
+                            <label style="font-size: 12pt">Last Name</label>
+                            <input type="text" style="border-radius: 3pt" name="Last" class="form-control">
+                            <input type="hidden" value="true" id="show">
+                        </div>
+                    @endif
+                    @if(!$phone)
+                        <div class="form-group">
+                            <label style="font-size: 12pt">Phone Number</label>
+                            <input type="text" style="border-radius: 3pt" name="Phone" class="form-control">
+                            <input type="hidden" value="true" id="show">
+                        </div>
+                    @endif
+                    @if(!Auth::user()->National_ID)
+                        <div class="form-group">
+                            <label style="font-size: 12pt">National ID</label>
+                            <input type="text" style="border-radius: 3pt" name="National" class="form-control">
+                            <input type="hidden" value="true" id="show">
+                        </div>
+                    @endif
+                    <input type="hidden"  id="check" name="check" value="BeOwner">
+                    @if($checkIfOwner)
+                        <div class="form-group"><a href="javascript:void(0)" onclick="check();" class="btn btn-info" > Save Information</a></div>
+                    @else
+                        <div class="form-group"><a href="javascript:void(0)" onclick="check();" class="btn btn-info" > Just Save Information! Or</a></div>
+                        <button type="submit" id="btun3" class="btn btn-success">Be Owner to Manage Your Properties!</button>
+                    @endif
                 </form>
+                @else
+                @endif
 
             </div>
         </div>
@@ -104,7 +122,7 @@
                 <input type="hidden" id="item_id">
                 <form method="post" action="{{ route('details.edit')}}" id="data_form_edit">
                     @csrf
-                    
+
                 </form>
 
             </div>
