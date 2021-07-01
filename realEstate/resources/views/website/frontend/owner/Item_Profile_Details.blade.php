@@ -87,22 +87,22 @@
 
             <ul>
                 <li><a href="javascript:void(0)" id="moreprop{{$Property_Id}}" onclick="$('#property{{$Property_Id}}').slideToggle(function(){$('#moreprop{{$Property_Id}}').html($('#property{{$Property_Id}}').is(':visible')?'Hide {{$Property_Name}}':'{{$Property_Name}}');});" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss">{{$Property_Name}}</a>
+                            <form id="imageform" method="post" action="" enctype="multipart/form-data">
                     <!-- {{$i=0}} -->
                     <ul id="property{{$Property_Id}}" style="display: none;">
                         @foreach ($Property_diff_Array as $Property_diff => $detailValue)
                         <!-- {{$i+=1}} -->
                         <li id="lidiff{{$Property_diff}}">
 
-                           <form method="post" action="{{url('addImageForAProperty/'.$item_id.'/'.$Property_Id.'/'.$Property_diff)}}" style="margin:0 px; padding:0px;">
-                            <a href="javascript:void(0)" id="more{{$Property_diff}}" onclick="$('#diff{{$Property_diff}}').slideToggle(function(){$('#more{{$Property_diff}}').html($('#diff{{$Property_diff}}').is(':visible')?'Hide {{$Property_Name}} {{$i}}':'{{$Property_Name}} {{$i}}');});" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss">{{$Property_Name}} {{$i}}</span></a>
-                            <a href="javascript:void(0)" onclick="AddDetail('{{$item_id}}','{{$Property_Id}}','{{$Property_Name}}','{{$Property_diff}}')"><i style="padding-left:14px" class="feather-edit"></i></a>
-                            <a href="javascript:void(0)" onclick="DeleteDetail('{{$Property_diff}}')"><i style="padding-left:14px" class="feather-trash-2"></i></a>
+                                @csrf
+                                <a href="javascript:void(0)" id="more{{$Property_diff}}" onclick="$('#diff{{$Property_diff}}').slideToggle(function(){$('#more{{$Property_diff}}').html($('#diff{{$Property_diff}}').is(':visible')?'Hide {{$Property_Name}} {{$i}}':'{{$Property_Name}} {{$i}}');});" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss">{{$Property_Name}} {{$i}}</span></a>
+                                <a href="javascript:void(0)" onclick="AddDetail('{{$item_id}}','{{$Property_Id}}','{{$Property_Name}}','{{$Property_diff}}')"><i style="padding-left:14px" class="feather-edit"></i></a>
+                                <a href="javascript:void(0)" onclick="DeleteDetail('{{$Property_diff}}')"><i style="padding-left:14px" class="feather-trash-2"></i></a>
 
-                            <label for="uploadImages"><i class="text-primary feather-image ps-3"></i></label>
-                            <input type="file" style="display:none;" id="uploadImages" name="images[]" accept="image/*" onchange="javascript:this.form.submit();"  multiple>
-                           </form>
-                           
-                           
+                                <label for="uploadImages{{$Property_diff}}"><i class="text-primary feather-image ps-3"></i></label>
+                                <input type="file" style="display:none;" id="uploadImages{{$Property_diff}}" name="images[]" accept="image/*" onchange="formImage('{{$item_id}}','{{$Property_Id}}','{{$Property_diff}}')" multiple>
+
+
                             <!-- sha8ala hena -->
                             <ul id="diff{{$Property_diff}}" style="display: none;">
                                 @if(count($detailValue) !=0 )
@@ -116,8 +116,9 @@
                                 <li>{{$detail->Detail_Name}} : <i class="feather-x-circle"></i></li>
                                 @endif
                                 @elseif($detail->datatype=='file')
-                                <li>{{$detail->Detail_Name}} : <div class="col-6 mb-2 pe-1"><a href="{{$detail->DetailValue}}" data-lightbox="roadtrip"><img src="{{asset('storage/profile gallery/'.$detail->DetailValue)}}" alt="image" class="img-fluid rounded-3 w-100"></a></div>
-                                </li>
+                                <div id="detailimage{{$detail->Detail_Id}}" class="col-6 mb-2 pe-1">
+                                <a href="javascript:void(0)" onclick="DeleteDetailImage('{{$detail->Detail_Id}}')"><i style="padding-left:14px" class="feather-trash-2"></i></a>
+                                <a href="{{$detail->DetailValue}}" data-lightbox="roadtrip"><img src="{{asset('storage/profile gallery/'.$detail->DetailValue)}}" alt="image" class="img-fluid rounded-3 w-100"></a></div>
                                 @endif
                                 @endforeach
                                 @else
@@ -132,6 +133,7 @@
             </ul>
             @endforeach
             @endforeach
+                            </form>
 
             </p>
         </div>
@@ -279,38 +281,20 @@
 
     }
 
-    function showDetails(Property_diff) {
-        console.log("2bl el ajax");
 
+    function DeleteDetailImage(id) {
         $.ajax({
-            url: "{{route('detail.find')}}",
+            url: "{{route('delete.detail')}}",
             Type: "PUT",
             data: {
-                id: Property_diff
+                id: id,
             },
             success: function(data) {
-                console.log('gwa el ajax');
-                console.log(data);
-                var text = "";
-                Object.values(data).forEach(val => {
-                    text += "<li>" + val['Detail_Name'] + " : " + val['DetailValue'] + "</li>";
-                });
-                console.log(text);
-                var check = $("#diff" + Property_diff).html();
-                //   $("#diff" + Property_diff).html(text);
-                if (check == "") {
-                    $("#diff" + Property_diff).html(text);
-                } else {
-                    $("#diff" + Property_diff).html("");
-                }
+                $("#detailimage" + id).remove();
             },
-            error: function() {
-                console.log('Error');
-            }
+            error: function() {}
 
         });
-
-
 
     }
 
@@ -353,45 +337,69 @@
                         // console.log('found');
                         console.log(detail[0]['datatype']);
 
-                        
+
                         if (detail[0]['datatype'] == "file") {
-                          
-                        }else{
-                        Form += '@csrf <div class="form-group row"> ' +
-                            '<label for="' + detail[0]['Detail_Id'] + '" class="col-md-2 col-form-label text-md-right">' + detail[0]['Detail_Name'] + '</label>' +
-                            '<div class="col-md-5">';
+
+                        } else {
+                            Form += '@csrf <div class="form-group row"> ' +
+                                '<label for="' + detail[0]['Detail_Id'] + '" class="col-md-2 col-form-label text-md-right">' + detail[0]['Detail_Name'] + '</label>' +
+                                '<div class="col-md-5">';
                         }
-                            if (detail[0]['datatype'] == "file") {
-                          
-                            }
-                            else if (detail[0]['datatype'] == "checkbox") {
+
+
+                        if (detail[0]['datatype'] == "file") {
+                        }
+                        else if (detail[0]['datatype']  == "checkbox") {
                             if (detail[0]['DetailValue'] == "yes") {
                                 Form += '<input type="' + detail[0]['datatype'] + '" id="' + detail[0]['Detail_Id'] + '" name="DetailItem[]" value="' + detail[0]['DetailValue'] + '" class="form-check-input" checked>' +
                                     '</div>' +
                                     '</div>';
-                            } else{
+                            } else {
                                 Form += '<input type="' + detail[0]['datatype'] + '" id="' + detail[0]['Detail_Id'] + '" name="DetailItem[]" value="' + detail[0]['DetailValue'] + '" class="form-check-input" >' +
                                     '</div>' +
                                     '</div>';
                             }
-                        } else {
+                        } 
+                        else {
                             Form += '<input type="' + detail[0]['datatype'] + '" id="' + detail[0]['Detail_Id'] + '" name="DetailItem[]" value="' + detail[0]['DetailValue'] + '" class="form-control" >' +
+                                '</div>' +
+                                '</div>';
+                        }
+                        
+                        
+                        
+                    } else {
+                        if (val['datatype'] == "file") {
+
+                        } else {
+                            Form += '@csrf <div class="form-group row"> ' +
+                                '<label for="new" class="col-md-2 col-form-label text-md-right">' + val['Detail_Name'] + '</label>' +
+                                '<div class="col-md-5">'
                                 '</div>' +
                                 '</div>';
                         }
 
 
-
-                    } else {
-                        Form += ' <div class="form-group row"> ' +
-                            '<label for="new" class="col-md-2 col-form-label text-md-right">' + val['Detail_Name'] + '</label>' +
-                            '<div class="col-md-5">' +
-                            '<input type="' + val['datatype'] + '" name="DetailItem[]" id="prop' + val['Property_Detail_Id'] + '" class="form-control" >' +
-                            '<input type="hidden" id="diff" value="' + diff + '">' +
-                            '</div>' +
-                            '</div>';
+                        if (val['datatype'] == "file") {
+                        }
+                        else if (val['datatype']  == "checkbox") {
+                           
+                                Form += '<input type="' + val['datatype'] + '"  name="DetailItem[]"  class="form-check-input" >' +
+                                    '</div>' +
+                                    '</div>';
+                            
+                        } 
+                        else {
+                            Form += '<input type="' + val['datatype'] + '" name="DetailItem[]" class="form-control" >' +
+                                '</div>' +
+                                '</div>';
+                        }
+                        
                     }
                 });
+                Form += '<input type="hidden" id="diff" value="' + diff + '">' +
+                '</div>' +
+                    '</div>';
 
                 if (Form == '')
                     Form = 'No Property Details';
@@ -459,6 +467,13 @@
         });
 
     });
+
+    function formImage(item_id, property_id, diff){
+
+        var action="/addImageForAProperty/"+item_id+"/"+property_id+"/"+diff;
+
+        $('#imageform').attr('action',action).submit();
+    }
 </script>
 
 <style>

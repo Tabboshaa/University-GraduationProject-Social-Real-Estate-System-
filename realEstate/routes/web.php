@@ -255,7 +255,7 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/Details_show', 'DetailsController@show')->name('details_show');
     Route::post('/add_Details', 'DetailsController@create')->name('details_submit');
     Route::post('/Edit_Details', 'DetailsController@editDetails')->name('details.edit');
-    Route::post('/addImageForAProperty/{item_id}/{property_id}/{diff}', 'DetailsController@editDetails');
+    Route::post('/addImageForAProperty/{item_id?}/{property_id?}/{diff?}', 'DetailsController@AddImage');
 
 
     // Item  pages #Tabbosha
@@ -347,6 +347,7 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/findDetails', 'PropertyDetailsController@findDetailsForForminOwner')->name('Details.find');
     Route::get('/findDetailsForShow', 'DetailsController@findDetailsForShow')->name('detail.find'); //to be deleted!!
     Route::get('/DeleteDetailsOwner', 'DetailsController@destroydetails')->name('delete.details');
+    Route::get('/DeleteDetailImageOwner', 'DetailsController@destroydetail')->name('delete.detail');
 
 
     //User Pages #S
