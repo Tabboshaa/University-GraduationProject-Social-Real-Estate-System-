@@ -86,6 +86,7 @@ class RegisterController extends Controller
             'User_Type_ID'=>2
         ]);
 
+
         //return redirect('/HomeRegister');
         return redirect()->route('HomeRegister');
     }
