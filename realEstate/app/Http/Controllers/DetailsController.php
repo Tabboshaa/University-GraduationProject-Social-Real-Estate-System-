@@ -35,11 +35,10 @@ class DetailsController extends Controller
         $max = Details::max('Property_diff');
         $max += 1;
 
-
         foreach ($detailsInput as $detail) {
             $property_details = Property_Details::all()->where('Property_Detail_Id', '=', Arr::get($detail, 'id'))->first();
 
-
+            if (Arr::get($detail, 'value') != null) {
 
             $details[] = [
                 'Item_Id' => request('item_id'),
@@ -50,28 +49,25 @@ class DetailsController extends Controller
                 'Property_diff' => $max,
                 'DetailValue' => Arr::get($detail, 'value')
             ];
-
+        }
 
         }
 
         try {
-            Details::insert($details);
-            return back()->with('success', 'Detail Added');
+           Details::insert($details);
 
+           return $max;
         } catch (\Illuminate\Database\QueryException $e) {
-            $errorCode = $e->errorInfo[1];
-            if ($errorCode == 1062) {
-                return back()->with('error', 'Detail Already Exist !!');
-            }
-            return back()->withError($e->getMessage())->withInput();
+         return null;
         }
+        return null;
     }
 
     public function editDetails()
     {
 
         $detailsInput = request('DetailItem');
- 
+
 
         foreach ($detailsInput as $detail) {
 
@@ -88,8 +84,6 @@ class DetailsController extends Controller
                             $val = 'no';
                         }
                     } else if (Arr::get($detail, 'type') == 'file') {
-
-                      
                     } else {
                         $val = Arr::get($detail, 'value');
                     }
@@ -128,44 +122,44 @@ class DetailsController extends Controller
 
     }
 
-    public function AddImage($item_id,$property_id,$diff)
+
+    public function AddImage()
     {
+            return request()->all();
+        // try {
 
- 
-            try {
-                if ($files = request()->file('images')) {
-                    $property_details = Property_Details::all()->where('Property_Detail_Id', '=',  $property_id)->first();
+        if ($files = request()->file('images')) {
 
-                
-                    foreach ($files as $file) {
-                        $filename = $file->getClientOriginalName();
-                        $file->storeAs('/profile gallery', $filename, 'public');
+            $property_details = Property_Details::all()->where('Property_Id', '=', request('detailimagepropertyid'))->first();
 
-                            Details::create(
-                                [
-                                    'Item_Id' => $item_id,
-                                    'Main_Type_Id' =>  Arr::get($property_details, 'Main_Type_Id'),
-                                    'Sub_Type_Id' =>  Arr::get($property_details, 'Sub_Type_Id'),
-                                    'Property_Id' => Arr::get($property_details, 'Property_Id'),
-                                    'Property_Detail_Id' => Arr::get($property_details, 'Property_Detail_Id'),
-                                    'Property_diff' =>  $diff,
-                                    'DetailValue' =>   $filename
-                                ]
-                            );
-                        }
-                   
-                
-                    }
-                return 'done';
+            foreach ($files as $file) {
+                $filename = $file->getClientOriginalName();
+                $file->storeAs('/profile gallery', $filename, 'public');
 
-            } catch (\Illuminate\Database\QueryException $e) {
-                $errorCode = $e->errorInfo[1];
-                if ($errorCode == 1062) {
-                    return back()->with('error', 'Error editing Detail');
-                }
-                return back()->withError($e->getMessage())->withInput();
-            
+                $detail = Details::create(
+                    [
+                        'Item_Id' => request('detailimageitemid'),
+                        'Main_Type_Id' =>  Arr::get($property_details, 'Main_Type_Id'),
+                        'Sub_Type_Id' =>  Arr::get($property_details, 'Sub_Type_Id'),
+                        'Property_Id' => request('detailimagepropertyid'),
+                        'Property_Detail_Id' => 6,
+                        'Property_diff' =>  request('detailimagediff'),
+                        'DetailValue' =>   $filename
+                    ]
+                );
+            }
         }
+
+        return back()->with('success', 'Detail Added');
+
+        //     } catch (\Illuminate\Database\QueryException $e) {
+        //         $errorCode = $e->errorInfo[1];
+        //         if ($errorCode == 1062) {
+        //             return back()->with('error', 'Error editing Detail');
+        //         }
+        //         return back()->withError($e->getMessage())->withInput();
+
+        // }
         //         return back()->with('info', 'Detail Edited Successfully');
 
     }
@@ -190,7 +184,7 @@ class DetailsController extends Controller
             $detail->DetailValue = request('DetailName');
             $detail->save();
 
-              return back()->with('info', 'Detail Edited Successfully');
+            return back()->with('info', 'Detail Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -211,22 +205,21 @@ class DetailsController extends Controller
                 return redirect()->route('details_show')->with('error', 'Detail cannot be deleted');
                 return back()->withError($e->getMessage())->withInput();
             }
-          
         } else return redirect()->route('details_show')->with('warning', 'No Detail was chosen to be deleted.. !!');
     }
 
 
-    public function destroydetail(Request $request)
+    public function destroydetail()
     {
         if (request()->has('id')) {
             try {
-                Details::destroy($request->id);
+                Details::destroy(request('id'));
+                
                 return redirect()->back()->with('success', 'Detail Deleted Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
                 return back()->withError($e->getMessage())->withInput();
                 return redirect()->back()->with('error', 'Detail cannot be deleted');
             }
-           
         } else return redirect()->back()->with('warning', 'No Detail was chosen to be deleted.. !!');
     }
 
