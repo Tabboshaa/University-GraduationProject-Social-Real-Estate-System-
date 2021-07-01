@@ -80,7 +80,7 @@
             </div>
         </div>
         <?php $temp = ''; ?>
-        <div id="div{{$year}}" style="display: none;">
+        <div id="div{{$year}}" >
             @foreach($schedulesInYear as $month => $schedules)
             {{-- END...FOR EACH TO PRINT YEARS--}}
             <?php $dateObj   = DateTime::createFromFormat('!m', $month);

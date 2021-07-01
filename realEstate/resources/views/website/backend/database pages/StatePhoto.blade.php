@@ -94,7 +94,7 @@
                     </div>
                     <div class="form-group row mb-0">
                         <div class="col-md-2 offset-md-2">
-                            <input type="file" id="myFile" name="filename"><br>
+                            <input type="file" accept="image/*" id="myFile" name="filename"><br>
                             <button id = "btun1" style="margin-top:20px;"> Upload </button>
                         </div>
                     </div>

@@ -255,6 +255,7 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/Details_show', 'DetailsController@show')->name('details_show');
     Route::post('/add_Details', 'DetailsController@create')->name('details_submit');
     Route::post('/Edit_Details', 'DetailsController@editDetails')->name('details.edit');
+    Route::post('/addImageForAProperty/{item_id}/{property_id}/{diff}', 'DetailsController@editDetails');
 
 
     // Item  pages #Tabbosha

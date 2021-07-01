@@ -14,6 +14,7 @@ use PayPal\Rest\ApiContext;
 
 use App\Emails;
 use App\Item;
+use Exception;
 
 class PaypalController extends Controller
 {

@@ -43,7 +43,7 @@
                         {{ __('Upload Images:') }}
                     </label>
                     <div class="col-md-2">
-                    <input type="file" class="form-control" name="images[]" placeholder="upload Images" multiple>
+                    <input type="file" class="form-control" name="images[]" accept="image/*" placeholder="upload Images" multiple>
                         @error('Upload Images')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
