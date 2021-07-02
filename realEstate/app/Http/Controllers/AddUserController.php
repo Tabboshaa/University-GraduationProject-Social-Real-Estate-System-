@@ -79,6 +79,15 @@ class AddUserController extends Controller
         }
     }
 
+    public function AdminProfile()
+    {
+        $User_ID = Auth::id();
+        $user = User::all()->where('id', '=', $User_ID)->first();
+        $email = Emails::all()->where('User_ID', '=', $User_ID)->first();
+        $phone = Phone_Numbers::all()->where('User_ID', '=', $User_ID)->first();
+        return view('website.backend.database pages.Admin_profile', ['user' => $user, 'email' => $email, 'phone' => $phone]);
+    }
+
     public function EditUserProfileVeiw()
     {
         $User_ID = Auth::id();
@@ -414,4 +423,5 @@ class AddUserController extends Controller
             return true;
         } else return false;
     }
+    
 }

@@ -407,3 +407,4 @@ Route::POST('/ForgotPassword','Auth\ForgotPasswordController@forgotPassword');
 //});
 Route::get('changePassword','AddUserController@changePassword')->name('changePassword');
 Route::POST('activateRegister','Auth\RegisterController@activateRegister')->name('activateRegister');
+Route::get('AdminProfile','AddUserController@AdminProfile');
