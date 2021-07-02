@@ -2,46 +2,46 @@
 @section('profile_Content')
 
 <form id="testform" method="post" action="{{url('/add_item_gallery/'.$item_id)}}" enctype="multipart/form-data">
-        @csrf
-        <div class="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3 mt-3">
-            <label>Add image to your Property </label>
-            <div class="form-group" id="OpenImgUpload" >
-                <input type="submit" class="btn" value="Choose File">
-                <input type="file" name="images[]"  class="d-none d-lg-block bg-blue-gradiant p-3 mb-3 ms-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 w-auto" accept="image/*" onchange="javascript:$('#testform').submit();"  multiple ><br>
-                <input type="hidden" value="test" name="test">
-                <span>Maximum file size 100MB</span>
-            </div>
+    @csrf
+    <div class="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3 mt-3">
+        <label>Add image to your Property </label>
+        <div class="form-group" id="OpenImgUpload">
+            <input type="submit" class="btn" value="Choose File">
+            <input type="file" name="images[]" class="d-none d-lg-block bg-blue-gradiant p-3 mb-3 ms-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 w-auto" accept="image/*" onchange="javascript:$('#testform').submit();" multiple><br>
+            <input type="hidden" value="test" name="test">
+            <span>Maximum file size 100MB</span>
         </div>
+    </div>
 </form>
 
-        @if( count($gallery) != 0)
-        <a class="d-none d-lg-block bg-blue-gradiant p-3 mb-3 ms-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 w-auto" href="javascript:void(0)" onclick="SelectImg()">Select</a>
-        <a href="javascript:void(0)" id="deleteLinke" onclick="deleteImg()" style="display: none;"><i class="feather-trash font-lg ms-3"></i></a>
-        @endif
+@if( count($gallery) != 0)
+<a class="d-none d-lg-block bg-blue-gradiant p-3 mb-3 ms-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 w-auto" href="javascript:void(0)" onclick="SelectImg()">Select</a>
+<a href="javascript:void(0)" id="deleteLinke" onclick="deleteImg()" style="display: none;"><i class="feather-trash font-lg ms-3"></i></a>
+@endif
 
-        <table id="result" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+<table id="result" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
 
-        </table>
-    @if( count($gallery) != 0)
-    <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
-            <div class=row>
-            @foreach($gallery as $Image)
-            <div class="col-6 mb-2 pe-1"><a href="{{asset('storage/profile gallery/'.$Image->File_Path)}}" data-lightbox="roadtrip"><img src="{{asset('storage/profile gallery/'.$Image->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
-            <input type="checkbox" name="Dcheckbox" value="{{$Image->Attachment_Id}}" style="display: none;">
+</table>
+@if( count($gallery) != 0)
+<div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
+    <div class=row>
+        @foreach($gallery as $Image)
+        <div class="col-6 mb-2 pe-1"><a href="{{asset('storage/profile gallery/'.$Image->File_Path)}}" data-lightbox="roadtrip"><img src="{{asset('storage/profile gallery/'.$Image->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+        <input type="checkbox" name="Dcheckbox" value="{{$Image->Attachment_Id}}" style="display: none;">
 
-            @endforeach
-        </div>
+        @endforeach
     </div>
-    @else
-    <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
-        <div class="card-body p-0 d-flex">
-            <p class="fw-500 text-grey-500 lh-26 font-xssss w-100">
-                No Images are posted for this item yet..<br />
-            </p>
-        </div>
-        <div class="clearfix"></div>
+</div>
+@else
+<div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
+    <div class="card-body p-0 d-flex">
+        <p class="fw-500 text-grey-500 lh-26 font-xssss w-100">
+            No Images are posted for this item yet..<br />
+        </p>
     </div>
-    @endif
+    <div class="clearfix"></div>
+</div>
+@endif
 </div>
 
 <div class="modal fade" id="ImageModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

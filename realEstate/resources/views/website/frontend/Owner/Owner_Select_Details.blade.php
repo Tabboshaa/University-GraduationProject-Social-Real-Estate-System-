@@ -36,7 +36,7 @@
                                 <span id="detailImageSpan" class="js-fileName">Drag and drop or click to replace</span>
                             </label>
                             <input type="file" id="detailImageInput" name="images[]"  multiple>
-                        </div>
+                        </div>c
                     </div>
                     <input type="hidden" id="detailimageitemid" name="detailimageitemid">
                     <input type="hidden" id="detailimagepropertyid" name="detailimagepropertyid">
