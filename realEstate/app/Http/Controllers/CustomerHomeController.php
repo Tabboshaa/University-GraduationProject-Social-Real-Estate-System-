@@ -94,7 +94,7 @@ class CustomerHomeController extends Controller
             ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
             ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
             ->select('post_attachments.*', 'attachments.File_Path')->where('items.Item_Id', '=', $id)->paginate(6);
-        // $item = AddUserController::getItemWithOwnerName($id);
+        // $item = UserController::getItemWithOwnerName($id);
         $item = Item::find($id);
 
         $User_Id = Auth::id();

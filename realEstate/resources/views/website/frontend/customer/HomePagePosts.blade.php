@@ -168,7 +168,6 @@
             <div class="card-body d-block p-4">
                 <h4 class="fw-700 mb-3 font-xsss text-grey-900"> Popular items <i class="fa fa-fire"></i></h4>
                 <p class="fw-500 text-grey-500 lh-24 font-xssss mb-0">Popular items right now </p>
-
             </div>
             <div class="card-body border-top-xs d-flex">
                 <div class=row>

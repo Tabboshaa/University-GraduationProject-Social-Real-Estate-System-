@@ -4,10 +4,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add Details</h5>
-                    <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
+            <p id="errormsg" class="text-red font-xssss "></p>
+
                 <form id="data_form_details">
                     @csrf
                 </form>
@@ -15,6 +17,39 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="AddDetailImagesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Do you want to insert images?</h5>
+                <span aria-hidden="true">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="details_images_form" method="POST" action="{{url('/addImageForAProperty')}}" enctype="multipart/form-data"  >
+                    @csrf
+                    <div class="card-body d-flex justify-content-between align-items-end p-0">
+                        <div class="form-group mb-0 w-100">
+
+                            <label for="detailImageInput" class="rounded-3 text-center bg-white btn-tertiary js-labelFile p-4 w-100 border-dashed">
+                                <i class="ti-cloud-down large-icon me-3 d-block"></i>
+                                <span id="detailImageSpan" class="js-fileName">Drag and drop or click to replace</span>
+                            </label>
+                            <input type="file" id="detailImageInput" name="images[]"  multiple>
+                        </div>c
+                    </div>
+                    <input type="hidden" id="detailimageitemid" name="detailimageitemid">
+                    <input type="hidden" id="detailimagepropertyid" name="detailimagepropertyid">
+                    <input type="hidden" id="detailimagediff" name="detailimagediff">
+                    <button type="submit" class="btn btn-primary">
+                    Add
+                </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section('profile')
 <div class="col-xl-12">
     <div class="row">
@@ -37,7 +72,7 @@
                         <ul class="mt-3">
                             <li class="mt-1 mb-1">
                                 <a href="javascript:void(0)" id="details" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')" class=" theme-dark-bg p-2 w-80 border-0 rounded-3 text-dark text-grey-500 text-left fw-600 font-xsss align-items-center"><span class="btn-round-xss ms-2 bg-primary me-3"></span> {{ __($p->Property_Name) }}
-                                    <a href="javascript:void(0)" id="details" onclick="AddDetail('{{$p->Property_Id}}','{{$p->Property_Name}}')" class="float-right btn-round-sm bg-primary-gradiant " data-bs-toggle="modal" data-bs-target="#Modaltodo"><i class="feather-plus font-xss text-white"></i></a>
+                                    <a href="javascript:void(0)" id="details" onclick="AddDetail('{{$item_id}}','{{$p->Property_Id}}','{{$p->Property_Name}}')" class="float-right btn-round-sm bg-primary-gradiant " data-bs-toggle="modal" data-bs-target="#Modaltodo"><i class="feather-plus font-xss text-white"></i></a>
                                 </a>
                             </li>
                             <br>
@@ -56,7 +91,7 @@
 
 
 <script>
-    function AddDetail(id, name) {
+    function AddDetail(item,id, name) {
 
         $("#exampleModalLabel").html(name);
         var Form = '';
@@ -68,29 +103,35 @@
             },
             success: function(data) {
                 console.log('success');
+                $('#item_id').val(item);
+                $('#detailimageitemid').val(item);
+                $('#detailimagepropertyid').val(id);
+
                 $("#EditMainTypeModal").modal("toggle");
 
                 Object.values(data).forEach(val => {
 
                     Form += ' <div class="form-group row"> ' +
-                            '<label for="' + val['Property_Detail_Id'] + '" class="col-md-2 col-form-label text-md-right">' + val['Detail_Name'] + '</label>' +
-                            '<div class="col-md-5">';
+                        '<label for="' + val['Property_Detail_Id'] + '" class="col-md-2 col-form-label text-md-right">' + val['Detail_Name'] + '</label>' +
+                        '<div class="col-md-5">';
 
-                        if (val['datatype'] == "checkbox") {
-                            if (val['DetailValue'] == "yes") {
-                                Form += '<input type="' + val['datatype'] + '" id="' + val['Property_Detail_Id'] + '" name="DetailItem[]"  class="form-check-input" checked>' +
-                                    '</div>' +
-                                    '</div>';
-                            } else {
-                                Form += '<input type="' + val['datatype'] + '" id="' + val['Property_Detail_Id'] + '" name="DetailItem[]"  class="form-check-input" >' +
-                                    '</div>' +
-                                    '</div>';
-                            }
+                    if (val['datatype'] == "checkbox") {
+                        if (val['DetailValue'] == "yes") {
+                            Form += '<input type="' + val['datatype'] + '" id="' + val['Property_Detail_Id'] + '" name="DetailItem[]"  class="form-check-input" checked>' +
+                                '</div>' +
+                                '</div>';
                         } else {
-                            Form += '<input type="' + val['datatype'] + '" id="' + val['Property_Detail_Id'] + '" name="DetailItem[]"  class="form-control" >' +
+                            Form += '<input type="' + val['datatype'] + '" id="' + val['Property_Detail_Id'] + '" name="DetailItem[]"  class="form-check-input" >' +
                                 '</div>' +
                                 '</div>';
                         }
+                    } else if (val['datatype'] == "file"){
+
+                    }else{
+                        Form += '<input type="' + val['datatype'] + '" id="' + val['Property_Detail_Id'] + '" name="DetailItem[]"  class="form-control" >' +
+                            '</div>' +
+                            '</div>';
+                    }
 
                 });
                 if (Form == '')
@@ -114,7 +155,9 @@
 
     }
 
-    $('#data_form').submit(function() {
+    $('#data_form_details').submit(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
         var data = [];
         var item_id = $("#item_id").val();
         //3iza ageeb kol el inputs b get element by name
@@ -135,9 +178,22 @@
                 item_id: item_id,
                 _token: _token
             },
-            success: function(msg) {
+            success: function(max) {
+
                 //hna 3iza anady 3la created succefully
-                console.log(msg);
+                console.log(max);
+                $('#detailimagediff').val(max)
+                console.log( $('#detailimageitemid').val());
+                console.log( $('#detailimagediff').val());
+                console.log( $('#detailimagepropertyid').val());
+
+                if(max != ""){
+                    $("#EditMainTypeModal").modal("hide");
+                    $('#detailimagediff').val(max);
+                $("#AddDetailImagesModal").modal("toggle");
+                }else{
+                    $("#errormsg").html("you have to insert at least one detail");
+                }
             },
             error: function() {
                 // hna anady 3la not created w kdaho
@@ -146,6 +202,10 @@
         });
 
     });
+
+
+
+
 </script>
 
 @endsection

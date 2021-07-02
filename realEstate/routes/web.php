@@ -106,8 +106,8 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::post('/CreateCoverPage/{id?}', 'CoverPageController@create');
     //Follow
     //Follow
-    Route::get('/FollowItem/{id?}', 'AddUserController@FollowedItem');
-    Route::get('/UnfollowItem/{id?}', 'AddUserController@UnfollowItem');
+    Route::get('/FollowItem/{id?}', 'UserController@FollowedItem');
+    Route::get('/UnfollowItem/{id?}', 'UserController@UnfollowItem');
 
     Route::get('/FollowUser/{id?}', 'FollowedusersController@FollowedUser');
     Route::get('/UnfollowUser/{id?}', 'FollowedusersController@UnfollowUser');
@@ -130,10 +130,10 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/shaimaa', 'CustomerHomeController@indexPhoto');
     Route::get('/myReservations', 'ReservationController@show');
 
-            Route::Post('/BeOwner/{id?}', 'AddUserController@BeOwner')->name('BeOwner');
-    Route::get('/BeOwner/{id?}', 'AddUserController@BeOwner');
+            Route::Post('/BeOwner/{id?}', 'UserController@BeOwner')->name('BeOwner');
+    Route::get('/BeOwner/{id?}', 'UserController@BeOwner');
 
-    Route::get('/checkIfOwner', 'AddUserController@checkIfOwner')->name('checkIfOwner');
+    Route::get('/checkIfOwner', 'UserController@checkIfOwner')->name('checkIfOwner');
 
     //Owner
     Route::post('/OwnerAddItem', 'ItemController@OwnerAddItem');
@@ -255,7 +255,7 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/Details_show', 'DetailsController@show')->name('details_show');
     Route::post('/add_Details', 'DetailsController@create')->name('details_submit');
     Route::post('/Edit_Details', 'DetailsController@editDetails')->name('details.edit');
-    Route::post('/addImageForAProperty/{item_id}/{property_id}/{diff}', 'DetailsController@editDetails');
+    Route::POST('/addImageForAProperty/{item_id?}/{property_id?}/{diff?}', 'DetailsController@AddImage');
 
 
     // Item  pages #Tabbosha
@@ -281,7 +281,7 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/delete_posts/{id?}', 'PostsController@destroy');
 
     Route::get('/item_gallery/{id}', 'AttachmentController@index');
-    Route::Post('/add_item_gallery/{id}', 'AttachmentController@create');
+    Route::POST('/add_item_gallery/{id}', 'AttachmentController@create');
     Route::get('/delete_gallery/{id?}', 'AttachmentController@destroy');
     Route::get('/edit_Comment', 'CustomerHomeController@editComment')->name('Comment.update');
     Route::get('/deletecomment/{id?}', 'CustomerHomeController@DestroyComment');
@@ -347,18 +347,19 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/findDetails', 'PropertyDetailsController@findDetailsForForminOwner')->name('Details.find');
     Route::get('/findDetailsForShow', 'DetailsController@findDetailsForShow')->name('detail.find'); //to be deleted!!
     Route::get('/DeleteDetailsOwner', 'DetailsController@destroydetails')->name('delete.details');
+    Route::get('/DeleteDetailImageOwner', 'DetailsController@destroydetail')->name('delete.detail');
 
 
     //User Pages #S
-    Route::get('/User', 'AddUserController@Index');
-    Route::Post('/Add_User', 'AddUserController@create');
+    Route::get('/User', 'UserController@Index');
+    Route::Post('/Add_User', 'UserController@create');
     Route::get('/show_users', 'UserTypes@get_user_types');
     Route::get('/TypeOfUser', 'UserTypes@getUser')->name('users_show');
-    Route::delete('/delete_user/{id?}', 'AddUserController@destroy');
-    Route::get('/edit_User_Name', 'AddUserController@editUserName')->name('UserName.update');
-    Route::get('/edit_User_Email', 'AddUserController@editUserEmail')->name('UserEmail.update');
-    Route::get('/edit_User_PhoneNumber', 'AddUserController@editUserPhoneNumber')->name('UserPhoneNumber.update');
-    Route::get('/view_User/{id}', 'AddUserController@show');
+    Route::delete('/delete_user/{id?}', 'UserController@destroy');
+    Route::get('/edit_User_Name', 'UserController@editUserName')->name('UserName.update');
+    Route::get('/edit_User_Email', 'UserController@editUserEmail')->name('UserEmail.update');
+    Route::get('/edit_User_PhoneNumber', 'UserController@editUserPhoneNumber')->name('UserPhoneNumber.update');
+    Route::get('/view_User/{id}', 'UserController@show');
 
     Route::Post('/item_created', 'ItemController@itemShow');
 
@@ -368,7 +369,7 @@ Route::group(['middleware' => 'Admin'], function () {
     });
     //search user
 
-    Route::post('/search_user', 'AddUserController@search')->name('search');
+    Route::post('/search_user', 'UserController@search')->name('search');
     Route::get('/operationtypes', function () {
         return view('website\backend.database pages.operationTypes');
     });
@@ -397,14 +398,14 @@ Route::get('map',function (){
     return view('map');
 });
 
-Route::get('EditUserProfile','AddUserController@EditUserProfileVeiw');
-Route::POST('/EditUserProfile1','AddUserController@EditUserProfile');
+Route::get('EditUserProfile','UserController@EditUserProfileVeiw');
+Route::POST('/EditUserProfile1','UserController@EditUserProfile');
 Route::POST("/EditItemMap/{id?}",'ItemController@EditItemMap');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::POST('/ForgotPassword','Auth\ForgotPasswordController@forgotPassword');
 //Route::get('/ForgotPassword' ,function () {
 //    return view('website\frontend\login');
 //});
-Route::get('changePassword','AddUserController@changePassword')->name('changePassword');
+Route::get('changePassword','UserController@changePassword')->name('changePassword');
 Route::POST('activateRegister','Auth\RegisterController@activateRegister')->name('activateRegister');
 Route::get('AdminProfile','AddUserController@AdminProfile');

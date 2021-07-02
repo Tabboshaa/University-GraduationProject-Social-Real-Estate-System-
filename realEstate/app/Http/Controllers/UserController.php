@@ -17,7 +17,7 @@ use App\Country;
 // use Auth;/
 use Illuminate\Support\Facades\Auth;
 
-class AddUserController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -99,6 +99,7 @@ class AddUserController extends Controller
 
         return view('website.frontend.customer.EditUserProfile', ['user' => $user, 'email' => $email, 'phone' => $phone, 'image' => $image]);
     }
+    
     public function EditUserProfile()
     {
         try {

@@ -36,29 +36,30 @@ class AttachmentController extends Controller
      */
     public function create($id)
     {
-      
+    //   return request()->all();
         //
         try {
 
             if ($files = request()->file('images')) {
-               
-                
+
+
                     foreach ($files as $file) {
                     $filename = $file->getClientOriginalName();
+                        // return $filename;
                     $file->storeAs('/profile gallery', $filename, 'public');
 
                     $attachment = attachment::create(['File_Path' => $filename]);
-
                     $post_attachment = post_attachment::create([
                         'Post_Id' => null,
                         'Attachment_Id' =>  $attachment->Attachment_Id,
                         'Item_Id' => $id
                     ]);
+                    return $post_attachment;
                 }
-                
+
             }
-           
-            
+
+
             return back()->with('success', 'Attachment Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
 
@@ -127,7 +128,7 @@ class AttachmentController extends Controller
         return $post_attachment;
     }
 
-    //function btgeeb attatchment bta3 post 
+    //function btgeeb attatchment bta3 post
     public static function getAttachmentsOfPosts($post_id)
     {
         //
@@ -166,6 +167,6 @@ class AttachmentController extends Controller
             return redirect()->back()->with('error', 'Attachment cannot be deleted');
             return back()->withError($e->getMessage())->withInput();
         }
-       
+
 }
 }
