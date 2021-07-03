@@ -120,10 +120,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/getRepliesFromComment', 'CommentsController@GetCommentReply')->name('get.replies');
     Route::get('/getComment', 'CommentsController@GetComments')->name('get.comments');
 
-    Route::get('/EditCustomerProfile', function () {
-        return view('website.frontend.customer.Customer_Own_Profile');
-    });
-    Route::get('/EditCustomerProfile', 'CustomerHomeController@showMyProfile');
+    Route::get('/EditCustomerProfile', 'UserController@showMyProfile');
     Route::get('/ReservationShow', 'ReservationController@show');
     Route::get('/StatesPhotos', 'StatePhotoController@index');
     Route::POST('/add_StatePhoto', 'StatePhotoController@create');
@@ -146,6 +143,8 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/owneritemReviews/{id?}', 'ItemProfileController@itemProfileReviews');
     Route::get('/owneritemReservations/{id?}', 'ItemProfileController@itemReservations');
     Route::get('/owneritemManageSchedule/{id?}', 'ItemProfileController@itemManageSchedule');
+    Route::get('/owneradditemschedule', 'ScheduleController@Ownercreate')->name('Add_Schedule');
+
     Route::get('/MyItems', 'OwnerController@index');
     Route::get('/MyReservations', 'OwnerController@getReservations');//not done
 
@@ -271,7 +270,7 @@ Route::group(['middleware' => 'Admin'], function () {
 
     Route::get('/item_schedule/{id}', 'ScheduleController@index');
     Route::get('/show_item_schedule/{id}', 'ScheduleController@show')->name('show_item_schedule');
-    Route::get('/add_item_schedule/{id?}', 'ScheduleController@create')->name('Add_Schedule');
+    Route::post('/add_item_schedule/{id?}', 'ScheduleController@create');
     Route::delete('/delete_schedule', 'ScheduleController@destroy');
     Route::get('/edit_schedule', 'ScheduleController@edit')->name('schedule.update');
 
@@ -319,9 +318,9 @@ Route::group(['middleware' => 'Admin'], function () {
 
     // Dynamic Drop Down For Country #s
     Route::get('/D1', 'StateController@findstate');
-    Route::get('/D2', 'CityController@findstate');
+    Route::get('/D2', 'StateController@findstate');
     Route::get('/D3', 'CityController@findcity');
-    Route::get('/D4', 'RegionController@findstate');
+    Route::get('/D4', 'StateController@findstate');
     Route::get('/D5', 'RegionController@findcity');
     Route::get('/D6', 'RegionController@findregion');
     Route::get('/D7', 'StreetController@findstreet');

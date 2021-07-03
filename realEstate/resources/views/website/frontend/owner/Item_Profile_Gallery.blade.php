@@ -6,8 +6,16 @@
     <div class="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3 mt-3">
         <label>Add image to your Property </label>
         <div class="form-group" id="OpenImgUpload">
-            <input type="submit" class="btn" value="Choose File">
-            <input type="file" name="images[]" class="d-none d-lg-block bg-blue-gradiant p-3 mb-3 ms-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 w-auto" accept="image/*" onchange="javascript:$('#testform').submit();" multiple><br>
+            <!-- <input type="submit" class="btn" value="Choose File"> -->
+            <!-- <input type="file" name="images[]" class="d-none d-lg-block bg-blue-gradiant p-3 mb-3 ms-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 w-auto" accept="image/*" onchange="javascript:$('#testform').submit();" multiple><br> -->
+            <div class="form-group mb-0 w-100">
+                <label for="ImageInput" class="rounded-3 text-center bg-white btn-tertiary js-labelFile p-4 w-100 border-dashed">
+                    <i class="ti-cloud-down large-icon me-3 d-block"></i>
+                    <span id="ImageSpan" class="js-fileName">Drag and drop or click to replace</span>
+                </label>
+                <input type="file" name="images[]" id="ImageInput" accept="image/*" onchange="javascript:$('#testform').submit();" multiple>
+            </div>
+
             <input type="hidden" value="test" name="test">
             <span>Maximum file size 100MB</span>
         </div>
@@ -28,7 +36,6 @@
         @foreach($gallery as $Image)
         <div class="col-6 mb-2 pe-1"><a href="{{asset('storage/profile gallery/'.$Image->File_Path)}}" data-lightbox="roadtrip"><img src="{{asset('storage/profile gallery/'.$Image->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
         <input type="checkbox" name="Dcheckbox" value="{{$Image->Attachment_Id}}" style="display: none;">
-
         @endforeach
     </div>
 </div>

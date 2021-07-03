@@ -534,30 +534,6 @@ class CustomerHomeController extends Controller
         }
     }
 
-    //route byro7 3la index aw function show da bst5dmo lma ha show variables
-    //fe el blade in the same time the route passes me to the blade
-    public function showMyProfile()
-    {
-        $id = Auth::id();
-        $user = User::all()->where('id', '=', $id)->first();
-        $posts = PostsController::userPosts($id);
-        $profile_photo = ProfilePhotoController::getPhoto($id);
-        $cover_photo = CoverPhotoController::sendCoverPhotoToProfile($id);
-        $post_images = AttachmentController::getAttachmentsOfPosts($id);
-
-        $post_images = [];
-
-        foreach ($posts as $post) {
-            $post_image = AttachmentController::getAttachmentsOfPosts($post->Post_Id);
-
-            $post_images = collect($post_images)->merge($post_image);
-        }
-
-        if ($post_images != null) {
-            $post_images = $post_images->groupby('Post_Id');
-        }
-        return view('website\frontend\customer\Customer_Own_Profile', ['First_Name' => $user->First_Name, 'Middle_Name' => $user->Middle_Name, 'Last_Name' => $user->Last_Name, 'Cover_Photo' => $cover_photo, 'Profile_Photo' => $profile_photo, 'posts' => $posts, 'post_images' => $post_images]);
-    }
 
     public function showReservation()
     {

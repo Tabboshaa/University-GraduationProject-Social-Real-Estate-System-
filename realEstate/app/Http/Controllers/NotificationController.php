@@ -48,6 +48,7 @@ class NotificationController extends Controller
     {
         //
         try {
+            if($To_id != $From_id ){ //check if user is not sent a notification to himself
             Notification::create([
                 'To_User_Id' => $To_id,
                 'From_User_Id' => $From_id,
@@ -55,6 +56,7 @@ class NotificationController extends Controller
                 'Redirect_To' => $redirect_to,
                 'Viewed' => 0
             ]);
+        }
             return back();
         } catch (\Illuminate\Database\QueryException $e) {
 

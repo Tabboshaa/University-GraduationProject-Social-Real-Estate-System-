@@ -99,9 +99,10 @@ class UserController extends Controller
 
         return view('website.frontend.customer.EditUserProfile', ['user' => $user, 'email' => $email, 'phone' => $phone, 'image' => $image]);
     }
-    
+
     public function EditUserProfile()
     {
+        DB::beginTransaction();
         try {
             $User_ID = Auth::id();
             $user = User::all()->find($User_ID);
@@ -119,8 +120,10 @@ class UserController extends Controller
             $user->Last_Name = request('Lname');
             $user->save();
 
+            DB::commit();
             return back()->with('error', 'City Already Exist !!');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'City Already Exist !!');
@@ -142,12 +145,15 @@ class UserController extends Controller
         else
             return 1;
     }
+
     public function BeOwner($user_id = null)
     {
 
+        DB::beginTransaction();
+        try {
         $countries = Country::all();
         if (\request('allDone')) {
-
+            
             $typeOfUser = Type_Of_User::create([
                 'User_ID' => $user_id,
                 'User_Type_ID' => 3
@@ -158,23 +164,23 @@ class UserController extends Controller
             return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
         } else {
             $user = User::all()->find($user_id);
-
-            if(request('First')!=null)
-                $user->First_Name = request('First');
-            if(request('Middle')!=null)
-                $user->Middle_Name = request('Middle');
-            if(request('Last')!=null)
+            
+            if (request('First') != null)
+            $user->First_Name = request('First');
+            if (request('Middle') != null)
+            $user->Middle_Name = request('Middle');
+            if (request('Last') != null)
                 $user->Last_Name = request('Last');
-            if(request('National')!=null)
+                if (request('National') != null)
                 $user->National_ID = request('National');
-            $user->save();
-
-
+                $user->save();
+              
+                
             $phone_number = Phone_Numbers::all()->where('User_ID', '=', $user->id);
 
-
+            
             if ($phone_number == '[]') {
-
+                
                 $phone_number = Phone_Numbers::create([
                     'User_ID' => $user_id,
                     'phone_number' => request('Phone'),
@@ -193,6 +199,20 @@ class UserController extends Controller
             }
             return redirect()->back();
         }
+        DB::commit();
+    } catch (\Illuminate\Database\QueryException $e) {
+        DB::rollBack();
+        $errorCode = $e->errorInfo[1];
+        if ($errorCode == 1062) {
+            return back()->with('error', 'City Already Exist !!');
+        }
+        if ($errorCode == 1048) {
+            return back()->with('error', 'You must select all values!!');
+        } else {
+            return $e->errorInfo;
+        }
+    }
+
     }
     /**
      * Store a newly created resource in storage.
@@ -271,6 +291,51 @@ class UserController extends Controller
             'items' => $user->items,
             'check_follow' =>  $check_follow,
 
+        ]);
+    }
+
+
+    //route byro7 3la index aw function show da bst5dmo lma ha show variables
+    //fe el blade in the same time the route passes me to the blade
+    public function showMyProfile()
+    {
+        $user = User::all()->where('id', '=', Auth::id())->first();
+
+        $posts = PostsController::userPosts(Auth::id());
+        $profile_photo = ProfilePhotoController::getPhoto(Auth::id());
+        $cover_photo = CoverPhotoController::getPhoto(Auth::id());
+        $post_images = AttachmentController::getPostAttachments(Auth::id());
+        $gallery = AttachmentController::getAttachmentsOfuser(Auth::id());
+        $post_images = [];
+
+        foreach ($posts as $post) {
+            $post_image = AttachmentController::getAttachmentsOfPosts($post->Post_Id);
+
+            $post_images = collect($post_images)->merge($post_image);
+        }
+
+        if ($post_images != null) {
+            $post_images = $post_images->groupby('Post_Id');
+        }
+
+        $User = Auth::user();
+
+        // commented for test only
+
+        return view('website\frontend\customer\Customer_Own_Profile', [
+            'id' =>  Auth::id(),
+            'User' => $User,
+            'First_Name' => $user->First_Name,
+            'Email' => $user->email,
+            'Middle_Name' => $user->Middle_Name,
+            'Last_Name' => $user->Last_Name,
+            'Cover_Photo' => $cover_photo,
+            'Profile_Photo' => $profile_photo,
+            'posts' => $posts,
+            'post_images' => $post_images,
+            'followedItems' => $user->followedItems,
+            'gallery' => $gallery,
+            'items' => $user->items,
         ]);
     }
 

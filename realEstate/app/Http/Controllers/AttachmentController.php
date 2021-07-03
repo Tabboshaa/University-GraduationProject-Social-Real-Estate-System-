@@ -36,7 +36,7 @@ class AttachmentController extends Controller
      */
     public function create($id)
     {
-    //   return request()->all();
+
         //
         try {
 
@@ -45,7 +45,7 @@ class AttachmentController extends Controller
 
                     foreach ($files as $file) {
                     $filename = $file->getClientOriginalName();
-                        // return $filename;
+                   
                     $file->storeAs('/profile gallery', $filename, 'public');
 
                     $attachment = attachment::create(['File_Path' => $filename]);
@@ -54,11 +54,10 @@ class AttachmentController extends Controller
                         'Attachment_Id' =>  $attachment->Attachment_Id,
                         'Item_Id' => $id
                     ]);
-                    return $post_attachment;
+           
                 }
 
             }
-
 
             return back()->with('success', 'Attachment Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
