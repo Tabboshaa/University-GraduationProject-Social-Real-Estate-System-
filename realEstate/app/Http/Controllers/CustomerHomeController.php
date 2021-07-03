@@ -33,13 +33,13 @@ class CustomerHomeController extends Controller
         $user_id = Auth::id();
         $user = Type_Of_User::all()->where('User_ID', '=', $user_id)->where('User_Type_ID', '=', 3);
 
-        $phone=Phone_Numbers::all()->where('User_ID', '=', $user_id)->first();
+        $phone = Phone_Numbers::all()->where('User_ID', '=', $user_id)->first();
         if ($user == '[]') {
             $user = '0';
         } else {
             $user = '1';
         }
-        return view("website.frontend.customer.CustomerHome", ['states' => $state, 'checkIfOwner' => $user,'phone'=>$phone]);
+        return view("website.frontend.customer.CustomerHome", ['states' => $state, 'checkIfOwner' => $user, 'phone' => $phone]);
     }
     public function indexPhoto()
     {
@@ -148,39 +148,6 @@ class CustomerHomeController extends Controller
 
 
 
-    function getdays($start, $end, $schedule_id)
-    {
-
-        $period = new DatePeriod(
-            new DateTime($start),
-            new DateInterval('P1D'),
-            new DateTime($end)
-        );
-
-        $interval = [];
-        //enter start date
-        $interval[] = [
-            'date' => $start,
-            'schedule_Id' => $schedule_id
-        ];
-
-        // }for loop to store interval in array
-        foreach ($period as $key => $value) {
-            $interval[] = [
-                'date' => $value->format('Y-m-d'),
-                'schedule_Id' => $schedule_id
-            ];
-        }
-        //enter end date
-        $interval[] = [
-            'date' => $end,
-            'schedule_Id' => $schedule_id
-        ];
-
-        return $interval;
-    }
-
-
     public function itemProfileGallery($id)
     {
         //
@@ -208,16 +175,16 @@ class CustomerHomeController extends Controller
         $item = Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
 
-        $item=Item::find($id);
+        $item = Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
 
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
-        $AuthReview=review::all()->where('Item_Id','=',$id)->where('User_Id','=',$User_Id)->first();
+        $AuthReview = review::all()->where('Item_Id', '=', $id)->where('User_Id', '=', $User_Id)->first();
 
 
-        return view('website\frontend\customer\Item_Profile_Reviews', ['states' => $state, 'reviews' => $reviews, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow,'itemID'=>$id,'AuthReview'=>$AuthReview]);
+        return view('website\frontend\customer\Item_Profile_Reviews', ['states' => $state, 'reviews' => $reviews, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow, 'itemID' => $id, 'AuthReview' => $AuthReview]);
     }
 
     /**
@@ -289,7 +256,7 @@ class CustomerHomeController extends Controller
             ->where('streets.State_Id', '=', $state_id)
             ->WhereDate('schedules.Start_Date', '<=', $arrivaldate)
             ->WhereDate('schedules.End_Date', '>=', $departuredate)
-            ->select('items.*', 'cover__pages.path','countries.Country_Name','states.State_Name','cities.City_Name','regions.Region_Name','streets.Street_Name')
+            ->select('items.*', 'cover__pages.path', 'countries.Country_Name', 'states.State_Name', 'cities.City_Name', 'regions.Region_Name', 'streets.Street_Name')
             ->get();
 
         $details = [];
@@ -297,7 +264,7 @@ class CustomerHomeController extends Controller
         if ($items != null) {
             foreach ($items as $item) {
 
-                $review=[" ".$item->Item_Id." "=> ReviewController::getItemRate($item->Item_Id)];
+                $review = [" " . $item->Item_Id . " " => ReviewController::getItemRate($item->Item_Id)];
 
                 $detail = DB::table('details')
                     ->join('sub__type__properties', 'sub__type__properties.Property_Id', '=', 'details.Property_Id')
@@ -316,7 +283,7 @@ class CustomerHomeController extends Controller
 
         $state = StateController::getStates();
 
-        return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items, 'check_follow' => $check_follow, 'details' => $details,'reviews'=>$reviews]);
+        return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items, 'check_follow' => $check_follow, 'details' => $details, 'reviews' => $reviews]);
     }
 
     public function FollowedItemPosts($item_id)
@@ -485,12 +452,20 @@ class CustomerHomeController extends Controller
     }
     public function DestroyComment(Request $request, $id = null)
     {
-        comments::destroy($request->id);
-        return redirect()->back()->with('success', 'Comment Deleted Successfully');
+        DB::beginTransaction();
+
+        try {
+            comments::destroy($request->id);
+            DB::commit();
+            return redirect()->back()->with('success', 'Comment Deleted Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Comment cannot be deleted');
+        }
     }
     public function editComment()
     {
-
+        DB::beginTransaction();
 
         try {
 
@@ -498,8 +473,10 @@ class CustomerHomeController extends Controller
             $comment->Comment = request('edit_Comment');
             $comment->save();
 
+            DB::commit();
             return back()->with('info', 'Comment Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing item');
@@ -510,22 +487,30 @@ class CustomerHomeController extends Controller
     public function DestroyPost(Request $request, $id = null)
     {
 
-
-        posts::destroy($request->id);
-        return redirect()->back()->with('success', 'Post Deleted Successfully');
+        DB::beginTransaction();      
+        try {
+            posts::destroy($request->id);
+            DB::commit();
+            return redirect()->back()->with('success', 'Post Deleted Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Comment cannot be deleted');
+        }
     }
     public function editPost()
     {
 
-
+        DB::beginTransaction();
         try {
 
             $post = posts::all()->find(request('id'));
             $post->Post_Content = request('edit_Post');
             $post->save();
 
+            DB::commit();
             return back()->with('info', 'post Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing item');

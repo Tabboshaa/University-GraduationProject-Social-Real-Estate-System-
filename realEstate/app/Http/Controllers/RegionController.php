@@ -20,11 +20,10 @@ class RegionController extends Controller
     public function index()
     {
         //
-        $counrty=Country::all();
-        $state=State::all();
-        $city=City::all();
-        return view('website.backend.database pages.Add_Region',['counrty'=>$counrty,'state'=>$state,'city'=>$city]);
-
+        $counrty = Country::all();
+        $state = State::all();
+        $city = City::all();
+        return view('website.backend.database pages.Add_Region', ['counrty' => $counrty, 'state' => $state, 'city' => $city]);
     }
 
     /**
@@ -38,24 +37,27 @@ class RegionController extends Controller
         //     'Region_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
         // ]);
         // //
-
+        DB::beginTransaction();
         try {
-        $region = Region::create([
-            'Country_Id' => request('Country_Name'),
-            'State_Id' => request('State_Name'),
-            'City_Id' => request('City_Name'),
-            'Region_Name' => request('Region_Name')
-        ]);
-        return back()->with('success','Region Created Successfully');
-    }catch (\Illuminate\Database\QueryException $e){
-        $errorCode = $e->errorInfo[1];
-        if($errorCode == 1062){
-            return back()->with('error','Region Already Exists !!');
-        }if($errorCode == 1048 ){
-            return back()->with('error','You must select all values!!');
+            $region = Region::create([
+                'Country_Id' => request('Country_Name'),
+                'State_Id' => request('State_Name'),
+                'City_Id' => request('City_Name'),
+                'Region_Name' => request('Region_Name')
+            ]);
+            DB::commit();
+            return back()->with('success', 'Region Created Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Region Already Exists !!');
+            }
+            if ($errorCode == 1048) {
+                return back()->with('error', 'You must select all values!!');
+            }
+            return back()->withError($e->getMessage())->withInput();
         }
-        return back()->withError($e->getMessage())->withInput();
-    }
     }
 
     /**
@@ -79,16 +81,16 @@ class RegionController extends Controller
     {
         //
 
-        $city=City::all();
-        $states=State::all();
-        $countries=Country::all();
-        $region=DB::table('regions')
-        ->join('countries', 'regions.Country_Id', '=', 'countries.Country_Id')
-        ->join('states', 'regions.State_Id', '=', 'states.State_Id')
-        ->join('cities', 'regions.City_Id', '=', 'cities.City_Id')
-        ->select('regions.*', 'countries.Country_Name','states.State_Name','cities.City_Name')->paginate(10);
+        $city = City::all();
+        $states = State::all();
+        $countries = Country::all();
+        $region = DB::table('regions')
+            ->join('countries', 'regions.Country_Id', '=', 'countries.Country_Id')
+            ->join('states', 'regions.State_Id', '=', 'states.State_Id')
+            ->join('cities', 'regions.City_Id', '=', 'cities.City_Id')
+            ->select('regions.*', 'countries.Country_Name', 'states.State_Name', 'cities.City_Name')->paginate(10);
         //el subtype name w el main type name
-        return view('website.backend.database pages.Add_Region_Show',['counrty'=>$countries,'state'=>$states,'city'=>$city,'region1'=>$region]);
+        return view('website.backend.database pages.Add_Region_Show', ['counrty' => $countries, 'state' => $states, 'city' => $city, 'region1' => $region]);
     }
 
     /**
@@ -120,72 +122,74 @@ class RegionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id=null)
+    public function destroy(Request $request, $id = null)
     {
-        if(request()->has('id'))
-       {
-        try {
-        Region::destroy($request->id);
-        return redirect()->route('region_show')->with('success', 'Region Deleted Successfully');
-    }catch (\Illuminate\Database\QueryException $e){
-        return back()->withError($e->getMessage())->withInput();
-        return redirect()->route('region_show')->with('error', 'Region cannot be deleted');
+        if (request()->has('id')) {
+            DB::beginTransaction();
 
-    }
-}else return redirect()->route('region_show')->with('warning', 'No Region was chosen to be deleted.. !!');
+            try {
+                Region::destroy($request->id);
+                DB::commit();
+                return redirect()->route('region_show')->with('success', 'Region Deleted Successfully');
+            } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollBack();
+                return back()->withError($e->getMessage())->withInput();
+                return redirect()->route('region_show')->with('error', 'Region cannot be deleted');
+            }
+        } else return redirect()->route('region_show')->with('warning', 'No Region was chosen to be deleted.. !!');
     }
 
-    public function findstate(){
+    public function findstate()
+    {
 
         //will get all states which her Country_Id is the ID we passed from $.ajax
-        $state=State::all()->where('Country_Id','=',request('id'));
+        $state = State::all()->where('Country_Id', '=', request('id'));
 
         // will send all values in state object by json
         return  response()->json($state);
-
-
     }
 
-    public function findcity(){
+    public function findcity()
+    {
 
         //will get all states which her Country_Id is the ID we passed from $.ajax
-        $city=City::all()->where('State_Id','=',request('id'));
+        $city = City::all()->where('State_Id', '=', request('id'));
 
         // will send all values in state object by json
         return  response()->json($city);
-
-
     }
 
-    public function findregion(){
+    public function findregion()
+    {
 
         //will get all states which her Country_Id is the ID we passed from $.ajax
-        $region=Region::all()->where('City_Id','=',request('id'));
+        $region = Region::all()->where('City_Id', '=', request('id'));
 
         // will send all values in state object by json
         return  response()->json($region);
-
-
     }
 
     public function editRegion(Request $request)
     {
+        DB::beginTransaction();
+
         try {
 
-        //hygeb el country eli el ID bt3ha da
-        $region= Region::all()->find(request('id'));
-        //hy7ot el name el gded f column el country name
-        $region->Region_Name=request('RegionName');
-        $region->save();
+            //hygeb el country eli el ID bt3ha da
+            $region = Region::all()->find(request('id'));
+            //hy7ot el name el gded f column el country name
+            $region->Region_Name = request('RegionName');
+            $region->save();
 
-        return back()->with('info','Region Edited Successfully');
-    }catch (\Illuminate\Database\QueryException $e){
-        $errorCode = $e->errorInfo[1];
-        if($errorCode == 1062){
-            return back()->with('error','Error editing Region');
+            DB::commit();
+            return back()->with('info', 'Region Edited Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Error editing Region');
+            }
+            return back()->withError($e->getMessage())->withInput();
         }
-        return back()->withError($e->getMessage())->withInput();
-    }
-
     }
 }

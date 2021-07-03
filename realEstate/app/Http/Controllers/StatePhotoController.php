@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Country;
 use App\State;
 use App\attachment;
+use Illuminate\Support\Facades\DB;
+
 class StatePhotoController extends Controller
 {
     /**
@@ -17,10 +19,10 @@ class StatePhotoController extends Controller
     public function index()
     {
         //
-        $countries=Country::all();
-        $state=State::all();
-    
-        return view('website\backend.database pages.StatePhoto', ['country' => $countries,'state' => $state]);
+        $countries = Country::all();
+        $state = State::all();
+
+        return view('website\backend.database pages.StatePhoto', ['country' => $countries, 'state' => $state]);
     }
 
     /**
@@ -28,41 +30,37 @@ class StatePhotoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function create()
+    public function create()
     {
         //
-       
-        
+
+
         if ($files = request()->file('filename')) {
 
             $filename = $files->getClientOriginalName();
             $files->storeAs('/StatePhotos', $filename, 'public');
 
-            $attachment=attachment::create(['File_Path' => $filename]);
-            
-
-            // }
+            DB::beginTransaction();
             try {
-             
-               $statePhoto=State_Photo::create([
-                'Attachment_Id'=>$attachment->Attachment_Id,
-                'State_Id'=>request('State_Id')
-               ]); 
-               return back()->with('success', 'Photo Uploaded Successfully');
+                $attachment = attachment::create(['File_Path' => $filename]);
+
+                $statePhoto = State_Photo::create([
+                    'Attachment_Id' => $attachment->Attachment_Id,
+                    'State_Id' => request('State_Id')
+                ]);
+                DB::commit();
+                return back()->with('success', 'Photo Uploaded Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollBack();
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
                 }
                 return back()->withError($e->getMessage())->withInput();
-           }
-
-
+            }
+        }
     }
 
-            
-}
-    
 
     /**
      * Store a newly created resource in storage.
