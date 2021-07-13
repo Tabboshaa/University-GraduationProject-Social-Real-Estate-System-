@@ -138,10 +138,10 @@ class RegionController extends Controller
     public function findstate(){
 
         //will get all states which her Country_Id is the ID we passed from $.ajax
-        $state=State::all()->where('Country_Id','=',request('id'));
+        $state=State::all()->where('Country_Id','=',request('id'))->first();
 
         // will send all values in state object by json
-        return  $state;
+        return  response()->json($state);
 
 
     }
