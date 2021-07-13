@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
@@ -16,12 +17,16 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $USER = Auth::user();
-        $USER = $USER->usertype->groupBy('User_Type_ID');
-        if(isset($USER[1])) //customer
-        {
-            return $next($request);
-        }
-        return redirect()->back();
+        try {
+            $USER = Auth::user();
+            $USER = $USER->usertype->groupBy('User_Type_ID');
+            if (isset($USER[1])) //customer
+            {
+                return $next($request);
+            }
+            return redirect()->back();
+        } catch (Exception $e) {
+        return redirect()->url("/login");       
+      }
     }
 }

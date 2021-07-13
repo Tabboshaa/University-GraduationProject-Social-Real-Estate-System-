@@ -119,6 +119,41 @@ class PostsController extends Controller
         return $posts;
     }
 
+    public function DestroyPost(Request $request, $id = null)
+    {
+
+        DB::beginTransaction();      
+        try {
+            posts::destroy($request->id);
+            DB::commit();
+            return redirect()->back()->with('success', 'Post Deleted Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Comment cannot be deleted');
+        }
+    }
+    public function editPost()
+    {
+
+        DB::beginTransaction();
+        try {
+
+            $post = posts::all()->find(request('id'));
+            $post->Post_Content = request('edit_Post');
+            $post->save();
+
+            DB::commit();
+            return back()->with('info', 'post Edited Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Error editing item');
+            }
+            return back()->withError($e->getMessage())->withInput();
+        }
+    }
+
 
     /**
      * Show the form for editing the specified resource.

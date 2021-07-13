@@ -227,74 +227,7 @@ class UserController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-        $user = User::all()->where('id', '=', $id)->first();
-
-        $posts = PostsController::userPosts($id);
-        $profile_photo = ProfilePhotoController::getPhoto($id);
-        $cover_photo = CoverPhotoController::getPhoto($id);
-        $post_images = AttachmentController::getPostAttachments($id);
-        $gallery = AttachmentController::getAttachmentsOfuser($id);
-        $check_follow = FollowedusersController::checkFollow($id);
-        $post_images = [];
-
-        foreach ($posts as $post) {
-            $post_image = AttachmentController::getAttachmentsOfPosts($post->Post_Id);
-
-            $post_images = collect($post_images)->merge($post_image);
-        }
-
-        if ($post_images != null) {
-            $post_images = $post_images->groupby('Post_Id');
-        }
-
-        $User = Auth::user();
-
-        // commented for test only
-        if ($id == Auth::id()) {
-            return view('website\frontend\customer\Customer_Own_Profile', [
-                'id' => $id,
-                'User' => $User,
-                'First_Name' => $user->First_Name,
-                'Email' => $user->email,
-                'Middle_Name' => $user->Middle_Name,
-                'Last_Name' => $user->Last_Name,
-                'Cover_Photo' => $cover_photo,
-                'Profile_Photo' => $profile_photo,
-                'posts' => $posts,
-                'post_images' => $post_images,
-                'followedItems' => $user->followedItems,
-                'gallery' => $gallery,
-                'items' => $user->items,
-            ]);
-        }
-
-        return view('website\frontend\customer\Customer_Profile', [
-            'id' => $id,
-            'User' => $User,
-            'First_Name' => $user->First_Name,
-            'Middle_Name' => $user->Middle_Name,
-            'Last_Name' => $user->Last_Name,
-            'Cover_Photo' => $cover_photo,
-            'Profile_Photo' => $profile_photo,
-            'posts' => $posts,
-            'post_images' => $post_images,
-            'followedItems' => $user->followedItems,
-            'gallery' => $gallery,
-            'items' => $user->items,
-            'check_follow' =>  $check_follow,
-
-        ]);
-    }
-
+   
 
     //route byro7 3la index aw function show da bst5dmo lma ha show variables
     //fe el blade in the same time the route passes me to the blade
@@ -347,15 +280,6 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    //ex11
-    public static function getItemWithOwnerName($item_id)
-    {
-        //
-        $item = DB::table('items')
-            ->join('users', 'users.id', '=', 'items.User_Id')
-            ->select('items.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')->where('Item_Id', '=', $item_id)->first();
-        return $item;
-    }
 
     /**
      * Update the specified resource in storage.
@@ -500,6 +424,28 @@ class UserController extends Controller
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
         }
+    }
+
+    public function get_user_types()
+    {
+        //
+        $user_types = User_Type::all();
+        $Users = User::all();
+        return view('website/backend.database pages.Users_Show', ['user_typess' => $user_types, 'users' => $Users]);
+    }
+    public function getUser($id = null)
+    {
+        if ($id == null && request()->has('id')) $id = request('id');
+        //$Type_Of_User=Type_Of_User::all();
+        $user_types = User_Type::all();
+        $Users = DB::table('type__of__users')->join('users', 'users.id', '=', 'type__of__users.User_ID')
+            ->join('emails', 'type__of__users.User_ID', '=', 'emails.User_ID')
+            ->join('phone__numbers', 'type__of__users.User_ID', '=', 'phone__numbers.User_ID')
+            ->select('users.*', 'type__of__users.*', 'emails.*', 'phone__numbers.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')
+            ->where('User_Type_ID', '=', $id)->get();
+
+
+        return  response()->json($Users);
     }
 
     public function changePassword()
