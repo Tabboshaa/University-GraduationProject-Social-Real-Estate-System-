@@ -23,10 +23,11 @@ class PropertyDetailsController extends Controller
 
     public function create()
     {
-         request()->validate([
-         'property_details' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
-         ]);
+        request()->validate([
+            'property_details' => ['required', 'string', 'max:225', "regex:/(^([A-Z][a-z]+)?$)/u"]
+        ]);
 
+        DB::beginTransaction();
         try {
             $Property_Detail = Property_Details::create([
                 'Main_Type_Id' => request('Main_Type_Name'),
@@ -35,8 +36,10 @@ class PropertyDetailsController extends Controller
                 'DataType_Id' => request('Data_Type_Name'),
                 'Detail_Name' => request('property_details')
             ]);
+            DB::commit();
             return back()->with('success', 'Property Detail Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Property Detail Already Exists !!');
@@ -76,12 +79,16 @@ class PropertyDetailsController extends Controller
     public function edit()
     {
         //
+        DB::beginTransaction();
+
         try {
             $propertydetail = Property_Details::all()->find(request('id'));
             $propertydetail->Detail_Name = request('PropertyDetailName');
             $propertydetail->save();
+            DB::commit();
             return back()->with('info', 'Property Detail Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing Property Detail');
@@ -93,23 +100,19 @@ class PropertyDetailsController extends Controller
     {
         //
         if (request()->has('id')) {
+            DB::beginTransaction();
+
             try {
                 Property_Details::destroy($request->id);
 
+                DB::commit();
                 return redirect()->route('property_detail_show')->with('success', 'Property Detail Deleted Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollBack();
                 return back()->withError($e->getMessage())->withInput();
                 return redirect()->route('property_detail_show')->with('error', 'Property Detail cannot be deleted');
             }
         } else return redirect()->route('property_detail_show')->with('warning', 'No Property Detail was chosen to be deleted.. !!');
-    }
-
-    public function submit_properties()
-    {
-        //
-        $property = Sub_Type_Property::all()->whereIn('Property_Id', request('property'));
-        $details = Property_Details::all();
-        return view('website.backend.database pages.Detail_Page', ['property' => $property, 'details' => $details]);
     }
 
     public function findDetailsForForm()
@@ -137,12 +140,12 @@ class PropertyDetailsController extends Controller
 
         $properties = DB::table('property__details')
             ->join('datatypes', 'property__details.DataType_Id', '=', 'datatypes.id')
-            ->select('property__details.Property_Id','property__details.Property_Detail_Id', 'property__details.Detail_Name', 'datatypes.datatype')
+            ->select('property__details.Property_Id', 'property__details.Property_Detail_Id', 'property__details.Detail_Name', 'datatypes.datatype')
             ->get()
             ->where('Property_Id', '=', request('id'));
 
 
 
-        return response()->json(['properties'=>$properties,'details'=>$details]);
+        return response()->json(['properties' => $properties, 'details' => $details]);
     }
 }

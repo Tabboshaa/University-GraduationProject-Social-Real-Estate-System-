@@ -36,36 +36,36 @@ class AttachmentController extends Controller
      */
     public function create($id)
     {
-      return request()->all();
+
         //
+        DB::beginTransaction();
         try {
 
             if ($files = request()->file('images')) {
 
 
-                    foreach ($files as $file) {
+                foreach ($files as $file) {
                     $filename = $file->getClientOriginalName();
+
                     $file->storeAs('/profile gallery', $filename, 'public');
 
                     $attachment = attachment::create(['File_Path' => $filename]);
-
                     $post_attachment = post_attachment::create([
                         'Post_Id' => null,
                         'Attachment_Id' =>  $attachment->Attachment_Id,
                         'Item_Id' => $id
                     ]);
                 }
-
             }
 
-
+            DB::commit();
             return back()->with('success', 'Attachment Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
 
             return back()->with('error', 'Error creating Attachment !!');
-        }
-        catch (\Illuminate\Database\QueryException $e) {
-        return back()->withError($e->getMessage())->withInput();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return back()->withError($e->getMessage())->withInput();
         }
     }
 
@@ -143,7 +143,7 @@ class AttachmentController extends Controller
         //
         $post_attachment = DB::table('post_attachments')
             ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
-            ->join('posts','posts.Post_Id','=','post_attachments.Post_Id')
+            ->join('posts', 'posts.Post_Id', '=', 'post_attachments.Post_Id')
             ->select('post_attachments.*', 'attachments.File_Path')->where('posts.User_Id', '=', $id)
             ->paginate(4);
         return $post_attachment;
@@ -158,14 +158,16 @@ class AttachmentController extends Controller
     public function destroy($id)
     {
         //
+        DB::beginTransaction();
+
         try {
             attachment::destroy($id);
+            DB::commit();
             return  redirect()->back()->with('success', 'Attachment Deleted Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
-
+            DB::rollBack();
             return redirect()->back()->with('error', 'Attachment cannot be deleted');
             return back()->withError($e->getMessage())->withInput();
         }
-
-}
+    }
 }

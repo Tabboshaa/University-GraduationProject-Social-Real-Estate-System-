@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cover_Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 class CoverPageController extends Controller
@@ -26,18 +27,21 @@ class CoverPageController extends Controller
     public function create($id)
     {
         //
+        DB::beginTransaction();
         if ($files = request()->file('CoverPhoto')) {
 
             $filename = $files->getClientOriginalName();
             $files->storeAs('/cover page', $filename, 'public');
-           
+
             try {
-            $coverPage = Cover_Page::create([
-                'path' =>  $filename,
-                'Item_Id' => $id,
-            ]);
-            return back();
-            }catch (\Illuminate\Database\QueryException $e) {
+                $coverPage = Cover_Page::create([
+                    'path' =>  $filename,
+                    'Item_Id' => $id,
+                ]);
+                DB::commit();
+                return back();
+            } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollBack();
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
@@ -98,14 +102,17 @@ class CoverPageController extends Controller
             $files->storeAs('/cover page', $filename, 'public');
 
             // }
+            DB::beginTransaction();
             try {
-               
+                
                 $coverPage = Cover_Page::all()->find($id);
                 //hy7ot el name el gded f column el country name
                 $coverPage->path = $filename;
                 $coverPage->save();
+                DB::commit();
                 return back();
             } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollBack();
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
@@ -125,16 +132,18 @@ class CoverPageController extends Controller
     {
 
         $myFile = 'storage/cover page/' . $path;
-
-        if (File::exists($myFile)) {
-            File::delete($myFile);
-        }
+        DB::beginTransaction();
+        
         try {
+            if (File::exists($myFile)) {
+                File::delete($myFile);
+            }
             Cover_Page::destroy($id);
+            DB::commit();
             return back();
-        } catch (\Illuminate\Database\QueryException $e){
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
-
         }
     }
 }

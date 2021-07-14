@@ -30,6 +30,7 @@ class NotificationController extends Controller
     public static function create($From_id, $To_id, $notification)
     {
         //
+        DB::beginTransaction();
         try {
             Notification::create([
                 'To_User_Id' => $To_id,
@@ -37,9 +38,10 @@ class NotificationController extends Controller
                 'Notification' => $notification,
                 'Viewed' => 0
             ]);
+            DB::commit();
             return back();
         } catch (\Illuminate\Database\QueryException $e) {
-
+            DB::rollBack();
             return back();
         }
     }
@@ -47,16 +49,21 @@ class NotificationController extends Controller
     public static function createRedirect($From_id, $To_id, $notification, $redirect_to)
     {
         //
+        DB::beginTransaction();
         try {
-            Notification::create([
-                'To_User_Id' => $To_id,
-                'From_User_Id' => $From_id,
-                'Notification' => $notification,
-                'Redirect_To' => $redirect_to,
-                'Viewed' => 0
-            ]);
+            if ($To_id != $From_id) { //check if user is not sent a notification to himself
+                Notification::create([
+                    'To_User_Id' => $To_id,
+                    'From_User_Id' => $From_id,
+                    'Notification' => $notification,
+                    'Redirect_To' => $redirect_to,
+                    'Viewed' => 0
+                ]);
+            }
+            DB::commit();
             return back();
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
 
             return back()->withError($e->getMessage())->withInput();
         }
@@ -71,13 +78,18 @@ class NotificationController extends Controller
     public static function viewNotification()
     {
         //
+        
+        DB::beginTransaction();
+        
         try {
             $notification = Notification::all()->find(request('notification_id'));
             $notification->Viewed = 1;
             $notification->save();
-
+            
+            DB::commit();
             return back()->with('success', 'Notification Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+        DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
             return back()->with('error', 'Error creating Notification !!');
         }

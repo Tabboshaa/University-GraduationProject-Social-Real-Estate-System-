@@ -6,6 +6,7 @@ use App\Country;
 use App\State;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CountryController extends Controller
 {
@@ -17,8 +18,8 @@ class CountryController extends Controller
     public function index()
     {
         //
-        $Countries=Country::paginate(10);
-        return view('website.backend.database pages.Add_Country_Show',['C11'=>$Countries]);
+        $Countries = Country::paginate(10);
+        return view('website.backend.database pages.Add_Country_Show', ['C11' => $Countries]);
     }
 
     /**
@@ -28,21 +29,22 @@ class CountryController extends Controller
      */
     public function create()
     {
-        
+
+        DB::beginTransaction();
         try {
-        $country=Country::create([
-            'Country_Name' => request('country_name'),
-        ]);
-        return back()->with('success','Country Created Successfully');
-    }catch (\Illuminate\Database\QueryException $e){
-        $errorCode = $e->errorInfo[1];
-        if($errorCode == 1062){
-            return back()->with('error','Country Already Exist !!');
+            $country = Country::create([
+                'Country_Name' => request('country_name'),
+            ]);
+            DB::commit();
+            return back()->with('success', 'Country Created Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Country Already Exist !!');
+            }
+            return back()->withError($e->getMessage())->withInput();
         }
-        return back()->withError($e->getMessage())->withInput();
-
-    }
-
     }
 
     /**
@@ -99,40 +101,42 @@ class CountryController extends Controller
     public function destroy(Request $request)
     {
         // Will Destroy each column with id form action
-        if(request()->has('id'))
-       {
-        try {
-        Country::destroy($request->id);
-        return redirect()->route('country_show')->with('success', 'Country Deleted Successfully');
-    }catch (\Illuminate\Database\QueryException $e){
+        DB::beginTransaction();
 
-        return redirect()->route('country_show')->with('error', 'Country cannot be deleted');
-        return back()->withError($e->getMessage())->withInput();
-    }
-   
-}else return redirect()->route('country_show')->with('warning', 'No Country was chosen to be deleted.. !!');
+        if (request()->has('id')) {
+            try {
+                Country::destroy($request->id);
+                DB::commit();
+                return redirect()->route('country_show')->with('success', 'Country Deleted Successfully');
+            } catch (\Illuminate\Database\QueryException $e) {
+
+                DB::rollBack();
+                return redirect()->route('country_show')->with('error', 'Country cannot be deleted');
+                return back()->withError($e->getMessage())->withInput();
+            }
+        } else return redirect()->route('country_show')->with('warning', 'No Country was chosen to be deleted.. !!');
     }
     //  function  EDIT: AJAX
 
     public function editCountry(Request $request)
     {
+        DB::beginTransaction();
         try {
 
             //hygeb el country eli el ID bt3ha da
-        $country= Country::all()->find(request('id'));
-        //hy7ot el name el gded f column el country name
-        $country->Country_Name=request('CountryName');
-        $country->save();
-                return back()->with('info','Country Edited Successfully');
-            }catch (\Illuminate\Database\QueryException $e){
-                $errorCode = $e->errorInfo[1];
-                if($errorCode == 1062){
-                    return back()->with('error','Error editing Country');
-                }
-                return back()->withError($e->getMessage())->withInput();
+            $country = Country::all()->find(request('id'));
+            //hy7ot el name el gded f column el country name
+            $country->Country_Name = request('CountryName');
+            $country->save();
+            DB::commit();
+            return back()->with('info', 'Country Edited Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Error editing Country');
             }
-
+            return back()->withError($e->getMessage())->withInput();
+        }
     }
-
-
 }

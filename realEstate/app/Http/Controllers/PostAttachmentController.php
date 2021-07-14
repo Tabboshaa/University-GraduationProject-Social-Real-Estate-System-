@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\attachment;
 use App\post_attachment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostAttachmentController extends Controller
 {
@@ -87,7 +88,15 @@ class PostAttachmentController extends Controller
   {
     
     if (request()->has('id')) {
-        attachment::destroy(request('id'));
+        DB::beginTransaction();        
+        try{
+            attachment::destroy(request('id'));
+            DB::commit();
+            return true;
+        }catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return back()->withError($e->getMessage())->withInput();
+        }
         }else{
             return null;
         }   

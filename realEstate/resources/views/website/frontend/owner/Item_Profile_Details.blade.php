@@ -118,7 +118,7 @@
                                 @elseif($detail->datatype=='file')
                                 <div id="detailimage{{$detail->Detail_Id}}" class="col-6 mb-2 pe-1">
                                 <a href="javascript:void(0)" onclick="DeleteDetailImage('{{$detail->Detail_Id}}')"><i style="padding-left:14px" class="feather-trash-2"></i></a>
-                                <a href="{{$detail->DetailValue}}" data-lightbox="roadtrip"><img src="{{asset('storage/profile gallery/'.$detail->DetailValue)}}" alt="image" class="img-fluid rounded-3 w-100"></a></div>
+                                <a href="{{asset('storage/profile gallery/'.$detail->DetailValue)}}" data-lightbox="roadtrip"> <img src="{{asset('storage/profile gallery/'.$detail->DetailValue)}}" alt="image" class="img-fluid rounded-3 w-100"></a></div>
                                 @endif
                                 @endforeach
                                 @else

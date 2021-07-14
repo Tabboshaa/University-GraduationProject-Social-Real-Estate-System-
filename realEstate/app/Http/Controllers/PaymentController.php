@@ -7,6 +7,7 @@ use App\Http\Controllers\OperationsController;
 use App\Operation__Detail_Value;
 use App\payment;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class PaymentController extends Controller
 {
@@ -27,9 +28,9 @@ class PaymentController extends Controller
      */
     public function create()
     {
-
+        DB::beginTransaction();
         try{
-        //create reservation
+            //create reservation
         $Operation_Id = OperationsController::create(request('item_id'));
         //create reservation details
         OperationsController::createValue($Operation_Id, 1, 1, request('price_per_night'));
@@ -45,14 +46,16 @@ class PaymentController extends Controller
             'Paid_Amount' => request('totalCost'),
             'confirmed' => 1,
         ]);
+        DB::commit();
         return back()->with('success', 'Created Successfully');
-        }catch(Exception $e){
+    }catch(Exception $e){
+        DB::rollBack();
             return back()->with('error', 'Error creating');
             return back()->withError($e->getMessage())->withInput();
         }
-
+        
     }
-
+    
 
 
 
@@ -113,10 +116,14 @@ class PaymentController extends Controller
     {
         // Will Destroy each column with id form action
         if (request()->has('id')) {
+            DB::beginTransaction();
+            
             try {
                 payment::destroy($request->id);
+                DB::commit();
                 return redirect()->route('Card_Show')->with('success', 'Card Deleted Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollBack();
                 return back()->withError($e->getMessage())->withInput();
                 return redirect()->route('Card_Show')->with('error', 'Card cannot be deleted');
             }
@@ -125,15 +132,19 @@ class PaymentController extends Controller
     }
     public function editPayment(Request $request)
     {
+        DB::beginTransaction();
+        
         try {
-
+            
             //hygeb el country eli el ID bt3ha da
             $payment = payment::all()->find(request('Payment_Id'));
             //hy7ot el name el gded f column el country name
             $payment->Card_Number = request('Card_Num');
             $payment->save();
+            DB::commit();
             return back()->with('info', 'Card Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing Card');

@@ -36,15 +36,17 @@ class StateController extends Controller
         //    request()->validate([
         //     'State_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
         // ]);
-
+        DB::beginTransaction();
         try {
             $state = State::create([
                 'State_Name' => request('State_Name'),
                 'Country_Id' => request('country_name')
-
+                
             ]);
+            DB::commit();
             return back()->with('success', 'State Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'State Already Exists !!');
@@ -117,11 +119,14 @@ class StateController extends Controller
     {
         // Will Destroy each column with id form action
         if (request()->has('id')) {
+            DB::beginTransaction();
+            
             try {
                 State::destroy($request->id);
+                DB::commit();
                 return redirect()->route('state_show')->with('success', 'State Deleted Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
-
+                DB::rollBack();
                 return redirect()->route('state_show')->with('error', 'State cannot be deleted');
                 return back()->withError($e->getMessage())->withInput();
             }
@@ -141,17 +146,21 @@ class StateController extends Controller
 
     public function editState(Request $request)
     {
+        DB::beginTransaction();
+        
         try {
-
+            
             //hygeb el country eli el ID bt3ha da
             $state = State::all()->find(request('id'));
             //hy7ot el name el gded f column el country name
             $state->State_Name = request('StateName');
             $state->save();
-
+            
+            DB::commit();
             //hyb3t el update el gded fl country table
             return back()->with('info', 'State Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing item');

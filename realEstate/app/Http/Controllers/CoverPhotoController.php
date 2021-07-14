@@ -7,6 +7,7 @@ use App\attachment;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 class CoverPhotoController extends Controller
@@ -30,6 +31,7 @@ class CoverPhotoController extends Controller
     {
 
         //
+        DB::beginTransaction();
         if ($files = request()->file('CoverPhoto')) {
 
             $filename = $files->getClientOriginalName();
@@ -40,8 +42,10 @@ class CoverPhotoController extends Controller
                     'User_Id' => Auth::id(),
                     'Cover_Photo' => $filename
                 ]);
+                DB::commit();
                 return back();
             } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollBack();
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
@@ -66,14 +70,16 @@ class CoverPhotoController extends Controller
             $filename = $files->getClientOriginalName();
             $files->storeAs('/cover page', $filename, 'public');
 
-            // }
+            DB::beginTransaction();
             try {
                 $coverPhoto = CoverPhoto::all()->where('User_Id', '=', Auth::id(),)->first();
                 //hy7ot el name el gded f column el country name
                 $coverPhoto->Cover_Photo = $filename;
                 $coverPhoto->save();
+                DB::commit();
                 return back();
             } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollBack();
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
@@ -130,15 +136,17 @@ class CoverPhotoController extends Controller
             $files->storeAs('/cover page', $filename, 'public');
 
 
-
+            DB::beginTransaction();
             try {
 
                 $coverPhoto = CoverPhoto::all()->find(request('Photo_Id'));
                 //hy7ot el name el gded f column el country name
                 $coverPhoto->Cover_Photo = $filename;
                 $coverPhoto->save();
+                DB::commit();
                 return back();
             } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollBack();
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
@@ -158,14 +166,17 @@ class CoverPhotoController extends Controller
     {
 
         $myFile = 'storage/cover page/' . $path;
-
-        if (File::exists($myFile)) {
-            File::delete($myFile);
-        }
+        DB::beginTransaction();
+        
         try {
+            if (File::exists($myFile)) {
+                File::delete($myFile);
+            }
             coverPhoto::destroy($id);
+            DB::commit();
             return back();
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
         }
     }

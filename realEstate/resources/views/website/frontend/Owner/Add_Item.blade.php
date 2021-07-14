@@ -145,7 +145,7 @@
 </script>
 
 
-<div style="margin-left:135px;"class="col-xl-12">
+<div class="col-xl-12">
     <div class="card w-1`00 border-0 bg-white shadow-xs p-0 mb-4">
         <div class="card-body p-4 w-100 bg-current border-0 d-flex rounded-3">
             <a href="default-settings.html" class="d-inline-block mt-2"><i class="ti-arrow-left font-sm text-white"></i></a>

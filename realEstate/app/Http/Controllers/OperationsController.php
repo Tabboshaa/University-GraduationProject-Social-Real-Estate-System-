@@ -32,18 +32,19 @@ class OperationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public static function create($item_Id,$Operation_Type_Id)
+    public static function create($item_Id)
     {
-
+        DB::beginTransaction();
         try {
             $operations = operations::create([
-                'Operation_Type_Id'=>$Operation_Type_Id,
                 'Item_Id' => $item_Id,
                 'User_Id' => Auth::id()
 
             ]);
+            DB::commit();
             return $operations->Operation_Id;
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'City Already Exist !!');
@@ -56,12 +57,15 @@ class OperationsController extends Controller
     }
     public static function createType()
     {
+        DB::beginTransaction();
         try {
             $operation_Type = operation__types::create([
                 'Operation_Name' => request('Operation_Type_Name'),
             ]);
+            DB::commit();
             return back()->with('success', 'type Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Already Exist !!');
@@ -71,15 +75,17 @@ class OperationsController extends Controller
     }
     public static function createDetail()
     {
-
+        DB::beginTransaction();
         try {
             $operation_Detail = Operation__Detail_Name::create([
                 'Operation_Detail_Name' => request('Operation_Detail'),
                 'Operation_Type_Id' => request('operation_Name')
 
             ]);
+            DB::commit();
             return back()->with('success', 'Detail Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Detail Already Exists !!');
@@ -92,7 +98,7 @@ class OperationsController extends Controller
     }
     public static function createValue($Operation_Id, $Type_Id, $Detail_Id, $Value)
     {
-
+        DB::beginTransaction();
         try {
             $reservation = Operation__Detail_Value::create(
                 [
@@ -104,8 +110,10 @@ class OperationsController extends Controller
             );
 
 
+            DB::commit();
             return back()->with('success', 'Detail Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Detail Already Exists !!');
@@ -169,13 +177,17 @@ class OperationsController extends Controller
 
     public function edit()
     {
+        DB::beginTransaction();
+        
         try {
             $operation_types = Operation__types::all()->find(request('id'));
             $operation_types->Operation_Name = request('OperationTypeName');
             $operation_types->save();
-
+            
+            DB::commit();
             return back()->with('info', 'Item Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+        DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing item');
@@ -186,17 +198,21 @@ class OperationsController extends Controller
     public function editDetail()
     {
 
+        DB::beginTransaction();
+        
         try {
-
-
+            
+            
             $operation_detail = Operation__Detail_Name::all()->find(request('id'));
-
+            
             $operation_detail->Operation_Detail_Name = request('operation_det');
             $operation_detail->save();
-
-
+            
+            
+            DB::commit();
             return back()->with('info', 'Operation Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing item');
@@ -227,10 +243,13 @@ class OperationsController extends Controller
     public function destroy(Request $request)
     {
         if (request()->has('operationType')) {
+            DB::beginTransaction();
             try {
                 Operation__types::destroy($request->operationType);
+                DB::commit();
                 return redirect()->route('operation_types_show')->with('success', 'operation Deleted Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollBack();
                 return redirect()->route('operation_types_show')->with('error', 'operation cannot be deleted');
                 return back()->withError($e->getMessage())->withInput();
             }
@@ -240,11 +259,14 @@ class OperationsController extends Controller
     {
         // Will Destroy each column with id form action
         if (request()->has('id')) {
+            DB::beginTransaction();
+            
             try {
                 Operation__Detail_Name::destroy($request->id);
+                DB::commit();
                 return redirect()->route('detailop_show')->with('success', 'Detail Deleted Successfully');
-            } catch (\Illuminate\Database\QueryException $e) {
-
+            } catch (\Illuminate\Database\QueryException $e) {                
+                DB::rollBack();
                 return redirect()->route('detailop_show')->with('error', 'Detail cannot be deleted');
                 return back()->withError($e->getMessage())->withInput();
             }
@@ -272,18 +294,21 @@ class OperationsController extends Controller
     public function showuserreservations()
     {
 
-        $user=Auth::user();
-        $operations= $user->operations; 
+        $user = Auth::user();
+        $operations = $user->operations;
         return view('website.frontend.customer.ShowReservation', ['operations' => $operations]);
     }
     //delete operation
     public function destroyOperation($id)
     {
-
+        DB::beginTransaction();
+        
         try {
             operations::destroy($id);
+            DB::commit();
             return redirect()->back()->with('success', 'operation Deleted Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             return redirect()->back()->with('error', 'operation cannot be deleted');
             return back()->withError($e->getMessage())->withInput();
         }

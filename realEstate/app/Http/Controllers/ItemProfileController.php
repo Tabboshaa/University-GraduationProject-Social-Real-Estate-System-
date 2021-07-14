@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Details;
-use App\schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\followeditemsbyuser;
 use App\Item;
+use App\review;
+use App\User;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
-use DateInterval;
-use DatePeriod;
-use DateTime;
-use Exception;
-use Illuminate\Support\Arr;
 
 class ItemProfileController extends Controller
 {
@@ -42,18 +36,76 @@ class ItemProfileController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
+     /**
+     * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function show($id)
     {
         //
+        $user = User::all()->where('id', '=', $id)->first();
+
+        $posts = PostsController::userPosts($id);
+        $profile_photo = ProfilePhotoController::getPhoto($id);
+        $cover_photo = CoverPhotoController::getPhoto($id);
+        $post_images = AttachmentController::getPostAttachments($id);
+        $gallery = AttachmentController::getAttachmentsOfuser($id);
+        $check_follow = FollowedusersController::checkFollow($id);
+        $post_images = [];
+
+        foreach ($posts as $post) {
+            $post_image = AttachmentController::getAttachmentsOfPosts($post->Post_Id);
+
+            $post_images = collect($post_images)->merge($post_image);
+        }
+
+        if ($post_images != null) {
+            $post_images = $post_images->groupby('Post_Id');
+        }
+
+        $User = Auth::user();
+
+        // commented for test only
+        if ($id == Auth::id()) {
+            return view('website\frontend\customer\Customer_Own_Profile', [
+                'id' => $id,
+                'User' => $User,
+                'First_Name' => $user->First_Name,
+                'Email' => $user->email,
+                'Middle_Name' => $user->Middle_Name,
+                'Last_Name' => $user->Last_Name,
+                'Cover_Photo' => $cover_photo,
+                'Profile_Photo' => $profile_photo,
+                'posts' => $posts,
+                'post_images' => $post_images,
+                'followedItems' => $user->followedItems,
+                'gallery' => $gallery,
+                'items' => $user->items,
+            ]);
+        }
+
+        return view('website\frontend\customer\Customer_Profile', [
+            'id' => $id,
+            'User' => $User,
+            'First_Name' => $user->First_Name,
+            'Middle_Name' => $user->Middle_Name,
+            'Last_Name' => $user->Last_Name,
+            'Cover_Photo' => $cover_photo,
+            'Profile_Photo' => $profile_photo,
+            'posts' => $posts,
+            'post_images' => $post_images,
+            'followedItems' => $user->followedItems,
+            'gallery' => $gallery,
+            'items' => $user->items,
+            'check_follow' =>  $check_follow,
+
+        ]);
     }
 
-    /**
+
+        /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -63,6 +115,7 @@ class ItemProfileController extends Controller
     {
         //
 
+        // return $i->street->country->Country_Name;
         $state = StateController::getStates();
         $posts = PostsController::getItemPosts($id);
         $comments = CommentsController::getPostComments($id);
@@ -73,16 +126,16 @@ class ItemProfileController extends Controller
             ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
             ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
             ->select('post_attachments.*', 'attachments.File_Path')->where('items.Item_Id', '=', $id)->paginate(6);
-        // $item = AddUserController::getItemWithOwnerName($id);
+      
         $item = Item::find($id);
 
-        $User = Auth::user();
-        $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User->id);
+        $User_Id = Auth::id();
+        $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
+
 
         return view(
-            'website\frontend\owner\Item_Profile_Posts',
+            'website\frontend\customer\Item_Profile_Posts',
             [
-                'User' => $User,
                 'states' => $state,
                 'posts' => $posts,
                 'item' => $item,
@@ -108,7 +161,8 @@ class ItemProfileController extends Controller
 
         $item = Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
-      
+
+        //schedule and location
 
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
@@ -119,16 +173,16 @@ class ItemProfileController extends Controller
             ->join('datatypes', 'datatypes.id', '=', 'property__details.DataType_Id')
             ->select('details.*', 'sub__type__properties.Property_Name', 'property__details.Detail_Name', 'datatypes.datatype')
             ->get()->where('Item_Id', '=', $id)->groupBy(['Property_Name', 'Property_Id', 'Property_diff']);
-            
-            $Sub_Type_Id = Arr::get(Details::all()->where('Item_Id', '=', $id)->first(), 'Sub_Type_Id');
-            
-        return view('website\frontend\owner\Item_Profile_Details', ['details' => $details, 'states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow,'subtype'=>$Sub_Type_Id]);
+
+
+        return view('website\frontend\customer\Item_Profile_Details', ['details' => $details, 'states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
     }
+
+
 
     public function itemProfileGallery($id)
     {
         //
-        $itemID = $id;
         $state = StateController::getStates();
 
         $item = Item::find($id);
@@ -142,9 +196,8 @@ class ItemProfileController extends Controller
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
-        return view('website\frontend\owner\Item_Profile_Gallery', ['item_id' => $itemID, 'states' => $state, 'item' => $item, 'cover' => $cover, 'gallery' => $gallery, 'check_follow' => $check_follow]);
+        return view('website\frontend\customer\Item_Profile_Gallery', ['states' => $state, 'item' => $item, 'cover' => $cover, 'gallery' => $gallery, 'check_follow' => $check_follow]);
     }
-
     public function itemProfileReviews($id = null)
     {
         //
@@ -154,53 +207,37 @@ class ItemProfileController extends Controller
         $item = Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
 
-        $User_Id = Auth::id();
-        $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
-
-        return view('website\frontend\owner\Item_Profile_Reviews', ['states' => $state, 'reviews' => $reviews, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow]);
-    }
-
-    public function itemReservations($id = null)
-    {
-        $reservation_details = DB::table('operation___detail__values')
-            ->join('operation__detail_name', 'operation__detail_name.Detail_Id', '=', 'operation___detail__values.Detail_Id')
-            ->join('operations', 'operations.Operation_Id', '=', 'operation___detail__values.Operation_Id')
-            ->select('operation___detail__values.*', 'operation__detail_name.Operation_Detail_Name', 'operations.Item_Id')
-            ->where('operations.Item_Id', '=', $id)
-            ->get()
-            ->groupBy('Operation_Id');
-
-        $reservations = DB::table('operations')
-            ->join('items', 'items.Item_Id', '=', 'operations.Item_Id')
-            ->join('users', 'users.id', '=', 'operations.User_Id')
-            ->select('operations.*', 'items.Item_Name', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')
-            ->where('operations.Item_Id', '=', $id)
-            ->get();
-
-        $User_Id = Auth::id();
-        $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
-        $cover = CoverPageController::getCoverPhotoOfItem($id);
-        $item = Item::find($id);
-        // return dd($reservation_details);
-        return view('website.frontend.owner.Item_Profile_Reservations', ['reservations' => $reservations, 'reservation_details' => $reservation_details, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow]);
-    }
-
-    // function for page ownerManageSchedule
-    public function itemManageSchedule($id = null)
-    {
-
-        $schedule = ScheduleController::getWholeSchedule($id);
         $item = Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
 
-        //schedule and location
-
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
-        // return $schedule;
-        return view('website\frontend\owner\Item_Profile_Manage_Schedule', ['item' => $item, 'cover' => $cover, 'schedules' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
+        $AuthReview = review::all()->where('Item_Id', '=', $id)->where('User_Id', '=', $User_Id)->first();
+
+
+        return view('website\frontend\customer\Item_Profile_Reviews', ['states' => $state, 'reviews' => $reviews, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow, 'itemID' => $id, 'AuthReview' => $AuthReview]);
     }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+   
 
     /**
      * Show the form for editing the specified resource.

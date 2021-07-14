@@ -39,15 +39,17 @@ class SubTypePropertyController extends Controller
             'Sub_Type_Property' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
         ]);
 
-
+        DB::beginTransaction();
         try {
             $Property_Detail = sub_type_property::create([
                 'Main_Type_Id' => request('Main_Type_Name'),
                 'Sub_Type_Id' => request('Sub_Type_Name'),
                 'Property_Name' => request('Sub_Type_Property')
             ]);
+            DB::commit();
             return back()->with('success', 'Property Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Property Already Exists !!');
@@ -108,12 +110,16 @@ class SubTypePropertyController extends Controller
     public function edit()
     {
         //
+        DB::beginTransaction();
+        
         try {
-        $subtypeproperty = Sub_Type_Property::all()->find(request('id'));
-        $subtypeproperty->Property_Name = request('SubTypePropertyName');
-        $subtypeproperty->save();
-        return back()->with('info','Property Edited Successfully');
-    }catch (\Illuminate\Database\QueryException $e){
+            $subtypeproperty = Sub_Type_Property::all()->find(request('id'));
+            $subtypeproperty->Property_Name = request('SubTypePropertyName');
+            $subtypeproperty->save();
+            DB::commit();
+            return back()->with('info','Property Edited Successfully');
+        }catch (\Illuminate\Database\QueryException $e){
+        DB::rollBack();
         $errorCode = $e->errorInfo[1];
         if($errorCode == 1062){
             return back()->with('error','Error editing Property');
@@ -146,10 +152,14 @@ class SubTypePropertyController extends Controller
         //
         if(request()->has('id'))
        {
+        DB::beginTransaction();
+        
         try {
-        Sub_Type_Property::destroy($request->id);
-        return redirect()->route('subtypeproperty_show')->with('success', 'Property Deleted Successfully');
-    }catch (\Illuminate\Database\QueryException $e){
+            Sub_Type_Property::destroy($request->id);
+            DB::commit();
+            return redirect()->route('subtypeproperty_show')->with('success', 'Property Deleted Successfully');
+        }catch (\Illuminate\Database\QueryException $e){
+        DB::rollBack();
 
         return redirect()->route('subtypeproperty_show')->with('error', 'Property cannot be deleted');
         return back()->withError($e->getMessage())->withInput();

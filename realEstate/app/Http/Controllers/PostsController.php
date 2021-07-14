@@ -32,7 +32,7 @@ class PostsController extends Controller
             ->groupBy('Post_Id');
 
         return view('website.backend.database pages.Item_Posts', [
-            'item_id' => $id, 
+            'item_id' => $id,
             'posts' => $posts,
             'post_images' => $post_images,
             'comments' => $comments,
@@ -48,40 +48,40 @@ class PostsController extends Controller
     public function create($id = null)
     {
         //
-        if($id !=null){
-        $item = Item::all()->find($id);
-        $user_id=$item->User_Id;
-        }
-        else $user_id=Auth::id();
-        
+        if ($id != null) {
+            $item = Item::all()->find($id);
+            $user_id = $item->User_Id;
+        } else $user_id = Auth::id();
+
+        DB::beginTransaction();
         try {
-            $post=posts::create([
+            $post = posts::create([
                 'Item_Id' => $id,
                 'User_Id' => $user_id,
                 'Post_Title' => ' ',
                 'Post_Content' => request('Post_Content'),
             ]);
 
-            if($files=request()->file('images')){
-                foreach($files as $file){
-                    $filename=$file->getClientOriginalName();
-                    $file->storeAs('/profile gallery',$filename,'public');
+            if ($files = request()->file('images')) {
+                foreach ($files as $file) {
+                    $filename = $file->getClientOriginalName();
+                    $file->storeAs('/profile gallery', $filename, 'public');
 
-                    $attachment=attachment::create(['File_Path'=>$filename]);
+                    $attachment = attachment::create(['File_Path' => $filename]);
 
-                    $post_attachment=post_attachment::create([
-                    'Post_Id'=> $post->Post_Id,
-                    'Attachment_Id'=>  $attachment->Attachment_Id,
-                    'Item_Id'=>$id
+                    $post_attachment = post_attachment::create([
+                        'Post_Id' => $post->Post_Id,
+                        'Attachment_Id' =>  $attachment->Attachment_Id,
+                        'Item_Id' => $id
                     ]);
-
                 }
-
             }
 
 
+            DB::commit();
             return back()->with('success', 'Post Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
             return back()->with('error', 'Error creating Post !!');
         }
@@ -107,16 +107,51 @@ class PostsController extends Controller
     public static function postCreatedBy($id)
     {
         //
-        return $user=posts::all()->where('Post_Id','=',$id)->first()->User_Id;
+        return $user = posts::all()->where('Post_Id', '=', $id)->first()->User_Id;
         return $user;
     }
 
     public static function userPosts($id)
     {
         //
-         $posts=posts::all()->where('User_Id','=',$id)->sortByDesc('updated_at');
-         
+        $posts = posts::all()->where('User_Id', '=', $id)->sortByDesc('updated_at');
+
         return $posts;
+    }
+
+    public function DestroyPost(Request $request, $id = null)
+    {
+
+        DB::beginTransaction();      
+        try {
+            posts::destroy($request->id);
+            DB::commit();
+            return redirect()->back()->with('success', 'Post Deleted Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Comment cannot be deleted');
+        }
+    }
+    public function editPost()
+    {
+
+        DB::beginTransaction();
+        try {
+
+            $post = posts::all()->find(request('id'));
+            $post->Post_Content = request('edit_Post');
+            $post->save();
+
+            DB::commit();
+            return back()->with('info', 'post Edited Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Error editing item');
+            }
+            return back()->withError($e->getMessage())->withInput();
+        }
     }
 
 
@@ -152,15 +187,17 @@ class PostsController extends Controller
     public function destroy($id)
     {
         //
-         try {
-         posts::destroy($id);
-         return  redirect()->back()->with('success', 'Post Deleted Successfully');
-     }catch (\Illuminate\Database\QueryException $e){
-        return back()->withError($e->getMessage())->withInput();
-         return redirect()->back()->with('error', 'Post cannot be deleted');
+        DB::beginTransaction();
 
-     }
-
+        try {
+            posts::destroy($id);
+            DB::commit();
+            return  redirect()->back()->with('success', 'Post Deleted Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return back()->withError($e->getMessage())->withInput();
+            return redirect()->back()->with('error', 'Post cannot be deleted');
+        }
     }
 
     public static function getItemPosts($item_id)
@@ -168,10 +205,10 @@ class PostsController extends Controller
         //
         $posts = DB::table('posts')
             ->join('users', 'users.id', '=', 'posts.User_Id')
-            ->LeftJoin('profile_photos','profile_photos.User_Id','=','posts.User_Id')
+            ->LeftJoin('profile_photos', 'profile_photos.User_Id', '=', 'posts.User_Id')
             ->where('posts.Item_Id', '=', $item_id)
             ->select('posts.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')
-            ->orderBy('updated_at','DESC')
+            ->orderBy('updated_at', 'DESC')
             ->get();
 
 

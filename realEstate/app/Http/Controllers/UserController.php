@@ -17,7 +17,7 @@ use App\Country;
 // use Auth;/
 use Illuminate\Support\Facades\Auth;
 
-class AddUserController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,7 +39,7 @@ class AddUserController extends Controller
     public function create(Request $request)
     {
         //
-
+        DB::beginTransaction();
         try {
             $user = User::create([
                 'First_Name' => request('first_name'),
@@ -70,13 +70,24 @@ class AddUserController extends Controller
             ]);
 
 
+            DB::commit();
             return back()->with('success', 'Item Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Already Exist !!');
             }
         }
+    }
+
+    public function AdminProfile()
+    {
+        $User_ID = Auth::id();
+        $user = User::all()->where('id', '=', $User_ID)->first();
+        $email = Emails::all()->where('User_ID', '=', $User_ID)->first();
+        $phone = Phone_Numbers::all()->where('User_ID', '=', $User_ID)->first();
+        return view('website.backend.database pages.Admin_profile', ['user' => $user, 'email' => $email, 'phone' => $phone]);
     }
 
     public function EditUserProfileVeiw()
@@ -90,8 +101,10 @@ class AddUserController extends Controller
 
         return view('website.frontend.customer.EditUserProfile', ['user' => $user, 'email' => $email, 'phone' => $phone, 'image' => $image]);
     }
+
     public function EditUserProfile()
     {
+        DB::beginTransaction();
         try {
             $User_ID = Auth::id();
             $user = User::all()->find($User_ID);
@@ -109,8 +122,10 @@ class AddUserController extends Controller
             $user->Last_Name = request('Lname');
             $user->save();
 
+            DB::commit();
             return back()->with('error', 'City Already Exist !!');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'City Already Exist !!');
@@ -132,56 +147,72 @@ class AddUserController extends Controller
         else
             return 1;
     }
+
     public function BeOwner($user_id = null)
     {
 
-        $countries = Country::all();
-        if (\request('allDone')) {
+        DB::beginTransaction();
+        try {
+            $countries = Country::all();
+            if (\request('allDone')) {
 
-            $typeOfUser = Type_Of_User::create([
-                'User_ID' => $user_id,
-                'User_Type_ID' => 3
-            ]);
-            return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
-        }
-        if ($user_id == null) {
-            return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
-        } else {
-            $user = User::all()->find($user_id);
-
-            if(request('First')!=null)
-                $user->First_Name = request('First');
-            if(request('Middle')!=null)
-                $user->Middle_Name = request('Middle');
-            if(request('Last')!=null)
-                $user->Last_Name = request('Last');
-            if(request('National')!=null)
-                $user->National_ID = request('National');
-            $user->save();
-
-
-            $phone_number = Phone_Numbers::all()->where('User_ID', '=', $user->id);
-
-
-            if ($phone_number == '[]') {
-
-                $phone_number = Phone_Numbers::create([
-                    'User_ID' => $user_id,
-                    'phone_number' => request('Phone'),
-                    'Default' => 1
-                ]);
-            } else {
-                $phone_number->phone_number = request('Phone');
-            }
-
-            if (\request('check') == 'BeOwner') {
                 $typeOfUser = Type_Of_User::create([
                     'User_ID' => $user_id,
                     'User_Type_ID' => 3
                 ]);
                 return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
             }
-            return redirect()->back();
+            if ($user_id == null) {
+                return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
+            } else {
+                $user = User::all()->find($user_id);
+
+                if (request('First') != null)
+                    $user->First_Name = request('First');
+                if (request('Middle') != null)
+                    $user->Middle_Name = request('Middle');
+                if (request('Last') != null)
+                    $user->Last_Name = request('Last');
+                if (request('National') != null)
+                    $user->National_ID = request('National');
+                $user->save();
+
+
+                $phone_number = Phone_Numbers::all()->where('User_ID', '=', $user->id);
+
+
+                if ($phone_number == '[]') {
+
+                    $phone_number = Phone_Numbers::create([
+                        'User_ID' => $user_id,
+                        'phone_number' => request('Phone'),
+                        'Default' => 1
+                    ]);
+                } else {
+                    $phone_number->phone_number = request('Phone');
+                }
+
+                if (\request('check') == 'BeOwner') {
+                    $typeOfUser = Type_Of_User::create([
+                        'User_ID' => $user_id,
+                        'User_Type_ID' => 3
+                    ]);
+                    return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
+                }
+                return redirect()->back();
+            }
+            DB::commit();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'City Already Exist !!');
+            }
+            if ($errorCode == 1048) {
+                return back()->with('error', 'You must select all values!!');
+            } else {
+                return $e->errorInfo;
+            }
         }
     }
     /**
@@ -196,23 +227,19 @@ class AddUserController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-        $user = User::all()->where('id', '=', $id)->first();
+   
 
-        $posts = PostsController::userPosts($id);
-        $profile_photo = ProfilePhotoController::getPhoto($id);
-        $cover_photo = CoverPhotoController::getPhoto($id);
-        $post_images = AttachmentController::getPostAttachments($id);
-        $gallery = AttachmentController::getAttachmentsOfuser($id);
-        $check_follow = FollowedusersController::checkFollow($id);
+    //route byro7 3la index aw function show da bst5dmo lma ha show variables
+    //fe el blade in the same time the route passes me to the blade
+    public function showMyProfile()
+    {
+        $user = User::all()->where('id', '=', Auth::id())->first();
+
+        $posts = PostsController::userPosts(Auth::id());
+        $profile_photo = ProfilePhotoController::getPhoto(Auth::id());
+        $cover_photo = CoverPhotoController::getPhoto(Auth::id());
+        $post_images = AttachmentController::getPostAttachments(Auth::id());
+        $gallery = AttachmentController::getAttachmentsOfuser(Auth::id());
         $post_images = [];
 
         foreach ($posts as $post) {
@@ -228,28 +255,12 @@ class AddUserController extends Controller
         $User = Auth::user();
 
         // commented for test only
-        if ($id == Auth::id()) {
-            return view('website\frontend\customer\Customer_Own_Profile', [
-                'id' => $id,
-                'User' => $User,
-                'First_Name' => $user->First_Name,
-                'Email' => $user->email,
-                'Middle_Name' => $user->Middle_Name,
-                'Last_Name' => $user->Last_Name,
-                'Cover_Photo' => $cover_photo,
-                'Profile_Photo' => $profile_photo,
-                'posts' => $posts,
-                'post_images' => $post_images,
-                'followedItems' => $user->followedItems,
-                'gallery' => $gallery,
-                'items' => $user->items,
-            ]);
-        }
 
-        return view('website\frontend\customer\Customer_Profile', [
-            'id' => $id,
+        return view('website\frontend\customer\Customer_Own_Profile', [
+            'id' =>  Auth::id(),
             'User' => $User,
             'First_Name' => $user->First_Name,
+            'Email' => $user->email,
             'Middle_Name' => $user->Middle_Name,
             'Last_Name' => $user->Last_Name,
             'Cover_Photo' => $cover_photo,
@@ -259,8 +270,6 @@ class AddUserController extends Controller
             'followedItems' => $user->followedItems,
             'gallery' => $gallery,
             'items' => $user->items,
-            'check_follow' =>  $check_follow,
-
         ]);
     }
 
@@ -271,15 +280,6 @@ class AddUserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    //ex11
-    public static function getItemWithOwnerName($item_id)
-    {
-        //
-        $item = DB::table('items')
-            ->join('users', 'users.id', '=', 'items.User_Id')
-            ->select('items.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')->where('Item_Id', '=', $item_id)->first();
-        return $item;
-    }
 
     /**
      * Update the specified resource in storage.
@@ -309,28 +309,35 @@ class AddUserController extends Controller
     public function destroy(Request $request, $id = null)
     {
         //
+        DB::beginTransaction();
 
         try {
             User::destroy($request->id);
             Emails::destroy($request->id);
             Phone_Numbers::destroy($request->id);
+            DB::commit();
             return back()->with('success', 'Item Deleted Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
 
+            DB::rollBack();
             return back()->with('error', 'Item cannot be deleted');
         }
     }
 
     public function editUserName()
     {
+        DB::beginTransaction();
+
         try {
             $user = User::all()->find(request('id'));
             $user->First_Name = request('UserFirstName');
             $user->Middle_Name = request('UserMiddleName');
             $user->Last_Name = request('UserLastName');
             $user->save();
+            DB::commit();
             return back()->with('info', 'Item Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Already Exist !!');
@@ -341,12 +348,16 @@ class AddUserController extends Controller
 
     public function editUserEmail(Request $request)
     {
+        DB::beginTransaction();
+
         try {
             $email = Emails::all()->find(request('id'));
             $email->email = request('email');
             $email->save();
+            DB::commit();
             return back()->with('info', 'Item Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Already Exist !!');
@@ -379,39 +390,86 @@ class AddUserController extends Controller
     }
     public static function FollowedItem($Item_Id)
     {
-        $followed_items = followeditemsbyuser::create([
-            'Item_Id' => $Item_Id,
-            'User_ID' => Auth::id()
-        ]);
-        $followed_items->save();
+        DB::beginTransaction();
+        try {
+            $followed_items = followeditemsbyuser::create([
+                'Item_Id' => $Item_Id,
+                'User_ID' => Auth::id()
+            ]);
+            $followed_items->save();
 
-        $to_user = ItemController::getowner($Item_Id);
-        NotificationController::createRedirect(Auth::id(), $to_user,  'Started Following your item', '/view_User/' . Auth::id());
-        return back();
+            $to_user = ItemController::getowner($Item_Id);
+            NotificationController::createRedirect(Auth::id(), $to_user,  'Started Following your item', '/view_User/' . Auth::id());
+            DB::commit();
+            return back();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Already Exist !!');
+            }
+        }
     }
     public static function UnfollowItem($Item_Id)
     {
         $User_Id = Auth::id();
-        // DB::table('followeditemsbyusers')->where('User_ID','=',$User_Id,'Item_Id','=',$Item_Id)->delete();
-
         $followed_items = followeditemsbyuser::all()->where('Item_Id', '=', $Item_Id)->where('User_ID', '=', $User_Id)->first();
+        DB::beginTransaction();
 
-        followeditemsbyuser::destroy($followed_items->Followed_Item_Id);
-        return back();
+        try {
+            followeditemsbyuser::destroy($followed_items->Followed_Item_Id);
+            DB::commit();
+            return back();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return back()->withError($e->getMessage())->withInput();
+        }
+    }
+
+    public function get_user_types()
+    {
+        //
+        $user_types = User_Type::all();
+        $Users = User::all();
+        return view('website/backend.database pages.Users_Show', ['user_typess' => $user_types, 'users' => $Users]);
+    }
+    public function getUser($id = null)
+    {
+        if ($id == null && request()->has('id')) $id = request('id');
+        //$Type_Of_User=Type_Of_User::all();
+        $user_types = User_Type::all();
+        $Users = DB::table('type__of__users')->join('users', 'users.id', '=', 'type__of__users.User_ID')
+            ->join('emails', 'type__of__users.User_ID', '=', 'emails.User_ID')
+            ->join('phone__numbers', 'type__of__users.User_ID', '=', 'phone__numbers.User_ID')
+            ->select('users.*', 'type__of__users.*', 'emails.*', 'phone__numbers.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')
+            ->where('User_Type_ID', '=', $id)->get();
+
+
+        return  response()->json($Users);
     }
 
     public function changePassword()
     {
 
-        $User_ID = Auth::id();
-        $user = User::all()->find($User_ID);
 
-        $password = request('password');
 
-        if (Hash::check($password, $user->password)) {
-            $user->password = Hash::make(request('newpassword'));
-            $user->save();
-            return true;
-        } else return false;
+        DB::beginTransaction();
+        try {
+            $User_ID = Auth::id();
+            $user = User::all()->find($User_ID);
+            $password = request('password');
+            if (Hash::check($password, $user->password)) {
+                $user->password = Hash::make(request('newpassword'));
+                $user->save();
+                DB::commit();
+                return true;
+            } else return false;
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Already Exist !!');
+            }
+        }
     }
 }

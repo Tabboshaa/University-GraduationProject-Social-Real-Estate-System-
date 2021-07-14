@@ -44,9 +44,9 @@ class ItemController extends Controller
     public  function show($id = null)
     {
         //lw gy mn el ajax fe el detail blade
-      
+
         if ($id == null && request()->has('Item')) $id = request('Item');
-        
+
         $item = Item::all()->where('Item_Id', '=', $id)->first();
 
         $User_id = Arr::get($item, 'User_Id');
@@ -57,7 +57,7 @@ class ItemController extends Controller
         $user = $item->user;
 
         $email = Arr::get(Emails::all()->where('User_ID', '=', $User_id)->first(), 'email');
-                              
+
 
         $phone_number = Arr::get(Phone_Numbers::all()->where('User_ID', '=', $User_id)->first(), '');
 
@@ -102,9 +102,9 @@ class ItemController extends Controller
     public function OwnerSelectProperty($item_id = null, $sub_type_id = null)
     {
         //
-        $sub_type= Sub_Type::all()->where('Sub_Type_Id', '=', $sub_type_id)->first()->Sub_Type_Name;
+        $sub_type = Sub_Type::all()->where('Sub_Type_Id', '=', $sub_type_id)->first()->Sub_Type_Name;
         $property = Sub_Type_Property::all()->where('Sub_Type_Id', '=', $sub_type_id);
-        return view('website.frontend.Owner.Owner_Select_Details', ['property' => $property, 'item_id' => $item_id,'sub_type'=>$sub_type]);
+        return view('website.frontend.Owner.Owner_Select_Details', ['property' => $property, 'item_id' => $item_id, 'sub_type' => $sub_type]);
     }
     public function SelectSubType($id = null)
     {
@@ -115,28 +115,41 @@ class ItemController extends Controller
     }
     public function OwnerAddItem()
     {
-         $user_id=Auth::id();
-        $item = Item::create([
-            'User_Id' => $user_id,
-            'Street_Id' => request("StreetSelect"),
-            'Item_Name' => request("Item_Name"),
-            'address_longitude'=>request('longitude'),
-            'address_latitude'=>request('latitude'),
-        ]);
-        $item_id = Arr::get($item, 'Item_Id');
-        return $this->SelectSubType($item_id);
+        $user_id = Auth::id();
+        DB::beginTransaction();
+        try {
+            $item = Item::create([
+                'User_Id' => $user_id,
+                'Street_Id' => request("StreetSelect"),
+                'Item_Name' => request("Item_Name"),
+                'address_longitude' => request('longitude'),
+                'address_latitude' => request('latitude'),
+            ]);
+            $item_id = Arr::get($item, 'Item_Id');
+            DB::commit();
+            return $this->SelectSubType($item_id);
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return back()->withError($e->getMessage())->withInput();
+        }
     }
     public function create()
     {
-
-        $item = Item::create([
-            'Street_Id' => request("Street"),
-            'User_Id' => request("userIdHiddenInput"),
-            'Item_Name' => 'hamada'
-        ]);
-        $item_id = Arr::get($item, 'Item_Id');
-        return $this->SubTypeShow($item_id);
-        return back()->with('success', 'Item Created Successfully');
+        DB::beginTransaction();
+        try {
+            $item = Item::create([
+                'Street_Id' => request("Street"),
+                'User_Id' => request("userIdHiddenInput"),
+                'Item_Name' => request("item_Name"),
+            ]);
+            $item_id = Arr::get($item, 'Item_Id');
+            DB::commit();
+            return $this->SubTypeShow($item_id);
+            return back()->with('success', 'Item Created Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return back()->withError($e->getMessage())->withInput();
+        }
     }
     public function ShowEditlocation($id = null)
     {
@@ -151,12 +164,20 @@ class ItemController extends Controller
     }
     public function EditLocation($id = null)
     {
+        DB::beginTransaction();
 
-        $item = Item::all()->find($id);
-        $item->Street_Id = request('Street_Name');
-        $item->save();
+        try {
+            $item = Item::all()->find($id);
+            $item->Street_Id = request('Street_Name');
+            $item->save();
 
-        return $this->show($id)->with('success', 'Location Edited Successfully');
+            DB::commit();
+            return $this->show($id)->with('success', 'Location Edited Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            $errorCode = $e->errorInfo[1];
+            return $this->show($id)->with('error', 'Error Editing Location');
+        }
     }
 
     public function ShowEditUser($id = null)
@@ -168,12 +189,16 @@ class ItemController extends Controller
 
     public function EditUser($id = null)
     {
-        try{
-        $item = Item::all()->find(request('id'));
-        $item->User_Id = request('userIdHiddenInput');
-        $item->save();
-        return $this->show($id);
+        DB::beginTransaction();
+
+        try {
+            $item = Item::all()->find(request('id'));
+            $item->User_Id = request('userIdHiddenInput');
+            $item->save();
+            DB::commit();
+            return $this->show($id);
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
         }
     }
@@ -189,23 +214,34 @@ class ItemController extends Controller
     {
         // Details
         if ($id != null) {
+            DB::beginTransaction();
             try {
                 Item::destroy($id);
+                DB::commit();        
                 return redirect()->route('Details')->with('success', 'Item Deleted Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollBack();
                 return back()->withError($e->getMessage())->withInput();
                 return redirect()->route('Details')->with('error', 'Item cannot be deleted');
             }
-            
         } else return redirect()->route('Details')->with('warning', 'No Item was chosen to be deleted.. !!');
     }
-    public function EditItemMap($itemId=null){
-
-            $item=Item::all()->find($itemId);
-            $item->address_latitude=\request('lat');
-            $item->address_longitude=\request('lang');
+    public function EditItemMap($itemId = null)
+    {
+        DB::beginTransaction();
+        try {
+            $item = Item::all()->find($itemId);
+            $item->address_latitude = \request('lat');
+            $item->address_longitude = \request('lang');
             $item->save();
-            return redirect()->back()->with('success','Location Changed Successfully');
+
+            DB::commit();
+            return redirect()->back()->with('success', 'Location Changed Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+
+            return back()->with('error', 'Error editing Detail');
+        }
     }
 
     public static function getnewestitems()
@@ -237,12 +273,12 @@ class ItemController extends Controller
                 $items = collect($items)->merge($item);
             }
         }
-        
+
         return $items;
     }
 
     public static function getowner($id)
     {
-        return  $item = Item::all()->where('Item_Id', '=', $id)->User_Id;
+        return Item::all()->where('Item_Id', '=', $id)->User_Id;
     }
 }
