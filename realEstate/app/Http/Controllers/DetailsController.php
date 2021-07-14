@@ -195,6 +195,7 @@ class DetailsController extends Controller
             return back()->withError($e->getMessage())->withInput();
         }
     }
+    
     public function destroy(Request $request)
     {
         //

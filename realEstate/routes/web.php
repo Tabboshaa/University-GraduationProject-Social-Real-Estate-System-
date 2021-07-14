@@ -1,9 +1,6 @@
 <?php
 
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\ScheduleController;
-use App\Schedule;
-use Carbon\Carbon;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -79,10 +76,10 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/Payment/{item_id}/{schedule}/{numberOfDays}/{totalCost}/{price_per_night}/{start_date}/{end_date}', 'PaymentController@show_payment');
 
     //items Profile Pages
-    Route::get('/itemProfile/{id?}', 'CustomerHomeController@itemProfile');
-    Route::get('/itemDetails/{id?}', 'CustomerHomeController@itemDetails');
-    Route::get('/itemGallery/{id?}', 'CustomerHomeController@itemProfileGallery');
-    Route::get('/itemReviews/{id?}', 'CustomerHomeController@itemProfileReviews');
+    Route::get('/itemProfile/{id?}', 'ItemProfileController@itemProfile');
+    Route::get('/itemDetails/{id?}', 'ItemProfileController@itemDetails');
+    Route::get('/itemGallery/{id?}', 'ItemProfileController@itemProfileGallery');
+    Route::get('/itemReviews/{id?}', 'ItemProfileController@itemProfileReviews');
 
     //notification soft delete
     Route::get('/view_notification', 'NotificationController@viewNotification')->name('view_notification');
@@ -135,14 +132,14 @@ Route::group(['middleware' => 'auth.user'], function () {
     //Owner
     Route::post('/OwnerAddItem', 'ItemController@OwnerAddItem');
 
-    Route::get('/owneritemProfile/{id?}', 'ItemProfileController@itemProfile');
-    Route::get('/owneritemDetails/{id?}', 'ItemProfileController@itemDetails');
-    Route::get('/owneritemGallery/{id?}', 'ItemProfileController@itemProfileGallery');
+    Route::get('/owneritemProfile/{id?}', 'OwnerController@itemProfile');
+    Route::get('/owneritemDetails/{id?}', 'OwnerController@itemDetails');
+    Route::get('/owneritemGallery/{id?}', 'OwnerController@itemProfileGallery');
     Route::get('/deleteImgFromGallery', 'PostAttachmentController@deleteImgFromGallery')->name('deleteImgFromGallery');
     Route::get('/createAttachment', 'AttachmentControllera@createAttachment');
-    Route::get('/owneritemReviews/{id?}', 'ItemProfileController@itemProfileReviews');
-    Route::get('/owneritemReservations/{id?}', 'ItemProfileController@itemReservations');
-    Route::get('/owneritemManageSchedule/{id?}', 'ItemProfileController@itemManageSchedule');
+    Route::get('/owneritemReviews/{id?}', 'OwnerController@itemProfileReviews');
+    Route::get('/owneritemReservations/{id?}', 'OwnerController@itemReservations');
+    Route::get('/owneritemManageSchedule/{id?}', 'OwnerController@itemManageSchedule');
     Route::get('/owneradditemschedule', 'ScheduleController@Ownercreate')->name('Add_Schedule');
 
     Route::get('/MyItems', 'OwnerController@index');
@@ -282,10 +279,10 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/item_gallery/{id}', 'AttachmentController@index');
     Route::POST('/add_item_gallery/{id}', 'AttachmentController@create');
     Route::get('/delete_gallery/{id?}', 'AttachmentController@destroy');
-    Route::get('/edit_Comment', 'CustomerHomeController@editComment')->name('Comment.update');
-    Route::get('/deletecomment/{id?}', 'CustomerHomeController@DestroyComment');
-    Route::get('/deletePost/{id?}', 'CustomerHomeController@DestroyPost');
-    Route::get('/edit_post', 'CustomerHomeController@editPost')->name('post.update');
+    Route::get('/edit_Comment', 'CommentsController@editComment')->name('Comment.update');
+    Route::get('/deletecomment/{id?}', 'CommentsController@DestroyComment');
+    Route::get('/deletePost/{id?}', 'PostsController@DestroyPost');
+    Route::get('/edit_post', 'PostsController@editPost')->name('post.update');
     Route::get('/delete_reply/{id?}', 'CommentsController@destroyReply');
 
     Route::get('/delete_review/{id?}', 'ReviewController@destroy');
@@ -339,7 +336,7 @@ Route::group(['middleware' => 'Admin'], function () {
 
     //neww 7/12
     Route::get('/property_select/{item_id}/{sub_type_id}', 'SubTypePropertyController@property_select');
-    Route::post('/submit_properties', 'PropertyDetailsController@submit_properties');
+ 
 
     // findDetailsForForm
     Route::get('/findDetailsForForm', 'PropertyDetailsController@findDetailsForForm')->name('propertyDetail.find');
@@ -352,13 +349,13 @@ Route::group(['middleware' => 'Admin'], function () {
     //User Pages #S
     Route::get('/User', 'UserController@Index');
     Route::Post('/Add_User', 'UserController@create');
-    Route::get('/show_users', 'UserTypes@get_user_types');
-    Route::get('/TypeOfUser', 'UserTypes@getUser')->name('users_show');
+    Route::get('/show_users', 'UserController@get_user_types');
+    Route::get('/TypeOfUser', 'UserController@getUser')->name('users_show');
     Route::delete('/delete_user/{id?}', 'UserController@destroy');
     Route::get('/edit_User_Name', 'UserController@editUserName')->name('UserName.update');
     Route::get('/edit_User_Email', 'UserController@editUserEmail')->name('UserEmail.update');
     Route::get('/edit_User_PhoneNumber', 'UserController@editUserPhoneNumber')->name('UserPhoneNumber.update');
-    Route::get('/view_User/{id}', 'UserController@show');
+    Route::get('/view_User/{id}', 'ItemProfileController@show');
 
     Route::Post('/item_created', 'ItemController@itemShow');
 

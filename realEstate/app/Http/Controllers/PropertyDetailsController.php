@@ -115,14 +115,6 @@ class PropertyDetailsController extends Controller
         } else return redirect()->route('property_detail_show')->with('warning', 'No Property Detail was chosen to be deleted.. !!');
     }
 
-    public function submit_properties()
-    {
-        //
-        $property = Sub_Type_Property::all()->whereIn('Property_Id', request('property'));
-        $details = Property_Details::all();
-        return view('website.backend.database pages.Detail_Page', ['property' => $property, 'details' => $details]);
-    }
-
     public function findDetailsForForm()
     {
         $properties = DB::table('property__details')
