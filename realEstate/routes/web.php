@@ -124,7 +124,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/shaimaa', 'CustomerHomeController@indexPhoto');
     Route::get('/myReservations', 'ReservationController@show');
 
-            Route::Post('/BeOwner/{id?}', 'UserController@BeOwner')->name('BeOwner');
+    Route::Post('/BeOwner/{id?}', 'UserController@BeOwner')->name('BeOwner');
     Route::get('/BeOwner/{id?}', 'UserController@BeOwner');
 
     Route::get('/checkIfOwner', 'UserController@checkIfOwner')->name('checkIfOwner');
@@ -145,13 +145,15 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/MyItems', 'OwnerController@index');
     Route::get('/MyReservations', 'OwnerController@getReservations');//not done
 
-    Route::get('/Amr/{id?}', 'ItemController@SelectSubType');
     Route::get('/OwnerSelectSubType/{id?}', 'ItemController@SelectSubType');
     Route::get('/OwnerSelectDetails/{item_id}/{sub_type_id}', 'ItemController@OwnerSelectProperty');
     Route::get('/OwnerAddItem', function () {
         return view('website\frontend.Owner.Add_Item');
     });
-    Route::get('/test', 'NotificationController@index');
+
+    Route::get('/settings',function () {return view("website\\frontend\settings");});
+    Route::get('/help',function () {return view("website\\frontend\help");});
+    Route::get('/notifications',function () {return view("website\\frontend\\notifications");});
 });
 
 
@@ -389,6 +391,7 @@ Route::get('policy',function() {
 
 Route::get('redirect/{service}','SocialController@redirect');
 Route::get('callback/{service}','SocialController@callback');
+
 
 Route::get('map',function (){
     return view('map');

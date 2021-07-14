@@ -130,6 +130,7 @@ class ScheduleController extends Controller
 
         $schedule = DB::table("schedules")
             ->selectRaw('schedule_Id,Start_Date,YEAR(Start_Date) as year ,MONTH(Start_Date) as month,End_Date')
+            ->where("Item_Id","=",$item_id)
             ->orderBy('Start_Date')
             ->get();
 

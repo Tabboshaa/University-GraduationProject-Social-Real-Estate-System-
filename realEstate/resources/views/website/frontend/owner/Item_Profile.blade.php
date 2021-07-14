@@ -1,5 +1,5 @@
 
-@extends('website.frontend.layouts.main')
+@extends('website.frontend.ownerlayouts.main')
 @section('profile')
 <div class="row">
     <div class="col-xl-12">

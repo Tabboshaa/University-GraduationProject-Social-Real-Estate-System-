@@ -140,7 +140,7 @@ class ItemController extends Controller
             $item = Item::create([
                 'Street_Id' => request("Street"),
                 'User_Id' => request("userIdHiddenInput"),
-                'Item_Name' => 'hamada'
+                'Item_Name' => request("item_Name"),
             ]);
             $item_id = Arr::get($item, 'Item_Id');
             DB::commit();
@@ -279,6 +279,6 @@ class ItemController extends Controller
 
     public static function getowner($id)
     {
-        return  $item = Item::all()->where('Item_Id', '=', $id)->User_Id;
+        return Item::all()->where('Item_Id', '=', $id)->User_Id;
     }
 }
