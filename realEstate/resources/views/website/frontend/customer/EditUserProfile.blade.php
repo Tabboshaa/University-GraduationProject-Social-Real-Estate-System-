@@ -13,7 +13,7 @@
                         <div class="card-body p-lg-5 p-4 w-100 border-0 ">
                             <div class="row justify-content-center">
                                 <div class="col-lg-4 text-center">
-                                    @if($image->Profile_Picture!=null)
+                                    @if($image!=null)
                                     <figure class="avatar ms-auto me-auto mb-0 mt-2 w100"><img src="{{asset('storage/cover page/'.$image->Profile_Picture)}}" alt="image" class="shadow-sm rounded-3 w-100"></figure>
                                     @else
                                         <figure class="avatar ms-auto me-auto mb-0 mt-2 w100"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-3 w-100"></figure>
@@ -135,6 +135,7 @@
             </div>
 
         </div>
+
 
 <script>
     var c=0;

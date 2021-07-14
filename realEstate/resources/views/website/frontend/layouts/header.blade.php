@@ -1,5 +1,4 @@
 <!-- navigation top-->
-
 <div class="nav-header bg-white shadow-xs border-0">
     <div class="nav-top">
         <a href="index.html"><i class="feather-zap text-success display1-size me-2 ms-0"></i><span class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">Sociala. </span> </a>
@@ -43,6 +42,7 @@
             @if($notification->Redirect_To !=null)<a href="{{url(''.$notification->Redirect_To)}}">@else <a href="{{ url('/view_User/'.$notification->From_User_Id) }}"> @endif
                     <h5 class="font-xssss text-grey-900 mb-1 mt-0 fw-700 d-block">{{$notification->fromuser->First_Name}} {{$notification->fromuser->Middle_Name}} {{$notification->fromuser['Last_Name']}}<span class="text-grey-400 font-xsssss fw-600 float-right mt-1"> <?php $end = \Carbon\Carbon::parse($notification->updated_at); ?>{{ $end->diffForHumans($today) }}</span></h5>
                     <h6 class="text-grey-500 fw-500 font-xssss lh-4">{{ $notification->Notification }}</h6>
+                </a>
                 </a>
         </div>
         @endforeach
@@ -213,7 +213,7 @@
         let $show=$('#show').val();
         if($show=='true')
         {
-            $("#BeOwnerModal2").modal("toggle");
+            $("#BeOwnerModal").modal("toggle");
         }else{$("#BeOwnerLightModal").modal("toggle"); }
 
     };

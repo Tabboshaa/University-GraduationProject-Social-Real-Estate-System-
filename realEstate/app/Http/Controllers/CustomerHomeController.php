@@ -34,12 +34,17 @@ class CustomerHomeController extends Controller
         $user = Type_Of_User::all()->where('User_ID', '=', $user_id)->where('User_Type_ID', '=', 3);
 
         $phone=Phone_Numbers::all()->where('User_ID', '=', $user_id)->first();
+//        return $phone;
         if ($user == '[]') {
             $user = '0';
         } else {
             $user = '1';
         }
         return view("website.frontend.customer.CustomerHome", ['states' => $state, 'checkIfOwner' => $user,'phone'=>$phone]);
+    }
+    public static function checkIfOwner()
+    {
+        $user = Type_Of_User::all()->where('User_ID', '=', Auth::id())->where('User_Type_ID', '=', 3);
     }
     public function indexPhoto()
     {
