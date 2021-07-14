@@ -22,7 +22,7 @@ class OwnerController extends Controller
         // ->get();
 
         $items = $user->items;  
-        return view('website.FrontEnd.Owner.Show_Item', ['items' => $items]);
+        return view('website.FrontEnd.Owner.Show_Item', ['items' => $items] );
     }
     public function create()
     {
