@@ -4,18 +4,12 @@ namespace App\Http\Controllers;
 
 
 use App\Phone_Numbers;
-use App\review;
-use Illuminate\Support\Arr;
 use App\Type_Of_User;
-use App\User;
 use App\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\followeditemsbyuser;
 use Illuminate\Support\Facades\Auth;
-use DateInterval;
-use DatePeriod;
-use DateTime;
 use App\comments;
 use App\posts;
 
@@ -40,6 +34,10 @@ class CustomerHomeController extends Controller
             $user = '1';
         }
         return view("website.frontend.customer.CustomerHome", ['states' => $state, 'checkIfOwner' => $user, 'phone' => $phone]);
+    }
+    public static function checkIfOwner()
+    {
+        $user = Type_Of_User::all()->where('User_ID', '=', Auth::id())->where('User_Type_ID', '=', 3);
     }
     public function indexPhoto()
     {
@@ -73,119 +71,6 @@ class CustomerHomeController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function itemProfile($id = null)
-    {
-        //
-
-        // return $i->street->country->Country_Name;
-        $state = StateController::getStates();
-        $posts = PostsController::getItemPosts($id);
-        $comments = CommentsController::getPostComments($id);
-        $replies = CommentsController::getPostreplies($id);
-        $cover = CoverPageController::getCoverPhotoOfItem($id);
-        $post_images = AttachmentController::getPostAttachments($id);
-        $gallery = DB::table('post_attachments')
-            ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
-            ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
-            ->select('post_attachments.*', 'attachments.File_Path')->where('items.Item_Id', '=', $id)->paginate(6);
-        // $item = UserController::getItemWithOwnerName($id);
-        $item = Item::find($id);
-
-        $User_Id = Auth::id();
-        $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
-
-
-        return view(
-            'website\frontend\customer\Item_Profile_Posts',
-            [
-                'states' => $state,
-                'posts' => $posts,
-                'item' => $item,
-                'cover' => $cover,
-                'post_images' => $post_images,
-                'comments' => $comments,
-                'replies' => $replies,
-                'check_follow' => $check_follow,
-                'gallery' => $gallery
-
-            ]
-        );
-    }
-
-    public function itemDetails($id)
-    {
-        //
-
-        $schedule = ScheduleController::getAvailableTime($id);
-        // return $schedule;
-
-        $state = StateController::getStates();
-
-        $item = Item::find($id);
-        $cover = CoverPageController::getCoverPhotoOfItem($id);
-
-        //schedule and location
-
-        $User_Id = Auth::id();
-        $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
-
-        $details = DB::table('details')
-            ->join('sub__type__properties', 'details.Property_Id', '=', 'sub__type__properties.Property_Id')
-            ->join('property__details', 'details.Property_Detail_Id', '=', 'property__details.Property_Detail_Id')
-            ->join('datatypes', 'datatypes.id', '=', 'property__details.DataType_Id')
-            ->select('details.*', 'sub__type__properties.Property_Name', 'property__details.Detail_Name', 'datatypes.datatype')
-            ->get()->where('Item_Id', '=', $id)->groupBy(['Property_Name', 'Property_Id', 'Property_diff']);
-
-
-        return view('website\frontend\customer\Item_Profile_Details', ['details' => $details, 'states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
-    }
-
-
-
-    public function itemProfileGallery($id)
-    {
-        //
-        $state = StateController::getStates();
-
-        $item = Item::find($id);
-
-        $gallery = DB::table('post_attachments')
-            ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
-            ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
-            ->select('post_attachments.*', 'attachments.File_Path')->where('items.Item_Id', '=', $id)->paginate(8);
-
-        $cover = CoverPageController::getCoverPhotoOfItem($id);
-        $User_Id = Auth::id();
-        $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
-
-        return view('website\frontend\customer\Item_Profile_Gallery', ['states' => $state, 'item' => $item, 'cover' => $cover, 'gallery' => $gallery, 'check_follow' => $check_follow]);
-    }
-    public function itemProfileReviews($id = null)
-    {
-        //
-
-        $state = StateController::getStates();
-        $reviews = ReviewController::getItemReviews($id);
-        $item = Item::find($id);
-        $cover = CoverPageController::getCoverPhotoOfItem($id);
-
-        $item = Item::find($id);
-        $cover = CoverPageController::getCoverPhotoOfItem($id);
-
-        $User_Id = Auth::id();
-        $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
-
-        $AuthReview = review::all()->where('Item_Id', '=', $id)->where('User_Id', '=', $User_Id)->first();
-
-
-        return view('website\frontend\customer\Item_Profile_Reviews', ['states' => $state, 'reviews' => $reviews, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow, 'itemID' => $id, 'AuthReview' => $AuthReview]);
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -449,74 +334,6 @@ class CustomerHomeController extends Controller
                 'mostPopularitems' => $mostPopularitems
             ]
         );
-    }
-    public function DestroyComment(Request $request, $id = null)
-    {
-        DB::beginTransaction();
-
-        try {
-            comments::destroy($request->id);
-            DB::commit();
-            return redirect()->back()->with('success', 'Comment Deleted Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
-            DB::rollBack();
-            return redirect()->back()->with('error', 'Comment cannot be deleted');
-        }
-    }
-    public function editComment()
-    {
-        DB::beginTransaction();
-
-        try {
-
-            $comment = comments::all()->find(request('id'));
-            $comment->Comment = request('edit_Comment');
-            $comment->save();
-
-            DB::commit();
-            return back()->with('info', 'Comment Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
-            DB::rollBack();
-            $errorCode = $e->errorInfo[1];
-            if ($errorCode == 1062) {
-                return back()->with('error', 'Error editing item');
-            }
-            return back()->withError($e->getMessage())->withInput();
-        }
-    }
-    public function DestroyPost(Request $request, $id = null)
-    {
-
-        DB::beginTransaction();      
-        try {
-            posts::destroy($request->id);
-            DB::commit();
-            return redirect()->back()->with('success', 'Post Deleted Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
-            DB::rollBack();
-            return redirect()->back()->with('error', 'Comment cannot be deleted');
-        }
-    }
-    public function editPost()
-    {
-
-        DB::beginTransaction();
-        try {
-
-            $post = posts::all()->find(request('id'));
-            $post->Post_Content = request('edit_Post');
-            $post->save();
-
-            DB::commit();
-            return back()->with('info', 'post Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
-            DB::rollBack();
-            $errorCode = $e->errorInfo[1];
-            if ($errorCode == 1062) {
-                return back()->with('error', 'Error editing item');
-            }
-            return back()->withError($e->getMessage())->withInput();
-        }
     }
 
 

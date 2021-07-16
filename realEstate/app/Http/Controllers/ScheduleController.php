@@ -130,6 +130,7 @@ class ScheduleController extends Controller
 
         $schedule = DB::table("schedules")
             ->selectRaw('schedule_Id,Start_Date,YEAR(Start_Date) as year ,MONTH(Start_Date) as month,End_Date')
+            ->where("Item_Id","=",$item_id)
             ->orderBy('Start_Date')
             ->get();
 
@@ -283,14 +284,22 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public static function checkIfScheduleExists($item, $start)
+    public static function checkIfScheduleExists($item, $start,$end=null)
     {
         //
+        if($end)
+        {
+            
+        $tst = DB::table("schedules")->where('Item_Id', '=', $item)
+        ->whereDate('schedules.Start_Date', '<=', $start)
+        ->whereDate('schedules.End_Date', '>=', $end)->get();
 
+    }else{
+        
         $tst = DB::table("schedules")->where('Item_Id', '=', $item)
             ->whereDate('schedules.Start_Date', '<=', $start)
             ->whereDate('schedules.End_Date', '>=', $start)->get();
-
+        }
         if ($tst == '[]') return false;
 
         return true;

@@ -81,8 +81,8 @@
             <div class="card-body d-block w-100 shadow-none mb-0 p-0 border-top-xs">
                 <ul class="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4" id="pills-tab" role="tablist">
                     <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Profile</a></li>
-                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Owned items</a></li>
-                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Followed items</a></li>
+                    <!-- <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Owned items</a></li>
+                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Followed items</a></li> -->
                     <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Gallery</a></li>
                 </ul>
             </div>

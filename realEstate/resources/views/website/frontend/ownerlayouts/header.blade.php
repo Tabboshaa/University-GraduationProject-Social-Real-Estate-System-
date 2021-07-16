@@ -1,222 +1,79 @@
-<nav class="navbar navbar-expand-md navbar-light fixed-top sticky-top nav-menu">
+<!-- navigation top-->
 
-    <div class="col-md-2 col-xs-12 p-left  p-right">
-
-        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle">
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="logo">
-            <a href="#">
-                <img src="{{asset('FrontEnd/images/header/logo.png')}}" alt="logo">
-            </a>
-        </div>
-    </div>
-    <!-- Navbar -->
-    <div class="col-md-5 col-xs-12 p-left  p-right">
-        <div class="searching">
-            <form action="{{url('search_by_place')}}">
-                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                <input type="text" list="states" name="search" placeholder="Search for item by state">
-                <datalist id="states">
-
-                </datalist>
-            </form>
-        </div>
+<div class="nav-header bg-white shadow-xs border-0">
+    <div class="nav-top">
+        <a href="index.html"><i class="feather-pocket text-success display1-size me-2 ms-0"></i><span class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">Sociala. </span> </a>
+        <a href="#" class="mob-menu ms-auto me-2 chat-active-btn"><i class="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+        <a href="default-video.html" class="mob-menu me-2"><i class="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+        <a href="#" class="me-2 menu-search-icon mob-menu"><i class="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+        <button class="nav-menu me-0 ms-2"></button>
     </div>
 
-
-    <div class="col-md-5 col-xs-12 p-left p-right">
-        <div id="checkIfOwnerDiv">
-            <div class="add-listing">
-                <a href="javascript:void(0)" onclick="ToggleBeOwnerModal()">
-                    <img src="{{asset('FrontEnd/images/header/plus-ico.png')}}" alt=''>Continue As Owner </a>
-            </div>
+    <form action="#" class="float-left header-search">
+        <div class="form-group mb-0 icon-input">
+            <i class="feather-search font-sm text-grey-400"></i>
+            <input type="text" placeholder="Start typing to search.." class="bg-grey border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg">
         </div>
-        <div class="home">
-            <ul>
-                <li>
-                    <a href="{{url('/HomePage')}}"><img src="{{asset('FrontEnd/images/header/home.png')}}" alt="" title="">
-                        <span>0</span>
-                    </a>
-                </li>
-                <li class="popup" onclick="myFunctionmsg()">
-                    <img src="{{asset('FrontEnd/images/header/mgs.png')}}" alt="" title="">
-                    <span>0</span>
-                    <div class="popuptext" id="message">
-                        <div class="notfication-details">
-                            <div class="noty-user-img">
-                                <img src="{{asset('FrontEnd/images/resources/ny-img1.png')}}" alt="">
-                            </div>
-                            <div class="notification-info">
-                                <h5><a href="message.html">Jassica William</a>
-                                    Lorem ipsum dolor sit amet,
-                                    consectetur adipisicing elit,</h5>
-                                <p>2 min ago</p>
-                            </div>
-                            <!--notification-info -->
-                        </div>
-                        <div class="notfication-details">
-                            <div class="noty-user-img">
-                                <img src="{{asset('FrontEnd/images/resources/ny-img1.png')}}" alt="">
-                            </div>
-                            <div class="notification-info">
-                                <h5><a href="message.html">Jassica William</a>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                    .</h5>
-                                <p>2 min ago</p>
-                            </div>
-                            <!--notification-info -->
-                        </div>
+    </form>
+    <a href="{{url('/MyItems')}}" class="p-2 text-center ms-3 menu-icon center-menu-icon"><i class="feather-home font-lg alert-primary btn-round-lg theme-dark-bg text-current "></i></a>
 
-                        <div class="notfication-details">
-                            <div class="noty-user-img">
-                                <img src="{{asset('FrontEnd/images/resources/ny-img1.png')}}" alt="">
-                            </div>
-                            <div class="notification-info">
-                                <h5><a href="message.html">Jassica William</a>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                </h5>
-                                <p>2 min ago</p>
-                            </div>
-                            <!--notification-info -->
-                        </div>
+    <a href="{{url('/EditCustomerProfile')}}" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i class="feather-user font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
+    <a href="shop-2.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i class="feather-shopping-bag font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
 
-                    </div>
+    <?php
 
-                </li>
-                <?php
+    use App\Http\Controllers\NotificationController;
+    use Illuminate\Support\Facades\Auth;
 
-                use App\Http\Controllers\NotificationController;
-                use Illuminate\Support\Facades\Auth;
+    $notifications = NotificationController::index(Auth::id());
+    $today = \Carbon\Carbon::now();
+    ?>
+    
+    <a href="#" class="p-2 text-center ms-auto menu-icon" id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false">@if(count($notifications)!=0)<span class="dot-count bg-warning"></span>@endif<i class="feather-bell font-xl text-current"></i></a>
+    <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" style="max-height: 650px; overflow: auto;" aria-labelledby="dropdownMenu3">
+        <h4 class="fw-700 font-xss mb-4">Notification</h4>
+        @foreach($notifications as $notification)
+        <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3" id="notif{{$notification->Notification_Id}}">
 
-                $notifications = NotificationController::index(Auth::id());
-                $today = \Carbon\Carbon::now();
-                ?>
-                <li class="popup" onclick="myFunctionicon()">
-                    <img src="{{asset('FrontEnd/images/header/notification.png')}}" alt="" title="">
-
-                    <span>{{count($notifications)}}</span>
-                    <!-- do by javascript -->
-                    <div class="popuptext visible-title" id="icon">
-                        @foreach($notifications as $notification)
-                        <div class="notfication-details visible-title">
-                            <div class="noty-user-img visible-title">
-                                <img src="images/resources/ny-img1.png" alt="">
-                            </div>
-                            <div class="notification-info visible-title">
-                                <a href="{{ url('/view_notification/'.$notification->Notification_Id) }}"> <i class="fa fa-close"></i></a>
-                                <h3><a href="{{ url('/view_User/'.$notification->id) }}"> {{$notification->First_Name}} {{$notification->Middle_Name}} {{$notification->Last_Name}}</a> </h3>
-                                <h3 style="font-size: 10px;">
-                                    <p>{{ $notification->Notification }} </p>
-                                </h3>
-                                <?php $end = \Carbon\Carbon::parse($notification->updated_at); ?>
-                                <p>{{ $end->diffForHumans($today) }}</p>
-                            </div>
-                            <!--notification-info -->
-                        </div>
-                        @endforeach
-                        <p><a href="{{ url('/show_notifications') }}">Click here to view all notifications</a></p>
-                    </div>
-                </li>
-            </ul>
+            @if($notification->fromuser->profilePhoto !=null)
+            <img src="{{asset('storage/cover page/'.$notification->fromuser->profilePhoto['Profile_Picture'])}}" alt="user" class="w40 position-absolute left-0">
+            @else
+            <img src="{{asset('storage/cover page/pic.png')}}" alt="user" class="w40 position-absolute left-0">
+            @endif
+            <a href="javascript:void(0)" onclick="deletenotification('{{$notification->Notification_Id}}')"> <i class="fa fa-close float-right mt-1"></i></a>
+            @if($notification->Redirect_To !=null)<a href="{{url(''.$notification->Redirect_To)}}">@else <a href="{{ url('/view_User/'.$notification->From_User_Id) }}"> @endif
+                    <h5 class="font-xssss text-grey-900 mb-1 mt-0 fw-700 d-block">{{$notification->fromuser->First_Name}} {{$notification->fromuser->Middle_Name}} {{$notification->fromuser['Last_Name']}}<span class="text-grey-400 font-xsssss fw-600 float-right mt-1"> <?php $end = \Carbon\Carbon::parse($notification->updated_at); ?>{{ $end->diffForHumans($today) }}</span></h5>
+                    <h6 class="text-grey-500 fw-500 font-xssss lh-4">{{ $notification->Notification }}</h6>
+                </a>
         </div>
-        <!--#Home-->
-        <div class="login popup" onclick="signin()">
-
-            <img src="{{asset('FrontEnd/images/header/u-icon.png')}}" title="" alt="">
-            {{\Illuminate\Support\Facades\Auth::user()->First_Name }}
-            <div class="popuptext1" id="signin">
-                <div class="notfication-details">
-                    <div class="notification-info">
-                        <a href="{{url('/EditCustomerProfile')}}">Profile </a>
-
-                    </div>
-                </div>
-                <div class="notfication-details">
-                    <div class="notification-info">
-                        <a href="my_profile_dashboard.html">Dashboard</a>
-                    </div>
-                </div>
-                @if (Route::has('login'))
-                <div class="notfication-details">
-                    <div class="notification-info">
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                    <!--notification-info -->
-                    @else
-                    <div class="notfication-details">
-                        <div class="notification-info">
-                            <a href="signin.html">Sign In</a>
-                        </div>
-                        <!--notification-info -->
-                    </div>
-                    @endif
-
-                </div>
-            </div>
-
-        </div>
-
+        @endforeach
     </div>
+
+    <div class="p-2 text-center ms-3 position-relative dropdown-menu-icon menu-icon cursor-pointer">
+    <a href="{{url('/settings')}}">   <i class="feather-settings animation-spin d-inline-block font-xl text-current"></i></a>
     </div>
-</nav>
-<div class="modal fade" id="BeOwnerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Need more information</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="BeOwnerForm" method="Post" action="{{url('BeOwner/'.Auth::id())}}">
-                    @csrf
-                    <input type="hidden" name="id" id="id">
 
-                    <div class="form-group">
-                        <label style="font-size: 12pt">First Name</label>
-                        <input type="text" style="border-radius: 3pt" name="First" class="form-control">
+    <a id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" class="p-0 ms-3 menu-icon"><img src="{{asset('storage/cover page/'.Auth::user()->profilePhoto->Profile_Picture)}}" alt="user" class="w40 mt--1 " style=" border-radius: 50%;"></a>
+    <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" aria-labelledby="dropdownMenu2">
 
-                    </div>
-
-                    <div class="form-group">
-                        <label style="font-size: 12pt">Middle Name</label>
-                        <input type="text" style="border-radius: 3pt" name="Middle" class="form-control">
-
-                    </div>
-                    <div class="form-group">
-                        <label style="font-size: 12pt">Last Name</label>
-                        <input type="text" style="border-radius: 3pt" name="Last" class="form-control">
-
-                    </div>
-                    <div class="form-group">
-                        <label style="font-size: 12pt">Phone Number</label>
-                        <input type="text" style="border-radius: 3pt" name="Phone" class="form-control">
-
-                    </div>
-                    <div class="form-group">
-                        <label style="font-size: 12pt">National ID</label>
-                        <input type="text" style="border-radius: 3pt" name="National" class="form-control">
-                    </div>
-                    <button type="submit" id="btun3" class="btn btn-success">Continue</button>
-                </form>
-
-            </div>
+        <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" >
+            <h5 class="font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block"> <a href="{{url('/EditCustomerProfile')}}"> profile</a></h5>
         </div>
+        <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" id="checkIfOwnerDiv">
+            <h5 class="font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block"> <a href='javascript:void(0)' onclick='ToggleBeOwnerModal()' data-backdrop="false"> Switch to Owner</a></h5>
+        </div>
+        <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" >
+            <h5 class="font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block"> <a href="{{ url('/logout') }}"> Log Out</a></h5>
+        </div>
+
     </div>
 </div>
+<!-- Modal -->
+
+
+
+
 <script>
-    function ToggleBeOwnerModal() {
-        $("#BeOwnerModal").modal("toggle");
-    };
     $(document).ready(function() {
         $.ajax({
             url: "{{route('checkIfOwner')}}",
@@ -231,15 +88,15 @@
                 // console.log(checkIfOwnerDiv);
                 if (checkIfOwner == '0') {
                     text +=
-                        "<div clrass='add-listing'> " +
+                        "<div class='card bg-transparent-card w-100 border-0 ps-0 mb-3'> " +
                         "<a href='javascript:void(0)' onclick='ToggleBeOwnerModal()'> " +
-                        "<img src='{{asset('FrontEnd/images/header/plus-ico.png')}}' alt=''>Continue As Owner </a></div>";
+                        "Continue As Owner </a></div>";
 
                 } else {
                     text +=
-                        "<div class='add-listing'> " +
-                        "<a href='{{url('/BeOwner')}}'> " +
-                        "<img src='{{asset('FrontEnd/images/header/plus-ico.png')}}' alt=''> Your Properties</a></div>";
+                        "<div class='card bg-transparent-card w-100 border-0 ps-0 mb-3'> " +
+                        "<h5 class='font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block'> <a href='{{url('/BeOwner')}}'> " +
+                        " Your Properties</a></h5></div>";
                 }
                 $("#checkIfOwnerDiv").html(text);
             },
@@ -248,4 +105,35 @@
             }
         });
     });
+
+    function ToggleBeOwnerModal() {
+        let $show=$('#show').val();
+        if($show=='true')
+        {
+            $("#BeOwnerModal2").modal("toggle");
+        }else{$("#BeOwnerLightModal").modal("toggle"); }
+
+    };
+
+
+    function deletenotification(id){
+        $.ajax({
+            url: "{{route('view_notification')}}",
+            data: {
+                notification_id:id
+            },
+            success: function() {
+                $("#notif"+id).remove();
+            },
+            error: function() {
+
+            }
+        });
+
+
+    }
+
 </script>
+
+
+<!-- navigation top -->

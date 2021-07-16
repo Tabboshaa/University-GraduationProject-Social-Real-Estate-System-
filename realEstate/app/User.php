@@ -69,6 +69,11 @@ class User extends Model implements
         return $this->hasMany(Phone_Numbers::class, 'User_Id');
     }
 
+    public function phoneNumber(){
+        return $this->hasOne(Phone_Numbers::class, 'User_Id');
+    }
+
+
     public function profilePhoto(){
         return $this->hasOne(ProfilePhoto::class, 'User_Id');
     }
