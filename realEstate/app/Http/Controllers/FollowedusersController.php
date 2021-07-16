@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\followedusers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class FollowedusersController extends Controller
 {
@@ -30,22 +31,38 @@ class FollowedusersController extends Controller
 
     public static function FollowedUser($id)
     {
-        $followed = followedusers::create([
-            'following_user' => $id,
-            'user_id' => Auth::id()
-        ]);
-        $followed->save();
-
-        $to_user = $id;
-        NotificationController::createRedirect(Auth::id(), $to_user, 'Started following you', '/view_User/' . Auth::id());
-        return back();
+        DB::beginTransaction();
+        try {
+            $followed = followedusers::create([
+                'following_user' => $id,
+                'user_id' => Auth::id()
+            ]);
+            $to_user = $id;
+            NotificationController::createRedirect(Auth::id(), $to_user, 'Started following you', '/view_User/' . Auth::id());
+            DB::commit();
+            return back();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Error editing Detail');
+            }
+        }
     }
+
     public static function UnfollowUser($id)
     {
         $followed = followedusers::all()->where('user_id', '=', Auth::id())->where('following_user', '=', $id)->first();
-
-        followedusers::destroy($followed->id);
-        return back();
+        DB::beginTransaction();
+        try {
+            followedusers::destroy($followed->id);
+            DB::commit();
+            return back();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return back()->withError($e->getMessage())->withInput();
+            return redirect()->back()->with('error', 'Detail cannot be deleted');
+        }
     }
     /**
      * Store a newly created resource in storage.
@@ -57,7 +74,7 @@ class FollowedusersController extends Controller
     {
         //
         $followed = followedusers::all()->where('user_id', '=', Auth::id())->where('following_user', '=', $id)->first();
-       
+
         if ($followed != null) {
             return true;
         }

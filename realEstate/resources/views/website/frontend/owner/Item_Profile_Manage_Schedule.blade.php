@@ -8,8 +8,8 @@
         <form method="Post" action="{{url('/delete_schedule?_method=delete')}}" enctype="multipart/form-data">
             @csrf
             <div class="row ms-10 mb-10">
-                <a class="d-none d-lg-block bg-blue-gradiant p-3 mb-3 ms-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 w-auto" href="javascript:void(0)" onclick="createSchedule('{{$item_id}}')">
-                    Add Scedule <i class="fa fa-plus-square"></i>
+                <a class="d-none d-lg-block bg-white p-3 mb-3 ms-3 z-index-1 rounded-3 text-black font-xsss fw-700 ls-3 w-auto" href="javascript:void(0)" onclick="createSchedule('{{$item_id}}')">
+                    Add Schedule <i class="fa fa-plus-square"></i>
                 </a>
             </div>
             <div class="clearfix"></div>
@@ -27,7 +27,7 @@
                         }
                     }
                 </script>
-                
+
                 @foreach($schedules as $schedule)
                 <div class="col-lg-4 col-md-6 pe-2 ps-2" style="display:table;">
                     <div class="card p-0 bg-white w-100 hover-card border-0 shadow-xss rounded-xxl border-0 mb-3 overflow-hidden ">
@@ -78,7 +78,9 @@
         $("#CreateScheduleModal").modal("toggle");
     }
 
-    $('#CreateSchedule').submit(function() {
+    $('#CreateSchedule').submit(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
 
         var id = $("#idNewSchedule").val();
         console.log(id);
@@ -98,8 +100,9 @@
                 _token: _token
             },
             success: function(response) {
-                console.log(response);
-                // location.href = response;
+
+                $('#Schedulealert').html(response["message"]);
+                $('#SchedulealertParent').removeClass().addClass(response["class"]);
             },
             error: function() {
                 console.log('Error');
@@ -108,6 +111,7 @@
         });
     });
 
+ 
 
     function setSchedule(schedule_id, start, end, price) {
         $("#id").val(schedule_id);

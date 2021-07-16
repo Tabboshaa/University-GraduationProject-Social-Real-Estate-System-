@@ -27,14 +27,14 @@ class CommentsController extends Controller
     public function create()
     {
         //
-
+        DB::beginTransaction();
         try {
             $comment=comments::create([
                 'Post_Id' => request('post_id'),
                 'User_Id'=> Auth::id(),
                 'Comment'  => request('comment')
             ]);
-//send notification to poster 
+            //send notification to poster 
             $to_user= PostsController::postCreatedBy(request('post_id'));
             NotificationController::create(Auth::id(),$to_user, 'Commented on your post');
             
@@ -46,16 +46,18 @@ class CommentsController extends Controller
             ->where('comments.Comment_Id','=',$comment->Comment_Id)
             ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name','profile_photos.Profile_Picture')
             ->get()->first();
-
-           return response()->json($comment);
+            
+            DB::commit();
+            return response()->json($comment);
         }catch (\Illuminate\Database\QueryException $e){
+            DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
         }
     }
     public function reply()
     {
         //
-
+        DB::beginTransaction();
         try {
             $comment=comments::create([
                 'Post_Id' => request('post_id'),
@@ -66,7 +68,7 @@ class CommentsController extends Controller
             //send notification to comment owner 
             $to_user= CommentsController::CommentCreatedBy(request('parent_id'));
             NotificationController::create(Auth::id(),$to_user, 'Replyed to your comment');
-
+            
             $comment=DB::table('comments')
             ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
             ->join('users', 'users.id', '=', 'comments.User_Id')
@@ -75,9 +77,11 @@ class CommentsController extends Controller
             ->where('comments.Comment_Id','=',$comment->Comment_Id)
             ->select('comments.*', 'users.First_Name','users.Middle_Name','users.Last_Name','profile_photos.Profile_Picture')
             ->get()->first();
-
-           return response()->json($comment);
+            
+            DB::commit();
+            return response()->json($comment);
         }catch (\Illuminate\Database\QueryException $e){
+            DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
         }
     }
@@ -138,11 +142,14 @@ class CommentsController extends Controller
     public function destroyComment($id)
     {
         //
+        DB::beginTransaction();
+        
         try {
             comments::destroy($id);
+            DB::commit();
             return  redirect()->back()->with('success', 'Comment Deleted Successfully');
         }catch (\Illuminate\Database\QueryException $e){
-
+            DB::rollBack();
             return redirect()->back()->with('error', 'Comment cannot be deleted');
             return back()->withError($e->getMessage())->withInput();
         }
@@ -152,11 +159,14 @@ class CommentsController extends Controller
     public function destroyReply($id)
     {
         //
+        DB::beginTransaction();
+        
         try {
             comments::destroy($id);
+            DB::commit();
             return  redirect()->back()->with('success', 'Reply Deleted Successfully');
-        }catch (\Illuminate\Database\QueryException $e){
-
+        }catch (\Illuminate\Database\QueryException $e){            
+            DB::rollBack();
             return redirect()->back()->with('error', 'Reply cannot be deleted');
             return back()->withError($e->getMessage())->withInput();
         }

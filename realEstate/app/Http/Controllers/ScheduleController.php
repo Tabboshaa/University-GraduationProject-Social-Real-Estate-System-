@@ -8,7 +8,6 @@ use DateInterval;
 use DatePeriod;
 use DateTime;
 use Exception;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -32,7 +31,15 @@ class ScheduleController extends Controller
      */
     public function create($id = null)
     {
+        //check if date exists
+        if ((ScheduleController::checkIfScheduleExists($id, request('arrival')) && ScheduleController::checkIfScheduleExists($id, request('departure'))))
+            return back()->with('error',  "both your start and end dates coincides with a previous schedule");
+        else if (ScheduleController::checkIfScheduleExists($id, request('arrival')))
+            return back()->with('error',  "your start date coincides with a previous schedule");
+        else if (ScheduleController::checkIfScheduleExists($id, request('departure')))
+            return back()->with('error', "your end date coincides with a previous schedule");
 
+        DB::beginTransaction();
         try {
             if ($id == null) {
                 $id = request('id');
@@ -43,15 +50,55 @@ class ScheduleController extends Controller
                 'End_Date' => request('departure'),
                 'Price_Per_Night' => request('price')
             ]);
+            DB::commit();
+            return back()->with('success', 'Schedule Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
             return back()->with('error', 'Error creating schedule !!');
         }
     }
 
+    public function Ownercreate()
+    {
+        //check if date exists
+        if (ScheduleController::checkIfScheduleExists(request('id'), request('arrival')) && ScheduleController::checkIfScheduleExists(request('id'), request('departure')))
+            return ["message" => "Both your start and end dates coincides with a previous schedule", "class" => "alert alert-danger alert-block"];
+        else if (ScheduleController::checkIfScheduleExists(request('id'), request('arrival')))
+            return ["message" => "Your start date coincides with a previous schedule", "class" => "alert alert-danger alert-block"];
+        else if (ScheduleController::checkIfScheduleExists(request('id'), request('departure')))
+            return ["message" => "Your end date coincides with a previous schedule", "class" => "alert alert-danger alert-block"];
+
+        DB::beginTransaction();
+        try {
+            $test = Schedule::create([
+                'Item_Id' => request('id'),
+                'Start_Date' => request('arrival'),
+                'End_Date' => request('departure'),
+                'Price_Per_Night' => request('price')
+            ]);
+
+            DB::commit();
+            return ["message" => "Schedule Added successfully", "class" => "alert alert-success alert-block"];
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return ["message" => "Sorry, An error happened creating your schedule.", "class" => "alert alert-danger alert-block"];
+        }
+    }
+
+    //used in cut schedule function
     public static function createWithVriables($id, $start, $end, $price)
     {
         //
+        //check if date exists
+        if (ScheduleController::checkIfScheduleExists($id, $start) && ScheduleController::checkIfScheduleExists($id, $end))
+            return "both your start and end dates coincides with a previous schedule";
+        else if (ScheduleController::checkIfScheduleExists($id, $start))
+            return "your start date coincides with a previous schedule";
+        else if (ScheduleController::checkIfScheduleExists($id, $end))
+            return "your end date coincides with a previous schedule";
+
+        DB::beginTransaction();
         try {
             Schedule::create([
                 'Item_Id' => $id,
@@ -59,8 +106,10 @@ class ScheduleController extends Controller
                 'End_Date' => $end,
                 'Price_Per_Night' => $price,
             ]);
+            DB::commit();
             return;
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
             return back()->with('error', 'Error creating schedule !!');
         }
@@ -74,18 +123,15 @@ class ScheduleController extends Controller
 
         return $schedule;
     }
+
     public static function getAvailableTime($item_id)
     {
         //     get from Schedule endDate startDate where item id =$item_id
-
-        //        $schedule = schedule::orderBy('Start_Date')->where('Item_Id', '=', $item_id)->get();
 
         $schedule = DB::table("schedules")
             ->selectRaw('schedule_Id,Start_Date,YEAR(Start_Date) as year ,MONTH(Start_Date) as month,End_Date')
             ->orderBy('Start_Date')
             ->get();
-
-
 
         $days = [];
         //get day of every schedule
@@ -103,61 +149,7 @@ class ScheduleController extends Controller
             return Carbon::parse($val['date'])->format('m');
         }])->toArray();
 
-
-        //             foreach ($days  as $year =>$months){
-        //             foreach ($months  as $month =>$schedules){
-        //             foreach ($schedules  as $sch){
-        //         return ($sch['date']);
-        //         }
-        //     }
-        // }
-
         return $days;
-
-        //   return $schedule;
-        //        $myDate = '01/07/2020';
-        //        $date = Carbon::createFromFormat('m/d/Y', $myDate);
-
-
-        //        $monthName = $date->format('F');
-
-        //    foreach ($schedule as $year=>$schedules)
-        //    {
-        //        echo 'year';
-        //        echo $year;
-
-
-        //        foreach ($schedules  as $month =>$days){
-        //         $dateObj   = DateTime::createFromFormat('!m', $month);
-        //         $month = $dateObj->format('F'); // name of month    
-        //            echo 'Month';
-        //            echo $month;
-        //            echo '       ';
-        //            echo 'schedules';
-
-        //           foreach($days as $d){
-
-        //         echo $d->Start_Date;  
-        //         }
-
-        //            }
-
-
-        //    $period =\Carbon\CarbonPeriod::create($s->Start_Date, $s->End_Date);
-
-        // Iterate over the period
-        //    foreach ($period as $date) {
-        //        echo $date->format('d');
-        //        echo '\r\n';
-
-        //    }
-        //        }
-
-        //    return 0;
-        // }
-
-        //
-        //        $days;
     }
 
     public static function getdays($start, $end, $schedule_id)
@@ -171,30 +163,36 @@ class ScheduleController extends Controller
 
         $interval = [];
         //enter start date
-        $interval[] = [
-            'date' => $start,
-            'schedule_Id' => $schedule_id
-        ];
-
-        // }for loop to store interval in array
-        foreach ($period as $key => $value) {
+        if (!Carbon::parse($start)->isPast()) {
             $interval[] = [
-                'date' => $value->format('Y-m-d'),
+                'date' => $start,
                 'schedule_Id' => $schedule_id
             ];
         }
-        //enter end date
-        $interval[] = [
-            'date' => $end,
-            'schedule_Id' => $schedule_id
-        ];
+        // }for loop to store interval in array
+        foreach ($period as $key => $value) {
 
+            if (!Carbon::parse($value)->isPast()) {
+                $interval[] = [
+                    'date' => $value->format('Y-m-d'),
+                    'schedule_Id' => $schedule_id
+                ];
+            }
+        }
+        //enter end date
+        if (!Carbon::parse($end)->isPast()) {
+            $interval[] = [
+                'date' => $end,
+                'schedule_Id' => $schedule_id
+            ];
+        }
         return $interval;
     }
 
     public static function cutSchedule($schedule_id, $start, $end)
     {
         //schdule 01/03/2020 to 20/03/2020
+        DB::beginTransaction();
         try {
             $schedule = Schedule::all()->find($schedule_id);
             if ($start ==  $schedule->Start_Date) { //if chosen date starts with the first day of schedule, customer chose 01/03/2020 to 20/03/2020
@@ -215,8 +213,10 @@ class ScheduleController extends Controller
                 //delete old schedule
                 ScheduleController::destroy($schedule_id);
             }
+            DB::commit();
             return true;
         } catch (Exception $e) {
+            DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
         }
     }
@@ -254,16 +254,20 @@ class ScheduleController extends Controller
     public function edit()
     {
         //
-
+        DB::beginTransaction();
+        
         try {
             $schedule = Schedule::all()->find(request('id'));
             $schedule->Start_Date = request('StartDate');
             $schedule->End_Date = request('EndDate');
             $schedule->Price_Per_Night = request('Price');
             $schedule->save();
+            
+            DB::commit();
             request()->session()->flash('info', 'Schedule Edited Successfully');
             return ('/owneritemManageSchedule/' . $schedule->Item_Id);
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing Schedule');
@@ -279,9 +283,17 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public static function checkIfScheduleExists($item, $start)
     {
         //
+
+        $tst = DB::table("schedules")->where('Item_Id', '=', $item)
+            ->whereDate('schedules.Start_Date', '<=', $start)
+            ->whereDate('schedules.End_Date', '>=', $start)->get();
+
+        if ($tst == '[]') return false;
+
+        return true;
     }
 
     /**
@@ -294,18 +306,26 @@ class ScheduleController extends Controller
     {
         //
         if (request()->has('schedule')) {
-
+            DB::beginTransaction();
+            
             try {
                 Schedule::destroy(request('schedule'));
-
+                
+                DB::commit();
                 return redirect()->back()->with('success', 'Schedule Deleted Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollBack();
                 return back()->withError($e->getMessage())->withInput();
                 return redirect()->back()->with('error', 'Schedule cannot be deleted');
             }
         } else if ($id != null) {
+            try {
             Schedule::destroy($id);
             return "schedule done";
+            }catch (\Illuminate\Database\QueryException $e) {
+                DB::rollBack();
+                return 'Schedule cannot be deleted';
+            }
         } else return redirect()->back()->with('warning', 'No Schedule was chosen to be deleted.. !!');
     }
 }

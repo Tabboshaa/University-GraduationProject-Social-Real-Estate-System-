@@ -31,14 +31,17 @@ class UserTypes extends Controller
      */
     public function create()
     {
-       
+
         //
+        DB::beginTransaction();
         try {
             $User_Type = User_Type::create([
                 'Type_Name' => request('User_Type_Name')
             ]);
+            DB::commit();
             return back()->with('success', 'Type Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Already Exist !!');
@@ -79,20 +82,23 @@ class UserTypes extends Controller
     public function edit()
     {
         //
+        DB::beginTransaction();
+
         try {
+            $user_type = User_Type::all()->find(request('id'));
+            $user_type->Type_Name = request('UserTypeName');
+            $user_type->save();
 
-        $user_type = User_Type::all()->find(request('id'));
-        $user_type->Type_Name = request('UserTypeName');
-        $user_type->save();
-
-        return back()->with('info','Type Edited Successfully');
-    }catch (\Illuminate\Database\QueryException $e){
-        $errorCode = $e->errorInfo[1];
-        if($errorCode == 1062){
-            return back()->with('error','Already Exist !!');
+            DB::commit();
+            return back()->with('info', 'Type Edited Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Already Exist !!');
+            }
+            return back()->withError($e->getMessage())->withInput();
         }
-        return back()->withError($e->getMessage())->withInput();
-    }
     }
 
     /**
@@ -116,40 +122,40 @@ class UserTypes extends Controller
     public function destroy()
     {
         //
-        if(request()->has('id'))
-       {   
-        try {
-        User_Type::destroy(request('id'));
-        return redirect()->route('usertype_show')->with('success', 'Type Deleted Successfully');
-            }catch (\Illuminate\Database\QueryException $e){
-        return redirect()->route('usertype_show')->with('error', 'Type cannot be deleted');
-        return back()->withError($e->getMessage())->withInput();
-    }
-}else return redirect()->route('usertype_show')->with('warning', 'No type was chosen to be deleted.. !!');
+        if (request()->has('id')) {
+            DB::beginTransaction();
+
+            try {
+                User_Type::destroy(request('id'));
+                DB::commit();
+                return redirect()->route('usertype_show')->with('success', 'Type Deleted Successfully');
+            } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollBack();
+                return redirect()->route('usertype_show')->with('error', 'Type cannot be deleted');
+                return back()->withError($e->getMessage())->withInput();
+            }
+        } else return redirect()->route('usertype_show')->with('warning', 'No type was chosen to be deleted.. !!');
     }
 
     public function get_user_types()
     {
         //
         $user_types = User_Type::all();
-        $Users=User::all();
-        return view('website/backend.database pages.Users_Show', ['user_typess' => $user_types,'users'=>$Users]);
-
+        $Users = User::all();
+        return view('website/backend.database pages.Users_Show', ['user_typess' => $user_types, 'users' => $Users]);
     }
-    public function getUser($id=null)
+    public function getUser($id = null)
     {
-        if($id==null && request()->has('id')) $id=request('id');
-         //$Type_Of_User=Type_Of_User::all();
-         $user_types = User_Type::all();
-         $Users=DB::table('type__of__users')->join('users','users.id','=','type__of__users.User_ID')
-         ->join('emails', 'type__of__users.User_ID', '=', 'emails.User_ID')
-         ->join('phone__numbers', 'type__of__users.User_ID', '=', 'phone__numbers.User_ID')
-         ->select('users.*','type__of__users.*','emails.*','phone__numbers.*','users.First_Name','users.Middle_Name','users.Last_Name')
-         ->where('User_Type_ID', '=', $id)->get();
+        if ($id == null && request()->has('id')) $id = request('id');
+        //$Type_Of_User=Type_Of_User::all();
+        $user_types = User_Type::all();
+        $Users = DB::table('type__of__users')->join('users', 'users.id', '=', 'type__of__users.User_ID')
+            ->join('emails', 'type__of__users.User_ID', '=', 'emails.User_ID')
+            ->join('phone__numbers', 'type__of__users.User_ID', '=', 'phone__numbers.User_ID')
+            ->select('users.*', 'type__of__users.*', 'emails.*', 'phone__numbers.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')
+            ->where('User_Type_ID', '=', $id)->get();
 
 
-         return  response()->json($Users);
-
-
+        return  response()->json($Users);
     }
 }

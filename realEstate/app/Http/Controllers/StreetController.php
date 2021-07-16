@@ -20,13 +20,12 @@ class StreetController extends Controller
     public function index()
     {
         //
-        $counrty=Country::all();
-        $state=State::all();
-        $city=City::all();
-        $region=Region::all();
-        $street=Street::all();
-        return view('website.backend.database pages.Add_Street',['counrty'=>$counrty,'state'=>$state,'city'=>$city,'region'=>$region , 'street1'=>$street]);
-
+        $counrty = Country::all();
+        $state = State::all();
+        $city = City::all();
+        $region = Region::all();
+        $street = Street::all();
+        return view('website.backend.database pages.Add_Street', ['counrty' => $counrty, 'state' => $state, 'city' => $city, 'region' => $region, 'street1' => $street]);
     }
 
     /**
@@ -36,30 +35,33 @@ class StreetController extends Controller
      */
     public function create()
     {
-         //
+        //
         //  request()->validate([
         //     'Street_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
         // ]);
 
-         try {
-         $street = Street::create([
-            'Country_Id' => request('Country_Name'),
-            'State_Id' => request('State_Name'),
-            'City_Id' => request('City_Name'),
-            'Region_Id' => request('Region_Name'),
-            'Street_Name' => request('Street_Name')
-        ]);
-        return back()->with('success','Street Created Successfully');
-    }catch (\Illuminate\Database\QueryException $e){
-        $errorCode = $e->errorInfo[1];
-        if($errorCode == 1062){
-            return back()->with('error','Street Already Exists !!');
-        }        if($errorCode == 1048 ){
-            return back()->with('error','You must select all values!!');
-     
-       }
-       return back()->withError($e->getMessage())->withInput();
-    }
+        DB::beginTransaction();
+        try {
+            $street = Street::create([
+                'Country_Id' => request('Country_Name'),
+                'State_Id' => request('State_Name'),
+                'City_Id' => request('City_Name'),
+                'Region_Id' => request('Region_Name'),
+                'Street_Name' => request('Street_Name')
+            ]);
+            DB::commit();
+            return back()->with('success', 'Street Created Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Street Already Exists !!');
+            }
+            if ($errorCode == 1048) {
+                return back()->with('error', 'You must select all values!!');
+            }
+            return back()->withError($e->getMessage())->withInput();
+        }
     }
 
     /**
@@ -68,9 +70,8 @@ class StreetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreStreetRequest $request)
+    public function store()
     {
-
     }
 
     /**
@@ -83,18 +84,18 @@ class StreetController extends Controller
     {
         //
 
-        $region=Region::all();
-        $city=City::all();
-        $states=State::all();
-        $countries=Country::all();
-        $streets=DB::table('streets')
-        ->join('countries', 'streets.Country_Id', '=', 'countries.Country_Id')
-        ->join('states', 'streets.State_Id', '=', 'states.State_Id')
-        ->join('cities', 'streets.City_Id', '=', 'cities.City_Id')
-        ->join('regions', 'streets.Region_Id', '=', 'regions.Region_Id')
-        ->select('streets.*', 'countries.Country_Name','states.State_Name','cities.City_Name','regions.Region_Name')->paginate(10);
+        $region = Region::all();
+        $city = City::all();
+        $states = State::all();
+        $countries = Country::all();
+        $streets = DB::table('streets')
+            ->join('countries', 'streets.Country_Id', '=', 'countries.Country_Id')
+            ->join('states', 'streets.State_Id', '=', 'states.State_Id')
+            ->join('cities', 'streets.City_Id', '=', 'cities.City_Id')
+            ->join('regions', 'streets.Region_Id', '=', 'regions.Region_Id')
+            ->select('streets.*', 'countries.Country_Name', 'states.State_Name', 'cities.City_Name', 'regions.Region_Name')->paginate(10);
         //el subtype name w el main type name
-        return view('website.backend.database pages.Add_Street_Show',['counrty'=>$countries,'state'=>$states,'city'=>$city,'region'=>$region,'street1'=>$streets]);
+        return view('website.backend.database pages.Add_Street_Show', ['counrty' => $countries, 'state' => $states, 'city' => $city, 'region' => $region, 'street1' => $streets]);
     }
 
     /**
@@ -126,49 +127,54 @@ class StreetController extends Controller
      * @param  \App\Street  $street
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id=null)
+    public function destroy(Request $request, $id = null)
     {
-        if(request()->has('id'))
-       {
-        try {
-
-        Street::destroy($request->id);
-        return redirect()->route('street_show')->with('success', 'Street Deleted Successfully');
-    }catch (\Illuminate\Database\QueryException $e){
-        return back()->withError($e->getMessage())->withInput();
-        return redirect()->route('street_show')->with('error', 'Street cannot be deleted');
-
-    }
-}else return redirect()->route('street_show')->with('warning', 'No Street was chosen to be deleted.. !!');
+        if (request()->has('id')) {
+            DB::beginTransaction();
+            
+            try {
+                
+                Street::destroy($request->id);
+                DB::commit();
+                return redirect()->route('street_show')->with('success', 'Street Deleted Successfully');
+            } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollBack();
+                return back()->withError($e->getMessage())->withInput();
+                return redirect()->route('street_show')->with('error', 'Street cannot be deleted');
+            }
+        } else return redirect()->route('street_show')->with('warning', 'No Street was chosen to be deleted.. !!');
     }
     public function editStreet(Request $request)
     {
+        DB::beginTransaction();
+        
         try {
-        //hygeb el country eli el ID bt3ha da
-        $street= Street::all()->find(request('id'));
-        //hy7ot el name el gded f column el country name
-        $street->Street_Name=request('StreetName');
-        $street->save();
-
-        //hyb3t el update el gded fl country table
-        return back()->with('info','Street Edited Successfully');
-    }catch (\Illuminate\Database\QueryException $e){
-        $errorCode = $e->errorInfo[1];
-        if($errorCode == 1062){
-            return back()->with('error','Error editing Street');
+            //hygeb el country eli el ID bt3ha da
+            $street = Street::all()->find(request('id'));
+            //hy7ot el name el gded f column el country name
+            $street->Street_Name = request('StreetName');
+            $street->save();
+            
+            DB::commit();
+            //hyb3t el update el gded fl country table
+            return back()->with('info', 'Street Edited Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Error editing Street');
+            }
+            return back()->withError($e->getMessage())->withInput();
         }
-        return back()->withError($e->getMessage())->withInput();
-    }
     }
 
-    public function findstreet(){
+    public function findstreet()
+    {
 
         //will get all states which her Country_Id is the ID we passed from $.ajax
-        $street=Street::all()->where('Region_Id','=',request('id'));
+        $street = Street::all()->where('Region_Id', '=', request('id'));
 
         // will send all values in state object by json
         return response()->json($street);
-
-
     }
 }

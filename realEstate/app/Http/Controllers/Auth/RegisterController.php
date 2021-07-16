@@ -14,6 +14,7 @@ use http\Url;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -72,6 +73,8 @@ class RegisterController extends Controller
      */
     protected function create()
     {
+        DB::beginTransaction();
+        try {
         $user=User::create(['password' => Hash::make(request('password'))]);
 
         $user_Id= Arr::get($user, 'id');
@@ -86,9 +89,18 @@ class RegisterController extends Controller
             'User_Type_ID'=>2
         ]);
 
-
+        DB::commit();
+    
         //return redirect('/HomeRegister');
         return redirect()->route('HomeRegister');
+     } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Already Exist !!');
+            }
+            return back()->withError($e->getMessage())->withInput();
+        }
     }
 
     function activateRegister(){

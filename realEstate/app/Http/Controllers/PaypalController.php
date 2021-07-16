@@ -15,6 +15,7 @@ use PayPal\Rest\ApiContext;
 use App\Emails;
 use App\Item;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class PaypalController extends Controller
 {
@@ -22,7 +23,7 @@ class PaypalController extends Controller
     public function create($item_id, $schedule, $numberOfDays, $totalCost, $price_per_night, $start_date, $end_date)
     {
         //return dd($item_id, $schedule, $numberOfDays, $totalCost, $price_per_night, $start_date, $end_date);
-
+        DB::beginTransaction();
         try{
             //create reservation
             $Operation_Id = OperationsController::create($item_id,1);
@@ -41,8 +42,10 @@ class PaypalController extends Controller
                 'confirmed' => 1,
             ]);
             $this->sendDoneMail($item_id, $schedule, $numberOfDays, $totalCost, $price_per_night, $start_date, $end_date);
+            DB::commit();
             return redirect()->route('user_reservations')->with('success', 'Created Successfully');
         }catch(Exception $e){
+            DB::rollBack();
             return back()->with('error', 'Error creating');
         }
 

@@ -15,7 +15,7 @@
         <form method="Post" action="{{ url('/delete_property_detail?_method=delete') }}" enctype="multipart/form-data">
             @csrf
 
-            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search.." title="Type in a name">
             <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
                 <thead>
                     <tr>

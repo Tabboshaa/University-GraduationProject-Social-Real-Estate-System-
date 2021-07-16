@@ -8,6 +8,7 @@ use App\attachment;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 
@@ -49,15 +50,17 @@ class ProfilePhotoController extends Controller
             $files->storeAs('/cover page', $filename, 'public');
 
 
-            // }
+            DB::beginTransaction();
             try {
-
+                
                 $ProfilePhoto  = ProfilePhoto::create([
                     'User_Id' => Auth::id(),
                     'Profile_Picture' => $filename
                 ]);
+                DB::commit();
                 return back();
             } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollBack();
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
@@ -104,14 +107,17 @@ class ProfilePhotoController extends Controller
             $files->storeAs('/cover page', $filename, 'public');
 
 
-            // }
+            DB::beginTransaction();
+            
             try {
                 $profilePhoto = ProfilePhoto::all()->where('User_Id', '=', Auth::id(),)->first();
                 //hy7ot el name el gded f column el country name
                 $profilePhoto->Profile_Picture =$filename;
                 $profilePhoto->save();
+                DB::commit();
                 return back();
             } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollBack();
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
@@ -137,15 +143,18 @@ class ProfilePhotoController extends Controller
             $files->storeAs('/cover page', $filename, 'public');
 
 
-            // }
+            DB::beginTransaction();
+            
             try {
-
+                
                 $profilePhoto = ProfilePhoto::all()->find(request('Photo_Id'));
                 //hy7ot el name el gded f column el country name
                 $profilePhoto->Profile_Picture = $filename;
                 $profilePhoto->save();
+                DB::commit();
                 return back();
             } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollBack();
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
