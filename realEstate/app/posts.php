@@ -31,8 +31,5 @@ class posts extends Model
     public function comments(){
         return $this->hasMany(comments::class, 'Post_Id')->where('Parent_Comment','=',null);
     }
-   
-
-
 
 }

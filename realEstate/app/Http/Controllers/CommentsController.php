@@ -53,6 +53,7 @@ class CommentsController extends Controller
             return back()->withError($e->getMessage())->withInput();
         }
     }
+
     public function reply()
     {
         //
@@ -173,6 +174,7 @@ class CommentsController extends Controller
 
         try {
             comments::destroy($id);
+            comments::all()->where('Parent_Comment','=',$id)->delete();
             DB::commit();
             return  redirect()->back()->with('success', 'Comment Deleted Successfully');
         } catch (\Illuminate\Database\QueryException $e) {

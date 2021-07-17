@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CoverPhoto;
-use App\attachment;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -181,17 +179,4 @@ class CoverPhotoController extends Controller
         }
     }
 
-
-    public static function sendCoverPhotoToProfile($id)
-    {
-        //
-        try {
-            $coverPhoto = CoverPhoto::all()->where('User_Id', '=', $id)->first();
-            // $attachment_id =CoverPhoto::all()->where('User_Id', '=', $id)->first()->Cover_Photo;
-            $File_Path = $coverPhoto->Cover_Photo;
-            return ['Photo_Id' => $coverPhoto->Photo_Id, 'File_Path' => $File_Path];
-        } catch (Exception $e) {
-            return back()->withError($e->getMessage())->withInput();
-        }
-    }
 }

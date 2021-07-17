@@ -6,7 +6,6 @@ use App\attachment;
 use App\Item;
 use App\post_attachment;
 use App\posts;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;

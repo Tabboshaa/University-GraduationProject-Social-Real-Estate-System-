@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\City;
 use App\Country;
 use App\State;
-use App\Street;
-use App\Region;
 use Illuminate\Support\Facades\DB;
 
 class CityController extends Controller
@@ -137,17 +135,7 @@ class CityController extends Controller
             return redirect()->route('city_show')->with('warning', 'No City was chosen to be deleted.. !!');
     }
 
-    public function findstate()
-    {
-
-        //will get all states which her Country_Id is the ID we passed from $.ajax
-        $state = State::all()->where('Country_Id', '=', request('id'));
-
-        // will send all values in state object by json
-        return  response()->json($state);
-    }
-
-    public function findcity()
+     public function findcity()
     {
 
         //will get all states which her Country_Id is the ID we passed from $.ajax
@@ -157,7 +145,7 @@ class CityController extends Controller
         return  response()->json($city);
     }
 
-    public function editCity(Request $request)
+    public function editCity()
     {
         DB::beginTransaction();
         try {

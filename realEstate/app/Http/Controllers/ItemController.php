@@ -212,20 +212,31 @@ class ItemController extends Controller
 
     public function destroy($id = null)
     {
+        
         // Details
         if ($id != null) {
             DB::beginTransaction();
             try {
                 Item::destroy($id);
-                DB::commit();        
-                return redirect()->route('Details')->with('success', 'Item Deleted Successfully');
+                DB::commit();
+
+                if (TypeOfUserController::checkIfAdmin())
+                    return redirect()->route('Details')->with('success', 'Item Deleted Successfully');
+                else{
+                   
+                    return redirect()->route('MyItems');
+                }
             } catch (\Illuminate\Database\QueryException $e) {
                 DB::rollBack();
                 return back()->withError($e->getMessage())->withInput();
-                return redirect()->route('Details')->with('error', 'Item cannot be deleted');
             }
-        } else return redirect()->route('Details')->with('warning', 'No Item was chosen to be deleted.. !!');
-    }
+        } else {
+            if (TypeOfUserController::checkIfAdmin())
+            return redirect()->route('Details')->with('warning', 'No Item was chosen to be deleted.. !!');
+            else  return back()->with('warning', 'Error occured while deleting item');
+
+    }}
+
     public function EditItemMap($itemId = null)
     {
         DB::beginTransaction();
@@ -279,6 +290,6 @@ class ItemController extends Controller
 
     public static function getowner($id)
     {
-        return Item::all()->where('Item_Id', '=', $id)->User_Id;
+        return Item::all()->where('Item_Id', '=', $id)->first()->User_Id;
     }
 }

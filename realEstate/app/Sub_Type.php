@@ -13,4 +13,9 @@ class Sub_Type extends Model
         'Main_Type_Id',
         'Sub_Type_Name'
     ];
+
+    public function maintype()
+    {
+        return $this->belongsTo(Main_Type::class, 'Main_Type_Id');
+    }
 }

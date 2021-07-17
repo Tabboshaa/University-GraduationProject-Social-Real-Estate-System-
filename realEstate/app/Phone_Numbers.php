@@ -13,4 +13,8 @@ class Phone_Numbers extends Model
         'phone_number',
         'Default'
     ];
+
+    public function user(){
+        return $this->hasOne(User::class, 'User_Id');
+    }
 }
