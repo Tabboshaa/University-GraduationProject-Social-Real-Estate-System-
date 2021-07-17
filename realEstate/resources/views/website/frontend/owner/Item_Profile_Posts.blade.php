@@ -97,7 +97,6 @@
                     <a class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>Create Post</a>
                 </div>
                 <div class="card-body p-0 mt-3 position-relative">
-                    <!-- <figure class="avatar position-absolute ms-2 mt-1 top-5"><img class="shadow-sm rounded-circle w30" src="{{asset('storage/cover page/'.$User->profilePhoto->Profile_Picture)}}" alt="image"></figure> -->
                     <textarea name="Post_Content" value="{{ old('Post_Content') }}"  style="padding-left:50pt;" class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?" required></textarea>
                 </div>
                 <div class="card-body d-flex p-2 mt-0">

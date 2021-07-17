@@ -55,6 +55,7 @@ class CreateItemsTable extends Migration
             $table->string('Item_Name');
             $table->string('address_longitude');
             $table->string('address_latitude');
+            $table->boolean('visible');
             $table->timestamps();
         });
     }
