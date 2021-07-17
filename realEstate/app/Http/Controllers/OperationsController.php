@@ -9,7 +9,6 @@ use App\operations;
 use App\operation__types;
 use App\Operation__Detail_Name;
 use App\Operation__Detail_Value;
-use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 

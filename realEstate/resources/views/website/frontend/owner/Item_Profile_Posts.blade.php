@@ -57,7 +57,7 @@
         </div>
         <div class="card-body d-flex pt-0">
             <i class="feather-map-pin text-grey-500 me-3 font-lg"></i>
-            <h4 class="fw-700 text-grey-900 font-xssss mt-1"> {{$item->street->country->Country_Name}}, {{$item->street->state->State_Name}} </h4>
+            <h4 class="fw-700 text-grey-900 font-xssss mt-1"> {{$item->street->country->Country_Name}}, {{$item->street->state->State_Name}} , {{$item->street->city->City_Name}}, {{$item->street->region->Region_Name}}, {{$item->street->Street_Name}}</h4>
         </div>
     </div>
     <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3">
@@ -198,7 +198,10 @@
                         <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
                             <a href="{{url('view_User/'.$comment->User_Id)}}">
                                 <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">{{$comment->First_Name}} {{$comment->Middle_Name}} {{$comment->Last_Name}}
-                            </a></h4>
+                            </a>     @if($User->id== $comment->User_Id )
+                                        <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
+                                        <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
+                                        @endif</h4>
                             <div class="time"><?php $end = \Carbon\Carbon::parse($comment->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0"> {{ $end->diffForHumans($today) }}</p>
                             </div>
                             <p class="fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0">{{ $comment->Comment }}</p>
@@ -224,7 +227,10 @@
                             @endif <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
                                 <a href="{{url('view_User/'.$reply->User_Id)}}">
                                     <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">{{$reply->First_Name}} {{$reply->Middle_Name}} {{$reply->Last_Name}}
-                                </a></h4>
+                                </a>    @if($User->id== $reply->User_Id )
+                                            <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
+                                            <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
+                                            @endif</h4>
                                 <div class="time"><?php $end = \Carbon\Carbon::parse($reply->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">{{ $end->diffForHumans($today) }}</p>
                                 </div>
                                 <p class="fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0">{{ $reply->Comment }}</p>

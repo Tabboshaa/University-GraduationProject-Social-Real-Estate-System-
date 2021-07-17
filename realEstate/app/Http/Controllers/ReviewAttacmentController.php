@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Type_Of_User;
+use App\review_attacment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class TypeOfUserController extends Controller
+class ReviewAttacmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,19 +17,6 @@ class TypeOfUserController extends Controller
         //
     }
 
-
-    public static function checkIfAdmin()
-    {
-        //
-        $USER = Auth::user();
-        $USER = $USER->usertype->groupBy('User_Type_ID');
-        if (isset($USER[1])) //customer
-        {
-            return true;
-        }
-        return false;
-    }
-    
     /**
      * Show the form for creating a new resource.
      *
@@ -55,10 +41,10 @@ class TypeOfUserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Type_Of_User  $type_Of_User
+     * @param  \App\review_attacment  $review_attacment
      * @return \Illuminate\Http\Response
      */
-    public function show(Type_Of_User $type_Of_User)
+    public function show(review_attacment $review_attacment)
     {
         //
     }
@@ -66,10 +52,10 @@ class TypeOfUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Type_Of_User  $type_Of_User
+     * @param  \App\review_attacment  $review_attacment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Type_Of_User $type_Of_User)
+    public function edit(review_attacment $review_attacment)
     {
         //
     }
@@ -78,10 +64,10 @@ class TypeOfUserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Type_Of_User  $type_Of_User
+     * @param  \App\review_attacment  $review_attacment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Type_Of_User $type_Of_User)
+    public function update(Request $request, review_attacment $review_attacment)
     {
         //
     }
@@ -89,10 +75,10 @@ class TypeOfUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Type_Of_User  $type_Of_User
+     * @param  \App\review_attacment  $review_attacment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Type_Of_User $type_Of_User)
+    public function destroy(review_attacment $review_attacment)
     {
         //
     }

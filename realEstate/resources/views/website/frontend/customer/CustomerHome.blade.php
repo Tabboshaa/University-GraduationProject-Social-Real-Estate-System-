@@ -31,7 +31,7 @@
                                     <input type="hidden" value="true" id="show">
                                 </div>
                             @endif
-                            @if(!$phone->phone_number)
+                            @if(!$phone)
                                 <div class="form-group">
                                     <label style="font-size: 12pt">Phone Number</label>
                                     <input type="text" style="border-radius: 3pt" name="Phone" class="form-control">

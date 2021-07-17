@@ -10,8 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\followeditemsbyuser;
 use Illuminate\Support\Facades\Auth;
-use App\comments;
-use App\posts;
+
 
 class CustomerHomeController extends Controller
 {

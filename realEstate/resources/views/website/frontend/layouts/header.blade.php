@@ -53,7 +53,11 @@
     <a href="{{url('/settings')}}">   <i class="feather-settings animation-spin d-inline-block font-xl text-current"></i></a>
     </div>
 
+    @if(Auth::user()->profilePhoto!=null)
     <a id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" class="p-0 ms-3 menu-icon"><img src="{{asset('storage/cover page/'.Auth::user()->profilePhoto->Profile_Picture)}}" alt="user" class="w40 mt--1 " style=" border-radius: 50%;"></a>
+    @else 
+    <a id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" class="p-0 ms-3 menu-icon"><img src="{{asset('storage/cover page/pic.png')}}" alt="user" class="w40 mt--1 " style=" border-radius: 50%;"></a>
+    @endif
     <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" aria-labelledby="dropdownMenu2">
 
         <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" >

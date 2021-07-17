@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\CoverPhoto;
 use App\ProfilePhoto;
-use App\attachment;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

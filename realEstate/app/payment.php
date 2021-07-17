@@ -15,4 +15,8 @@ class payment extends Model
         'Paid_Amount',
         'confirmed'
     ];
+
+    public function operations(){
+        return $this->belongsTo(operations::class, 'Operation_Id');
+    }
 }

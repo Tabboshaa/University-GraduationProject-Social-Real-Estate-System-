@@ -23,7 +23,7 @@ class operations extends Model
         return $this->belongsTo(Item::class, 'Item_Id');
     }
     public function operationtype(){
-        return $this->hasOne(Operation__types::class, 'Operation_Id');
+        return $this->hasOne(Operation__types::class, 'Operation_Type_Id');
     }
     public function operationdetails(){
         return $this->hasMany(Operation__Detail_Value::class, 'Operation_Id');

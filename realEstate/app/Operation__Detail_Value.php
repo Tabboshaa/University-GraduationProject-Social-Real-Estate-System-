@@ -21,7 +21,7 @@ class Operation__Detail_Value extends Model
         return $this->belongsTo(Operation__Detail_Name::class, 'Detail_Id');
     }
     public function operations(){
-        return $this->hasMany(operations::class, 'Item_Id');
+        return $this->belongsTo(operations::class, 'Operation_Id');
     }
 
 }

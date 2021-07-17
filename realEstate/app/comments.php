@@ -8,7 +8,7 @@ class comments extends Model
 {
     //
     protected $primaryKey='Comment_Id';
-    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    protected $dates = ['created_at', 'updated_at'];
     protected $fillable = [
         'Post_Id',
         'User_Id',
