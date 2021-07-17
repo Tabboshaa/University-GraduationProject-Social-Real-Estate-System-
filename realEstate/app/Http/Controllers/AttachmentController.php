@@ -46,6 +46,7 @@ class AttachmentController extends Controller
 
                 foreach ($files as $file) {
                     $filename = $file->getClientOriginalName();
+
                     $file->storeAs('/profile gallery', $filename, 'public');
 
                     $attachment = attachment::create(['File_Path' => $filename]);

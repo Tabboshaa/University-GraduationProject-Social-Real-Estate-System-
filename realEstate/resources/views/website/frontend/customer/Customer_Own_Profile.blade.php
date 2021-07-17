@@ -262,7 +262,7 @@
             @endif
             <!-- 0055FF -->
             <div class="form-group">
-                <input id="CommentForPost{{$post->Post_Id}}" type="text" placeholder="Say something nice." style="background-color:#0055ff1a;width:770px;" class="border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg">
+                <input id="CommentForPost{{$post->Post_Id}}" name="comment" type="text" placeholder="Say something nice." style="background-color:#0055ff1a;width:770px;" class="border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg">
                 <a href="javascript:void(0)" onclick="Comment('{{$post->Post_Id}}');"><i class="btn-round-sm bg-primary-gradiant text-white font-sm ti-arrow-right text-blue"></i></a>
 
             </div>
@@ -345,7 +345,12 @@
 
 <script>
     function Comment(post_id) {
-
+        var empt = document.forms["postform"]["comment"].value;
+if (empt == "")
+{
+alert("Please fill out this field");
+return false;
+}
         var comment = $("#CommentForPost" + post_id).val();
 
         if (comment.length == 0) {
