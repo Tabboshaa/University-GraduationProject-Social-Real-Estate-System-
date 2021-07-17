@@ -27,7 +27,7 @@ Route::get('/meshtest/{item_id}','ScheduleController@getAvailableTime');
 Auth::routes();
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
 Route::post('/login', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
-Route::POST('/registerUser', 'Auth\RegisterController@create')->name('registerUser');
+Route::post('/registerUser', 'Auth\RegisterController@create')->name('registerUser');
 Route::get('/UserRegister', function () {
     return view('website\frontend\Registration');
 })->name('UserRegister');
@@ -131,6 +131,7 @@ Route::group(['middleware' => 'auth.user'], function () {
 
     //Owner
     Route::post('/OwnerAddItem', 'ItemController@OwnerAddItem');
+    Route::get('/item_delete1/{id?}', 'ItemController@destroy');
 
     Route::get('/owneritemProfile/{id?}', 'OwnerController@itemProfile');
     Route::get('/owneritemDetails/{id?}', 'OwnerController@itemDetails');
@@ -142,7 +143,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/owneritemManageSchedule/{id?}', 'OwnerController@itemManageSchedule');
     Route::get('/owneradditemschedule', 'ScheduleController@Ownercreate')->name('Add_Schedule');
 
-    Route::get('/MyItems', 'OwnerController@index');
+    Route::get('/MyItems', 'OwnerController@index')->name('MyItems');
     Route::get('/MyReservations', 'OwnerController@getReservations');//not done
 
     Route::get('/OwnerSelectSubType/{id?}', 'ItemController@SelectSubType');
@@ -260,7 +261,7 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/Item', 'ItemController@index1');
     Route::post('/addItem', 'ItemController@create');
     Route::get('/ShowItem/{id?}', 'ItemController@show');
-    Route::delete('/DelteItem/{id?}', 'ItemController@destroy');
+    Route::delete('/DeleteItem/{id?}', 'ItemController@destroy');
     Route::get('/item_delete/{id?}', 'ItemController@destroy');
     Route::get('/edit_item_user/{id}', 'ItemController@ShowEditUser');
     Route::post('/edit_item_user2/{id}', 'ItemController@EditUser');

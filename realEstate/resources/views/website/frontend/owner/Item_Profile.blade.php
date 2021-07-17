@@ -1,4 +1,3 @@
-
 @extends('website.frontend.ownerlayouts.main')
 @section('profile')
 <div class="row">
@@ -18,11 +17,7 @@
                 </div>
                 <div class="d-flex align-items-center justify-content-center position-absolute right-15 top-10 mt-2 me-2">
 
-                    @if ($check_follow=="[]")
-                    <a href="{{url('/FollowItem/'.$item->Item_Id)}}" class="d-none d-lg-block bg-success p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3"> <i class="fa fa-heart-o" aria-hidden="true"></i> Follow</a>
-                    @else
-                    <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}" class="d-none d-lg-block bg-success p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3"> <i class="fa fa-heart-o" aria-hidden="true"></i> Un Follow</a>
-                    @endif
+                    <a href="{{url('/item_delete1/'.$item->Item_Id)}}" onclick="return confirm('Are you sure you want to delete?')" class="d-none d-lg-block bg-danger p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3"> <i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
 
                     <a href="#" class="p-2 text-center ms-auto menu-icon show" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-bs-toggle="dropdown"><i class="ti-more font-md"></i></a>
                     <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg show" aria-labelledby="dropdownMenu3" style="margin: 0px; position: absolute; inset: 0px auto auto 0px; transform: translate(567.2px, 76px);" data-popper-placement="bottom-end">
@@ -62,13 +57,13 @@
                 </div>
             </div>
         </div>
-    </div>  
-
-        <!-- start of post -->
-        @yield('profile_Content')
-        <!-- end of post -->
-
-
     </div>
 
-    @endsection
+    <!-- start of post -->
+    @yield('profile_Content')
+    <!-- end of post -->
+
+
+</div>
+
+@endsection

@@ -12,4 +12,5 @@ class post_attachment extends Model
         'Attachment_Id',
         'Item_Id'
     ];
+    
 }

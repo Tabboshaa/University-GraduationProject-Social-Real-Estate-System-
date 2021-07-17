@@ -73,6 +73,7 @@ class RegisterController extends Controller
      */
     protected function create()
     {
+        
         DB::beginTransaction();
         try {
         $user=User::create(['password' => Hash::make(request('password'))]);

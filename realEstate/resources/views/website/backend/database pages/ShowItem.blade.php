@@ -124,21 +124,7 @@
         </tr>
     </tbody>
 </table>
-<!--
-@if(!empty($subtypeid))
-<a href="{{url('/property_select/'.$item_id.'/'.$subtypeid.'')}}" id="btun1"class="btn btn-info "> Add More Details</a>
-@else
-<a href="{{url('/addItemSteps/'.$item_id)}}" class="btn btn-info" id="btun1" > Add Details of item</a>
-@endif -->
-<!-- <a href="{{url('/Details')}}" class="btn btn-info" id="btun3">Search for an Item</a> -->
-<!-- <a href="{{url('/item_schedule/'.$item_id)}}" class="btn btn-success"  id="btun2"> Add Schedule</a>
-<a href="{{url('/item_posts/'.$item_id)}}" class="btn btn-dark"  id="btun2"> See Item Posts</a>
-<a href="{{url('/item_reviews/'.$item_id)}}" class="btn btn-dark"  id="btun2"> See Item Reviews</a> -->
-<!-- <a href="{{url('/Item')}}" class="btn btn-info" id="btun2"> Create Another Item</a> -->
-<!-- <form method="Post" action="{{ url('/DelteItem/'.$item_id.'?_method=delete') }}" enctype="multipart/form-data">
-                @csrf
-<button type="submit" class="btn btn-danger" id="btun4"> Delete Item</button>
-</form> -->
+
 <div class="modal fade" id="EditDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
