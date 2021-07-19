@@ -19,7 +19,7 @@
                 <thead>
                 <tr>
                <tr>
-                        <th><h2 style="margin-right:60px; padding-bottom: 5px;">Main Type ID</h2></th>
+                        <th><h2 style="margin-right:60px; padding-bottom: 5px;">Main Type</h2></th>
                         <th ><h2 style="margin-right:60px;padding-bottom: 5px;">Sub Type Name</h2></th>
                         <th ><h2 style="margin-right:60px;padding-bottom: 5px;">Sub Type Property</h2></th>
                         <th ><h2 style="margin-right:60px;padding-bottom: 5px;">Edit</h2></th>
@@ -72,7 +72,7 @@
 
                     <div class="form-group">
                         <label for="SubTypePropertyName" style="font-size: 12pt" >Property</label>
-                        <input type="text" style="border-radius: 3pt"  name="SubTypePropertyName" id="SubTypePropertyName" class="form-control">
+                        <input type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital"  name="SubTypePropertyName" id="SubTypePropertyName" class="form-control" required>
                     </div>
                     <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>

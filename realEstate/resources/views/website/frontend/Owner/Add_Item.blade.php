@@ -19,22 +19,22 @@
             var op = " ";
             $.ajax({
                 type: 'get',
-                url: "{{ url('/D4') }}",
+                url: "{{ url('/D2') }}",
                 data: {
                     'id': country_id
                 },
                 success: function(data) {
-                    //console.log('success');
+                    console.log(data);
 
                     op += '<option value="0" selected disabled>Select State</option>';
 
                     Object.values(data).forEach(val => {
-                        //   console.log(val);
+                        
 
                         op += '<option value="' + val['State_Id'] + '">' + val['State_Name'] + '</option>';
                     });
 
-
+  
 
                     FormTag.find('#StateSelect').html(" ");
                     FormTag.find('#StateSelect').append(op);
@@ -145,7 +145,7 @@
 </script>
 
 
-<div style="margin-left:135px;"class="col-xl-12">
+<div class="col-xl-12">
     <div class="card w-1`00 border-0 bg-white shadow-xs p-0 mb-4">
         <div class="card-body p-4 w-100 bg-current border-0 d-flex rounded-3">
             <a href="default-settings.html" class="d-inline-block mt-2"><i class="ti-arrow-left font-sm text-white"></i></a>
@@ -161,7 +161,7 @@
                             <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload">
                                 <h6>Item Name</h6>
                             </label>
-                            <input type="text" style="width: 865px;" class="form-control" name="Item_Name" id="Item_Name"  placeholder="Name the Item">
+                            <input type="text" style="width: 865px;" class="form-control" name="Item_Name" id="Item_Name" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" placeholder="Name the Item">
                         </div>
                     </div>
 
@@ -204,8 +204,7 @@
                             <div class="form-group">
                                 <label for="">Address: <input id="map-search" class="controls" type="text" placeholder="Search Box" ></label><br>
                                 <label for="">City <input type="text" name="City" class="reg-input-city" placeholder="City"></label>
-                                <label for="">Street <input type="text" name="Street" class="reg-input-street" placeholder="Street"></label>
-                                
+                                <label for="">Street <input type="text" name="Street" class="reg-input-street" placeholder="Street"></label>       
                                 <input type="text" style="margin-top:15px;margin-left:10px;"name="latitude" class="latitude">
                                 <input type="text" style="margin-top:15px;margin-left:10px;"name="longitude" class="longitude">
                             </div>

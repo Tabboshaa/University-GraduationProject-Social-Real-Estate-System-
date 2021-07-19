@@ -33,7 +33,8 @@ class CommentsController extends Controller
                 'User_Id' => Auth::id(),
                 'Comment'  => request('comment')
             ]);
-            //send notification to poster 
+            return $comment;
+            //send notification to poster
             $to_user = PostsController::postCreatedBy(request('post_id'));
             NotificationController::create(Auth::id(), $to_user, 'Commented on your post');
 
@@ -53,6 +54,7 @@ class CommentsController extends Controller
             return back()->withError($e->getMessage())->withInput();
         }
     }
+
     public function reply()
     {
         //
@@ -64,7 +66,7 @@ class CommentsController extends Controller
                 'Parent_Comment' => request('parent_id'),
                 'Comment'  => request('comment')
             ]);
-            //send notification to comment owner 
+            //send notification to comment owner
             $to_user = CommentsController::CommentCreatedBy(request('parent_id'));
             NotificationController::create(Auth::id(), $to_user, 'Replyed to your comment');
 
@@ -173,6 +175,12 @@ class CommentsController extends Controller
 
         try {
             comments::destroy($id);
+            $comments=comments::all()->where('Parent_Comment','=',$id);
+            foreach($comments as $comment)
+            {
+                comments::destroy($comment->Comment_Id);   
+            }
+
             DB::commit();
             return  redirect()->back()->with('success', 'Comment Deleted Successfully');
         } catch (\Illuminate\Database\QueryException $e) {

@@ -15,4 +15,8 @@ class Operation__Detail_Name extends Model
         'Operation_Detail_Name'
     ];
 
+    public function operationtype(){
+        return $this->hasOne(Operation__types::class, 'Operation_Type_Id');
+    }
+    
 }

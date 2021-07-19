@@ -136,7 +136,7 @@
             });
 
         });
-    </script>
+</script>
     <!-- <script src="{{ asset('js/location.js')}}"></script> -->
     <link href="{{asset('css/Form.css')}}" rel="stylesheet" type="text/css" />
 
@@ -148,7 +148,7 @@
                 <div class="col-md-12 col-sm-12 ">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Search Owner Of item</h2>
+                            <h2>Add item steps</h2>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
@@ -156,8 +156,9 @@
                             @include('website.backend.layouts.flashmessage')
                             <form id="AddItemForm" method="post" action="{{ url('/addItem') }}" enctype="multipart/form-data">
                                 @csrf
-
+                               
                                 <div class="tab">
+                                <h4>Search for item owner by Email:</h4>
                                     <div class="item form-group">
                                         <a href="javascript:void(0)" id="SearchA" onclick="searchForEmail()" class="btn btn-info" role="button">Search </a>
                                         <div class="col-md-6 col-sm-6 ">
@@ -167,13 +168,23 @@
                                     </div>
                                     <div class="item form-group">
                                         <table id="result" class="table table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
-
+                                            
                                         </table>
                                     </div>
                                 </div>
-
+                                
                                 <div class="tab">
-                                    <h3>ADD ITEM LOCATION</h3>
+                                    <h5 style="text-align:center;">item name</h5>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> Item Name <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="Item_Name" name="item_Name" required="required" class="form-control">
+                                        </div>
+                                    </div>
+                                    <h5 style="text-align:center;">item location</h5>
+
+
                                     <div class="item form-group">
                                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="phone_number"> Country<span class="required">*</span>
                                         </label>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Type_Of_User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TypeOfUserController extends Controller
 {
@@ -17,6 +18,19 @@ class TypeOfUserController extends Controller
         //
     }
 
+
+    public static function checkIfAdmin()
+    {
+        //
+        $USER = Auth::user();
+        $USER = $USER->usertype->groupBy('User_Type_ID');
+        if (isset($USER[1])) //customer
+        {
+            return true;
+        }
+        return false;
+    }
+    
     /**
      * Show the form for creating a new resource.
      *

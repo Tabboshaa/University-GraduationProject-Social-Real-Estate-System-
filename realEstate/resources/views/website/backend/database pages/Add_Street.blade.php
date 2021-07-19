@@ -13,7 +13,7 @@
             var op = " ";
             $.ajax({
                 type:'get',
-                url: "{{ url('/D4') }}",
+                url: "{{ url('/D2') }}",
                 data:{
                     'id': country_id
                 },

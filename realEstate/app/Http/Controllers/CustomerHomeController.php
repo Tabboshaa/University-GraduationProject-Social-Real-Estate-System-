@@ -10,8 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\followeditemsbyuser;
 use Illuminate\Support\Facades\Auth;
-use App\comments;
-use App\posts;
+
 
 class CustomerHomeController extends Controller
 {
@@ -34,6 +33,10 @@ class CustomerHomeController extends Controller
             $user = '1';
         }
         return view("website.frontend.customer.CustomerHome", ['states' => $state, 'checkIfOwner' => $user, 'phone' => $phone]);
+    }
+    public static function checkIfOwner()
+    {
+        $user = Type_Of_User::all()->where('User_ID', '=', Auth::id())->where('User_Type_ID', '=', 3);
     }
     public function indexPhoto()
     {

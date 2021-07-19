@@ -47,7 +47,7 @@
                                         <p>View image</p>
                                     </a>
                                     <div class="tools tools-bottom">
-                                        <a href="{{url('delete_gallery/'.$Image->Attachment_Id)}}">
+                                        <a href="{{url('delete_gallery/'.$Image->Attachment_Id)}}" onclick="return confirm('Are you sure you want to delete?')">
                                             <small><i class="fa fa-trash-o" aria-hidden="true"></i></small>
                                         </a>
                                     </div>

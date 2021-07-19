@@ -20,7 +20,7 @@
                 <thead>
                     <tr>
                     <tr>
-                        <th><h2 style="margin-right:10px; padding-bottom: 5px;">Main Type ID</h2></th>
+                        <th><h2 style="margin-right:10px; padding-bottom: 5px;">Main Type</h2></th>
                         <th ><h2 style="margin-right:10px;padding-bottom: 5px;">Sub Type Name</h2></th>
                         <th ><h2 style="margin-right:10px;padding-bottom: 5px;">Sub Type Property</h2></th>
 
@@ -76,7 +76,7 @@
 
                     <div class="form-group">
                         <label for="PropertyDetailName" style="font-size: 12pt" >Detail </label>
-                        <input type="text" style="border-radius: 3pt" name="PropertyDetailName" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" id="PropertyDetailName" class="form-control">
+                        <input type="text" style="border-radius: 3pt" name="PropertyDetailName" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" id="PropertyDetailName" class="form-control" required>
                     </div>
                     <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>

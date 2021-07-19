@@ -13,7 +13,7 @@
                         <div class="card-body p-lg-5 p-4 w-100 border-0 ">
                             <div class="row justify-content-center">
                                 <div class="col-lg-4 text-center">
-                                    @if($image->Profile_Picture!=null)
+                                    @if($image!=null)
                                     <figure class="avatar ms-auto me-auto mb-0 mt-2 w100"><img src="{{asset('storage/cover page/'.$image->Profile_Picture)}}" alt="image" class="shadow-sm rounded-3 w-100"></figure>
                                     @else
                                         <figure class="avatar ms-auto me-auto mb-0 mt-2 w100"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-3 w-100"></figure>
@@ -21,7 +21,7 @@
                                     @endif
                                     <form method="POST" action="{{url('/UpdateProfilePhoto')}}" enctype="multipart/form-data">
                                         @csrf
-                                        <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="profile_photo_upload"><i class="feather-edit text-grey-500 me-3 font-sm"></i></label>
+                                        <label class="fw-600 text-grey-900 font-xssss mt-0 ms-3 me-0" for="profile_photo_upload"><i class="feather-edit text-grey-500 me-3 font-sm"></i></label>
                                         <input id="profile_photo_upload" name="ProfilePhoto" type="file" accept="image/*" style="display:none" onchange="javascript:this.form.submit();">
                                     </form>
                                     <h2 class="fw-700 font-sm text-grey-900 mt-3">{{$user->First_Name}}  {{$user->Last_Name}}</h2>
@@ -58,7 +58,11 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">Phone</label>
+                                            @if($phone)
                                             <input type="text" class="form-control" value="{{$phone->phone_number}}" name="phone">
+                                            @else
+                                            <input type="text" class="form-control" value="" name="phone">
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -87,20 +91,20 @@
                                         <div class="col-lg-6 mb-3">
                                             <div class="form-group">
                                                 <label class="mont-font fw-600 font-xsss">Current Password</label>
-                                                <input type="text" id="CurrentPassword" class="form-control"value=""name="CurrentPassword">
+                                                <input type="password" id="CurrentPassword" class="form-control"value=""name="CurrentPassword">
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6 mb-3">
                                             <div class="form-group">
                                                 <label class="mont-font fw-600 font-xsss">New Password</label>
-                                                <input type="text"  id="NewPassword" class="form-control" value="" name="NewPassword">
+                                                <input type="password"  id="NewPassword" class="form-control" value="" name="NewPassword">
                                             </div>
                                         </div>
                                     <div class="col-lg-6 mb-3">
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">Confirm Password</label>
-                                            <input type="text" class="form-control" value="" name="Confirm">
+                                            <input type="password" class="form-control" value="" name="Confirm">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -135,6 +139,7 @@
             </div>
 
         </div>
+
 
 <script>
     var c=0;

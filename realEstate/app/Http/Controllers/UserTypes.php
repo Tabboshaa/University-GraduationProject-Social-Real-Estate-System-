@@ -7,6 +7,7 @@ use App\User;
 use App\Type_Of_User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserTypes extends Controller
 {
@@ -108,9 +109,16 @@ class UserTypes extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public static function checkIfAdmin()
     {
         //
+        $USER = Auth::user();
+        $USER = $USER->usertype->groupBy('User_Type_ID');
+        if (isset($USER[1])) //customer
+        {
+            return true;
+        }
+        return false;
     }
 
     /**

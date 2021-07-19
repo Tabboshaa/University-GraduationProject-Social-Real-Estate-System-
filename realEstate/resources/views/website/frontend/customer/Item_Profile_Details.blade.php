@@ -1,24 +1,4 @@
 @extends('website.frontend.customer.Item_Profile')
-
-
-{{--<div class="modal bottom fade" style="overflow-y: scroll;" id="EditLocation" tabindex="-1" role="dialog">--}}
-{{-- <div class="modal-dialog modal-dialog-centered" role="document">--}}
-{{-- <div class="modal-content border-0">--}}
-{{-- <div class="modal-body p-3 d-flex align-items-center bg-none">--}}
-{{-- <div class="card shadow-none rounded-0 w-100 p-2 pt-3 border-0" style="height: 700px; width: 800px;">--}}
-{{-- <div class="card-body rounded-0 text-left p-3">--}}
-{{-- <h3 class="fw-700 display1-size display2-md-size mb-4">EditLocation</h3>--}}
-{{-- <form id="reserveForm" >--}}
-{{-- <label for="">Address: <input id="map-search" class="controls" type="text" placeholder="Search Box" size="30"></label><br>--}}
-{{-- <div id="map-canvas" style="width: 300px; height: 400px ;"></div>--}}
-{{-- </form>--}}
-{{-- </div>--}}
-{{-- </div>--}}
-{{-- </div>--}}
-{{-- </div>--}}
-{{-- </div>--}}
-{{--</div>--}}
-
 @section('profile_Content')
 
 <link rel="stylesheet" href="/css/GeneralMap.css">
@@ -69,6 +49,7 @@
             </div>
         </div>
         {{--FOR EACH TO PRINT YEARS--}}
+        @if(count($schedule)>0)
         @foreach($schedule as $year => $schedulesInYear)
 
         <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
@@ -80,7 +61,7 @@
             </div>
         </div>
         <?php $temp = ''; ?>
-        <div id="div{{$year}}" >
+        <div id="div{{$year}}">
             @foreach($schedulesInYear as $month => $schedules)
             {{-- END...FOR EACH TO PRINT YEARS--}}
             <?php $dateObj   = DateTime::createFromFormat('!m', $month);
@@ -95,19 +76,19 @@
 
                 <h4 class="fw-700 text-grey-900 font-xssss mt-2">
                     <ul id="ul{{$year}}{{$month}}" style="display: none;">
-                @foreach($schedules as $date)
-               <?php
-                $day = \Carbon\Carbon::parse($date["date"])->format('d');
-                $day = $day + 1 - 1;
-                $SID = $date["schedule_Id"];
-                $ID = $date["date"];
-                ?>
-                       <!-- {{-- @foreach ($period as $date) --}} -->
+                        @foreach($schedules as $date)
+                        <?php
+                        $day = \Carbon\Carbon::parse($date["date"])->format('d');
+                        $day = $day + 1 - 1;
+                        $SID = $date["schedule_Id"];
+                        $ID = $date["date"];
+                        ?>
+                        <!-- {{-- @foreach ($period as $date) --}} -->
                         <li>
                             <div> <span id="{{$ID}}" name="{{$SID}}" class="calendar-table__item" href="javascript:void(0)" onclick="test('{{$ID}}','{{$SID}}')" style="color: #0C0C0C">{{$day}}</span></div>
                         </li>
                         <!-- {{-- @endforeach --}} -->
-            @endforeach
+                        @endforeach
                     </ul>
                 </h4>
             </div>
@@ -115,7 +96,10 @@
             @endforeach
         </div>
         @endforeach
+        @else
+        <p class="fw-500 text-grey-500 lh-26 font-xssss p-3 w-100">sorry no schedules for this item yet <a href="{{url('/help')}}">contact us to know more</a> </p>
 
+        @endif
     </div>
 </div>
 <div class=" col-xl-8 col-xxl-9 col-lg-8">
@@ -127,7 +111,7 @@
         </div>
         <div class="card-body p-0 me-lg-5">
             <p class="fw-500 text-grey-500 lh-26 font-xssss w-100">
-
+                @if(count($details)>0)
                 @foreach ($details as $Property_Name => $Property_Id_Array)
                 @foreach ($Property_Id_Array as $Property_Id => $Property_diff_Array)
 
@@ -153,11 +137,11 @@
                                 @endif
                                 @elseif($detail->datatype=='file')
                                 <div class="col-6 mb-2 pe-1"><a href="{{$detail->DetailValue}}" data-lightbox="roadtrip"><img src="{{asset('storage/profile gallery/'.$detail->DetailValue)}}" alt="image" class="img-fluid rounded-3 w-100"></a></div>
-                                
+
                                 @endif
                                 @endforeach
                                 @else
-                                <li> no data for this {{$Property_Name}} yet </li>
+                                <li> no data for this {{$Property_Name}} yet</li>
                                 @endif
                             </ul>
 
@@ -168,20 +152,29 @@
             </ul>
             @endforeach
             @endforeach
+            @else
+            This item has no details yet <a href="{{url('/help')}}">contact us to know more</a>
+            @endif
 
             </p>
         </div>
         <div class="clearfix"></div>
     </div>
     <div class="card w-100 shadow-xss rounded-xxl border-0 p-2 pe-0 mb-3">
-        <h3>
-            Location
-        </h3>
+            <div class="card-body ps-3 pt-3 pb-0 d-flex">
+                <h3>
+                Location
+            </h3>
+        </div>
         <div class="card-body ps-2 d-flex">
             <div class="clearfix">
                 <div id="map">
+                    @if($item->address_latitude ==null || $item->address_longitude == null)
+                    <p class="fw-500 text-grey-500 ps-3 pt-0 lh-26 font-xssss w-100"> sorry no location for this item yet <a href="{{url('/help')}}">contact us to know more</a> </p>
+                    @else
                     <input type="hidden" id="lang" value="{{$item->address_latitude}}">
                     <input type="hidden" id="lat" value="{{$item->address_longitude}}">
+                    @endif
                 </div>
             </div>
         </div>
@@ -362,7 +355,7 @@
             border: 2px solid transparent;
             border-radius: 50%;
             color: #424588;
-            font-size: 12px;
+            font-size: 16px;
             font-weight: 700;
             width: 100%;
             height: 100%;
@@ -377,7 +370,7 @@
             border: 2px solid transparent;
             border-radius: 50%;
             color: #424588;
-            font-size: 12px;
+            font-size: 16px;
             font-weight: 700;
             width: 100%;
             height: 100%;
@@ -408,7 +401,7 @@
             border: 2px solid transparent;
             border-radius: 50%;
             color: #fff;
-            font-size: 12px;
+            font-size: 16px;
             font-weight: 700;
             width: 100%;
             height: 100%;
@@ -428,7 +421,7 @@
             border: 2px solid transparent;
             border-radius: 50%;
             color: #fff;
-            font-size: 12px;
+            font-size: 16px;
             font-weight: 700;
             width: 100%;
             height: 100%;
@@ -450,7 +443,7 @@
             border: 2px solid transparent;
             border-radius: 50%;
             color: #fff;
-            font-size: 12px;
+            font-size: 16px;
             font-weight: 700;
             width: 100%;
             height: 100%;
@@ -561,7 +554,7 @@
 
         .nav.child_menu>li>a {
             color: black;
-            font-size: 12px;
+            font-size: 16px;
             padding: 9px;
         }
 
@@ -784,7 +777,7 @@
         }
 
         .calendar-table {
-            margin-top: 12px;
+            margin-top: 16px;
             width: 100%;
         }
 

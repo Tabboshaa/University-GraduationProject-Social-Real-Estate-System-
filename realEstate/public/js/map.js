@@ -10,8 +10,14 @@ function initialize() {
          element = document.getElementById( 'map-canvas' );
     city = document.querySelector( '.reg-input-city' );
     street= document.querySelector( '.reg-input-street' );
-      var lat =parseFloat(document.getElementById('lat').value);
-     var long =parseFloat(document.getElementById('lang').value) ;
+    if(document.getElementById('lat').value && document.getElementById('lang').value)
+    {
+        let lat =parseFloat(document.getElementById('lat').value);
+        let long =parseFloat(document.getElementById('lang').value) ;
+    }else{
+        let lat=31.386245;
+        let long=27.0699504;
+    }
 
     console.log(lat);
     console.log(long);

@@ -13,7 +13,7 @@
 <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
     <thead>
     <tr>
-                        <th><h2 style="margin-right:200px; padding-bottom: 5px;">Operation Type ID</h2></th>
+                        <th><h2 style="margin-right:200px; padding-bottom: 5px;">Operation Type</h2></th>
                        
                         <th ><h2 style="margin-right:250px;padding-bottom: 5px;">Edit</h2></th>
                   <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:200px;"></i></th>
@@ -65,7 +65,7 @@
 
                     <div class="form-group">
                         <label for="operationTypeName" style="font-size: 12pt" >Operation Type</label>
-                        <input type="text" style="border-radius: 3pt" name="OperationTypeName" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" id="OperationTypeName" class="form-control">
+                        <input type="text" style="border-radius: 3pt" name="OperationTypeName" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" id="OperationTypeName" class="form-control" required>
 
                     </div>
                     <button type="submit" id="btun3" class="btn btn-success">Edit</button>

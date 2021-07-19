@@ -81,8 +81,8 @@
             <div class="card-body d-block w-100 shadow-none mb-0 p-0 border-top-xs">
                 <ul class="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4" id="pills-tab" role="tablist">
                     <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Profile</a></li>
-                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Owned items</a></li>
-                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Followed items</a></li>
+                    <!-- <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Owned items</a></li>
+                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Followed items</a></li> -->
                     <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Gallery</a></li>
                 </ul>
             </div>
@@ -209,7 +209,7 @@
                     @endif
                     <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"><?php $today = \Carbon\Carbon::now();
                                                                                     $end = \Carbon\Carbon::parse($post->updated_at);
-                                                                                    ?>{{ $end->diffForHumans($today)}}</span>
+                                                                                    ?>{{ $end->diffForHumans()}}</span>
                 </h4>
             </div>
             <div class="card-body p-0 me-lg-5">
@@ -262,7 +262,7 @@
             @endif
             <!-- 0055FF -->
             <div class="form-group">
-                <input id="CommentForPost{{$post->Post_Id}}" type="text" placeholder="Say something nice." style="background-color:#0055ff1a;width:770px;" class="border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg">
+                <input id="CommentForPost{{$post->Post_Id}}" name="comment" type="text" placeholder="Say something nice." style="background-color:#0055ff1a;width:770px;" class="border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg">
                 <a href="javascript:void(0)" onclick="Comment('{{$post->Post_Id}}');"><i class="btn-round-sm bg-primary-gradiant text-white font-sm ti-arrow-right text-blue"></i></a>
 
             </div>
@@ -286,7 +286,7 @@
                                         <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
                                         @endif
                                 </a></h4>
-                                <div class="time"><?php $end = \Carbon\Carbon::parse($comment->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0"> {{ $end->diffForHumans($today) }}</p>
+                                <div class="time"><?php $end = \Carbon\Carbon::parse($comment->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0"> {{ $end->diffForHumans() }}</p>
                                 </div>
                                 <p class="fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0">{{ $comment->Comment }}</p>
                             </div>
@@ -319,7 +319,7 @@
                                             <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
                                             @endif
                                     </a></h4>
-                                    <div class="time"><?php $end = \Carbon\Carbon::parse($reply->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">{{ $end->diffForHumans($today) }}</p>
+                                    <div class="time"><?php $end = \Carbon\Carbon::parse($reply->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">{{ $end->diffForHumans() }}</p>
                                     </div>
                                     <p class="fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0">{{ $reply->Comment }}</p>
                                 </div>
@@ -345,7 +345,12 @@
 
 <script>
     function Comment(post_id) {
-
+        var empt = document.forms["postform"]["comment"].value;
+if (empt == "")
+{
+alert("Please fill out this field");
+return false;
+}
         var comment = $("#CommentForPost" + post_id).val();
 
         if (comment.length == 0) {
@@ -373,7 +378,7 @@
                     "<a href=\"/deletecomment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" +
                     "<a href=\"javascript:void(0)\" onclick=\"setComment('" + data['Comment_Id'] + "','" + data['Comment'] + "')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>" +
                     "</a></h4>" +
-                    "<div class=\"time\"><\?php $end = \Carbon\Carbon::parse(" + data['updated_at'] + "); ?><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> {{ $end->diffForHumans($today) }}</p></div>" +
+                    "<div class=\"time\"><\?php $end = \Carbon\Carbon::parse(" + data['updated_at'] + "); ?><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> {{ $end->diffForHumans() }}</p></div>" +
                     "<p class=\"fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0\">" + data['Comment'] + "</p>" +
                     "</div>" +
                     "</div>" +
@@ -420,7 +425,7 @@
                     "<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> " + data['First_Name'] + " " + data['Middle_Name'] + " " + " " + data['Last_Name'] + "" +
                     "<a href=\"javascript:void(0)\" onclick=\"setComment('" + data['Comment_Id'] + "','" + data['Comment'] + "')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>" +
                     "</a></h4>" +
-                    "<div class=\"time\"><\?php $end = \Carbon\Carbon::parse(" + data['updated_at'] + "); ?><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> {{ $end->diffForHumans($today) }}</p></div>" +
+                    "<div class=\"time\"><\?php $end = \Carbon\Carbon::parse(" + data['updated_at'] + "); ?><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> {{ $end->diffForHumans() }}</p></div>" +
                     "<p class=\"fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0\">" + data['Comment'] + "</p>" +
                     "</div>" +
                     "</div>");

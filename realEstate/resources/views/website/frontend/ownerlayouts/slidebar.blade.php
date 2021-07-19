@@ -1,18 +1,38 @@
-<ul class="sidebar navbar-nav">
-			<li class="nav-item active">
-			<a  href="{{url('/HomePage')}}"><img src="{{asset('FrontEnd/images/menu-icon/Homeicon.png')}}" title="" alt=""> <div id="foo">Home</div></a></li>
-			<li><a href="{{url('/MyItems')}}"><img src="{{asset('FrontEnd/images/menu-icon/Categoryicon.png')}}" title="" alt=""><div  id="foo1">My Properties</div> </a></li>
-			<li><a href="{{url('/MyReservations')}}"><img src="{{asset('FrontEnd/images/menu-icon/flag.png')}}" title="" alt=""> <div  id="foo2">My Reservations</div></a></li>
-			<li class="mpadding"><a href="message.html"><img src="{{asset('FrontEnd/images/menu-icon/message.png')}}" title="" alt=""><div  id="foo3">Messages</div></a></li>
-			
-			<li><a href="{{url('/EditCustomerProfile')}}"> <img src="{{asset('FrontEnd/images/menu-icon/favicon.png')}}" title="" alt=""><div  id="foo4">Profile</div></a></li>
+<!-- navigation left -->
+<nav class="navigation scroll-bar">
+	<div class="container ps-0 pe-0">
+		<div class="nav-content">
+			<div class="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2 mt-2">
+				<div class="nav-caption fw-600 font-xssss text-grey-500">Menu</div>
+				<ul class="mb-1 top-content">
+					<li class="logo d-none d-xl-block d-lg-block"></li>
+					<li><a href="{{ url('/MyItems') }}" class="nav-content-bttn open-font" ><i class="feather-layers btn-round-md bg-blue-gradiant me-3"></i><span>My Properties</span></a></li>
+					<li><a href="{{ url('/BeOwner') }}" class="nav-content-bttn open-font" ><i class="feather-plus btn-round-md bg-gold-gradiant me-3"></i><span>Add Property</span></a></li>
+                    <li><a href="{{ url('/HomePage') }}" class="nav-content-bttn open-font" ><i  class="btn-round-md bg-red-gradiant text-white feather-log-out font-md me-3"></i><span> Customer Side</span></a></li>
+                </ul>
+			</div>
 
-			<li> <a href="my_profile_view_detail.html"> <img src="{{asset('FrontEnd/images/menu-icon/eye.png')}}" title="" alt=""><div  id="foo5">Most Viewed</div></a></li>
-			<li> <a href="electronics.html"><img src="{{asset('FrontEnd/images/menu-icon/Shape.png')}}" title="" alt=""><div  id="foo6">Liked</div></a></li>
-			<li class="mpadding"><a href="other_user.html"><img src="{{asset('FrontEnd/images/menu-icon/card-payment.png')}}" title="" alt=""> <div  id="foo7">Payment</div></a></li>
-			
-			<li> <a href="helps.html"><img src="{{asset('FrontEnd/images/menu-icon/info.png')}}" title="" alt=""><div  id="foo8">Help</div></a></li>
-			<li> <a href="setting.html"><img src="{{asset('FrontEnd/images/menu-icon/setting.png')}}" title="" alt=""><div  id="foo9">Setting</div></a></li>
-			<li class="mpadding"><a href="feedback.html"><img src="{{asset('FrontEnd/images/menu-icon/user.png')}}" title="" alt=""><div  id="foo10"> Send Feedback</div></a></li>
-			
-		  </ul>
+			<!-- <div class="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2">
+				<div class="nav-caption fw-600 font-xssss text-grey-500"><span>More </span>Pages</div>
+				<ul class="mb-3">
+					<li><a href="default-email-box.html" class="nav-content-bttn open-font"><i class="font-xl text-current feather-inbox me-3"></i><span>Email Box</span><span class="circle-count bg-warning mt-1">584</span></a></li>
+					<li><a href="default-hotel.html" class="nav-content-bttn open-font"><i class="font-xl text-current feather-home me-3"></i><span>Near Hotel</span></a></li>
+					<li><a href="default-event.html" class="nav-content-bttn open-font"><i class="font-xl text-current feather-map-pin me-3"></i><span>Latest Event</span></a></li>
+					<li><a href="default-live-stream.html" class="nav-content-bttn open-font"><i class="font-xl text-current feather-youtube me-3"></i><span>Live Stream</span></a></li>
+				</ul>
+			</div> -->
+			<div class="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1">
+				<div class="nav-caption fw-600 font-xssss text-grey-500"><span></span> Account</div>
+				<ul class="mb-1">
+					<li class="logo d-none d-xl-block d-lg-block"></li>
+					<li><a href="{{url('/settings')}}" class="nav-content-bttn open-font h-auto pt-2 pb-2"><i class="font-sm feather-settings me-3 text-grey-500"></i><span>Settings</span></a></li>
+					<!-- <li><a href="default-analytics.html" class="nav-content-bttn open-font h-auto pt-2 pb-2"><i class="font-sm feather-pie-chart me-3 text-grey-500"></i><span>Analytics</span></a></li> -->
+                    <li><a href="{{url('/EditUserProfile')}}" class="nav-content-bttn open-font h-auto pt-2 pb-2"><i class="feather-edit text-grey-500 me-3 font-sm"></i><span>EditAccount</span></a></li>
+                    <li><a href="{{url('/logout')}}" class="nav-content-bttn open-font h-auto pt-2 pb-2"><i class="feather-log-out text-grey-500 me-3 font-sm"></i><span>Log Out</span></a></li>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<!-- navigation left -->

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Emails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -25,5 +27,13 @@ class HomeController extends Controller
     {
         // return view('website/backend.database pages.Data_Type');
         return view('home');
+    }
+
+    public function contactUs()
+    {
+        $text=\request('text');
+        $email=Emails::all()->where('User_ID','=',Auth::id())->first();
+        \Mail::to('abdalaziztabbosha@gmail.com')->send(new \App\Mail\mailus($text));
+        return redirect()->back();
     }
 }

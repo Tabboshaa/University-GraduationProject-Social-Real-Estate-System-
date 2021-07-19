@@ -60,10 +60,10 @@
 
                             <div class="form-group icon-input mb-3">
                                 <i class="font-sm ti-email text-grey-500 pe-0"></i>
-                                <input name="email" type="text" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address">
+                                <input name="email"  type="text" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" placeholder="Your Email Address">
                             </div>
                             <div class="form-group icon-input mb-3">
-                                <input  name="password" type="Password" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Password">
+                                <input  name="password" type="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Password">
                                 <i class="font-sm ti-lock text-grey-500 pe-0"></i>
                             </div>
 

@@ -27,7 +27,7 @@ Route::get('/meshtest/{item_id}','ScheduleController@getAvailableTime');
 Auth::routes();
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
 Route::post('/login', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
-Route::POST('/registerUser', 'Auth\RegisterController@create')->name('registerUser');
+Route::post('/registerUser', 'Auth\RegisterController@create')->name('registerUser');
 Route::get('/UserRegister', function () {
     return view('website\frontend\Registration');
 })->name('UserRegister');
@@ -51,9 +51,9 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/HomeRegister', 'CustomerHomeController@index')->name('HomeRegister');
     Route::get('/search_by_place', 'CustomerHomeController@findItemInState');
     Route::get('/search_by_placedate', 'CustomerHomeController@findItemInStateAndDate');
+    Route::get('/add_comment', 'CommentsController@create')->name('comment.add');
 
     //Customer Comment
-    Route::get('/add_comment', 'CommentsController@create')->name('comment.add');
     Route::get('/add_reply', 'CommentsController@reply')->name('reply.add');
     Route::get('/addReview', 'ReviewController@create')->name('review.add');
 
@@ -124,13 +124,14 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/shaimaa', 'CustomerHomeController@indexPhoto');
     Route::get('/myReservations', 'ReservationController@show');
 
-            Route::Post('/BeOwner/{id?}', 'UserController@BeOwner')->name('BeOwner');
+    Route::Post('/BeOwner/{id?}', 'UserController@BeOwner')->name('BeOwner');
     Route::get('/BeOwner/{id?}', 'UserController@BeOwner');
 
     Route::get('/checkIfOwner', 'UserController@checkIfOwner')->name('checkIfOwner');
 
     //Owner
     Route::post('/OwnerAddItem', 'ItemController@OwnerAddItem');
+    Route::get('/item_delete1/{id?}', 'ItemController@destroy');
 
     Route::get('/owneritemProfile/{id?}', 'OwnerController@itemProfile');
     Route::get('/owneritemDetails/{id?}', 'OwnerController@itemDetails');
@@ -142,16 +143,18 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/owneritemManageSchedule/{id?}', 'OwnerController@itemManageSchedule');
     Route::get('/owneradditemschedule', 'ScheduleController@Ownercreate')->name('Add_Schedule');
 
-    Route::get('/MyItems', 'OwnerController@index');
+    Route::get('/MyItems', 'OwnerController@index')->name('MyItems');
     Route::get('/MyReservations', 'OwnerController@getReservations');//not done
 
-    Route::get('/Amr/{id?}', 'ItemController@SelectSubType');
     Route::get('/OwnerSelectSubType/{id?}', 'ItemController@SelectSubType');
     Route::get('/OwnerSelectDetails/{item_id}/{sub_type_id}', 'ItemController@OwnerSelectProperty');
     Route::get('/OwnerAddItem', function () {
         return view('website\frontend.Owner.Add_Item');
     });
-    Route::get('/test', 'NotificationController@index');
+
+    Route::get('/settings',function () {return view("website\\frontend\settings");});
+    Route::get('/help',function () {return view("website\\frontend\help");});
+    Route::get('/notifications',function () {return view("website\\frontend\\notifications");});
 });
 
 
@@ -244,6 +247,7 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/property', 'SubTypePropertyController@index');
     Route::get('/sub_type_property_show', 'SubTypePropertyController@show')->name('subtypeproperty_show');
     Route::post('/add_sub_type_property', 'SubTypePropertyController@create');
+    Route::get('/add_comment_admin', 'CommentsController@create')->name('comment.addAdmin');
 
 
     // Details pages #Tabboshak
@@ -258,7 +262,7 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/Item', 'ItemController@index1');
     Route::post('/addItem', 'ItemController@create');
     Route::get('/ShowItem/{id?}', 'ItemController@show');
-    Route::delete('/DelteItem/{id?}', 'ItemController@destroy');
+    Route::delete('/DeleteItem/{id?}', 'ItemController@destroy');
     Route::get('/item_delete/{id?}', 'ItemController@destroy');
     Route::get('/edit_item_user/{id}', 'ItemController@ShowEditUser');
     Route::post('/edit_item_user2/{id}', 'ItemController@EditUser');
@@ -280,7 +284,7 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::POST('/add_item_gallery/{id}', 'AttachmentController@create');
     Route::get('/delete_gallery/{id?}', 'AttachmentController@destroy');
     Route::get('/edit_Comment', 'CommentsController@editComment')->name('Comment.update');
-    Route::get('/deletecomment/{id?}', 'CommentsController@DestroyComment');
+    Route::get('/delete_comment/{id?}', 'CommentsController@DestroyComment');
     Route::get('/deletePost/{id?}', 'PostsController@DestroyPost');
     Route::get('/edit_post', 'PostsController@editPost')->name('post.update');
     Route::get('/delete_reply/{id?}', 'CommentsController@destroyReply');
@@ -366,6 +370,7 @@ Route::group(['middleware' => 'Admin'], function () {
     //search user
 
     Route::post('/search_user', 'UserController@search')->name('search');
+    Route::post('/search_item', 'ItemController@getitems')->name('itemnamesearch');
     Route::get('/operationtypes', function () {
         return view('website\backend.database pages.operationTypes');
     });
@@ -389,6 +394,7 @@ Route::get('policy',function() {
 
 Route::get('redirect/{service}','SocialController@redirect');
 Route::get('callback/{service}','SocialController@callback');
+
 
 Route::get('map',function (){
     return view('map');

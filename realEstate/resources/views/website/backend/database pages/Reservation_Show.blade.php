@@ -10,19 +10,20 @@
 
                 <link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
 
-                <div class="x_title">
-                    <h2>Operations</h2>
+                <div class="x_title ps-5" >
+                    <h2 style="">All Item Reservation </h2>
 
                     <div class="clearfix"></div>
                 </div>
 
+                @include('website.backend.layouts.flashmessage')
                 <div class="row">
-                    @include('website.backend.layouts.flashmessage')
+
                     <div class="col-sm-12">
                         @if(count($item->operations )!=0)
                         @foreach($item->operations as $operations => $reservation)
                         <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
-                            #{{$reservation['Operation_Id']}}
+                           <h4> #{{$reservation['Operation_Id']}}</h4>
                             <thead>
 
                                 <tr>
@@ -56,7 +57,7 @@
                                     <td class="box">{{$reservation_detail['Operation_Detail_Value']}}</td>
                                     @endforeach
                                     @endif
-                                    <td> <a href="{{url('/operation_delete/'.$reservation['Operation_Id'])}}"><i class="fa fa-trash-o"></i>
+                                    <td> <a href="{{url('/operation_delete/'.$reservation['Operation_Id'])}}" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash-o"></i>
                                     </td>
                                 </tr>
 

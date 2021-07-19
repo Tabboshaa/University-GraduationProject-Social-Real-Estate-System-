@@ -35,7 +35,7 @@
                         @endif
                     </a> <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"><?php $today = \Carbon\Carbon::now();
                                                                                             $end = \Carbon\Carbon::parse($post->updated_at);
-                                                                                            ?>{{ $end->diffForHumans($today)}}</span></h4>
+                                                                                            ?>{{ $end->diffForHumans()}}</span></h4>
             </div>
             <div class="card-body p-0 me-lg-5">
                 <p class="fw-500 text-grey-500 lh-26 font-xssss w-100">{{$post->Post_Title}} <br />
@@ -107,13 +107,13 @@
                             @endif
                             <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
                                 <a href="{{url('view_User/'.$comment->User_Id)}}">
-                                    <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">{{$comment->First_Name}} {{$comment->Middle_Name}} {{$comment->Last_Name}}
+                                </a> <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">{{$comment->First_Name}} {{$comment->Middle_Name}} {{$comment->Last_Name}}
                                         @if($User->id== $comment->User_Id )
                                         <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
                                         <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
                                         @endif
-                                </a></h4>
-                                <div class="time"><?php $end = \Carbon\Carbon::parse($comment->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0"> {{ $end->diffForHumans($today) }}</p>
+                                </h4>
+                                <div class="time"><?php $end = \Carbon\Carbon::parse($comment->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0"> {{ $end->diffForHumans() }}</p>
                                 </div>
                                 <p class="fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0">{{ $comment->Comment }}</p>
                             </div>
@@ -141,12 +141,12 @@
                                 @endif <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
                                     <a href="{{url('view_User/'.$reply->User_Id)}}">
                                         <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">{{$reply->First_Name}} {{$reply->Middle_Name}} {{$reply->Last_Name}}
-                                            @if($User->id== $reply->User_Id )
+                                        </a>   @if($User->id== $reply->User_Id )
                                             <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
                                             <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
                                             @endif
-                                    </a></h4>
-                                    <div class="time"><?php $end = \Carbon\Carbon::parse($reply->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">{{ $end->diffForHumans($today) }}</p>
+                                   </h4>
+                                    <div class="time"><?php $end = \Carbon\Carbon::parse($reply->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">{{ $end->diffForHumans() }}</p>
                                     </div>
                                     <p class="fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0">{{ $reply->Comment }}</p>
                                 </div>
@@ -472,7 +472,7 @@
                     "<a href=\"/deletecomment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" +
                     "<a href=\"javascript:void(0)\" onclick=\"setComment('" + data['Comment_Id'] + "','" + data['Comment'] + "')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>" +
                     "</a></h4>" +
-                    "<div class=\"time\"><\?php $end = \Carbon\Carbon::parse(" + data['updated_at'] + "); ?><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> {{ $end->diffForHumans($today) }}</p></div>" +
+                    "<div class=\"time\"><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> now </p></div>" +
                     "<p class=\"fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0\">" + data['Comment'] + "</p>" +
                     "</div>" +
                     "</div>" +
@@ -520,7 +520,7 @@
                     "<a href=\"/deletecomment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" +
                     "<a href=\"javascript:void(0)\" onclick=\"setComment('" + data['Comment_Id'] + "','" + data['Comment'] + "')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>" +
                     "</a></h4>" +
-                    "<div class=\"time\"><\?php $end = \Carbon\Carbon::parse(" + data['updated_at'] + "); ?><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> {{ $end->diffForHumans($today) }}</p></div>" +
+                    "<div class=\"time\"><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> now </p></div>" +
                     "<p class=\"fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0\">" + data['Comment'] + "</p>" +
                     "</div>" +
                     "</div>");

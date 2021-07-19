@@ -53,7 +53,7 @@
                     <div class="clearfix">
                         <?php $end = \Carbon\Carbon::parse($notification->updated_at);
                         $today = \Carbon\Carbon::now(); ?>
-                        <p>{{ $end->diffForHumans($today) }}</p>
+                        <p>{{ $end->diffForHumans() }}</p>
                     </div>
                 </div>
             </div>

@@ -16,7 +16,7 @@
             <table id="datatable" class="table table-bordered dataTable no-footer" style="width:'100%'" role="grid" aria-describedby="datatable_info">
                 <thead>
                     <tr>
-                        <th><h2 style="margin-right:160px; padding-bottom: 5px;">Main Type ID</h2></th>
+                        <th><h2 style="margin-right:160px; padding-bottom: 5px;">Main Type</h2></th>
                         <th ><h2 style="margin-right:175px;padding-bottom: 5px;">Sub Type Name</h2></th>
                         <th ><h2 style="margin-right:200px;padding-bottom: 5px;">Edit</h2></th>
                         <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:155px;"></i></th>
@@ -81,7 +81,7 @@
                     </div>
                     <div class="form-group">
                         <label for="SubTypeName" style="font-size: 12pt" >Sub Type</label>
-                        <input type="text" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" style="border-radius: 3pt" name="SubTypeName" id="SubTypeName" class="form-control">
+                        <input type="text" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" style="border-radius: 3pt" name="SubTypeName" id="SubTypeName" class="form-control" required>
                     </div>
                     <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>
