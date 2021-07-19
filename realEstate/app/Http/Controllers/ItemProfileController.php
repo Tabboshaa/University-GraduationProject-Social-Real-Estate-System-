@@ -133,10 +133,12 @@ class ItemProfileController extends Controller
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
-
+        $User = Auth::user();
+        
         return view(
             'website\frontend\customer\Item_Profile_Posts',
             [
+                'User'=>$User,
                 'states' => $state,
                 'posts' => $posts,
                 'item' => $item,
@@ -207,7 +209,14 @@ class ItemProfileController extends Controller
         $reviews = ReviewController::getItemReviews($id);
         $item = Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
-        $post_images =review_attacment::all()->where('Item_Id','=',$id)->groupBy('Review_Id');
+        $post_images =Db::table('review_attacments')
+        ->where('Item_Id','=',$id)
+        ->get()
+        ->groupBy('Review_Id');
+
+        $comments = ReviewcommentsController::getPostComments($id);
+        $replies = ReviewcommentsController::getPostreplies($id);
+
         $item = Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
 
@@ -215,9 +224,10 @@ class ItemProfileController extends Controller
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
         $AuthReview = review::all()->where('Item_Id', '=', $id)->where('User_Id', '=', $User_Id)->first();
+        $User = Auth::user();
 
-
-        return view('website\frontend\customer\Item_Profile_Reviews', ['states' => $state, 'reviews' => $reviews,  'post_images' => $post_images, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow, 'itemID' => $id, 'AuthReview' => $AuthReview]);
+        return view('website\frontend\customer\Item_Profile_Reviews', ['User'=>$User,'states' => $state, 'reviews' => $reviews, 'comments' => $comments,
+        'replies' => $replies, 'post_images' => $post_images, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow, 'itemID' => $id, 'AuthReview' => $AuthReview]);
     }
 
 

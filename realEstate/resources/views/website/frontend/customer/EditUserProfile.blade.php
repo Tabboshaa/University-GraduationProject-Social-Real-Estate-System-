@@ -32,14 +32,21 @@
                             <form method="POST" action="{{url('/EditUserProfile1')}}">
                                 @CSRF
                                 <div class="row">
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-4 mb-3">
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">First Name</label>
                                             <input type="text" class="form-control" value="{{$user->First_Name}}" name="Fname">
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-4 mb-3">
+                                        <div class="form-group">
+                                            <label class="mont-font fw-600 font-xsss">Middle Name</label>
+                                            <input type="text" class="form-control" value="{{$user->Middle_Name}}" name="Mname">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 mb-3">
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">Last Name</label>
                                             <input type="text" class="form-control" value="{{$user->Last_Name}}" name="Lname">
@@ -63,6 +70,29 @@
                                             @else
                                             <input type="text" class="form-control" value="" name="phone">
                                             @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 mb-3">
+                                        <div class="form-group">
+                                            <label class="mont-font fw-600 font-xsss">Birthday</label>
+                                            <input name="birthdate" class="date-picker form-control" value="{{$user->Birth_Day}}" placeholder="dd-mm-yyyy" type="date">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 mb-3">
+                                        <div class="form-group">
+                                            <label class="mont-font fw-600 font-xsss">National ID</label>
+                                            <input type="text" class="form-control" value="{{$user->National_ID}}" name="nationalid">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-6 mb-3">
+                                        <div class="form-group">
+                                            <label class="mont-font fw-600 font-xsss">Gender</label><br>
+                                            <input class="w3-radio" type="radio" name="gender" value="Female">Female <br>
+                                            <input class="w3-radio" type="radio" name="gender" value="Male">Male
                                         </div>
                                     </div>
                                 </div>
