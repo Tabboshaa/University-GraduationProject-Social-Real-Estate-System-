@@ -101,7 +101,7 @@
                 <div class=row>
                     @foreach($items as $item)
                     <div class="col-6 mb-2 pe-1">
-                        @if($item->coverpage['path'] != null)
+                        @if($item->coverpage != null)
                         <div class="card-body position-relative h90 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/'.$item->coverpage['path'])}}');"></div>
                         @else
                         <div class="card-body position-relative h90 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/Default1.jpeg')}}');"></div>
