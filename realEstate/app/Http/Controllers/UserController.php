@@ -71,7 +71,7 @@ class UserController extends Controller
 
 
             DB::commit();
-            return back()->with('success', 'Item Created Successfully');
+            return back()->with('success', 'User Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
