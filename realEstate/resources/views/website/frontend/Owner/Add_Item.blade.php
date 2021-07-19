@@ -204,8 +204,7 @@
                             <div class="form-group">
                                 <label for="">Address: <input id="map-search" class="controls" type="text" placeholder="Search Box" ></label><br>
                                 <label for="">City <input type="text" name="City" class="reg-input-city" placeholder="City"></label>
-                                <label for="">Street <input type="text" name="Street" class="reg-input-street" placeholder="Street"></label>
-                                
+                                <label for="">Street <input type="text" name="Street" class="reg-input-street" placeholder="Street"></label>       
                                 <input type="text" style="margin-top:15px;margin-left:10px;"name="latitude" class="latitude">
                                 <input type="text" style="margin-top:15px;margin-left:10px;"name="longitude" class="longitude">
                             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\review;
+use App\review_attacment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -38,6 +39,20 @@ class ReviewController extends Controller
                     'Number_Of_Stars' => request('stars')
                 ]);
             }
+
+            if ($files = request()->file('images')) {
+                foreach ($files as $file) {
+                    $filename = $file->getClientOriginalName();
+                    $file->storeAs('/profile gallery', $filename, 'public');
+                }
+            }
+
+            review_attacment::create([
+                'Review_Id' =>  $review->Review_Id,
+                'Item_Id' => request('id'),
+                'path' =>  $filename,
+            ]);
+
 
             DB::commit();
             DB::rollBack();
@@ -75,12 +90,12 @@ class ReviewController extends Controller
     {
         //
         DB::beginTransaction();
-        
+
         try {
             review::destroy($id);
             DB::commit();
             return  redirect()->back()->with('success', 'Review Deleted Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {            
+        } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Review cannot be deleted');
         }

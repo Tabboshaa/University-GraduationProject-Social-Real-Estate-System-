@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 class DetailsController extends Controller
 {
 
-    public function index()
+     public function index()
     {
 
         $main_types = Main_Type::all();
@@ -24,6 +24,7 @@ class DetailsController extends Controller
         $property = Sub_Type_Property::all();
         $property_details = Property_Details::all();
         $item = Item::all();
+        
         //$subtype= get all sup type where main type id selected main  type
         return view('website.backend.database pages.Details', ['main_type' => $main_types, 'sub_type' => $sub_types, 'property_detail' => $property_details, 'item' => $item, 'property' => $property]);
     }

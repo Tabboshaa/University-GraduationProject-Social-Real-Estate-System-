@@ -21,7 +21,7 @@
                                     @endif
                                     <form method="POST" action="{{url('/UpdateProfilePhoto')}}" enctype="multipart/form-data">
                                         @csrf
-                                        <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="profile_photo_upload"><i class="feather-edit text-grey-500 me-3 font-sm"></i></label>
+                                        <label class="fw-600 text-grey-900 font-xssss mt-0 ms-3 me-0" for="profile_photo_upload"><i class="feather-edit text-grey-500 me-3 font-sm"></i></label>
                                         <input id="profile_photo_upload" name="ProfilePhoto" type="file" accept="image/*" style="display:none" onchange="javascript:this.form.submit();">
                                     </form>
                                     <h2 class="fw-700 font-sm text-grey-900 mt-3">{{$user->First_Name}}  {{$user->Last_Name}}</h2>
@@ -58,7 +58,11 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">Phone</label>
+                                            @if($phone)
                                             <input type="text" class="form-control" value="{{$phone->phone_number}}" name="phone">
+                                            @else
+                                            <input type="text" class="form-control" value="" name="phone">
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

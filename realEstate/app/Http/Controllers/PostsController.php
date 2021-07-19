@@ -204,9 +204,10 @@ class PostsController extends Controller
         //
         $posts = DB::table('posts')
             ->join('users', 'users.id', '=', 'posts.User_Id')
+            ->join('items', 'items.Item_Id', '=', 'posts.Item_Id')
             ->LeftJoin('profile_photos', 'profile_photos.User_Id', '=', 'posts.User_Id')
             ->where('posts.Item_Id', '=', $item_id)
-            ->select('posts.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')
+            ->select('posts.*','users.First_Name', 'users.Middle_Name', 'users.Last_Name','items.Item_Name')
             ->orderBy('updated_at', 'DESC')
             ->get();
 

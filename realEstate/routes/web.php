@@ -51,9 +51,9 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/HomeRegister', 'CustomerHomeController@index')->name('HomeRegister');
     Route::get('/search_by_place', 'CustomerHomeController@findItemInState');
     Route::get('/search_by_placedate', 'CustomerHomeController@findItemInStateAndDate');
+    Route::get('/add_comment', 'CommentsController@create')->name('comment.add');
 
     //Customer Comment
-    Route::get('/add_comment', 'CommentsController@create')->name('comment.add');
     Route::get('/add_reply', 'CommentsController@reply')->name('reply.add');
     Route::get('/addReview', 'ReviewController@create')->name('review.add');
 
@@ -247,6 +247,7 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/property', 'SubTypePropertyController@index');
     Route::get('/sub_type_property_show', 'SubTypePropertyController@show')->name('subtypeproperty_show');
     Route::post('/add_sub_type_property', 'SubTypePropertyController@create');
+    Route::get('/add_comment_admin', 'CommentsController@create')->name('comment.addAdmin');
 
 
     // Details pages #Tabboshak
@@ -283,7 +284,7 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::POST('/add_item_gallery/{id}', 'AttachmentController@create');
     Route::get('/delete_gallery/{id?}', 'AttachmentController@destroy');
     Route::get('/edit_Comment', 'CommentsController@editComment')->name('Comment.update');
-    Route::get('/deletecomment/{id?}', 'CommentsController@DestroyComment');
+    Route::get('/delete_comment/{id?}', 'CommentsController@DestroyComment');
     Route::get('/deletePost/{id?}', 'PostsController@DestroyPost');
     Route::get('/edit_post', 'PostsController@editPost')->name('post.update');
     Route::get('/delete_reply/{id?}', 'CommentsController@destroyReply');
@@ -369,6 +370,7 @@ Route::group(['middleware' => 'Admin'], function () {
     //search user
 
     Route::post('/search_user', 'UserController@search')->name('search');
+    Route::post('/search_item', 'ItemController@getitems')->name('itemnamesearch');
     Route::get('/operationtypes', function () {
         return view('website\backend.database pages.operationTypes');
     });

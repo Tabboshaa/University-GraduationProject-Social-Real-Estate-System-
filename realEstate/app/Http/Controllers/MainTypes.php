@@ -28,15 +28,13 @@ class MainTypes extends Controller
     public function create()
     {
         //
-        request()->validate([
-            'Main_Type_Name' => ['required', 'string', 'max:225', "regex:/[A-Z][a-z]+/"]
-        ]);
+        
         DB::beginTransaction();
         try {
             $Main_Type = Main_Type::create([
                 'Main_Type_Name' => request('Main_Type_Name'),
             ]);
-            return back()->with('success', 'Item Created Successfully');
+            return back()->with('success', 'Main Type Created Successfully');
             DB::commit();
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
@@ -89,7 +87,7 @@ class MainTypes extends Controller
             $main_types->save();
             
             DB::commit();
-            return back()->with('info', 'Item Edited Successfully');
+            return back()->with('info', 'Main type Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
@@ -126,10 +124,10 @@ class MainTypes extends Controller
             try {
                 Main_Type::destroy($request->mainType);
                 DB::commit();
-                return redirect()->route('main_types_show')->with('success', 'Item Deleted Successfully');
+                return redirect()->route('main_types_show')->with('success', 'Main type Deleted Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
                 DB::rollBack();
-                return redirect()->route('main_types_show')->with('error', 'Item cannot be deleted');
+                return redirect()->route('main_types_show')->with('error', 'Main type cannot be deleted');
                 return back()->withError($e->getMessage())->withInput();
             }
         } else return redirect()->route('main_types_show')->with('warning', 'No type was chosen to be deleted.. !!');

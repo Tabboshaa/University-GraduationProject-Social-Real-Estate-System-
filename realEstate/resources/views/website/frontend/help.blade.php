@@ -11,17 +11,21 @@
                                         <div class="row">
                                             <div class="col-md-8">
                                                 <div class="form-group icon-input mb-0">
-                                                    <input type="text" class="style1-input border-0 ps-5 font-xsss mb-0 text-grey-500 fw-500 bg-transparent" placeholder="Ask us anything">
+                                                    <form action="{{url('contactus')}}" method="post">
+                                                        @CSRF
+                                                    <input type="text" name="text" class="style1-input border-0 ps-5 font-xsss mb-0 text-grey-500 fw-500 bg-transparent" placeholder="Ask us anything">
+                                                        <div class="col-md-4">
+                                                            <input type="submit" class="w-100 d-block btn bg-current text-white font-xssss fw-600 ls-3 style1-input p-0 border-0 text-uppercase " value="Go">
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
-                                                <a href="#" class="w-100 d-block btn bg-current text-white font-xssss fw-600 ls-3 style1-input p-0 border-0 text-uppercase ">Go</a>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                           
-                        </div>               
+
+                        </div>
                     </div>
 @endsection

@@ -20,7 +20,7 @@
                 <thead>
                     <tr>
                     <tr>
-                        <th><h2 style="margin-right:10px; padding-bottom: 5px;">Main Type ID</h2></th>
+                        <th><h2 style="margin-right:10px; padding-bottom: 5px;">Main Type</h2></th>
                         <th ><h2 style="margin-right:10px;padding-bottom: 5px;">Sub Type Name</h2></th>
                         <th ><h2 style="margin-right:10px;padding-bottom: 5px;">Sub Type Property</h2></th>
 

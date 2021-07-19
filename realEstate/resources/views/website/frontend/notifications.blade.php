@@ -21,12 +21,12 @@
                     <li>
                         @if($notification->Redirect_To !=null)<a href="{{url(''.$notification->Redirect_To)}}" class="d-flex align-items-center p-3 rounded-3">@else <a href="{{ url('/view_User/'.$notification->From_User_Id) }}" class="d-flex align-items-center p-3 rounded-3"> @endif
                                 @if($notification->fromuser->profilePhoto !=null)
-                                <img src="{{asset('storage/cover page/'.$notification->fromuser->profilePhoto['Profile_Picture'])}}" alt="user" class="w45 me-3">
+                                <img src="{{asset('storage/cover page/'.$notification->fromuser->profilePhoto['Profile_Picture'])}}" alt="user" height="40" class="w40 mt--1 " style=" border-radius: 50%;">
                                 @else
-                                <img src="{{asset('storage/cover page/pic.png')}}" alt="user" class="w45 me-3">
+                                <img src="{{asset('storage/cover page/pic.png')}}" alt="user"  class="w40 h40 mt--1 " height="40" style=" border-radius: 50%;">
                                 @endif
 
-                                <h6 class="font-xssss text-grey-900 text-grey-900 mb-0 mt-0 fw-500 lh-20"><strong>{{$notification->fromuser->First_Name}} {{$notification->fromuser->Middle_Name}} {{$notification->fromuser['Last_Name']}}</strong> {{ $notification->Notification }} <span class="d-block text-grey-500 font-xssss fw-600 mb-0 mt-0 ms-auto"> <?php $end = \Carbon\Carbon::parse($notification->updated_at); ?>{{ $end->diffForHumans($today) }}</span> </h6>
+                                <h6 class="font-xssss text-grey-900 text-grey-900 mb-0 mt-0 fw-500 lh-20"><strong>{{$notification->fromuser->First_Name}} {{$notification->fromuser->Middle_Name}} {{$notification->fromuser['Last_Name']}}</strong> {{ $notification->Notification }} <span class="d-block text-grey-500 font-xssss fw-600 mb-0 mt-0 ms-auto"> <?php $end = \Carbon\Carbon::parse($notification->updated_at);  ?>{{ $end->diffForHumans() }}</span> </h6>
                             </a>
                     </li>
 

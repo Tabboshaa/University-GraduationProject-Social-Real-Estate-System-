@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\followeditemsbyuser;
 use App\Item;
 use App\review;
+use App\review_attacment;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -206,7 +207,7 @@ class ItemProfileController extends Controller
         $reviews = ReviewController::getItemReviews($id);
         $item = Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
-
+        $post_images =review_attacment::all()->where('Item_Id','=',$id)->groupBy('Review_Id');
         $item = Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
 
@@ -216,7 +217,7 @@ class ItemProfileController extends Controller
         $AuthReview = review::all()->where('Item_Id', '=', $id)->where('User_Id', '=', $User_Id)->first();
 
 
-        return view('website\frontend\customer\Item_Profile_Reviews', ['states' => $state, 'reviews' => $reviews, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow, 'itemID' => $id, 'AuthReview' => $AuthReview]);
+        return view('website\frontend\customer\Item_Profile_Reviews', ['states' => $state, 'reviews' => $reviews,  'post_images' => $post_images, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow, 'itemID' => $id, 'AuthReview' => $AuthReview]);
     }
 
 

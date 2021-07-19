@@ -41,7 +41,7 @@
                                 <a href="javascript:void(0)" onclick="deletenotification('{{$notification->Notification_Id}}')"> <i class="fa fa-close float-right mt-1"></i></a>
                                 <span>
                                     <span>{{$notification->fromuser->First_Name}} {{$notification->fromuser->Middle_Name}} {{$notification->fromuser['Last_Name']}}</span>
-                                    <span class="time"><?php $end = \Carbon\Carbon::parse($notification->updated_at); ?>{{ $end->diffForHumans($today) }}</span>
+                                    <span class="time"><?php $end = \Carbon\Carbon::parse($notification->updated_at); ?>{{ $end->diffForHumans() }}</span>
                                 </span>
                                 <span class="message">
                                     {{ $notification->Notification }}
