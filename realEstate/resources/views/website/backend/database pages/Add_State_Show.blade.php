@@ -69,7 +69,7 @@
 
                     <div class="form-group">
                         <label for="State_Name" style="font-size: 12pt">State </label>
-                        <input type="text"  style="border-radius: 3pt"  name="State_Name" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" id="StateName" class="form-control">
+                        <input type="text"  style="border-radius: 3pt"  name="State_Name" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" id="StateName" class="form-control" required>
                     </div>
 
                     <button  type="submit" id="btun3" class="btn btn-success">Edit</button>

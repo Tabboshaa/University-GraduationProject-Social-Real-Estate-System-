@@ -33,7 +33,8 @@ class CommentsController extends Controller
                 'User_Id' => Auth::id(),
                 'Comment'  => request('comment')
             ]);
-            //send notification to poster 
+            return $comment;
+            //send notification to poster
             $to_user = PostsController::postCreatedBy(request('post_id'));
             NotificationController::create(Auth::id(), $to_user, 'Commented on your post');
 
@@ -65,7 +66,7 @@ class CommentsController extends Controller
                 'Parent_Comment' => request('parent_id'),
                 'Comment'  => request('comment')
             ]);
-            //send notification to comment owner 
+            //send notification to comment owner
             $to_user = CommentsController::CommentCreatedBy(request('parent_id'));
             NotificationController::create(Auth::id(), $to_user, 'Replyed to your comment');
 

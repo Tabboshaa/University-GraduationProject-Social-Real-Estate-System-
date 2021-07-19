@@ -72,7 +72,7 @@
 
                     <div class="form-group">
                         <label for="Region_Name" style="font-size: 12pt">Region :</label>
-                        <input type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" name="Region_Name" id="RegionName" class="form-control">
+                        <input type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" name="Region_Name" id="RegionName" class="form-control" required>
                     </div>
 
                     <button type="submit" id="btun3" class="btn btn-success">Edit</button>

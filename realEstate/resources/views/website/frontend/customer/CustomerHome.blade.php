@@ -139,8 +139,13 @@
       }
 
     function check(){
+        if (IsValid){
         $('#check').val('just');
         $('#BeOwnerForm').submit();
+    }
+    else{
+       
+    }
 
     }
 </script>

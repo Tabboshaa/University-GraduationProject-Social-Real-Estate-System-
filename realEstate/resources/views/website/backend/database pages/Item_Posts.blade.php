@@ -69,10 +69,9 @@
                                         <img src="{{asset('FrontEnd/images/icon/user.html')}}" alt="">
                                         <h3>
 
-                                            <p>
-                                            <h4>{{$post->Item_Name}}</h4>
-                                            <small> {{ $end->diffForHumans()}}</small>
-                                            <a href="{{url('delete_posts/'.$post->Post_Id)}}">
+                                            <p>{{$post->item->Item_Name}}
+                                               <small> {{ $end->diffForHumans()}}</small>
+                                            <a href="{{url('delete_posts/'.$post->Post_Id)}}" onclick="return confirm('Are you sure you want to delete?')">
                                                 <small><i class="fa fa-trash-o" aria-hidden="true"></i></small>
                                             </a>
                                             <a href="javascript:void(0)" onclick="setPost('{{$post->Post_Id}}','{{$post->Post_Content}}')" name="editpost">
@@ -151,14 +150,14 @@
 
                                                 <img src="images/icon/user.jpg" alt="">
 
-                                                <p>
-                                                    {{$reply->First_Name}} {{$reply->Middle_Name}} {{$reply->Last_Name}}
-                                                    <a href="{{url('delete_reply/'.$reply->Comment_Id)}}">
-                                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                    </a>
-                                                    <?php $end = \Carbon\Carbon::parse($reply->updated_at); ?>
-                                                <p>{{ $end->diffForHumans() }} </p>
-                                                </p>
+                                <p>
+                                    {{$reply->First_Name}} {{$reply->Middle_Name}} {{$reply->Last_Name}}
+                                    <a href="{{url('delete_reply/'.$reply->Comment_Id)}}" onclick="return confirm('Are you sure you want to delete?')">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
+                                    <?php $end = \Carbon\Carbon::parse($reply->updated_at); ?>
+                                <p>{{ $end->diffForHumans() }} </p>
+                                </p>
 
                                                 {{ $reply->Comment }}
 

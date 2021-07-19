@@ -16,7 +16,7 @@
                     <img src="images/icon/user.html" alt="">
                     <h6>
                         {{$review->First_Name}} {{$review->Middle_Name}} {{$review->Last_Name}}
-                        <a href="{{url('delete_review/'.$review->Review_Id)}}">
+                        <a href="{{url('delete_review/'.$review->Review_Id)}}" onclick="return confirm('Are you sure you want to delete?')">
                             <small><i class="fa fa-trash-o" aria-hidden="true"></i></small>
                         </a>
                         <p>{{ $end->diffForHumans()}} </p>

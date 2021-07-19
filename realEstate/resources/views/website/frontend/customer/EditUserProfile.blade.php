@@ -91,20 +91,20 @@
                                         <div class="col-lg-6 mb-3">
                                             <div class="form-group">
                                                 <label class="mont-font fw-600 font-xsss">Current Password</label>
-                                                <input type="text" id="CurrentPassword" class="form-control"value=""name="CurrentPassword">
+                                                <input type="password" id="CurrentPassword" class="form-control"value=""name="CurrentPassword">
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6 mb-3">
                                             <div class="form-group">
                                                 <label class="mont-font fw-600 font-xsss">New Password</label>
-                                                <input type="text"  id="NewPassword" class="form-control" value="" name="NewPassword">
+                                                <input type="password"  id="NewPassword" class="form-control" value="" name="NewPassword">
                                             </div>
                                         </div>
                                     <div class="col-lg-6 mb-3">
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">Confirm Password</label>
-                                            <input type="text" class="form-control" value="" name="Confirm">
+                                            <input type="password" class="form-control" value="" name="Confirm">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">

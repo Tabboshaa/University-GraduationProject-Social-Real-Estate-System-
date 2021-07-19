@@ -9,9 +9,9 @@
     </div>
 
     <form action="#" class="float-left header-search">
-        <div class="form-group mb-0 icon-input">
+        <div class="form-group mb-0 ml-3 icon-input">
             <i class="feather-search font-sm text-grey-400"></i>
-            <input type="text" placeholder="Start typing to search.." class="bg-grey border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg">
+            <input type="text" placeholder="Start typing to search.." class="bg-grey border-0 lh-32 pt-2 pb-2  ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg">
         </div>
     </form>
     <a href="default.html" class="p-2 text-center ms-3 menu-icon center-menu-icon"><i class="feather-home font-lg alert-primary btn-round-lg theme-dark-bg text-current "></i></a>
@@ -27,7 +27,7 @@
     $notifications = NotificationController::index(Auth::id());
     $today = \Carbon\Carbon::now();
     ?>
-    
+
     <a href="#" class="p-2 text-center ms-auto menu-icon" id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false">@if(count($notifications)!=0)<span class="dot-count bg-warning"></span>@endif<i class="feather-bell font-xl text-current"></i></a>
     <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" style="max-height: 650px; overflow: auto;" aria-labelledby="dropdownMenu3">
         <h4 class="fw-700 font-xss mb-4">Notification</h4>
@@ -35,9 +35,9 @@
         <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3" id="notif{{$notification->Notification_Id}}">
 
             @if($notification->fromuser->profilePhoto !=null)
-            <img src="{{asset('storage/cover page/'.$notification->fromuser->profilePhoto['Profile_Picture'])}}" alt="user" class="w40 position-absolute left-0">
+            <img src="{{asset('storage/cover page/'.$notification->fromuser->profilePhoto['Profile_Picture'])}}" alt="user" height="40"  style=" border-radius: 50%;" class="w40 position-absolute left-0">
             @else
-            <img src="{{asset('storage/cover page/pic.png')}}" alt="user" class="w40 position-absolute left-0">
+            <img src="{{asset('storage/cover page/pic.png')}}" alt="user" height="40" style=" border-radius: 50%;" class="w40 position-absolute left-0">
             @endif
             <a href="javascript:void(0)" onclick="deletenotification('{{$notification->Notification_Id}}')"> <i class="fa fa-close float-right mt-1"></i></a>
             @if($notification->Redirect_To !=null)<a href="{{url(''.$notification->Redirect_To)}}">@else <a href="{{ url('/view_User/'.$notification->From_User_Id) }}"> @endif
@@ -54,8 +54,8 @@
     </div>
 
     @if(Auth::user()->profilePhoto!=null)
-    <a id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" class="p-0 ms-3 menu-icon"><img src="{{asset('storage/cover page/'.Auth::user()->profilePhoto->Profile_Picture)}}" alt="user" class="w40 mt--1 " style=" border-radius: 50%;"></a>
-    @else 
+    <a id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" class="p-0 ms-3 menu-icon"><img src="{{asset('storage/cover page/'.Auth::user()->profilePhoto->Profile_Picture)}}" alt="user" class="w40 mt--1 " height="40"  style=" border-radius: 50%;"></a>
+    @else
     <a id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" class="p-0 ms-3 menu-icon"><img src="{{asset('storage/cover page/pic.png')}}" alt="user" class="w40 mt--1 " style=" border-radius: 50%;"></a>
     @endif
     <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" aria-labelledby="dropdownMenu2">

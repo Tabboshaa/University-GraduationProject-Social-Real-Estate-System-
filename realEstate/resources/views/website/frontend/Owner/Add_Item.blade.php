@@ -19,22 +19,22 @@
             var op = " ";
             $.ajax({
                 type: 'get',
-                url: "{{ url('/D4') }}",
+                url: "{{ url('/D2') }}",
                 data: {
                     'id': country_id
                 },
                 success: function(data) {
-                    //console.log('success');
+                    console.log(data);
 
                     op += '<option value="0" selected disabled>Select State</option>';
 
                     Object.values(data).forEach(val => {
-                        //   console.log(val);
+                        
 
                         op += '<option value="' + val['State_Id'] + '">' + val['State_Name'] + '</option>';
                     });
 
-
+  
 
                     FormTag.find('#StateSelect').html(" ");
                     FormTag.find('#StateSelect').append(op);
@@ -161,7 +161,7 @@
                             <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload">
                                 <h6>Item Name</h6>
                             </label>
-                            <input type="text" style="width: 865px;" class="form-control" name="Item_Name" id="Item_Name"  placeholder="Name the Item">
+                            <input type="text" style="width: 865px;" class="form-control" name="Item_Name" id="Item_Name" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" placeholder="Name the Item">
                         </div>
                     </div>
 

@@ -355,7 +355,7 @@
             border: 2px solid transparent;
             border-radius: 50%;
             color: #424588;
-            font-size: 12px;
+            font-size: 16px;
             font-weight: 700;
             width: 100%;
             height: 100%;
@@ -370,7 +370,7 @@
             border: 2px solid transparent;
             border-radius: 50%;
             color: #424588;
-            font-size: 12px;
+            font-size: 16px;
             font-weight: 700;
             width: 100%;
             height: 100%;
@@ -401,7 +401,7 @@
             border: 2px solid transparent;
             border-radius: 50%;
             color: #fff;
-            font-size: 12px;
+            font-size: 16px;
             font-weight: 700;
             width: 100%;
             height: 100%;
@@ -421,7 +421,7 @@
             border: 2px solid transparent;
             border-radius: 50%;
             color: #fff;
-            font-size: 12px;
+            font-size: 16px;
             font-weight: 700;
             width: 100%;
             height: 100%;
@@ -443,7 +443,7 @@
             border: 2px solid transparent;
             border-radius: 50%;
             color: #fff;
-            font-size: 12px;
+            font-size: 16px;
             font-weight: 700;
             width: 100%;
             height: 100%;
@@ -554,7 +554,7 @@
 
         .nav.child_menu>li>a {
             color: black;
-            font-size: 12px;
+            font-size: 16px;
             padding: 9px;
         }
 
@@ -777,7 +777,7 @@
         }
 
         .calendar-table {
-            margin-top: 12px;
+            margin-top: 16px;
             width: 100%;
         }
 
