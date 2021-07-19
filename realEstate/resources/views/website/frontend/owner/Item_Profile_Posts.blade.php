@@ -123,8 +123,8 @@
 
                     <a href="{{url('/deletePost/'.$post->Post_Id)}}" name="del_post"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
                     <a href="javascript:void(0)" onclick="setPost('{{$post->Post_Id}}','{{$post->Post_Content}}')" name="editpost"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
-                    @endif
-                </a> <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"><?php 
+
+                </a> <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"><?php
                                                                                         $end = \Carbon\Carbon::parse($post->updated_at);
                                                                                         ?>{{ $end->diffForHumans()}}</span></h4>
         </div>
