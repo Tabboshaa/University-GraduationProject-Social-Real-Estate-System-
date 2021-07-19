@@ -26,7 +26,7 @@ class AdminMiddleware
             }
             return redirect()->back();
         } catch (Exception $e) {
-        return redirect()->route("login");       
+        return redirect()->route("AdminLogin");
       }
     }
 }

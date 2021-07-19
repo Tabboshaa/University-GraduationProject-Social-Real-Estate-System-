@@ -103,6 +103,7 @@
                     <label for="uploadImages" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 pt-2"><i class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Add Photo</span></label>
                     <input type="file" style="display:none;" id="uploadImages" name="images[]" accept="image/*" placeholder="upload Images" multiple>
                     <a href="javascript:void(0);" onclick="document.getElementById('postform').submit(); return false;" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i class="font-md text-success feather-check-circle me-2"></i><span class="d-none-xs">Create Post</span></a>
+                    <button class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i class="font-md text-success feather-check-circle me-2"></i><span class="d-none-xs">Create Post</span></button>
                 </div>
             </form>
         </div>
@@ -120,8 +121,8 @@
             @endif
             <h4 class="fw-700 text-grey-900 font-xssss mt-1"><a href="{{url('/itemProfile/'.$post->Item_Id)}}">
                     {{ $item->Item_Name }}
-                    @if($User->id== $post->User_Id )
-                    <a href="{{url('/deletePost/'.$post->Post_Id)}}" name="del_post" id="del_post"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
+
+                    <a href="{{url('/deletePost/'.$post->Post_Id)}}" name="del_post"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
                     <a href="javascript:void(0)" onclick="setPost('{{$post->Post_Id}}','{{$post->Post_Content}}')" name="editpost"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
                     @endif
                 </a> <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"><?php 
@@ -247,7 +248,11 @@
 
     @endforeach
     @else
+    <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
+        <div class="card-body p-0 d-flex">
 
+        </div>
+    </div>
     @endif
 </div>
 
@@ -274,24 +279,24 @@ $.ajax({
         {
             data['Profile_Picture']='pic.png';
         }
-        $("#allcomments" + post_id).prepend("<div class='chat-body messages-content pb-5 card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10'>" 
-            +"<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/"+data['Profile_Picture']+"\" alt='image' class='shadow-sm rounded-circle w35'></figure>" 
-            +"<div class='chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg'>" 
-            +"<a href=\"/view_User/"+data['User_Id']+"\">" 
-            +"<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> "+data['First_Name']+" "+data['Middle_Name']+" "+" "+data['Last_Name']+"" 
-            +"<a href=\"/deletecomment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" 
-            +"<a href=\"javascript:void(0)\" onclick=\"setComment('" + data['Comment_Id'] + "','" + data['Comment'] + "')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>" 
+        $("#allcomments" + post_id).prepend("<div class='chat-body messages-content pb-5 card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10'>"
+            +"<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/"+data['Profile_Picture']+"\" alt='image' class='shadow-sm rounded-circle w35'></figure>"
+            +"<div class='chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg'>"
+            +"<a href=\"/view_User/"+data['User_Id']+"\">"
+            +"<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> "+data['First_Name']+" "+data['Middle_Name']+" "+" "+data['Last_Name']+""
+            +"<a href=\"/deletecomment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>"
+            +"<a href=\"javascript:void(0)\" onclick=\"setComment('" + data['Comment_Id'] + "','" + data['Comment'] + "')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>"
             +"</a></h4>"
-            +"<div class=\"time\"><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\">now</p></div>" 
-            +"<p class=\"fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0\">" + data['Comment'] + "</p>" 
+            +"<div class=\"time\"><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\">now</p></div>"
+            +"<p class=\"fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0\">" + data['Comment'] + "</p>"
             +"</div>"
-            +"</div>" 
-            +"<a href=\"javascript:void(0)\" id=\"morereplies\" onclick=\"$('#allreplies" + data['Comment_Id'] + "').slideToggle(function(){$('#morereplies').html($('#allreplies" + data['Comment_Id'] + "').is(':visible')?'Hide Replies':'0 Relpies');});\" class=\"ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss\"><i class=\"feather-message-circle text-dark text-grey-900 btn-round-sm font-lg\"></i>0 Relpies</span></a>" 
-            +"<div id=\"allreplies" + data['Comment_Id'] + "\" style=\"display: none;\">" 
-            +"<div class=\"form-group\">" 
-            +"<input id=\"ReplyForComment" + data['Comment_Id'] + "\" name=\"comment" + data['Comment_Id'] + "\" placeholder=\"Write a reply...\" type=\"text\" style=\"background-color:#0055ff1a;width:770px;\" class=\"border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xsssss fw-500 rounded-xl w300 theme-dark-bg\">" 
-            +"<a href=\"javascript:void(0)]\" onclick=\"Reply('" + post_id + "','" + data['Comment_Id'] + "');\"><i class=\"btn-round-sm bg-primary-gradiant text-white font-sm ti-arrow-right text-blue\"></i></a>" 
-            +"</div>" 
+            +"</div>"
+            +"<a href=\"javascript:void(0)\" id=\"morereplies\" onclick=\"$('#allreplies" + data['Comment_Id'] + "').slideToggle(function(){$('#morereplies').html($('#allreplies" + data['Comment_Id'] + "').is(':visible')?'Hide Replies':'0 Relpies');});\" class=\"ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss\"><i class=\"feather-message-circle text-dark text-grey-900 btn-round-sm font-lg\"></i>0 Relpies</span></a>"
+            +"<div id=\"allreplies" + data['Comment_Id'] + "\" style=\"display: none;\">"
+            +"<div class=\"form-group\">"
+            +"<input id=\"ReplyForComment" + data['Comment_Id'] + "\" name=\"comment" + data['Comment_Id'] + "\" placeholder=\"Write a reply...\" type=\"text\" style=\"background-color:#0055ff1a;width:770px;\" class=\"border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xsssss fw-500 rounded-xl w300 theme-dark-bg\">"
+            +"<a href=\"javascript:void(0)]\" onclick=\"Reply('" + post_id + "','" + data['Comment_Id'] + "');\"><i class=\"btn-round-sm bg-primary-gradiant text-white font-sm ti-arrow-right text-blue\"></i></a>"
+            +"</div>"
             +"</div></div>");
         console.log(data);
     },
@@ -322,16 +327,16 @@ $.ajax({
 
     },
     success: function(data) {
-        $("#allreplies" + parent_id).append("<div class=\"card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative\">" 
-            +"<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/"+data['Profile_Picture']+"\" alt='image' class='shadow-sm rounded-circle w35'></figure>" 
-            +"<div class=\"chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg\">" 
-            +"<a href=\"/view_User/"+data['User_Id']+"\">" 
-            +"<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> "+data['First_Name']+" "+data['Middle_Name']+" "+" "+data['Last_Name']+"" 
-            +"<a href=\"/deletecomment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" 
-            +"<a href=\"javascript:void(0)\" onclick=\"setComment('"+ data['Comment_Id']+"','"+ data['Comment']+"')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>"           
+        $("#allreplies" + parent_id).append("<div class=\"card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative\">"
+            +"<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/"+data['Profile_Picture']+"\" alt='image' class='shadow-sm rounded-circle w35'></figure>"
+            +"<div class=\"chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg\">"
+            +"<a href=\"/view_User/"+data['User_Id']+"\">"
+            +"<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> "+data['First_Name']+" "+data['Middle_Name']+" "+" "+data['Last_Name']+""
+            +"<a href=\"/deletecomment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>"
+            +"<a href=\"javascript:void(0)\" onclick=\"setComment('"+ data['Comment_Id']+"','"+ data['Comment']+"')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>"
             +"</a></h4>"
-            +"<div class=\"time\"><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\">now</p></div>" 
-            +"<p class=\"fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0\">" + data['Comment'] + "</p>" 
+            +"<div class=\"time\"><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\">now</p></div>"
+            +"<p class=\"fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0\">" + data['Comment'] + "</p>"
             +"</div>"
             +"</div>");
 

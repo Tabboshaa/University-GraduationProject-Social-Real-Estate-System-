@@ -6,10 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="94e67ae1-48e2-456b-854f-8264ac421576" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/customer/CustomerHome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/CustomerHome.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/customer/EditUserProfile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/EditUserProfile.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/AdminMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/AdminMiddleware.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/help.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/help.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/owner/Item_Profile_Posts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/owner/Item_Profile_Posts.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/ownerlayouts/slidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/ownerlayouts/slidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -425,7 +427,53 @@
       <workItem from="1624634382609" duration="891000" />
       <workItem from="1624641746431" duration="596000" />
       <workItem from="1625133139237" duration="1469000" />
-      <workItem from="1625135104210" duration="1087000" />
+      <workItem from="1625135104210" duration="1947000" />
+      <workItem from="1625138503830" duration="635000" />
+      <workItem from="1625140663442" duration="1768000" />
+      <workItem from="1625142493070" duration="3218000" />
+      <workItem from="1625146005738" duration="4786000" />
+      <workItem from="1625150962552" duration="838000" />
+      <workItem from="1625152901349" duration="1738000" />
+      <workItem from="1625165452102" duration="1591000" />
+      <workItem from="1625167323259" duration="1762000" />
+      <workItem from="1625169136988" duration="1774000" />
+      <workItem from="1625170985311" duration="1769000" />
+      <workItem from="1625172805966" duration="1788000" />
+      <workItem from="1625174641596" duration="2255000" />
+      <workItem from="1625177048475" duration="604000" />
+      <workItem from="1625212998625" duration="98000" />
+      <workItem from="1625213185605" duration="631000" />
+      <workItem from="1625214875220" duration="1534000" />
+      <workItem from="1625216609614" duration="1590000" />
+      <workItem from="1625239880050" duration="1131000" />
+      <workItem from="1625250899179" duration="4103000" />
+      <workItem from="1626180714283" duration="1763000" />
+      <workItem from="1626182689167" duration="1364000" />
+      <workItem from="1626187647035" duration="669000" />
+      <workItem from="1626189540195" duration="619000" />
+      <workItem from="1626267693020" duration="1764000" />
+      <workItem from="1626269759387" duration="1145000" />
+      <workItem from="1626272042321" duration="1648000" />
+      <workItem from="1626273766688" duration="2760000" />
+      <workItem from="1626276611792" duration="1521000" />
+      <workItem from="1626280384014" duration="1870000" />
+      <workItem from="1626282318002" duration="1150000" />
+      <workItem from="1626284577802" duration="1304000" />
+      <workItem from="1626289118184" duration="473000" />
+      <workItem from="1626354276127" duration="623000" />
+      <workItem from="1626358738679" duration="1936000" />
+      <workItem from="1626360960266" duration="1736000" />
+      <workItem from="1626362885792" duration="1775000" />
+      <workItem from="1626364710422" duration="949000" />
+      <workItem from="1626375024135" duration="1031000" />
+      <workItem from="1626426129044" duration="1043000" />
+      <workItem from="1626454263330" duration="664000" />
+      <workItem from="1626524240533" duration="660000" />
+      <workItem from="1626526892819" duration="332000" />
+      <workItem from="1626528140861" duration="789000" />
+      <workItem from="1626540761711" duration="1405000" />
+      <workItem from="1626542585228" duration="2182000" />
+      <workItem from="1626550717796" duration="33000" />
     </task>
     <servers />
   </component>
@@ -449,18 +497,23 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/website/frontend/owner/Item_Profile_Details.blade.php</url>
-          <line>166</line>
+          <line>60</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/website/frontend/customer/HomePagePosts.blade.php</url>
-          <line>344</line>
+          <line>343</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/website/frontend/customer/HomePagePosts.blade.php</url>
           <line>9</line>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/website/frontend/owner/Item_Profile_Posts.blade.php</url>
+          <line>116</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
