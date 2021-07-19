@@ -85,7 +85,7 @@
 
                                             <p>{{$post->item->Item_Name}}
                                                <small> {{ $end->diffForHumans()}}</small>
-                                            <a href="{{url('delete_posts/'.$post->Post_Id)}}">
+                                            <a href="{{url('delete_posts/'.$post->Post_Id)}}" onclick="return confirm('Are you sure you want to delete?')">
                                                 <small><i class="fa fa-trash-o" aria-hidden="true"></i></small>
                                             </a>
                                             </p>
@@ -127,7 +127,7 @@
                                 <img src="images/icon/user.jpg" alt="">
                                 <p>
                                     {{$comment->First_Name}} {{$comment->Middle_Name}} {{$comment->Last_Name}}
-                                    <a href="{{url('delete_comment/'.$comment->Comment_Id)}}">
+                                    <a href="{{url('delete_comment/'.$comment->Comment_Id)}}" onclick="return confirm('Are you sure you want to delete?')">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
                                     <?php $end = \Carbon\Carbon::parse($comment->updated_at); ?>
@@ -159,7 +159,7 @@
 
                                 <p>
                                     {{$reply->First_Name}} {{$reply->Middle_Name}} {{$reply->Last_Name}}
-                                    <a href="{{url('delete_reply/'.$reply->Comment_Id)}}">
+                                    <a href="{{url('delete_reply/'.$reply->Comment_Id)}}" onclick="return confirm('Are you sure you want to delete?')">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
                                     <?php $end = \Carbon\Carbon::parse($reply->updated_at); ?>
