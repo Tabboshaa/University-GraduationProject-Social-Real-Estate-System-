@@ -12,7 +12,7 @@
         </div>
         <div class="card-body border-top-xs d-flex">
 
-            <form id="reviewForm" class="form-group" action="">
+            <form id="reviewForm" class="form-group" action="{{route('review.add')}}" method="Post"  enctype="multipart/form-data">
                 @csrf
                 <!-- <figure class="avatar position-absolute ms-2 mt-1 top-5"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w30"></figure> -->
                @if($AuthReview!=null)
@@ -52,11 +52,16 @@
                     </label>
                     <label onclick="review(10)" class="fa  fa-star-o" name="starLabel" for="star10">
                         <input type="radio" style="display: none;" value="10" name="stars" id="star10">
-                        <input type="hidden" id="itemid" value="{{$itemID}}">
+                        <input type="hidden" id="itemid" name="id" value="{{$itemID}}">
                     </label>
                 </div>
-
-                <input class="bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-3 d-inline-block" type="submit" value="submit review">
+                <div class="card-body d-flex p-2 mt-0">
+                    <label for="uploadImages" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 pt-2"><i class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Add Photo</span></label>
+                    <input type="file" style="display:none;" id="uploadImages" name="images[]" accept="image/*" placeholder="upload Images" multiple>
+                    <a href="javascript:void(0);" onclick="document.getElementById('reviewForm').submit(); return false;" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i class="font-md text-success feather-check-circle me-2"></i><span class="d-none-xs">Submit Review</span></a>
+                </div>
+                <input type="hidden" id="stars" value="">
+                <!-- <input class="bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-3 d-inline-block" type="submit" value="submit review"> -->
             </form>
         </div>
     </div>
@@ -93,7 +98,7 @@
                     {{$review->First_Name}} {{$review->Middle_Name}} {{$review->Last_Name}}
                 </a> <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"><?php $today = \Carbon\Carbon::now();
                                                                                         $end = \Carbon\Carbon::parse($review->updated_at);
-                                                                                        ?>{{ $end->diffForHumans($today)}}</span></h4>
+                                                                                        ?>{{ $end->diffForHumans()}}</span></h4>
         </div>
         <div class="ms-auto">
             {{$review->Number_Of_Stars}} <span>/10</span>
@@ -104,23 +109,45 @@
                 {{$review->Review_Content}} <br />
             </p>
         </div>
-        <!-- <div class="rating">
-                <i class="fa fa-check" aria-hidden="true"></i>
-                <span> overall rating </span>
-                &nbsp; &nbsp;
-                <i class="fa blue fa-star-o" aria-hidden="true"></i>
-                <i class="fa blue fa-star-o" aria-hidden="true"></i>
-                <i class="fa blue fa-star-o" aria-hidden="true"></i>
-                <i class="fa blue fa-star-o" aria-hidden="true"></i>
-                <i class="fa blue fa-star-o" aria-hidden="true"></i>
-                <i class="fa blue fa-star-o" aria-hidden="true"></i>
-                <i class="fa blue fa-star-o" aria-hidden="true"></i>
-                <i class="fa blue fa-star-o" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div> -->
-    </div>
-    @endforeach
+        @if( isset($post_images[$review->Review_Id]) )
+        <div class="card-body d-block p-0">
+            <div class="row ps-2 pe-2">
+                @if(count($post_images[$review->Review_Id])==1)
+                @foreach($post_images[$review->Review_Id] as $Image)
+                <div class="col-sm-12 p-1"><a href="{{asset('storage/profile gallery/'.$Image->File_Path)}}" data-lightbox="roadtr"><img src="{{asset('storage/profile gallery/'.$Image->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                @endforeach
+                @elseif(count($post_images[$review->Review_Id])==2)
+                @foreach($post_images[$review->Review_Id] as $Image)
+                <div class="col-xs-6 col-sm-6 p-1"><a href="{{asset('storage/profile gallery/'.$Image->File_Path)}}" data-lightbox="roadtri"><img style="max-height: 370px;" src="{{asset('storage/profile gallery/'.$Image->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                @endforeach
+                @elseif(count($post_images[$review->Review_Id])==3||count($post_images[$review->Review_Id])==4)
+                @foreach($post_images[$review->Review_Id] as $Image)
+                <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$Image->File_Path)}}" data-lightbox="roadtrip"><img style="max-height: 370px;" src="{{asset('storage/profile gallery/'.$Image->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                @endforeach
+                @elseif(count($post_images[$review->Review_Id])==5)
+                @foreach($post_images[$review->Review_Id] as $Image)
+                <!-- two med -->
+                <div class="col-xs-6 col-sm-6 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][0]->File_Path)}}" data-lightbox="roadtri"><img style="max-height: 370px;" src="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][0]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                <div class="col-xs-6 col-sm-6 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][1]->File_Path)}}" data-lightbox="roadtri"><img style="max-height: 370px;" src="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][1]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                <!-- two small -->
+                <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][2]->File_Path)}}" data-lightbox="roadtrip"><img style="max-height: 220px;" src="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][2]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][3]->File_Path)}}" data-lightbox="roadtrip"><img style="max-height: 220px;" src="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][3]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][4]->File_Path)}}" data-lightbox="roadtrip"><img style="max-height: 220px;" src="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][4]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                @endforeach
+                @else
+                <!-- two med -->
+                <div class="col-xs-6 col-sm-6 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][0]->File_Path)}}" data-lightbox="roadtri"><img style="max-height: 370px;" src="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][0]->File_Path)}}" class="rounded-3 w-100" alt="image" width="220px" hieght="142px"></a></div>
+                <div class="col-xs-6 col-sm-6 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][1]->File_Path)}}" data-lightbox="roadtri"><img style="max-height: 370px;" src="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][1]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                <!-- two small -->
+                <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][2]->File_Path)}}" data-lightbox="roadtrip"><img style="max-height: 220px;" src="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][2]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][3]->File_Path)}}" data-lightbox="roadtrip"><img style="max-height: 220px;" src="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][3]->File_Path)}}" class="rounded-3 w-100" alt="image"></a></div>
+                <!-- the span -->
+                <div class="col-xs-4 col-sm-4 p-1"><a href="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][3]->File_Path)}}" data-lightbox="roadtri" class="position-relative d-block"><img style="max-height: 220px;" src="{{asset('storage/profile gallery/'.$post_images[$review->Review_Id][4]->File_Path)}}" class="rounded-3 w-100" alt="image"><span class="img-count font-sm text-white ls-3 fw-600"><b>+{{(-5+count($post_images[$review->Review_Id]))}}</b></span></a></div>
+                @endif
+     </div>
+     @endif
+        @endforeach
+      
     @else
     <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
         <div class="card-body p-0 d-flex">
@@ -146,30 +173,30 @@
         review(AuthReviewStars);
     }
     var n = 0;
-    $("#reviewForm").submit(function() {
+    // $("#reviewForm").submit(function() {
 
-        var review_content = $('#content').val();
-        var item_id =document.getElementById('itemid').value;
-        console.log(review_content);
-        console.log(item_id);
-        console.log(n);
-        $.ajax({
-            url: "{{route('review.add')}}",
-            Type: "POST",
-            data: {
-                stars: n,
-                id: item_id,
-                review_content: review_content
-            },
-            success: function(data) {
-                console.log(data);
-            },
-            error: function() {
-                console.log('Error');
-            }
+    //     var review_content = $('#content').val();
+    //     var item_id =document.getElementById('itemid').value;
+    //     console.log(review_content);
+    //     console.log(item_id);
+    //     console.log(n);
+    //     $.ajax({
+    //         url: "{{route('review.add')}}",
+    //         Type: "POST",
+    //         data: {
+    //             stars: n,
+    //             id: item_id,
+    //             review_content: review_content
+    //         },
+    //         success: function(data) {
+    //             console.log(data);
+    //         },
+    //         error: function() {
+    //             console.log('Error');
+    //         }
 
-        });
-    });
+    //     });
+    // });
 
 
     function review(starNumber) {
@@ -178,6 +205,7 @@
         console.log("test");
         console.log(content);
 
+        $('stars').val(n);
         var i, x = document.getElementsByName("starLabel");
 
         for (i = 0; i < x.length; i++) {

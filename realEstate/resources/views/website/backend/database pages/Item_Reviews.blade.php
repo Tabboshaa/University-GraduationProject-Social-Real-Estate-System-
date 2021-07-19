@@ -19,7 +19,7 @@
                         <a href="{{url('delete_review/'.$review->Review_Id)}}" onclick="return confirm('Are you sure you want to delete?')">
                             <small><i class="fa fa-trash-o" aria-hidden="true"></i></small>
                         </a>
-                        <p>{{ $end->diffForHumans($today)}} </p>
+                        <p>{{ $end->diffForHumans()}} </p>
                     </h6>
                 </div>
                 <div class="">

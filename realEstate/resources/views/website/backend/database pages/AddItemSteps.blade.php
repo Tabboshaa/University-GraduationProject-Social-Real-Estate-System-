@@ -156,8 +156,9 @@
                             @include('website.backend.layouts.flashmessage')
                             <form id="AddItemForm" method="post" action="{{ url('/addItem') }}" enctype="multipart/form-data">
                                 @csrf
-
+                               
                                 <div class="tab">
+                                <h4>Search for item owner by Email:</h4>
                                     <div class="item form-group">
                                         <a href="javascript:void(0)" id="SearchA" onclick="searchForEmail()" class="btn btn-info" role="button">Search </a>
                                         <div class="col-md-6 col-sm-6 ">

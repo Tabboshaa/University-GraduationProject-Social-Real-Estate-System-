@@ -66,7 +66,7 @@
                                         <a class="Usr_name"  href="">{{$comment->First_Name}} {{$comment->Middle_Name}} {{$comment->Last_Name}} </a><br>
                                         {{ $comment->Comment }}<br>
                                     <?php $today = \Carbon\Carbon::now(); $end = \Carbon\Carbon::parse($comment->updated_at); ?>
-                                    {{ $end->diffForHumans($today) }}
+                                    {{ $end->diffForHumans() }}
                                     {{-- <button  id="viewReplies" onclick=""> View Replies </button> --}}
                                     <a  id="viewReplies" href="javascript:void(0)" onclick="view('{{$comment->Comment_Id}}')">View Replies</a> 
                                     <a href="javascript:void(0)" onclick="writeReplay('{{ $comment->Comment_Id}}')"> replay</a>
@@ -86,7 +86,7 @@
                                       <input type="hidden" name="reply{{$comment->Comment_Id}}" autofocus>
                                       {{ $reply->Comment }}<br>
                                       <?php $today = \Carbon\Carbon::now(); $end = \Carbon\Carbon::parse($reply->updated_at); ?>
-                                          <p>{{ $end->diffForHumans($today) }} </p>
+                                          <p>{{ $end->diffForHumans() }} </p>
                                     </div>
                                 </td>
                             </tr>

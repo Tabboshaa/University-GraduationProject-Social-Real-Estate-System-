@@ -6,7 +6,7 @@
 <div class="right_col" role="main">
     <div class="title_right">
         <div class="x_panel">
-
+        @include('website.backend.layouts.flashmessage')
             <form method="POST" action="{{ url('/add_item_schedule/'.$item_id) }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
@@ -74,7 +74,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        @include('website.backend.layouts.flashmessage')
+                      
                         @yield('table')
                     </div>
                 </div>

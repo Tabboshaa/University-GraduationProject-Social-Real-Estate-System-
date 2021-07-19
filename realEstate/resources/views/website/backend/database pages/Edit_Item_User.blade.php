@@ -7,6 +7,7 @@
 
         var email = $("#Search").val();
         var _token = $("input[name=_token]").val();
+
         $.ajax({
             type: 'post',
             url: "{{ route('search') }}",
@@ -15,9 +16,14 @@
                 _token: _token
             },
             success: function(data) {
+                result = "";
                 Object.values(data).forEach(val => {
-                    $("#result").html('<tr><td>' + val['email'] + '</td> <td> <input type="checkbox" name="userid" value="' + val['User_ID'] + '" onclick="onlyOne(this)"> </td> </tr>');
+                    result += '<tr><td>' + val['email'] + '</td> <td> <input type="checkbox" name="userid" value="' + val['User_ID'] + '" onclick="onlyOne(this)"> </td> </tr>';
                 });
+                if (result == "") {
+                    $("#result").html("<tr class='table-danger'><td> Sorry, There is no user with this email !</td></tr>");
+                } else
+                    $("#result").html(result);
             },
             error: function() {
                 $("#result").html('There is no User with this Email!!');
@@ -32,6 +38,7 @@
             if (item !== checkbox) item.checked = false
         })
         $("#userIdHiddenInput").val(checkbox.value);
+       
     }
 </script>
 
@@ -42,13 +49,15 @@
             <form method="POST" action="{{ url('/edit_item_user2/'.$item_id) }}" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="id" id="item_id" value="{{$item_id}}">
-
+                <div class="item form-group">
+                    <h2>Search for user By email</h2>
+                </div>
 
                 <div class="item form-group">
                     <a href="javascript:void(0)" id="SearchA" onclick="searchForEmail()" class="btn btn-info" role="button">Search </a>
                     <div class="col-md-6 col-sm-6 ">
                         <input type="search" id="Search" name="Search" required="required" class="form-control">
-                        <input type="hidden" id="userIdHiddenInput" name="userIdHiddenInput">
+                        <input type="hidden" id="userIdHiddenInput" name="userIdHiddenInput" required>
                     </div>
                 </div>
                 <div class="item form-group">
@@ -57,7 +66,7 @@
                     </table>
                 </div>
 
-                <button type="submit" id="EUbtn" class="btn btn-success">Edit</button>
+                <button type="submit" id="EUbtn" class="btn btn-success" >Edit</button>
             </form>
         </div>
         <div class="x_panel">

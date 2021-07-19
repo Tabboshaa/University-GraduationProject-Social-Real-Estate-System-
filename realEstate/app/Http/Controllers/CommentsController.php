@@ -175,7 +175,12 @@ class CommentsController extends Controller
 
         try {
             comments::destroy($id);
-            comments::all()->where('Parent_Comment','=',$id)->delete();
+            $comments=comments::all()->where('Parent_Comment','=',$id);
+            foreach($comments as $comment)
+            {
+                comments::destroy($comment->Comment_Id);   
+            }
+
             DB::commit();
             return  redirect()->back()->with('success', 'Comment Deleted Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
