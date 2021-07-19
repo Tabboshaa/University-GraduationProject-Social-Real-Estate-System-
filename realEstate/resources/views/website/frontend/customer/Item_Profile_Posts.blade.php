@@ -45,7 +45,7 @@
     @foreach($posts as $post)
     <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
         <div class="card-body p-0 d-flex">
-            @if($item->coverpage->path!=null)
+            @if($item->coverpage!=null)
             <figure class="avatar me-3"><img src="{{asset('storage/cover page/'.$item->coverpage->path)}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
             @else
             <figure class="avatar me-3"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
@@ -54,13 +54,13 @@
                     {{ $item->Item_Name }}
                 </a>  <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"><?php $today = \Carbon\Carbon::now();
                                                                                         $end = \Carbon\Carbon::parse($post->updated_at);
-                                                                                        ?>{{ $end->diffForHumans($today)}}</span></h4>
+                                                                                        ?>{{ $end->diffForHumans()}}</span></h4>
         </div>
-        {{-- <div class="card-body p-0 me-lg-5">--}}
-        {{-- <p class="fw-500 text-grey-500 lh-26 font-xssss w-100">{{$post->Post_Title}} <br />--}}
-        {{-- {{$post->Post_Content}} <br />--}}
-        {{-- </p>--}}
-        {{-- </div>--}}
+         <div class="card-body p-0 me-lg-5">
+       <p class="fw-500 text-grey-500 lh-26 font-xssss w-100">
+           {{$post->Post_Content}} <br />
+         </p>
+         </div>
         @if( isset($post_images[$post->Post_Id]) )
         <div class="card-body d-block p-0">
             <div class="row ps-2 pe-2">
@@ -128,7 +128,7 @@
                                         <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
                                         <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
                                         @endif</h4>
-                            <div class="time"><?php $end = \Carbon\Carbon::parse($comment->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0"> {{ $end->diffForHumans($today) }}</p>
+                            <div class="time"><?php $end = \Carbon\Carbon::parse($comment->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0"> {{ $end->diffForHumans() }}</p>
                             </div>
                             <p class="fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0">{{ $comment->Comment }}</p>
                         </div>
@@ -157,7 +157,7 @@
                                             <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
                                             <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
                                             @endif</h4>
-                                <div class="time"><?php $end = \Carbon\Carbon::parse($reply->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">{{ $end->diffForHumans($today) }}</p>
+                                <div class="time"><?php $end = \Carbon\Carbon::parse($reply->updated_at); ?><p class="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">{{ $end->diffForHumans() }}</p>
                                 </div>
                                 <p class="fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0">{{ $reply->Comment }}</p>
                             </div>

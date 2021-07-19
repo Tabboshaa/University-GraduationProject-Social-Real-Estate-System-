@@ -46,7 +46,7 @@
 
 <div class="C">
 
-    <h2>{{$user->First_Name}} {{$user->Middle_Name}} {{$user->Last_Name}} Items </h2>
+    <h2>{{$item->Item_Name}} </h2>
 
 </div>
 
@@ -111,7 +111,7 @@
                             <h6>{{$detailValue->DetailValue}}</h6>
                         </td>
                         <td><input type="checkbox" name="id[]" value="{{$detailValue->Detail_Id}}"></td>
-                        <td><a href="javascript:void(0)" onclick="setDetailIdName('{{$item_id}}','{{$detailValue->Detail_Id}}','{{$detailValue->DetailValue}}')"><i class="fa fa-edit"></i></a></td>
+                        <td><a href="javascript:void(0)" onclick="setDetailIdName('{{$item_id}}','{{$detailValue->Detail_Id}}','{{$detailValue->DetailValue}}','{{$detailValue->Detail_Name}}')"><i class="fa fa-edit"></i></a></td>
 
                     </tr>
 
@@ -128,8 +128,8 @@
 <div class="modal fade" id="EditDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Sub Type</h5>
+            <div class="modal-header">  
+                <h5 class="modal-title" id="exampleModalLabel">Edit Detail</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -141,7 +141,7 @@
                     <input type="hidden" name="Item" id="item">
 
                     <div class="form-group">
-                        <label for="DetailName" style="font-size: 12pt">Detail Value</label>
+                        <label for="DetailName" style="font-size: 12pt" id="detailnamelabel"></label>
                         <input type="text" style="border-radius: 3pt" name="DetailName" id="DetailName" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-success" id="btun5">Edit</button>
@@ -153,11 +153,12 @@
 </div>
 
 <script>
-    function setDetailIdName(item,id, name) {
+    function setDetailIdName(item,id,val,name) {
 
         $("#id").val(id);
         $("#item").val(item);
-        $("#DetailName").val(name);
+        $("#DetailName").val(val);
+        $("#detailnamelabel").html(name);
         $("#EditDetailModal").modal("toggle");
     }
 
