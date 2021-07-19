@@ -83,7 +83,8 @@
                                         <img src="{{asset('FrontEnd/images/icon/user.html')}}" alt="">
                                         <h3>
 
-                                            <p>{{ $end->diffForHumans($today)}}
+                                            <p>{{$post->item->Item_Name}}
+                                               <small> {{ $end->diffForHumans()}}</small>
                                             <a href="{{url('delete_posts/'.$post->Post_Id)}}">
                                                 <small><i class="fa fa-trash-o" aria-hidden="true"></i></small>
                                             </a>
@@ -130,7 +131,7 @@
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
                                     <?php $end = \Carbon\Carbon::parse($comment->updated_at); ?>
-                                    </br> <small>{{ $end->diffForHumans($today) }} </small>
+                                    </br> <small>{{ $end->diffForHumans() }} </small>
                                 </p>
 
 
@@ -162,7 +163,7 @@
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
                                     <?php $end = \Carbon\Carbon::parse($reply->updated_at); ?>
-                                <p>{{ $end->diffForHumans($today) }} </p>
+                                <p>{{ $end->diffForHumans() }} </p>
                                 </p>
 
                                 {{ $reply->Comment }}

@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 class DetailsController extends Controller
 {
 
-    public function index()
+     public function index()
     {
 
         $main_types = Main_Type::all();

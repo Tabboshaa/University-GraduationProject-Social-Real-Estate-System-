@@ -5,7 +5,7 @@
 <script>
     function searchForItems() {
 
-        var item_id = $("#Item").val();
+        var item = $("#Item").val();
         var flag=false;
         $("#submitbtn").prop("disabled", true);
         $("#submitbtn").html('See Item');
@@ -13,10 +13,11 @@
         $("#next_button").html('');
 
         $('option[name="items_options"]').each(function() {
-            if (item_id == this.value) {
+            if (item == this.value) {
                 flag=true;
                 $("#next_button").html('Item Found');
                 $("#submitbtn").removeAttr("disabled");
+                $("items_table").append("<tr>"+item+"</tr>");
                     return true;
             }
         });
@@ -49,7 +50,7 @@
                     <div id="next_button" ></div>
                  <datalist id="items">
                         @foreach($item as $item)
-                        <option value="{{$item->Item_Id}}" name="items_options">{{$item->Item_Id}}</option>
+                        <option value="{{$item->Id}}" name="items_options">{{$item->Item_Name}}</option>
                         @endforeach
                     </datalist>
                     <!-- End loop -->
@@ -77,11 +78,10 @@
         </div>
         <div class="x_panel">
             <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
-                <div class="row">
-                </div>
-                @yield('Details_table')
+                <div class="row" id="items_table">
+                    <table id="items_table">
 
-                <div class="row">
+                    </table>
                 </div>
             </div>
         </div>
