@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth.user'], function () {
 
     //Customer Comment
     Route::get('/add_reply', 'CommentsController@reply')->name('reply.add');
-    Route::get('/addReview', 'ReviewController@create')->name('review.add');
+    Route::post('/addReview', 'ReviewController@create')->name('review.add');
 
 
     //operations
