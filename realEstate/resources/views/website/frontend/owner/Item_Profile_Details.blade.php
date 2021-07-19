@@ -151,8 +151,8 @@
                 <form action="{{url('EditItemMap/'.$item->Item_Id)}}" method="POST">
                     @CSRF
                     <div id="edit" style="display: none;"><label for="">Location:<input id="map-search" class="form-control" type="text" placeholder="Search Box" size="30"></label><button type="submit" class="btn btn-primary">Edit</button><br></div>
-                    <input type="hidden" name="lat" class="latitude">
-                    <input type="hidden" name="lang" class="longitude">
+                    <input type="text" name="lat" class="latitude">
+                    <input type="text" name="lang" class="longitude">
                     <input type="hidden" id="lat" value="{{$item->address_latitude}}">
                     <input type="hidden" id="lang" value="{{$item->address_longitude}}">
                     <div id="map-canvas"></div>

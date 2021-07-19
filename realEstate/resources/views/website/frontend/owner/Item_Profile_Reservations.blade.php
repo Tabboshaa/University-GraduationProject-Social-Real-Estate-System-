@@ -21,7 +21,7 @@
                         <p class="fw-700 lh-3 ">created at : {{$reservation->updated_at}} </p>
                     </span>
                     <span class="d-flex font-xssss fw-500 mt-2 lh-3 text-black-500 ps-3">
-                        <p class="fw-700 lh-3 ">Name : <a href="{{url('/view_User/'.$reservation->User_Id)}}">{{$reservation->First_Name}} {{$reservation->Middle_Name}} {{$reservation->Last_Name}}</a></p>
+                        <p class="fw-700 lh-3 ">Customer Name : <a href="{{url('/view_User/'.$reservation->User_Id)}}">{{$reservation->First_Name}} {{$reservation->Middle_Name}} {{$reservation->Last_Name}}</a></p>
                     </span>
                     @if( isset($reservation_details[$reservation->Operation_Id]) )
                     @foreach($reservation_details[$reservation->Operation_Id] as $reservation_detail)
@@ -32,22 +32,18 @@
                     @endif
                 </div>
             </div>
-            
+
             @endforeach
         </div>
         <!-- in case no posts are there yet -->
         @else
-        <div class="locatins">
-            <div class="heading1">
-                {{ $reservation->Item_Name }}
-                </h3>
-            </div>
-            <div class="sub-heading">
-                No reservations for this item yet..<br />
-            </div>
-            <div class="clearfix"></div>
-        </div>
+            <div class="col-lg-12" style="display:table;">
+                <div class="card p-0 bg-white w-100 border-0 shadow-xss rounded-xxl border-0 mb-3 overflow-hidden ">
+                    <p class=" p-3">
+                        <strong>
 
+                        No reservations for this item yet..<br />
+                        </strong></p></div></div>
         @endif
     </div>
 </div>

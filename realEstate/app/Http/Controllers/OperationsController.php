@@ -177,12 +177,12 @@ class OperationsController extends Controller
     public function edit()
     {
         DB::beginTransaction();
-        
+
         try {
             $operation_types = Operation__types::all()->find(request('id'));
             $operation_types->Operation_Name = request('OperationTypeName');
             $operation_types->save();
-            
+
             DB::commit();
             return back()->with('info', 'Item Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
@@ -198,16 +198,16 @@ class OperationsController extends Controller
     {
 
         DB::beginTransaction();
-        
+
         try {
-            
-            
+
+
             $operation_detail = Operation__Detail_Name::all()->find(request('id'));
-            
+
             $operation_detail->Operation_Detail_Name = request('operation_det');
             $operation_detail->save();
-            
-            
+
+
             DB::commit();
             return back()->with('info', 'Operation Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
@@ -259,12 +259,12 @@ class OperationsController extends Controller
         // Will Destroy each column with id form action
         if (request()->has('id')) {
             DB::beginTransaction();
-            
+
             try {
                 Operation__Detail_Name::destroy($request->id);
                 DB::commit();
                 return redirect()->route('detailop_show')->with('success', 'Detail Deleted Successfully');
-            } catch (\Illuminate\Database\QueryException $e) {                
+            } catch (\Illuminate\Database\QueryException $e) {
                 DB::rollBack();
                 return redirect()->route('detailop_show')->with('error', 'Detail cannot be deleted');
                 return back()->withError($e->getMessage())->withInput();
@@ -295,20 +295,21 @@ class OperationsController extends Controller
 
         $user = Auth::user();
         $operations = $user->operations;
+
         return view('website.frontend.customer.ShowReservation', ['operations' => $operations]);
     }
     //delete operation
     public function destroyOperation($id)
     {
         DB::beginTransaction();
-        
+
         try {
             operations::destroy($id);
             DB::commit();
-            return redirect()->back()->with('success', 'operation Deleted Successfully');
+            return redirect()->back()->with('success', 'Reservation Deleted Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'operation cannot be deleted');
+            return redirect()->back()->with('error', 'Reservation cannot be deleted');
             return back()->withError($e->getMessage())->withInput();
         }
     }
