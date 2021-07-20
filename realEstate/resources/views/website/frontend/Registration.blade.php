@@ -60,15 +60,15 @@
 
                             <div class="form-group icon-input mb-3">
                                 <i class="font-sm ti-email text-grey-500 pe-0"></i>
-                                <input name="email"  type="text" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" placeholder="Your Email Address">
+                                <input name="email"  type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="ex@gmail.com" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address">
                             </div>
                             <div class="form-group icon-input mb-3">
-                                <input  name="password" type="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Password">
+                                <input id="pw1"  name="password" type="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Uppercase,Lowercase, numbers and characters" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Password">
                                 <i class="font-sm ti-lock text-grey-500 pe-0"></i>
                             </div>
 
                             <div class="form-group icon-input mb-3">
-                                <input  name="Confirm" type="Password" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Confirm Password">
+                                <input pw2 name="Confirm" type="Password" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Confirm Password">
                                 <i class="font-sm ti-lock text-grey-500 pe-0"></i>
                             </div>
 
@@ -86,17 +86,23 @@
         </div>
     </div>
 
-    <script src="{{asset('FrontEnd/sociala/js/plugin.js')}}"></script>
+    <script src="{{asset('FrontEnd/sociala/js/plugin.js')}}">
+    </script>
     <script src="{{asset('FrontEnd/sociala/js/scripts.js')}}"></script>
 
     <div class="modal bottom fade" style="overflow-y: scroll;" id="ModalActivation" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
+
+
+
+
+        
             <div class="modal-content border-0">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="ti-close text-grey-500"></i></button>
                 <div class="modal-body p-3 d-flex align-items-center bg-none">
                     <div class="card shadow-none rounded-0 w-100 p-2 pt-3 border-0">
                         <div class="card-body rounded-0 text-left p-3">
-                            <h2 class="fw-700 display1-size display2-md-size mb-4">We send to You An Activation Cod</h2>
+                            <h2 class="fw-700 display1-size display2-md-size mb-4">We send to You An Activation Code</h2>
                             <form method="post" action="{{url('ForgotPassword')}}">
                                 @CSRF
                                 <div class="form-group icon-input mb-3">
