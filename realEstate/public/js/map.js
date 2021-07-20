@@ -14,12 +14,12 @@ function initialize() {
     let long;
     if(document.getElementById('lat').value&& document.getElementById('lang'))
     {
-        let lat =parseFloat(document.getElementById('lat').value);
-        let long =parseFloat(document.getElementById('lang').value) ;
+         lat =parseFloat(document.getElementById('lat').value);
+         long =parseFloat(document.getElementById('lang').value) ;
         console.log(lat);
     }else{
-        let lat=31.386245;
-        let long=27.0699504;
+         lat=31.386245;
+         long=27.0699504;
         
     }
 

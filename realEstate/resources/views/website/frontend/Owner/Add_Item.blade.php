@@ -202,18 +202,17 @@
                     <div class="row">
                         <div class="col-lg-4 mb-3">
                             <div class="form-group">
-                                <label for="">Address: <input id="map-search" class="controls" type="text" placeholder="Search Box" ></label><br>
-                                <label for="">City <input type="text" name="City" class="reg-input-city" placeholder="City"></label>
-                                <label for="">Street <input type="text" name="Street" class="reg-input-street" placeholder="Street"></label>   
                                 
                                 <input type="hidden" id="lat" value="">
                                 <input type="hidden" id="lang" value="">    
-                                <input type="text" style="margin-top:15px;margin-left:10px;"name="latitude" class="latitude">
-                                <input type="text" style="margin-top:15px;margin-left:10px;"name="longitude" class="longitude">
+                               <label> Address Latitude <input type="text" style="margin-top:15px;margin-left:10px;"name="latitude" class="latitude"></label>
+                               <label> Addreess Longtiude<input type="text" style="margin-top:15px;margin-left:10px;"name="longitude" class="longitude"></label>
                             </div>
                             
                         </div>
                         <div class="col-lg-6 mb-3">
+                        <label for="">Address: <input id="map-search" class="controls" type="text" placeholder="Search Box" ></label><br>
+
                         <div id="map-canvas"></div>
                         </div>
                     </div>

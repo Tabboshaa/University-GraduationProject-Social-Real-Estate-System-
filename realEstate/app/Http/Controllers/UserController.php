@@ -122,7 +122,7 @@ class UserController extends Controller
             $user->Middle_Name = request('Mname');
             $user->Last_Name = request('Lname');
             $user->Bith_Day =  request('birthdate');
-            $user->Gender = request('');
+            // $user->Gender = request('');
             $user->National_ID = request('nationalid');
             $user->save();
 
