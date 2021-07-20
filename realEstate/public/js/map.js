@@ -10,17 +10,20 @@ function initialize() {
          element = document.getElementById( 'map-canvas' );
     city = document.querySelector( '.reg-input-city' );
     street= document.querySelector( '.reg-input-street' );
-    if(document.getElementById('lat').value && document.getElementById('lang').value)
+    let lat;
+    let long;
+    if(document.getElementById('lat').value&& document.getElementById('lang'))
     {
         let lat =parseFloat(document.getElementById('lat').value);
         let long =parseFloat(document.getElementById('lang').value) ;
+        console.log(lat);
     }else{
         let lat=31.386245;
         let long=27.0699504;
+        
     }
 
-    console.log(lat);
-    console.log(long);
+
     mapOptions = {
         // How far the maps zooms in.
         zoom: 18,

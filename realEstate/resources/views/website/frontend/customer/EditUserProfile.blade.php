@@ -35,7 +35,7 @@
                                     <div class="col-lg-4 mb-3">
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">First Name</label>
-                                            <input type="text" class="form-control" value="{{$user->First_Name}}" name="Fname">
+                                            <input type="text" class="form-control" value="{{$user->First_Name}}" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" name="Fname" required>
                                         </div>
                                     </div>
 
@@ -49,7 +49,7 @@
                                     <div class="col-lg-4 mb-3">
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">Last Name</label>
-                                            <input type="text" class="form-control" value="{{$user->Last_Name}}" name="Lname">
+                                            <input type="text" class="form-control" value="{{$user->Last_Name}}" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" name="Lname"required>
                                         </div>
                                     </div>
                                 </div>
@@ -58,7 +58,7 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">Email</label>
-                                            <input type="text" class="form-control"value="{{$email->email}}"name="email">
+                                            <input type="text" class="form-control"value="{{$email->email}}"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="ex@gmail.com" name="email"required>
                                         </div>
                                     </div>
 
@@ -66,9 +66,9 @@
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">Phone</label>
                                             @if($phone)
-                                            <input type="text" class="form-control" value="{{$phone->phone_number}}" name="phone">
+                                            <input type="text" pattern="^01[0-2]\d{1,8}$" title="01---------" class="form-control" value="{{$phone->phone_number}}" name="phone"required>
                                             @else
-                                            <input type="text" class="form-control" value="" name="phone">
+                                            <input type="text" pattern="^01[0-2]\d{1,8}$" title="01---------" class="form-control" value="" name="phone" required>
                                             @endif
                                         </div>
                                     </div>
