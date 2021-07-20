@@ -46,9 +46,9 @@
     <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
         <div class="card-body p-0 d-flex">
             @if($item->coverpage!=null)
-            <figure class="avatar me-3"><img src="{{asset('storage/cover page/'.$item->coverpage->path)}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
+            <figure class="avatar me-3"><img src="{{asset('storage/cover page/'.$item->coverpage->path)}}" alt="image" class="shadow-sm rounded-circle w45" height="40"></figure>
             @else
-            <figure class="avatar me-3"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
+            <figure class="avatar me-3"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w45" height="40"></figure>
             @endif
             <h4 class="fw-700 text-grey-900 font-xssss mt-1"><a href="{{url('/itemProfile/'.$post->Item_Id)}}">
                     {{ $item->Item_Name }}

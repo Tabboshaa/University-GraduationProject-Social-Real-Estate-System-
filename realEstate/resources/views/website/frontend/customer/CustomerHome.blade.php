@@ -13,35 +13,35 @@
                             @if(! Auth::user()->First_Name)
                                 <div class="form-group">
                                     <label style="font-size: 12pt">First Name</label>
-                                    <input type="text" style="border-radius: 3pt" name="First" class="form-control">
+                                    <input type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First letter must be capital" name="First" class="form-control" required>
                                     <input type="hidden" value="true" id="show">
                                 </div>
                             @endif
                             @if(!Auth::user()->Middle_Name)
                                 <div class="form-group">
                                     <label style="font-size: 12pt">Middle Name</label>
-                                    <input type="text" style="border-radius: 3pt" name="Middle" class="form-control">
+                                    <input type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First letter must be capital" name="Middle" class="form-control" required>
                                     <input type="hidden" value="true" id="show">
                                 </div>
                             @endif
                             @if(!Auth::user()->Last_Name)
                                 <div class="form-group">
                                     <label style="font-size: 12pt">Last Name</label>
-                                    <input type="text" style="border-radius: 3pt" name="Last" class="form-control">
+                                    <input type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First letter must be capital" name="Last" class="form-control" required>
                                     <input type="hidden" value="true" id="show">
                                 </div>
                             @endif
                             @if(!$phone)
                                 <div class="form-group">
                                     <label style="font-size: 12pt">Phone Number</label>
-                                    <input type="text" style="border-radius: 3pt" name="Phone" class="form-control">
+                                    <input type="text" style="border-radius: 3pt" pattern="^01[0-2]\d{1,8}$" title="01---------" name="Phone" class="form-control"required>
                                     <input type="hidden" value="true" id="show">
                                 </div>
                             @endif
                             @if(!Auth::user()->National_ID)
                                 <div class="form-group">
                                     <label style="font-size: 12pt">National ID</label>
-                                    <input type="text" style="border-radius: 3pt" name="National" class="form-control">
+                                    <input type="text" style="border-radius: 3pt" pattern="(2|3)[0-9][1-9][0-1][1-9][0-3][1-9](01|02|03|04|11|12|13|14|15|16|17|18|19|21|22|23|24|25|26|27|28|29|31|32|33|34|35|88)\d\d\d\d\d" title="Enters the id in national id" name="National" class="form-control" required>
                                     <input type="hidden" value="true" id="show">
                                 </div>
                             @endif
