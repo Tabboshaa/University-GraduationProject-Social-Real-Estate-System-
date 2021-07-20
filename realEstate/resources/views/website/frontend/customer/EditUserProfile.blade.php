@@ -14,7 +14,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-lg-4 text-center">
                                     @if($image!=null)
-                                    <figure class="avatar ms-auto me-auto mb-0 mt-2 w100"><img src="{{asset('storage/cover page/'.$image->Profile_Picture)}}" alt="image" class="shadow-sm rounded-3 w-100"></figure>
+                                    <figure class="avatar ms-auto me-auto mb-0 mt-2 w100"><img src="{{asset('storage/cover page/'.$image->Profile_Picture)}}" alt="image" class="shadow-sm rounded-3 w-100" ></figure>
                                     @else
                                         <figure class="avatar ms-auto me-auto mb-0 mt-2 w100"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-3 w-100"></figure>
 
@@ -35,7 +35,7 @@
                                     <div class="col-lg-4 mb-3">
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">First Name</label>
-                                            <input type="text" class="form-control" value="{{$user->First_Name}}" name="Fname">
+                                            <input type="text" class="form-control" value="{{$user->First_Name}}" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" name="Fname" required>
                                         </div>
                                     </div>
 
@@ -49,7 +49,7 @@
                                     <div class="col-lg-4 mb-3">
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">Last Name</label>
-                                            <input type="text" class="form-control" value="{{$user->Last_Name}}" name="Lname">
+                                            <input type="text" class="form-control" value="{{$user->Last_Name}}" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" name="Lname"required>
                                         </div>
                                     </div>
                                 </div>
@@ -58,7 +58,7 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">Email</label>
-                                            <input type="text" class="form-control"value="{{$email->email}}"name="email">
+                                            <input type="text" class="form-control"value="{{$email->email}}"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="ex@gmail.com" name="email"required>
                                         </div>
                                     </div>
 
@@ -66,9 +66,9 @@
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">Phone</label>
                                             @if($phone)
-                                            <input type="text" class="form-control" value="{{$phone->phone_number}}" name="phone">
+                                            <input type="text" pattern="^01[0-2]\d{1,8}$" title="01---------" class="form-control" value="{{$phone->phone_number}}" name="phone"required>
                                             @else
-                                            <input type="text" class="form-control" value="" name="phone">
+                                            <input type="text" pattern="^01[0-2]\d{1,8}$" title="01---------" class="form-control" value="" name="phone" required>
                                             @endif
                                         </div>
                                     </div>
@@ -91,8 +91,8 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">Gender</label><br>
-                                            <input class="w3-radio" type="radio" name="gender" value="Female">Female <br>
-                                            <input class="w3-radio" type="radio" name="gender" value="Male">Male
+                                            <input class="w3-radio" type="radio" name="gender" value="F">Female <br>
+                                            <input class="w3-radio" type="radio" name="gender" value="M">Male
                                         </div>
                                     </div>
                                 </div>
@@ -134,7 +134,7 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">Confirm Password</label>
-                                            <input type="password" class="form-control" value="" name="Confirm">
+                                            <input type="password" id="confirm" class="form-control" value="" name="confirm">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -188,6 +188,7 @@
 
         var password = $('#CurrentPassword').val();
         var newpassword = $('#NewPassword').val();
+        let confirm = $('#confirm').val();
         // console.log(password);
         // console.log(newpassword);
         $.ajax({
@@ -195,16 +196,20 @@
             Type: "POST",
             data: {
                 password:password,
-                newpassword:newpassword
+                newpassword:newpassword,
+                confirm
             },
             success:function (data){
                 console.log(data);
-                if(data){
+                if(data=='1'){
                     document.getElementById('alert').parentElement.className='alert alert-success alert-block';
                     document.getElementById('alert').innerText='Password Change Successfully';
-                }else{
+                }else if(data=='2'){
                     document.getElementById('alert').parentElement.className='alert alert-danger alert-block';
                     document.getElementById('alert').innerText='You Entered Wrong Password ';
+                }else if (data=='0'){
+                    document.getElementById('alert').parentElement.className='alert alert-danger alert-block';
+                    document.getElementById('alert').innerText='Passwords Does Not Match ';
                 }
             },
             error:function (){

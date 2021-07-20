@@ -55,7 +55,7 @@
                         @if(!empty($Profile_Photo))
                         <div class="card-body p-0 d-flex">
                             <form method="Post" action="{{url('/DeleteMyProfilePhoto/'.$Profile_Photo->Photo_Id.'/'.$Profile_Photo->Profile_Picture.'?_method=delete')}}" enctype="multipart/form-data">
-                                @csrf                           
+                                @csrf
                                 <button class="btn" type="submit"><label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="profile_photo_delete"><i class="feather-trash-2 text-grey-500 me-3 font-sm"></i>Profile Photo</label></button>
                             </form>
 
@@ -197,7 +197,7 @@
         <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
             <div class="card-body p-0 d-flex">
                 @if($Profile_Photo!=null)
-                <figure class="avatar me-3"><img src="{{asset('storage/cover page/'.$Profile_Photo->Profile_Picture)}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
+                <figure class="avatar me-3"><img src="{{asset('storage/cover page/'.$Profile_Photo->Profile_Picture)}}" alt="image" class="shadow-sm rounded-circle w40" height="40"></figure>
                 @else
                 <figure class="avatar me-3"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
                 @endif

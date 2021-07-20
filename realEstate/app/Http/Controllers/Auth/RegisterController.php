@@ -73,10 +73,14 @@ class RegisterController extends Controller
      */
     protected function create()
     {
-        
+
         DB::beginTransaction();
         try {
-        $user=User::create(['password' => Hash::make(request('password'))]);
+            if ((\request('password')) != \request('confirm')) return 0;
+            else
+            return1;
+
+
 
         $user_Id= Arr::get($user, 'id');
 
@@ -91,7 +95,7 @@ class RegisterController extends Controller
         ]);
 
         DB::commit();
-    
+
         //return redirect('/HomeRegister');
         return redirect()->route('HomeRegister');
      } catch (\Illuminate\Database\QueryException $e) {
@@ -119,5 +123,6 @@ class RegisterController extends Controller
             return redirect()->back()->with('error', 'This email Already Registered');
         }
     }
+
 
 }

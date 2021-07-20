@@ -6,12 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="94e67ae1-48e2-456b-854f-8264ac421576" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/AdminMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/AdminMiddleware.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/help.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/help.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/owner/Item_Profile_Posts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/owner/Item_Profile_Posts.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/ownerlayouts/slidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/ownerlayouts/slidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/Registration.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/Registration.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/customer/Customer_Own_Profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/Customer_Own_Profile.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/customer/Customer_Profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/Customer_Profile.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/customer/EditUserProfile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/EditUserProfile.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/customer/Item_Profile_Posts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/Item_Profile_Posts.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -473,7 +474,56 @@
       <workItem from="1626528140861" duration="789000" />
       <workItem from="1626540761711" duration="1405000" />
       <workItem from="1626542585228" duration="2182000" />
-      <workItem from="1626550717796" duration="33000" />
+      <workItem from="1626550717796" duration="900000" />
+      <workItem from="1626552898049" duration="1152000" />
+      <workItem from="1626554894077" duration="1958000" />
+      <workItem from="1626556903025" duration="1728000" />
+      <workItem from="1626558716676" duration="1329000" />
+      <workItem from="1626560578919" duration="1711000" />
+      <workItem from="1626562401818" duration="8000" />
+      <workItem from="1626562450164" duration="1232000" />
+      <workItem from="1626581351717" duration="619000" />
+      <workItem from="1626584236444" duration="1538000" />
+      <workItem from="1626586071761" duration="1198000" />
+      <workItem from="1626595440739" duration="1664000" />
+      <workItem from="1626597254709" duration="1706000" />
+      <workItem from="1626599078954" duration="2395000" />
+      <workItem from="1626601639692" duration="1616000" />
+      <workItem from="1626603454656" duration="1214000" />
+      <workItem from="1626605595550" duration="1788000" />
+      <workItem from="1626607493189" duration="1393000" />
+      <workItem from="1626616463066" duration="1564000" />
+      <workItem from="1626618275916" duration="1713000" />
+      <workItem from="1626620116130" duration="637000" />
+      <workItem from="1626623506296" duration="1897000" />
+      <workItem from="1626625642937" duration="1231000" />
+      <workItem from="1626627492036" duration="1201000" />
+      <workItem from="1626629434912" duration="2040000" />
+      <workItem from="1626631573484" duration="1770000" />
+      <workItem from="1626633388564" duration="1774000" />
+      <workItem from="1626635375903" duration="1779000" />
+      <workItem from="1626637641376" duration="1829000" />
+      <workItem from="1626639803679" duration="1069000" />
+      <workItem from="1626641638157" duration="1775000" />
+      <workItem from="1626643477735" duration="191000" />
+      <workItem from="1626677189759" duration="2820000" />
+      <workItem from="1626683185240" duration="1808000" />
+      <workItem from="1626687156078" duration="1788000" />
+      <workItem from="1626692367552" duration="1561000" />
+      <workItem from="1626696408996" duration="1773000" />
+      <workItem from="1626698263126" duration="1372000" />
+      <workItem from="1626700422001" duration="1773000" />
+      <workItem from="1626702978350" duration="1789000" />
+      <workItem from="1626704853870" duration="1771000" />
+      <workItem from="1626706730906" duration="2972000" />
+      <workItem from="1626709845393" duration="2259000" />
+      <workItem from="1626712264062" duration="3143000" />
+      <workItem from="1626715471923" duration="3599000" />
+      <workItem from="1626719142613" duration="1960000" />
+      <workItem from="1626774372165" duration="1747000" />
+      <workItem from="1626776222699" duration="1774000" />
+      <workItem from="1626778036563" duration="1779000" />
+      <workItem from="1626779856154" duration="851000" />
     </task>
     <servers />
   </component>
@@ -496,11 +546,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/resources/views/website/frontend/owner/Item_Profile_Details.blade.php</url>
-          <line>60</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/website/frontend/customer/HomePagePosts.blade.php</url>
           <line>343</line>
           <option name="timeStamp" value="6" />
@@ -509,11 +554,6 @@
           <url>file://$PROJECT_DIR$/resources/views/website/frontend/customer/HomePagePosts.blade.php</url>
           <line>9</line>
           <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/resources/views/website/frontend/owner/Item_Profile_Posts.blade.php</url>
-          <line>116</line>
-          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
