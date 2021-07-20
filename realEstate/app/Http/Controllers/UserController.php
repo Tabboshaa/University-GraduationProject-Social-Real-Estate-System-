@@ -119,12 +119,17 @@ class UserController extends Controller
             $phone->save();
 
             $user->First_Name = request('Fname');
+            $user->Middle_Name = request('Mname');
             $user->Last_Name = request('Lname');
+            $user->Bith_Day =  request('birthdate');
+            $user->Gender = request('');
+            $user->National_ID = request('nationalid');
             $user->save();
 
             DB::commit();
             return back()->with('error', 'City Already Exist !!');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Illuminate\Database\QueryException $e)
+        {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -227,7 +232,7 @@ class UserController extends Controller
 
     }
 
-   
+
 
     //route byro7 3la index aw function show da bst5dmo lma ha show variables
     //fe el blade in the same time the route passes me to the blade

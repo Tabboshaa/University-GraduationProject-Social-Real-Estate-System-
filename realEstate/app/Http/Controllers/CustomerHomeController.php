@@ -46,7 +46,7 @@ class CustomerHomeController extends Controller
             ->join('attachments', 'attachments.Attachment_Id', '=', 'state_photos.Attachment_Id')
             ->select('state_photos.*', 'attachments.File_Path', 'states.State_Name')->get();
 
-        return view('website.frontend.customer.CustomerHome');
+        return view('website.frontend.customer.CustomerHome',['StatesPhotos' => $States]);
     }
     /**
      * Show the form for creating a new resource.
