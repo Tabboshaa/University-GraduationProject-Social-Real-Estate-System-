@@ -458,17 +458,22 @@ class UserController extends Controller
 
 
 
-        DB::beginTransaction();
+
         try {
             $User_ID = Auth::id();
             $user = User::all()->find($User_ID);
             $password = request('password');
+
             if (Hash::check($password, $user->password)) {
+                if ((\request('newpassword')) != \request('confirm')) return 0;
                 $user->password = Hash::make(request('newpassword'));
                 $user->save();
-                DB::commit();
-                return true;
-            } else return false;
+                return 1;
+
+
+            }else
+                return 2;
+
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];

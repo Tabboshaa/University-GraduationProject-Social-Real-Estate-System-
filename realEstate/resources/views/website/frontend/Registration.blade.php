@@ -74,7 +74,7 @@
 
                             <div class="col-sm-12 p-0 text-left">
 
-                                <div class="form-group mb-1"><input type="submit"  value="Register" class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Register</div>
+                                <div class="form-group mb-1"><input type="submit" onclick="check()"  value="Register" class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Register</div>
                                 <div class="form-group mb-1"><a href="{{url('redirect/facebook')}}" class="form-control text-left style2-input text-white fw-600 bg-twiiter border-0 p-0 "><img src="{{asset('FrontEnd/sociala/images/icon-3.png')}}" alt="icon" class="ms-2 w40 mb-1 me-5"> Sign in with Facebook</a></div>
 
                                 <h6 class="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">Already have account <a href="{{route('userLogin')}}" class="fw-700 ms-1">Login</a></h6>
@@ -129,3 +129,37 @@
 
 <!-- Mirrored from uitheme.net/sociala/register.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 27 May 2021 19:34:59 GMT -->
 </html>
+
+<script>
+    function check(){
+
+        var newpassword = $('#password').val();
+        let confirm = $('#confirm').val();
+
+        $.ajax({
+            url: "{{route('changePassword')}}",
+            Type: "POST",
+            data: {
+                newpassword:newpassword,
+
+                confirm
+            },
+            success:function (data){
+                console.log(data);
+                if(data=='1'){
+                    document.getElementById('alert').parentElement.className='alert alert-success alert-block';
+                    document.getElementById('alert').innerText='Password Change Successfully';
+                }else if (data=='0'){
+                    document.getElementById('alert').parentElement.className='alert alert-danger alert-block';
+                    document.getElementById('alert').innerText='Passwords Does Not Match ';
+                }
+            },
+            error:function (){
+
+            }
+        });
+    }
+</script>
+
+}
+</script>

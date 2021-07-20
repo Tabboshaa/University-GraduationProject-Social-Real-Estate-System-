@@ -3,46 +3,54 @@
 
 <div class="right_col" role="main">
     <div class="title_right">
+        <h4 class="heading" style="color: black;"><strong>Item Reviews</strong></h4>
+        @if(count($reviews))
+        @foreach($reviews as $review)
         <div class="x_panel">
-            <h2>Item Reviews</h2>
             @include('website.backend.layouts.flashmessage')
-            @if(count($reviews))
-            @foreach($reviews as $review)
-            <div class="x_panel">
-                <div class="x_title">
-                    <?php $today = \Carbon\Carbon::now();
-                    $end = \Carbon\Carbon::parse($review->updated_at);
-                    ?>
-                    <img src="images/icon/user.html" alt="">
-                    <h6>
-                        {{$review->First_Name}} {{$review->Middle_Name}} {{$review->Last_Name}}
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane active " id="tab_content1" aria-labelledby="home-tab">
+                  <!-- start recent activity -->
+                  <ul class="messages">
+                    <li>
+                        <?php $today = \Carbon\Carbon::now();
+                                $end = \Carbon\Carbon::parse($review->updated_at);
+                        ?>
+                      <img src="{{asset('storage/cover page/Shaimaaa.JPG')}}"  class="avatar" alt="Avatar">
+                      <div class="message_date" >
                         <a href="{{url('delete_review/'.$review->Review_Id)}}" onclick="return confirm('Are you sure you want to delete?')">
-                            <small><i class="fa fa-trash-o" aria-hidden="true"></i></small>
+                            <small><i class="fa fa-trash-o" style="font-size: 1.7em;"aria-hidden="true"></i></small>
                         </a>
-                        <p>{{ $end->diffForHumans()}} </p>
-                    </h6>
-                </div>
-                <div class="">
-                    {{$review->Number_Of_Stars}} <span>/10</span>
-                </div>
-                <div class="">
-                    {{$review->Review_Title}} <br />
-                    {{$review->Review_Content}} <br />
-                </div>
+                      </div>
+                      <div class="message_wrapper">
+                        <h6 style="color: black;"><strong>{{$review->First_Name}} {{$review->Middle_Name}} {{$review->Last_Name}}</strong></h6>
+                        <p style="color: rgb(85, 85, 85);">{{ $end->diffForHumans()}} </p>
+                        <blockquote class="message" style="color: black; ">
+                            {{$review->Review_Title}} <br />
+                            {{$review->Review_Content}} <br />
+                        </blockquote>
+                        <br />
+                          <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                          
+                          <i class="fa fa-star" aria-hidden="true"> </i> {{$review->Number_Of_Stars}} <span>/10</span>
+                      </div>
+                    </li>
+                   
+                  </ul>
+                  <!-- end recent activity -->
 
-                <div class="clearfix"></div>
-            </div>
-            @endforeach
-            @else
-            <div class=" x_panel">
-                <div class="x_content">
-                    No Reviews are posted for this item yet..<br />
                 </div>
-                <div class="clearfix"></div>
-            </div>
-
-            @endif
+              </div>
         </div>
+        @endforeach
+        @else
+        <div class=" x_panel">
+            <div class="x_content">
+                No Reviews are posted for this item yet..<br />
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        @endif
     </div>
 </div>
 
