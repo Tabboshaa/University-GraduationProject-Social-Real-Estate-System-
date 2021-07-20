@@ -13,10 +13,10 @@
                   <!-- start recent activity -->
                   <ul class="messages">
                     <li>
-                        <?php $today = \Carbon\Carbon::now();
+                        <?php   $today = \Carbon\Carbon::now();
                                 $end = \Carbon\Carbon::parse($review->updated_at);
                         ?>
-                      <img src="{{asset('storage/cover page/Shaimaaa.JPG')}}"  class="avatar" alt="Avatar">
+                      <img src="{{asset('storage/cover page/'.$review->Profile_Picture)}}"  class="avatar" alt="Avatar">
                       <div class="message_date" >
                         <a href="{{url('delete_review/'.$review->Review_Id)}}" onclick="return confirm('Are you sure you want to delete?')">
                             <small><i class="fa fa-trash-o" style="font-size: 1.7em;"aria-hidden="true"></i></small>
@@ -24,7 +24,7 @@
                       </div>
                       <div class="message_wrapper">
                         <h6 style="color: black;"><strong>{{$review->First_Name}} {{$review->Middle_Name}} {{$review->Last_Name}}</strong></h6>
-                        <p style="color: rgb(85, 85, 85);">{{ $end->diffForHumans()}} </p>
+                        <p style="color: rgb(85, 85, 85);">{{ $end->diffForHumans() }} </p>
                         <blockquote class="message" style="color: black; ">
                             {{$review->Review_Title}} <br />
                             {{$review->Review_Content}} <br />

@@ -206,8 +206,9 @@ class PostsController extends Controller
             ->join('users', 'users.id', '=', 'posts.User_Id')
             ->join('items', 'items.Item_Id', '=', 'posts.Item_Id')
             ->LeftJoin('profile_photos', 'profile_photos.User_Id', '=', 'posts.User_Id')
+            ->LeftJoin('cover__pages', 'cover__pages.Item_Id', '=', 'posts.Item_Id')
             ->where('posts.Item_Id', '=', $item_id)
-            ->select('posts.*','users.First_Name', 'users.Middle_Name', 'users.Last_Name','items.Item_Name')
+            ->select('posts.*','users.First_Name', 'users.Middle_Name', 'users.Last_Name','items.Item_Name','cover__pages.path')
             ->orderBy('updated_at', 'DESC')
             ->get();
 
