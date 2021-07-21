@@ -98,16 +98,13 @@ class CoverPageController extends Controller
         //
 
 
-        if ($files = request()->file('CoverPhoto')) {
+        if ($files = request()->file('CoverPageUpdate')) {
 
 
             $filename = $files->getClientOriginalName();
             $files->storeAs('/cover page', $filename, 'public');
 
             // }
-
-
-
                 $coverPage = Cover_Page::all()->find($id);
                 //hy7ot el name el gded f column el country name
                 $coverPage->path = $filename;
