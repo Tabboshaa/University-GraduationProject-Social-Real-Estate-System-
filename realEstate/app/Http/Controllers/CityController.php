@@ -155,12 +155,12 @@ class CityController extends Controller
             $city->City_Name = request('CityName');
             $city->save();
             DB::commit();
-            return back()->with('info', 'Item Edited Successfully');
+            return back()->with('info', 'City Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('error', 'Error editing item');
+                return back()->with('error', 'Error editing City');
             }
             return back()->withError($e->getMessage())->withInput();
         }

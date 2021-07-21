@@ -41,6 +41,7 @@
                 </thead>
                 <tbody>
                     <!-- EL FOREARCH HNA -->
+                    @if( count($property) != 0)
                     @foreach($property as $property_detail)
                     <tr>
                         <td>{{$property_detail->Main_Type_Name}}</td>
@@ -48,11 +49,13 @@
                         <td>{{$property_detail->Property_Name}}</td>
                         <td>{{$property_detail->Detail_Name}}</td>
                         <td>{{$property_detail->datatype}}</td>
-
                         <td><a href="javascript:void(0)" onclick="setPropertyDetailIdName('{{$property_detail->Property_Detail_Id}}','{{$property_detail->Detail_Name}}')"><i class="fa fa-edit"></i></a></td>
                         <td><input type="checkbox" name="id[]" value="{{$property_detail->Property_Detail_Id}}"></td>
                     </tr>
                     @endforeach
+                    @else
+                    <tr><td colspan="7"><h4 style="color:gray;">There is no data.</h4></td></tr>
+                    @endif
                     <!-- END OF FOREACH -->
                 </tbody>
             </table>

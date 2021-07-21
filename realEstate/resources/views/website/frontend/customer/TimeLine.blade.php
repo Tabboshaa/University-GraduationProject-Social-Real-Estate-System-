@@ -22,7 +22,7 @@
                         <h4 class="fw-700 font-xsss mt-3 mb-1">{{ $item->Item_Name }}</h4>
                     </a>
                     <span>@if($reviews[' '.$item->Item_Id.' ']!=null)
-                        <p class=" font-xsssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"> Rate: {{$reviews[' '.$item->Item_Id.' ']}} / 10 </p>
+                        <p class=" font-xsssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"> Rate: {{$reviews[' '.$item->Item_Id.' ']}} / 5 </p>
                         @endif
                     </span>
                     <span class="position-absolute right-15 top-0 d-flex align-items-center">

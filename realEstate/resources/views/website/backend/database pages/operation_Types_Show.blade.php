@@ -31,17 +31,18 @@
     </thead>
     <tbody>
         <!-- EL FOREARCH HNA-->
+        @if( count($operation_types) != 0)
         @foreach($operation_types as $operation_type)
-
         <tr>
             <td>{{$operation_type->Operation_Name}}</td>
             <td><a href="javascript:void(0)" onclick="setOperationType('{{$operation_type->Operation_Type_Id}}','{{$operation_type->Operation_Name}}')"><i class="fa fa-edit"> </i></a></td>
             <td><input type="checkbox" name="operationType[]" value="{{$operation_type->Operation_Type_Id}}" id="OperationType"></td>
             <!-- <td><a href="javascript:void(0)" onclick="addSubType()" ><i class="fa fa-add"> Add </i></a></td> -->
         </tr>
-
-                @endforeach
-
+        @endforeach
+        @else
+        <tr><td colspan="3"><h4 style="color:gray;">There is no data.</h4></td></tr>
+        @endif
 
                 <!-- END OF FOREACH -->
     </tbody>

@@ -17,10 +17,10 @@
         <thead>
             <tr>
             <tr>
-                        <th><h2 style="margin-right:200px; padding-bottom: 5px;">User Type Name</h2></th>
-                        <th ><h2 style="margin-right:250px;padding-bottom: 5px;">Edit</h2></th>
-                  <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:200px;"></i></th>
-                      
+            <th><h2 style="margin-right:200px; padding-bottom: 5px;">User Type Name</h2></th>
+            <th ><h2 style="margin-right:250px;padding-bottom: 5px;">Edit</h2></th>
+            <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn"onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:200px;"></i></th>
+            
                 <!-- Java Script for select all function -->
                 <script>
                     document.getElementById('selectAll').onclick = function() {
@@ -34,15 +34,17 @@
         </thead>
         <tbody>
             <!-- EL FOREARCH HNA -->
+            @if( count($user_typess) != 0)
             @foreach($user_typess as $user_type)
             <tr>
-                
                 <td>{{$user_type->Type_Name}}</td>
-                
                 <td><a href="javascript:void(0)" onclick="setUserTypeIdName('{{$user_type->User_Type_ID}}','{{$user_type->Type_Name}}')"><i class="fa fa-edit"> Edit</i></a></td>
                 <td><input type="checkbox" name="id[]" value="{{$user_type->User_Type_ID}}"></td>
             </tr>
             @endforeach
+            @else
+            <tr><td colspan="3"><h4 style="color:gray;">There is no data.</h4></td></tr>
+            @endif
             <!-- END OF FOREACH -->
         </tbody>
     </table>

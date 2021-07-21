@@ -8,16 +8,14 @@
     <div class="clearfix"></div>
 </div>
 <form method="Post" action="{{url('/delete_main_type?_method=delete')}}" enctype="multipart/form-data">
-                        @csrf
-                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search.." title="Type in a name">
-<table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
-    <thead>
-    <tr>
-                        <th><h2 style="margin-right:200px; padding-bottom: 5px;">Main Type</h2></th>
-
-                        <th ><h2 style="margin-right:250px;padding-bottom: 5px;">Edit</h2></th>
-        <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:200px;"></i></button></th>
-
+    @csrf
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search.." title="Type in a name">
+    <table id="datatable" class="table table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+        <thead>
+        <tr>
+            <th><h2 style="margin-right:200px; padding-bottom: 5px;">Main Type</h2></th>
+            <th ><h2 style="margin-right:250px;padding-bottom: 5px;">Edit</h2></th>
+            <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:200px;"></i></button></th>
             <!-- Java Script for select all function -->
                 <script>
                     document.getElementById('selectAll').onclick = function() {
@@ -31,6 +29,7 @@
     </thead>
     <tbody>
         <!-- EL FOREARCH HNA-->
+        @if( count($main_type1) != 0)
         @foreach($main_type1 as $main_type)
 
         <tr>
@@ -39,9 +38,10 @@
             <td><input type="checkbox" name="mainType[]" value="{{$main_type->Main_Type_Id}}" id="MainTypeId"></td>
             <!-- <td><a href="javascript:void(0)" onclick="addSubType()" ><i class="fa fa-add"> Add </i></a></td> -->
         </tr>
-
-                @endforeach
-
+        @endforeach
+        @else
+        <tr><td colspan="3"><h4 style="color:gray;">There is no data.</h4></td></tr>
+        @endif
 
                 <!-- END OF FOREACH -->
     </tbody>

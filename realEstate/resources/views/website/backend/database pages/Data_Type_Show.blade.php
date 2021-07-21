@@ -33,16 +33,19 @@
     </thead>
     <tbody>
         <!-- EL FOREARCH HNA -->
-        @foreach($data_typess as $data_types)
+                @if( count($data_typess) != 0)
+                @foreach($data_typess as $data_types)
      
-        <tr>
-            <td>{{$data_types->datatype}}</td>
-            
-                         <input type="hidden" name="_method" value="DELETE">
+                    <tr>
+                        <td>{{$data_types->datatype}}</td>
+                        <input type="hidden" name="_method" value="DELETE">
                         <td><a href="javascript:void(0)" onclick="setDataTypeIdName('{{$data_types->id}}','{{$data_types->datatype}}')"><i class="fa fa-edit"> Edit</i></a></td>
                         <td><input type="checkbox" name="id[]" value="{{$data_types->id}}"></td>
                     </tr>
                 @endforeach
+                @else
+                <tr><td colspan="5"><h4 style="color:gray;">There is no data.</h4></td></tr>
+                @endif
                 <!-- END OF FOREACH -->
             </tbody>
         </table>

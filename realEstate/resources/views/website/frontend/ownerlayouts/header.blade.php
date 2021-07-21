@@ -28,7 +28,7 @@
     $notifications = NotificationController::index(Auth::id());
     $today = \Carbon\Carbon::now();
     ?>
-    
+
     <a href="#" class="p-2 text-center ms-auto menu-icon" id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false">@if(count($notifications)!=0)<span class="dot-count bg-warning"></span>@endif<i class="feather-bell font-xl text-current"></i></a>
     <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" style="max-height: 650px; overflow: auto;" aria-labelledby="dropdownMenu3">
         <h4 class="fw-700 font-xss mb-4">Notification</h4>
@@ -38,7 +38,7 @@
             @if($notification->fromuser->profilePhoto !=null)
             <img src="{{asset('storage/cover page/'.$notification->fromuser->profilePhoto['Profile_Picture'])}}" alt="user" height="40" style=" border-radius: 50%;" class="w40 position-absolute left-0">
             @else
-            <img src="{{asset('storage/cover page/pic.png')}}" alt="user"  class="w40 position-absolute left-0">
+            <img src="{{asset('storage/cover page/pic.png')}}" alt="user" class="w40 position-absolute left-0">
             @endif
             <a href="javascript:void(0)" onclick="deletenotification('{{$notification->Notification_Id}}')"> <i class="fa fa-close float-right mt-1"></i></a>
             @if($notification->Redirect_To !=null)<a href="{{url(''.$notification->Redirect_To)}}">@else <a href="{{ url('/view_User/'.$notification->From_User_Id) }}"> @endif
@@ -129,7 +129,7 @@
                     </label>
                 </li>
             </ul>
-            
+
             <div class="card bg-transparent-card border-0 d-block mt-3">
                 <h4 class="d-inline font-xssss mont-font fw-700">Header Background</h4>
                 <div class="d-inline float-right mt-1">
@@ -148,24 +148,24 @@
                     <label class="toggle toggle-dark"><input type="checkbox"><span class="toggle-icon"></span></label>
                 </div>
             </div>
-            
+
         </div>
     </div>
 
     @if(Auth::user()->profilePhoto!=null)
     <a id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" class="p-0 ms-3 menu-icon"><img src="{{asset('storage/cover page/'.Auth::user()->profilePhoto->Profile_Picture)}}" alt="user" height="40" class="w40 mt--1 " style=" border-radius: 50%;"></a>
-    @else 
+    @else
     <a id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" class="p-0 ms-3 menu-icon"><img src="{{asset('storage/cover page/pic.png')}}" alt="user" class="w40 mt--1 " style=" border-radius: 50%;"></a>
     @endif
-        <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" aria-labelledby="dropdownMenu2">
+    <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" aria-labelledby="dropdownMenu2">
 
-        <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" >
+        <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3">
             <h5 class="font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block"> <a href="{{url('/EditCustomerProfile')}}"> profile</a></h5>
         </div>
         <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" id="checkIfOwnerDiv">
             <h5 class="font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block"> <a href='javascript:void(0)' onclick='ToggleBeOwnerModal()' data-backdrop="false"> Switch to Owner</a></h5>
         </div>
-        <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" >
+        <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3">
             <h5 class="font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block"> <a href="{{ url('/logout') }}"> Log Out</a></h5>
         </div>
 
@@ -178,6 +178,11 @@
 
 <script>
     $(document).ready(function() {
+        $('.switchcolor').on('click', function() {
+            $(this).addClass('active');
+            $('.backdrop').addClass('active');
+            $('.switchcolor-wrap').addClass('active');
+        });
         $.ajax({
             url: "{{route('checkIfOwner')}}",
             Type: "",
@@ -206,27 +211,30 @@
             error: function() {
 
             }
+
         });
-    });
+
+   });
 
     function ToggleBeOwnerModal() {
-        let $show=$('#show').val();
-        if($show=='true')
-        {
+        let $show = $('#show').val();
+        if ($show == 'true') {
             $("#BeOwnerModal2").modal("toggle");
-        }else{$("#BeOwnerLightModal").modal("toggle"); }
+        } else {
+            $("#BeOwnerLightModal").modal("toggle");
+        }
 
     };
 
 
-    function deletenotification(id){
+    function deletenotification(id) {
         $.ajax({
             url: "{{route('view_notification')}}",
             data: {
-                notification_id:id
+                notification_id: id
             },
             success: function() {
-                $("#notif"+id).remove();
+                $("#notif" + id).remove();
             },
             error: function() {
 
@@ -235,10 +243,7 @@
 
 
     }
-
 </script>
 
-<script src="js/plugin.js"></script>
-    <script src="js/lightbox.js"></script>
-    <script src="js/scripts.js"></script>
+
 <!-- navigation top -->

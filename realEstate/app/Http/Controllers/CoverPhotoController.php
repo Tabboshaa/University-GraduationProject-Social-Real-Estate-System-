@@ -29,22 +29,21 @@ class CoverPhotoController extends Controller
     {
 
         //
-        DB::beginTransaction();
+    
         if ($files = request()->file('CoverPhoto')) {
-
             $filename = $files->getClientOriginalName();
             $files->storeAs('/cover page', $filename, 'public');
-
+            
             try {
                 $coverPhoto = CoverPhoto::create([
                     'User_Id' => Auth::id(),
                     'Cover_Photo' => $filename
                 ]);
-                DB::commit();
+              
+            
                 return back();
             } catch (\Illuminate\Database\QueryException $e) {
-                DB::rollBack();
-                $errorCode = $e->errorInfo[1];
+              $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
                 }

@@ -61,7 +61,7 @@
 
                             <div class="form-group icon-input mb-3">
                                 <i class="font-sm ti-email text-grey-500 pe-0"></i>
-                                <input type="text" name="email" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="ex@gmail.com" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address">
+                                <input type="text" name="email" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="ex@gmail.com" placeholder="Your Email Address">
                             </div>
                             <div class="form-group icon-input mb-1">
                                 <input name="password"type="Password" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Password">

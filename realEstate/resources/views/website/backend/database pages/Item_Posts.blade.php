@@ -5,7 +5,7 @@
 
 <div class="right_col" role="main">
     <div class="title_right">
-        <div class="x_panel">
+        <div class="x_panel" >
             @include('website.backend.layouts.flashmessage')
             <form method="POST" action="{{ url('/add_item_post/'.$item_id) }}" enctype="multipart/form-data">
                 @csrf
@@ -51,11 +51,11 @@
                 </div>
             </form>
         </div>
-        <div class="x_panel">
-            <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="col-md-7">
+        
+    <div class="title_right">
+        
+        <div class="x_panel" style="background-color:rgb(247, 247, 247)">
+                        <div style="margin-left: 250px;"class="col-md-7">
                             @if( count($posts) != 0)
                             @foreach($posts as $post)
                             <div name="post">
@@ -333,7 +333,7 @@
                         "<div class=\"chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg\">" +
                         "<a href=\"/view_User/" + data['User_Id'] + "\">" +
                         "<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> " + data['First_Name'] + " " + data['Middle_Name'] + " " + " " + data['Last_Name'] + "" +
-                        "<a href=\"/deletecomment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" +
+                        "<a href=\"/delete_comment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" +
                         "<a href=\"javascript:void(0)\" onclick=\"setComment('" + data['Comment_Id'] + "','" + data['Comment'] + "')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>" +
                         "</a></h4>" +
                         "<div class=\"time\"><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> 1 second ago </p></div>" +
