@@ -33,21 +33,20 @@
                 </thead>
                 <tbody>
 
-                    <!-- EL FOREARCH HNA -->
+                    <!-- EL FOREARCH HNA --> 
+                    @if( count($S1) != 0)
                     @foreach($S1 as $sub_type)
-
-
                     <tr>
                         <td>{{$sub_type->Main_Type_Name}}</td>
                         <td>{{$sub_type->Sub_Type_Name}}</td>
-                        
-
                         <td><a href="javascript:void(0)" onclick="setSupTypeIdName('{{$sub_type->Sub_Type_Id}}','{{$sub_type->Sub_Type_Name}}')"><i class="fa fa-edit"> </i></a></td>
                         <td><input type="checkbox" name="id[]" value="{{$sub_type->Sub_Type_Id}}"></td>
                     </tr>
 
                     @endforeach
-
+                    @else
+                    <tr><td colspan="4"><h4 style="color:gray;">There is no data.</h4></td></tr>
+                    @endif
         <!-- END OF FOREACH -->
 
         </tbody>

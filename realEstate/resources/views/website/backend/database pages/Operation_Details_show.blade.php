@@ -34,6 +34,7 @@
         </tr>
     </thead>
     <tbody>
+        @if( count($Detail1) != 0)
         @foreach($Detail1 as $operation_detail)
         <tr>
             <td> {{$operation_detail->Operation_Name}}</td>
@@ -44,7 +45,9 @@
         </tr>
 
         @endforeach
-
+        @else
+        <tr><td colspan="5"><h4 style="color:gray;">There is no data.</h4></td></tr>
+        @endif
     </tbody>
 </table>
     

@@ -35,6 +35,7 @@
             </tr>
         </thead>
         <tbody>
+            @if( count($cityy) != 0)
             @foreach($cityy as $city)
             <tr>
                 <td> {{$city->Country_Name}}</td>
@@ -45,6 +46,9 @@
                 
             </tr>
             @endforeach
+            @else
+            <tr><td colspan="5"><h4 style="color:gray;">There is no data.</h4></td></tr>
+            @endif
         </tbody>
     </table>
    {!! $cityy->render() !!}

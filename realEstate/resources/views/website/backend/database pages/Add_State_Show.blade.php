@@ -34,6 +34,7 @@
         </tr>
     </thead>
     <tbody>
+        @if( count($state1) != 0)
         @foreach($state1 as $state)
         <tr>
             <td> {{$state->Country_Name}}</td>
@@ -45,7 +46,9 @@
 
         </tr>
         @endforeach
-
+        @else
+        <tr><td colspan="4"><h4 style="color:gray;">There is no data.</h4></td></tr>
+        @endif
     </tbody>
 </table>
     {!! $state1->render() !!}

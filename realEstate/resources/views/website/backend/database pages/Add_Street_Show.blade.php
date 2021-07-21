@@ -39,6 +39,7 @@
         </thead>
         <tbody>
             <!-- EL FOREARCH HNA -->
+            @if( count($street1) != 0)
             @foreach($street1 as $street)
             <tr>
             <td>{{$street->Country_Name}}</td>
@@ -51,6 +52,9 @@
                 <td><input type="checkbox" name="id[]" value="{{$street->Street_Id}}"></td>
             </tr>
             @endforeach
+            @else
+            <tr><td colspan="7"><h4 style="color:gray;">There is no data.</h4></td></tr>
+            @endif
             <!-- END OF FOREACH -->
         </tbody>
     </table>

@@ -31,6 +31,7 @@
     </thead>
     <tbody>
         <!-- EL FOREARCH HNA-->
+        @if( count($main_type1) != 0)
         @foreach($main_type1 as $main_type)
 
         <tr>
@@ -39,9 +40,10 @@
             <td><input type="checkbox" name="mainType[]" value="{{$main_type->Main_Type_Id}}" id="MainTypeId"></td>
             <!-- <td><a href="javascript:void(0)" onclick="addSubType()" ><i class="fa fa-add"> Add </i></a></td> -->
         </tr>
-
-                @endforeach
-
+        @endforeach
+        @else
+        <tr><td colspan="3"><h4 style="color:gray;">There is no data.</h4></td></tr>
+        @endif
 
                 <!-- END OF FOREACH -->
     </tbody>

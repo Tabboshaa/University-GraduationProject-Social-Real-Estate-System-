@@ -38,6 +38,7 @@
         </thead>
         <tbody>
             <!-- EL FOREARCH HNA -->
+            @if( count($region1) != 0)
             @foreach($region1 as $region)
             <tr>
             <td>{{$region->Country_Name}}</td>
@@ -49,6 +50,9 @@
                 <td><input type="checkbox" name="id[]" value="{{$region->Region_Id}}"></td>
             </tr>
             @endforeach
+            @else
+            <tr><td colspan="6"><h4 style="color:gray;">There is no data.</h4></td></tr>
+            @endif
             <!-- END OF FOREACH -->
         </tbody>
     </table>

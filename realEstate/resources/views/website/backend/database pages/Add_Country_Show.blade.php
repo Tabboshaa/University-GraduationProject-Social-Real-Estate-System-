@@ -32,6 +32,7 @@
         </tr>
     </thead>
     <tbody>
+        @if( count($C11) != 0)
         @foreach($C11 as $C1)
             <tr>
                 <td> {{$C1->Country_Name}}</td>
@@ -41,6 +42,9 @@
                 <!-- On clicking edit icon will go to setCountryIdName in-->
             </tr>
             @endforeach
+            @else
+            <tr><td colspan="3"><h4 style="color:gray;">There is no data.</h4></td></tr>
+            @endif
     </tbody>
 </table>
     {!! $C11->render() !!}

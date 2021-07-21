@@ -27,9 +27,7 @@
                         @endforeach
                     </ul>
                     <div class="tab-content" id="myTabContent">
-                        @if(count($users) == 0)
-                        <p> There is no data to show </p>
-                        @endif
+                        
 
 
                         <form method="Post" action="{{ url('/delete_user/?_method=delete') }}" enctype="multipart/form-data">
@@ -43,7 +41,7 @@
                                         <th>Phone Number</th>
                                         <th>Select all <input type="checkbox" id="selectAll" name="selectAll"> <button class="btn" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:90px;"></i></th>
 
-
+                                         
                                         <script>
                                             document.getElementById('selectAll').onclick = function() {
                                                 var checkboxes = document.getElementsByName('id[]'); //get all check boxes with name delete
@@ -53,6 +51,9 @@
                                             }
                                         </script>
                                     </tr>
+                                    @if(count($users) != 0)
+                                    <tr><td colspan="5"><h4 style="color:gray;">There is no data.</h4></td></tr>
+                                     @endif
                                 </thead>
                                 <tbody id="Table">
 
@@ -224,8 +225,6 @@
                         '<td>' + '<input type="checkbox" name="id[]"' + val['User_ID'] + '">' + '</td>' +
                         '</tr>';
                 });
-                if (Table == '')
-                    Table = 'No Users';
 
 
 
