@@ -36,7 +36,7 @@
                         </div>
                         @else
                         <div class="card-body p-0 d-flex">
-                            <form method="POST" action="{{url('/CreateCoverPhoto')}}" enctype="multipart/form-data">
+                            <form method="POST" action="{{url('/CreateCoverPage/'.$item->Item_Id)}}" enctype="multipart/form-data">
                                 @csrf
                                 <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_photo_upload"><i class="feather-plus text-grey-500 me-3 font-sm"></i>Cover Photo</label>
                                 <input id="cover_photo_upload" name="CoverPhoto" type="file" accept="image/*" style="display:none" onchange="javascript:this.form.submit();">
