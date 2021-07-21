@@ -73,11 +73,11 @@
 
                 @if(!empty($subtype))
                 <a href="{{url('/OwnerSelectDetails/'.$item_id.'/'.$subtype)}}">
-                    <h6>Add A new Detial <i style="padding-left:14px" class="fa fa-plus"></i></h6>
+                    <h6>Add A new Detail <i style="padding-left:14px" class="fa fa-plus"></i></h6>
                 </a>
                 @else
                 <a href="{{url('/OwnerSelectSubType/'.$item_id)}}">
-                    <h6>Add A new Detial <i style="padding-left:14px" class="fa fa-plus"></i></h6>
+                    <h6>Add A new Detail <i style="padding-left:14px" class="fa fa-plus"></i></h6>
                 </a>
                 @endif
 
