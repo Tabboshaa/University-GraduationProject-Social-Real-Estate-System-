@@ -25,7 +25,6 @@ class AttachmentController extends Controller
             ->where('items.Item_Id', '=', $id)
             ->get();
 
-        return $gallery;
         return view('website\backend\database pages\Item_Gallery', ['gallery' => $gallery, 'item_id' => $id]);
     }
 

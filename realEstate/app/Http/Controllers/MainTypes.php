@@ -29,13 +29,11 @@ class MainTypes extends Controller
     {
         //
         
-        DB::beginTransaction();
         try {
             $Main_Type = Main_Type::create([
                 'Main_Type_Name' => request('Main_Type_Name'),
             ]);
             return back()->with('success', 'Main Type Created Successfully');
-            DB::commit();
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
@@ -92,7 +90,7 @@ class MainTypes extends Controller
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('error', 'Error editing item');
+                return back()->with('error', 'Error editing Main Type');
             }
             return back()->withError($e->getMessage())->withInput();
         }

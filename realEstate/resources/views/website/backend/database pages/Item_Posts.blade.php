@@ -5,7 +5,7 @@
 
 <div class="right_col" role="main">
     <div class="title_right">
-        <div class="x_panel">
+        <div class="x_panel" >
             @include('website.backend.layouts.flashmessage')
             <form method="POST" action="{{ url('/add_item_post/'.$item_id) }}" enctype="multipart/form-data">
                 @csrf
@@ -51,11 +51,11 @@
                 </div>
             </form>
         </div>
-        <div class="x_panel">
-            <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="col-md-7">
+        
+    <div class="title_right">
+        
+        <div class="x_panel" style="background-color:rgb(247, 247, 247)">
+                        <div style="margin-left: 250px;"class="col-md-7">
                             @if( count($posts) != 0)
                             @foreach($posts as $post)
                             <div name="post">
