@@ -147,10 +147,10 @@
            $('#alertParent').addClass("alert alert-danger alert-block");
 
          }
-             else{
-             $('#ForgotForm').submit();
-         }
-
+         ajx
+        // else{
+        //     $('#ForgotForm').submit();
+        // }
 
     }
 </script>

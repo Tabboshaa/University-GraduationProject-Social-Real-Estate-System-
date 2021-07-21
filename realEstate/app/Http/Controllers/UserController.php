@@ -165,7 +165,6 @@ if(request()->has('nationalid')){
     public function BeOwner($user_id = null)
     {
 
-        DB::beginTransaction();
         try {
             $countries = Country::all();
             if (\request('allDone')) {
@@ -215,7 +214,6 @@ if(request()->has('nationalid')){
                 }
                 return redirect()->back();
             }
-            DB::commit();
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];

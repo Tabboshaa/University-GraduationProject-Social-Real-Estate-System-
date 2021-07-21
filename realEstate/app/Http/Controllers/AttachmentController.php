@@ -59,10 +59,10 @@ class AttachmentController extends Controller
             }
 
             DB::commit();
-            return back()->with('success', 'Attachment Created Successfully');
+            return back()->with('success', 'Image Added Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
 
-            return back()->with('error', 'Error creating Attachment !!');
+            return back()->with('error', 'Error  while Adding image !!');
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();

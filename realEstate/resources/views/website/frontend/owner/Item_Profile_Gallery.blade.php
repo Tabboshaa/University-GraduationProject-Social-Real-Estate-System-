@@ -4,6 +4,7 @@
 <form id="testform" method="post" action="{{url('/add_item_gallery/'.$item_id)}}" enctype="multipart/form-data">
     @csrf
     <div class="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3 mt-3">
+        @include('website.backend.layouts.flashmessage')
         <label>Add image to your Property </label>
         <div class="form-group" id="OpenImgUpload">
             <!-- <input type="submit" class="btn" value="Choose File"> -->

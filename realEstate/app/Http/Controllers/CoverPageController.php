@@ -92,9 +92,12 @@ class CoverPageController extends Controller
      * @param  \App\Cover_Page  $cover_Page
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id=null)
     {
+
         //
+
+
         if ($files = request()->file('CoverPhoto')) {
 
 
@@ -102,24 +105,20 @@ class CoverPageController extends Controller
             $files->storeAs('/cover page', $filename, 'public');
 
             // }
-            DB::beginTransaction();
-            try {
-                
+
+
+
                 $coverPage = Cover_Page::all()->find($id);
                 //hy7ot el name el gded f column el country name
                 $coverPage->path = $filename;
                 $coverPage->save();
-                DB::commit();
-                return back();
-            } catch (\Illuminate\Database\QueryException $e) {
-                DB::rollBack();
-                $errorCode = $e->errorInfo[1];
-                if ($errorCode == 1062) {
-                    return back()->with('error', 'Already Exist !!');
-                }
-                return back()->withError($e->getMessage())->withInput();
-            }
+
+                return redirect()->back();
+
+        }else{
+            return 'failed to upload image';
         }
+
     }
 
     /**
@@ -133,7 +132,7 @@ class CoverPageController extends Controller
 
         $myFile = 'storage/cover page/' . $path;
         DB::beginTransaction();
-        
+
         try {
             if (File::exists($myFile)) {
                 File::delete($myFile);

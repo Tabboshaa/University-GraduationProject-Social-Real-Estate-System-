@@ -28,7 +28,7 @@
                                 @csrf
                                 <button class="btn" type="submit"><label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_page_delete"><i class="feather-trash-2 text-grey-500 me-3 font-sm"></i>Cover Page</label></button>
                             </form>
-                            <form method="POST" action="{{url('/UpdateCoverPage')}}" enctype="multipart/form-data">
+                            <form method="POST" action="{{url('/UpdateCoverPage/'.$cover->id)}}" enctype="multipart/form-data">
                                 @csrf
                                 <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="cover_page_upload"><i class="feather-edit text-grey-500 me-3 font-sm"></i>Cover Page</label>
                                 <input id="cover_page_upload" name="CoverPage" type="file" style="display:none" accept="image/*" onchange="javascript:this.form.submit();">
