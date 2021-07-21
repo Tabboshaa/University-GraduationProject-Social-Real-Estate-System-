@@ -29,22 +29,7 @@
                     <label onclick="review(5)" class="fa  fa-star-o" name="starLabel" for="star5">
                         <input type="radio" style="display: none;" value="5" name="stars" id="star5">
                     </label>
-                    <label onclick="review(6)" class="fa  fa-star-o" name="starLabel" for="star6">
-                        <input type="radio" style="display: none;" value="6" name="stars" id="star6">
-                    </label>
-                    <label onclick="review(7)" class="fa  fa-star-o" name="starLabel" for="star7">
-                        <input type="radio" style="display: none;" value="7" name="stars" id="star7">
-                    </label>
-                    <label onclick="review(8)" class="fa  fa-star-o" name="starLabel" for="star8">
-                        <input type="radio" style="display: none;" value="8" name="stars" id="star8">
-                    </label>
-                    <label onclick="review(9)" class="fa  fa-star-o" name="starLabel" for="star9">
-                        <input type="radio" style="display: none;" value="9" name="stars" id="star9">
-                    </label>
-                    <label onclick="review(10)" class="fa  fa-star-o" name="starLabel" for="star10">
-                        <input type="radio" style="display: none;" value="10" name="stars" id="star10">
-                    </label>
-                </div>
+                      </div>
                 <input type="hidden" id="item_id" name="item_id" value="{{$item->Item_Id}}">
                 <input type="hidden" id="stars" name="stars" value="">
                 <div class="card-body d-flex p-2 mt-0">

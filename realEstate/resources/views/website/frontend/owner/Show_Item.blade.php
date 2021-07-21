@@ -16,15 +16,15 @@
                 <div class="card w-100 border-0 mt-4">
                     @if($item->coverpage != null)
                     <div class="card-image w-100 p-0 text-center bg-greylight rounded-3 mb-2">
-                        <a href="{{ url('/itemProfile/'.$item->Item_Id) }}"><img height="200" width="260" src="{{asset('storage/cover page/'.$item->coverpage->path)}}" alt="CoverPage" class="w-100 mt-0 mb-0 p-5"></a>
+                        <a href="{{ url('/owneritemProfile/'.$item->Item_Id) }}"><img height="200" width="260" src="{{asset('storage/cover page/'.$item->coverpage->path)}}" alt="CoverPage" class="w-100 mt-0 mb-0 p-5"></a>
                     </div>
                     @else
                     <div class="card-image w-100 p-0 text-center bg-greylight rounded-3 mb-2">
-                        <a href="{{ url('/itemProfile/'.$item->Item_Id) }}"><img  height="200" width="260" src="{{asset('storage/cover page/h1.jpg')}}" alt="CoverPage" class="w-100"></a>
+                        <a href="{{ url('/owneritemProfile/'.$item->Item_Id) }}"><img  height="200" width="260" src="{{asset('storage/cover page/h1.jpg')}}" alt="CoverPage" class="w-100"></a>
                     </div>
                     @endif
                     <div class="card-body w-100  rounded-3 p-0 text-center">
-                        <h2 class="mt-2 mb-1"><a href="{{ url('/itemProfile/'.$item->Item_Id) }}"  class="fw-700 font-xsss lh-26">{{$item->Item_Name}}</a></h2>
+                        <h2 class="mt-2 mb-1"><a href="{{ url('/owneritemProfile/'.$item->Item_Id) }}"  class="fw-700 font-xsss lh-26">{{$item->Item_Name}}</a></h2>
                     </div>                                
                 </div>
             </div>
