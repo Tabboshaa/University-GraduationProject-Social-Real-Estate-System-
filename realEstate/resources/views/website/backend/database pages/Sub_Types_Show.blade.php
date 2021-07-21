@@ -2,58 +2,55 @@
 @section('table')
 <link href="{{asset('css/hamada.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('css/ShowStyle.css')}}" rel="stylesheet" type="text/css" />
-
 <div class="x_title">
     <h2>All Sub types</h2>
 
     <div class="clearfix"></div>
 </div>
-<div class="row" >
-    <div class="col-sm-12">
-        <form method="Post" action="{{ url('/delete_sub_type?_method=delete') }}" enctype="multipart/form-data">
-            @csrf
-            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search.." title="Type in a name">
-            <table id="datatable" class="table table-bordered dataTable no-footer" style="width:'100%'" role="grid" aria-describedby="datatable_info">
-                <thead>
-                    <tr>
-                        <th><h2 style="margin-right:160px; padding-bottom: 5px;">Main Type</h2></th>
-                        <th ><h2 style="margin-right:175px;padding-bottom: 5px;">Sub Type Name</h2></th>
-                        <th ><h2 style="margin-right:200px;padding-bottom: 5px;">Edit</h2></th>
-                        <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:155px;"></i></th>
-                        <!-- Java Script for select all function -->
-                        <script>
-                            document.getElementById('selectAll').onclick = function() {
-                                var checkboxes = document.getElementsByName('id[]'); //get all check boxes with name delete
-                                for (var checkbox of checkboxes) { //for loop to set all checkboxes to checked
-                                    checkbox.checked = this.checked;
-                                }
+    <form method="Post" action="{{ url('/delete_sub_type?_method=delete') }}" enctype="multipart/form-data">
+        @csrf
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search.." title="Type in a name">
+        <table id="datatable" class="table table-bordered dataTable no-footer" style="width:'100%'" role="grid" aria-describedby="datatable_info">
+            <thead>
+                <tr>
+                    <th><h2 style="margin-right:200px; padding-bottom: 5px;">Main Type</h2></th>
+                    <th ><h2 style="margin-right:200px;padding-bottom: 5px;">Sub Type Name</h2></th>
+                    <th ><h2 style="margin-right:250px;padding-bottom: 5px;">Edit</h2></th>
+                    <th >Select all <input type="checkbox" id="selectAll" name="selectAll">  <button class="btn" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" style="margin-right:155px;"></i></th>
+                    <!-- Java Script for select all function -->
+                    <script>
+                        document.getElementById('selectAll').onclick = function() {
+                            var checkboxes = document.getElementsByName('id[]'); //get all check boxes with name delete
+                            for (var checkbox of checkboxes) { //for loop to set all checkboxes to checked
+                                checkbox.checked = this.checked;
                             }
-                        </script>
-                    </tr>
-                </thead>
-                <tbody>
+                        }
+                    </script>
+                </tr>
+            </thead>
+            <tbody>
 
-                    <!-- EL FOREARCH HNA --> 
-                    @if( count($S1) != 0)
-                    @foreach($S1 as $sub_type)
-                    <tr>
-                        <td>{{$sub_type->Main_Type_Name}}</td>
-                        <td>{{$sub_type->Sub_Type_Name}}</td>
-                        <td><a href="javascript:void(0)" onclick="setSupTypeIdName('{{$sub_type->Sub_Type_Id}}','{{$sub_type->Sub_Type_Name}}')"><i class="fa fa-edit"> </i></a></td>
-                        <td><input type="checkbox" name="id[]" value="{{$sub_type->Sub_Type_Id}}"></td>
-                    </tr>
+                <!-- EL FOREARCH HNA --> 
+                @if( count($S1) != 0)
+                @foreach($S1 as $sub_type)
+                <tr>
+                    <td>{{$sub_type->Main_Type_Name}}</td>
+                    <td>{{$sub_type->Sub_Type_Name}}</td>
+                    <td><a href="javascript:void(0)" onclick="setSupTypeIdName('{{$sub_type->Sub_Type_Id}}','{{$sub_type->Sub_Type_Name}}')"><i class="fa fa-edit"> </i></a></td>
+                    <td><input type="checkbox" name="id[]" value="{{$sub_type->Sub_Type_Id}}"></td>
+                </tr>
 
-                    @endforeach
-                    @else
-                    <tr><td colspan="4"><h4 style="color:gray;">There is no data.</h4></td></tr>
-                    @endif
-        <!-- END OF FOREACH -->
+                @endforeach
+                @else
+                <tr><td colspan="4"><h4 style="color:gray;">There is no data.</h4></td></tr>
+                @endif
+    <!-- END OF FOREACH -->
 
-        </tbody>
-        </table>
-        {!! $S1->render() !!}
-        </form>
- 
+    </tbody>
+    </table>
+    {!! $S1->render() !!}
+    </form>
+
 <!-- Modal -->
 <div class="modal fade" id="EditSubTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

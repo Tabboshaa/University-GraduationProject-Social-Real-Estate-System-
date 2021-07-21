@@ -46,7 +46,7 @@ class OperationsController extends Controller
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('error', 'City Already Exist !!');
+                return back()->with('error', 'Operation Already Exist !!');
             }
             if ($errorCode == 1048) {
                 return back()->with('error', 'You must select all values!!');
@@ -184,7 +184,7 @@ class OperationsController extends Controller
             $operation_types->save();
 
             DB::commit();
-            return back()->with('info', 'Item Edited Successfully');
+            return back()->with('info', 'Operation Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
         DB::rollBack();
             $errorCode = $e->errorInfo[1];

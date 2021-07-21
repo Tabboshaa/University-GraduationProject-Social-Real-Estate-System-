@@ -77,7 +77,7 @@
                                                                                         ?>{{ $end->diffForHumans()}}</span></h4>
         </div>
         <div class="ms-auto">
-            {{$review->Number_Of_Stars}} <span>/10</span>
+        <small>  {{$review->Number_Of_Stars}} <span>/5 </span> </span><i class="feather-star  me-2"></i></small>
         </div>
         <div class="card-body p-0 me-lg-5">
             <p class="fw-500 text-grey-500 lh-26 font-xssss w-100">
