@@ -1,4 +1,4 @@
-@extends('website.frontend.layouts.main')
+@extends('website.frontend.ownerlayouts.main')
 @section('profile')
 @include('website.backend.layouts.flashmessage')
 

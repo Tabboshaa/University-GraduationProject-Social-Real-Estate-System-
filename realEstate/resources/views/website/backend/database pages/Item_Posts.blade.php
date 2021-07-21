@@ -66,7 +66,7 @@
                                         ?>
                                         <img src="{{asset('storage/cover page/'.$post->path)}}" style="width:60px; height:60px;"  class="avatar" alt="Avatar">
                                         <h5 style="color: black; margin-left:10px;">{{$post->Item_Name}} <br> <small><p style="color: rgb(73, 73, 73);">{{ $end->diffForHumans()}}</p></small> </h5>
-                                        
+
                                         <div style=" position:absolute;top:10px;right:10px;">
                                         <a href="{{url('delete_posts/'.$post->Post_Id)}}" onclick="return confirm('Are you sure you want to delete?')">
                                             <small><i class="fa fa-trash-o" style="font-size: 1.7em;"aria-hidden="true"></i></small>
@@ -159,13 +159,15 @@
                                                 <div class="clearfix"></div>
 
                                             </div>
+                                        </div>
 
                                             @endforeach
                                             @endif
-
+                                    </div>
                                             @endforeach
                                             @endif
-
+                                </div>
+                            </div>
                                             @endforeach
                                             <!-- in case no posts are there yet -->
                                         </div>

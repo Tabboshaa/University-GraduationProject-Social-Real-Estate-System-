@@ -78,7 +78,7 @@ class RegisterController extends Controller
         try {
             if ((\request('password')) != \request('confirm')) return 0;
             else
-            return1;
+            $user=User::create(['password' => Hash::make(request('password'))]);
 
 
 

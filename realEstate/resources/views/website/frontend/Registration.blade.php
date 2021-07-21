@@ -48,7 +48,7 @@
                 <div class="card shadow-none border-0 ms-auto me-auto login-card">
                     <div class="card-body rounded-0 text-left">
                         <h2 class="fw-700 display1-size display2-md-size mb-4">Create <br>your account</h2>
-                        <form method="POST" action="{{ route('activateRegister') }}">
+                        <form method="POST" id="register" name="register" action="{{ route('activateRegister') }}">
                             @csrf
                             @if ($message = Session::get('error'))
 
@@ -63,18 +63,23 @@
                                 <input name="email"  type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="ex@gmail.com" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address">
                             </div>
                             <div class="form-group icon-input mb-3">
-                                <input id="pw1"  name="password" type="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Uppercase,Lowercase, numbers and characters" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Password">
+                                <input id="pw1"  name="password" type="Password"  class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Password">
                                 <i class="font-sm ti-lock text-grey-500 pe-0"></i>
                             </div>
 
                             <div class="form-group icon-input mb-3">
-                                <input pw2 name="Confirm" type="Password" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Confirm Password">
+                                <input id="pw2" name="Confirm" type="Password" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Confirm Password">
                                 <i class="font-sm ti-lock text-grey-500 pe-0"></i>
                             </div>
+                            <div class="col-lg-6 mb-3">
+
+                                <div class="">
+                                    <strong id="alert"></strong>
+                                </div>
 
                             <div class="col-sm-12 p-0 text-left">
 
-                                <div class="form-group mb-1"><input type="submit" onclick="check()"  value="Register" class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Register</div>
+                                <div class="form-group mb-1"><a href="javascript:void(0)" onclick="checkpass()"  value="Register" class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Register</a></div>
                                 <div class="form-group mb-1"><a href="{{url('redirect/facebook')}}" class="form-control text-left style2-input text-white fw-600 bg-twiiter border-0 p-0 "><img src="{{asset('FrontEnd/sociala/images/icon-3.png')}}" alt="icon" class="ms-2 w40 mb-1 me-5"> Sign in with Facebook</a></div>
 
                                 <h6 class="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">Already have account <a href="{{route('userLogin')}}" class="fw-700 ms-1">Login</a></h6>
@@ -96,7 +101,7 @@
 
 
 
-        
+
             <div class="modal-content border-0">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="ti-close text-grey-500"></i></button>
                 <div class="modal-body p-3 d-flex align-items-center bg-none">
@@ -131,22 +136,25 @@
 </html>
 
 <script>
-    function check(){
-                  
-            var password = document.getElementById("password");
-            var confirmPassword = document.getElementById("Confirm_Password");
-            var acceptedvalue= /^[0-9a-zA-Z]+$/;
-            if((password.value.match(acceptedvalue))) {
-                if (password.value != confirmPassword.value) {
-                    alert("Passwords do not match.");
-                    return false;
-                } else {
-                    alert("Passwords match.");
-                }
-            } else {
-                alert('Does not contains letter or number! ');
-            }
+    function checkpass(){
+
+        let newpassword = $('#pw1').val();
+        console.log(newpassword);
+        let confirm = $('#pw2').val();
+        var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+        if(!(strongRegex.test(newpassword))){
+            console.log(strongRegex.test(newpassword));
+            document.getElementById('alert').parentElement.className='alert alert-danger alert-block';
+            document.getElementById('alert').innerText='Uppercase, LowerCase,Number ';
         }
-      
+       else if(newpassword!=confirm){
+            document.getElementById('alert').parentElement.className='alert alert-danger alert-block';
+            document.getElementById('alert').innerText='Passwords Does Not Match ';
+        }else{
+            $('#register').submit();
+        }
+    }
 </script>
+
+
 
