@@ -5,7 +5,7 @@
         <div class="card-body d-block p-4">
             @if($AuthReview!=null)
             <a href="#" class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>This is your Review Do you want to Change it? </a>
-            <h6>{{$AuthReview->Number_Of_Stars}}/10</h6>
+        
             @else
             <a href="#" class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>How did you find us?</a>
             @endif
@@ -39,23 +39,9 @@
                     <label onclick="review(5)" class="fa  fa-star-o" name="starLabel" for="star5">
                         <input type="radio" style="display: none;" value="5" name="stars" id="star5">
                     </label>
-                    <label onclick="review(6)" class="fa  fa-star-o" name="starLabel" for="star6">
-                        <input type="radio" style="display: none;" value="6" name="stars" id="star6">
-                    </label>
-                    <label onclick="review(7)" class="fa  fa-star-o" name="starLabel" for="star7">
-                        <input type="radio" style="display: none;" value="7" name="stars" id="star7">
-                    </label>
-                    <label onclick="review(8)" class="fa  fa-star-o" name="starLabel" for="star8">
-                        <input type="radio" style="display: none;" value="8" name="stars" id="star8">
-                    </label>
-                    <label onclick="review(9)" class="fa  fa-star-o" name="starLabel" for="star9">
-                        <input type="radio" style="display: none;" value="9" name="stars" id="star9">
-                    </label>
-                    <label onclick="review(10)" class="fa  fa-star-o" name="starLabel" for="star10">
-                        <input type="radio" style="display: none;" value="10" name="stars" id="star10">
-                        <input type="hidden" id="itemid" name="item_id" value="{{$itemID}}">
-                        <input type="hidden" id="stars" name="stars" value="">
-                    </label>
+                    <input type="hidden" id="itemid" name="item_id" value="{{$itemID}}">
+                    <input type="hidden" id="stars" name="stars" value="">
+                    <h6>{{$AuthReview->Number_Of_Stars}}/5</h6>
                 </div>
                 <div class="card-body d-flex p-2 mt-0">
                     <label for="uploadImages" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 pt-2"><i class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Add Photo</span></label>
@@ -101,22 +87,22 @@
                                                                                         $end = \Carbon\Carbon::parse($review->updated_at);
                                                                                         ?>{{ $end->diffForHumans()}}</span></h4>
         </div>
-        <div class="ms-auto">
-            {{$review->Number_Of_Stars}} <span>/10</span>
-        </div>
+        
         <div class="card-body p-0 me-lg-5">
-            <p class="fw-500 text-grey-500 lh-26 font-xssss w-100">
+            <p class="fw-500  lh-26 font-xssss w-100">
                 {{$review->Review_Title}} <br />
                 {{$review->Review_Content}} <br />
             </p>
-        </div>
-
-        @if( isset($post_images[$review->Review_Id]) )
-        <div class="card-body d-block p-0">
-            <div class="row ps-2 pe-2">
-                @if(count($post_images[$review->Review_Id])==1)
-                @foreach($post_images[$review->Review_Id] as $Image)
-                <div class="col-sm-12 p-1"><a href="{{asset('storage/profile gallery/'.$Image->path)}}" data-lightbox="roadtr"><img src="{{asset('storage/profile gallery/'.$Image->path)}}" class="rounded-3 w-100" alt="image"></a></div>
+            <div class="ms-auto">
+                </div>
+            </div>
+            
+            @if( isset($post_images[$review->Review_Id]) )
+            <div class="card-body d-block p-0">
+                <div class="row ps-2 pe-2">
+                    @if(count($post_images[$review->Review_Id])==1)
+                    @foreach($post_images[$review->Review_Id] as $Image)
+                    <div class="col-sm-12 p-1"><a href="{{asset('storage/profile gallery/'.$Image->path)}}" data-lightbox="roadtr"><img src="{{asset('storage/profile gallery/'.$Image->path)}}" class="rounded-3 w-100" alt="image"></a></div>
                 @endforeach
                 @elseif(count($post_images[$review->Review_Id])==2)
                 @foreach($post_images[$review->Review_Id] as $Image)
@@ -149,16 +135,17 @@
             </div>
         </div>
         @endif
-
+        <small>  {{$review->Number_Of_Stars}} <span>/5 </span><i class="feather-star  me-2"></i></small>
+        
         @include('website.frontend.customer.ReplyComments')
-
+        
     </div>
     @endforeach
 
     @else
     <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
         <div class="card-body p-0 d-flex">
-            <p style="margin-left: 180px;" class="fw-500 text-grey-500 lh-26 font-xss w-100">
+            <p style="margin-left: 180px;" class="fw-500  lh-26 font-xss w-100">
                 Be the first to review us!
             </p>
         </div>
@@ -215,15 +202,12 @@
         var i, x = document.getElementsByName("starLabel");
 
         for (i = 0; i < x.length; i++) {
-            x[i].className = "font-md  feather-star  me-2";
+            x[i].className = "feather-star  me-2";
         }
         for (i = 0; i < starNumber; i++) {
-            x[i].className = "font-md text-success  feather-star  me-2";
+            x[i].className = " text-success  feather-star  me-2";
         }
     }
-
-    
-
 </script>
 
 

@@ -110,7 +110,7 @@
                                 <a href="{{url('view_User/'.$comment->User_Id)}}">
                                     <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">{{$comment->user->First_Name}} {{$comment->user->Middle_Name}} {{$comment->user->Last_Name}}
                                         @if($User->id== $comment->User_Id )
-                                        <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
+                                        <a href="{{url('/delete_comment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
                                         <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
                                         @endif
                                 </a></h4>
@@ -143,7 +143,7 @@
                                     <a href="{{url('view_User/'.$reply->User_Id)}}">
                                         <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">{{$reply->user->First_Name}} {{$reply->user->Middle_Name}} {{$reply->user->Last_Name}}
                                             @if($User->id== $reply->User_Id )
-                                            <a href="{{url('/deletecomment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
+                                            <a href="{{url('/delete_comment/'.$comment->Comment_Id)}}" name="del_Comment" id="del_Comment"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
                                             <a href="javascript:void(0)" onclick="setComment('{{$comment->Comment_Id}}','{{$comment->Comment}}')" name="editComment" id="edit_Comment"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
                                             @endif
                                     </a></h4>
@@ -194,7 +194,7 @@
                     +"<div class='chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg'>" 
                     +"<a href=\"/view_User/"+data['User_Id']+"\">" 
                     +"<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> "+data['First_Name']+" "+data['Middle_Name']+" "+" "+data['Last_Name']+"" 
-                    +"<a href=\"/deletecomment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" 
+                    +"<a href=\"/delete_comment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" 
                     +"<a href=\"javascript:void(0)\" onclick=\"setComment('" + data['Comment_Id'] + "','" + data['Comment'] + "')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>" 
                     +"</a></h4>"
                     +"<div class=\"time\"><\?php $end = \Carbon\Carbon::parse(" + data['updated_at'] + "); ?><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> {{ $end->diffForHumans() }}</p></div>" 

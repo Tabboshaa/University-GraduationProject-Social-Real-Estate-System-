@@ -266,15 +266,13 @@ class CustomerHomeController extends Controller
         $mostPopularitems = ItemController::getpopularitems();
 
         $posts = DB::table('followedusers')
-            ->join('posts', 'followedusers.User_Id', 'posts.User_Id')
-            ->join('users', 'followedusers.User_Id', 'users.id')
-            ->Leftjoin('profile_photos', 'profile_photos.User_Id', 'followedusers.User_Id')
+            ->join('posts', 'followedusers.following_user', 'posts.User_Id')
+            ->join('users', 'followedusers.following_user', 'users.id')
+            ->Leftjoin('profile_photos', 'profile_photos.User_Id', 'followedusers.following_user')
             ->select('posts.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name', 'profile_photos.Profile_Picture')
             ->where('followedusers.user_id', '=', $User->id)
             ->orderBy('updated_at', 'DESC')
             ->get();
-
-            return $posts;
 
         $cover__pages = DB::table('cover__pages')
             ->join('items', 'items.Item_Id', 'cover__pages.Item_Id')

@@ -1,10 +1,6 @@
-<script src="{{asset('FrontEnd/sociala/js/plugin.js')}}"></script>
-
-<script src="{{asset('FrontEnd/sociala/js/lightbox.js')}}"></script>
-<script src="{{asset('FrontEnd/sociala/js/scripts.js')}}"></script> 
-<script src="{{asset('FrontEnd/sociala/js/scripts-rtl.js')}}"></script>
-
-<script src="/js/scripts.js"></script>
+<script type="text/javascript"  src="js/plugin.js"></script>
+<script type="text/javascript"  src="js/lightbox.js"></script>
+<script type="text/javascript"  src="js/scripts.js"></script>
 
 <script
   src="https://code.jquery.com/jquery-3.6.0.min.js"
