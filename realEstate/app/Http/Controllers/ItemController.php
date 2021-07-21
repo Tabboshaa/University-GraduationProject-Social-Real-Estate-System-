@@ -115,6 +115,7 @@ class ItemController extends Controller
     }
     public function OwnerAddItem()
     {
+
         $user_id = Auth::id();
         DB::beginTransaction();
         try {
@@ -212,7 +213,7 @@ class ItemController extends Controller
 
     public function destroy($id = null)
     {
-        
+
         // Details
         if ($id != null) {
             DB::beginTransaction();
@@ -223,7 +224,7 @@ class ItemController extends Controller
                 if (TypeOfUserController::checkIfAdmin())
                     return redirect()->route('Details')->with('success', 'Item Deleted Successfully');
                 else{
-                   
+
                     return redirect()->route('MyItems');
                 }
             } catch (\Illuminate\Database\QueryException $e) {
@@ -294,7 +295,7 @@ class ItemController extends Controller
     }
     public static function getitems()
     {
-       
+
         return Item::where('Item_Name', 'LIKE','%' .request('name').'%')->get();
     }
 }

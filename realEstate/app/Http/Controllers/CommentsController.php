@@ -33,7 +33,7 @@ class CommentsController extends Controller
                 'User_Id' => Auth::id(),
                 'Comment'  => request('comment')
             ]);
-            return $comment;
+
             //send notification to poster
             $to_user = PostsController::postCreatedBy(request('post_id'));
             NotificationController::create(Auth::id(), $to_user, 'Commented on your post');
@@ -80,7 +80,7 @@ class CommentsController extends Controller
                 ->get()->first();
 
             DB::commit();
-            return response()->json($comment);
+            return response()->json($comment)->with('success', 'Comment Deleted Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
@@ -178,7 +178,7 @@ class CommentsController extends Controller
             $comments=comments::all()->where('Parent_Comment','=',$id);
             foreach($comments as $comment)
             {
-                comments::destroy($comment->Comment_Id);   
+                comments::destroy($comment->Comment_Id);
             }
 
             DB::commit();
