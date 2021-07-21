@@ -143,7 +143,7 @@
         let emailalert= $('#Emailalert');
         if(!emailRegx.test(email.val())){
             console.log(email.val());
-           emailalert.html("Un Valid Email Format");
+           emailalert.html("Invalid Email Format");
            $('#alertParent').addClass("alert alert-danger alert-block");
 
          }
