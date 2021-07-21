@@ -8,6 +8,16 @@
                 <div class="col-lg-12">
                     <h4 class="mb-4 font-xxl fw-700 mont-font mb-lg-5 mb-4 font-md-xs">Settings</h4>
                     <div class="nav-caption fw-600 font-xssss text-grey-500 mb-2">Genaral</div>
+                    
+                    <ul class="list-inline mb-4">
+                        <li class="list-inline-item d-block border-bottom me-0">
+                        <div class="p-2 text-center ms-3 position-relative dropdown-menu-icon menu-icon cursor-pointer">
+        <i class="feather-settings animation-spin d-inline-block font-xl text-current"></i>
+     
+    </div>
+                        </li>
+                    </ul>
+
                     <ul class="list-inline mb-4">
                         <li class="list-inline-item d-block border-bottom me-0"><a href="{{url('/EditUserProfile')}}" class="pt-2 pb-2 d-flex align-items-center"><i class="btn-round-md bg-primary-gradiant text-white feather-home font-md me-3"></i>
                                 <h4 class="fw-600 font-xsss mb-0 mt-0">Account Information</h4><i class="ti-angle-right font-xsss text-grey-500 ms-auto mt-3"></i>
@@ -43,5 +53,13 @@
     </div>
 
 </div>
+
+<script src="/js/scripts.js"></script>
+
+<script>
+   
+   
+
+    </script>
 
 @endsection

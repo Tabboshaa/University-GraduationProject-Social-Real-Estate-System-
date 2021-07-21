@@ -129,7 +129,7 @@
                     </label>
                 </li>
             </ul>
-            
+
             <div class="card bg-transparent-card border-0 d-block mt-3">
                 <h4 class="d-inline font-xssss mont-font fw-700">Header Background</h4>
                 <div class="d-inline float-right mt-1">
@@ -148,7 +148,7 @@
                     <label class="toggle toggle-dark"><input type="checkbox"><span class="toggle-icon"></span></label>
                 </div>
             </div>
-            
+
         </div>
     </div>
 
@@ -174,9 +174,11 @@
 <!-- Modal -->
 
 
-
+<script src="/js/scripts.js"></script>
 
 <script>
+  
+
     $(document).ready(function() {
         $.ajax({
             url: "{{route('checkIfOwner')}}",
