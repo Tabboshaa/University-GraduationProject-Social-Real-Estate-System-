@@ -59,7 +59,7 @@
                 <h4 class="font-xs text-white fw-600 ms-4 mb-0 mt-2"> Adding Item Step 3</h4>
             </div>
         </div>
-        <form method="Get" action="{{url('/ShowItem/'.$item_id)}}" enctype="multipart/form-data">
+        <form method="Get" action="{{url('/itemProfile/'.$item_id)}}" enctype="multipart/form-data">
             @csrf
             <div class="col-lg-4 col-md-6">
                 <div class="card w-100 bg-white border-0 mt-4">
