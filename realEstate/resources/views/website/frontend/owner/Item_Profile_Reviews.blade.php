@@ -190,7 +190,10 @@
         n = starNumber;
         var content = document.getElementById('content').valueOf();
         console.log("test");
-        console.log(content);
+        
+         $('#stars').val(n);
+         var s=$('#stars').val();
+        console.log(s);
 
         var i, x = document.getElementsByName("starLabel");
 

@@ -57,15 +57,12 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/add_reply', 'CommentsController@reply')->name('reply.add');
   
   //review
-    Route::get('/add_comment', 'ReviewcommentsController@create')->name('reviewcomment.add');
-    Route::get('/add_reply', 'ReviewcommentsController@reply')->name('reviewreply.add');
+    Route::get('/add_review_comment', 'ReviewcommentsController@create')->name('reviewcomment.add');
+    Route::get('/add_review_eply', 'ReviewcommentsController@reply')->name('reviewreply.add');
     Route::post('/addReview', 'ReviewController@create')->name('review.add');
     Route::get('/delete_review_comment/{id?}', 'ReviewcommentsController@DestroyComment');
     Route::get('/delete_review_reply/{id?}', 'ReviewcommentsController@destroyReply');
     Route::get('/edit_review_comment', 'ReviewcommentsController@editComment')->name('reviewcomment.update');
-
-
-
 
     //operations
     Route::get('/Payment', 'OperationsController@calculateDays')->name('calculate.days');
