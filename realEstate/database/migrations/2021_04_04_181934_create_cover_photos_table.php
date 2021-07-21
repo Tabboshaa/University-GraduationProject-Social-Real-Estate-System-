@@ -16,7 +16,7 @@ class CreateCoverPhotosTable extends Migration
         Schema::create('cover_photos', function (Blueprint $table) {
             $table->id('Photo_Id');
             $table->foreignId('User_Id')->references('id')->on('users')->onDelete('cascade')->nullable();
-            $table->foreignId('Cover_Photo')->references('Attachment_Id')->on('attachments')->onDelete('cascade');
+            $table->String('Cover_Photo');
             $table->timestamps();
         });
     }

@@ -76,8 +76,9 @@ class ReviewController extends Controller
         //
         $review = DB::table('reviews')
             ->join('users', 'users.id', '=', 'reviews.User_Id')
+            ->LeftJoin('profile_photos', 'profile_photos.User_Id', '=', 'reviews.User_Id')
             ->where('reviews.Item_Id', '=', $item_id)
-            ->select('reviews.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name')->paginate(10);
+            ->select('reviews.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name','profile_photos.Profile_Picture' )->paginate(10);
 
 
         return $review;

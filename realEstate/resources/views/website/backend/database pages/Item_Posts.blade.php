@@ -54,8 +54,6 @@
         <div class="x_panel">
             <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
                 <div class="row">
-                </div>
-                <div class="row">
                     <div class="col-sm-12">
                         <div class="col-md-7">
                             @if( count($posts) != 0)
@@ -66,24 +64,21 @@
                                         <?php $today = \Carbon\Carbon::now();
                                         $end = \Carbon\Carbon::parse($post->updated_at);
                                         ?>
-                                        <img src="{{asset('FrontEnd/images/icon/user.html')}}" alt="">
-                                        <h3>
-
-                                            <p>{{$post->Item_Name}}
-                                               <small> {{ $end->diffForHumans()}}</small>
-                                            <a href="{{url('delete_posts/'.$post->Post_Id)}}" onclick="return confirm('Are you sure you want to delete?')">
-                                                <small><i class="fa fa-trash-o" aria-hidden="true"></i></small>
-                                            </a>
-                                            <a href="javascript:void(0)" onclick="setPost('{{$post->Post_Id}}','{{$post->Post_Content}}')" name="editpost">
-                                                <small><i class="fa fa-edit"></i></small>
-                                            </a>
-
-                                            </p>
-                                        </h3>
+                                        <img src="{{asset('storage/cover page/'.$post->path)}}" style="width:60px; height:60px;"  class="avatar" alt="Avatar">
+                                        <h5 style="color: black; margin-left:10px;">{{$post->Item_Name}} <br> <small><p style="color: rgb(73, 73, 73);">{{ $end->diffForHumans()}}</p></small> </h5>
+                                        
+                                        <div style=" position:absolute;top:10px;right:10px;">
+                                        <a href="{{url('delete_posts/'.$post->Post_Id)}}" onclick="return confirm('Are you sure you want to delete?')">
+                                            <small><i class="fa fa-trash-o" style="font-size: 1.7em;"aria-hidden="true"></i></small>
+                                        </a>
+                                        <a href="javascript:void(0)" onclick="setPost('{{$post->Post_Id}}','{{$post->Post_Content}}')" name="editpost">
+                                            <small><i class="fa fa-edit" style="font-size: 1.7em;"></i></small>
+                                        </a>
+                                        </div>
                                     </div>
                                     <div class="x_content">
                                         <p>
-                                        <h6>{{$post->Post_Content}} </h6><br />
+                                        <h6 style="color: black;">{{$post->Post_Content}} </h6><br />
                                         </p>
                                     </div>
                                     <div class="gallery">

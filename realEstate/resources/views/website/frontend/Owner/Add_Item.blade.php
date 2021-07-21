@@ -204,15 +204,14 @@
                             <div class="form-group">
                                 
                                 <input type="hidden" id="lat" value="">
-                                <input type="hidden" id="lang" value="">    
+                                <input type="hidden" id="lang" value=""> 
+                                <label for="">Address: <input id="map-search" style="margin-top:15px;margin-left:10px;"class="controls" type="text" placeholder="Search Box" ></label><br>   
                                <label> Address Latitude <input type="text" style="margin-top:15px;margin-left:10px;"name="latitude" class="latitude"></label>
                                <label> Addreess Longtiude<input type="text" style="margin-top:15px;margin-left:10px;"name="longitude" class="longitude"></label>
                             </div>
                             
                         </div>
                         <div class="col-lg-6 mb-3">
-                        <label for="">Address: <input id="map-search" class="controls" type="text" placeholder="Search Box" ></label><br>
-
                         <div id="map-canvas"></div>
                         </div>
                     </div>
