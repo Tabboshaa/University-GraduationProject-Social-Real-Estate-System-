@@ -111,23 +111,32 @@ class UserController extends Controller
             $email = Emails::all()->where('User_ID', '=', $User_ID)->first();
             $phone = Phone_Numbers::all()->where('User_ID', '=', $User_ID)->first();
             $image = ProfilePhoto::all()->where('User_ID', '=', $User_ID)->first();
-
+if(request()->has('email')){
             $email->email = request('email');
-            $email->save();
-
+            $email->save();}
+if(request()->has('phone')){
             $phone->phone_number = request('phone');
-            $phone->save();
-
+            $phone->save();}
+if(request()->has('Fname')){
             $user->First_Name = request('Fname');
+}
+if(request()->has('Mname')){
             $user->Middle_Name = request('Mname');
+}
+if(request()->has('Lname')){
             $user->Last_Name = request('Lname');
-            $user->Bith_Day =  request('birthdate');
+}
+if(request()->has('birthdate')){
+            $user->Birth_Day =  request('birthdate');
             // $user->Gender = request('');
+}
+if(request()->has('nationalid')){
             $user->National_ID = request('nationalid');
+}
             $user->save();
-
+            
             DB::commit();
-            return back()->with('error', 'City Already Exist !!');
+            return back()->with('success', 'User Edited Succesfully');
         } catch (\Illuminate\Database\QueryException $e)
         {
             DB::rollBack();

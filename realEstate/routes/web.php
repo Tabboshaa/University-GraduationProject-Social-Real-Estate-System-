@@ -55,8 +55,14 @@ Route::group(['middleware' => 'auth.user'], function () {
 
     //Customer Comment
     Route::get('/add_reply', 'CommentsController@reply')->name('reply.add');
+  
+  //review
+    Route::get('/add_review_comment', 'ReviewcommentsController@create')->name('reviewcomment.add');
+    Route::get('/add_review_eply', 'ReviewcommentsController@reply')->name('reviewreply.add');
     Route::post('/addReview', 'ReviewController@create')->name('review.add');
-
+    Route::get('/delete_review_comment/{id?}', 'ReviewcommentsController@DestroyComment');
+    Route::get('/delete_review_reply/{id?}', 'ReviewcommentsController@destroyReply');
+    Route::get('/edit_review_comment', 'ReviewcommentsController@editComment')->name('reviewcomment.update');
 
     //operations
     Route::get('/Payment', 'OperationsController@calculateDays')->name('calculate.days');
@@ -400,8 +406,8 @@ Route::get('map',function (){
     return view('map');
 });
 
-Route::get('EditUserProfile','UserController@EditUserProfileVeiw');
-Route::POST('/EditUserProfile1','UserController@EditUserProfile');
+Route::get('/EditUserProfile','UserController@EditUserProfileVeiw');
+Route::post('/EditUserProfile1','UserController@EditUserProfile');
 Route::POST("/EditItemMap/{id?}",'ItemController@EditItemMap');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::POST('/ForgotPassword','Auth\ForgotPasswordController@forgotPassword');

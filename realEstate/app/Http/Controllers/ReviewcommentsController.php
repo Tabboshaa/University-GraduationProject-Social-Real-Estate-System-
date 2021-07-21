@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\comments;
 use App\review;
 use App\reviewcomments;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -19,7 +19,27 @@ class ReviewcommentsController extends Controller
     {
         //
     }
+    public function editComment()
+    {
+        DB::beginTransaction();
 
+        try {
+
+            $comment = reviewcomments::all()->find(request('id'));
+            $comment->Comment = request('edit_Comment');
+            $comment->save();
+
+            DB::commit();
+            return back()->with('info', 'Comment Edited Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return back()->with('error', 'Error editing item');
+            }
+            return back()->withError($e->getMessage())->withInput();
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -28,28 +48,30 @@ class ReviewcommentsController extends Controller
     public function create()
     {
         //
-        DB::beginTransaction();
+
+
         try {
             $comment = reviewcomments::create([
                 'Post_Id' => request('post_id'),
                 'User_Id' => Auth::id(),
                 'Comment'  => request('comment')
             ]);
-            //send notification to poster 
-            $to_user =review::all()->where('Review_id','=',request('post_id'))->first()->user->id;
 
-            NotificationController::create(Auth::id(), $to_user, 'Commented on your post');
+
+            //send notification to poster 
+            $to_user = review::all()->where('Review_Id', '=', request('post_id'))->first()->user->id;
+
+            NotificationController::create(Auth::id(), $to_user, 'Commented on your Review');
 
             $comment = DB::table('reviewcomments')
                 ->join('reviews', 'reviews.Review_Id', '=', 'reviewcomments.Post_Id')
                 ->join('users', 'users.id', '=', 'reviewcomments.User_Id')
                 ->LeftJoin('profile_photos', 'profile_photos.User_Id', '=', 'reviewcomments.User_Id')
-                ->where('Parent_Comment', '=', null)  
-                ->where('comments.Comment_Id', '=', $comment->Comment_Id) 
+                ->where('reviewcomments.Comment_Id', '=', $comment->Comment_Id)
                 ->select('reviewcomments.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name', 'profile_photos.Profile_Picture')
-                ->get()->first();;
+                ->get()->first();
 
-            DB::commit();
+
             return response()->json($comment);
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
@@ -69,16 +91,16 @@ class ReviewcommentsController extends Controller
                 'Comment'  => request('comment')
             ]);
             //send notification to comment owner 
-            $to_user = reviewcomments::all()->where('Comment_Id','=', request('parent_id'));
+            $to_user = reviewcomments::all()->where('Comment_Id', '=', request('parent_id'));
             NotificationController::create(Auth::id(), $to_user, 'Replyed to your comment');
 
-            $comment = DB::table('comments')
-                ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
-                ->join('users', 'users.id', '=', 'comments.User_Id')
-                ->LeftJoin('profile_photos', 'profile_photos.User_Id', '=', 'comments.User_Id')
+            $comment = DB::table('reviewcomments')
+                ->join('reviews', 'reviews.Review_Id', '=', 'reviewcomments.Post_Id')
+                ->join('users', 'users.id', '=', 'reviewcomments.User_Id')
+                ->LeftJoin('profile_photos', 'profile_photos.User_Id', '=', 'reviewcomments.User_Id')
                 ->where('Parent_Comment', '=', request('parent_id'))
-                ->where('comments.Comment_Id', '=', $comment->Comment_Id)
-                ->select('comments.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name', 'profile_photos.Profile_Picture')
+                ->where('reviewcomments.Comment_Id', '=', $comment->Comment_Id)
+                ->select('reviewcomments.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name', 'profile_photos.Profile_Picture')
                 ->get()->first();
 
             DB::commit();
@@ -88,65 +110,54 @@ class ReviewcommentsController extends Controller
             return back()->withError($e->getMessage())->withInput();
         }
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\reviewcomments  $reviewcomments
-     * @return \Illuminate\Http\Response
-     */
-    public function show(reviewcomments $reviewcomments)
+    public function DestroyComment($id = null)
     {
         //
+        DB::beginTransaction();
+
+        if ($id == null) {
+            if (request()->has('id'))
+                $id = request('id');
+        }
+
+        try {
+            reviewcomments::destroy($id);
+            $reviewcomments = reviewcomments::all()->where('Parent_Comment', '=', $id);
+            foreach ($reviewcomments as $comment) {
+                reviewcomments::destroy($comment->Comment_Id);
+            }
+
+            DB::commit();
+            return  redirect()->back()->with('success', 'Comment Deleted Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Comment cannot be deleted');
+            return back()->withError($e->getMessage())->withInput();
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\reviewcomments  $reviewcomments
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(reviewcomments $reviewcomments)
+    public function destroyReply($id)
     {
         //
+        DB::beginTransaction();
+
+        try {
+            reviewcomments::destroy($id);
+            DB::commit();
+            return  redirect()->back()->with('success', 'Reply Deleted Successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Reply cannot be deleted');
+            return back()->withError($e->getMessage())->withInput();
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\reviewcomments  $reviewcomments
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, reviewcomments $reviewcomments)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\reviewcomments  $reviewcomments
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(reviewcomments $reviewcomments)
-    {
-        //
-    }
 
     public static function getPostComments($item_id)
     {
         //
 
-        $comments = DB::table('reviewcomments')
+        $reviewcomments = DB::table('reviewcomments')
             ->join('reviews', 'reviews.Review_Id', '=', 'reviewcomments.Post_Id')
             ->join('users', 'users.id', '=', 'reviewcomments.User_Id')
             ->LeftJoin('profile_photos', 'profile_photos.User_Id', '=', 'reviewcomments.User_Id')
@@ -156,14 +167,14 @@ class ReviewcommentsController extends Controller
             ->get()
             ->groupBy('Post_Id');
 
-        return $comments;
+        return $reviewcomments;
     }
 
     public static function getPostreplies($item_id)
     {
         //
 
-        $comments = DB::table('reviewcomments')
+        $reviewcomments = DB::table('reviewcomments')
             ->join('reviews', 'reviews.Review_Id', '=', 'reviewcomments.Post_Id')
             ->join('users', 'users.id', '=', 'reviewcomments.User_Id')
             ->LeftJoin('profile_photos', 'profile_photos.User_Id', '=', 'reviewcomments.User_Id')
@@ -173,6 +184,6 @@ class ReviewcommentsController extends Controller
             ->get()
             ->groupBy('Parent_Comment');
 
-        return $comments;
+        return $reviewcomments;
     }
 }

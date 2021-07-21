@@ -30,7 +30,7 @@
                             </div>
 
                             <form method="POST" action="{{url('/EditUserProfile1')}}">
-                                @CSRF
+                                @csrf
                                 <div class="row">
                                     <div class="col-lg-4 mb-3">
                                         <div class="form-group">
@@ -42,7 +42,7 @@
                                     <div class="col-lg-4 mb-3">
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">Middle Name</label>
-                                            <input type="text" class="form-control" value="{{$user->Middle_Name}}" name="Mname">
+                                            <input type="text" class="form-control" value="{{$user->Middle_Name}}" name="Mname" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" required>
                                         </div>
                                     </div>
 
@@ -76,14 +76,14 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">Birthday</label>
-                                            <input name="birthdate" class="date-picker form-control" value="{{$user->Birth_Day}}" placeholder="dd-mm-yyyy" type="date">
+                                            <input name="birthdate" class="date-picker form-control" value="{{$user->Birth_Day}}" placeholder="dd-mm-yyyy" type="date" required>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-6 mb-3">
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">National ID</label>
-                                            <input type="text" class="form-control" value="{{$user->National_ID}}" name="nationalid">
+                                            <input type="text" class="form-control" value="{{$user->National_ID}}" name="nationalid" required>
                                         </div>
                                     </div>
 
@@ -91,8 +91,8 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class="form-group">
                                             <label class="mont-font fw-600 font-xsss">Gender</label><br>
-                                            <input class="w3-radio" type="radio" name="gender" value="F">Female <br>
-                                            <input class="w3-radio" type="radio" name="gender" value="M">Male
+                                            <input class="w3-radio" type="radio" name="gender" value="F" >Female <br>
+                                            <input class="w3-radio" type="radio" name="gender" value="M"required>Male
                                         </div>
                                     </div>
                                 </div>
