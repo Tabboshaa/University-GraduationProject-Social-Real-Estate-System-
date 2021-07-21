@@ -132,34 +132,21 @@
 
 <script>
     function check(){
-
-        var newpassword = $('#password').val();
-        let confirm = $('#confirm').val();
-
-        $.ajax({
-            url: "{{route('changePassword')}}",
-            Type: "POST",
-            data: {
-                newpassword:newpassword,
-
-                confirm
-            },
-            success:function (data){
-                console.log(data);
-                if(data=='1'){
-                    document.getElementById('alert').parentElement.className='alert alert-success alert-block';
-                    document.getElementById('alert').innerText='Password Change Successfully';
-                }else if (data=='0'){
-                    document.getElementById('alert').parentElement.className='alert alert-danger alert-block';
-                    document.getElementById('alert').innerText='Passwords Does Not Match ';
+                  
+            var password = document.getElementById("password");
+            var confirmPassword = document.getElementById("Confirm_Password");
+            var acceptedvalue= /^[0-9a-zA-Z]+$/;
+            if((password.value.match(acceptedvalue))) {
+                if (password.value != confirmPassword.value) {
+                    alert("Passwords do not match.");
+                    return false;
+                } else {
+                    alert("Passwords match.");
                 }
-            },
-            error:function (){
-
+            } else {
+                alert('Does not contains letter or number! ');
             }
-        });
-    }
+        }
+      
 </script>
 
-}
-</script>

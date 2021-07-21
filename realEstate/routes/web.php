@@ -400,8 +400,8 @@ Route::get('map',function (){
     return view('map');
 });
 
-Route::get('EditUserProfile','UserController@EditUserProfileVeiw');
-Route::POST('/EditUserProfile1','UserController@EditUserProfile');
+Route::get('/EditUserProfile','UserController@EditUserProfileVeiw');
+Route::post('/EditUserProfile1','UserController@EditUserProfile');
 Route::POST("/EditItemMap/{id?}",'ItemController@EditItemMap');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::POST('/ForgotPassword','Auth\ForgotPasswordController@forgotPassword');
