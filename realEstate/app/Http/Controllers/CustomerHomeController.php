@@ -274,6 +274,8 @@ class CustomerHomeController extends Controller
             ->orderBy('updated_at', 'DESC')
             ->get();
 
+            return $posts;
+
         $cover__pages = DB::table('cover__pages')
             ->join('items', 'items.Item_Id', 'cover__pages.Item_Id')
             ->select('cover__pages.*')

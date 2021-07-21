@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class reviewcomments extends Model
 {
+    protected $primaryKey='Comment_Id';
     //
     protected $fillable = [
-        'Review_Id',
-        'path',
-        'Item_Id'
+        'Post_Id',
+        'User_Id',
+        'Parent_Comment',
+        'Comment'
     ];
 }
