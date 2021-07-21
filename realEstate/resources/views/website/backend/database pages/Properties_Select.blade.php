@@ -11,6 +11,7 @@
 <form method="Get" action="{{url('/ShowItem/'.$item_id)}}" enctype="multipart/form-data">
     @csrf
     <div class="row">
+        @if( count($property) != 0)
         @foreach($property as $p)
 
         <div class="col-sm-3" id="done">
@@ -38,18 +39,22 @@
             </table>
         </div>
         @endforeach
+        @else
+        <tr><td colspan="7"><h4 style="color:gray;">There is no data.</h4></td></tr>
+        @endif
         <br>
     </div>
     <input type="hidden" value="{{$item_id}}" id="item_id">
     <div class="row">
         <div class="col-sm-4" id="done">
-            <div class="g">
-                <button type="submit">Done</button>
-            <div>
+            
         </div>
         </div>
     </div>
     </div>
+    <div class="g" style="bottom: 0;right: 0;">
+        <button type="submit">Done</button>
+    <div>
 </form>
 
 
@@ -95,7 +100,7 @@
                     Form += ' <div class="form-group row"> ' +
                         '<label for="' + val['Property_Detail_Id'] + '" class="col-md-2 col-form-label text-md-right">' + val['Detail_Name'] + '</label>' +
                         '<div class="col-md-5">' +
-                        '<input type="' + val['datatype'] + '" id="' + val['Property_Detail_Id'] + '" name="DetailItem[]" class="form-control" required autocomplete="DetailName">' +
+                        '<input type="' + val['datatype'] + '" id="' + val['Property_Detail_Id'] + '" name="DetailItem[]" class="form-control" autocomplete="DetailName">' +
                         '</div>' +
                         '</div>';
                 });

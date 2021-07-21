@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Operation__Detail_Value extends Model
 {
     //
-    protected $table = 'operation___detail__values';
+    protected $table = 'operation___detail_value';
     protected $primaryKey='Value_Id';
     protected $fillable = [
         'Operation_Id',

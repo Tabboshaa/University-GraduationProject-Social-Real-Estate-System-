@@ -51,7 +51,7 @@
                 success:function(data){
                     console.log('success');
 
-                    op+='<option value="0"    disabled>Select Property Name</option>';
+                    op+='<option value="0" selected disabled>Select Property Name</option>';
                     Object.values(data).forEach(val => {
                         console.log(val);
                         op+='<option value="'+val['Property_Id']+'">'+val['Property_Name']+'</option>';
@@ -159,7 +159,7 @@
 
     <div class="col-md-2">
         <select id="DataTypeName" style="border-radius: 3pt" class="form-control @error('Data Type Name') is-invalid @enderror" name="Data_Type_Name" value="{{ old('Data Type Name') }}" required autocomplete="Data Type Name">
-            <option value="0"   disabled>Select Data Type</option>;
+            <option value="0" disabled>Select Data Type</option>;
              <!-- For loop  -->
              @foreach($data_type as $data_type)
                  <option value="{{$data_type->id}}">{{$data_type->datatype}}</option>

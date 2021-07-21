@@ -163,7 +163,7 @@ class StateController extends Controller
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('error', 'Error editing item');
+                return back()->with('error', 'Error editing State');
             }
             return back()->withError($e->getMessage())->withInput();
         }

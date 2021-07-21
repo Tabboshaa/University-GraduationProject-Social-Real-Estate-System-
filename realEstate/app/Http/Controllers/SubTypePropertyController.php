@@ -47,7 +47,7 @@ class SubTypePropertyController extends Controller
                 'Property_Name' => request('Sub_Type_Property')
             ]);
             DB::commit();
-            return back()->with('success', 'Property Deleted Successfully');
+            return back()->with('success', 'Property Created Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
