@@ -1,7 +1,7 @@
 @extends('website.frontend.layouts.main')
 @section('profile')
     @if($operations!='[]')
-    <div class="col-lg-12"style="margin-left:140px;">
+    <div class="col-lg-12">
         <div class="card p-md-5 p-4 bg-primary-gradiant rounded-3 shadow-xss bg-pattern border-0 overflow-hidden">
             <div class="bg-pattern-div"></div>
 
@@ -9,7 +9,7 @@
         </div>
     </div>
     @else
-    <div class="col-lg-12" style="margin-left:140px;">
+    <div class="col-lg-12" >
     <div class="card p-md-5 p-4 bg-primary-gradiant rounded-3 shadow-xss bg-pattern border-0 overflow-hidden">
         <div class="bg-pattern-div"></div>
 

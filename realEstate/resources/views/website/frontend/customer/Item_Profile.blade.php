@@ -4,7 +4,7 @@
 
 
 
-<div class="row" style="margin-left: 140px;">
+<div class="row" >
     <div class="col-xl-12">
         <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3 overflow-hidden">
             @if($cover != null)

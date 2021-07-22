@@ -5,7 +5,7 @@
 
 
 <!-- top box -->
-<div class="row"  style="margin-left: 140px" >
+<div class="row"   >
     <!-- top box -->
     <div class="col-xxl-12">
         <div  class="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3 overflow-hidden">
