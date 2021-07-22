@@ -150,9 +150,13 @@
             <div class="clearfix">
                 <form action="{{url('EditItemMap/'.$item->Item_Id)}}" method="POST">
                     @CSRF
-                    <div id="edit" style="display: none;"><label for="">Location:<input id="map-search" class="form-control" type="text" placeholder="Search Box" size="30"></label><button type="submit" class="btn btn-primary">Edit</button><br></div>
-                    <input type="text" name="lat" class="latitude">
-                    <input type="text" name="lang" class="longitude">
+                    <div id="edit" style="display: none;">
+                        <label for="">Location:<input id="map-search" class="form-control" type="text" placeholder="Search Box" size="30"></label>
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <br>
+                        <label> Address Latitude <input type="text" style="margin-top:15px;margin-left:10px;"name="latitude" class="latitude"></label>
+                        <label> Addreess Longtiude<input type="text" style="margin-top:15px;margin-left:10px;"name="longitude" class="longitude"></label>
+                    </div>
                     <input type="hidden" id="lat" value="{{$item->address_latitude}}">
                     <input type="hidden" id="lang" value="{{$item->address_longitude}}">
                     <div id="map-canvas"></div>
@@ -1131,7 +1135,8 @@
 <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
 <!-- Styles -->
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
-<script src="{{ asset('js/app.js') }}" defer></script>
+<link rel="stylesheet" href="/css/map.css">
+<script src="/js/map.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCUywuD0K3ICLer31HgVIJ-Uhi_Suj2jA&libraries=places&callback=initialize"></script>
+
 @endsection
