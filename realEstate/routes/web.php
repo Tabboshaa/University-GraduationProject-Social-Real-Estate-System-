@@ -417,3 +417,6 @@ Route::POST('/ForgotPassword','Auth\ForgotPasswordController@forgotPassword');
 Route::get('changePassword','UserController@changePassword')->name('changePassword');
 Route::POST('activateRegister','Auth\RegisterController@activateRegister')->name('activateRegister');
 Route::get('AdminProfile','AddUserController@AdminProfile');
+Route::get('/LogAd', function () {
+    return view('website\backend.database pages.LogIn');
+});
