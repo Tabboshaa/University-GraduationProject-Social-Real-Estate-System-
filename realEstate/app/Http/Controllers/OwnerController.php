@@ -119,11 +119,19 @@ class OwnerController extends Controller
         $reviews = ReviewController::getItemReviews($id);
         $item = Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
+        $post_images =Db::table('review_attacments')
+        ->where('Item_Id','=',$id)
+        ->get()
+        ->groupBy('Review_Id');
 
-        $User_Id = Auth::id();
-        $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
+        $comments = ReviewcommentsController::getPostComments($id);
+        $replies = ReviewcommentsController::getPostreplies($id);
 
-        return view('website\frontend\owner\Item_Profile_Reviews', ['states' => $state, 'reviews' => $reviews, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow]);
+        $User = Auth::user();
+        $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User->id);
+
+        return view('website\frontend\owner\Item_Profile_Reviews', ['User'=>$User,'states' => $state,'comments' => $comments,
+        'replies' => $replies, 'post_images' => $post_images, 'reviews' => $reviews, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow]);
     }
 
     public function itemReservations($id = null)
