@@ -6,6 +6,7 @@ use App\Emails;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -33,10 +34,10 @@ class ForgotPasswordController extends Controller
     {
         $email = request('UserEmail');
         DB::beginTransaction();
-        
+
         try {
             $useremail = Emails::all()->where('email', '=', $email)->first();
-            
+
             $userID = $useremail->User_ID;
             $user = User::all()->find($userID);
 
@@ -44,7 +45,7 @@ class ForgotPasswordController extends Controller
             $PasswordHashed = Hash::make($newPassword);
             $user->password = $PasswordHashed;
             $user->save();
-            Mail::to('abdalaziztabbosha@gmail.com')->send(new \App\Mail\PasswordMail($newPassword));
+            Mail::to($email)->send(new \App\Mail\PasswordMail($newPassword));
             DB::commit();
             return view('website.frontend.forgotPassword');
         } catch (\Illuminate\Database\QueryException $e) {

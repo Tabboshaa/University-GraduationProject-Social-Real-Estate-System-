@@ -41,7 +41,9 @@
                     </label>
                     <input type="hidden" id="itemid" name="item_id" value="{{$itemID}}">
                     <input type="hidden" id="stars" name="stars" value="">
+                    @if($AuthReview!=null)
                     <h6>{{$AuthReview->Number_Of_Stars}}/5</h6>
+                    @endif
                 </div>
                 <div class="card-body d-flex p-2 mt-0">
                     <label for="uploadImages" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 pt-2"><i class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Add Photo</span></label>
@@ -203,10 +205,10 @@
         var i, x = document.getElementsByName("starLabel");
 
         for (i = 0; i < x.length; i++) {
-            x[i].className = "feather-star  me-2";
+            x[i].className = "feather-star  ";
         }
         for (i = 0; i < starNumber; i++) {
-            x[i].className = " text-success  feather-star  me-2";
+            x[i].className = " text-success  feather-star ";
         }
     }
 </script>

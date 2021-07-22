@@ -214,7 +214,7 @@
                 </h4>
             </div>
             <div class="card-body p-0 me-lg-5">
-                <p class="fw-700 text-black-500 lh-26 font-xssss w-100">{{$post->Post_Title}} <br />
+                <p class="fw-500 text-black-500 lh-26 font-xss w-100">{{$post->Post_Title}} <br />
                     {{$post->Post_Content}} <br />
                 </p>
             </div>

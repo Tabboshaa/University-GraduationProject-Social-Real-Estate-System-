@@ -1,6 +1,7 @@
 @extends('website.frontend.owner.Item_Profile')
 @section('profile_Content')
 
+
 <div class="modal fade" id="EditCommentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -77,7 +78,7 @@
             </div>
             @else
             <div class="card-body d-block w-100 pt-0">
-                <p class="fw-500 text-grey-500 lh-26 font-xssss w-100">
+                <p class="fw-500 text-black-500 lh-26 font-xssss w-100">
                     No Images are posted for this item yet..<br />
                 </p>
             </div>
@@ -97,11 +98,13 @@
                     <a class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>Create Post</a>
                 </div>
                 <div class="card-body p-0 mt-3 position-relative">
-                    <textarea name="Post_Content" value="{{ old('Post_Content') }}"  style="padding-left:50pt;" class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?" required></textarea>
+                    <textarea name="Post_Content" value="{{ old('Post_Content') }}"  style="padding-left:50pt;" class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-black-500 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?" required></textarea>
                 </div>
+                <div id="imgs"></div>
+                <label id="custom-file-label"></label>
                 <div class="card-body d-flex p-2 mt-0">
                     <label for="uploadImages" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 pt-2"><i class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Add Photo</span></label>
-                    <input type="file" style="display:none;" id="uploadImages" name="images[]" accept="image/*" placeholder="upload Images" multiple>
+                    <input type="file" style="display:none;" id="uploadImages" name="image[]" accept="image/*" placeholder="upload Images" multiple>
                     <a href="javascript:void(0);" onclick="document.getElementById('postform').submit(); return false;" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i class="font-md text-success feather-check-circle me-2"></i><span class="d-none-xs">Create Post</span></a>
                 </div>
             </form>
@@ -129,7 +132,7 @@
                                                                                         ?>{{ $end->diffForHumans()}}</span></h4>
         </div>
         <div class="card-body p-0 me-lg-5">
-            <p class="fw-500 text-grey-500 lh-26 font-xssss w-100">{{$post->Post_Title}} <br />
+            <p class="fw-500 text-black-500 lh-26 font-xssss w-100">{{$post->Post_Title}} <br />
                 {{$post->Post_Content}} <br />
             </p>
         </div>
@@ -359,6 +362,29 @@ $.ajax({
         });
 
     });
+
+
+   $("#uploadImages").on('change',function() {
+       var fileList = this.files;
+       for(var i = 0; i < fileList.length; i++)
+       {
+           //get a blob
+           var t = window.URL || window.webkitURL;
+           var objectUrl = t.createObjectURL(fileList[i]);
+           $('#imgs').append('<a href="'+objectUrl+'" data-lightbox="roadtrip" >'+'<img src="' + objectUrl + '" width="100" height="100" style="padding-right: 5px" data-lightbox="roadtrip" /></a>');
+
+           j = i+1;
+           if(j % 3 == 0)
+           {
+               $('#imgs').append('<br>');
+           }
+
+       }
+
+
+   });
+
+   // $('#uploadImages').on('change', function(){ files = $(this)[0].files; name = ''; for(var i = 0; i < files.length; i++){ name += '\"' + files[i].name + '\"' + (i != files.length-1 ? ", " : ""); } $("#custom-file-label").html(name); });
 </script>
 
 

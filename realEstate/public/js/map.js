@@ -1,5 +1,3 @@
-
-
 function initialize() {
 
     var mapOptions, map, marker, searchBox, city,street
@@ -12,7 +10,7 @@ function initialize() {
     street= document.querySelector( '.reg-input-street' );
     let lat;
     let long;
-    if(document.getElementById('lat').value&& document.getElementById('lang'))
+    if(document.getElementById('lat').value && document.getElementById('lang'))
     {
          lat =parseFloat(document.getElementById('lat').value);
          long =parseFloat(document.getElementById('lang').value) ;
@@ -20,7 +18,7 @@ function initialize() {
     }else{
          lat=31.386245;
          long=27.0699504;
-        
+
     }
 
 

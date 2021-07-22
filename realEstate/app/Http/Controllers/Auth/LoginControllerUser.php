@@ -57,8 +57,7 @@ class   LoginControllerUser extends Controller
             return $this->login($emailModel->User_ID, $password);
 
         }
-
-        return 'False';
+        return redirect()->back()->with('error','This Email is Not Registered ');
     }
 
     public function login($id, $password)
@@ -72,7 +71,7 @@ class   LoginControllerUser extends Controller
             return redirect()->route('CustomerHome');
         }
 
-        return redirect()->back()->with('error','Wrong Email Or Password');
+        return redirect()->back()->with('error','You Entered Wrong Password');
     }
 
 

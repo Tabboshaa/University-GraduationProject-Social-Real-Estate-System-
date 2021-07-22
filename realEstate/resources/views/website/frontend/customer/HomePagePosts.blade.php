@@ -31,14 +31,14 @@
                         {{ $post->Item_Name }}
                         @if($User->id== $post->User_Id )
                         <a href="{{url('/deletePost/'.$post->Post_Id)}}" name="del_post" id="del_post"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
-                        <a href="javascript:void(0)" onclick="setPost('{{$post->Post_Id}}','{{$post->Post_Content}}')" name="editpost"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
+                        <a name="editpost" href="javascript:void(0)" onclick="setPost('{{$post->Post_Id}}','{{$post->Post_Content}}')" ><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
                         @endif
                     </a> <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"><?php $today = \Carbon\Carbon::now();
                                                                                             $end = \Carbon\Carbon::parse($post->updated_at);
                                                                                             ?>{{ $end->diffForHumans()}}</span></h4>
             </div>
             <div class="card-body p-0 me-lg-5">
-                <p class="fw-700 text-black-500 lh-26 font-xssss w-100">{{$post->Post_Title}} <br />
+                <p class="fw-500 text-black-500 lh-26 font-xss w-100">{{$post->Post_Title}} <br />
                     {{$post->Post_Content}} <br />
                 </p>
             </div>
@@ -283,7 +283,7 @@
             }
 
         });
-    };
+    }
 
     function setComment(id, name) {
 
@@ -324,9 +324,9 @@
 
         });
 
-    })
+    });
 
-    function setPost(id, name) {
+    function setPost(id,name) {
 
         // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty
         $("#id").val(id);
@@ -365,7 +365,7 @@
 
         });
 
-    })
+    });
 
     function Comment(post_id) {
 
