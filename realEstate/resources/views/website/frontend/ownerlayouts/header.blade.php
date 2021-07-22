@@ -178,12 +178,7 @@
 
 <script>
     $(document).ready(function() {
-        $('.switchcolor').on('click', function() {
-            $(this).addClass('active');
-            $('.backdrop').addClass('active');
-            $('.switchcolor-wrap').addClass('active');
-        });
-        $.ajax({
+           $.ajax({
             url: "{{route('checkIfOwner')}}",
             Type: "",
             data: {
@@ -200,7 +195,7 @@
                         "<a href='javascript:void(0)' onclick='ToggleBeOwnerModal()'> " +
                         "Continue As Owner </a></div>";
 
-                } else {
+            0    } else {
                     text +=
                         "<div class='card bg-transparent-card w-100 border-0 ps-0 mb-3'> " +
                         "<h5 class='font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block'> <a href='{{url('/BeOwner')}}'> " +

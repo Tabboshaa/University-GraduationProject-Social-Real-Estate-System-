@@ -64,7 +64,7 @@
         </div>
         @endif
         @include('website.frontend.customer.ReplyComments')
-
+    </div>
         @endforeach
       
         @else
