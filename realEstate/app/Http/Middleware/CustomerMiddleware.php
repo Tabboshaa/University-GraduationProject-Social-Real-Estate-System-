@@ -23,6 +23,6 @@ class CustomerMiddleware
         {
             return $next($request);
         }
-        return redirect()->back();
+        return redirect()->route('userLogin');
     }
 }

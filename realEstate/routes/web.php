@@ -34,11 +34,11 @@ Route::get('/UserRegister', function () {
 
 Route::get('/UserLogin', function () {
     return view('website\frontend\login');
-})->name('userLogin');
+})->name('userLogin')->middleware('guest.user');
 
 Route::get('/AdminLogin', function () {
     return view('auth\login');
-})->name('AdminLogin');
+})->name('AdminLogin')->middleware('guest');
 
 Route::get('/s', function () {
     return view('website\frontend\customer\calender');
@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth.user'], function () {
 
     //Customer Comment
     Route::get('/add_reply', 'CommentsController@reply')->name('reply.add');
-  
+
   //review
     Route::get('/add_review_comment', 'ReviewcommentsController@create')->name('reviewcomment.add');
     Route::get('/add_review_eply', 'ReviewcommentsController@reply')->name('reviewreply.add');
@@ -346,7 +346,7 @@ Route::group(['middleware' => 'Admin'], function () {
 
     //neww 7/12
     Route::get('/property_select/{item_id}/{sub_type_id}', 'SubTypePropertyController@property_select');
- 
+
 
     // findDetailsForForm
     Route::get('/findDetailsForForm', 'PropertyDetailsController@findDetailsForForm')->name('propertyDetail.find');
