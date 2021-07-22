@@ -2,7 +2,7 @@
 
 <div class="nav-header bg-white shadow-xs border-0">
     <div class="nav-top">
-    <a href="index.html"><img src="{{asset('storage/images/logo2.jpg')}}" height="35" width="40"><span class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xl logo-text mb-0 ">  Traveller club</span> </a>
+    <a href="{{ url('/HomePage') }}"><img src="{{asset('storage/images/logo2.jpg')}}" height="35" width="40"><span class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xl logo-text mb-0 ">  Traveller club</span> </a>
         <a href="#" class="mob-menu ms-auto me-2 chat-active-btn"><i class="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
         <a href="default-video.html" class="mob-menu me-2"><i class="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
         <a href="#" class="me-2 menu-search-icon mob-menu"><i class="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
@@ -32,6 +32,7 @@
     <a href="#" class="p-2 text-center ms-auto menu-icon" id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false">@if(count($notifications)!=0)<span class="dot-count bg-warning"></span>@endif<i class="feather-bell font-xl text-current"></i></a>
     <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" style="max-height: 650px; overflow: auto;" aria-labelledby="dropdownMenu3">
         <h4 class="fw-700 font-xss mb-4">Notification</h4>
+        @if( count($notifications) != 0)
         @foreach($notifications as $notification)
         <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3" id="notif{{$notification->Notification_Id}}">
 
@@ -47,6 +48,11 @@
                 </a>
         </div>
         @endforeach
+        @else
+        <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3">
+        <p>There is no notification </p>
+        </div>
+        @endif
     </div>
 
     <div class="p-2 text-center ms-3 position-relative dropdown-menu-icon menu-icon cursor-pointer">

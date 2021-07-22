@@ -4,7 +4,7 @@
 
 
 
-<div class="row">
+<div class="row" style="margin-left: 140px;">
     <div class="col-xl-12">
         <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3 overflow-hidden">
             @if($cover != null)
@@ -13,7 +13,7 @@
             <div class="card-body position-relative h240 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/Default1.jpeg')}}');"></div>
             @endif
             <div class="card-body d-block pt-4 text-center position-relative">
-                <h4 class="font-xs ls-1 fw-700 text-grey-900"> {{ $item->Item_Name }}<span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">@ {{$item->user->First_Name}} {{$item->user->Middle_Name}} {{$item->user->Last_Name}}</span></h4>
+                <h4 class="font-xs ls-1 fw-700 text-grey-900"> {{ $item->Item_Name }}<span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-600">@ {{$item->user->First_Name}} {{$item->user->Middle_Name}} {{$item->user->Last_Name}}</span></h4>
 
                 <div class="d-flex align-items-center pt-0 position-absolute left-15 top-10 mt-4 ms-2">
                     <h4 class="font-xsssss text-center d-none d-lg-block text-grey-500 fw-600 ms-2 me-2"><b class="text-grey-900 mb-1 font-sm fw-700 d-inline-block ls-3 text-dark">{{($item->posts == null)?0:count($item->posts)}} </b> Posts</h4>

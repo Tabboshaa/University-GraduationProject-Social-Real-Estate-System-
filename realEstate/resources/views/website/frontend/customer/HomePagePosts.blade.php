@@ -4,7 +4,7 @@
 <link href="{{asset('css/FrontEndCSS/CustomerHome.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('css/FrontEndCSS/TimeLine.css')}}" rel="stylesheet" type="text/css" />
 <?php $today = \Carbon\Carbon::now(); ?>
-<div class="row">
+<div class="row" style="margin-left: 140px;">
     <div class="col-xl-8 col-xxl-9 col-lg-8">
 
         <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3 overflow-hidden">
@@ -38,7 +38,7 @@
                                                                                             ?>{{ $end->diffForHumans()}}</span></h4>
             </div>
             <div class="card-body p-0 me-lg-5">
-                <p class="fw-500 text-black-500 lh-26 font-xssss w-100">{{$post->Post_Title}} <br />
+                <p class="fw-700 text-black-500 lh-26 font-xssss w-100">{{$post->Post_Title}} <br />
                     {{$post->Post_Content}} <br />
                 </p>
             </div>

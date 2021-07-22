@@ -1,7 +1,7 @@
 <!-- navigation top-->
 <div class="nav-header bg-white shadow-xs border-0">
     <div class="nav-top">
-        <a href="index.html"><img src="{{asset('storage/images/logo.jpg')}}" height="35" width="40"><span class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xl logo-text mb-0 "> Traveller club</span> </a>
+        <a href="{{ url('/HomePage') }}"><img src="{{asset('storage/images/logo.jpg')}}" height="35" width="40"><span class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xl logo-text mb-0 "> Traveller club</span> </a>
         <a href="#" class="mob-menu ms-auto me-2 chat-active-btn"><i class="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
         <a href="default-video.html" class="mob-menu me-2"><i class="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
         <a href="#" class="me-2 menu-search-icon mob-menu"><i class="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
@@ -14,10 +14,10 @@
             <input type="text" placeholder="Start typing to search.." class="bg-grey border-0 lh-32 pt-2 pb-2  ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg">
         </div>
     </form>
-    <a href="default.html" class="p-2 text-center ms-3 menu-icon center-menu-icon"><i class="feather-home font-lg alert-primary btn-round-lg theme-dark-bg text-current "></i></a>
+    <a href="{{ url('/HomePage') }}" class="p-2 text-center ms-3 menu-icon center-menu-icon"><i class="feather-home font-lg alert-primary btn-round-lg theme-dark-bg text-current "></i></a>
 
     <a href="{{url('/EditCustomerProfile')}}" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i class="feather-user font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
-    <a href="shop-2.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i class="feather-shopping-bag font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
+    <a href="{{url('/user_reservations')}}"  class="p-2 text-center ms-0 menu-icon center-menu-icon"><i class="feather-shopping-bag font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
 
     <?php
 
