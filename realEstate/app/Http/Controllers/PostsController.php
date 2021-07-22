@@ -47,6 +47,7 @@ class PostsController extends Controller
     public function create($id = null)
     {
         //
+        dd(\request()->all());
         if ($id != null) {
             $item = Item::all()->find($id);
             $user_id = $item->User_Id;
@@ -121,7 +122,7 @@ class PostsController extends Controller
     public function DestroyPost(Request $request, $id = null)
     {
 
-        DB::beginTransaction();      
+        DB::beginTransaction();
         try {
             posts::destroy($request->id);
             DB::commit();
