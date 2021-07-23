@@ -185,7 +185,7 @@ Route::group(['middleware' => 'Admin'], function () {
     //operation types
     Route::get('/operation_types', 'OperationsController@index');
     Route::get('/operation_types_show', 'OperationsController@show')->name('operation_types_show');
-    Route::get('/operation_details_show', 'OperationsController@showDetail')->name('operation_types_show');
+    Route::get('/operation_details_show', 'OperationsController@showDetail')->name('detailop_show');
     Route::post('/add_operation_type', 'OperationsController@createType');
     Route::delete('/delete_operation_type', 'OperationsController@destroy');
     Route::get('/edit_operation_type', 'OperationsController@edit')->name('operationType.update');

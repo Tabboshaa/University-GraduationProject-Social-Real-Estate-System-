@@ -70,7 +70,7 @@ class UserTypes extends Controller
     public function show()
     {
         //
-        $user_types = User_Type::all();
+        $user_types = User_Type::paginate(10);
         return view('website/backend.database pages.User_Type_Show', ['user_typess' => $user_types]);
     }
 

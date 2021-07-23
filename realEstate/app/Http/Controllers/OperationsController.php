@@ -23,7 +23,7 @@ class OperationsController extends Controller
     {
         //
         $operationType = operation__types::all();
-        return view('website\backend.database pages.Operation_Detail', ['Operation__types' => $operationType]);
+        return view('website\backend.database pages.operation_Types_Show', ['Operation__types' => $operationType]);
     }
 
     /**

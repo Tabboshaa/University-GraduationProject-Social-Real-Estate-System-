@@ -20,7 +20,7 @@ class CityController extends Controller
 
         $city = City::all();
         $countries = Country::all();
-        $states = State::all();
+        $states = State::paginate(10);
 
 
         return view('website\backend.database pages.Add_City', ['country' => $countries, 'state' => $states, 'cityy' => $city]);

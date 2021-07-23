@@ -24,7 +24,7 @@ class StreetController extends Controller
         $state = State::all();
         $city = City::all();
         $region = Region::all();
-        $street = Street::all();
+        $street = Street::paginate(10);
         return view('website.backend.database pages.Add_Street', ['counrty' => $counrty, 'state' => $state, 'city' => $city, 'region' => $region, 'street1' => $street]);
     }
 

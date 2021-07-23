@@ -20,7 +20,7 @@ class StatePhotoController extends Controller
     {
         //
         $countries = Country::all();
-        $state = State::all();
+        $state = State::paginate(10);
 
         return view('website\backend.database pages.StatePhoto', ['country' => $countries, 'state' => $state]);
     }

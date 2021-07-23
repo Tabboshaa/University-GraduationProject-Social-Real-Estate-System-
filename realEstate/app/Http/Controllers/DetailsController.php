@@ -171,7 +171,7 @@ class DetailsController extends Controller
         $main_types = Main_Type::all();
         $property = Sub_Type_Property::all();
         $property_details = Property_Details::all();
-        $details = Details::all();
+        $details = Details::paginate(10);
         $item = Item::all();
         return view('website.backend.database pages.Details_Show', ['sub_type' => $sub_types, 'main_type' => $main_types, 'property_detail' => $property_details, 'detail' => $details, 'item' => $item, 'property' => $property]);
     }
