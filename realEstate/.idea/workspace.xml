@@ -6,10 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="94e67ae1-48e2-456b-854f-8264ac421576" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginControllerUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginControllerUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/CustomerMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/CustomerMiddleware.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/OwnerMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/OwnerMiddleware.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/RedirectIfAuthenticated.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/RedirectIfAuthenticated.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/Authenticate.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/Authenticate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/customer/CustomerHome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/CustomerHome.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/customer/HomePagePosts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/HomePagePosts.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/owner/Item_Profile_Posts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/owner/Item_Profile_Posts.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
@@ -705,7 +706,20 @@
       <workItem from="1626963919192" duration="1769000" />
       <workItem from="1626965735481" duration="1822000" />
       <workItem from="1626968410634" duration="1820000" />
-      <workItem from="1626970841977" duration="559000" />
+      <workItem from="1626970841977" duration="1765000" />
+      <workItem from="1626972834529" duration="1443000" />
+      <workItem from="1626978605905" duration="1616000" />
+      <workItem from="1626981340040" duration="2896000" />
+      <workItem from="1627019518961" duration="1633000" />
+      <workItem from="1627021349452" duration="1652000" />
+      <workItem from="1627023157175" duration="693000" />
+      <workItem from="1627025278875" duration="79000" />
+      <workItem from="1627027287489" duration="1555000" />
+      <workItem from="1627037383848" duration="797000" />
+      <workItem from="1627039135390" duration="1752000" />
+      <workItem from="1627040974003" duration="127000" />
+      <workItem from="1627041105182" duration="40000" />
+      <workItem from="1627041188521" duration="969000" />
     </task>
     <servers />
   </component>

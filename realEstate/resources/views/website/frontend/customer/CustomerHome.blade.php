@@ -7,7 +7,7 @@
                 <div class="card shadow-none rounded-0 w-100 p-2 pt-3 border-0">
                     <div class="card-body rounded-0 text-left p-3">
                         <h5 class="modal-title" id="exampleModalLabel">Continue Your Registration</h5>
-                        <form id="BeOwnerForm" method="Post" action="{{url('BeOwner/'.Auth::id())}}">
+                        <form id="BeOwnerForm" method="Post" action="{{url('BeOwner/')}}">
                             @csrf
                             <input type="hidden" name="id" id="id">
                             @if(! Auth::user()->First_Name)
@@ -47,9 +47,9 @@
                             @endif
                             <input type="hidden"  id="check" name="check" value="BeOwner">
                             @if($checkIfOwner)
-                                <div class="form-group"><a href="javascript:void(0)" onclick="check();" class="btn btn-info" > Save Information</a></div>
+                                <div class="form-group"><a href="javascript:void(0)" onclick="just()" class="btn btn-info" > Save Information</a></div>
                             @else
-                                <div class="form-group"><a href="javascript:void(0)" onclick="check();" class="btn btn-info" > Just Save Information! Or</a></div>
+                                <div class="form-group"><a href="javascript:void(0)" onclick="document.getElementById('BeOwnerForm').submit();" class="btn btn-info" > Just Save Information! Or</a></div>
                                 <button type="submit" id="btun3" class="btn btn-success">Be Owner to Manage Your Properties!</button>
                             @endif
                         </form>
@@ -130,7 +130,6 @@
 <script type="text/javascript">
     var username=$('#userid').val();
     var $show=$('#show').val();
-    var theButtonJustIsClicked=0;
     console.log(username);
       if($show=='true'){
         $(window).on('load', function() {
@@ -138,15 +137,19 @@
         });
       }
 
-    function check(){
-        if (IsValid){
-        $('#check').val('just');
-        $('#BeOwnerForm').submit();
-    }
-    else{
-       
-    }
+    // function check(){
+    //     if (IsValid){
 
+    //     $('#BeOwnerForm').submit();
+    // }
+    // else{
+    //
+    // }
+    //
+    // }
+    function just(){
+        $('#check').val('just');
+        document.getElementById('BeOwnerForm').submit();
     }
 </script>
 
