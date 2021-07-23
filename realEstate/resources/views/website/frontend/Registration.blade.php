@@ -71,19 +71,18 @@
                                 <input id="pw2" name="Confirm" type="Password" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Confirm Password">
                                 <i class="font-sm ti-lock text-grey-500 pe-0"></i>
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-12 mb-3">
 
                                 <div class="">
                                     <strong id="alert"></strong>
                                 </div>
+                                <div class="col-lg-12 mb-5">
 
-                            <div class="col-sm-12 p-0 text-left">
-
-                                <div class="form-group mb-1"><a href="javascript:void(0)" onclick="checkpass()"  value="Register" class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Register</a></div>
-                                <div class="form-group mb-1"><a href="{{url('redirect/facebook')}}" class="form-control text-left style2-input text-white fw-600 bg-twiiter border-0 p-0 "><img src="{{asset('FrontEnd/sociala/images/icon-3.png')}}" alt="icon" class="ms-2 w40 mb-1 me-5"> Sign in with Facebook</a></div>
-
-                                <h6 class="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">Already have account <a href="{{route('userLogin')}}" class="fw-700 ms-1">Login</a></h6>
-                            </div>
+                                    <div class="form-group mb-1"><a href="javascript:void(0)" onclick="checkpass()"  value="Register" class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Register</a></div>
+                                    <div class="form-group mb-1"><a href="{{url('redirect/facebook')}}" class="form-control text-left style2-input text-white fw-600 bg-twiiter border-0 p-0 "><img src="{{asset('FrontEnd/sociala/images/icon-3.png')}}" alt="icon" class="ms-2 w40 mb-1 me-5"> Sign in with Facebook</a></div>
+    
+                                    <h6 class="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">Already have account <a href="{{route('userLogin')}}" class="fw-700 ms-1">Login</a></h6>
+                                </div>
                         </form>
                     </div>
                 </div>
@@ -145,7 +144,7 @@
         if(!(strongRegex.test(newpassword))){
             console.log(strongRegex.test(newpassword));
             document.getElementById('alert').parentElement.className='alert alert-danger alert-block';
-            document.getElementById('alert').innerText='Uppercase, LowerCase,Number ';
+            document.getElementById('alert').innerText='Password must be 8 characters contain"Upper Letter,Lower Letter,Special Character,Numbers"';
         }
        else if(newpassword!=confirm){
             document.getElementById('alert').parentElement.className='alert alert-danger alert-block';

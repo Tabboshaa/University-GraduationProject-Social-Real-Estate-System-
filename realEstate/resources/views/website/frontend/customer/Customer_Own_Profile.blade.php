@@ -5,10 +5,10 @@
 
 
 <!-- top box -->
-<div class="row">
+<div class="row"   >
     <!-- top box -->
-    <div class="col-xl-12">
-        <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3 overflow-hidden">
+    <div class="col-xxl-12">
+        <div  class="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3 overflow-hidden">
             @if($Cover_Photo!=null)
             <div class="card-body position-relative h240 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/'.$Cover_Photo->Cover_Photo)}}');"></div>
             @else
@@ -89,7 +89,6 @@
 
         </div>
     </div>
-
     <!-- left box -->
     <div class="col-xl-4 col-xxl-3 col-lg-4 pe-0">
         <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3">
@@ -264,7 +263,7 @@
             @endif
             <!-- 0055FF -->
             <div class="form-group">
-                <input id="CommentForPost{{$post->Post_Id}}" name="comment" type="text" placeholder="Say something nice." style="background-color:#0055ff1a;width:770px;" class="border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg">
+                <input id="CommentForPost{{$post->Post_Id}}" name="comment" type="text" placeholder="Say something nice." style="background-color:#0055ff1a;width:770px;" class="border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w400 theme-dark-bg">
                 <a href="javascript:void(0)" onclick="Comment('{{$post->Post_Id}}');"><i class="btn-round-sm bg-primary-gradiant text-white font-sm ti-arrow-right text-blue"></i></a>
 
             </div>

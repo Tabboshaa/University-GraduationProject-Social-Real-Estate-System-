@@ -32,6 +32,7 @@
     <a href="#" class="p-2 text-center ms-auto menu-icon" id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false">@if(count($notifications)!=0)<span class="dot-count bg-warning"></span>@endif<i class="feather-bell font-xl text-current"></i></a>
     <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" style="max-height: 650px; overflow: auto;" aria-labelledby="dropdownMenu3">
         <h4 class="fw-700 font-xss mb-4">Notification</h4>
+        @if( count($notifications) != 0)
         @foreach($notifications as $notification)
         <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3" id="notif{{$notification->Notification_Id}}">
 
@@ -47,6 +48,11 @@
                 </a>
         </div>
         @endforeach
+        @else
+        <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3">
+        <p>There is no notification </p>
+        </div>
+        @endif
     </div>
 
     <div class="p-2 text-center ms-3 position-relative dropdown-menu-icon menu-icon cursor-pointer">

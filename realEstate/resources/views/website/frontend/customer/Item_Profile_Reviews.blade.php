@@ -79,7 +79,8 @@
     @foreach($reviews as $review)
     <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
         <div class="card-body p-0 d-flex">
-            <figure class="avatar me-3"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
+            
+            <figure class="avatar me-3"><img src="{{asset('storage/cover page/'.$review->Profile_Picture)}}"  class="shadow-sm rounded-circle w45" alt="image"></figure>
             <?php $today = \Carbon\Carbon::now();
             $end = \Carbon\Carbon::parse($review->updated_at);
             ?>
