@@ -17,32 +17,48 @@ use Illuminate\Support\Facades\Route;
 
 
 //test routes here
-
+Route::get('/meshtest/{item_id}','ScheduleController@getAvailableTime');
 //end test routes
 Route::get('/Land', function () {
     return view('website\LandingPadge');
 });
+
+Route::get('terms',function() {
+    return view('terms');
+});
+Route::get('policy',function() {
+    return view('Policy');
+});
+//end of test Routes
+
 //authntication routes
-Route::get('/meshtest/{item_id}','ScheduleController@getAvailableTime');
 Auth::routes();
-Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
+
+//*****login for user*******
+Route::get('/UserLogin', function () {
+    return view('website\frontend\login');
+})->name('userLogin')->middleware('guest.user');
 Route::post('/login', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
+//********* End login of user******
+
+//*****register of user*****
 Route::post('/registerUser', 'Auth\RegisterController@create')->name('registerUser');
 Route::get('/UserRegister', function () {
     return view('website\frontend\Registration');
 })->name('UserRegister');
+//***** End of register of user*********
 
-Route::get('/UserLogin', function () {
-    return view('website\frontend\login');
-})->name('userLogin')->middleware('guest.user');
-
+//******Login of Admin******
 Route::get('/AdminLogin', function () {
     return view('auth\login');
 })->name('AdminLogin')->middleware('guest');
 
-Route::get('/s', function () {
-    return view('website\frontend\customer\calender');
-});
+Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
+
+//*****End log in of Admin******
+
+
+
 
 //Customer Routes with middleware
 Route::group(['middleware' => 'auth.user'], function () {
@@ -292,7 +308,7 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/edit_Comment', 'CommentsController@editComment')->name('Comment.update');
     Route::get('/delete_comment/{id?}', 'CommentsController@DestroyComment');
     Route::get('/deletePost/{id?}', 'PostsController@DestroyPost');
-    Route::get('/edit_post', 'PostsController@editPost')->name('post.update');
+    Route::post('/edit_post', 'PostsController@editPost')->name('post.update');
     Route::get('/delete_reply/{id?}', 'CommentsController@destroyReply');
 
     Route::get('/delete_review/{id?}', 'ReviewController@destroy');
@@ -391,12 +407,7 @@ Route::POST('paypalCall/{item_id?}/{schedule?}/{numberOfDays?}/{totalCost?}/{pri
 Route::get('paypalReturn/{itemId}/{schedule}/{numberOfDays}/{totalCost}/{pricePerNight}/{startDate}/{endDate}','PaypalController@paypalReturn')->name('paypalReturn');
 
 Route::get('sendMailAfterReservation','PaypalController@sendDoneMail');
-Route::get('terms',function() {
-    return view('terms');
-});
-Route::get('policy',function() {
-    return view('Policy');
-});
+
 
 Route::get('redirect/{service}','SocialController@redirect');
 Route::get('callback/{service}','SocialController@callback');

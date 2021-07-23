@@ -135,17 +135,15 @@ class PostsController extends Controller
     public function editPost()
     {
 
-        DB::beginTransaction();
+
         try {
 
             $post = posts::all()->find(request('id'));
             $post->Post_Content = request('edit_Post');
             $post->save();
-
-            DB::commit();
             return back()->with('info', 'post Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
-            DB::rollBack();
+//            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing item');

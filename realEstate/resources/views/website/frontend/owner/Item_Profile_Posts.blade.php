@@ -92,7 +92,7 @@
 <div class="col-xl-8 col-xxl-9 col-lg-9">
   <!-- create post div -->
   <div class="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3 mt-3">
-            <form method="POST" action="{{ url('/add_item_post/'.$item->Item_Id) }}" id="postform" enctype="multipart/form-data">
+            <form method="POST" action="{{ url('/add_item_post/'.$item->Item_Id) }}" id="postform" >
                 @csrf
                 <div class="card-body p-0">
                     <a class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>Create Post</a>
