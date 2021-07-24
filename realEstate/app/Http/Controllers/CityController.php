@@ -17,12 +17,9 @@ class CityController extends Controller
      */
     public function index()
     {
-
         $city = City::all();
         $countries = Country::all();
         $states = State::all();
-
-
         return view('website\backend.database pages.Add_City', ['country' => $countries, 'state' => $states, 'cityy' => $city]);
     }
 
@@ -35,7 +32,7 @@ class CityController extends Controller
     {
 
 
-        //  
+        //
         DB::beginTransaction();
         try {
             $city = City::create([
@@ -120,7 +117,7 @@ class CityController extends Controller
     public function destroy(Request $request, $id = null)
     {
         DB::beginTransaction();
-        
+
         if (request()->has('id')) {
             try {
                 City::destroy($request->id);

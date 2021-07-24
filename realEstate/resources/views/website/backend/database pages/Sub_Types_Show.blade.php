@@ -30,7 +30,7 @@
             </thead>
             <tbody>
 
-                <!-- EL FOREARCH HNA --> 
+                <!-- EL FOREARCH HNA -->
                 @if( count($S1) != 0)
                 @foreach($S1 as $sub_type)
                 <tr>
@@ -70,7 +70,7 @@
                         <select id="MainTypeNameEdit" style="border-radius: 3pt" class="form-control" name="MainTypeNameEdit">
                             <!--  For loop  -->
                             @foreach($main_type as $main)
-                            <option value="{{$main->Main_Type_Id}}">{{$main->Main_Type_Name}}</option>
+                            <option name="MainTypeId" value="{{$main->Main_Type_Id}}">{{$main->Main_Type_Name}}</option>
                             @endforeach
                             <!-- End loop -->
                         </select>
@@ -78,6 +78,7 @@
                     <div class="form-group">
                         <label for="SubTypeName" style="font-size: 12pt" >Sub Type</label>
                         <input type="text" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" style="border-radius: 3pt" name="SubTypeName" id="SubTypeName" class="form-control" required>
+
                     </div>
                     <button type="submit" id="btun3" class="btn btn-success">Edit</button>
                 </form>

@@ -134,7 +134,7 @@ if(request()->has('nationalid')){
             $user->National_ID = request('nationalid');
 }
             $user->save();
-            
+
             DB::commit();
             return back()->with('success', 'User Edited Succesfully');
         } catch (\Illuminate\Database\QueryException $e)
@@ -162,23 +162,26 @@ if(request()->has('nationalid')){
             return 1;
     }
 
-    public function BeOwner($user_id = null)
+    public function BeOwner($toYourProperties = null)
     {
 
         try {
             $countries = Country::all();
+            //all done mean that function called from light modal ->that mean want to be owner and all its information is here
             if (\request('allDone')) {
 
                 $typeOfUser = Type_Of_User::create([
-                    'User_ID' => $user_id,
+                    'User_ID' => Auth::id(),
                     'User_Type_ID' => 3
                 ]);
                 return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
             }
-            if ($user_id == null) {
+
+            //
+            if ($toYourProperties != null) {
                 return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
             } else {
-                $user = User::all()->find($user_id);
+                $user =Auth::user();
 
                 if (request('First') != null)
                     $user->First_Name = request('First');
@@ -197,7 +200,7 @@ if(request()->has('nationalid')){
                 if ($phone_number == '[]') {
 
                     $phone_number = Phone_Numbers::create([
-                        'User_ID' => $user_id,
+                        'User_ID' => Auth::id(),
                         'phone_number' => request('Phone'),
                         'Default' => 1
                     ]);
@@ -207,7 +210,7 @@ if(request()->has('nationalid')){
 
                 if (\request('check') == 'BeOwner') {
                     $typeOfUser = Type_Of_User::create([
-                        'User_ID' => $user_id,
+                        'User_ID' => Auth::id(),
                         'User_Type_ID' => 3
                     ]);
                     return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
