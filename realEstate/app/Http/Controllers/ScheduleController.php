@@ -124,10 +124,12 @@ class ScheduleController extends Controller
         return $schedule;
     }
 
-    public static function getAvailableTime($item_id)
+    public static function getAvailableTime($item_id = null)
     {
         //     get from Schedule endDate startDate where item id =$item_id
 
+        return null; 
+        
         $schedule = DB::table("schedules")
             ->selectRaw('schedule_Id,Start_Date,YEAR(Start_Date) as year ,MONTH(Start_Date) as month,End_Date')
             ->where('Item_Id', '=', $item_id)

@@ -28,13 +28,13 @@ class CoverPageController extends Controller
     {
         //
         DB::beginTransaction();
-        if ($files = request()->file('CoverPhoto')) {
+        if ($files = request()->file('CoverPage')) {
 
             $filename = $files->getClientOriginalName();
             $files->storeAs('/cover page', $filename, 'public');
 
             try {
-                $coverPage = Cover_Page::create([
+                Cover_Page::create([
                     'path' =>  $filename,
                     'Item_Id' => $id,
                 ]);

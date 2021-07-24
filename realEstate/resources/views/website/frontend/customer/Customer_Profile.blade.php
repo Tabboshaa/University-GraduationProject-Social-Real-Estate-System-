@@ -13,10 +13,10 @@
             @endif
 
             <div class="card-body d-block pt-4 text-center position-relative">
-            @if($Profile_Photo!=null)
-            <figure class="avatar mt--6 position-relative w75 z-index-1 w100 z-index-1 ms-auto me-auto"><img src="{{asset('storage/cover page/'.$Profile_Photo->Profile_Picture)}}" alt="image" class="p-1 bg-white rounded-xl w-100"></figure>
+                @if($Profile_Photo!=null)
+                <figure class="avatar mt--6 position-relative w75 z-index-1 w100 z-index-1 ms-auto me-auto"><img src="{{asset('storage/cover page/'.$Profile_Photo->Profile_Picture)}}" alt="image" class="p-1 bg-white rounded-xl w-100" height="100"></figure>
                 @else
-                <figure class="avatar mt--6 position-relative w75 z-index-1 w100 z-index-1 ms-auto me-auto"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="p-1 bg-white rounded-xl w-100"></figure>
+                <figure class="avatar mt--6 position-relative w75 z-index-1 w100 z-index-1 ms-auto me-auto"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="p-1 bg-white rounded-xl w-100" height="100"></figure>
                 @endif
                 <h4 class="font-xs ls-1 fw-700 text-grey-900"> {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}<span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"></span></h4>
                 <div class="d-flex align-items-center pt-0 position-absolute left-15 top-10 mt-4 ms-2">
@@ -31,7 +31,7 @@
                     @endif
                 </div>
             </div>
-            </div>
+        </div>
     </div>
 
 
@@ -121,7 +121,7 @@
     <!-- right box that has posts -->
     <div class="col-xl-8 col-xxl-9 col-lg-8">
         <!-- create post div -->
-      
+
         <!-- end of create post div -->
 
         @if( count($posts) != 0)
@@ -188,20 +188,19 @@
             </div>
             @endif
             @if( isset($post->comments) )
-            <a href="javascript:void(0)" id="more" onclick="$('#allcomments{{$post->Post_Id}}').slideToggle(function(){$('#more').html($('#allcomments{{$post->Post_Id}}').is(':visible')?'Hide Comments':'{{count($post->comments)}} Comment');});" onclick="viewComment('{{$post->Post_Id}}')" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>{{count($post->comments)}} Comment</span></a>
+            <a href="javascript:void(0)" id="more{{$post->Post_Id}}" onclick="$('#allcomments{{$post->Post_Id}}').slideToggle(function(){$('#more{{$post->Post_Id}}').html($('#allcomments{{$post->Post_Id}}').is(':visible')?'Hide Comments':'<i class=\'feather-message-circle text-dark text-grey-900 btn-round-sm font-lg\'></i> {{count($comments[$post->Post_Id])}} Comment');});" onclick="viewComment('{{$post->Post_Id}}')" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>{{count($comments[$post->Post_Id])}} Comment</a>
             @else
-            <div class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>0 Comments</span></div>
+            <a href="javascript:void(0)" id="more{{$post->Post_Id}}" onclick="$('#allcomments{{$post->Post_Id}}').slideToggle(function(){$('#more{{$post->Post_Id}}').html($('#allcomments{{$post->Post_Id}}').is(':visible')?'Hide Comments':'<i class=\'feather-message-circle text-dark text-grey-900 btn-round-sm font-lg\'></i> 0 Comments');});" onclick="viewComment('{{$post->Post_Id}}')" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>0 Comments</a>
             @endif
             <!-- 0055FF -->
             <div class="form-group">
                 <input id="CommentForPost{{$post->Post_Id}}" type="text" placeholder="Say something nice." style="background-color:#0055ff1a;width:770px;" class="border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg">
                 <a href="javascript:void(0)" onclick="Comment('{{$post->Post_Id}}');"><i class="btn-round-sm bg-primary-gradiant text-white font-sm ti-arrow-right text-blue"></i></a>
-
             </div>
             @if( isset($post->comments) )
-            <div id="allcomments{{$post->Post_Id}}" style="display: none;">
+            <div>
                 <div class="chat-body p-3 ">
-                    <div class="messages-content pb-5">
+                    <div class="messages-content pb-5" id="allcomments{{$post->Post_Id}}" style="display: none;">
                         @foreach($post->comments as $comment)
                         <div class="card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10">
 
@@ -292,19 +291,37 @@
 
             },
             success: function(data) {
+
+                var str=$('#more'+post_id).html();
+                matches = str.match(/\d+/g);
+                if(matches.length != 0 ){
+                console.log(matches[1]);
+                var m= parseInt(matches[1])+1;
+                $('#more'+post_id).html('<i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>'+m+' Comments');
+                }
+
                 console.log(data);
                 if (data['Profile_Picture'] == null) {
                     data['Profile_Picture'] = 'pic.png';
                 }
-                $("#allcomments" + post_id).prepend("<div class='chat-body messages-content pb-5 card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10'>" +
-                    "<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/" + data['Profile_Picture'] + "\" alt='image' class='shadow-sm rounded-circle w35'></figure>" +
+                if (data['Last_Name'] == null) {
+                    data['Last_Name'] = '';
+                }
+                if (data['First_Name'] == null) {
+                    data['First_Name'] = '';
+                }
+                if (data['Middle_Name'] == null) {
+                    data['Middle_Name'] = '';
+                }
+                $("#allcomments" + post_id).prepend("<div class='card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10'>" +
+                    "<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/" + data['Profile_Picture'] + "\" alt='image' class='shadow-sm rounded-circle w35' height='35'></figure>" +
                     "<div class='chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg'>" +
                     "<a href=\"/view_User/" + data['User_Id'] + "\">" +
                     "<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> " + data['First_Name'] + " " + data['Middle_Name'] + " " + " " + data['Last_Name'] + "" +
                     "<a href=\"/delete_comment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" +
                     "<a href=\"javascript:void(0)\" onclick=\"setComment('" + data['Comment_Id'] + "','" + data['Comment'] + "')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>" +
                     "</a></h4>" +
-                    "<div class=\"time\"><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> 1 second ago</p></div>" +
+                    "<div class=\"time\"><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> 1 second ago </p></div>" +
                     "<p class=\"fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0\">" + data['Comment'] + "</p>" +
                     "</div>" +
                     "</div>" +
@@ -315,11 +332,9 @@
                     "<a href=\"javascript:void(0)]\" onclick=\"Reply('" + post_id + "','" + data['Comment_Id'] + "');\"><i class=\"btn-round-sm bg-primary-gradiant text-white font-sm ti-arrow-right text-blue\"></i></a>" +
                     "</div>" +
                     "</div></div>");
-                console.log(data);
             },
             error: function() {
-                console.log(post_id);
-                console.log(comment);
+
                 console.log('Error');
             }
 

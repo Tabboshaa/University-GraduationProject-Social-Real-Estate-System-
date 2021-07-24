@@ -46,7 +46,7 @@ class PostsController extends Controller
      */
     public function create($id = null)
     {
-       
+              
         if ($id != null) {
             $item = Item::all()->find($id);
             $user_id = $item->User_Id;
@@ -132,18 +132,17 @@ class PostsController extends Controller
             return redirect()->back()->with('error', 'Comment cannot be deleted');
         }
     }
+    
     public function editPost()
-    {
-
-
+    {   
+        
         try {
-
             $post = posts::all()->find(request('id'));
             $post->Post_Content = request('edit_Post');
             $post->save();
             return back()->with('info', 'post Edited Successfully');
         } catch (\Illuminate\Database\QueryException $e) {
-//            DB::rollBack();
+           DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Error editing item');

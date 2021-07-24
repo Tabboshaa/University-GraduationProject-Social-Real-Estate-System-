@@ -167,7 +167,7 @@ class ProfilePhotoController extends Controller
     public function destroy($id=null, $path=null)
     {
 
-        return $path;
+        // return $path;
         $myFile = 'storage/cover page/' . $path;
 
         if (File::exists($myFile)) {
