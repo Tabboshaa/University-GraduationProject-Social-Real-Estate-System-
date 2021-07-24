@@ -22,9 +22,14 @@ class ItemProfileController extends Controller
     {
         //
         $state = StateController::getStates();
+        try{
         return view("website.frontend.owner.CustomerHome", ['states' => $state]);
         // return view('');
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Show the form for creating a new resource.
@@ -61,7 +66,7 @@ class ItemProfileController extends Controller
 
             $post_images = collect($post_images)->merge($post_image);
         }
-
+try{
         if ($post_images != null) {
             $post_images = $post_images->groupby('Post_Id');
         }
@@ -102,7 +107,10 @@ class ItemProfileController extends Controller
             'items' => $user->items,
             'check_follow' =>  $check_follow,
 
-        ]);
+        ]);}
+        catch (\Exception $e) {
+            return back()->withError($e->getMessage())->withInput();
+        }
     }
 
 
@@ -123,6 +131,7 @@ class ItemProfileController extends Controller
         $replies = CommentsController::getPostreplies($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
         $post_images = AttachmentController::getPostAttachments($id);
+        try{
         $gallery = DB::table('post_attachments')
             ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
             ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
@@ -152,6 +161,10 @@ class ItemProfileController extends Controller
             ]
         );
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     public function itemDetails($id)
     {
@@ -169,7 +182,7 @@ class ItemProfileController extends Controller
 
         $User_Id = Auth::id();
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
-
+try{
         $details = DB::table('details')
             ->join('sub__type__properties', 'details.Property_Id', '=', 'sub__type__properties.Property_Id')
             ->join('property__details', 'details.Property_Detail_Id', '=', 'property__details.Property_Detail_Id')
@@ -180,8 +193,10 @@ class ItemProfileController extends Controller
 
         return view('website\frontend\customer\Item_Profile_Details', ['details' => $details, 'states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
     }
-
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
 
     public function itemProfileGallery($id)
     {
@@ -189,7 +204,7 @@ class ItemProfileController extends Controller
         $state = StateController::getStates();
 
         $item = Item::find($id);
-
+try{
         $gallery = DB::table('post_attachments')
             ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
             ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
@@ -201,6 +216,10 @@ class ItemProfileController extends Controller
 
         return view('website\frontend\customer\Item_Profile_Gallery', ['states' => $state, 'item' => $item, 'cover' => $cover, 'gallery' => $gallery, 'check_follow' => $check_follow]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     public function itemProfileReviews($id = null)
     {
         //
@@ -221,6 +240,7 @@ class ItemProfileController extends Controller
         $cover = CoverPageController::getCoverPhotoOfItem($id);
 
         $User_Id = Auth::id();
+        try{
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
         $AuthReview = review::all()->where('Item_Id', '=', $id)->where('User_Id', '=', $User_Id)->first();
@@ -229,6 +249,10 @@ class ItemProfileController extends Controller
         return view('website\frontend\customer\Item_Profile_Reviews', ['User'=>$User,'states' => $state, 'reviews' => $reviews, 'comments' => $comments,
         'replies' => $replies, 'post_images' => $post_images, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow, 'itemID' => $id, 'AuthReview' => $AuthReview]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
 
     /**

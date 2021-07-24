@@ -197,7 +197,7 @@
                 } else {
                     text +=
                         "<div class='card bg-transparent-card w-100 border-0 ps-0 mb-3'> " +
-                        "<h5 class='font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block'> <a href='{{url('/BeOwner')}}'> " +
+                        "<h5 class='font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block'> <a href='{{url('/BeOwner/1')}}'> " +
                         " Your Properties</a></h5></div>";
                 }
                 $("#checkIfOwnerDiv").html(text);

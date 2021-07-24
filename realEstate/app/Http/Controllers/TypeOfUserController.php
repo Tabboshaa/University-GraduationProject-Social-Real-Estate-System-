@@ -22,6 +22,7 @@ class TypeOfUserController extends Controller
     public static function checkIfAdmin()
     {
         //
+        try{
         $USER = Auth::user();
         $USER = $USER->usertype->groupBy('User_Type_ID');
         if (isset($USER[1])) //customer
@@ -30,6 +31,10 @@ class TypeOfUserController extends Controller
         }
         return false;
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     
     /**
      * Show the form for creating a new resource.

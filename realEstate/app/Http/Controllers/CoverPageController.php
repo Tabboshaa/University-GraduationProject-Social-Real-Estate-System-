@@ -40,7 +40,7 @@ class CoverPageController extends Controller
                 ]);
                 DB::commit();
                 return back();
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
@@ -82,8 +82,13 @@ class CoverPageController extends Controller
     public static function getCoverPhotoOfItem($id)
     {
         //
+        try{
         return  Cover_Page::all()->where('Item_Id', '=', $id)->first();
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Update the specified resource in storage.
@@ -94,24 +99,30 @@ class CoverPageController extends Controller
      */
     public function edit($id=null)
     {
+        return \request()->all();
 
-        //
+//        try {
+            if ($files = request()->file('CoverPageUpdate')) {
 
 
-        if ($files = request()->file('CoverPageUpdate')) {
-
+                $filename = $files->getClientOriginalName();
+                $files->storeAs('/cover page', $filename, 'public');
 
             $filename = $files->getClientOriginalName();
             $files->storeAs('/cover page', $filename, 'public');
 
             // }
+            try{
                 $coverPage = Cover_Page::all()->find($id);
                 //hy7ot el name el gded f column el country name
                 $coverPage->path = $filename;
                 $coverPage->save();
 
                 return redirect()->back();
-
+            }
+            catch (\Exception $e) {
+                return back()->withError($e->getMessage())->withInput();
+            }
         }else{
             return 'failed to upload image';
         }
@@ -137,7 +148,7 @@ class CoverPageController extends Controller
             Cover_Page::destroy($id);
             DB::commit();
             return back();
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
         }

@@ -23,6 +23,7 @@ class ReservationController extends Controller
         //2-Start_Date
         //3-End_Date
         //4-Total_Price
+        try{
         $values=DB::table('operation___detail__values')
             ->join('operation__detail_name', 'operation___detail__values.Detail_Id', '=', 'operation__detail_name.Detail_Id')
             ->where("operation___detail__values.Operation_Type_Id","=",1)
@@ -61,4 +62,8 @@ class ReservationController extends Controller
         return view('website.backend.database pages.Reservation_Show', ['values'=>$values,'sub_type' => $sub_types, 'main_type' => $main_types, 'property_detail' => $property_details,
          'property' => $property, 'data_type' => $data_type]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }}
+
 }

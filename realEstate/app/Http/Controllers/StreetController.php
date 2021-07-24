@@ -20,13 +20,18 @@ class StreetController extends Controller
     public function index()
     {
         //
+        try{
         $counrty = Country::all();
         $state = State::all();
         $city = City::all();
         $region = Region::all();
-        $street = Street::all();
+        $street = Street::paginate(10);
         return view('website.backend.database pages.Add_Street', ['counrty' => $counrty, 'state' => $state, 'city' => $city, 'region' => $region, 'street1' => $street]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Show the form for creating a new resource.
@@ -35,10 +40,7 @@ class StreetController extends Controller
      */
     public function create()
     {
-        //
-        //  request()->validate([
-        //     'Street_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
-        // ]);
+       
 
         DB::beginTransaction();
         try {
@@ -51,7 +53,7 @@ class StreetController extends Controller
             ]);
             DB::commit();
             return back()->with('success', 'Street Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -88,6 +90,7 @@ class StreetController extends Controller
         $city = City::all();
         $states = State::all();
         $countries = Country::all();
+        try{
         $streets = DB::table('streets')
             ->join('countries', 'streets.Country_Id', '=', 'countries.Country_Id')
             ->join('states', 'streets.State_Id', '=', 'states.State_Id')
@@ -97,6 +100,10 @@ class StreetController extends Controller
         //el subtype name w el main type name
         return view('website.backend.database pages.Add_Street_Show', ['counrty' => $countries, 'state' => $states, 'city' => $city, 'region' => $region, 'street1' => $streets]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -137,7 +144,7 @@ class StreetController extends Controller
                 Street::destroy($request->id);
                 DB::commit();
                 return redirect()->route('street_show')->with('success', 'Street Deleted Successfully');
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 return back()->withError($e->getMessage())->withInput();
                 return redirect()->route('street_show')->with('error', 'Street cannot be deleted');
@@ -158,7 +165,7 @@ class StreetController extends Controller
             DB::commit();
             //hyb3t el update el gded fl country table
             return back()->with('info', 'Street Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -170,6 +177,7 @@ class StreetController extends Controller
 
     public function findstreet()
     {
+        try{
 
         //will get all states which her Country_Id is the ID we passed from $.ajax
         $street = Street::all()->where('Region_Id', '=', request('id'));
@@ -177,4 +185,8 @@ class StreetController extends Controller
         // will send all values in state object by json
         return response()->json($street);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 }

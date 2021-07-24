@@ -17,10 +17,15 @@ class NotificationController extends Controller
     public static function index()
     {
         //
+        try{
         $notification = Notification::all()->where('To_User_Id', '=', Auth::id())->where('Viewed', '=', 0)->sortByDesc('created_at');
 
         return $notification;
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Show the form for creating a new resource.
@@ -40,7 +45,7 @@ class NotificationController extends Controller
             ]);
             DB::commit();
             return back();
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return back();
         }
@@ -62,7 +67,7 @@ class NotificationController extends Controller
             }
             DB::commit();
             return back();
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
 
             return back()->withError($e->getMessage())->withInput();
@@ -88,7 +93,7 @@ class NotificationController extends Controller
             
             DB::commit();
             return back()->with('success', 'Notification Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
         DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
             return back()->with('error', 'Error creating Notification !!');
@@ -104,6 +109,7 @@ class NotificationController extends Controller
     public function show()
     {
         //
+        try{
         $notification =  DB::table('notifications')
             ->join('users', 'users.id', '=', 'notifications.From_User_Id')
             ->select('notifications.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name', 'users.id')
@@ -112,6 +118,10 @@ class NotificationController extends Controller
             ->reverse();
         return view('website.frontend.customer.Notification', ['notifications' => $notification]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Show the form for editing the specified resource.

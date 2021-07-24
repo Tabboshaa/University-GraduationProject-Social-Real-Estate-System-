@@ -19,24 +19,37 @@ class SubTypes extends Controller
     public function index()
     {
         //
+        try{
         $main_types = Main_Type::all();
         return view('website.backend.database pages.Sub_Type', ['main_type' => $main_types]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     //    function of drop downlist
     public function find()
     {
-
+try{
         $sub_type = Sub_Type::all()->where('Main_Type_Id', '=', request('id'));
 
         return  response()->json($sub_type);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }}
     // //    function getSubTypeById: AJAX
     public function getSubTypeById($id)
     {
+        try{
         $subtype = Sub_Type::all()->find($id);
         //return dd($subtype) ;
         return response()->json($subtype);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     //  function  EDIT: AJAX
 
     public function editSubType()
@@ -47,15 +60,16 @@ class SubTypes extends Controller
 
             $subtype = Sub_Type::all()->find(request('id'));
             $subtype->Sub_Type_Name = request('SupTypeName');
+//            $subtype->Main_Type_Id = request('MainTypeId');
             $subtype->save();
 
             DB::commit();
             return back()->with('info', 'Type Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('error', 'Error editing item');
+                return back()->with('error', 'Already exist');
             }
             return back()->withError($e->getMessage())->withInput();
         }
@@ -69,11 +83,7 @@ class SubTypes extends Controller
      */
     public function create()
     {
-        //
-
-        // request()->validate([
-        //      'Sub_Type_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
-        // ]);
+       
         DB::beginTransaction();
         try {
             $Sub_Type = Sub_Type::create([
@@ -82,7 +92,7 @@ class SubTypes extends Controller
             ]);
             DB::commit();
             return back()->with('success', 'Type Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -113,6 +123,7 @@ class SubTypes extends Controller
     public function show()
     {
         //
+        try{
         $sub_show = DB::table('sub__types')->join('main__types', 'sub__types.Main_Type_Id', '=', 'main__types.Main_Type_Id')
             ->select('sub__types.*', 'main__types.Main_Type_Name')->paginate(10);
         //DB join b3ml add l column el main type name le table el subtype w bb3to 3sha azhr el main type name
@@ -120,7 +131,10 @@ class SubTypes extends Controller
         $main_types = Main_Type::paginate(10);
         return view('website.backend.database pages.Sub_Types_Show', ['S1' => $sub_show, 'main_type' => $main_types]);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -153,11 +167,11 @@ class SubTypes extends Controller
             $subtype->save();
             DB::commit();
             return redirect()->back();
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('error', 'Error editing item');
+                return back()->with('error', 'Duplicated data');
             }
         }
     }
@@ -172,12 +186,12 @@ class SubTypes extends Controller
     {
         if (request()->has('id')) {
             DB::beginTransaction();
-            
+
             try {
                 Sub_Type::destroy($request->id);
                 DB::commit();
                 return redirect()->route('subtype_show')->with('success', 'Type Deleted Successfully');
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 return back()->withError($e->getMessage())->withInput();
                 return redirect()->route('subtype_show')->with('error', 'Type cannot be deleted');

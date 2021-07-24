@@ -14,12 +14,15 @@ class ReviewController extends Controller
     public function index($id = null)
     {
         //
-
+try{
         $reviews = ReviewController::getItemReviews($id);
 
         return view('website\backend\database pages\Item_Reviews', ['reviews' => $reviews, 'Item_Id' => $id]);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     
 
 
@@ -31,7 +34,7 @@ class ReviewController extends Controller
         $AuthReview = review::all()->where('Item_Id', '=', request('item_id'))->where('User_Id', '=', Auth::id())->first();
     
         
-        // try {
+         try {
             if ($AuthReview) {
                 $AuthReview->Review_Content = request('review_content');
                 $AuthReview->Number_Of_Stars = request('stars');
@@ -66,14 +69,13 @@ class ReviewController extends Controller
             
             return redirect()->back();
 
-        // } catch (\Illuminate\Database\QueryException $e) {
-
-        //     return "error";
-        // }
-    }
+         }  catch (\Exception $e) {
+            return back()->withError($e->getMessage())->withInput();
+        }}
     public static function getItemReviews($item_id)
     {
         //
+        try{
         $review = DB::table('reviews')
             ->join('users', 'users.id', '=', 'reviews.User_Id')
             ->LeftJoin('profile_photos', 'profile_photos.User_Id', '=', 'reviews.User_Id')
@@ -83,10 +85,15 @@ class ReviewController extends Controller
 
         return $review;
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     public static function getItemRate($item_id)
     {
         //
+        try{
         $review = review::all()->where('Item_Id', '=', $item_id)->sum('Number_Of_Stars');
         $count = review::all()->where('Item_Id', '=', $item_id)->count();
 
@@ -95,7 +102,10 @@ class ReviewController extends Controller
 
         return 0;
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     public function destroy($id)
     {
         //
@@ -105,7 +115,7 @@ class ReviewController extends Controller
             review::destroy($id);
             DB::commit();
             return  redirect()->back()->with('success', 'Review Deleted Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Review cannot be deleted');
         }

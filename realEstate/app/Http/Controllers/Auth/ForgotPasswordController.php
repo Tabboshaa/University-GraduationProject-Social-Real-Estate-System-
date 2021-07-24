@@ -48,7 +48,7 @@ class ForgotPasswordController extends Controller
             Mail::to($email)->send(new \App\Mail\PasswordMail($newPassword));
             DB::commit();
             return view('website.frontend.forgotPassword');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
