@@ -6,21 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="94e67ae1-48e2-456b-854f-8264ac421576" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CityController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CoverPageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CoverPageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CustomerHomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CustomerHomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MainTypes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MainTypes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PropertyDetailsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PropertyDetailsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SubTypePropertyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SubTypePropertyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SubTypes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SubTypes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Details.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Edit_Item_User.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Edit_Item_User.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/backend/database pages/Sub_Types_Show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/backend/database pages/Sub_Types_Show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/customer/CustomerHome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/customer/CustomerHome.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/layouts/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/layouts/header.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/owner/Item_Profile_Details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/owner/Item_Profile_Details.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/website/frontend/ownerlayouts/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/website/frontend/ownerlayouts/header.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -626,6 +612,7 @@
       <workItem from="1627127823054" duration="2782000" />
       <workItem from="1627130939856" duration="1781000" />
       <workItem from="1627132767620" duration="1613000" />
+      <workItem from="1627135846508" duration="306000" />
     </task>
     <servers />
   </component>

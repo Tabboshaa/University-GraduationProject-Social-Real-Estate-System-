@@ -94,9 +94,8 @@ class CoverPageController extends Controller
      */
     public function edit($id=null)
     {
-        return \request()->all();
 
-//        try {
+        try {
             if ($files = request()->file('CoverPageUpdate')) {
 
 
@@ -114,10 +113,10 @@ class CoverPageController extends Controller
             } else {
                 return 'failed to upload image';
             }
-//        }catch (\Exception $e) {
-//            DB::rollBack();
-//            return back()->withError($e->getMessage())->withInput();
-//        }
+        }catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withError($e->getMessage())->withInput();
+        }
 
     }
 
