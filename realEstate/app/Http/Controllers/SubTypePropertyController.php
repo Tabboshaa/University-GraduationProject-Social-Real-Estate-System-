@@ -119,7 +119,7 @@ try{
     {
         //
         DB::beginTransaction();
-        
+
         try {
             $subtypeproperty = Sub_Type_Property::all()->find(request('id'));
             $subtypeproperty->Property_Name = request('SubTypePropertyName');
@@ -161,7 +161,7 @@ try{
         if(request()->has('id'))
        {
         DB::beginTransaction();
-        
+
         try {
             Sub_Type_Property::destroy($request->id);
             DB::commit();

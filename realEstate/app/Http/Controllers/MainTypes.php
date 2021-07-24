@@ -33,7 +33,7 @@ class MainTypes extends Controller
     public function create()
     {
         //
-        
+
         try {
             $Main_Type = Main_Type::create([
                 'Main_Type_Name' => request('Main_Type_Name'),
@@ -88,12 +88,12 @@ class MainTypes extends Controller
     {
         //
         DB::beginTransaction();
-        
+
         try {
             $main_types = Main_Type::all()->find(request('id'));
             $main_types->Main_Type_Name = request('MainTypeName');
             $main_types->save();
-            
+
             DB::commit();
             return back()->with('info', 'Main type Edited Successfully');
         } catch (\Exception $e) {
@@ -128,7 +128,7 @@ class MainTypes extends Controller
     {
         if (request()->has('mainType')) {
             DB::beginTransaction();
-            
+
             try {
                 Main_Type::destroy($request->mainType);
                 DB::commit();

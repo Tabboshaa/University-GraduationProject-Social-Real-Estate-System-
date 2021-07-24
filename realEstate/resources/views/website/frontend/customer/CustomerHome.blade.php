@@ -126,7 +126,7 @@
 
 <script type="text/javascript">
     var username=$('#userid').val();
-    var $show=$('#show').val();
+    var $show=$('#show').val(); //if show type = true so there is missed data so show moodel
     console.log(username);
       if($show=='true'){
         $(window).on('load', function() {

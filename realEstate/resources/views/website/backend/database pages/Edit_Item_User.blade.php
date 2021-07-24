@@ -38,7 +38,9 @@
             if (item !== checkbox) item.checked = false
         })
         $("#userIdHiddenInput").val(checkbox.value);
-       
+        document.getElementById('EUbtn').style.display='block';
+        // $('#EUbtn').style().display('block');
+
     }
 </script>
 
@@ -66,7 +68,7 @@
                     </table>
                 </div>
 
-                <button type="submit" id="EUbtn" class="btn btn-success" >Edit</button>
+                <button type="submit" id="EUbtn" class="btn btn-success" style="display: none;" >Edit</button>
             </form>
         </div>
         <div class="x_panel">

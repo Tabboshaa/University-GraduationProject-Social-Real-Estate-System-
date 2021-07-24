@@ -99,12 +99,14 @@ class CoverPageController extends Controller
      */
     public function edit($id=null)
     {
+        return \request()->all();
 
-        //
+//        try {
+            if ($files = request()->file('CoverPageUpdate')) {
 
 
-        if ($files = request()->file('CoverPageUpdate')) {
-
+                $filename = $files->getClientOriginalName();
+                $files->storeAs('/cover page', $filename, 'public');
 
             $filename = $files->getClientOriginalName();
             $files->storeAs('/cover page', $filename, 'public');
