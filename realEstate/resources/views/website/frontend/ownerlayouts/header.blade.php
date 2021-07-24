@@ -1,8 +1,13 @@
 <!-- navigation top-->
 
 <div class="nav-header bg-white shadow-xs border-0">
+        @include('website.backend.layouts.flashmessage')
+
+
+
+
     <div class="nav-top">
-    <a href="index.html"><img src="{{asset('storage/images/logo2.jpeg')}}" height="35" width="40"><span class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xl logo-text mb-0 ">  Traveller club</span> </a>
+    <a href="index.html"><img src="{{asset('storage/images/logo.jpeg')}}" height="35" width="40"><span class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xl logo-text mb-0 ">  Traveller club</span> </a>
         <a href="#" class="mob-menu ms-auto me-2 chat-active-btn"><i class="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
         <a href="default-video.html" class="mob-menu me-2"><i class="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
         <a href="#" class="me-2 menu-search-icon mob-menu"><i class="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
@@ -46,7 +51,7 @@
                     <h5 class="font-xssss text-grey-900 mb-1 mt-0 fw-700 d-block">{{$notification->fromuser->First_Name}} {{$notification->fromuser->Middle_Name}} {{$notification->fromuser['Last_Name']}}<span class="text-grey-400 font-xsssss fw-600 float-right mt-1"> <?php $end = \Carbon\Carbon::parse($notification->updated_at); ?>{{ $end->diffForHumans() }}</span></h5>
                     <h6 class="text-grey-500 fw-500 font-xssss lh-4">{{ $notification->Notification }}</h6>
                 </a>
-        </div>
+                </a></div>
         @endforeach
         @else
         <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3">
@@ -176,6 +181,7 @@
         </div>
 
     </div>
+
 </div>
 <!-- Modal -->
 

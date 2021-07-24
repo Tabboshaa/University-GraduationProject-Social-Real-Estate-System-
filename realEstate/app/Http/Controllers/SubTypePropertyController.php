@@ -41,13 +41,20 @@ class SubTypePropertyController extends Controller
 
         DB::beginTransaction();
         try {
-            $Property_Detail = sub_type_property::create([
-                'Main_Type_Id' => request('Main_Type_Name'),
-                'Sub_Type_Id' => request('Sub_Type_Name'),
-                'Property_Name' => request('Sub_Type_Property')
-            ]);
-            DB::commit();
-            return back()->with('success', 'Property Created Successfully');
+            $search=sub_type_property::all()->where('Sub_Type_Id','=',\request('Sub_Type_Name'))->where('Property_Name','=',\request('Sub_Type_Property'));
+
+            if($search=='[]'    )
+            {
+                $Property_Detail = sub_type_property::create([
+                    'Main_Type_Id' => request('Main_Type_Name'),
+                    'Sub_Type_Id' => request('Sub_Type_Name'),
+                    'Property_Name' => request('Sub_Type_Property')
+                ]);
+                DB::commit();
+                return back()->with('success', 'Property Created Successfully');
+            }else {
+                return redirect()->back()->with('error','Same SupType Property Name for Same SupType ');
+            }
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
@@ -111,7 +118,7 @@ class SubTypePropertyController extends Controller
     {
         //
         DB::beginTransaction();
-        
+
         try {
             $subtypeproperty = Sub_Type_Property::all()->find(request('id'));
             $subtypeproperty->Property_Name = request('SubTypePropertyName');
@@ -153,7 +160,7 @@ class SubTypePropertyController extends Controller
         if(request()->has('id'))
        {
         DB::beginTransaction();
-        
+
         try {
             Sub_Type_Property::destroy($request->id);
             DB::commit();

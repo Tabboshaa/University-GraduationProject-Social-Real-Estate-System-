@@ -65,7 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         //omnia
-        'auth.admin' => \App\Http\Middleware\Authenticate::class,
+//        'auth.admin' => \App\Http\Middleware\Authenticate::class,
         'auth.user' => \App\Http\Middleware\AuthenticateUser::class,
         'guest.user' => \App\Http\Middleware\RedirectIfAuthenticatedUser::class,
         //Aziz

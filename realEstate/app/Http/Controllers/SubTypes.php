@@ -47,6 +47,7 @@ class SubTypes extends Controller
 
             $subtype = Sub_Type::all()->find(request('id'));
             $subtype->Sub_Type_Name = request('SupTypeName');
+//            $subtype->Main_Type_Id = request('MainTypeId');
             $subtype->save();
 
             DB::commit();
@@ -172,7 +173,7 @@ class SubTypes extends Controller
     {
         if (request()->has('id')) {
             DB::beginTransaction();
-            
+
             try {
                 Sub_Type::destroy($request->id);
                 DB::commit();

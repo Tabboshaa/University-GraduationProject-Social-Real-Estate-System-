@@ -336,36 +336,40 @@
     }
 
 
-    $('#EditPostForm').submit(function() {
 
-        var id = $("#id").val();
+        $('#EditPostForm').on('submit',function() {
+            console.log('aaaaa');
 
-        //byb3t el value el gdeda
-        var edit_Post = $("#editPost").val();
-        console.log(edit_Post);
+            var id = $("#id").val();
 
-        var _token = $("input[name=_token]").val();
+            //byb3t el value el gdeda
+            var edit_Post = $("#editPost").val();
+            console.log(edit_Post);
 
-        $.ajax({
-            url: "{{route('post.update')}}",
-            Type: "PUT",
-            data: {
-                id: id,
-                edit_Post: edit_Post,
-                _token: _token
-            },
-            success: function() {
-                console.log('Success');
-                $("#EditPostModal").modal("toggle");
+            var _token = $("input[name=_token]").val();
 
-            },
-            error: function() {
-                console.log('Error');
-            }
+            $.ajax({
+                url: "{{route('post.update')}}",
+                Type: "PUT",
+                data: {
+                    id: id,
+                    edit_Post: edit_Post,
+                    _token: _token
+                },
+                success: function() {
+                    console.log('Success');
+                    $("#EditPostModal").modal("toggle");
+
+                },
+                error: function() {
+                    console.log('Error');
+                }
+
+            });
 
         });
 
-    });
+
 
     function Comment(post_id) {
 

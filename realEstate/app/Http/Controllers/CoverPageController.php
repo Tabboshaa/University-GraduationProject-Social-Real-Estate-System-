@@ -94,17 +94,16 @@ class CoverPageController extends Controller
      */
     public function edit($id=null)
     {
+        return \request()->all();
 
-        //
+//        try {
+            if ($files = request()->file('CoverPageUpdate')) {
 
 
-        if ($files = request()->file('CoverPageUpdate')) {
+                $filename = $files->getClientOriginalName();
+                $files->storeAs('/cover page', $filename, 'public');
 
-
-            $filename = $files->getClientOriginalName();
-            $files->storeAs('/cover page', $filename, 'public');
-
-            // }
+                // }
                 $coverPage = Cover_Page::all()->find($id);
                 //hy7ot el name el gded f column el country name
                 $coverPage->path = $filename;
@@ -112,9 +111,13 @@ class CoverPageController extends Controller
 
                 return redirect()->back();
 
-        }else{
-            return 'failed to upload image';
-        }
+            } else {
+                return 'failed to upload image';
+            }
+//        }catch (\Exception $e) {
+//            DB::rollBack();
+//            return back()->withError($e->getMessage())->withInput();
+//        }
 
     }
 

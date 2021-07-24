@@ -76,13 +76,14 @@ $.ajax({
                     <!-- <a href="javascript:void(0)" class="btn btn-primary" onclick="searchForItems()">
                         {{ __('Search') }}
                     </a> -->
-            
-                    <button  class="btn btn-primary" type="submit" disabled id="submitbtn">
-                        {{ __('Search for Item') }}
-                    </button>
+
                 </div>
             </div>
             </form>
+
+                <button  class="btn btn-primary" type="submit"  id="submitbtn" onclick="changesearch()" mar>
+                    {{ __('Search for Item') }}
+                </button>
         </div>
         <div class="x_panel">
             <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
