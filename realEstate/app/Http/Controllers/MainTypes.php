@@ -17,8 +17,13 @@ class MainTypes extends Controller
     public function index()
     {
         //
+        try{
         return view('website.backend.database pages.Main_Types');
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Show the form for creating a new resource.
@@ -34,7 +39,7 @@ class MainTypes extends Controller
                 'Main_Type_Name' => request('Main_Type_Name'),
             ]);
             return back()->with('success', 'Main Type Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -65,8 +70,13 @@ class MainTypes extends Controller
     {
         //
         $main_types = Main_Type::paginate(10);
+        try{
         return view('website.backend.database pages.Main_Types_Show', ['main_type1' => $main_types]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -86,7 +96,7 @@ class MainTypes extends Controller
             
             DB::commit();
             return back()->with('info', 'Main type Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -123,7 +133,7 @@ class MainTypes extends Controller
                 Main_Type::destroy($request->mainType);
                 DB::commit();
                 return redirect()->route('main_types_show')->with('success', 'Main type Deleted Successfully');
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 return redirect()->route('main_types_show')->with('error', 'Main type cannot be deleted');
                 return back()->withError($e->getMessage())->withInput();

@@ -67,9 +67,14 @@ class PaymentController extends Controller
      */
     public function show_payment($item_id, $schedule, $numberOfDays, $totalCost, $price_per_night, $start_date, $end_date)
     {
+        try{
         // //{totalCost}/{price_per_night}/{start_date}/{end_date}
         return view('website.frontend.customer.Reservation', ['schedule' => $schedule, 'totalCost' => $totalCost, 'numberOfDays' => $numberOfDays, 'item_id' => $item_id, "price_per_night" => $price_per_night, "start_date" => $start_date, "end_date" => $end_date]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Display the specified resource.
@@ -122,7 +127,7 @@ class PaymentController extends Controller
                 payment::destroy($request->id);
                 DB::commit();
                 return redirect()->route('Card_Show')->with('success', 'Card Deleted Successfully');
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 return back()->withError($e->getMessage())->withInput();
                 return redirect()->route('Card_Show')->with('error', 'Card cannot be deleted');
@@ -143,7 +148,7 @@ class PaymentController extends Controller
             $payment->save();
             DB::commit();
             return back()->with('info', 'Card Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {

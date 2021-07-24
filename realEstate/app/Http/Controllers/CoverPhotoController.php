@@ -42,7 +42,7 @@ class CoverPhotoController extends Controller
               
             
                 return back();
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
               $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('error', 'Already Exist !!');
@@ -75,7 +75,7 @@ class CoverPhotoController extends Controller
                 $coverPhoto->save();
                 DB::commit();
                 return back();
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
@@ -142,7 +142,7 @@ class CoverPhotoController extends Controller
                 $coverPhoto->save();
                 DB::commit();
                 return back();
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
@@ -172,7 +172,7 @@ class CoverPhotoController extends Controller
             coverPhoto::destroy($id);
             DB::commit();
             return back();
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
         }

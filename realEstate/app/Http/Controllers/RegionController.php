@@ -17,14 +17,17 @@ class RegionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {try{
         //
         $counrty = Country::all();
         $state = State::all();
         $city = City::all();
         return view('website.backend.database pages.Add_Region', ['counrty' => $counrty, 'state' => $state, 'city' => $city]);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -32,10 +35,7 @@ class RegionController extends Controller
      */
     public function create()
     {
-        // request()->validate([
-        //     'Region_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
-        // ]);
-        // //
+        
         DB::beginTransaction();
         try {
             $region = Region::create([
@@ -46,7 +46,7 @@ class RegionController extends Controller
             ]);
             DB::commit();
             return back()->with('success', 'Region Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -83,6 +83,7 @@ class RegionController extends Controller
         $city = City::all();
         $states = State::all();
         $countries = Country::all();
+        try{
         $region = DB::table('regions')
             ->join('countries', 'regions.Country_Id', '=', 'countries.Country_Id')
             ->join('states', 'regions.State_Id', '=', 'states.State_Id')
@@ -91,6 +92,11 @@ class RegionController extends Controller
         //el subtype name w el main type name
         return view('website.backend.database pages.Add_Region_Show', ['counrty' => $countries, 'state' => $states, 'city' => $city, 'region1' => $region]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
+
 
     /**
      * Show the form for editing the specified resource.
@@ -130,7 +136,7 @@ class RegionController extends Controller
                 Region::destroy($request->id);
                 DB::commit();
                 return redirect()->route('region_show')->with('success', 'Region Deleted Successfully');
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 return back()->withError($e->getMessage())->withInput();
                 return redirect()->route('region_show')->with('error', 'Region cannot be deleted');
@@ -140,34 +146,43 @@ class RegionController extends Controller
 
     public function findstate()
     {
-
+try{
         //will get all states which her Country_Id is the ID we passed from $.ajax
         $state = State::all()->where('Country_Id', '=', request('id'));
 
         // will send all values in state object by json
         return  response()->json($state);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     public function findcity()
     {
-
+try{
         //will get all states which her Country_Id is the ID we passed from $.ajax
         $city = City::all()->where('State_Id', '=', request('id'));
 
         // will send all values in state object by json
         return  response()->json($city);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     public function findregion()
     {
-
+try{
         //will get all states which her Country_Id is the ID we passed from $.ajax
         $region = Region::all()->where('City_Id', '=', request('id'));
 
         // will send all values in state object by json
         return  response()->json($region);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     public function editRegion(Request $request)
     {
         DB::beginTransaction();
@@ -182,7 +197,7 @@ class RegionController extends Controller
 
             DB::commit();
             return back()->with('info', 'Region Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {

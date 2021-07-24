@@ -49,7 +49,7 @@ class CommentsController extends Controller
 
             DB::commit();
             return response()->json($comment);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
         }
@@ -81,7 +81,7 @@ class CommentsController extends Controller
 
             DB::commit();
             return response()->json($comment)->with('success', 'Comment Deleted Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
         }
@@ -96,9 +96,14 @@ class CommentsController extends Controller
     public static function CommentCreatedBy($id)
     {
         //
+        try{
         $user = comments::all()->where('Comment_Id', '=', $id)->first()->User_Id;
         return $user;
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Display the specified resource.
@@ -146,7 +151,7 @@ class CommentsController extends Controller
 
             DB::commit();
             return back()->with('info', 'Comment Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -183,7 +188,7 @@ class CommentsController extends Controller
 
             DB::commit();
             return  redirect()->back()->with('success', 'Comment Deleted Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Comment cannot be deleted');
             return back()->withError($e->getMessage())->withInput();
@@ -199,7 +204,7 @@ class CommentsController extends Controller
             comments::destroy($id);
             DB::commit();
             return  redirect()->back()->with('success', 'Reply Deleted Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Reply cannot be deleted');
             return back()->withError($e->getMessage())->withInput();
@@ -209,7 +214,7 @@ class CommentsController extends Controller
     public static function getPostComments($item_id)
     {
         //
-
+        try{
         $comments = DB::table('comments')
             ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
             ->join('users', 'users.id', '=', 'comments.User_Id')
@@ -222,11 +227,14 @@ class CommentsController extends Controller
 
         return $comments;
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     public static function getPostreplies($item_id)
     {
         //
-
+        try{
         $comments = DB::table('comments')
             ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
             ->join('users', 'users.id', '=', 'comments.User_Id')
@@ -239,9 +247,14 @@ class CommentsController extends Controller
 
         return $comments;
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     public static function getPostCommentsHomePage($post_id)
     {
+        try{
         $comments = DB::table('comments')
             ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
             ->join('users', 'users.id', '=', 'comments.User_Id')
@@ -254,9 +267,13 @@ class CommentsController extends Controller
 
         return $comments;
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     public static function getPostrepliesHomePage($post_id)
     {
+        try{
         $comments = DB::table('comments')
             ->join('posts', 'posts.Post_Id', '=', 'comments.Post_Id')
             ->join('users', 'users.id', '=', 'comments.User_Id')
@@ -268,8 +285,13 @@ class CommentsController extends Controller
 
         return $comments;
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     public static function GetCommentReply()
     {
+        try{
         $comments = DB::table('comments')
             ->join('users', 'users.id', '=', 'comments.User_Id')
             ->LeftJoin('profile_photos', 'profile_photos.User_Id', '=', 'comments.User_Id')
@@ -279,8 +301,13 @@ class CommentsController extends Controller
 
         return $comments;
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     public static function GetComments()
     {
+        try{
         $comments = DB::table('comments')
             ->join('users', 'users.id', '=', 'comments.User_Id')
             ->LeftJoin('profile_photos', 'profile_photos.User_Id', '=', 'comments.User_Id')
@@ -291,4 +318,8 @@ class CommentsController extends Controller
 
         return $comments;
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 }

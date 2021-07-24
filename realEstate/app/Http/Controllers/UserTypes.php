@@ -18,12 +18,18 @@ class UserTypes extends Controller
      */
     public function index()
     {
+        try{
         $users = User_Type::all();
 
         //
 
         return view('website/backend.database pages.User_Type', ['user_typess' => $users]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -41,7 +47,7 @@ class UserTypes extends Controller
             ]);
             DB::commit();
             return back()->with('success', 'Type Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -70,9 +76,14 @@ class UserTypes extends Controller
     public function show()
     {
         //
+        try{
         $user_types = User_Type::paginate(10);
         return view('website/backend.database pages.User_Type_Show', ['user_typess' => $user_types]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -92,7 +103,7 @@ class UserTypes extends Controller
 
             DB::commit();
             return back()->with('info', 'Type Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -113,6 +124,7 @@ class UserTypes extends Controller
     {
         //
         $USER = Auth::user();
+        try{
         $USER = $USER->usertype->groupBy('User_Type_ID');
         if (isset($USER[1])) //customer
         {
@@ -120,6 +132,10 @@ class UserTypes extends Controller
         }
         return false;
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Remove the specified resource from storage.
@@ -137,7 +153,7 @@ class UserTypes extends Controller
                 User_Type::destroy(request('id'));
                 DB::commit();
                 return redirect()->route('usertype_show')->with('success', 'Type Deleted Successfully');
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 return redirect()->route('usertype_show')->with('error', 'Type cannot be deleted');
                 return back()->withError($e->getMessage())->withInput();

@@ -20,11 +20,15 @@ class StateController extends Controller
      */
     public function index()
     {
+        try{
         //
         $countries = Country::all();
         return view('website\backend.database pages.Add_State', ['country' => $countries]);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -32,10 +36,7 @@ class StateController extends Controller
      */
     public function create()
     {
-        //
-        //    request()->validate([
-        //     'State_Name' => ['required', 'string','max:225',"regex:/(^([A-Z][a-z]+)?$)/u"]
-        // ]);
+       
         DB::beginTransaction();
         try {
             $state = State::create([
@@ -45,7 +46,7 @@ class StateController extends Controller
             ]);
             DB::commit();
             return back()->with('success', 'State Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -79,12 +80,18 @@ class StateController extends Controller
     {
         //
         $countries = Country::all();
+        try{
         $states = DB::table('states')
             ->join('countries', 'states.Country_Id', '=', 'countries.Country_Id')
             ->select('states.*', 'countries.Country_Name')->paginate(10);
 
         return view('website\backend.database pages.Add_State_Show', ['state1' => $states, 'country' => $countries]);
     }
+
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -125,7 +132,7 @@ class StateController extends Controller
                 State::destroy($request->id);
                 DB::commit();
                 return redirect()->route('state_show')->with('success', 'State Deleted Successfully');
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 return redirect()->route('state_show')->with('error', 'State cannot be deleted');
                 return back()->withError($e->getMessage())->withInput();
@@ -136,14 +143,17 @@ class StateController extends Controller
     }
     public function findstate()
     {
-
+try{
         //will get all states which her Country_Id is the ID we passed from $.ajax
         $state = State::all()->where('Country_Id', '=', request('id'));
 
         // will send all values in state object by json
         return  response()->json($state);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     public function editState(Request $request)
     {
         DB::beginTransaction();
@@ -159,7 +169,7 @@ class StateController extends Controller
             DB::commit();
             //hyb3t el update el gded fl country table
             return back()->with('info', 'State Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -171,16 +181,23 @@ class StateController extends Controller
 
     public static function findstatebyname($statename)
     {
-
+try{
         $state = State::where('State_Name', 'like', '%' . $statename . '%')->get('State_Id')->first();
         if($state != null)
         return $state->State_Id;
         else return null;
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     public static function getStates()
     {
+        try{
         $states = State::get('State_Name');
         return $states;
     }
-}
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}}

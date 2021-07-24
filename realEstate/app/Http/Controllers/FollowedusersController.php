@@ -41,7 +41,7 @@ class FollowedusersController extends Controller
             NotificationController::createRedirect(Auth::id(), $to_user, 'Started following you', '/view_User/' . Auth::id());
             DB::commit();
             return back();
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -58,7 +58,7 @@ class FollowedusersController extends Controller
             followedusers::destroy($followed->id);
             DB::commit();
             return back();
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
             return redirect()->back()->with('error', 'Detail cannot be deleted');
@@ -74,7 +74,6 @@ class FollowedusersController extends Controller
     {
         //
         $followed = followedusers::all()->where('user_id', '=', Auth::id())->where('following_user', '=', $id)->first();
-
         if ($followed != null) {
             return true;
         }

@@ -45,7 +45,7 @@ class CityController extends Controller
             ]);
             DB::commit();
             return back()->with('success', 'City Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -77,6 +77,7 @@ class CityController extends Controller
      */
     public function show()
     {
+        try{
         $states = State::all();
         $countries = Country::all();
         $cities = DB::table('cities')
@@ -86,7 +87,10 @@ class CityController extends Controller
         //el subtype name w el main type name
         return view('website.backend.database pages.Add_City_Show', ['state' => $states, 'country' => $countries, 'cityy' => $cities]);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -126,7 +130,7 @@ class CityController extends Controller
                 City::destroy($request->id);
                 DB::commit();
                 return redirect()->route('city_show')->with('success', 'City Deleted Successfully');
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 return redirect()->route('city_show')->with('error', 'City cannot be deleted');
                 return back()->withError($e->getMessage())->withInput();
@@ -137,14 +141,17 @@ class CityController extends Controller
 
      public function findcity()
     {
-
+try{
         //will get all states which her Country_Id is the ID we passed from $.ajax
         $city = City::all()->where('State_Id', '=', request('id'));
 
         // will send all values in state object by json
         return  response()->json($city);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     public function editCity()
     {
         DB::beginTransaction();
@@ -156,11 +163,11 @@ class CityController extends Controller
             $city->save();
             DB::commit();
             return back()->with('info', 'City Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('error', 'Error editing City');
+                return back()->with('error', 'Duplicated data');
             }
             return back()->withError($e->getMessage())->withInput();
         }

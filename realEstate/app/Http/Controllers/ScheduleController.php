@@ -21,8 +21,13 @@ class ScheduleController extends Controller
     public function index($id)
     {
         //
+        try{
         return view('website.backend.database pages.Item_Schedule', ['item_id' => $id]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Show the form for creating a new resource.
@@ -52,7 +57,7 @@ class ScheduleController extends Controller
             ]);
             DB::commit();
             return back()->with('success', 'Schedule Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
             return back()->with('error', 'Error creating schedule !!');
@@ -80,7 +85,7 @@ class ScheduleController extends Controller
 
             DB::commit();
             return ["message" => "Schedule Added successfully", "class" => "alert alert-success alert-block"];
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return ["message" => "Sorry, An error happened creating your schedule.", "class" => "alert alert-danger alert-block"];
         }
@@ -108,7 +113,7 @@ class ScheduleController extends Controller
             ]);
             DB::commit();
             return;
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
             return back()->with('error', 'Error creating schedule !!');
@@ -118,16 +123,19 @@ class ScheduleController extends Controller
     public static function getWholeSchedule($item_id)
     {
         //     get from Schedule endDate startDate where item id =$item_id
-
+try{
         $schedule = schedule::orderBy('Start_Date')->where('Item_Id', '=', $item_id)->get();
 
         return $schedule;
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     public static function getAvailableTime($item_id)
     {
         //     get from Schedule endDate startDate where item id =$item_id
-
+try{
         $schedule = DB::table("schedules")
             ->selectRaw('schedule_Id,Start_Date,YEAR(Start_Date) as year ,MONTH(Start_Date) as month,End_Date')
             ->where('Item_Id', '=', $item_id)
@@ -152,10 +160,13 @@ class ScheduleController extends Controller
 
         return $days;
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     public static function getdays($start, $end, $schedule_id)
     {
-
+try{
         $period = new DatePeriod(
             new DateTime($start),
             new DateInterval('P1D'),
@@ -189,7 +200,10 @@ class ScheduleController extends Controller
         }
         return $interval;
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     public static function cutSchedule($schedule_id, $start, $end)
     {
         //schdule 01/03/2020 to 20/03/2020
@@ -242,9 +256,14 @@ class ScheduleController extends Controller
     public function show($id)
     {
         //
+        try{
         $schedule = Schedule::select()->where('Item_Id', '=', $id)->paginate(10);
         return view('website.backend.database pages.Item_Schedule_Show', ['schedules' => $schedule, 'item_id' => $id]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -267,7 +286,7 @@ class ScheduleController extends Controller
             DB::commit();
             request()->session()->flash('info', 'Schedule Edited Successfully');
             return ('/owneritemManageSchedule/' . $schedule->Item_Id);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -287,6 +306,7 @@ class ScheduleController extends Controller
     public static function checkIfScheduleExists($item, $start,$end=null)
     {
         //
+        try{
         if($end)
         {
             
@@ -304,7 +324,10 @@ class ScheduleController extends Controller
 
         return true;
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -322,7 +345,7 @@ class ScheduleController extends Controller
                 
                 DB::commit();
                 return redirect()->back()->with('success', 'Schedule Deleted Successfully');
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 return back()->withError($e->getMessage())->withInput();
                 return redirect()->back()->with('error', 'Schedule cannot be deleted');
