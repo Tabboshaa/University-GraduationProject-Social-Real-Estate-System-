@@ -116,10 +116,10 @@ class CustomerHomeController extends Controller
 
         $items = DB::table('streets')
             ->rightJoin('items', 'streets.Street_Id', '=', 'items.Street_Id')
-            ->join('cover__pages', 'cover__pages.Item_Id', '=', 'items.Item_Id')
+            ->rightJoin('cover__pages', 'cover__pages.Item_Id', '=', 'items.Item_Id')
             ->where('State_Id', '=', $state_id)
             ->select('items.*', 'cover__pages.path')->get();
-
+dd($items);
 
         $state = StateController::getStates();
 

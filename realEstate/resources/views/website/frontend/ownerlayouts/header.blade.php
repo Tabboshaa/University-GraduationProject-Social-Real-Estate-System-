@@ -8,7 +8,7 @@
 
     </div>
 
-    <form action="#" class="float-left header-search">
+    <form action="{{url('/search_by_place')}}" class="float-left header-search">
         <div class="form-group mb-0 icon-input">
             <i class="feather-search font-sm text-grey-400"></i>
             <input type="text" placeholder="Start typing to search.." class="bg-grey border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg">
