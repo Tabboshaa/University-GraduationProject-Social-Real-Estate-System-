@@ -42,7 +42,7 @@ class AttachmentController extends Controller
 
             if ($files = request()->file('images')) {
 
-
+        dd (request()->all());
                 foreach ($files as $file) {
                     $filename = $file->getClientOriginalName();
 
@@ -59,10 +59,7 @@ class AttachmentController extends Controller
 
             DB::commit();
             return back()->with('success', 'Image Added Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
-
-            return back()->with('error', 'Error  while Adding image !!');
-        } catch (\Illuminate\Database\QueryException $e) {
+        }  catch (\Exception $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
         }

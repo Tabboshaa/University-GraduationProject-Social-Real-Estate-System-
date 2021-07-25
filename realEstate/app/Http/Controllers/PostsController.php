@@ -46,7 +46,8 @@ class PostsController extends Controller
      */
     public function create($id = null)
     {
-       
+
+
         if ($id != null) {
             $item = Item::all()->find($id);
             $user_id = $item->User_Id;
@@ -61,6 +62,7 @@ class PostsController extends Controller
                 'Post_Content' => request('Post_Content'),
             ]);
 
+            dd(\request()->all());
             if ($files = request()->file('images')) {
 
                 foreach ($files as $file) {
