@@ -74,10 +74,20 @@
 <script>
     function createSchedule(item_id) {
 
-        $("#idNewSchedule").val(item_id);
-        $("#CreateScheduleModal").modal("toggle");
-    }
+$("#idNewSchedule").val(item_id);
+$("#CreateScheduleModal").modal("toggle");
+$("#CreateSchedule").change(function() {
+var startDate = document.getElementById("arrival").value;
+var endDate = document.getElementById("departure").value;
 
+if ((Date.parse(endDate) <= Date.parse(startDate))) {
+
+$('#Schedulealert').html("End date must be after start date");
+ $('#SchedulealertParent').removeClass().addClass("alert alert-danger alert-block");
+}
+});
+}
+   
     $('#CreateSchedule').submit(function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -88,7 +98,7 @@
         var departure = $("#departure").val();
         var price = $("#price").val();
         var _token = $("input[name=_token]").val();
-
+       
         $.ajax({
             url: "{{route('Add_Schedule')}}",
             Type: "POST",
@@ -110,16 +120,30 @@
 
         });
     });
-
+    
+   
  
 
     function setSchedule(schedule_id, start, end, price) {
+   
         $("#id").val(schedule_id);
         $("#StartDate").val(start);
         $("#EndDate").val(end);
         $("#Price").val(price);
         $("#EditScheduleModal").modal("toggle");
+
+       
     }
+    $("#EditSchedule").change(function() {
+var startDate = document.getElementById("StartDate").value;
+var endDate = document.getElementById("EndDate").value;
+
+if ((Date.parse(endDate) <= Date.parse(startDate))) {
+
+    alert('End date must be start date');
+ 
+}
+});
     $('#EditSchedule').submit(function() {
 
         var id = $("#id").val();

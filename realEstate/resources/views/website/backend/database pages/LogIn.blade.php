@@ -23,6 +23,7 @@
   </head>
 
   <body class="login">
+  @include('website.backend.layouts.flashmessage')
     <div>
       <a class="hiddenanchor" id="signup"></a>
       <a class="hiddenanchor" id="signin"></a>
