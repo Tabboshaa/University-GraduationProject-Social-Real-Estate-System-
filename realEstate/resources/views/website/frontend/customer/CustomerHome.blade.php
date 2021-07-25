@@ -66,7 +66,7 @@
 
 <div class="card w-100 border-0 bg-white shadow-xs p-0 mb-4" >
     <div class="card-body p-4 w-100 bg-current border-0 d-flex rounded-3">
-        <a href="default-settings.html" class="d-inline-block mt-2"><i class="ti-arrow-left font-sm text-white"></i></a>
+       
         <h4 class="font-xs text-white fw-600 ms-4 mb-0 mt-2">Find a Place to Stay</h4>
     </div>
     <div class="card-body p-lg-5 p-4 w-100 border-0 mb-0">
