@@ -508,8 +508,6 @@ try{
     {
 
 
-
-
         try {
             $User_ID = Auth::id();
             $user = User::all()->find($User_ID);
@@ -522,7 +520,7 @@ try{
                 return 1;
 
 
-            }else
+            } else
                 return 2;
 
         } catch (\Exception $e) {
@@ -532,5 +530,17 @@ try{
                 return back()->with('error', 'Already Exist !!');
             }
         }
+    }
+        public function Adminlogout(Request $request) {
+
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('AdminLogin');
+
+
     }
 }

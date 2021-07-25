@@ -84,8 +84,7 @@
                 <label for="uploadImagespost" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 pt-2"><i class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Add Photo</span>
                     <input type="file" style="display:none" id="uploadImagespost" name="images[]" accept="image/*" multiple>
                 </label>
-                     <input type="submit" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i class="font-md text-success feather-check-circle me-2"></i><span class="d-none-xs">Create Post</span>
-                </div>
+c                </div>
             </form>
         </div>
         <!-- end of create post div -->

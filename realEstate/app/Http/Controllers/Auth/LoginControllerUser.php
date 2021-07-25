@@ -53,7 +53,7 @@ class   LoginControllerUser extends Controller
 
         if ($emailModel = Emails::all()->where('email', $email)->first())
         {
-            if( Count(Type_Of_User::all()->where('User_ID',$emailModel->User_ID)->where('User_Type_ID',2))>0);
+            if( Count(Type_Of_User::all()->where('User_ID',$emailModel->User_ID)->where('User_Type_ID',2))>0)
             return $this->login($emailModel->User_ID, $password);
 
         }

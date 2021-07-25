@@ -30,23 +30,25 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form>
+            <form action="{{route('loginAdmin')}}" method="post" >
+                @CSRF
               <h1>Login Form</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
+                <input type="text" name="email" class="form-control" placeholder="Admin Email" required="" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
+                <input type="password" name="password" class="form-control" placeholder="Password" required="" />
               </div>
               <div>
-                <a class="btn btn-default submit" href="index.html" style="font-size: 16px;">log in</a>
+                <input type="submit" class="btn btn-default submit"  style="font-size: 16px;" value="Login">
+
                 <a class="reset_pass" href="#">Forget your password?</a>
               </div>
 
               <div class="clearfix"></div>
 
               <div class="separator">
-                
+
                 <div class="clearfix"></div>
                 <br />
 
@@ -80,7 +82,7 @@
 
               <div class="separator">
                 <p class="change_link">Already a member ?
-                  <a href="#signin" class="to_register"> Log in </a>
+
                 </p>
 
                 <div class="clearfix"></div>
