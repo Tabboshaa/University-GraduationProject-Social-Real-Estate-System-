@@ -78,14 +78,7 @@
                 </div>
             </div>
 
-            <div class="card-body d-block w-100 shadow-none mb-0 p-0 border-top-xs">
-                <ul class="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4" id="pills-tab" role="tablist">
-                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Profile</a></li>
-                    <!-- <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Owned items</a></li>
-                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Followed items</a></li> -->
-                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Gallery</a></li>
-                </ul>
-            </div>
+        
 
         </div>
     </div>
@@ -174,7 +167,7 @@
     <div class="col-xl-8 col-xxl-9 col-lg-8">
         <!-- create post div -->
         <div class="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3 mt-3">
-            <form method="POST" action="{{ url('/add_user_post') }}" id="postform" enctype="multipart/form-data">
+            <form method="post" action="{{url('/add_post')}}" id="postform" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body p-0">
                     <a class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>Create Post</a>
@@ -182,10 +175,12 @@
                 <div class="card-body p-0 mt-3 position-relative">
                     <textarea name="Post_Content" value="{{ old('Post_Content') }}" style="padding-left:50pt;" class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?" required></textarea>
                 </div>
+                <div id="imgs"></div>
+                <label id="custom-file-label"></label>
                 <div class="card-body d-flex p-2 mt-0">
                     <label for="uploadImages" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 pt-2"><i class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Add Photo</span></label>
-                    <input type="file" style="display:none;" id="uploadImages" name="images[]" accept="image/*" placeholder="upload Images" multiple>
-                    <a href="javascript:void(0);" onclick="document.getElementById('postform').submit(); return false;" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i class="font-md text-success feather-check-circle me-2"></i><span class="d-none-xs">Create Post</span></a>
+                    <input type="file" style="display:none;" id="uploadImages" name="images[]" accept="image/*" placeholder="upload Images">
+                    <a href="javascript:void(0)" onclick="document.getElementById('postform').submit();" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i class="font-md text-success feather-check-circle me-2"></i><span class="d-none-xs">Create Post</span></a>
                 </div>
             </form>
         </div>
@@ -362,12 +357,12 @@
 
             },
             success: function(data) {
-                var str=$('#more'+post_id).html();
+                var str = $('#more' + post_id).html();
                 matches = str.match(/\d+/g);
-                if(matches.length != 0 ){
-                console.log(matches[1]);
-                var m= parseInt(matches[1])+1;
-                $('#more'+post_id).html('<i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>'+m+' Comments');
+                if (matches.length != 0) {
+                    console.log(matches[1]);
+                    var m = parseInt(matches[1]) + 1;
+                    $('#more' + post_id).html('<i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>' + m + ' Comments');
                 }
 
                 console.log(data);
@@ -383,7 +378,7 @@
                 if (data['Middle_Name'] == null) {
                     data['Middle_Name'] = '';
                 }
-                
+
                 $("#allcomments" + post_id).prepend("<div class='card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10'>" +
                     "<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/" + data['Profile_Picture'] + "\" alt='image' class='shadow-sm rounded-circle w35' height='35'></figure>" +
                     "<div class='chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg'>" +
@@ -499,43 +494,31 @@
     function setPost(id, name) {
 
         // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty
-        $("#id").val(id);
+        $("#posteditid").val(id);
         console.log(name);
         $("#editPost").val(name);
         $("#EditPostModal").modal("toggle");
     }
 
+    $("#uploadImages").on('change',function() {
+       var fileList = this.files;
+       for(var i = 0; i < fileList.length; i++)
+       {
+           //get a blob
+           var t = window.URL || window.webkitURL;
+           var objectUrl = t.createObjectURL(fileList[i]);
+           $('#imgs').append('<a href="'+objectUrl+'" data-lightbox="roadtrip" >'+'<img src="' + objectUrl + '" width="100" height="100" style="padding-right: 5px" data-lightbox="roadtrip" /></a>');
 
-    $('#EditPostForm').submit(function() {
+           j = i+1;
+           if(j % 3 == 0)
+           {
+               $('#imgs').append('<br>');
+           }
 
-        var id = $("#id").val();
+       }
 
-        //byb3t el value el gdeda
-        var edit_Post = $("#editPost").val();
-        console.log(edit_Post);
 
-        var _token = $("input[name=_token]").val();
-
-        $.ajax({
-            url: "{{route('post.update')}}",
-            Type: "PUT",
-            data: {
-                id: id,
-                edit_Post: edit_Post,
-                _token: _token
-            },
-            success: function() {
-                console.log('Success');
-                $("#EditPostModal").modal("toggle");
-
-            },
-            error: function() {
-                console.log('Error');
-            }
-
-        });
-
-    })
+   });
 </script>
 
 

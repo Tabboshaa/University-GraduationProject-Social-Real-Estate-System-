@@ -1,7 +1,7 @@
 <!-- navigation top-->
 <div class="nav-header bg-white shadow-xs border-0">
     <div class="nav-top">
-        <a href="{{url('/HomePage')}}"><img src="{{asset('storage/images/logo.jpeg')}}" height="35" width="40"><span class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xl logo-text mb-0 "> Traveller club</span> </a>
+        <a href="{{url('/HomePage')}}"><img src="{{asset('storage/images/logo.png')}}" height="35" width="40"><span class="d-inline-block fredoka-font ls-3 fw-600 font-xl logo-text mb-0 "> Traveller club</span> </a>
         <a href="{{url('/HomePage')}}" class="mob-menu ms-auto me-2 chat-active-btn"><i class="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
         
     </div>
@@ -13,9 +13,9 @@
         </div>
     </form>
 
-    <a href="{{ url('/HomePage') }}" class="p-2 text-center ms-3 menu-icon center-menu-icon"><i class="feather-home font-lg alert-primary btn-round-lg theme-dark-bg text-current "></i></a>
-    <a href="{{url('/EditCustomerProfile')}}" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i class="feather-user font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
-    <a href="{{url('/user_reservations')}}"  class="p-2 text-center ms-0 menu-icon center-menu-icon"><i class="feather-shopping-bag font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
+    <a href="{{ url('/HomePage') }}" class="p-2 text-center ms-3 menu-icon center-menu-icon"><i class="feather-home font-lg btn-round-lg theme-dark-bg text-current "></i></a>
+    <a href="{{url('/EditCustomerProfile')}}" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i class="feather-user font-lg  btn-round-lg theme-dark-bg text-current "></i></a>
+    <a href="{{url('/user_reservations')}}"  class="p-2 text-center ms-0 menu-icon center-menu-icon"><i class="feather-shopping-bag font-lg  btn-round-lg theme-dark-bg text-current"></i></a>
 
     <?php
 
@@ -143,7 +143,7 @@
             <div class="card bg-transparent-card border-0 d-block mt-3">
                 <h4 class="d-inline font-xssss mont-font fw-700">Dark Mode</h4>
                 <div class="d-inline float-right mt-1">
-                    <label class="toggle toggle-dark"><input type="checkbox"><span class="toggle-icon"></span></label>
+                    <label class="toggle toggle-dark"><input type="checkbox" id="darkmodeswitch"><span class="toggle-icon"></span></label>
                 </div>
             </div>
 
@@ -170,12 +170,9 @@
     </div>
 </div>
 <!-- Modal -->
-
-
-<script src="/js/scripts.js"></script>
-
 <script>
     $(document).ready(function() {
+
 
         $.ajax({
             url: "{{route('checkIfOwner')}}",
@@ -204,6 +201,40 @@
             },
             error: function() {
 
+            }
+        });
+
+        $('.toggle-menu input').on('change', function() {
+            if (this.checked) {
+                $('.navigation,.main-content').addClass('menu-active');
+            } else {
+                $('.navigation,.main-content').removeClass('menu-active');
+            }
+        });
+        $('input[name="color-radio"]').on('change', function() {
+            if (this.checked) {
+                $('body').removeClass('color-theme-teal color-theme-cadetblue color-theme-pink color-theme-deepblue color-theme-blue color-theme-red color-theme-black color-theme-gray color-theme-orange color-theme-yellow color-theme-green color-theme-white color-theme-brown color-theme-darkgreen color-theme-deeppink color-theme-darkorchid');
+                $('body').addClass('color-theme-' + $(this).val());
+            }
+        });
+
+        $('.toggle-menu-color input').on('change', function() {
+            if (this.checked) {
+                $('.navigation').addClass('menu-current-color');
+            } else {
+                $('.navigation').removeClass('menu-current-color');
+            }
+        });
+
+        $('.dropdown-menu-icon').on('click', function() {
+            $('.dropdown-menu-settings').toggleClass('active');
+        });
+
+        $('#darkmodeswitch').on('change', function() {
+            if (this.checked) {
+                $('body').addClass('theme-dark');
+            } else {
+                $('body').removeClass('theme-dark');
             }
         });
     });

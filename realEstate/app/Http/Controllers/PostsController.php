@@ -50,30 +50,28 @@ class PostsController extends Controller
      */
     public function create($id = null)
     {
-              
         if ($id != null) {
             $item = Item::all()->find($id);
             $user_id = $item->User_Id;
         } else $user_id = Auth::id();
 
-        DB::beginTransaction();
+        // DB::beginTransaction();
         try {
             $post = posts::create([
                 'Item_Id' => $id,
                 'User_Id' => $user_id,
-                'Post_Title' => ' ',
                 'Post_Content' => request('Post_Content'),
             ]);
 
             if ($files = request()->file('images')) {
-
+           
                 foreach ($files as $file) {
                     $filename = $file->getClientOriginalName();
                     $file->storeAs('/profile gallery', $filename, 'public');
 
                     $attachment = attachment::create(['File_Path' => $filename]);
 
-                    $post_attachment = post_attachment::create([
+                     post_attachment::create([
                         'Post_Id' => $post->Post_Id,
                         'Attachment_Id' =>  $attachment->Attachment_Id,
                         'Item_Id' => $id
@@ -81,8 +79,7 @@ class PostsController extends Controller
                 }
             }
 
-
-            DB::commit();
+            // DB::commit();
             return back()->with('success', 'Post Created Successfully');
         } catch (\Exception $e) {
             DB::rollBack();
@@ -139,19 +136,33 @@ class PostsController extends Controller
     
     public function editPost()
     {   
-        
+    
         try {
-            $post = posts::all()->find(request('id'));
+            $post = posts::all()->find(request('posteditid'));
             $post->Post_Content = request('edit_Post');
             $post->save();
+
+            if ($files = request()->file('images')) {
+
+                foreach ($files as $file) {
+                    $filename = $file->getClientOriginalName();
+                    $file->storeAs('/profile gallery', $filename, 'public');
+
+                    $attachment = attachment::create(['File_Path' => $filename]);
+
+                    post_attachment::create([
+                        'Post_Id' => $post->Post_Id,
+                        'Attachment_Id' =>  $attachment->Attachment_Id,
+                        'Item_Id' => $post->Item_Id
+                    ]);
+                }
+            }
+
             return back()->with('info', 'post Edited Successfully');
+
         } catch (\Exception $e) {
 //            DB::rollBack();
-            $errorCode = $e->errorInfo[1];
-            if ($errorCode == 1062) {
-                return back()->with('error', 'Error editing item');
-            }
-            return back()->withError($e->getMessage())->withInput();
+return back()->withError($e->getMessage())->withInput();
         }
     }
 

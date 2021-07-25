@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 //test routes here
 //end test routes
 
-Route::get('/meshtest','PostsController@editPost')->name('test');
+Route::post('/edit_post_user','PostsController@editPost')->name('test');
+Route::post('/add_post', 'PostsController@create');
 
 Route::get('/Land', function () {
     return view('website\LandingPadge');
