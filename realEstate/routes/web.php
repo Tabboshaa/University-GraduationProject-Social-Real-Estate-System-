@@ -435,6 +435,6 @@ Route::POST('/ForgotPassword','Auth\ForgotPasswordController@forgotPassword');
 Route::get('changePassword','UserController@changePassword')->name('changePassword');
 Route::POST('activateRegister','Auth\RegisterController@activateRegister')->name('activateRegister');
 Route::get('AdminProfile','UserController@AdminProfile')->name('AdminProfile');
-Route::get('/contactus', 'HomeController@contactUs')->name('contuctus');
+Route::post('/contactus', 'HomeController@contactUs')->name('contuctus');
 
 
