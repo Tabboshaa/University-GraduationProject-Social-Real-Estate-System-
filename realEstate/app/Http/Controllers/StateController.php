@@ -182,11 +182,13 @@ try{
     public static function findstatebyname($statename)
     {
 try{
-        $state = State::where('State_Name', 'like', '%' . $statename . '%')->get('State_Id')->first();
+        $state = State::all()->where('State_Name', 'like', '%' . $statename .'%')->first();
         if($state != null){
         return $state->State_Id;
         }
         else return null;
+
+      
     }
     catch (\Exception $e) {
         return back()->withError($e->getMessage())->withInput();

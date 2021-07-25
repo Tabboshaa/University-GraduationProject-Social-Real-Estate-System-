@@ -40,18 +40,17 @@ class CustomerHomeController extends Controller
     }
     public function indexPhoto()
     {
-    try{
-        $States = DB::table('state_photos')
-            ->join('states', 'states.State_Id', '=', 'state_photos.State_Id')
-            ->join('attachments', 'attachments.Attachment_Id', '=', 'state_photos.Attachment_Id')
-            ->select('state_photos.*', 'attachments.File_Path', 'states.State_Name')->get();
+        try {
+            $States = DB::table('state_photos')
+                ->join('states', 'states.State_Id', '=', 'state_photos.State_Id')
+                ->join('attachments', 'attachments.Attachment_Id', '=', 'state_photos.Attachment_Id')
+                ->select('state_photos.*', 'attachments.File_Path', 'states.State_Name')->get();
 
-        return view('website.frontend.customer.CustomerHome',['StatesPhotos' => $States]);
+            return view('website.frontend.customer.CustomerHome', ['StatesPhotos' => $States]);
+        } catch (\Exception $e) {
+            return back()->withError($e->getMessage())->withInput();
         }
-    catch (\Exception $e) {
-        return back()->withError($e->getMessage())->withInput();
     }
-}
     /**
      * Show the form for creating a new resource.
      *
@@ -111,24 +110,52 @@ class CustomerHomeController extends Controller
 
     public function findItemInState()
     {
-        try{
-        $state_id = StateController::findstatebyname(request('search'));
+        try {
+            $state_id = StateController::findstatebyname(request('search'));
 
-        $items = DB::table('streets')
-            ->rightJoin('items', 'streets.Street_Id', '=', 'items.Street_Id')
-            ->rightJoin('cover__pages', 'cover__pages.Item_Id', '=', 'items.Item_Id')
-            ->where('State_Id', '=', $state_id)
-            ->select('items.*', 'cover__pages.path')->get();
-dd($items);
+            $User_Id = Auth::id();
 
-        $state = StateController::getStates();
+            $items = DB::table('items')
+                ->join('streets', 'streets.Street_Id', '=', 'items.Street_Id')
+                ->join('countries', 'streets.Country_Id', '=', 'countries.Country_Id')
+                ->join('states', 'streets.State_Id', '=', 'states.State_Id')
+                ->join('cities', 'streets.City_Id', '=', 'cities.City_Id')
+                ->join('regions', 'streets.Region_Id', '=', 'regions.Region_Id')
+                ->join('schedules', 'schedules.Item_Id', '=', 'items.Item_Id')
+                ->LeftJoin('cover__pages', 'cover__pages.Item_Id', '=', 'items.Item_Id')
+                ->where('streets.State_Id', '=', $state_id)
+                ->select('items.*', 'cover__pages.path', 'countries.Country_Name', 'states.State_Name', 'cities.City_Name', 'regions.Region_Name', 'streets.Street_Name')
+                ->get();
 
-        return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items]);
+            $details = [];
+            $reviews = [];
+            if ($items != null) {
+                foreach ($items as $item) {
+
+                    $review = [" " . $item->Item_Id . " " => ReviewController::getItemRate($item->Item_Id)];
+
+                    $detail = DB::table('details')
+                        ->join('sub__type__properties', 'sub__type__properties.Property_Id', '=', 'details.Property_Id')
+                        ->groupBy('details.Property_Id', 'details.Item_Id', 'sub__type__properties.Property_Name')
+                        ->selectRaw('details.Item_Id , sub__type__properties.Property_Name  , COUNT(DISTINCT Property_diff) as count')
+                        ->where('Item_Id', '=', $item->Item_Id)
+                        ->get()
+                        ->groupBy('Item_Id');
+
+                    $details = collect($details)->merge([$detail]);
+                    $reviews = collect($reviews)->merge($review);
+                }
+            }
+
+            $check_follow = followeditemsbyuser::all()->where('User_ID', '=', $User_Id)->groupBy('Item_Id');
+
+            $state = StateController::getStates();
+
+            return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items, 'check_follow' => $check_follow, 'details' => $details, 'reviews' => $reviews]);
+        } catch (\Exception $e) {
+            return back()->withError($e->getMessage())->withInput();
+        }
     }
-    catch (\Exception $e) {
-        return back()->withError($e->getMessage())->withInput();
-    }
-}
 
     public function findItemInStateAndDate()
     {
@@ -137,66 +164,64 @@ dd($items);
         $departuredate = request('departuredate');
 
         $User_Id = Auth::id();
-try{
-        $items = DB::table('items')
-            ->join('streets', 'streets.Street_Id', '=', 'items.Street_Id')
-            ->join('countries', 'streets.Country_Id', '=', 'countries.Country_Id')
-            ->join('states', 'streets.State_Id', '=', 'states.State_Id')
-            ->join('cities', 'streets.City_Id', '=', 'cities.City_Id')
-            ->join('regions', 'streets.Region_Id', '=', 'regions.Region_Id')
-            ->join('schedules', 'schedules.Item_Id', '=', 'items.Item_Id')
-            ->LeftJoin('cover__pages', 'cover__pages.Item_Id', '=', 'items.Item_Id')
-            ->where('streets.State_Id', '=', $state_id)
-            ->WhereDate('schedules.Start_Date', '<=', $arrivaldate)
-            ->WhereDate('schedules.End_Date', '>=', $departuredate)
-            ->select('items.*', 'cover__pages.path', 'countries.Country_Name', 'states.State_Name', 'cities.City_Name', 'regions.Region_Name', 'streets.Street_Name')
-            ->get();
+        try {
+            $items = DB::table('items')
+                ->join('streets', 'streets.Street_Id', '=', 'items.Street_Id')
+                ->join('countries', 'streets.Country_Id', '=', 'countries.Country_Id')
+                ->join('states', 'streets.State_Id', '=', 'states.State_Id')
+                ->join('cities', 'streets.City_Id', '=', 'cities.City_Id')
+                ->join('regions', 'streets.Region_Id', '=', 'regions.Region_Id')
+                ->join('schedules', 'schedules.Item_Id', '=', 'items.Item_Id')
+                ->LeftJoin('cover__pages', 'cover__pages.Item_Id', '=', 'items.Item_Id')
+                ->where('streets.State_Id', '=', $state_id)
+                ->WhereDate('schedules.Start_Date', '<=', $arrivaldate)
+                ->WhereDate('schedules.End_Date', '>=', $departuredate)
+                ->select('items.*', 'cover__pages.path', 'countries.Country_Name', 'states.State_Name', 'cities.City_Name', 'regions.Region_Name', 'streets.Street_Name')
+                ->get();
 
-        $details = [];
-        $reviews = [];
-        if ($items != null) {
-            foreach ($items as $item) {
+            $details = [];
+            $reviews = [];
+            if ($items != null) {
+                foreach ($items as $item) {
 
-                $review = [" " . $item->Item_Id . " " => ReviewController::getItemRate($item->Item_Id)];
+                    $review = [" " . $item->Item_Id . " " => ReviewController::getItemRate($item->Item_Id)];
 
-                $detail = DB::table('details')
-                    ->join('sub__type__properties', 'sub__type__properties.Property_Id', '=', 'details.Property_Id')
-                    ->groupBy('details.Property_Id', 'details.Item_Id', 'sub__type__properties.Property_Name')
-                    ->selectRaw('details.Item_Id , sub__type__properties.Property_Name  , COUNT(DISTINCT Property_diff) as count')
-                    ->where('Item_Id', '=', $item->Item_Id)
-                    ->get()
-                    ->groupBy('Item_Id');
+                    $detail = DB::table('details')
+                        ->join('sub__type__properties', 'sub__type__properties.Property_Id', '=', 'details.Property_Id')
+                        ->groupBy('details.Property_Id', 'details.Item_Id', 'sub__type__properties.Property_Name')
+                        ->selectRaw('details.Item_Id , sub__type__properties.Property_Name  , COUNT(DISTINCT Property_diff) as count')
+                        ->where('Item_Id', '=', $item->Item_Id)
+                        ->get()
+                        ->groupBy('Item_Id');
 
-                $details = collect($details)->merge([$detail]);
-                $reviews = collect($reviews)->merge($review);
+                    $details = collect($details)->merge([$detail]);
+                    $reviews = collect($reviews)->merge($review);
+                }
             }
+
+            $check_follow = followeditemsbyuser::all()->where('User_ID', '=', $User_Id)->groupBy('Item_Id');
+
+            $state = StateController::getStates();
+
+            return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items, 'check_follow' => $check_follow, 'details' => $details, 'reviews' => $reviews]);
+        } catch (\Exception $e) {
+            return back()->withError($e->getMessage())->withInput();
         }
-
-        $check_follow = followeditemsbyuser::all()->where('User_ID', '=', $User_Id)->groupBy('Item_Id');
-
-        $state = StateController::getStates();
-
-        return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items, 'check_follow' => $check_follow, 'details' => $details, 'reviews' => $reviews]);
-    }
-    catch (\Exception $e) {
-        return back()->withError($e->getMessage())->withInput();
-    }
     }
     public function FollowedItemPosts($item_id)
     {
-        try{
-        $posts = DB::table('posts')
-            ->join('items', 'items.Item_Id', 'posts.Item_Id')
-            ->where('posts.Item_Id', '=', $item_id)
-            ->select('posts.*')
-            ->get();
+        try {
+            $posts = DB::table('posts')
+                ->join('items', 'items.Item_Id', 'posts.Item_Id')
+                ->where('posts.Item_Id', '=', $item_id)
+                ->select('posts.*')
+                ->get();
 
-        return view('website.frontend.customer.TimeLine', ['posts' => $posts]);
+            return view('website.frontend.customer.TimeLine', ['posts' => $posts]);
+        } catch (\Exception $e) {
+            return back()->withError($e->getMessage())->withInput();
+        }
     }
-    catch (\Exception $e) {
-        return back()->withError($e->getMessage())->withInput();
-    }
-}
 
 
     public function HomePagePosts()
@@ -208,75 +233,74 @@ try{
         $mostPopularitems = ItemController::getpopularitems();
         //    return $newestitems[5]->coverpage->path;
 
-try{
-        $posts = DB::table('followeditemsbyusers')
-            ->join('posts', 'followeditemsbyusers.Item_Id', 'posts.Item_Id')
-            ->join('items', 'followeditemsbyusers.Item_Id', 'items.Item_Id')
-            ->Leftjoin('cover__pages', 'cover__pages.Item_Id', 'followeditemsbyusers.Item_Id')
-            ->select('posts.*', 'items.Item_Name', 'cover__pages.path')
-            ->where('followeditemsbyusers.User_ID', '=', $User->id)
-            ->orderBy('updated_at', 'DESC')
-            ->get();
+        try {
+            $posts = DB::table('followeditemsbyusers')
+                ->join('posts', 'followeditemsbyusers.Item_Id', 'posts.Item_Id')
+                ->join('items', 'followeditemsbyusers.Item_Id', 'items.Item_Id')
+                ->Leftjoin('cover__pages', 'cover__pages.Item_Id', 'followeditemsbyusers.Item_Id')
+                ->select('posts.*', 'items.Item_Name', 'cover__pages.path')
+                ->where('followeditemsbyusers.User_ID', '=', $User->id)
+                ->orderBy('updated_at', 'DESC')
+                ->get();
 
-        $cover__pages = DB::table('cover__pages')
-            ->join('items', 'items.Item_Id', 'cover__pages.Item_Id')
-            ->select('cover__pages.*')
-            ->get();
+            $cover__pages = DB::table('cover__pages')
+                ->join('items', 'items.Item_Id', 'cover__pages.Item_Id')
+                ->select('cover__pages.*')
+                ->get();
 
-        $items = item::all();
+            $items = item::all();
 
-        $post_images = DB::table('post_attachments')
-            ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
-            ->join('followeditemsbyusers', 'followeditemsbyusers.Item_Id', 'post_attachments.Item_Id')
-            ->select('post_attachments.*', 'attachments.File_Path')
-            ->get()
-            ->groupBy('Post_Id');
-
-
-        $comments = [];
-        $replies = [];
-
-        if ($posts != null) {
-            foreach ($posts as $post) {
-                $comment = CommentsController::getPostCommentsHomePage($post->Post_Id);
-
-                $comments = collect($comments)->merge($comment);
+            $post_images = DB::table('post_attachments')
+                ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
+                ->join('followeditemsbyusers', 'followeditemsbyusers.Item_Id', 'post_attachments.Item_Id')
+                ->select('post_attachments.*', 'attachments.File_Path')
+                ->get()
+                ->groupBy('Post_Id');
 
 
-                $reply = CommentsController::getPostrepliesHomePage($post->Post_Id);
-                $replies = collect($replies)->merge($reply);
+            $comments = [];
+            $replies = [];
+
+            if ($posts != null) {
+                foreach ($posts as $post) {
+                    $comment = CommentsController::getPostCommentsHomePage($post->Post_Id);
+
+                    $comments = collect($comments)->merge($comment);
+
+
+                    $reply = CommentsController::getPostrepliesHomePage($post->Post_Id);
+                    $replies = collect($replies)->merge($reply);
+                }
             }
-        }
-        if ($comments != null) {
-            $comments = $comments->groupBy('Post_Id');
-            if ($replies != null) {
-                $replies = $replies->groupby('Parent_Comment');
+            if ($comments != null) {
+                $comments = $comments->groupBy('Post_Id');
+                if ($replies != null) {
+                    $replies = $replies->groupby('Parent_Comment');
+                }
             }
+            // return $comments;
+
+            $check_follow = followeditemsbyuser::all()->where('User_ID', '=', $User->id);
+
+            return view(
+                "website.frontend.customer.HomePagePosts",
+                [
+                    'posts' => $posts,
+                    'items' => $items,
+                    'post_images' => $post_images,
+                    'comments' => $comments,
+                    'replies' => $replies,
+                    'cover__pages' => $cover__pages,
+                    'check_follow' => $check_follow,
+                    'User' => $User,
+                    'newestitems' => $newestitems,
+                    'mostPopularitems' => $mostPopularitems
+                ]
+            );
+        } catch (\Exception $e) {
+            return back()->withError($e->getMessage())->withInput();
         }
-        // return $comments;
-
-        $check_follow = followeditemsbyuser::all()->where('User_ID', '=', $User->id);
-
-        return view(
-            "website.frontend.customer.HomePagePosts",
-            [
-                'posts' => $posts,
-                'items' => $items,
-                'post_images' => $post_images,
-                'comments' => $comments,
-                'replies' => $replies,
-                'cover__pages' => $cover__pages,
-                'check_follow' => $check_follow,
-                'User' => $User,
-                'newestitems' => $newestitems,
-                'mostPopularitems' => $mostPopularitems
-            ]
-        );
     }
-    catch (\Exception $e) {
-        return back()->withError($e->getMessage())->withInput();
-    }
-}
 
     //funtion that gets posts by the users gthe user follows
     public function HomePageUserPosts()
@@ -286,80 +310,79 @@ try{
 
         $newestitems = ItemController::getnewestitems();
         $mostPopularitems = ItemController::getpopularitems();
-try{
-        $posts = DB::table('followedusers')
-            ->join('posts', 'followedusers.following_user', 'posts.User_Id')
-            ->join('users', 'followedusers.following_user', 'users.id')
-            ->Leftjoin('profile_photos', 'profile_photos.User_Id', 'followedusers.following_user')
-            ->select('posts.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name', 'profile_photos.Profile_Picture')
-            ->where('followedusers.user_id', '=', $User->id)
-            ->orderBy('updated_at', 'DESC')
-            ->get();
+        try {
+            $posts = DB::table('followedusers')
+                ->join('posts', 'followedusers.following_user', 'posts.User_Id')
+                ->join('users', 'followedusers.following_user', 'users.id')
+                ->Leftjoin('profile_photos', 'profile_photos.User_Id', 'followedusers.following_user')
+                ->select('posts.*', 'users.First_Name', 'users.Middle_Name', 'users.Last_Name', 'profile_photos.Profile_Picture')
+                ->where('followedusers.user_id', '=', $User->id)
+                ->orderBy('updated_at', 'DESC')
+                ->get();
 
-        $cover__pages = DB::table('cover__pages')
-            ->join('items', 'items.Item_Id', 'cover__pages.Item_Id')
-            ->select('cover__pages.*')
-            ->get();
+            $cover__pages = DB::table('cover__pages')
+                ->join('items', 'items.Item_Id', 'cover__pages.Item_Id')
+                ->select('cover__pages.*')
+                ->get();
 
-        $items = item::all();
+            $items = item::all();
 
-        $post_images = [];
+            $post_images = [];
 
-        foreach ($posts as $post) {
-            $post_image = AttachmentController::getAttachmentsOfPosts($post->Post_Id);
-
-            $post_images = collect($post_images)->merge($post_image);
-        }
-
-        if ($post_images != null) {
-            $post_images = $post_images->groupby('Post_Id');
-        }
-
-
-        $comments = [];
-        $replies = [];
-
-        if ($posts != null) {
             foreach ($posts as $post) {
-                $comment = CommentsController::getPostCommentsHomePage($post->Post_Id);
+                $post_image = AttachmentController::getAttachmentsOfPosts($post->Post_Id);
 
-                $comments = collect($comments)->merge($comment);
-
-
-                $reply = CommentsController::getPostrepliesHomePage($post->Post_Id);
-                $replies = collect($replies)->merge($reply);
+                $post_images = collect($post_images)->merge($post_image);
             }
-        }
-        if ($comments != null) {
-            $comments = $comments->groupBy('Post_Id');
-            if ($replies != null) {
-                $replies = $replies->groupby('Parent_Comment');
+
+            if ($post_images != null) {
+                $post_images = $post_images->groupby('Post_Id');
             }
+
+
+            $comments = [];
+            $replies = [];
+
+            if ($posts != null) {
+                foreach ($posts as $post) {
+                    $comment = CommentsController::getPostCommentsHomePage($post->Post_Id);
+
+                    $comments = collect($comments)->merge($comment);
+
+
+                    $reply = CommentsController::getPostrepliesHomePage($post->Post_Id);
+                    $replies = collect($replies)->merge($reply);
+                }
+            }
+            if ($comments != null) {
+                $comments = $comments->groupBy('Post_Id');
+                if ($replies != null) {
+                    $replies = $replies->groupby('Parent_Comment');
+                }
+            }
+            // return $replies;
+
+            $check_follow = followeditemsbyuser::all()->where('User_ID', '=', $User->id);
+
+            return view(
+                "website.frontend.customer.HomePageUserPosts",
+                [
+                    'posts' => $posts,
+                    'items' => $items,
+                    'post_images' => $post_images,
+                    'comments' => $comments,
+                    'replies' => $replies,
+                    'cover__pages' => $cover__pages,
+                    'check_follow' => $check_follow,
+                    'User' => $User,
+                    'newestitems' => $newestitems,
+                    'mostPopularitems' => $mostPopularitems
+                ]
+            );
+        } catch (\Exception $e) {
+            return back()->withError($e->getMessage())->withInput();
         }
-        // return $replies;
-
-        $check_follow = followeditemsbyuser::all()->where('User_ID', '=', $User->id);
-
-        return view(
-            "website.frontend.customer.HomePageUserPosts",
-            [
-                'posts' => $posts,
-                'items' => $items,
-                'post_images' => $post_images,
-                'comments' => $comments,
-                'replies' => $replies,
-                'cover__pages' => $cover__pages,
-                'check_follow' => $check_follow,
-                'User' => $User,
-                'newestitems' => $newestitems,
-                'mostPopularitems' => $mostPopularitems
-            ]
-        );
     }
-    catch (\Exception $e) {
-        return back()->withError($e->getMessage())->withInput();
-    }
-}
 
 
     public function showReservation()
