@@ -40,7 +40,7 @@ Auth::routes();
 //*****login for user*******
 Route::get('/UserLogin', function () {
     return view('website\frontend\login');
-})->name('userLogin')->middleware('guest.user');
+})->name('userLogin');
 Route::post('/login', 'Auth\LoginControllerUser@loginViaEmail')->name('loginUser');
 //********* End login of user******
 
