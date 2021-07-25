@@ -22,17 +22,17 @@
     <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
         <div class="card-body p-0 d-flex">
             @if($post->Profile_Picture!=null)
-            <figure class="avatar me-3"><img src="{{asset('storage/cover page/'.$post->Profile_Picture)}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
+            <figure class="avatar me-3"><img src="{{asset('storage/cover page/'.$post->Profile_Picture)}}" alt="image" class="shadow-sm rounded-circle w45" height="45"></figure>
             @else
             <figure class="avatar me-3"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
             @endif
 
             <h4 class="fw-700 text-grey-900 font-xssss mt-1"><a href="{{url('/itemProfile/'.$post->Item_Id)}}">
                     {{ $post->First_Name }} {{ $post->Middle_Name }} {{ $post->Last_Name }}
-                    @if($User->id== $post->User_Id )
+                    <!-- @if($User->id== $post->User_Id )
                     <a href="{{url('/deletePost/'.$post->Post_Id)}}" name="del_post" id="del_post"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
                     <a href="javascript:void(0)" onclick="setPost('{{$post->Post_Id}}','{{$post->Post_Content}}')" name="editpost"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
-                    @endif
+                    @endif -->
                 </a> <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"><?php $today = \Carbon\Carbon::now();
                                                                                         $end = \Carbon\Carbon::parse($post->updated_at);
                                                                                         ?>{{ $end->diffForHumans()}}</span></h4>

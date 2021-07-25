@@ -29,10 +29,10 @@
 
                 <h4 class="fw-700 text-grey-900 font-xssss mt-1"><a href="{{url('/itemProfile/'.$post->Item_Id)}}">
                         {{ $post->Item_Name }}
-                        @if($User->id== $post->User_Id )
+                        <!-- @if($User->id== $post->User_Id )
                         <a href="{{url('/deletePost/'.$post->Post_Id)}}" name="del_post" id="del_post"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>
                         <a name="editpost" href="javascript:void(0)" onclick="setPost('{{$post->Post_Id}}','{{$post->Post_Content}}')"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
-                        @endif
+                        @endif -->
                     </a> <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"><?php $today = \Carbon\Carbon::now();
                                                                                             $end = \Carbon\Carbon::parse($post->updated_at);
                                                                                             ?>{{ $end->diffForHumans()}}</span></h4>
@@ -211,34 +211,6 @@
     $(document).ready(function() {
         $("#ImageModel").modal("toggle");
     });
-
-    function view(id) {
-        // if value view reply
-        value = document.getElementById("viewReplies" + id).innerHTML;
-        console.log('one');
-
-        if (value === "View Replies") {
-            var replys = document.getElementsByName("reply1" + id);
-            for (var reply of replys) {
-                reply.style.display = 'block';
-            }
-            document.getElementById("viewReplies" + id).innerHTML = "Hide Replies";
-            console.log('two');
-            getReplies(id);
-
-        } else {
-            var replys = document.getElementsByName("reply1" + id);
-            for (var reply of replys) {
-                reply.style.display = 'none';
-            }
-            document.getElementById("viewReplies" + id).innerHTML = "View Replies";
-
-        }
-
-        //else
-    }
-
-
-    </script>
+</script>
 
 @endsection
