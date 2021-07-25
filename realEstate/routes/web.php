@@ -53,9 +53,8 @@ Route::get('/UserRegister', function () {
 
 //******Login of Admin******
 Route::get('/AdminLogin', function () {
-    return view('auth\login');
-})->name('AdminLogin')->middleware('guest');
-
+    return view('website\backend.database pages.LogIn');})->name('AdminLogin')->middleware('guest');
+//
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
 
 //*****End log in of Admin******
@@ -190,7 +189,7 @@ Route::group(['middleware' => 'auth.user'], function () {
 //Admin Routes with middleware
 Route::group(['middleware' => 'Admin'], function () {
 
-  
+
     Route::get('/openDetail', 'OperationsController@index');
     Route::get('/show_detailop', 'OperationsController@showDetail')->name('detailop_show');
     Route::post('/add_opDetail', 'OperationsController@createDetail');
@@ -428,13 +427,12 @@ Route::get('/EditUserProfile','UserController@EditUserProfileVeiw');
 Route::post('/EditUserProfile1','UserController@EditUserProfile');
 Route::POST("/EditItemMap/{id?}",'ItemController@EditItemMap');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::get('/logoutAdmin', 'UserController@Adminlogout');
 Route::POST('/ForgotPassword','Auth\ForgotPasswordController@forgotPassword');
 //Route::get('/ForgotPassword' ,function () {
 //    return view('website\frontend\login');
 //});
 Route::get('changePassword','UserController@changePassword')->name('changePassword');
 Route::POST('activateRegister','Auth\RegisterController@activateRegister')->name('activateRegister');
-Route::get('AdminProfile','AddUserController@AdminProfile');
-Route::get('/LogAd', function () {
-    return view('website\backend.database pages.LogIn');
-});
+Route::get('AdminProfile','UserController@AdminProfile')->name('AdminProfile');
+

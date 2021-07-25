@@ -9,14 +9,11 @@ use App\Type_Of_User;
 use App\User;
 use App\User_Type;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\Console\Input\Input;
 
-
-class LoginController extends Controller
+class   LoginControllerUser extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -45,55 +42,37 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest.user')->except('logout');
     }
 
-    public function loginViaEmailAdmin()
+    public function loginViaEmail()
     {
-
 
         $email=request('email');
         $password=request('password');
 
-
         if ($emailModel = Emails::all()->where('email', $email)->first())
         {
-
-            if( Count(Type_Of_User::all()->where('User_ID',$emailModel->User_ID)->where('User_Type_ID','=',1))>0){
-
+            if( Count(Type_Of_User::all()->where('User_ID',$emailModel->User_ID)->where('User_Type_ID',2))>0);
             return $this->login($emailModel->User_ID, $password);
-            }
-            return redirect()->back()->with('error','This Email is Not Registered ');
 
         }
-
-        return redirect()->back()->with('error','This Email is Not Admin Email ');
+        return redirect()->back()->with('error','This Email is Not Registered ');
     }
-
-
 
     public function login($id, $password)
     {
-
         $user = User::find($id);
 
-        if(Hash::check( $password, $user->password))
+
+        if(Hash::check($password, $user->password))
         {
-
-           try {
-               Auth::loginUsingId($id);
-               return redirect()->route('AdminProfile');
-           }catch (\Exception $e){
-               DB::rollBack();
-               return back()->withError($e->getMessage())->withInput();
-           }
-
+            Auth::loginUsingId($id);
+            return redirect()->route('CustomerHome');
         }
 
-        return false;
+        return redirect()->back()->with('error','You Entered Wrong Password');
     }
-
-
 
 
 }
