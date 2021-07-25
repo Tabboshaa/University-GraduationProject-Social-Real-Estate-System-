@@ -10,7 +10,7 @@
     <!--- basic page needs
     ================================================== -->
     <meta charset="utf-8">
-    <title>Semsar</title>
+    <title>Traveller Club</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -52,12 +52,12 @@
             <a href="#0" class="header-nav__close" title="close"><span>Close</span></a>
 
             <div class="header-nav__content">
-                <h3>Menu</h3>
+                <h3 style="color: cornsilk;">Menu</h3>
                 
                 <ul class="header-nav__list">
                     <li class="current"><a class="smoothscroll"  href="#home" title="home">Home</a></li>
-                    <li><a class="smoothscroll"  href="{{url('/UserLogin')}} title="signin">Sign In</a></li>
-                    <li><a class="smoothscroll"  href="{{url('/UserRegister')}} title="signup">Sign Up</a></li>
+                    <li><a class="smoothscroll"  href="{{route('userLogin')}}" title="signin">Sign In</a></li>
+                    <li><a class="smoothscroll"  href="{{ route('registerUser') }}" title="signup">Sign Up</a></li>
                     <li><a class="smoothscroll"  href="#about" title="about">About</a></li>
                     <li><a class="smoothscroll"  href="#services" title="services">Services</a></li>
                     <li><a class="smoothscroll"  href="#clients" title="clients">Team</a></li>
@@ -77,7 +77,7 @@
 
     <!-- home
     ================================================== -->
-    <section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="glint/images/hero-bg.jpg" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
+    <section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="{{asset('storage/cover page/house1.jpg')}}" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
 
         <div class="overlay"></div>
         <div class="shadow-overlay"></div>
@@ -86,13 +86,12 @@
 
             <div class="row home-content__main">
 
-                <h3>Welcome to Semsar</h3>
+                <h3>Welcome to Traveller Club</h3>
 
                 <h1>
-                    We are a creative group <br>
-                    who want to make renting  <br>
-                    more sociable and easy <br>
-                    for our customers.
+                    Traveller club is community <br>for travellers 
+                    to share their <br>experiences and find the <br> best 
+                    place to stay in.
                 </h1>
 
                 <div class="home-content__buttons">
@@ -117,14 +116,7 @@
         </div> <!-- end home-content -->
 
 
-        <ul class="home-social">
-            <li>
-                <a href="#0"><i class="fa fa-facebook" aria-hidden="true"></i><span>Facebook</span></a>
-            </li>
-            <li>
-                <a href="#0"><i class="fa fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
-            </li>
-        </ul> 
+        
         <!-- end home-social -->
 
     </section> <!-- end s-home -->
@@ -137,7 +129,7 @@
         <div class="row section-header has-bottom-sep" data-aos="fade-up">
             <div class="col-full">
                 <h3 class="subhead subhead--dark">Hello There</h3>
-                <h1 class="display-1 display-1--light">We Are Semsar</h1>
+                <h1 class="display-1 display-1--light">We Are Traveller Club</h1>
             </div>
         </div> <!-- end section-header -->
 
@@ -151,18 +143,7 @@
 
         <div class="row about-stats stats block-1-4 block-m-1-2 block-mob-full" data-aos="fade-up">
                 
-            <div class="col-block stats__col ">
-            </div>
-            <div class="col-block ">
-                <div class="stats__count">1505</div>
-                <h5>Users</h5>
-            </div>
-            <div class="col-block ">
-                <div class="stats__count">109</div>
-                <h5>User's Reviews</h5>
-            </div>
-            <div class="col-block stats__col">
-            </div>
+            
 
         </div> <!-- end about-stats -->
 
@@ -173,6 +154,96 @@
 
     <!-- services
     ================================================== -->
+    <section id='services' class="s-services">
+
+        <div class="row section-header has-bottom-sep" data-aos="fade-up">
+            <div class="col-full">
+                <h3 class="subhead">What you can do in travellers  club</h3>
+            </div>
+        </div> <!-- end section-header -->
+
+        <div class="row services-list block-1-2 block-tab-full">
+
+            <div class="col-block service-item" data-aos="fade-up">
+                <div class="service-icon">
+                    <i class="icon-paint-brush"></i>
+                </div>
+                <div class="service-text">
+                    <h3 class="h2">Brand Identity</h3>
+                    <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium. 
+                    Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
+                    Sunt suscipit voluptas ipsa in tempora esse soluta sint.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-block service-item" data-aos="fade-up">
+                <div class="service-icon">
+                    <i class="icon-group"></i>
+                </div>
+                <div class="service-text">
+                    <h3 class="h2">Illustration</h3>
+                    <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium. 
+                    Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
+                    Sunt suscipit voluptas ipsa in tempora esse soluta sint.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-block service-item" data-aos="fade-up">
+                <div class="service-icon">
+                    <i class="icon-megaphone"></i>
+                </div>  
+                <div class="service-text">
+                    <h3 class="h2">Marketing</h3>
+                    <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium. 
+                    Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
+                    Sunt suscipit voluptas ipsa in tempora esse soluta sint.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-block service-item" data-aos="fade-up">
+                <div class="service-icon">
+                    <i class="icon-earth"></i>
+                </div>
+                <div class="service-text">
+                    <h3 class="h2">Web Design</h3>
+                    <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium. 
+                    Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
+                    Sunt suscipit voluptas ipsa in tempora esse soluta sint.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-block service-item" data-aos="fade-up">
+                <div class="service-icon">
+                    <i class="icon-cube"></i>
+                </div>
+                <div class="service-text">
+                    <h3 class="h2">Packaging Design</h3>
+                    <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium. 
+                    Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
+                    Sunt suscipit voluptas ipsa in tempora esse soluta sint.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="col-block service-item" data-aos="fade-up">
+                <div class="service-icon"><i class="icon-lego-block"></i></div>
+                <div class="service-text">
+                    <h3 class="h2">Web Development</h3>
+                    <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium. 
+                    Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
+                    Sunt suscipit voluptas ipsa in tempora esse soluta sint.
+                    </p>
+                </div>
+            </div>
+
+        </div> <!-- end services-list -->
+
+    </section> <!-- end s-services -->
+
     <section id='services' class="s-services">
 
         <div class="row section-header has-bottom-sep" data-aos="fade-up">
@@ -262,9 +333,7 @@
 
         </div> <!-- end services-list -->
 
-    </section> <!-- end s-services -->
-
-
+    </section>
     <!-- clients
     ================================================== -->
     <section id="clients" class="s-clients">
@@ -298,7 +367,7 @@
 
                     </div>
                     <div class="testimonials__slide">
-                        <img src="{{asset('glint/images/avatars/user-01.jpeg')}}" alt="Author image" class="testimonials__avatar">
+                        <img src="{{asset('glint/images/avatars/Omnia.jpeg')}}" alt="Author image" class="testimonials__avatar">
                         <div class="testimonials__info">
                             <span class="testimonials__name">Omnia Ahmed</span> 
                             <span class="testimonials__pos">Frontend , Backend</span>
@@ -321,7 +390,7 @@
         <div class="row section-header" data-aos="fade-up">
             <div class="col-full">
                 <h3 class="subhead">Contact Us</h3>
-                <h1 class="display-2 display-2--light">Reach out for a new project or just say hello</h1>
+                <h1 class="display-2 display-2--light">Have any questions?</h1>
             </div>
         </div>
 
@@ -381,35 +450,30 @@
                     <div class="cinfo">
                         <h5>Where to Find Us</h5>
                         <p>
-                            1600 Amphitheatre Parkway<br>
-                            Mountain View, CA<br>
-                            94043 US
+                            Cairo, First New Cairo, 90th St, Future University .
                         </p>
                     </div>
 
                     <div class="cinfo">
                         <h5>Email Us At</h5>
                         <p>
-                            contact@glintsite.com<br>
-                            info@glintsite.com
+                            shaimaasirag11@gmail.com<br>
+                            omni.fathy@gmail.com<br>
+                            abdalaziztabbosha@gmail.com <br>
+                            zayedali020@gmail.com <br>
                         </p>
                     </div>
 
                     <div class="cinfo">
                         <h5>Call Us At</h5>
                         <p>
-                            Phone: (+63) 555 1212<br>
-                            Mobile: (+63) 555 0100<br>
-                            Fax: (+63) 555 0101
+                            Mobile: 01099881399<br>
                         </p>
                     </div>
 
                     <ul class="contact-social">
                         <li>
                             <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
                         </li>
                     </ul> <!-- end contact-social -->
 
@@ -429,7 +493,7 @@
 
             <div class="col-twelve">
                 <div class="copyright">
-                    <span>© Copyright Semsar 2020</span> 	
+                    <span>© Copyright Traveller Club 2020</span> 	
                 </div>
 
                 <div class="go-top">
