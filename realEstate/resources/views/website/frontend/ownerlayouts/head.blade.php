@@ -4,11 +4,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Traveller Club</title>
 
+
     <link rel="stylesheet" href="{{asset('FrontEnd/sociala/css/themify-icons.css')}}">
 
     <link rel="stylesheet" href="{{asset('FrontEnd/sociala/css/feather.css')}}">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('FrontEnd/sociala/images/favicon.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('storage/images/logo.png')}}">
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="{{asset('FrontEnd/sociala/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('FrontEnd/sociala/css/emoji.css')}}">
