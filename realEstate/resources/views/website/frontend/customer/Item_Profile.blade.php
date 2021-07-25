@@ -21,9 +21,9 @@
                 </div>
                 <div class="d-flex align-items-center justify-content-center position-absolute right-15 top-10 mt-2 me-2">
                     @if ($check_follow=="[]")
-                    <a href="{{url('/FollowItem/'.$item->Item_Id)}}" class="d-none d-lg-block bg-success p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3"> <i class="fa fa-heart-o" aria-hidden="true"></i> Follow</a>
+                    <a href="{{url('/FollowItem/'.$item->Item_Id)}}" class="d-none d-lg-block bg-current p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3"> <i class="fa fa-heart-o" aria-hidden="true"></i> Follow</a>
                     @else
-                    <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}" class="d-none d-lg-block bg-success p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3"> <i class="fa fa-heart-o" aria-hidden="true"></i> Un Follow</a>
+                    <a href="{{url('/UnfollowItem/'.$item->Item_Id)}}" class="d-none d-lg-block bg-current p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3"> <i class="fa fa-heart-o" aria-hidden="true"></i> Un Follow</a>
                     @endif
                 </div>
 
