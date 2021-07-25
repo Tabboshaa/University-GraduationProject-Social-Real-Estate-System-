@@ -16,8 +16,13 @@ class DatatypeController extends Controller
     public function index()
     {
         //
+        try{
         return view('website/backend.database pages.Data_Type');
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Show the form for creating a new resource.
@@ -34,7 +39,7 @@ class DatatypeController extends Controller
             ]);
             DB::commit();
             return back()->with('success', 'Datatype Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -64,9 +69,14 @@ class DatatypeController extends Controller
     public function show()
     {
         //
+        try{
         $data_types = Datatype::paginate(10);
         return view('website/backend.database pages.Data_Type_Show', ['data_typess' => $data_types]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -86,7 +96,7 @@ class DatatypeController extends Controller
             
             DB::commit();
             return back()->with('info', 'Datatype Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -124,7 +134,7 @@ class DatatypeController extends Controller
                 Datatype::destroy(request('id'));
                 DB::commit();        
                 return  redirect()->route('data_type_show')->with('success', 'Datatype Deleted Successfully');
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 return redirect()->route('data_type_show')->with('error', 'Datatype cannot be deleted');
                 return back()->withError($e->getMessage())->withInput();

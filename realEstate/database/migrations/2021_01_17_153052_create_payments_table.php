@@ -16,8 +16,8 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id('Payment_Id');
             $table->foreignId('Operation_Id')->references('Operation_Id')->on('operations')->onDelete('cascade');
-            $table->string('Payment_Method')->unique();
-            $table->string('Card_Number');          
+            $table->string('Payment_Method')->unique()->nullable();;
+            $table->string('Card_Number')->nullable();;          
             $table->double('Paid_Amount');
             $table->boolean('confirmed');
             $table->timestamps();

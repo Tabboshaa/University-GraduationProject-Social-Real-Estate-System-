@@ -17,8 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 
 //test routes here
-Route::get('/meshtest/{item_id}','ScheduleController@getAvailableTime');
 //end test routes
+
+Route::get('/meshtest','PostsController@editPost')->name('test');
+
 Route::get('/Land', function () {
     return view('website\LandingPadge');
 });
@@ -57,11 +59,13 @@ Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('log
 
 //*****End log in of Admin******
 
+Route::get('/edit_post', 'PostsController@editPost')->name('post.update');
 
 
 
 //Customer Routes with middleware
 Route::group(['middleware' => 'auth.user'], function () {
+
     Route::get('/', 'CustomerHomeController@index')->name('CustomerHome');
     //Customer HOMEpage
     Route::get('/HomeRegister', 'CustomerHomeController@index')->name('HomeRegister');
@@ -177,12 +181,15 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/settings',function () {return view("website\\frontend\settings");});
     Route::get('/help',function () {return view("website\\frontend\help");});
     Route::get('/notifications',function () {return view("website\\frontend\\notifications");});
+    Route::get('/postedit','PostsController@editPost')->name('postedit');
 });
 
 
 
 //Admin Routes with middleware
 Route::group(['middleware' => 'Admin'], function () {
+
+  
     Route::get('/openDetail', 'OperationsController@index');
     Route::get('/show_detailop', 'OperationsController@showDetail')->name('detailop_show');
     Route::post('/add_opDetail', 'OperationsController@createDetail');
@@ -201,7 +208,7 @@ Route::group(['middleware' => 'Admin'], function () {
     //operation types
     Route::get('/operation_types', 'OperationsController@index');
     Route::get('/operation_types_show', 'OperationsController@show')->name('operation_types_show');
-    Route::get('/operation_details_show', 'OperationsController@showDetail')->name('operation_types_show');
+    Route::get('/operation_details_show', 'OperationsController@showDetail')->name('detailop_show');
     Route::post('/add_operation_type', 'OperationsController@createType');
     Route::delete('/delete_operation_type', 'OperationsController@destroy');
     Route::get('/edit_operation_type', 'OperationsController@edit')->name('operationType.update');
@@ -308,7 +315,6 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/edit_Comment', 'CommentsController@editComment')->name('Comment.update');
     Route::get('/delete_comment/{id?}', 'CommentsController@DestroyComment');
     Route::get('/deletePost/{id?}', 'PostsController@DestroyPost');
-    Route::post('/edit_post', 'PostsController@editPost')->name('post.update');
     Route::get('/delete_reply/{id?}', 'CommentsController@destroyReply');
 
     Route::get('/delete_review/{id?}', 'ReviewController@destroy');

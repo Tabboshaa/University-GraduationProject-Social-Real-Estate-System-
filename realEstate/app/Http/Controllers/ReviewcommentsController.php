@@ -31,7 +31,7 @@ class ReviewcommentsController extends Controller
 
             DB::commit();
             return back()->with('info', 'Comment Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -73,7 +73,7 @@ class ReviewcommentsController extends Controller
 
 
             return response()->json($comment);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
         }
@@ -105,7 +105,7 @@ class ReviewcommentsController extends Controller
 
             DB::commit();
             return response()->json($comment);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
         }
@@ -129,7 +129,7 @@ class ReviewcommentsController extends Controller
 
             DB::commit();
             return  redirect()->back()->with('success', 'Comment Deleted Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Comment cannot be deleted');
             return back()->withError($e->getMessage())->withInput();
@@ -145,7 +145,7 @@ class ReviewcommentsController extends Controller
             reviewcomments::destroy($id);
             DB::commit();
             return  redirect()->back()->with('success', 'Reply Deleted Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Reply cannot be deleted');
             return back()->withError($e->getMessage())->withInput();
@@ -156,7 +156,7 @@ class ReviewcommentsController extends Controller
     public static function getPostComments($item_id)
     {
         //
-
+try{
         $reviewcomments = DB::table('reviewcomments')
             ->join('reviews', 'reviews.Review_Id', '=', 'reviewcomments.Post_Id')
             ->join('users', 'users.id', '=', 'reviewcomments.User_Id')
@@ -169,11 +169,14 @@ class ReviewcommentsController extends Controller
 
         return $reviewcomments;
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     public static function getPostreplies($item_id)
     {
         //
-
+try{
         $reviewcomments = DB::table('reviewcomments')
             ->join('reviews', 'reviews.Review_Id', '=', 'reviewcomments.Post_Id')
             ->join('users', 'users.id', '=', 'reviewcomments.User_Id')
@@ -185,5 +188,9 @@ class ReviewcommentsController extends Controller
             ->groupBy('Parent_Comment');
 
         return $reviewcomments;
+    }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
     }
 }

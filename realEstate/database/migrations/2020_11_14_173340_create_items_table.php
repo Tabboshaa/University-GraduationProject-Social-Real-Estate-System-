@@ -53,8 +53,8 @@ class CreateItemsTable extends Migration
             $table->foreignId('Street_Id')->references('Street_Id')->on('streets')->onDelete('cascade')->nullable();
             $table->foreignId('User_Id')->references('id')->on('users')->onDelete('cascade')->nullable();
             $table->string('Item_Name');
-            $table->string('address_longitude');
-            $table->string('address_latitude');
+            $table->string('address_longitude')->nullable();;
+            $table->string('address_latitude')->nullable();;
             $table->boolean('visible');
             $table->timestamps();
         });

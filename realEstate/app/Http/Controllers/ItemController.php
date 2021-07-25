@@ -23,23 +23,38 @@ class ItemController extends Controller
 {
     public function __construct(Item $item, PaymentController $paymentController)
     {
+        try{
         $this->item = $item;
         $this->paymentController = $paymentController;
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     public function index()
     {
+        try{
         //
         $item = $this->item->all();
         $main_types = Main_Type::all();
         return view('website.backend.database pages.Item', ['main_type' => $main_types, 'item' => $item]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     public function index1()
     {
         //
+        try{
         $user_type = User_Type::all();
         $counrty = Country::all();
         return view('website.backend.database pages.AddItemSteps', ['user_type' => $user_type, 'counrty' => $counrty]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     public  function show($id = null)
     {
@@ -60,7 +75,7 @@ class ItemController extends Controller
 
 
         $phone_number = Arr::get(Phone_Numbers::all()->where('User_ID', '=', $User_id)->first(), '');
-
+try{
         $Location = DB::table('streets')
             ->leftJoin('countries', 'streets.Country_Id', '=', 'countries.Country_Id')
             ->leftJoin('states', 'streets.State_Id', '=', 'states.State_Id')
@@ -83,36 +98,56 @@ class ItemController extends Controller
 
         return view('website.backend.database pages.ShowItem', ['user' => $user, 'Location' => $Location, 'details' => $details, 'item_id' => $id, 'subtypeid' => $Sub_Type_Id, 'email' => $email, 'phone_number' => $phone_number, 'user_id' => $User_id, 'item'=>$item]);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     public function itemShow()
     {
         //
-
+try{
         return view('website.backend.database pages.Item')->with('success', 'Item Created Successfully');
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }    
+}
 
     public function SubTypeShow($id = null)
     {
+        try{
         $sub_types = Sub_Type::all();
         $main_types = Main_Type::all();
         return view('website.backend.database pages.Item_Sub_Type_Show', ['sub_type' => $sub_types, 'main_type' => $main_types, 'item_id' => $id]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     public function OwnerSelectProperty($item_id = null, $sub_type_id = null)
-    {
+    {try{
         //
         $sub_type = Sub_Type::all()->where('Sub_Type_Id', '=', $sub_type_id)->first()->Sub_Type_Name;
         $property = Sub_Type_Property::all()->where('Sub_Type_Id', '=', $sub_type_id);
         return view('website.frontend.Owner.Owner_Select_Details', ['property' => $property, 'item_id' => $item_id, 'sub_type' => $sub_type]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     public function SelectSubType($id = null)
     {
+        try{
         $main_types = Main_Type::all()->where('Main_Type_Id', '=', 1)->first()->Main_Type_Name;
         $main_type_id = Main_Type::all()->where('Main_Type_Id', '=', 1)->first()->Main_Type_Id;
         $sub_types = Sub_Type::all()->where('Main_Type_Id', '=', $main_type_id);
         return view('website.frontend.Owner.Owner_Select_Sub_Type', ['main_type_id' => $main_type_id, 'sub_type' => $sub_types, 'main_type' => $main_types, 'item_id' => $id]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     public function OwnerAddItem()
     {
 
@@ -129,7 +164,7 @@ class ItemController extends Controller
             $item_id = Arr::get($item, 'Item_Id');
             DB::commit();
             return $this->SelectSubType($item_id);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
         }
@@ -147,7 +182,7 @@ class ItemController extends Controller
             DB::commit();
             return $this->SubTypeShow($item_id);
             return back()->with('success', 'Item Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
         }
@@ -161,8 +196,13 @@ class ItemController extends Controller
         $countries = Country::all();
         $streets = Street::all();
         //el subtype name w el main type name
+        try{
         return view('website.backend.database pages.Edit_Item_Location', ['counrty' => $countries, 'state' => $states, 'city' => $city, 'region' => $region, 'street1' => $streets, 'item_id' => $item_id]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     public function EditLocation($id = null)
     {
         DB::beginTransaction();
@@ -174,7 +214,7 @@ class ItemController extends Controller
 
             DB::commit();
             return $this->show($id)->with('success', 'Location Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             return $this->show($id)->with('error', 'Error Editing Location');
@@ -184,10 +224,13 @@ class ItemController extends Controller
     public function ShowEditUser($id = null)
     {
         $item_id = $id;
-
+try{
         return view('website.backend.database pages.Edit_Item_User', ['item_id' => $item_id]);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }    
+}
     public function EditUser($id = null)
     {
         DB::beginTransaction();
@@ -198,7 +241,7 @@ class ItemController extends Controller
             $item->save();
             DB::commit();
             return $this->show($id);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
         }
@@ -227,7 +270,7 @@ class ItemController extends Controller
 
                     return redirect()->route('MyItems');
                 }
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 return back()->withError($e->getMessage())->withInput();
             }
@@ -249,7 +292,7 @@ class ItemController extends Controller
 
             DB::commit();
             return redirect()->back()->with('success', 'Location Changed Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
 
             return back()->with('error', 'Error editing Detail');
@@ -262,10 +305,15 @@ class ItemController extends Controller
         $items = [];
 
         if ($item_ids != null) {
+            try{
             foreach ($item_ids as $item_id) {
                 $item = Item::all()->where('Item_Id', '=', $item_id->Item_Id);
                 $items = collect($items)->merge($item);
-            }
+            }}
+            catch (\Exception $e) {
+                return back()->withError($e->getMessage())->withInput();
+            
+        }
         }
         return $items;
     }
@@ -280,10 +328,16 @@ class ItemController extends Controller
         $items = [];
 
         if ($item_ids != null) {
+            try{
             foreach ($item_ids as $item_id) {
                 $item = Item::all()->where('Item_Id', '=', $item_id->Item_Id);
                 $items = collect($items)->merge($item);
             }
+        
+        }
+        catch (\Exception $e) {
+            return back()->withError($e->getMessage())->withInput();
+        }
         }
 
         return $items;
@@ -291,11 +345,20 @@ class ItemController extends Controller
 
     public static function getowner($id)
     {
+        try{
         return Item::all()->where('Item_Id', '=', $id)->first()->User_Id;
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     public static function getitems()
     {
-
+try{
         return Item::where('Item_Name', 'LIKE','%' .request('name').'%')->get();
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 }

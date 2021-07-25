@@ -355,9 +355,11 @@
             // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty
             $("#id").val(id);
             console.log(name);
+            console.log(id);
             $("#editPost").val(name);
             $("#EditPostModal").modal("toggle");
         }
+        
         $('#EditPostForm').submit(function() {
 
             var id = $("#id").val();
@@ -365,6 +367,7 @@
             //byb3t el value el gdeda
             var edit_Post = $("#editPost").val();
             console.log(edit_Post);
+            console.log(id);
 
             var _token = $("input[name=_token]").val();
 

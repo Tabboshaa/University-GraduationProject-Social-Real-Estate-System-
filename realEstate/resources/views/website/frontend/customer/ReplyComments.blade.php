@@ -1,7 +1,7 @@
 @if( isset($comments[$review->Review_Id]) )
-<a href="javascript:void(0)" id="more" onclick="$('#allcomments{{$review->Review_Id}}').slideToggle(function(){$('#more').html($('#allcomments{{$review->Review_Id}}').is(':visible')?'Hide Comments':'{{count($comments[$review->Review_Id])}} Comment');});" onclick="viewComment('{{$review->Review_Id}}')" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>{{count($comments[$review->Review_Id])}} Comment</span></a>
+<a href="javascript:void(0)" id="more{{$review->Review_Id}}" onclick="$('#allcomments{{$review->Review_Id}}').slideToggle(function(){$('#more{{$review->Review_Id}}').html($('#allcomments{{$review->Review_Id}}').is(':visible')?'Hide Comments':'<i class=\'feather-message-circle text-dark text-grey-900 btn-round-sm font-lg\'></i> {{count($comments[$post->Post_Id])}} Comment');});" onclick="viewComment('{{$review->Review_Id}}')" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>{{count($comments[$post->Post_Id])}} Comment</a>
 @else
-<div class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>0 Comments</span></div>
+<a href="javascript:void(0)" id="more{{$review->Review_Id}}" onclick="$('#allcomments{{$review->Review_Id}}').slideToggle(function(){$('#more{{$review->Review_Id}}').html($('#allcomments{{$review->Review_Id}}').is(':visible')?'Hide Comments':'<i class=\'feather-message-circle text-dark text-grey-900 btn-round-sm font-lg\'></i> 0 Comments');});" onclick="viewComment('{{$review->Review_Id}}')" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>0 Comments</a>
 @endif
 <!-- 0055FF -->
 <div class="form-group">
@@ -136,6 +136,15 @@
 
             },
             success: function(data) {
+
+                var str=$('#more'+post_id).html();
+                matches = str.match(/\d+/g);
+                if(matches.length != 0 ){
+                console.log(matches[1]);
+                var m= parseInt(matches[1])+1;
+                $('#more'+post_id).html('<i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>'+m+' Comments');
+                }
+
                 console.log(data);
                 if (data['Profile_Picture'] == null) {
                     data['Profile_Picture'] = 'pic.png';
@@ -151,7 +160,7 @@
                 }
 
                 $("#allcomments" + post_id).prepend("<div class=' card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10'>" +
-                    "<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/" + data['Profile_Picture'] + "\" alt='image' class='shadow-sm rounded-circle w35'></figure>" +
+                    "<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/" + data['Profile_Picture'] + "\" alt='image' class='shadow-sm rounded-circle w35' height='35'></figure>" +
                     "<div class='chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg'>" +
                     "<a href=\"/view_User/" + data['User_Id'] + "\">" +
                     "<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> " + data['First_Name'] + " " + data['Middle_Name'] + " " + " " + data['Last_Name'] + " " +
@@ -211,7 +220,7 @@
                     data['Middle_Name'] = '';
                 }
                 $("#allreplies" + parent_id).append("<div class=\"card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative\">" +
-                    "<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/" + data['Profile_Picture'] + "\" alt='image' class='shadow-sm rounded-circle w35'></figure>" +
+                    "<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/" + data['Profile_Picture'] + "\" alt='image' class='shadow-sm rounded-circle w35' height='35'></figure>" +
                     "<div class=\"chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg\">" +
                     "<a href=\"/view_User/" + data['User_Id'] + "\">" +
                     "<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> " + data['First_Name'] + " " + data['Middle_Name'] + " " + " " + data['Last_Name'] + "" +

@@ -18,13 +18,17 @@ class AttachmentController extends Controller
     public function index($id)
     {
         //
+        try{
         $gallery = DB::table('post_attachments')
             ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
             ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
-            ->select('post_attachments.*', 'attachments.File_Path')
+            ->select('post_attachments.*', 'attachments.File_Path')->paginate(10)
             ->where('items.Item_Id', '=', $id)
             ->get();
-
+        }
+        catch(\Exception $e){
+            return back()->withError($e->getMessage())->withInput();
+        }
         return view('website\backend\database pages\Item_Gallery', ['gallery' => $gallery, 'item_id' => $id]);
     }
 
@@ -98,7 +102,7 @@ class AttachmentController extends Controller
         //
         try {
             return attachment::all()->where('Attachment_Id', '=', $id)->first();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return back()->withError($e->getMessage())->withInput();
         }
     }
@@ -114,6 +118,7 @@ class AttachmentController extends Controller
     public static function getPostAttachments($item_id)
     {
         //
+        try{
         $post_attachment = DB::table('post_attachments')
             ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
             ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
@@ -122,21 +127,33 @@ class AttachmentController extends Controller
             ->groupBy('Post_Id');
         return $post_attachment;
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+
+
+}
 
     //function btgeeb attatchment bta3 post
     public static function getAttachmentsOfPosts($post_id)
     {
         //
+        try{
         $post_attachment = DB::table('post_attachments')
             ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
             ->select('post_attachments.*', 'attachments.File_Path')->where('post_attachments.Post_Id', '=', $post_id)
             ->get();
         return $post_attachment;
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     public static function getAttachmentsOfuser($id)
     {
         //
+        try{
         $post_attachment = DB::table('post_attachments')
             ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
             ->join('posts', 'posts.Post_Id', '=', 'post_attachments.Post_Id')
@@ -144,7 +161,10 @@ class AttachmentController extends Controller
             ->paginate(4);
         return $post_attachment;
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -160,7 +180,7 @@ class AttachmentController extends Controller
             attachment::destroy($id);
             DB::commit();
             return  redirect()->back()->with('success', 'Attachment Deleted Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Attachment cannot be deleted');
             return back()->withError($e->getMessage())->withInput();

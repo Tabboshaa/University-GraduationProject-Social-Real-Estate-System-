@@ -23,6 +23,7 @@ class PostsController extends Controller
         $posts = PostsController::getItemPosts($id);
         $comments = CommentsController::getPostComments($id);
         $replies = CommentsController::getPostreplies($id);
+        try{
         $post_images = DB::table('post_attachments')
             ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
             ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
@@ -38,7 +39,10 @@ class PostsController extends Controller
             'replies' => $replies
         ]);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -48,6 +52,7 @@ class PostsController extends Controller
     {
 
 
+              
         if ($id != null) {
             $item = Item::all()->find($id);
             $user_id = $item->User_Id;
@@ -82,7 +87,7 @@ class PostsController extends Controller
 
             DB::commit();
             return back()->with('success', 'Post Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
             return back()->with('error', 'Error creating Post !!');
@@ -129,22 +134,21 @@ class PostsController extends Controller
             posts::destroy($request->id);
             DB::commit();
             return redirect()->back()->with('success', 'Post Deleted Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Comment cannot be deleted');
         }
     }
+    
     public function editPost()
-    {
-
-
+    {   
+        
         try {
-
             $post = posts::all()->find(request('id'));
             $post->Post_Content = request('edit_Post');
             $post->save();
             return back()->with('info', 'post Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
 //            DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {

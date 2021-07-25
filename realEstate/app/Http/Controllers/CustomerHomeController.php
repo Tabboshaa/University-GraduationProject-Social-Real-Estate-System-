@@ -40,14 +40,18 @@ class CustomerHomeController extends Controller
     }
     public function indexPhoto()
     {
-
+    try{
         $States = DB::table('state_photos')
             ->join('states', 'states.State_Id', '=', 'state_photos.State_Id')
             ->join('attachments', 'attachments.Attachment_Id', '=', 'state_photos.Attachment_Id')
             ->select('state_photos.*', 'attachments.File_Path', 'states.State_Name')->get();
 
         return view('website.frontend.customer.CustomerHome',['StatesPhotos' => $States]);
+        }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
     }
+}
     /**
      * Show the form for creating a new resource.
      *
@@ -107,6 +111,7 @@ class CustomerHomeController extends Controller
 
     public function findItemInState()
     {
+        try{
         $state_id = StateController::findstatebyname(request('search'));
 
         $items = DB::table('streets')
@@ -120,6 +125,10 @@ class CustomerHomeController extends Controller
 
         return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     public function findItemInStateAndDate()
     {
@@ -128,7 +137,7 @@ class CustomerHomeController extends Controller
         $departuredate = request('departuredate');
 
         $User_Id = Auth::id();
-
+try{
         $items = DB::table('items')
             ->join('streets', 'streets.Street_Id', '=', 'items.Street_Id')
             ->join('countries', 'streets.Country_Id', '=', 'countries.Country_Id')
@@ -169,9 +178,13 @@ class CustomerHomeController extends Controller
 
         return view('website.frontend.customer.TimeLine', ['states' => $state, 'items' => $items, 'check_follow' => $check_follow, 'details' => $details, 'reviews' => $reviews]);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     public function FollowedItemPosts($item_id)
     {
+        try{
         $posts = DB::table('posts')
             ->join('items', 'items.Item_Id', 'posts.Item_Id')
             ->where('posts.Item_Id', '=', $item_id)
@@ -180,6 +193,10 @@ class CustomerHomeController extends Controller
 
         return view('website.frontend.customer.TimeLine', ['posts' => $posts]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
 
     public function HomePagePosts()
@@ -191,7 +208,7 @@ class CustomerHomeController extends Controller
         $mostPopularitems = ItemController::getpopularitems();
         //    return $newestitems[5]->coverpage->path;
 
-
+try{
         $posts = DB::table('followeditemsbyusers')
             ->join('posts', 'followeditemsbyusers.Item_Id', 'posts.Item_Id')
             ->join('items', 'followeditemsbyusers.Item_Id', 'items.Item_Id')
@@ -256,6 +273,11 @@ class CustomerHomeController extends Controller
             ]
         );
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
+
     //funtion that gets posts by the users gthe user follows
     public function HomePageUserPosts()
     {
@@ -264,7 +286,7 @@ class CustomerHomeController extends Controller
 
         $newestitems = ItemController::getnewestitems();
         $mostPopularitems = ItemController::getpopularitems();
-
+try{
         $posts = DB::table('followedusers')
             ->join('posts', 'followedusers.following_user', 'posts.User_Id')
             ->join('users', 'followedusers.following_user', 'users.id')
@@ -334,6 +356,10 @@ class CustomerHomeController extends Controller
             ]
         );
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
 
     public function showReservation()

@@ -19,7 +19,7 @@ class CreateCommentsTable extends Migration
             $table->foreignId('User_Id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('Attachment_Id')->references('Attachment_Id')->on('attachments')->onDelete('cascade');
             $table->string('Comment');
-            $table->integer('Parent_Comment');
+            $table->integer('Parent_Comment')->nullable();;
             $table->timestamps();
         });
     }

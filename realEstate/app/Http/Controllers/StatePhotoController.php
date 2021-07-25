@@ -19,11 +19,16 @@ class StatePhotoController extends Controller
     public function index()
     {
         //
+        try{
         $countries = Country::all();
-        $state = State::all();
+        $state = State::paginate(10);
 
         return view('website\backend.database pages.StatePhoto', ['country' => $countries, 'state' => $state]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Show the form for creating a new resource.
@@ -50,7 +55,7 @@ class StatePhotoController extends Controller
                 ]);
                 DB::commit();
                 return back()->with('success', 'Photo Uploaded Successfully');
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
