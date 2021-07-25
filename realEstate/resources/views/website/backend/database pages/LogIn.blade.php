@@ -23,6 +23,7 @@
   </head>
 
   <body class="login">
+  @include('website.backend.layouts.flashmessage')
     <div>
       <a class="hiddenanchor" id="signup"></a>
       <a class="hiddenanchor" id="signin"></a>
@@ -34,7 +35,7 @@
                 @CSRF
               <h1>Login Form</h1>
               <div>
-                <input type="text" name="email" class="form-control" placeholder="Admin Email" required="" />
+                <input type="text" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="ex@gmail.com" class="form-control" placeholder="Admin Email" required="" />
               </div>
               <div>
                 <input type="password" name="password" class="form-control" placeholder="Password" required="" />

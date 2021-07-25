@@ -33,6 +33,7 @@
                     @endforeach
                     @else
                     <li>
+                        
                         <h6 class="font-xssss text-grey-900 text-grey-900 mb-0 mt-0 fw-500 lh-20"><strong>You have no notifications</strong></h6>
                     </li>
                     @endif
