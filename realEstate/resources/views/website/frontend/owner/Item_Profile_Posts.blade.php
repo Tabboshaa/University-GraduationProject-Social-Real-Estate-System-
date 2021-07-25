@@ -70,7 +70,7 @@
 <div class="col-xl-8 col-xxl-9 col-lg-9">
   <!-- create post div -->
   <div class="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3 mt-3">
-            <form method="POST" action="{{ url('/add_item_post/'.$item->Item_Id) }}" id="postform" >
+            <form method="POST" action="{{ url('/add_item_post/'.$item->Item_Id) }}" id="postform" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body p-0">
                     <a class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>Create Post</a>
@@ -81,9 +81,10 @@
                 <div id="imgs"></div>
                 <label id="custom-file-label"></label>
                 <div class="card-body d-flex p-2 mt-0">
-                <label for="uploadImages" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 pt-2"><i class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Add Photo</span></label>
-                    <input type="file" style="display:none;" id="uploadImages" name="images[]" accept="image/*" placeholder="upload Images" multiple>
-                     <a href="javascript:void(0);" onclick="document.getElementById('postform').submit(); return false;" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i class="font-md text-success feather-check-circle me-2"></i><span class="d-none-xs">Create Post</span></a>
+                <label for="uploadImages" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 pt-2"><i class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Add Photo</span>
+                    <input type="file" style="display: none" id="uploadImages" name="images[]" accept="image/*" multiple>
+                </label>
+                     <input type="submit" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i class="font-md text-success feather-check-circle me-2"></i><span class="d-none-xs">Create Post</span>
                 </div>
             </form>
         </div>
@@ -359,6 +360,7 @@ $.ajax({
 
        }
 
+   // $('#postform').submit();
 
    });
 

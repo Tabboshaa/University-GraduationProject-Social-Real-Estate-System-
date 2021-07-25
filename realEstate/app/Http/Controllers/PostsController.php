@@ -63,6 +63,7 @@ class PostsController extends Controller
                 'Post_Content' => request('Post_Content'),
             ]);
 
+            dd(\request()->all());
             if ($files = request()->file('images')) {
            
                 foreach ($files as $file) {
