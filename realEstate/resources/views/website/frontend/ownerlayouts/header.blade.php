@@ -3,12 +3,12 @@
 <div class="nav-header bg-white shadow-xs border-0">
   
     <div class="nav-top">
-        <a href="{{url('/HomePage')}}"><img src="{{asset('storage/images/logo.png')}}" height="35" width="40"><span class="d-inline-block fredoka-font ls-3 fw-600 font-xl logo-text mb-0 "> Traveller club</span> </a>
+        <a href="{{url('/HomePage')}}"><img src="{{asset('FrontEnd/sociala/images/logo.png')}}" height="35" width="40"><span class="d-inline-block fredoka-font ls-3 fw-600 font-xl logo-text mb-0 "> Traveller club</span> </a>
         <a href="{{url('/HomePage')}}" class="mob-menu ms-auto me-2 chat-active-btn"><i class="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
 
     </div>
 
-    <form action="#" class="float-left header-search">
+    <form action="{{url('/search_by_place')}}" class="float-left header-search">
         <div class="form-group mb-0 icon-input">
             <i class="feather-search font-sm text-grey-400"></i>
             <input type="text" placeholder="Start typing to search.." class="bg-grey border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg">

@@ -81,10 +81,11 @@
                 <div id="imgs"></div>
                 <label id="custom-file-label"></label>
                 <div class="card-body d-flex p-2 mt-0">
-                <label for="uploadImagespost" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 pt-2"><i class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Add Photo</span>
-                    <input type="file" style="display:none" id="uploadImagespost" name="images[]" accept="image/*" multiple>
+                <label for="uploadImages" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 pt-2"><i class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Add Photo</span>
+                    <input type="file" style="display:none" id="uploadImages" name="images[]" accept="image/*" multiple>
                 </label>
-c                </div>
+                     <a href="javascript:void(0)" onclick="document.getElementById('postform').submit();" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i class="font-md text-success feather-check-circle me-2"></i><span class="d-none-xs">Create Post</span></a>
+                    </div>
             </form>
         </div>
         <!-- end of create post div -->
@@ -342,26 +343,23 @@ $.ajax({
     });
 
 
-   $("#uploadImagespost").on('change',function() {
-       var fileList = this.files;
-       for(var i = 0; i < fileList.length; i++)
-       {
-           //get a blob
-           var t = window.URL || window.webkitURL;
-           var objectUrl = t.createObjectURL(fileList[i]);
-           $('#imgs').append('<a href="'+objectUrl+'" data-lightbox="roadtrip" >'+'<img src="' + objectUrl + '" width="100" height="100" style="padding-right: 5px" data-lightbox="roadtrip" /></a>');
+    $("#uploadImages").on('change', function() {
+        var fileList = this.files;
+        for (var i = 0; i < fileList.length; i++) {
+            //get a blob
+            var t = window.URL || window.webkitURL;
+            var objectUrl = t.createObjectURL(fileList[i]);
+            $('#imgs').append('<a href="' + objectUrl + '" data-lightbox="roadtrip" >' + '<img src="' + objectUrl + '" width="100" height="100" style="padding-right: 5px" data-lightbox="roadtrip" /></a>');
 
-           j = i+1;
-           if(j % 3 == 0)
-           {
-               $('#imgs').append('<br>');
-           }
+            j = i + 1;
+            if (j % 3 == 0) {
+                $('#imgs').append('<br>');
+            }
 
-       }
+        }
 
-   // $('#postform').submit();
 
-   });
+    });
 
 </script>
 

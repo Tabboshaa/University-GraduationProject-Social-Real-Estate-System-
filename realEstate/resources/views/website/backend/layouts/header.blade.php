@@ -25,13 +25,13 @@
                 $notifications = NotificationController::index(Auth::id());
                 $today = \Carbon\Carbon::now();
                 ?>
-                <li role="presentation" class="nav-item dropdown open">
+                <!-- <li role="presentation" class="nav-item dropdown open">
                     <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-envelope-o"></i>
                         <span class="badge bg-green">{{count($notifications)}}</span>
-                    </a>
-                    <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                        @foreach($notifications as $notification)
+                    </a> -->
+                    <!-- <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1"> -->
+                        <!-- @foreach($notifications as $notification)
                         <li class="nav-item">
                             <a class="dropdown-item">
                                 @if($notification->fromuser->profilePhoto !=null)
@@ -49,22 +49,22 @@
                                 </span>
                             </a>
                         </li>
-                        @endforeach
-                    </ul>
+                        @endforeach -->
+                    <!-- </ul> -->
                 </li>
             </ul>
         </nav>
     </div>
 </div>
 <script>
- function deletenotification(id){
+    function deletenotification(id) {
         $.ajax({
             url: "{{route('view_notification')}}",
             data: {
-                notification_id:id
+                notification_id: id
             },
             success: function() {
-                $("#notif"+id).remove();
+                $("#notif" + id).remove();
             },
             error: function() {
 

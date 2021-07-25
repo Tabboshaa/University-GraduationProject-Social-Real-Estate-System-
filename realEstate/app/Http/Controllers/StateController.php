@@ -183,8 +183,9 @@ try{
     {
 try{
         $state = State::where('State_Name', 'like', '%' . $statename . '%')->get('State_Id')->first();
-        if($state != null)
+        if($state != null){
         return $state->State_Id;
+        }
         else return null;
     }
     catch (\Exception $e) {

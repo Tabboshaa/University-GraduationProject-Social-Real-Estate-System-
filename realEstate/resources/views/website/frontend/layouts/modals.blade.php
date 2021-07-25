@@ -244,11 +244,13 @@
                         </div>
                         <div class="card-body p-0 mt-3 position-relative">
                             <textarea id="editPost" name="edit_Post" style="padding-left:50pt;" class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xss text-black-500 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?" required></textarea>
-                       <input type="hidden" id="posteditid" name="posteditid">
+                            <input type="hidden" id="posteditid" name="posteditid">
                         </div>
+                        <div id="imgsmodal"></div>
+                        <label id="custom-file-label-modal"></label>
                         <div class="card-body d-flex p-2 mt-0">
-                            <label for="uploadImages" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 pt-2"><i class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Add Photo</span></label>
-                            <input type="file" style="display:none;" id="uploadImages" name="images[]" accept="image/*" placeholder="upload Images" multiple>
+                            <label for="uploadImagesmodal" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 pt-2"><i class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Add Photo</span></label>
+                            <input type="file" style="display:none;" id="uploadImagesmodal" name="images[]" accept="image/*" placeholder="upload Images" multiple>
                             <a href="javascript:void(0)" onclick="document.getElementById('EditPostForm').submit();" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i class="font-md text-success feather-check-circle me-2"></i><span class="d-none-xs">Edit Post</span></a>
                         </div>
                     </form>
@@ -257,32 +259,23 @@
         </div>
     </div>
 </div>
-{{--Edit Item Location--}}
-
-{{--<div class="modal fade" id="EditLocation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
-{{-- <div class="modal-dialog">--}}
-{{-- <div class="modal-content">--}}
-{{-- <div class="modal-header">--}}
-{{-- <h5 class="modal-title" id="exampleModalLabel">Edit Post</h5>--}}
-{{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-{{-- <span aria-hidden="true">&times;</span>--}}
-{{-- </button>--}}
-{{-- </div>--}}
-{{-- <div class="modal-body">--}}
-{{-- <form id="EditPostForm">--}}
-{{-- @csrf--}}
-{{-- <input type="hidden" name="id" id="id">--}}
-{{-- <div class="form-group">--}}
-{{-- <label for="edit_Post" style="font-size: 12pt">Edit Post</label>--}}
-{{-- <input type="text" style="border-radius: 3pt" name="edit_Post" id="editPost" class="form-control">--}}
-{{-- </div>--}}
-{{-- <button type="submit" id="btun3" class="btn btn-success">Edit</button>--}}
-{{-- </form>--}}
-{{-- </div>--}}
-{{-- </div>--}}
-{{-- </div>--}}
-{{--</div>--}}
 
 <script>
+    $("#uploadImagesmodal").on('change', function() {
+        var fileList = this.files;
+        for (var i = 0; i < fileList.length; i++) {
+            //get a blob
+            var t = window.URL || window.webkitURL;
+            var objectUrl = t.createObjectURL(fileList[i]);
+            $('#imgsmodal').append('<a href="' + objectUrl + '" data-lightbox="roadtrip" >' + '<img src="' + objectUrl + '" width="100" height="100" style="padding-right: 5px" data-lightbox="roadtrip" /></a>');
 
+            j = i + 1;
+            if (j % 3 == 0) {
+                $('#imgsmodal').append('<br>');
+            }
+
+        }
+
+
+    });
 </script>
