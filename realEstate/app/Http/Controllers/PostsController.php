@@ -52,7 +52,7 @@ class PostsController extends Controller
     {
 
 
-              
+
         if ($id != null) {
             $item = Item::all()->find($id);
             $user_id = $item->User_Id;
@@ -67,7 +67,7 @@ class PostsController extends Controller
                 'Post_Content' => request('Post_Content'),
             ]);
 
-            dd(\request()->all());
+
             if ($files = request()->file('images')) {
 
                 foreach ($files as $file) {
@@ -139,10 +139,10 @@ class PostsController extends Controller
             return redirect()->back()->with('error', 'Comment cannot be deleted');
         }
     }
-    
+
     public function editPost()
-    {   
-        
+    {
+
         try {
             $post = posts::all()->find(request('id'));
             $post->Post_Content = request('edit_Post');

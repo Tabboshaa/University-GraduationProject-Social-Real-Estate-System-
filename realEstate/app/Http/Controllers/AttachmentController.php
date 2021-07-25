@@ -46,7 +46,7 @@ class AttachmentController extends Controller
 
             if ($files = request()->file('images')) {
 
-        
+
                 foreach ($files as $file) {
                     $filename = $file->getClientOriginalName();
 
