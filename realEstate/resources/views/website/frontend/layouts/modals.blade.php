@@ -246,8 +246,8 @@
                             <textarea id="editPost" name="edit_Post" style="padding-left:50pt;" class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xss text-black-500 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?" required></textarea>
                             <input type="hidden" id="posteditid" name="posteditid">
                         </div>
-                        <div id="imgs"></div>
-                        <label id="custom-file-label"></label>
+                        <div id="imgsmodal"></div>
+                        <label id="custom-file-label-modal"></label>
                         <div class="card-body d-flex p-2 mt-0">
                             <label for="uploadImagesmodal" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 pt-2"><i class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Add Photo</span></label>
                             <input type="file" style="display:none;" id="uploadImagesmodal" name="images[]" accept="image/*" placeholder="upload Images" multiple>
@@ -267,11 +267,11 @@
             //get a blob
             var t = window.URL || window.webkitURL;
             var objectUrl = t.createObjectURL(fileList[i]);
-            $('#imgs').append('<a href="' + objectUrl + '" data-lightbox="roadtrip" >' + '<img src="' + objectUrl + '" width="100" height="100" style="padding-right: 5px" data-lightbox="roadtrip" /></a>');
+            $('#imgsmodal').append('<a href="' + objectUrl + '" data-lightbox="roadtrip" >' + '<img src="' + objectUrl + '" width="100" height="100" style="padding-right: 5px" data-lightbox="roadtrip" /></a>');
 
             j = i + 1;
             if (j % 3 == 0) {
-                $('#imgs').append('<br>');
+                $('#imgsmodal').append('<br>');
             }
 
         }
