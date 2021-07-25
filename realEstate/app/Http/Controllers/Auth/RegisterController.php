@@ -57,13 +57,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-
-    }
+  
 
     /**
      * Create a new user instance after a valid registration.
@@ -98,7 +92,7 @@ class RegisterController extends Controller
 
         //return redirect('/HomeRegister');
         return redirect()->route('HomeRegister');
-     } catch (\Illuminate\Database\QueryException $e) {
+     } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {

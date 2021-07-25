@@ -9,9 +9,12 @@ use App\Type_Of_User;
 use App\User;
 use App\User_Type;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\Console\Input\Input;
+
 
 class LoginController extends Controller
 {
@@ -47,7 +50,7 @@ class LoginController extends Controller
 
     public function loginViaEmailAdmin()
     {
-       
+
 
         $email=request('email');
         $password=request('password');
@@ -55,34 +58,41 @@ class LoginController extends Controller
 
         if ($emailModel = Emails::all()->where('email', $email)->first())
         {
-            
-            if( Count(Type_Of_User::all()->where('User_ID',$emailModel->User_ID)->where('User_Type_ID',1))>0){
-            
+
+            if( Count(Type_Of_User::all()->where('User_ID',$emailModel->User_ID)->where('User_Type_ID','=',1))>0){
+
             return $this->login($emailModel->User_ID, $password);
             }
+            return redirect()->back()->with('error','This Email is Not Registered ');
 
         }
 
-        return false;
+        return redirect()->back()->with('error','This Email is Not Admin Email ');
     }
 
 
 
     public function login($id, $password)
     {
-        
+
         $user = User::find($id);
 
         if(Hash::check( $password, $user->password))
         {
-            
-            Auth::loginUsingId($id);
-            return view('home');
+
+           try {
+               Auth::loginUsingId($id);
+               return redirect()->route('AdminProfile');
+           }catch (\Exception $e){
+               DB::rollBack();
+               return back()->withError($e->getMessage())->withInput();
+           }
 
         }
 
         return false;
     }
+
 
 
 

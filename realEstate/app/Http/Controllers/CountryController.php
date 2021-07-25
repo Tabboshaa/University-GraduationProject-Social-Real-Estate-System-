@@ -17,9 +17,14 @@ class CountryController extends Controller
     public function index()
     {
         //
+        try{
         $Countries = Country::paginate(10);
         return view('website.backend.database pages.Add_Country_Show', ['C11' => $Countries]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Show the form for creating a new resource.
@@ -36,7 +41,7 @@ class CountryController extends Controller
             ]);
             DB::commit();
             return back()->with('success', 'Country Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -107,7 +112,7 @@ class CountryController extends Controller
                 Country::destroy($request->id);
                 DB::commit();
                 return redirect()->route('country_show')->with('success', 'Country Deleted Successfully');
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
 
                 DB::rollBack();
                 return redirect()->route('country_show')->with('error', 'Country cannot be deleted');
@@ -129,7 +134,7 @@ class CountryController extends Controller
             $country->save();
             DB::commit();
             return back()->with('info', 'Country Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {

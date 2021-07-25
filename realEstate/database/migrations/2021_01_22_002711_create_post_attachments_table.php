@@ -15,7 +15,7 @@ class CreatePostAttachmentsTable extends Migration
     {
         Schema::create('post_attachments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('Post_Id')->references('Post_Id')->on('posts')->onDelete('cascade');
+            $table->foreignId('Post_Id')->references('Post_Id')->on('posts')->onDelete('cascade')->nullable();;
             $table->foreignId('Attachment_Id')->references('Attachment_Id')->on('attachments')->onDelete('cascade');
             $table->foreignId('Item_Id')->references('Item_Id')->on('items')->onDelete('cascade')->nullable();
             $table->timestamps();

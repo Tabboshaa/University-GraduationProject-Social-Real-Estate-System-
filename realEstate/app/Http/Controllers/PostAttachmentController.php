@@ -93,7 +93,7 @@ class PostAttachmentController extends Controller
             attachment::destroy(request('id'));
             DB::commit();
             return true;
-        }catch (\Illuminate\Database\QueryException $e) {
+        }catch (\Exception $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
         }

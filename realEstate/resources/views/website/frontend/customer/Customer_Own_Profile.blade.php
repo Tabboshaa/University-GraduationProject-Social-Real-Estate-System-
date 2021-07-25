@@ -5,10 +5,10 @@
 
 
 <!-- top box -->
-<div class="row"   >
+<div class="row">
     <!-- top box -->
     <div class="col-xxl-12">
-        <div  class="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3 overflow-hidden">
+        <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3 overflow-hidden">
             @if($Cover_Photo!=null)
             <div class="card-body position-relative h240 bg-image-cover bg-image-center" style="background-image: url('{{asset('storage/cover page/'.$Cover_Photo->Cover_Photo)}}');"></div>
             @else
@@ -16,10 +16,10 @@
             @endif
 
             <div class="card-body d-block pt-4 text-center position-relative">
-            @if($Profile_Photo!=null)
-            <figure class="avatar mt--6 position-relative w75 z-index-1 w100 z-index-1 ms-auto me-auto"><img src="{{asset('storage/cover page/'.$Profile_Photo->Profile_Picture)}}" alt="image" class="p-1 bg-white rounded-xl w-100"></figure>
+                @if($Profile_Photo!=null)
+                <figure class="avatar mt--6 position-relative w75 z-index-1 w100 z-index-1 ms-auto me-auto"><img src="{{asset('storage/cover page/'.$Profile_Photo->Profile_Picture)}}" alt="image" class="p-1 bg-white rounded-xl w-100" height="100"></figure>
                 @else
-                <figure class="avatar mt--6 position-relative w75 z-index-1 w100 z-index-1 ms-auto me-auto"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="p-1 bg-white rounded-xl w-100"></figure>
+                <figure class="avatar mt--6 position-relative w75 z-index-1 w100 z-index-1 ms-auto me-auto"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="p-1 bg-white rounded-xl w-100" height="100"></figure>
                 @endif
                 <h4 class="font-xs ls-1 fw-700 text-grey-900"> {{$First_Name}} {{$Middle_Name}} {{$Last_Name}}<span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"></span></h4>
                 <div class="d-flex align-items-center pt-0 position-absolute left-15 top-10 mt-4 ms-2">
@@ -70,7 +70,7 @@
                             <form method="POST" action="{{url('/CreateProfilePhoto')}}" enctype="multipart/form-data">
                                 @csrf
                                 <label class="fw-600 text-grey-900 font-xssss mt-0 me-0" for="profile_photo_upload"><i class="feather-plus text-grey-500 me-3 font-sm"></i>Profile Photo</label>
-                                <input id="profile_photo_upload" name="ProfilePhoto" type="file" accept="image/*"  style="display:none" onchange="javascript:this.form.submit();">
+                                <input id="profile_photo_upload" name="ProfilePhoto" type="file" accept="image/*" style="display:none" onchange="javascript:this.form.submit();">
                             </form>
                         </div>
                         @endif
@@ -78,14 +78,7 @@
                 </div>
             </div>
 
-            <div class="card-body d-block w-100 shadow-none mb-0 p-0 border-top-xs">
-                <ul class="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4" id="pills-tab" role="tablist">
-                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Profile</a></li>
-                    <!-- <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Owned items</a></li>
-                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Followed items</a></li> -->
-                    <li class="list-inline-item me-5"><a class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block" href="{{url('view_User'.$id)}}" data-toggle="tab">Gallery</a></li>
-                </ul>
-            </div>
+
 
         </div>
     </div>
@@ -174,7 +167,7 @@
     <div class="col-xl-8 col-xxl-9 col-lg-8">
         <!-- create post div -->
         <div class="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3 mt-3">
-            <form method="POST" action="{{ url('/add_user_post') }}" id="postform" enctype="multipart/form-data">
+            <form method="post" action="{{url('/add_post')}}" id="postform" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body p-0">
                     <a class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>Create Post</a>
@@ -182,10 +175,12 @@
                 <div class="card-body p-0 mt-3 position-relative">
                     <textarea name="Post_Content" value="{{ old('Post_Content') }}" style="padding-left:50pt;" class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?" required></textarea>
                 </div>
+                <div id="imgs"></div>
+                <label id="custom-file-label"></label>
                 <div class="card-body d-flex p-2 mt-0">
-                    <label for="uploadImages" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 pt-2"><i class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Add Photo</span></label>
-                    <input type="file" style="display:none;" id="uploadImages" name="images[]" accept="image/*" placeholder="upload Images" multiple>
-                    <a href="javascript:void(0);" onclick="document.getElementById('postform').submit(); return false;" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i class="font-md text-success feather-check-circle me-2"></i><span class="d-none-xs">Create Post</span></a>
+                    <label for="uploadImagespost" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 pt-2"><i class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Add Photo</span></label>
+                    <input type="file" style="display:none;" id="uploadImagespost" name="images[]" accept="image/*" placeholder="upload Images" multiple>
+                    <a href="javascript:void(0)" onclick="document.getElementById('postform').submit();" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i class="font-md text-success feather-check-circle me-2"></i><span class="d-none-xs">Create Post</span></a>
                 </div>
             </form>
         </div>
@@ -207,9 +202,9 @@
                     <a href="javascript:void(0)" onclick="setPost('{{$post->Post_Id}}','{{$post->Post_Content}}')" name="editpost"><i class="feather-edit text-grey-500 me-0 font-xs"></i></a>
                     @endif
                     <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                    <?php $today = \Carbon\Carbon::now();
-                    $end = \Carbon\Carbon::parse($post->updated_at);
-                    ?>{{ $end->diffForHumans()}}
+                        <?php $today = \Carbon\Carbon::now();
+                        $end = \Carbon\Carbon::parse($post->updated_at);
+                        ?>{{ $end->diffForHumans()}}
                     </span>
                 </h4>
             </div>
@@ -256,10 +251,10 @@
                 </div>
             </div>
             @endif
-            @if( isset($post->comments) )
-            <a href="javascript:void(0)" id="more" onclick="$('#allcomments{{$post->Post_Id}}').slideToggle(function(){$('#more').html($('#allcomments{{$post->Post_Id}}').is(':visible')?'Hide Comments':'{{count($post->comments)}} Comment');});" onclick="viewComment('{{$post->Post_Id}}')" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>{{count($post->comments)}} Comment</span></a>
+            @if( isset($comments[$post->Post_Id]) )
+            <a href="javascript:void(0)" id="more{{$post->Post_Id}}" onclick="$('#allcomments{{$post->Post_Id}}').slideToggle(function(){$('#more{{$post->Post_Id}}').html($('#allcomments{{$post->Post_Id}}').is(':visible')?'Hide Comments':'<i class=\'feather-message-circle text-dark text-grey-900 btn-round-sm font-lg\'></i> {{count($comments[$post->Post_Id])}} Comment');});" onclick="viewComment('{{$post->Post_Id}}')" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>{{count($comments[$post->Post_Id])}} Comment</a>
             @else
-            <div class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>0 Comments</span></div>
+            <a href="javascript:void(0)" id="more{{$post->Post_Id}}" onclick="$('#allcomments{{$post->Post_Id}}').slideToggle(function(){$('#more{{$post->Post_Id}}').html($('#allcomments{{$post->Post_Id}}').is(':visible')?'Hide Comments':'<i class=\'feather-message-circle text-dark text-grey-900 btn-round-sm font-lg\'></i> 0 Comments');});" onclick="viewComment('{{$post->Post_Id}}')" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>0 Comments</a>
             @endif
             <!-- 0055FF -->
             <div class="form-group">
@@ -268,16 +263,16 @@
 
             </div>
             @if( isset($post->comments) )
-            <div id="allcomments{{$post->Post_Id}}" style="display: none;">
+            <div>
                 <div class="chat-body p-3 ">
-                    <div class="messages-content pb-5">
+                    <div class="messages-content pb-5" id="allcomments{{$post->Post_Id}}" style="display: none;">
                         @foreach($post->comments as $comment)
                         <div class="card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10">
 
                             @if($comment->user->profilePhoto !=null)
-                            <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/'.$comment->user->profilePhoto->Profile_Picture)}}" alt="image" class="shadow-sm rounded-circle w35"></figure>
+                            <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/'.$comment->user->profilePhoto->Profile_Picture)}}" alt="image" class="shadow-sm rounded-circle w35" height="35"></figure>
                             @else
-                            <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w35"></figure>
+                            <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w35" height="35"></figure>
                             @endif
                             <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
                                 <a href="{{url('view_User/'.$comment->User_Id)}}">
@@ -309,9 +304,9 @@
                             @foreach($comment->replies as $reply)
                             <div class="card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative">
                                 @if($reply->user->profilePhoto !=null)
-                                <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/'.$reply->user->profilePhoto->Profile_Picture)}}" alt="image" class="shadow-sm rounded-circle w35"></figure>
+                                <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/'.$reply->user->profilePhoto->Profile_Picture)}}" alt="image" class="shadow-sm rounded-circle w35" height="35"></figure>
                                 @else
-                                <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w35"></figure>
+                                <figure class="avatar position-absolute left-0 ms-2 mt-1"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w35" height="35"></figure>
                                 @endif <div class="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
                                     <a href="{{url('view_User/'.$reply->User_Id)}}">
                                         <h4 class="fw-700 text-grey-900 font-xssss mt-0 mb-1">{{$reply->user->First_Name}} {{$reply->user->Middle_Name}} {{$reply->user->Last_Name}}
@@ -346,12 +341,7 @@
 
 <script>
     function Comment(post_id) {
-        var empt = document.forms["postform"]["comment"].value;
-if (empt == "")
-{
-alert("Please fill out this field");
-return false;
-}
+
         var comment = $("#CommentForPost" + post_id).val();
 
         if (comment.length == 0) {
@@ -367,12 +357,30 @@ return false;
 
             },
             success: function(data) {
+                var str = $('#more' + post_id).html();
+                matches = str.match(/\d+/g);
+                if (matches.length != 0) {
+                    console.log(matches[1]);
+                    var m = parseInt(matches[1]) + 1;
+                    $('#more' + post_id).html('<i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>' + m + ' Comments');
+                }
+
                 console.log(data);
                 if (data['Profile_Picture'] == null) {
                     data['Profile_Picture'] = 'pic.png';
                 }
-                $("#allcomments" + post_id).prepend("<div class=\"chat-body\"><div class=\"messages-content p-0 \"><div class=\" card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10\">" +
-                    "<figure class=\"avatar position-absolute left-0 ms-2 mt-1 pe-5\" style=\"padding-bottom: 0px!important;\"><img src=\"/storage/cover page/" + data['Profile_Picture'] + "\" alt='image' class=\"shadow-sm rounded-circle w35\"></figure>" +
+                if (data['Last_Name'] == null) {
+                    data['Last_Name'] = '';
+                }
+                if (data['First_Name'] == null) {
+                    data['First_Name'] = '';
+                }
+                if (data['Middle_Name'] == null) {
+                    data['Middle_Name'] = '';
+                }
+
+                $("#allcomments" + post_id).prepend("<div class='card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10'>" +
+                    "<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/" + data['Profile_Picture'] + "\" alt='image' class='shadow-sm rounded-circle w35' height='35'></figure>" +
                     "<div class='chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg'>" +
                     "<a href=\"/view_User/" + data['User_Id'] + "\">" +
                     "<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> " + data['First_Name'] + " " + data['Middle_Name'] + " " + " " + data['Last_Name'] + "" +
@@ -383,7 +391,7 @@ return false;
                     "<p class=\"fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0\">" + data['Comment'] + "</p>" +
                     "</div>" +
                     "</div>" +
-                    "<a href=\"javascript:void(0)\" id=\"morereplies "+ data['Comment_Id'] +"\" onclick=\"$('#allreplies" + data['Comment_Id'] + "').slideToggle(function(){$('#morereplies" + data['Comment_Id'] + "').html($('#allreplies" + data['Comment_Id'] + "').is(':visible')?'Hide Replies':'0 Relpies');});\" class=\"ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss\"><i class=\"feather-message-circle text-dark text-grey-900 btn-round-sm font-lg\"></i>0 Relpies</span></a>" +
+                    "<a href=\"javascript:void(0)\" id=\"morereplies\" onclick=\"$('#allreplies" + data['Comment_Id'] + "').slideToggle(function(){$('#morereplies').html($('#allreplies" + data['Comment_Id'] + "').is(':visible')?'Hide Replies':'0 Relpies');});\" class=\"ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss\"><i class=\"feather-message-circle text-dark text-grey-900 btn-round-sm font-lg\"></i>0 Relpies</span></a>" +
                     "<div id=\"allreplies" + data['Comment_Id'] + "\" style=\"display: none;\">" +
                     "<div class=\"form-group\">" +
                     "<input id=\"ReplyForComment" + data['Comment_Id'] + "\" name=\"comment" + data['Comment_Id'] + "\" placeholder=\"Write a reply...\" type=\"text\" style=\"background-color:#0055ff1a;width:770px;\" class=\"border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xsssss fw-500 rounded-xl w300 theme-dark-bg\">" +
@@ -399,7 +407,7 @@ return false;
             }
 
         });
-    };
+    }
 
     function Reply(post_id, parent_id) {
 
@@ -440,7 +448,7 @@ return false;
             }
 
         });
-    };
+    }
 
     function setComment(id, name) {
 
@@ -486,43 +494,31 @@ return false;
     function setPost(id, name) {
 
         // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty
-        $("#id").val(id);
+        $("#posteditid").val(id);
         console.log(name);
         $("#editPost").val(name);
         $("#EditPostModal").modal("toggle");
     }
 
+    $("#uploadImagespost").on('change',function() {
+       var fileList = this.files;
+       for(var i = 0; i < fileList.length; i++)
+       {
+           //get a blob
+           var t = window.URL || window.webkitURL;
+           var objectUrl = t.createObjectURL(fileList[i]);
+           $('#imgs').append('<a href="'+objectUrl+'" data-lightbox="roadtrip" >'+'<img src="' + objectUrl + '" width="100" height="100" style="padding-right: 5px" data-lightbox="roadtrip" /></a>');
 
-    $('#EditPostForm').submit(function() {
+           j = i+1;
+           if(j % 3 == 0)
+           {
+               $('#imgs').append('<br>');
+           }
 
-        var id = $("#id").val();
+       }
 
-        //byb3t el value el gdeda
-        var edit_Post = $("#editPost").val();
-        console.log(edit_Post);
 
-        var _token = $("input[name=_token]").val();
-
-        $.ajax({
-            url: "{{route('post.update')}}",
-            Type: "PUT",
-            data: {
-                id: id,
-                edit_Post: edit_Post,
-                _token: _token
-            },
-            success: function() {
-                console.log('Success');
-                $("#EditPostModal").modal("toggle");
-
-            },
-            error: function() {
-                console.log('Error');
-            }
-
-        });
-
-    })
+   });
 </script>
 
 

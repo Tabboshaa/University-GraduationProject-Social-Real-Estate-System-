@@ -20,10 +20,14 @@ class OwnerController extends Controller
         // ->select('items.*','cover__pages.path')
         // ->where('items.User_ID','=',$User_Id )
         // ->get();
-
+try{
         $items = $user->items;  
         return view('website.FrontEnd.Owner.Show_Item', ['items' => $items] );
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     
     public function itemProfile($id = null)
     {
@@ -35,6 +39,7 @@ class OwnerController extends Controller
         $replies = CommentsController::getPostreplies($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
         $post_images = AttachmentController::getPostAttachments($id);
+        try{
         $gallery = DB::table('post_attachments')
             ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
             ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
@@ -62,7 +67,10 @@ class OwnerController extends Controller
             ]
         );
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     public function itemDetails($id)
     {
         //
@@ -77,6 +85,7 @@ class OwnerController extends Controller
       
 
         $User_Id = Auth::id();
+        try{
         $check_follow = followeditemsbyuser::all()->where('Item_Id', '=', $id)->where('User_ID', '=', $User_Id);
 
         $details = DB::table('details')
@@ -90,13 +99,16 @@ class OwnerController extends Controller
             
         return view('website\frontend\owner\Item_Profile_Details', ['details' => $details, 'states' => $state, 'item' => $item, 'cover' => $cover, 'schedule' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow,'subtype'=>$Sub_Type_Id]);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     public function itemProfileGallery($id)
     {
         //
         $itemID = $id;
         $state = StateController::getStates();
-
+try{
         $item = Item::find($id);
 
         $gallery = DB::table('post_attachments')
@@ -110,7 +122,10 @@ class OwnerController extends Controller
 
         return view('website\frontend\owner\Item_Profile_Gallery', ['item_id' => $itemID, 'states' => $state, 'item' => $item, 'cover' => $cover, 'gallery' => $gallery, 'check_follow' => $check_follow]);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }    
+}
     public function itemProfileReviews($id = null)
     {
         //
@@ -119,6 +134,7 @@ class OwnerController extends Controller
         $reviews = ReviewController::getItemReviews($id);
         $item = Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
+        try{
         $post_images =Db::table('review_attacments')
         ->where('Item_Id','=',$id)
         ->get()
@@ -133,9 +149,14 @@ class OwnerController extends Controller
         return view('website\frontend\owner\Item_Profile_Reviews', ['User'=>$User,'states' => $state,'comments' => $comments,
         'replies' => $replies, 'post_images' => $post_images, 'reviews' => $reviews, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     public function itemReservations($id = null)
     {
+        try{
         $reservation_details = DB::table('operation___detail__values')
             ->join('operation__detail_name', 'operation__detail_name.Detail_Id', '=', 'operation___detail__values.Detail_Id')
             ->join('operations', 'operations.Operation_Id', '=', 'operation___detail__values.Operation_Id')
@@ -158,11 +179,14 @@ class OwnerController extends Controller
         // return dd($reservation_details);
         return view('website.frontend.owner.Item_Profile_Reservations', ['reservations' => $reservations, 'reservation_details' => $reservation_details, 'item' => $item, 'cover' => $cover, 'check_follow' => $check_follow]);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     // function for page ownerManageSchedule
     public function itemManageSchedule($id = null)
     {
-
+try{
         $schedule = ScheduleController::getWholeSchedule($id);
         $item = Item::find($id);
         $cover = CoverPageController::getCoverPhotoOfItem($id);
@@ -175,12 +199,23 @@ class OwnerController extends Controller
         // return $schedule;
         return view('website\frontend\owner\Item_Profile_Manage_Schedule', ['item' => $item, 'cover' => $cover, 'schedules' => $schedule, 'item_id' => $id, 'check_follow' => $check_follow]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     
     public function getReservations(){
+        try{
         $user = Auth::user();
         $items = $user->items;
 // dd($items[0]->operations[0]->Operation_Id);
  return view('website.FrontEnd.Owner.Show_Reservations', ['items' => $items]);
-    }
+
+}
+catch (\Exception $e) {
+    return back()->withError($e->getMessage())->withInput();
+}
+}
+
 
 }

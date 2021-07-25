@@ -14,18 +14,21 @@ class PropertyDetailsController extends Controller
 {
     public function index()
     {
+        try{
         $main_types = Main_Type::all();
         $sub_types = Sub_Type::all();
         $property = Sub_Type_Property::all();
         $data_type = Datatype::all();
         return view('website.backend.database pages.Property_Details', ['main_type' => $main_types, 'sub_type' => $sub_types, 'property' => $property, 'data_type' => $data_type]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     public function create()
     {
-        request()->validate([
-            'property_details' => ['required', 'string', 'max:225']
-        ]);
+        
 
         DB::beginTransaction();
         try {
@@ -38,7 +41,7 @@ class PropertyDetailsController extends Controller
             ]);
             DB::commit();
             return back()->with('success', 'Property Detail Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -56,6 +59,7 @@ class PropertyDetailsController extends Controller
         $property = Sub_Type_Property::all();
         $property_details = Property_Details::all();
         $data_type = Datatype::all();
+        try{
         $property = DB::table('property__details')
             ->join('main__types', 'property__details.Main_Type_Id', '=', 'main__types.Main_Type_Id')
             ->join('sub__types', 'property__details.Sub_Type_Id', '=', 'sub__types.Sub_Type_Id')
@@ -67,6 +71,10 @@ class PropertyDetailsController extends Controller
 
         return view('website.backend.database pages.Property_Details_Show', ['sub_type' => $sub_types, 'main_type' => $main_types, 'property_detail' => $property_details, 'property' => $property, 'data_type' => $data_type]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     //    function of drop downlist : AJAX
     public function find()
@@ -87,7 +95,7 @@ class PropertyDetailsController extends Controller
             $propertydetail->save();
             DB::commit();
             return back()->with('info', 'Property Detail Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -107,7 +115,7 @@ class PropertyDetailsController extends Controller
 
                 DB::commit();
                 return redirect()->route('property_detail_show')->with('success', 'Property Detail Deleted Successfully');
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 return back()->withError($e->getMessage())->withInput();
                 return redirect()->route('property_detail_show')->with('error', 'Property Detail cannot be deleted');

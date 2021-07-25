@@ -26,10 +26,15 @@ class UserController extends Controller
      */
     public function index()
     {
+        try{
         //
         $user_type = User_Type::paginate(10);
         return view('website\backend.database pages.Add_User', ['user_type' => $user_type]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Show the form for creating a new resource.
@@ -72,7 +77,7 @@ class UserController extends Controller
 
             DB::commit();
             return back()->with('success', 'User Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -83,6 +88,7 @@ class UserController extends Controller
 
     public function AdminProfile()
     {
+        try{
         $User_ID = Auth::id();
         $user = User::all()->where('id', '=', $User_ID)->first();
         $email = Emails::all()->where('User_ID', '=', $User_ID)->first();
@@ -90,8 +96,13 @@ class UserController extends Controller
         return view('website.backend.database pages.Admin_profile', ['user' => $user, 'email' => $email, 'phone' => $phone]);
     }
 
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }}
+
     public function EditUserProfileVeiw()
     {
+        try{
         $User_ID = Auth::id();
         $user = User::all()->where('id', '=', $User_ID)->first();
 
@@ -101,6 +112,10 @@ class UserController extends Controller
 
         return view('website.frontend.customer.EditUserProfile', ['user' => $user, 'email' => $email, 'phone' => $phone, 'image' => $image]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     public function EditUserProfile()
     {
@@ -137,12 +152,12 @@ if(request()->has('nationalid')){
 
             DB::commit();
             return back()->with('success', 'User Edited Succesfully');
-        } catch (\Illuminate\Database\QueryException $e)
+        } catch (\Exception $e)
         {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('error', 'City Already Exist !!');
+                return back()->with('error', 'user Already Exist !!');
             }
             if ($errorCode == 1048) {
                 return back()->with('error', 'You must select all values!!');
@@ -153,7 +168,7 @@ if(request()->has('nationalid')){
     }
 
     public function checkIfOwner()
-    {
+    {try{
         $user_id = Auth::id();
         $user = Type_Of_User::all()->where('User_ID', '=', $user_id)->where('User_Type_ID', '=', 3);
         if ($user == '[]')
@@ -161,6 +176,10 @@ if(request()->has('nationalid')){
         else
             return 1;
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     public function BeOwner($toYourProperties = null)
     {
@@ -217,7 +236,7 @@ if(request()->has('nationalid')){
                 }
                 return redirect()->back();
             }
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -248,6 +267,7 @@ if(request()->has('nationalid')){
     //fe el blade in the same time the route passes me to the blade
     public function showMyProfile()
     {
+        try{
         $user = User::all()->where('id', '=', Auth::id())->first();
 
         $posts = PostsController::userPosts(Auth::id());
@@ -287,7 +307,10 @@ if(request()->has('nationalid')){
             'items' => $user->items,
         ]);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -309,12 +332,17 @@ if(request()->has('nationalid')){
     }
     public function search()
     {
+        try{
         $search = request('email');
 
         $email = Emails::where('email', 'LIKE', '%' . $search . '%')->get();
 
         return response()->json($email);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     /**
      * Remove the specified resource from storage.
      *
@@ -332,7 +360,7 @@ if(request()->has('nationalid')){
             Phone_Numbers::destroy($request->id);
             DB::commit();
             return back()->with('success', 'Item Deleted Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
 
             DB::rollBack();
             return back()->with('error', 'Item cannot be deleted');
@@ -351,7 +379,7 @@ if(request()->has('nationalid')){
             $user->save();
             DB::commit();
             return back()->with('info', 'Item Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -370,8 +398,8 @@ if(request()->has('nationalid')){
             $email->email = request('email');
             $email->save();
             DB::commit();
-            return back()->with('info', 'Item Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+            return back()->with('info', 'Email Edited Successfully');
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -388,7 +416,7 @@ if(request()->has('nationalid')){
             $phone_number->phone_number = request('phonenumber');
             $phone_number->save();
             return back()->with('info', 'Item Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Already Exist !!');
@@ -398,11 +426,15 @@ if(request()->has('nationalid')){
     public static function getUserName($user_id)
     {
         //
-
+try{
         $user = User::select('First_Name', 'Middle_Name', 'Last_Name')->where('id', '=', $user_id)->get()->first();
 
         return $user;
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     public static function FollowedItem($Item_Id)
     {
         DB::beginTransaction();
@@ -417,7 +449,7 @@ if(request()->has('nationalid')){
             NotificationController::createRedirect(Auth::id(), $to_user,  'Started Following your item', '/view_User/' . Auth::id());
             DB::commit();
             return back();
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -435,7 +467,7 @@ if(request()->has('nationalid')){
             followeditemsbyuser::destroy($followed_items->Followed_Item_Id);
             DB::commit();
             return back();
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
         }
@@ -444,12 +476,18 @@ if(request()->has('nationalid')){
     public function get_user_types()
     {
         //
+        try{
         $user_types = User_Type::all();
         $Users = User::all();
         return view('website/backend.database pages.Users_Show', ['user_typess' => $user_types, 'users' => $Users]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     public function getUser($id = null)
     {
+        try{
         if ($id == null && request()->has('id')) $id = request('id');
         //$Type_Of_User=Type_Of_User::all();
         $user_types = User_Type::all();
@@ -462,11 +500,12 @@ if(request()->has('nationalid')){
 
         return  response()->json($Users);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     public function changePassword()
     {
-
-
 
 
         try {
@@ -481,15 +520,27 @@ if(request()->has('nationalid')){
                 return 1;
 
 
-            }else
+            } else
                 return 2;
 
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Already Exist !!');
             }
         }
+    }
+        public function Adminlogout(Request $request) {
+
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('AdminLogin');
+
+
     }
 }

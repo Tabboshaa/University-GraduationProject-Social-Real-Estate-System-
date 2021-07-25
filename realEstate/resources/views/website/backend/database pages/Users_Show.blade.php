@@ -51,7 +51,7 @@
                                             }
                                         </script>
                                     </tr>
-                                    @if(count($users) != 0)
+                                    @if(count($users) == 0)
                                     <tr><td colspan="5"><h4 style="color:gray;">There is no data.</h4></td></tr>
                                      @endif
                                 </thead>

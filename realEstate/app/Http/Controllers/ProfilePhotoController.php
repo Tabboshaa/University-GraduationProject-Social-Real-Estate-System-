@@ -58,7 +58,7 @@ class ProfilePhotoController extends Controller
                 ]);
                 DB::commit();
                 return back();
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
@@ -115,7 +115,7 @@ class ProfilePhotoController extends Controller
                 $profilePhoto->save();
                 DB::commit();
                 return back();
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
@@ -152,7 +152,7 @@ class ProfilePhotoController extends Controller
                 $profilePhoto->save();
                 DB::commit();
                 return back();
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
@@ -167,7 +167,7 @@ class ProfilePhotoController extends Controller
     public function destroy($id=null, $path=null)
     {
 
-        return $path;
+        // return $path;
         $myFile = 'storage/cover page/' . $path;
 
         if (File::exists($myFile)) {
@@ -176,7 +176,7 @@ class ProfilePhotoController extends Controller
         try {
             ProfilePhoto::destroy($id);
             return back();
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('error', 'Already Exist !!');

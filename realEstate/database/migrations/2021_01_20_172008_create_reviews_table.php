@@ -17,7 +17,7 @@ class CreateReviewsTable extends Migration
             $table->id('Review_Id');
             $table->foreignId('Item_Id')->references('Item_Id')->on('items')->onDelete('cascade');
             $table->foreignId('User_Id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('Review_Title');
+            $table->string('Review_Title')->nullable();;
             $table->string('Review_Content');
             $table->integer('Number_Of_Stars');
 

@@ -23,8 +23,13 @@ class OperationsController extends Controller
     {
         //
         $operationType = operation__types::all();
-        return view('website\backend.database pages.Operation_Detail', ['Operation__types' => $operationType]);
+        try{
+        return view('website\backend.database pages.operation_Types_Show', ['Operation__types' => $operationType]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Show the form for creating a new resource.
@@ -42,7 +47,7 @@ class OperationsController extends Controller
             ]);
             DB::commit();
             return $operations->Operation_Id;
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -63,7 +68,7 @@ class OperationsController extends Controller
             ]);
             DB::commit();
             return back()->with('success', 'type Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -83,7 +88,7 @@ class OperationsController extends Controller
             ]);
             DB::commit();
             return back()->with('success', 'Detail Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -111,7 +116,7 @@ class OperationsController extends Controller
 
             DB::commit();
             return back()->with('success', 'Detail Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -139,13 +144,17 @@ class OperationsController extends Controller
         $price_per_night = Schedule::all()->where('schedule_Id', '=', $schedule)->first()->Price_Per_Night;
         $start_date = new \Carbon\Carbon(request('start'));
         $end_date = new \Carbon\Carbon(request('end'));
-
+try{
         $totalPrice = ($start_date->diffInDays($end_date) + 1) * $price_per_night;
         $totalDays = ($start_date->diffInDays($end_date) + 1);
         // return $result;//
         // return redirect()->jason(['totalDays'=>$totalDays,'Result'=>$result]);
         return (['totalPrice' => $totalPrice, 'totalDays' => $totalDays, "price_per_night" => $price_per_night, "start_date" => $start_date, "end_date" => $end_date]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Display the specified resource.
@@ -157,8 +166,13 @@ class OperationsController extends Controller
     {
         //
         $operation_types = Operation__types::paginate(10);
+        try{
         return view('website.backend.database pages.operation_Types_Show', ['operation_types' => $operation_types]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -185,11 +199,11 @@ class OperationsController extends Controller
 
             DB::commit();
             return back()->with('info', 'Operation Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
         DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('error', 'Error editing item');
+                return back()->with('error', 'Dupilcated data');
             }
             return back()->withError($e->getMessage())->withInput();
         }
@@ -210,11 +224,11 @@ class OperationsController extends Controller
 
             DB::commit();
             return back()->with('info', 'Operation Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('error', 'Error editing item');
+                return back()->with('error', 'Duplicated data');
             }
             return back()->withError($e->getMessage())->withInput();
         }
@@ -247,7 +261,7 @@ class OperationsController extends Controller
                 Operation__types::destroy($request->operationType);
                 DB::commit();
                 return redirect()->route('operation_types_show')->with('success', 'operation Deleted Successfully');
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 return redirect()->route('operation_types_show')->with('error', 'operation cannot be deleted');
                 return back()->withError($e->getMessage())->withInput();
@@ -264,7 +278,7 @@ class OperationsController extends Controller
                 Operation__Detail_Name::destroy($request->id);
                 DB::commit();
                 return redirect()->route('detailop_show')->with('success', 'Detail Deleted Successfully');
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 return redirect()->route('detailop_show')->with('error', 'Detail cannot be deleted');
                 return back()->withError($e->getMessage())->withInput();
@@ -276,28 +290,43 @@ class OperationsController extends Controller
     {
 
         $operationname = operation__types::all();
+        try{
         $operationDetailName = DB::table('operation__detail_name')
             ->join('operation__types', 'operation__detail_name.Operation_Type_Id', '=', 'operation__types.Operation_Type_Id')
             ->select('operation__detail_name.*', 'operation__types.Operation_Name')->paginate(10);
 
         return view('website\backend.database pages.Operation_Details_show', ['Detail1' => $operationDetailName, 'Operation__types' => $operationname]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
 
     //show reservations for an item in admin
     public function showreservations($item_id)
     {
+        try{
         $item = Item::all()->where('Item_Id', '=', $item_id)->first();
 
         return view('website.backend.database pages.Reservation_Show', ['item' => $item]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     public function showuserreservations()
     {
 
         $user = Auth::user();
+        try{
         $operations = $user->operations;
 
         return view('website.frontend.customer.ShowReservation', ['operations' => $operations]);
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
     //delete operation
     public function destroyOperation($id)
     {
@@ -307,7 +336,7 @@ class OperationsController extends Controller
             operations::destroy($id);
             DB::commit();
             return redirect()->back()->with('success', 'Reservation Deleted Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Reservation cannot be deleted');
             return back()->withError($e->getMessage())->withInput();

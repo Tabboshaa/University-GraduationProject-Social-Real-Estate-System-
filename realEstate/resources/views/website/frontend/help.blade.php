@@ -11,7 +11,7 @@
                                         <div class="row">
                                             <div class="col-md-8">
                                                 <div class="form-group icon-input mb-0">
-                                                    <form action="{{url('contactus')}}" method="post">
+                                                    <form action="{{url('/contactus')}}" method="post">
                                                         @CSRF
                                                     <input type="text" name="text" class="style1-input border-0 ps-5 font-xsss mb-0 text-grey-500 fw-500 bg-transparent" placeholder="Ask us anything">
                                                         <div class="col-md-4">

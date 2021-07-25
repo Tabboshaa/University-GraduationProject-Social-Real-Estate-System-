@@ -23,6 +23,7 @@ class PostsController extends Controller
         $posts = PostsController::getItemPosts($id);
         $comments = CommentsController::getPostComments($id);
         $replies = CommentsController::getPostreplies($id);
+        try{
         $post_images = DB::table('post_attachments')
             ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
             ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
@@ -38,7 +39,10 @@ class PostsController extends Controller
             'replies' => $replies
         ]);
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();
+    }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -46,30 +50,31 @@ class PostsController extends Controller
      */
     public function create($id = null)
     {
-       
+
+
+
         if ($id != null) {
             $item = Item::all()->find($id);
             $user_id = $item->User_Id;
         } else $user_id = Auth::id();
 
-        DB::beginTransaction();
+        // DB::beginTransaction();
         try {
             $post = posts::create([
                 'Item_Id' => $id,
                 'User_Id' => $user_id,
-                'Post_Title' => ' ',
                 'Post_Content' => request('Post_Content'),
             ]);
 
             if ($files = request()->file('images')) {
-
+           
                 foreach ($files as $file) {
                     $filename = $file->getClientOriginalName();
                     $file->storeAs('/profile gallery', $filename, 'public');
 
                     $attachment = attachment::create(['File_Path' => $filename]);
 
-                    $post_attachment = post_attachment::create([
+                     post_attachment::create([
                         'Post_Id' => $post->Post_Id,
                         'Attachment_Id' =>  $attachment->Attachment_Id,
                         'Item_Id' => $id
@@ -77,10 +82,9 @@ class PostsController extends Controller
                 }
             }
 
-
-            DB::commit();
+            // DB::commit();
             return back()->with('success', 'Post Created Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return back()->withError($e->getMessage())->withInput();
             return back()->with('error', 'Error creating Post !!');
@@ -127,28 +131,41 @@ class PostsController extends Controller
             posts::destroy($request->id);
             DB::commit();
             return redirect()->back()->with('success', 'Post Deleted Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Comment cannot be deleted');
         }
     }
+
     public function editPost()
     {
 
-
         try {
-
-            $post = posts::all()->find(request('id'));
+            $post = posts::all()->find(request('posteditid'));
             $post->Post_Content = request('edit_Post');
             $post->save();
-            return back()->with('info', 'post Edited Successfully');
-        } catch (\Illuminate\Database\QueryException $e) {
-//            DB::rollBack();
-            $errorCode = $e->errorInfo[1];
-            if ($errorCode == 1062) {
-                return back()->with('error', 'Error editing item');
+
+            if ($files = request()->file('images')) {
+
+                foreach ($files as $file) {
+                    $filename = $file->getClientOriginalName();
+                    $file->storeAs('/profile gallery', $filename, 'public');
+
+                    $attachment = attachment::create(['File_Path' => $filename]);
+
+                    post_attachment::create([
+                        'Post_Id' => $post->Post_Id,
+                        'Attachment_Id' =>  $attachment->Attachment_Id,
+                        'Item_Id' => $post->Item_Id
+                    ]);
+                }
             }
-            return back()->withError($e->getMessage())->withInput();
+
+            return back()->with('info', 'post Edited Successfully');
+
+        } catch (\Exception $e) {
+//            DB::rollBack();
+return back()->withError($e->getMessage())->withInput();
         }
     }
 
