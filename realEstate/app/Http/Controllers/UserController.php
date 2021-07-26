@@ -184,7 +184,7 @@ if(request()->has('nationalid')){
     public function BeOwner($toYourProperties = null)
     {
 
-        try {
+//        try {
             $countries = Country::all();
             //all done mean that function called from light modal ->that mean want to be owner and all its information is here
             if (\request('allDone')) {
@@ -196,7 +196,7 @@ if(request()->has('nationalid')){
                 return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
             }
 
-            //
+            //means that you are come from list your properties our add property
             if ($toYourProperties != null) {
                 return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
             } else {
@@ -227,27 +227,28 @@ if(request()->has('nationalid')){
                     $phone_number->phone_number = request('Phone');
                 }
 
-                if (\request('check') == 'BeOwner') {
+                //check if owner means that you are allerady owner but your data is deleted //
+                if (\request('Just')==null) {
                     $typeOfUser = Type_Of_User::create([
                         'User_ID' => Auth::id(),
                         'User_Type_ID' => 3
                     ]);
                     return view('website.frontend.Owner.Add_Item', ['country' => $countries]);
-                }
-                return redirect()->back();
+                }else{return redirect()->back();}
+
             }
-        } catch (\Exception $e) {
-            DB::rollBack();
-            $errorCode = $e->errorInfo[1];
-            if ($errorCode == 1062) {
-                return back()->with('error', 'City Already Exist !!');
-            }
-            if ($errorCode == 1048) {
-                return back()->with('error', 'You must select all values!!');
-            } else {
-                return $e->errorInfo;
-            }
-        }
+//        } catch (\Exception $e) {
+//            DB::rollBack();
+//            $errorCode = $e->errorInfo[1];
+//            if ($errorCode == 1062) {
+//                return back()->with('error', 'City Already Exist !!');
+//            }
+//            if ($errorCode == 1048) {
+//                return back()->with('error', 'You must select all values!!');
+//            } else {
+//                return $e->errorInfo;
+//            }
+//        }
     }
     /**
      * Store a newly created resource in storage.

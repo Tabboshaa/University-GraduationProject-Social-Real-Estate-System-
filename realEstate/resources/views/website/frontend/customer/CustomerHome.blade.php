@@ -34,8 +34,9 @@
                             @if(!$phone)
                                 <div class="form-group">
                                     <label style="font-size: 12pt">Phone Number</label>
-                                    <input type="text" style="border-radius: 3pt" pattern="^01[0-2]\d{1,8}$" title="01---------" name="Phone" class="form-control"required>
+                                    <input type="text" style="border-radius: 3pt" pattern="^01[0-2]\d{8}$" title="01---------" name="Phone" class="form-control"required>
                                     <input type="hidden" value="true" id="show">
+                                    <input type="hidden"  id="Just" name="Just" value="">
                                 </div>
                             @endif
                             @if(!Auth::user()->National_ID)
@@ -45,13 +46,9 @@
                                     <input type="hidden" value="true" id="show">
                                 </div>
                             @endif
-                            <input type="hidden"  id="check" name="check" value="BeOwner">
-                            @if($checkIfOwner)
-                                <div class="form-group"><a href="javascript:void(0)" onclick="just()" class="btn btn-info" > Save Information</a></div>
-                            @else
-                                <div class="form-group"><a href="javascript:void(0)" onclick="document.getElementById('BeOwnerForm').submit();" class="btn btn-info" > Just Save Information! Or</a></div>
+
+                                <div class="form-group"><a href="javascript:void(0)" class="btn btn-info" onclick="just();" > Just Save Information! Or</a></div>
                                 <button type="submit" id="btun3" class="btn btn-success">Be Owner to Manage Your Properties!</button>
-                            @endif
                         </form>
                     </div>
                 </div>
@@ -66,7 +63,7 @@
 
 <div class="card w-100 border-0 bg-white shadow-xs p-0 mb-4" >
     <div class="card-body p-4 w-100 bg-current border-0 d-flex rounded-3">
-       
+
         <h4 class="font-xs text-white fw-600 ms-4 mb-0 mt-2">Find a Place to Stay</h4>
     </div>
     <div class="card-body p-lg-5 p-4 w-100 border-0 mb-0">
@@ -144,8 +141,8 @@
     //
     // }
     function just(){
-        $('#check').val('just');
-        document.getElementById('BeOwnerForm').submit();
+        $('#Just').val('just Save info');
+        $('#BeOwnerForm').submit();
     }
 </script>
 

@@ -110,7 +110,7 @@ try{
     }
     catch (\Exception $e) {
         return back()->withError($e->getMessage())->withInput();
-    }    
+    }
 }
 
     public function SubTypeShow($id = null)
@@ -126,7 +126,8 @@ try{
 }
 
     public function OwnerSelectProperty($item_id = null, $sub_type_id = null)
-    {try{
+    {
+        try{
         //
         $sub_type = Sub_Type::all()->where('Sub_Type_Id', '=', $sub_type_id)->first()->Sub_Type_Name;
         $property = Sub_Type_Property::all()->where('Sub_Type_Id', '=', $sub_type_id);
@@ -229,7 +230,7 @@ try{
     }
     catch (\Exception $e) {
         return back()->withError($e->getMessage())->withInput();
-    }    
+    }
 }
     public function EditUser($id = null)
     {
@@ -312,7 +313,7 @@ try{
             }}
             catch (\Exception $e) {
                 return back()->withError($e->getMessage())->withInput();
-            
+
         }
         }
         return $items;
@@ -333,7 +334,7 @@ try{
                 $item = Item::all()->where('Item_Id', '=', $item_id->Item_Id);
                 $items = collect($items)->merge($item);
             }
-        
+
         }
         catch (\Exception $e) {
             return back()->withError($e->getMessage())->withInput();

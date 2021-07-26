@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Route;
 
 //test routes here
 //end test routes
-
 Route::post('/edit_post_user','PostsController@editPost')->name('test');
 Route::post('/add_post', 'PostsController@create');
 
@@ -150,8 +149,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/shaimaa', 'CustomerHomeController@indexPhoto');
     Route::get('/myReservations', 'ReservationController@show');
 
-    Route::Post('/BeOwner/{id?}', 'UserController@BeOwner')->name('BeOwner');
-    Route::get('/BeOwner/{id?}', 'UserController@BeOwner');
+
 
     Route::get('/checkIfOwner', 'UserController@checkIfOwner')->name('checkIfOwner');
 
@@ -159,7 +157,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::post('/OwnerAddItem', 'ItemController@OwnerAddItem');
     Route::get('/item_delete1/{id?}', 'ItemController@destroy');
 
-    Route::get('/owneritemProfile/{id?}', 'OwnerController@itemProfile');
+            Route::get('/owneritemProfile/{id?}', 'OwnerController@itemProfile');
     Route::get('/owneritemDetails/{id?}', 'OwnerController@itemDetails');
     Route::get('/owneritemGallery/{id?}', 'OwnerController@itemProfileGallery');
     Route::get('/deleteImgFromGallery', 'PostAttachmentController@deleteImgFromGallery')->name('deleteImgFromGallery');
@@ -189,6 +187,8 @@ Route::group(['middleware' => 'auth.user'], function () {
 //Admin Routes with middleware
 Route::group(['middleware' => 'Admin'], function () {
 
+    Route::Post('/BeOwner/{id?}', 'UserController@BeOwner')->name('BeOwner');
+    Route::get('/BeOwner/{id?}', 'UserController@BeOwner');
 
     Route::get('/openDetail', 'OperationsController@index');
     Route::get('/show_detailop', 'OperationsController@showDetail')->name('detailop_show');
