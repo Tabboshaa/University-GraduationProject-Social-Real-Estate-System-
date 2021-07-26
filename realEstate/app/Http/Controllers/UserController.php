@@ -168,13 +168,12 @@ if(request()->has('nationalid')){
     }
 
     public function checkIfOwner()
-    {try{
+    {
+        try{
         $user_id = Auth::id();
-        $user = Type_Of_User::all()->where('User_ID', '=', $user_id)->where('User_Type_ID', '=', 3);
-        if ($user == '[]')
-            return 0;
-        else
-            return 1;
+        $user = Type_Of_User::all()->where('User_ID', '=', $user_id)->where('User_Type_ID', '=', 3)->frist();
+
+        return $user;
     }
     catch (\Exception $e) {
         return back()->withError($e->getMessage())->withInput();
@@ -183,6 +182,7 @@ if(request()->has('nationalid')){
 
     public function BeOwner($toYourProperties = null)
     {
+//        dd($toYourProperties,\request()->all());
 
 //        try {
             $countries = Country::all();

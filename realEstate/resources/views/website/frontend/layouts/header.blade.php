@@ -3,7 +3,7 @@
     <div class="nav-top">
         <a href="{{url('/HomePage')}}"><img src="{{asset('FrontEnd/sociala/images/logo.png')}}" height="35" width="40"><span class="d-inline-block fredoka-font ls-3 fw-600 font-xl logo-text mb-0 "> Traveller club</span> </a>
         <a href="{{url('/HomePage')}}" class="mob-menu ms-auto me-2 chat-active-btn"><i class="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
-        
+
     </div>
 
     <form action="{{url('/search_by_place')}}" class="float-left header-search">
@@ -161,7 +161,7 @@
             <h5 class="font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block"> <a href="{{url('/EditCustomerProfile')}}"> profile</a></h5>
         </div>
         <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3" id="checkIfOwnerDiv">
-            <h5 class="font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block"> <a href='javascript:void(0)' onclick='ToggleBeOwnerModal()' data-backdrop="false"> Switch to Owner</a></h5>
+{{--            <h5 class="font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block"> <a href='javascript:void(0)' onclick='ToggleBeOwnerModal()' data-backdrop="false"> Switch to Owner</a></h5>--}}
         </div>
         <div class="card bg-transparent-card w-100 border-0 ps-0 mb-3">
             <h5 class="font-xsss text-grey-900 mb-0 mt-0 fw-700 d-block"> <a href="{{ url('/logout') }}"> Log Out</a></h5>
@@ -182,10 +182,10 @@
             },
             success: function(checkIfOwner) {
                 var text = "";
-                // console.log(checkIfOwner);
+                 console.log(checkIfOwner);
                 var checkIfOwnerDiv = $("#checkIfOwnerDiv");
                 // console.log(checkIfOwnerDiv);
-                if (checkIfOwner == '0') {
+                if (checkIfOwner !=null) {
                     text +=
                         "<div class='card bg-transparent-card w-100 border-0 ps-0 mb-3'> " +
                         "<a href='javascript:void(0)' onclick='ToggleBeOwnerModal()'> " +
