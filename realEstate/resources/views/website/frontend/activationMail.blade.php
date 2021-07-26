@@ -27,7 +27,7 @@
             <div class="card shadow-none border-0 ms-auto me-auto login-card">
                 <div class="card-body rounded-0 text-left">
                     <h2 class="fw-700 display1-size display2-md-size-size mb-4">Account Activation</h2>
-                    <form method="post" action="{{route('registerUser')}}" id="registerForm">
+                    <form method="post" action="{{route('userLogin')}}" id="registerForm">
                         @CSRF
                         <h4 >An email  <span style="color: #aa0000">with Activation Code </span>was just sent to your mail</h4>
                        <label >Activation Code</label>
