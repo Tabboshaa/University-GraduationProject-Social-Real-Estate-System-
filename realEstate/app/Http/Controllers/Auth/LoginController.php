@@ -55,7 +55,7 @@ class LoginController extends Controller
         $email=request('email');
         $password=request('password');
 
-
+try{
         if ($emailModel = Emails::all()->where('email', $email)->first())
         {
 
@@ -69,8 +69,10 @@ class LoginController extends Controller
 
         return redirect()->back()->with('error','This Email is Not Admin Email ');
     }
-
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();    
+}
+    }
 
     public function login($id, $password)
     {

@@ -190,7 +190,7 @@
                         {{ __('Street :') }}
                     </label>
                     <div class="col-md-2">
-                        <input id="Street_Name" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" type="text" class="form-control @error('Street Name') is-invalid @enderror" name="Street_Name" value="{{ old('Street Name') }}" required autocomplete="Street Name" autofocus>
+                        <input id="Street_Name" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s+([A-Z][a-z]+)*)*" title="First Letter must be Capital" type="text" class="form-control @error('Street Name') is-invalid @enderror" name="Street_Name" value="{{ old('Street Name') }}" required autocomplete="Street Name" autofocus>
 
                         @error('Street_Name')
                         <span class="invalid-feedback" role="alert">

@@ -50,7 +50,7 @@ class   LoginControllerUser extends Controller
 
         $email=request('email');
         $password=request('password');
-
+try{
         if ($emailModel = Emails::all()->where('email', $email)->first())
         {
             if( Count(Type_Of_User::all()->where('User_ID',$emailModel->User_ID)->where('User_Type_ID',2))>0)
@@ -59,12 +59,16 @@ class   LoginControllerUser extends Controller
         }
         return redirect()->back()->with('error','This Email is Not Registered ');
     }
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();    
+}
+    }
 
     public function login($id, $password)
     {
         $user = User::find($id);
 
-
+try{
         if(Hash::check($password, $user->password))
         {
             Auth::loginUsingId($id);
@@ -73,6 +77,9 @@ class   LoginControllerUser extends Controller
 
         return redirect()->back()->with('error','You Entered Wrong Password');
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();    
+}
+    }
 
 }
