@@ -24,7 +24,7 @@ try{
         $property = Sub_Type_Property::all();
         $property_details = Property_Details::all();
         $item = Item::all();
-        
+
         //$subtype= get all sup type where main type id selected main  type
         return view('website.backend.database pages.Details', ['main_type' => $main_types, 'sub_type' => $sub_types, 'property_detail' => $property_details, 'item' => $item, 'property' => $property]);
     }
@@ -64,7 +64,7 @@ try{
             catch (\Exception $e) {
                 return back()->withError($e->getMessage())->withInput();
             }
-      
+
     }
 
     public function editDetails()
@@ -168,6 +168,46 @@ try{
         }
     }
 
+    public function AddImage2($item_id,$property_id,$diff)
+{
+
+    DB::beginTransaction();
+    try {
+
+        if ($files = request()->file('images')) {
+
+            $property_details = Property_Details::all()->where('Property_Id', '=', $property_id)->first();
+
+            foreach ($files as $file) {
+                $filename = $file->getClientOriginalName();
+                $file->storeAs('/profile gallery', $filename, 'public');
+
+                $detail = Details::create(
+                    [
+                        'Item_Id' => $item_id,
+                        'Main_Type_Id' =>  Arr::get($property_details, 'Main_Type_Id'),
+                        'Sub_Type_Id' =>  Arr::get($property_details, 'Sub_Type_Id'),
+                        'Property_Id' => $property_id,
+                        'Property_Detail_Id' => 6,
+                        'Property_diff' =>  $diff,
+                        'DetailValue' =>   $filename
+                    ]
+                );
+            }
+        }
+
+        DB::commit();
+        return back()->with('success', 'Detail Added');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        $errorCode = $e->errorInfo[1];
+        if ($errorCode == 1062) {
+            return back()->with('error', 'Error editing Detail');
+        }
+        return back()->withError($e->getMessage())->withInput();
+    }
+}
+
     public function show()
     {
         //
@@ -200,7 +240,7 @@ try{
             return back()->withError($e->getMessage())->withInput();
         }
     }
-    
+
     public function destroy(Request $request)
     {
         //
@@ -241,13 +281,13 @@ try{
     public function destroydetails()
     {
         DB::beginTransaction();
-        
+
         try {
             $d = Details::all()->where('Property_diff', '=', request('diff'));
             foreach ($d as $id) {
                 Details::destroy($id->Detail_Id);
             }
-            
+
             DB::commit();
             return $d;
         } catch (\Exception $e) {

@@ -153,7 +153,7 @@
             </p>
         </div>
         <div class="card-body p-0 d-flex">
-            <div style="margin-left: 120px;" class="col-xs-6 col-sm-6 p-1"><img src="{{asset('storage/image/review2.png')}}" class="rounded-3 w-100" alt="image"></div>
+            <div style="margin-left: 120px;" class="col-xs-6 col-sm-6 p-1"><img src="{{asset('FrontEnd/sociala/image/review2.png')}}" class="rounded-3 w-100" alt="image"></div>
         </div>
     </div>
     @endif

@@ -70,7 +70,7 @@
             <div class="bg-pattern-div"></div>
 
             <h2 class="display2-size display2-md-size fw-700 text-white mb-0 mt-0">Sorry, no items were found for these dates !</h2>
-            <img src="{{asset('storage/image/noitems2.jpg')}} ">
+            <img src="{{asset('FrontEnd/sociala/image/noitems2.jpg')}} ">
         </div>
         @endif
     </div>

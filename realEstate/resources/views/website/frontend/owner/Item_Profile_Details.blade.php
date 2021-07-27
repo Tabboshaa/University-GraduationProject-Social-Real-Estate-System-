@@ -87,6 +87,7 @@
             <ul>
                 <li><a href="javascript:void(0)" id="moreprop{{$Property_Id}}" onclick="$('#property{{$Property_Id}}').slideToggle(function(){$('#moreprop{{$Property_Id}}').html($('#property{{$Property_Id}}').is(':visible')?'Hide {{$Property_Name}}':'{{$Property_Name}}');});" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss">{{$Property_Name}}</a>
                 <form id="imageform" method="post" action="" enctype="multipart/form-data">
+                    @csrf
                     <!-- {{$i=0}} -->
                     <ul id="property{{$Property_Id}}" style="display: none;">
                         @foreach ($Property_diff_Array as $Property_diff => $detailValue)
@@ -99,7 +100,7 @@
                                 <a href="javascript:void(0)" onclick="DeleteDetail('{{$Property_diff}}')"><i style="padding-left:14px" class="feather-trash-2"></i></a>
 
                                 <label for="uploadImages{{$Property_diff}}"><i class="text-primary feather-image ps-3"></i></label>
-                                <input type="file" style="display:none;" id="uploadImages{{$Property_diff}}" name="eee[]" accept="image/*" multiple onchange="formImage('{{$item_id}}','{{$Property_Id}}','{{$Property_diff}}')" >
+                                <input type="file" style="display:none;" id="uploadImages{{$Property_diff}}" name="imgg[]" accept="image/*" multiple onchange="formImage('{{$item_id}}','{{$Property_Id}}','{{$Property_diff}}')" >
 
 
                             <!-- sha8ala hena -->
@@ -476,7 +477,7 @@
 
     function formImage(item_id, property_id, diff){
 
-        var action="/addImageForAProperty/"+item_id+"/"+property_id+"/"+diff;
+        var action="/addImageForAProperty2/"+item_id+"/"+property_id+"/"+diff;
 
         $('#imageform').attr('action',action).submit();
     }

@@ -130,14 +130,14 @@
                                 @if($detail->datatype=='text')
                                 <li>{{$detail->Detail_Name}} : {{$detail->DetailValue}} </li>
                                 @elseif($detail->datatype=='checkbox')
-                                @if($detail->DetailValue=='yes')
+                                @if($detail->DetailValue =='on')
                                 <li>{{$detail->Detail_Name}} : <i class="feather-check-circle"></i></li>
                                 @else
                                 <li>{{$detail->Detail_Name}} : <i class="feather-x-circle"></i></li>
                                 @endif
                                 @elseif($detail->datatype=='file')
                                 <div class="col-6 mb-2 pe-1"><a href="{{$detail->DetailValue}}" data-lightbox="roadtrip"><img src="{{asset('storage/profile gallery/'.$detail->DetailValue)}}" alt="image" class="img-fluid rounded-3 w-100"></a></div>
-
+                                @else
                                 @endif
                                 @endforeach
                                 @else
