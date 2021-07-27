@@ -21,9 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/edit_post_user','PostsController@editPost')->name('test');
 Route::post('/add_post', 'PostsController@create');
 
-Route::get('/Land', function () {
-    return view('website\LandingPadge');
-});
+
 
 Route::get('terms',function() {
     return view('terms');
@@ -36,6 +34,9 @@ Route::get('policy',function() {
 //authntication routes
 Auth::routes();
 
+Route::get('/Land', function () {
+    return view('website\LandingPadge');
+});
 //*****login for user*******
 Route::get('/UserLogin', function () {
     return view('website\frontend\login');
@@ -51,29 +52,37 @@ Route::get('/UserRegister', function () {
 //***** End of register of user*********
 
 //******Login of Admin******
-Route::get('/AdminLogin', function () {
-    return view('website\backend.database pages.LogIn');})->name('AdminLogin')->middleware('guest');
+Route::get('/AdminLogin',function () {
+    return view('website\backend.database pages.LogIn');
+})->name('AdminLogin')->middleware('guest');
 //
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
 
 //*****End log in of Admin******
 
-Route::get('/edit_post', 'PostsController@editPost')->name('post.update');
+
 
 
 
 //Customer Routes with middleware
 Route::group(['middleware' => 'auth.user'], function () {
+    Route::group(['middleware' => 'Customer'], function () {
+        Route::get('/', 'CustomerHomeController@index')->name('CustomerHome');
+        //Customer HOMEpage
+        Route::get('/HomeRegister', 'CustomerHomeController@index')->name('HomeRegister');
+        Route::get('/search_by_place', 'CustomerHomeController@findItemInState');
+        Route::get('/search_by_placedate', 'CustomerHomeController@findItemInStateAndDate');
+        Route::get('/add_comment', 'CommentsController@create')->name('comment.add');
+        //Customer Comment
+        Route::get('/add_reply', 'CommentsController@reply')->name('reply.add');
+    });
 
-    Route::get('/', 'CustomerHomeController@index')->name('CustomerHome');
-    //Customer HOMEpage
-    Route::get('/HomeRegister', 'CustomerHomeController@index')->name('HomeRegister');
-    Route::get('/search_by_place', 'CustomerHomeController@findItemInState');
-    Route::get('/search_by_placedate', 'CustomerHomeController@findItemInStateAndDate');
-    Route::get('/add_comment', 'CommentsController@create')->name('comment.add');
+    Route::group(['middleware' => 'Owner'], function () {
+        Route::get('/edit_post', 'PostsController@editPost')->name('post.update');
+    });
 
-    //Customer Comment
-    Route::get('/add_reply', 'CommentsController@reply')->name('reply.add');
+
+
 
   //review
     Route::get('/add_review_comment', 'ReviewcommentsController@create')->name('reviewcomment.add');

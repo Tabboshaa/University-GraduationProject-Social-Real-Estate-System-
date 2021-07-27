@@ -51,6 +51,8 @@ class PostsController extends Controller
     public function create($id = null)
     {
 
+
+
         if ($id != null) {
             $item = Item::all()->find($id);
             $user_id = $item->User_Id;
@@ -64,8 +66,9 @@ class PostsController extends Controller
                 'Post_Content' => request('Post_Content'),
             ]);
 
-            if ($files = request()->file('images')) {
 
+            if ($files = request()->file('images')) {
+           
                 foreach ($files as $file) {
                     $filename = $file->getClientOriginalName();
                     $file->storeAs('/profile gallery', $filename, 'public');
@@ -138,13 +141,12 @@ class PostsController extends Controller
     public function editPost()
     {
 
-
         try {
             $post = posts::all()->find(request('posteditid'));
             $post->Post_Content = request('edit_Post');
             $post->save();
 
-            if ($files = request()->file('images')) {
+            if ($files = request()->file('images')) {   
 
                 foreach ($files as $file) {
                     $filename = $file->getClientOriginalName();

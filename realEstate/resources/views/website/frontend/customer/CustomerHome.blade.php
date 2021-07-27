@@ -7,42 +7,49 @@
                 <div class="card shadow-none rounded-0 w-100 p-2 pt-3 border-0">
                     <div class="card-body rounded-0 text-left p-3">
                         <h5 class="modal-title" id="exampleModalLabel">Continue Your Registration</h5>
+
                         <form id="BeOwnerForm" method="Post" action="{{url('BeOwner/')}}">
                             @csrf
                             <input type="hidden" name="id" id="id">
+                            <input type="hidden"  id="Just" name="Just" value="">
+                            <div class="">
+                                <strong id="alert"></strong>
+                            </div>
+
                             @if(! Auth::user()->First_Name)
                                 <div class="form-group">
                                     <label style="font-size: 12pt">First Name</label>
-                                    <input type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First letter must be capital" name="First" class="form-control" required>
+                                    <input id="First" type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First letter must be capital" name="First" class="form-control" required>
                                     <input type="hidden" value="true" id="show">
                                 </div>
                             @endif
                             @if(!Auth::user()->Middle_Name)
                                 <div class="form-group">
                                     <label style="font-size: 12pt">Middle Name</label>
-                                    <input type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First letter must be capital" name="Middle" class="form-control" required>
+                                    <input id="Middle" type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First letter must be capital" name="Middle" class="form-control" required>
                                     <input type="hidden" value="true" id="show">
                                 </div>
                             @endif
                             @if(!Auth::user()->Last_Name)
                                 <div class="form-group">
                                     <label style="font-size: 12pt">Last Name</label>
-                                    <input type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First letter must be capital" name="Last" class="form-control" required>
+                                    <input id="Last" type="text" style="border-radius: 3pt" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First letter must be capital" name="Last" class="form-control" required>
                                     <input type="hidden" value="true" id="show">
+
                                 </div>
                             @endif
                             @if(!$phone)
                                 <div class="form-group">
                                     <label style="font-size: 12pt">Phone Number</label>
-                                    <input type="text" style="border-radius: 3pt" pattern="^01[0-2]\d{8}$" title="01---------" name="Phone" class="form-control"required>
+                                    <input id="Phone" type="text" style="border-radius: 3pt" pattern="^01[0-2]\d{8}$" title="01---------" name="Phone" class="form-control"required>
                                     <input type="hidden" value="true" id="show">
-                                    <input type="hidden"  id="Just" name="Just" value="">
+
                                 </div>
                             @endif
                             @if(!Auth::user()->National_ID)
                                 <div class="form-group">
                                     <label style="font-size: 12pt">National ID</label>
-                                    <input type="text" style="border-radius: 3pt" pattern="(2|3)[0-9][1-9][0-1][1-9][0-3][1-9](01|02|03|04|11|12|13|14|15|16|17|18|19|21|22|23|24|25|26|27|28|29|31|32|33|34|35|88)\d\d\d\d\d" title="Enters the id in national id" name="National" class="form-control" required>
+                                    <input id="National" type="text" style="border-radius: 3pt" pattern="(2|3)[0-9][1-9][0-1][1-9][0-3][1-9](01|02|03|04|11|12|13|14|15|16|17|18|19|21|22|23|24|25|26|27|28|29|31|32|33|34|35|88)\d\d\d\d\d" title="Enters the id in national id" name="National" class="form-control" required>
                                     <input type="hidden" value="true" id="show">
                                 </div>
                             @endif
@@ -141,8 +148,47 @@
     //
     // }
     function just(){
-        $('#Just').val('just Save info');
-        $('#BeOwnerForm').submit();
+        let first=$('#First').val();
+        let last=$('#Last').val();
+        let Middle= $('#Middle').val();
+        let Phone=$('#Phone').val();
+        let National= $('#National').val();
+        console.log(first);
+
+
+
+
+        let NameRegex =/[ A-Z][a-z]+/;
+        let phoneRegex = /^01[0-2]\d{8}$/;
+        let  NationalRegex =/(2|3)[0-9][1-9][0-1][1-9][0-3][1-9](01|02|03|04|11|12|13|14|15|16|17|18|19|21|22|23|24|25|26|27|28|29|31|32|33|34|35|88)\d\d\d\d\d/;
+
+        if (!(NameRegex.test(first))) {
+
+             console.log(NameRegex.test(first));
+            document.getElementById('alert').parentElement.className = 'alert alert-danger alert-block';
+            document.getElementById('alert').innerText = ' First ';
+        }else if (!(NameRegex.test(Middle))) {
+
+            document.getElementById('alert').parentElement.className = 'alert alert-danger alert-block';
+            document.getElementById('alert').innerText = 'Middle';
+        }else if (!(NameRegex.test(last))) {
+
+            document.getElementById('alert').parentElement.className = 'alert alert-danger alert-block';
+            document.getElementById('alert').innerText = 'Last';
+        }else if (!(phoneRegex.test(Phone))) {
+
+            document.getElementById('alert').parentElement.className = 'alert alert-danger alert-block';
+            document.getElementById('alert').innerText = 'Ex:01---------';
+        } else if (!(NationalRegex.test(National))) {
+
+            document.getElementById('alert').parentElement.className = 'alert alert-danger alert-block';
+            document.getElementById('alert').innerText = 'national';
+        }else  {
+            $('#Just').val('just Save info');
+            $('#BeOwnerForm').submit();
+        }
+
+
     }
 </script>
 

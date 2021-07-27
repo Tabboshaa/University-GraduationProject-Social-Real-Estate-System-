@@ -37,7 +37,7 @@
                         {{ __('State :') }}
                     </label>
                     <div class="col-md-2">
-                        <input id="State_Name" type="text" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" style="border-radius: 3pt"class="form-control @error('State Name') is-invalid @enderror" name="State_Name" value="{{ old('State Name') }}" required autocomplete="State Name" autofocus>
+                        <input id="State_Name" type="text" pattern="[A-Z][a-z]+(\s+([A-Z][a-z]+)*)*" title="First Letter must be Capital" style="border-radius: 3pt"class="form-control @error('State Name') is-invalid @enderror" name="State_Name" value="{{ old('State Name') }}" required autocomplete="State Name" autofocus>
 
                         @error('State_Name')
                         <span class="invalid-feedback" role="alert">
