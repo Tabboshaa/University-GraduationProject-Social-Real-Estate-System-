@@ -27,7 +27,7 @@
             <figure class="avatar me-3"><img src="{{asset('storage/cover page/pic.png')}}" alt="image" class="shadow-sm rounded-circle w45"></figure>
             @endif
 
-            <h4 class="fw-700 text-grey-900 font-xssss mt-1"><a href="{{url('/itemProfile/'.$post->Item_Id)}}">
+            <h4 class="fw-700 text-grey-900 font-xssss mt-1"><a href="{{url('/view_User/'.$post->User_Id)}}">
                     {{ $post->First_Name }} {{ $post->Middle_Name }} {{ $post->Last_Name }}
                     <!-- @if($User->id== $post->User_Id )
                     <a href="{{url('/deletePost/'.$post->Post_Id)}}" name="del_post" id="del_post"><i class="feather-trash-2 text-grey-500 me-0 font-xs"></i></a>

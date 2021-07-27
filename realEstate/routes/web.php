@@ -189,6 +189,13 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/help',function () {return view("website\\frontend\help");});
     Route::get('/notifications',function () {return view("website\\frontend\\notifications");});
     Route::get('/postedit','PostsController@editPost')->name('postedit');
+    Route::get('/SemsarSearch','CitysemsarController@index');
+    Route::post('/getsemsars','CitysemsarController@show')->name('get.semsars');
+    Route::get('/view_semsar/{id}','ItemsemsarController@index');
+    Route::get('/view_semsar_reviews/{id}','ItemsemsarController@reviews');
+    Route::get('/view_semsar_items/{id}','ItemsemsarController@reviews');
+    Route::post('/addReviewSemsar', 'ReviewController@create')->name('review.semsar.add');
+
 });
 
 
@@ -302,8 +309,8 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/Item', 'ItemController@index1');
     Route::post('/addItem', 'ItemController@create');
     Route::get('/ShowItem/{id?}', 'ItemController@show');
-    Route::delete('/DeleteItem/{id?}', 'ItemController@destroy');
-    Route::get('/item_delete/{id?}', 'ItemController@destroy');
+    Route::delete('/DeleteItem/{id?}', 'ItemController@destroyAdmin');
+    Route::get('/item_delete/{id?}', 'ItemController@destroyAdmin');
     Route::get('/edit_item_user/{id}', 'ItemController@ShowEditUser');
     Route::post('/edit_item_user2/{id}', 'ItemController@EditUser');
     Route::get('/edit_item_location/{id}', 'ItemController@ShowEditlocation');
