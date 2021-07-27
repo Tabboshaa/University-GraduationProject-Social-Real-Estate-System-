@@ -184,7 +184,7 @@
                 var text = "";
                  console.log(checkIfOwner);
                 var checkIfOwnerDiv = $("#checkIfOwnerDiv");
-                // console.log(checkIfOwnerDiv);
+                console.log(checkIfOwner);
                 if (checkIfOwner !=null) {
                     text +=
                         "<div class='card bg-transparent-card w-100 border-0 ps-0 mb-3'> " +

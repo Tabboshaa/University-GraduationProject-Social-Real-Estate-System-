@@ -171,9 +171,9 @@ if(request()->has('nationalid')){
     {
         try{
         $user_id = Auth::id();
-        $user = Type_Of_User::all()->where('User_ID', '=', $user_id)->where('User_Type_ID', '=', 3)->frist();
+        $user= Type_Of_User::all()->where('User_ID', '=', $user_id)->where('User_Type_ID', '=', 3)->first();
 
-        return $user;
+        return  $user;
     }
     catch (\Exception $e) {
         return back()->withError($e->getMessage())->withInput();

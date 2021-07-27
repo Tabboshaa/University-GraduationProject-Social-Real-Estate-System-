@@ -1,4 +1,4 @@
-@extends('website.frontend.layouts.main')
+@extends('website.frontend.ownerlayouts.main')
 <div class="modal fade" id="EditMainTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
