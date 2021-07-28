@@ -31,8 +31,8 @@
 
     <!-- favicons
     ================================================== -->
-    <link rel="shortcut icon" href="{{asset('FrontEnd/sociala/images/logo.png')}}" type="image/x-icon">
-    <link rel="icon" href="{{asset('FrontEnd/sociala/images/logo.png')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('FrontEnd/sociala/images/logo.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('FrontEnd/sociala/images/logo.png') }}" type="image/x-icon">
 
 </head>
 
@@ -138,11 +138,8 @@
         <div class="row about-desc" data-aos="fade-up">
             <div class="col-full">
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                    culpa qui officia deserunt.
+                    We are a social booking website that will allow you to go on fantastic vacations
+                    while making friends with other travellers.
                 </p>
             </div>
         </div> <!-- end about-desc -->
@@ -225,7 +222,7 @@
                 </div>
                 <div class="service-text">
                     <h3 class="h2">Market your Properties</h3>
-                    <p>Upload your properties on traveler club for others to rent and review, 
+                    <p>Upload your properties on traveler club for others to rent and review,
                         increase your items followers by posting more to increase popularity of your items.
                     </p>
                 </div>
@@ -251,8 +248,8 @@
 
         <div class="row section-header has-bottom-sep" data-aos="fade-up">
             <div class="col-full">
-                <h3 class="subhead">What We Do</h3>
-                <h1 class="display-2">We’ve got everything you need to launch and grow your business</h1>
+                <h3 class="subhead">why will you be interested in managing your business here</h3>
+                <h1 class="display-2"></h1>
             </div>
         </div> <!-- end section-header -->
 
@@ -263,10 +260,8 @@
                     <i class="icon-paint-brush"></i>
                 </div>
                 <div class="service-text">
-                    <h3 class="h2">Brand Identity</h3>
-                    <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium.
-                        Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
-                        Sunt suscipit voluptas ipsa in tempora esse soluta sint.
+                    <h3 class="h2">Help customers</h3>
+                    <p>Here in Traveler clucb we help customers to find what they really need.
                     </p>
                 </div>
             </div>
@@ -276,10 +271,8 @@
                     <i class="icon-group"></i>
                 </div>
                 <div class="service-text">
-                    <h3 class="h2">Illustration</h3>
-                    <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium.
-                        Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
-                        Sunt suscipit voluptas ipsa in tempora esse soluta sint.
+                    <h3 class="h2">Build your reputation</h3>
+                    <p>in traveler we will build trust between you and your custoemrs bulding a loyal customer base.
                     </p>
                 </div>
             </div>
@@ -289,10 +282,8 @@
                     <i class="icon-megaphone"></i>
                 </div>
                 <div class="service-text">
-                    <h3 class="h2">Marketing</h3>
-                    <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium.
-                        Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
-                        Sunt suscipit voluptas ipsa in tempora esse soluta sint.
+                    <h3 class="h2">Organaize your business</h3>
+                    <p>Manage your business in an organized way.
                     </p>
                 </div>
             </div>
@@ -302,34 +293,8 @@
                     <i class="icon-earth"></i>
                 </div>
                 <div class="service-text">
-                    <h3 class="h2">Web Design</h3>
-                    <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium.
-                        Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
-                        Sunt suscipit voluptas ipsa in tempora esse soluta sint.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-block service-item" data-aos="fade-up">
-                <div class="service-icon">
-                    <i class="icon-cube"></i>
-                </div>
-                <div class="service-text">
-                    <h3 class="h2">Packaging Design</h3>
-                    <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium.
-                        Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
-                        Sunt suscipit voluptas ipsa in tempora esse soluta sint.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-block service-item" data-aos="fade-up">
-                <div class="service-icon"><i class="icon-lego-block"></i></div>
-                <div class="service-text">
-                    <h3 class="h2">Web Development</h3>
-                    <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium.
-                        Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
-                        Sunt suscipit voluptas ipsa in tempora esse soluta sint.
+                    <h3 class="h2">Easy show</h3>
+                    <p>Easily show your property's best qualities with traveler club's friendly user interface.
                     </p>
                 </div>
             </div>
