@@ -66,6 +66,7 @@ class PostsController extends Controller
                 'Post_Content' => request('Post_Content'),
             ]);
 
+
             if ($files = request()->file('images')) {
            
                 foreach ($files as $file) {
@@ -145,7 +146,7 @@ class PostsController extends Controller
             $post->Post_Content = request('edit_Post');
             $post->save();
 
-            if ($files = request()->file('images')) {
+            if ($files = request()->file('images')) {   
 
                 foreach ($files as $file) {
                     $filename = $file->getClientOriginalName();

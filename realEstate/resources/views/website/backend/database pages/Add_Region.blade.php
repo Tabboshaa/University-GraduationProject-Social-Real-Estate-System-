@@ -144,7 +144,7 @@
                         {{ __('Region :') }}
                     </label>
                     <div class="col-md-2">
-                        <input id="Region Name" style="border-radius: 3pt" type="text" pattern="[A-Z][a-z]+(\s*([A-Z][a-z]+)*)*" title="First Letter must be Capital" class="form-control @error('Region Name') is-invalid @enderror" name="Region_Name" value="{{ old('Region Name') }}" required autocomplete="Region Name" autofocus>
+                        <input id="Region Name" style="border-radius: 3pt" type="text" pattern="[A-Z][a-z]+(\s+([A-Z][a-z]+)*)*" title="First Letter must be Capital" class="form-control @error('Region Name') is-invalid @enderror" name="Region_Name" value="{{ old('Region Name') }}" required autocomplete="Region Name" autofocus>
 
                         @error('Region_Name')
                         <span class="invalid-feedback" role="alert">

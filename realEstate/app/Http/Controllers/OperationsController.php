@@ -305,6 +305,7 @@ try{
     //show reservations for an item in admin
     public function showreservations($item_id)
     {
+
         try{
         $item = Item::all()->where('Item_Id', '=', $item_id)->first();
 
@@ -317,9 +318,10 @@ try{
     public function showuserreservations()
     {
 
+
         $user = Auth::user();
         try{
-        $operations = $user->operations;
+            $operations = $user->operations;
 
         return view('website.frontend.customer.ShowReservation', ['operations' => $operations]);
     }

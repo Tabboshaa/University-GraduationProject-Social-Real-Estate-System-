@@ -103,10 +103,12 @@ class RegisterController extends Controller
     }
 
     function activateRegister(){
+
         $code = rand(11111,99999);
         $email= \request('email');
         $password = \request('password');
         $confirmPassword=\request('confirm');
+        try{
         $search=Emails::all()->where('email','=',$email)->first();
 
         if($search==null) {
@@ -117,6 +119,9 @@ class RegisterController extends Controller
             return redirect()->back()->with('error', 'This email Already Registered');
         }
     }
-
+    catch (\Exception $e) {
+        return back()->withError($e->getMessage())->withInput();    
+}
+    }
 
 }

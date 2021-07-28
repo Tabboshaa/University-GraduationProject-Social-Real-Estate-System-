@@ -22,9 +22,8 @@ class AttachmentController extends Controller
         $gallery = DB::table('post_attachments')
             ->join('items', 'post_attachments.Item_Id', '=', 'items.Item_Id')
             ->join('attachments', 'attachments.Attachment_Id', '=', 'post_attachments.Attachment_Id')
-            ->select('post_attachments.*', 'attachments.File_Path')->paginate(10)
-            ->where('items.Item_Id', '=', $id)
-            ->get();
+            ->select('post_attachments.*', 'attachments.File_Path')
+            ->where('items.Item_Id', '=', $id)->paginate(10);
         }
         catch(\Exception $e){
             return back()->withError($e->getMessage())->withInput();

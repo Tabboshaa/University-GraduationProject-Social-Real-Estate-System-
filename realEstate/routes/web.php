@@ -18,13 +18,10 @@ use Illuminate\Support\Facades\Route;
 
 //test routes here
 //end test routes
-
 Route::post('/edit_post_user','PostsController@editPost')->name('test');
 Route::post('/add_post', 'PostsController@create');
 
-Route::get('/Land', function () {
-    return view('website\LandingPadge');
-});
+
 
 Route::get('terms',function() {
     return view('terms');
@@ -37,6 +34,9 @@ Route::get('policy',function() {
 //authntication routes
 Auth::routes();
 
+Route::get('/Land', function () {
+    return view('website\LandingPadge');
+});
 //*****login for user*******
 Route::get('/UserLogin', function () {
     return view('website\frontend\login');
@@ -52,29 +52,37 @@ Route::get('/UserRegister', function () {
 //***** End of register of user*********
 
 //******Login of Admin******
-Route::get('/AdminLogin', function () {
-    return view('website\backend.database pages.LogIn');})->name('AdminLogin')->middleware('guest');
+Route::get('/AdminLogin',function () {
+    return view('website\backend.database pages.LogIn');
+})->name('AdminLogin')->middleware('guest');
 //
 Route::post('/loginAdmin', 'Auth\LoginController@loginViaEmailAdmin')->name('loginAdmin');
 
 //*****End log in of Admin******
 
-Route::get('/edit_post', 'PostsController@editPost')->name('post.update');
+
 
 
 
 //Customer Routes with middleware
 Route::group(['middleware' => 'auth.user'], function () {
+    Route::group(['middleware' => 'Customer'], function () {
+        Route::get('/', 'CustomerHomeController@index')->name('CustomerHome');
+        //Customer HOMEpage
+        Route::get('/HomeRegister', 'CustomerHomeController@index')->name('HomeRegister');
+        Route::get('/search_by_place', 'CustomerHomeController@findItemInState');
+        Route::get('/search_by_placedate', 'CustomerHomeController@findItemInStateAndDate');
+        Route::get('/add_comment', 'CommentsController@create')->name('comment.add');
+        //Customer Comment
+        Route::get('/add_reply', 'CommentsController@reply')->name('reply.add');
+    });
 
-    Route::get('/', 'CustomerHomeController@index')->name('CustomerHome');
-    //Customer HOMEpage
-    Route::get('/HomeRegister', 'CustomerHomeController@index')->name('HomeRegister');
-    Route::get('/search_by_place', 'CustomerHomeController@findItemInState');
-    Route::get('/search_by_placedate', 'CustomerHomeController@findItemInStateAndDate');
-    Route::get('/add_comment', 'CommentsController@create')->name('comment.add');
+    Route::group(['middleware' => 'Owner'], function () {
+        Route::get('/edit_post', 'PostsController@editPost')->name('post.update');
+    });
 
-    //Customer Comment
-    Route::get('/add_reply', 'CommentsController@reply')->name('reply.add');
+
+
 
   //review
     Route::get('/add_review_comment', 'ReviewcommentsController@create')->name('reviewcomment.add');
@@ -150,8 +158,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/shaimaa', 'CustomerHomeController@indexPhoto');
     Route::get('/myReservations', 'ReservationController@show');
 
-    Route::Post('/BeOwner/{id?}', 'UserController@BeOwner')->name('BeOwner');
-    Route::get('/BeOwner/{id?}', 'UserController@BeOwner');
+
 
     Route::get('/checkIfOwner', 'UserController@checkIfOwner')->name('checkIfOwner');
 
@@ -159,7 +166,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::post('/OwnerAddItem', 'ItemController@OwnerAddItem');
     Route::get('/item_delete1/{id?}', 'ItemController@destroy');
 
-    Route::get('/owneritemProfile/{id?}', 'OwnerController@itemProfile');
+            Route::get('/owneritemProfile/{id?}', 'OwnerController@itemProfile');
     Route::get('/owneritemDetails/{id?}', 'OwnerController@itemDetails');
     Route::get('/owneritemGallery/{id?}', 'OwnerController@itemProfileGallery');
     Route::get('/deleteImgFromGallery', 'PostAttachmentController@deleteImgFromGallery')->name('deleteImgFromGallery');
@@ -182,6 +189,13 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/help',function () {return view("website\\frontend\help");});
     Route::get('/notifications',function () {return view("website\\frontend\\notifications");});
     Route::get('/postedit','PostsController@editPost')->name('postedit');
+    Route::get('/SemsarSearch','CitysemsarController@index');
+    Route::post('/getsemsars','CitysemsarController@show')->name('get.semsars');
+    Route::get('/view_semsar/{id}','ItemsemsarController@index');
+    Route::get('/view_semsar_reviews/{id}','ItemsemsarController@reviews');
+    Route::get('/view_semsar_items/{id}','ItemsemsarController@reviews');
+    Route::post('/addReviewSemsar', 'ReviewController@create')->name('review.semsar.add');
+
 });
 
 
@@ -189,6 +203,8 @@ Route::group(['middleware' => 'auth.user'], function () {
 //Admin Routes with middleware
 Route::group(['middleware' => 'Admin'], function () {
 
+    Route::Post('/BeOwner/{id?}', 'UserController@BeOwner')->name('BeOwner');
+    Route::get('/BeOwner/{id?}', 'UserController@BeOwner');
 
     Route::get('/openDetail', 'OperationsController@index');
     Route::get('/show_detailop', 'OperationsController@showDetail')->name('detailop_show');
@@ -284,15 +300,17 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/Details_show', 'DetailsController@show')->name('details_show');
     Route::post('/add_Details', 'DetailsController@create')->name('details_submit');
     Route::post('/Edit_Details', 'DetailsController@editDetails')->name('details.edit');
-    Route::POST('/addImageForAProperty/{item_id?}/{property_id?}/{diff?}', 'DetailsController@AddImage');
+    Route::POST('/addImageForAProperty', 'DetailsController@AddImage');
+    Route::POST('/addImageForAProperty2/{item_id}/{property_id}/{diff}', 'DetailsController@AddImage2');
+
 
 
     // Item  pages #Tabbosha
     Route::get('/Item', 'ItemController@index1');
     Route::post('/addItem', 'ItemController@create');
     Route::get('/ShowItem/{id?}', 'ItemController@show');
-    Route::delete('/DeleteItem/{id?}', 'ItemController@destroy');
-    Route::get('/item_delete/{id?}', 'ItemController@destroy');
+    Route::delete('/DeleteItem/{id?}', 'ItemController@destroyAdmin');
+    Route::get('/item_delete/{id?}', 'ItemController@destroyAdmin');
     Route::get('/edit_item_user/{id}', 'ItemController@ShowEditUser');
     Route::post('/edit_item_user2/{id}', 'ItemController@EditUser');
     Route::get('/edit_item_location/{id}', 'ItemController@ShowEditlocation');
@@ -435,4 +453,6 @@ Route::POST('/ForgotPassword','Auth\ForgotPasswordController@forgotPassword');
 Route::get('changePassword','UserController@changePassword')->name('changePassword');
 Route::POST('activateRegister','Auth\RegisterController@activateRegister')->name('activateRegister');
 Route::get('AdminProfile','UserController@AdminProfile')->name('AdminProfile');
+Route::post('/contactus', 'HomeController@contactUs')->name('contuctus');
+
 

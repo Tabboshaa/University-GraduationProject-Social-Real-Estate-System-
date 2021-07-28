@@ -68,27 +68,27 @@
 
 <!--end of right box -->
 <div class="col-xl-8 col-xxl-9 col-lg-9">
-  <!-- create post div -->
-  <div class="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3 mt-3">
-            <form method="POST" action="{{ url('/add_item_post/'.$item->Item_Id) }}" id="postform" enctype="multipart/form-data">
-                @csrf
-                <div class="card-body p-0">
-                    <a class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>Create Post</a>
-                </div>
-                <div class="card-body p-0 mt-3 position-relative">
-                    <textarea name="Post_Content" value="{{ old('Post_Content') }}"  style="padding-left:50pt;" class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-black-500 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?" required></textarea>
-                </div>
-                <div id="imgs"></div>
-                <label id="custom-file-label"></label>
-                <div class="card-body d-flex p-2 mt-0">
+    <!-- create post div -->
+    <div class="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3 mt-3">
+        <form method="POST" action="{{ url('/add_item_post/'.$item->Item_Id) }}" id="postform" enctype="multipart/form-data">
+            @csrf
+            <div class="card-body p-0">
+                <a class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>Create Post</a>
+            </div>
+            <div class="card-body p-0 mt-3 position-relative">
+                <textarea name="Post_Content" value="{{ old('Post_Content') }}" style="padding-left:50pt;" class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-black-500 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?" required></textarea>
+            </div>
+            <div id="imgs"></div>
+            <label id="custom-file-label"></label>
+            <div class="card-body d-flex p-2 mt-0">
                 <label for="uploadImages" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 pt-2"><i class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Add Photo</span>
                     <input type="file" style="display:none" id="uploadImages" name="images[]" accept="image/*" multiple>
                 </label>
-                     <a href="javascript:void(0)" onclick="document.getElementById('postform').submit();" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i class="font-md text-success feather-check-circle me-2"></i><span class="d-none-xs">Create Post</span></a>
-                    </div>
-            </form>
-        </div>
-        <!-- end of create post div -->
+                <a href="javascript:void(0)" onclick="$('#postform').submit();" class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i class="font-md text-success feather-check-circle me-2"></i><span class="d-none-xs">Create Post</span></a>
+            </div>
+        </form>
+    </div>
+    <!-- end of create post div -->
 
     @if( count($posts) != 0)
     @foreach($posts as $post)
@@ -169,99 +169,98 @@
 </div>
 
 <script>
-   function comment(post_id) {
+    function comment(post_id) {
 
-var comment = $("#CommentForPost" + post_id).val();
+        var comment = $("#CommentForPost" + post_id).val();
 
-if (comment.length == 0) {
-    return;
-}
-
-$.ajax({
-    url: "{{route('comment.add')}}",
-    Type: "POST",
-    data: {
-        post_id: post_id,
-        comment: comment
-
-    },
-    success: function(data) {
-        console.log(data);
-        if(data['Profile_Picture'] == null)
-        {
-            data['Profile_Picture']='pic.png';
+        if (comment.length == 0) {
+            return;
         }
-        $("#allcomments" + post_id).prepend("<div class='chat-body messages-content pb-5 card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10'>"
-            +"<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/"+data['Profile_Picture']+"\" alt='image' class='shadow-sm rounded-circle w35'></figure>"
-            +"<div class='chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg'>"
-            +"<a href=\"/view_User/"+data['User_Id']+"\">"
-            +"<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> "+data['First_Name']+" "+data['Middle_Name']+" "+" "+data['Last_Name']+""
-            +"<a href=\"/delete_comment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>"
-            +"<a href=\"javascript:void(0)\" onclick=\"setComment('" + data['Comment_Id'] + "','" + data['Comment'] + "')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>"
-            +"</a></h4>"
-            +"<div class=\"time\"><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> 1 second ago </p></div>"
-            +"<p class=\"fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0\">" + data['Comment'] + "</p>"
-            +"</div>"
-            +"</div>"
-            +"<a href=\"javascript:void(0)\" id=\"morereplies\" onclick=\"$('#allreplies" + data['Comment_Id'] + "').slideToggle(function(){$('#morereplies').html($('#allreplies" + data['Comment_Id'] + "').is(':visible')?'Hide Replies':'0 Relpies');});\" class=\"ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss\"><i class=\"feather-message-circle text-dark text-grey-900 btn-round-sm font-lg\"></i>0 Relpies</span></a>"
-            +"<div id=\"allreplies" + data['Comment_Id'] + "\" style=\"display: none;\">"
-            +"<div class=\"form-group\">"
-            +"<input id=\"ReplyForComment" + data['Comment_Id'] + "\" name=\"comment" + data['Comment_Id'] + "\" placeholder=\"Write a reply...\" type=\"text\" style=\"background-color:#0055ff1a;width:770px;\" class=\"border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xsssss fw-500 rounded-xl w300 theme-dark-bg\">"
-            +"<a href=\"javascript:void(0)]\" onclick=\"Reply('" + post_id + "','" + data['Comment_Id'] + "');\"><i class=\"btn-round-sm bg-primary-gradiant text-white font-sm ti-arrow-right text-blue\"></i></a>"
-            +"</div>"
-            +"</div></div>");
-        console.log(data);
-    },
-    error: function() {
-        console.log(post_id);
-        console.log(comment);
-        console.log('Error');
-    }
 
-});
-};
+        $.ajax({
+            url: "{{route('comment.add')}}",
+            Type: "POST",
+            data: {
+                post_id: post_id,
+                comment: comment
 
-function Reply(post_id, parent_id) {
+            },
+            success: function(data) {
+                console.log(data);
+                if (data['Profile_Picture'] == null) {
+                    data['Profile_Picture'] = 'pic.png';
+                }
+                $("#allcomments" + post_id).prepend("<div class='chat-body messages-content pb-5 card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-10'>" +
+                    "<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/" + data['Profile_Picture'] + "\" alt='image' class='shadow-sm rounded-circle w35'></figure>" +
+                    "<div class='chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg'>" +
+                    "<a href=\"/view_User/" + data['User_Id'] + "\">" +
+                    "<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> " + data['First_Name'] + " " + data['Middle_Name'] + " " + " " + data['Last_Name'] + "" +
+                    "<a href=\"/delete_comment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" +
+                    "<a href=\"javascript:void(0)\" onclick=\"setComment('" + data['Comment_Id'] + "','" + data['Comment'] + "')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>" +
+                    "</a></h4>" +
+                    "<div class=\"time\"><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> 1 second ago </p></div>" +
+                    "<p class=\"fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0\">" + data['Comment'] + "</p>" +
+                    "</div>" +
+                    "</div>" +
+                    "<a href=\"javascript:void(0)\" id=\"morereplies\" onclick=\"$('#allreplies" + data['Comment_Id'] + "').slideToggle(function(){$('#morereplies').html($('#allreplies" + data['Comment_Id'] + "').is(':visible')?'Hide Replies':'0 Relpies');});\" class=\"ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss\"><i class=\"feather-message-circle text-dark text-grey-900 btn-round-sm font-lg\"></i>0 Relpies</span></a>" +
+                    "<div id=\"allreplies" + data['Comment_Id'] + "\" style=\"display: none;\">" +
+                    "<div class=\"form-group\">" +
+                    "<input id=\"ReplyForComment" + data['Comment_Id'] + "\" name=\"comment" + data['Comment_Id'] + "\" placeholder=\"Write a reply...\" type=\"text\" style=\"background-color:#0055ff1a;width:770px;\" class=\"border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xsssss fw-500 rounded-xl w300 theme-dark-bg\">" +
+                    "<a href=\"javascript:void(0)]\" onclick=\"Reply('" + post_id + "','" + data['Comment_Id'] + "');\"><i class=\"btn-round-sm bg-primary-gradiant text-white font-sm ti-arrow-right text-blue\"></i></a>" +
+                    "</div>" +
+                    "</div></div>");
+                console.log(data);
+            },
+            error: function() {
+                console.log(post_id);
+                console.log(comment);
+                console.log('Error');
+            }
 
-var comment = $("#ReplyForComment" + parent_id).val();
+        });
+    };
 
-if (comment.length == 0) {
-    return;
-}
+    function Reply(post_id, parent_id) {
 
-$.ajax({
-    url: "{{route('reply.add')}}",
-    Type: "POST",
-    data: {
-        post_id: post_id,
-        parent_id: parent_id,
-        comment: comment
+        var comment = $("#ReplyForComment" + parent_id).val();
 
-    },
-    success: function(data) {
-        $("#allreplies" + parent_id).append("<div class=\"card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative\">"
-            +"<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/"+data['Profile_Picture']+"\" alt='image' class='shadow-sm rounded-circle w35'></figure>"
-            +"<div class=\"chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg\">"
-            +"<a href=\"/view_User/"+data['User_Id']+"\">"
-            +"<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> "+data['First_Name']+" "+data['Middle_Name']+" "+" "+data['Last_Name']+""
-            +"<a href=\"/delete_comment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>"
-            +"<a href=\"javascript:void(0)\" onclick=\"setComment('"+ data['Comment_Id']+"','"+ data['Comment']+"')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>"
-            +"</a></h4>"
-            +"<div class=\"time\"><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> 1 second ago </p></div>"
-            +"<p class=\"fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0\">" + data['Comment'] + "</p>"
-            +"</div>"
-            +"</div>");
+        if (comment.length == 0) {
+            return;
+        }
 
-        console.log(data);
-    },
-    error: function() {
-        console.log(post_id);
-        console.log(comment);
-        console.log('Error');
-    }
+        $.ajax({
+            url: "{{route('reply.add')}}",
+            Type: "POST",
+            data: {
+                post_id: post_id,
+                parent_id: parent_id,
+                comment: comment
 
-});
-};
+            },
+            success: function(data) {
+                $("#allreplies" + parent_id).append("<div class=\"card-body pt-0 pb-3 pe-4 d-block ps-5 ms-5 position-relative\">" +
+                    "<figure class='avatar position-absolute left-0 ms-2 mt-1'><img src=\"/storage/cover page/" + data['Profile_Picture'] + "\" alt='image' class='shadow-sm rounded-circle w35'></figure>" +
+                    "<div class=\"chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg\">" +
+                    "<a href=\"/view_User/" + data['User_Id'] + "\">" +
+                    "<h4 class=\"fw-700 text-grey-900 font-xssss mt-0 mb-1\"> " + data['First_Name'] + " " + data['Middle_Name'] + " " + " " + data['Last_Name'] + "" +
+                    "<a href=\"/delete_comment/" + data['Comment_Id'] + "\" name=\"del_Comment\" id=\"del_Comment\"><i class=\"feather-trash-2 text-grey-500 me-0 font-xs\"></i></a>" +
+                    "<a href=\"javascript:void(0)\" onclick=\"setComment('" + data['Comment_Id'] + "','" + data['Comment'] + "')\" name=\"editComment\" id=\"edit_Comment\"><i class=\"feather-edit text-grey-500 me-0 font-xs\"></i></a>" +
+                    "</a></h4>" +
+                    "<div class=\"time\"><p class=\"fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0\"> 1 second ago </p></div>" +
+                    "<p class=\"fw-500 text-grey-500 lh-20 font-xsss w-100 mt-2 mb-0\">" + data['Comment'] + "</p>" +
+                    "</div>" +
+                    "</div>");
+
+                console.log(data);
+            },
+            error: function() {
+                console.log(post_id);
+                console.log(comment);
+                console.log('Error');
+            }
+
+        });
+    };
 
 
     function setComment(id, name) {
@@ -303,14 +302,16 @@ $.ajax({
 
     });
 
+
     function setPost(id, name) {
 
         // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty
-        $("#id").val(id);
+        $("#posteditid").val(id);
         console.log(name);
         $("#editPost").val(name);
         $("#EditPostModal").modal("toggle");
     }
+
     $('#EditPostForm').submit(function() {
 
         var id = $("#id").val();
@@ -360,7 +361,6 @@ $.ajax({
 
 
     });
-
 </script>
 
 

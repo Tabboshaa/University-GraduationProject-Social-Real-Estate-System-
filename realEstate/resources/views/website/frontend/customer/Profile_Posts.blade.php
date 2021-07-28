@@ -301,14 +301,15 @@
 
     })
 
+    
     function setPost(id, name) {
 
-        // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty
-        $("#id").val(id);
-        console.log(name);
-        $("#editPost").val(name);
-        $("#EditPostModal").modal("toggle");
-    }
+// Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty
+$("#posteditid").val(id);
+console.log(name);
+$("#editPost").val(name);
+$("#EditPostModal").modal("toggle");
+}
 
 
     $('#EditPostForm').submit(function() {

@@ -65,6 +65,13 @@
             <p class=" font-xssss fw-600 text-grey-500 card-body p-3 d-flex align-items-center">Sorry, no items were found for these dates.</p>
             </div>
         </div>
+
+        <div class="card p-md-5 p-4 bg-primary-gradiant rounded-3 shadow-xss bg-pattern border-0 overflow-hidden">
+            <div class="bg-pattern-div"></div>
+
+            <h2 class="display2-size display2-md-size fw-700 text-white mb-0 mt-0">Sorry, no items were found for these dates !</h2>
+            <img src="{{asset('FrontEnd/sociala/image/noitems2.jpg')}} ">
+        </div>
         @endif
     </div>
 </div>

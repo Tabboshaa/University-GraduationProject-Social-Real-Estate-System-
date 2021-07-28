@@ -163,7 +163,7 @@
                         <label style="font-size: 12pt">Price Per Night</label>
                         <input id="price" type="text" style="border-radius: 3pt" name="Price" class="form-control">
                     </div>
-                    <button type="submit" id="btun3" class="btn btn-success">Continue</button>
+                    <a href="javascript:void(0)" onclick="submitSchedule()" id="btun3" class="btn btn-success"></a>
                 </form>
 
             </div>

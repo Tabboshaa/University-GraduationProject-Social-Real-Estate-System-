@@ -188,7 +188,7 @@
             </div>
             @endif
             @if( isset($post->comments) )
-            <a href="javascript:void(0)" id="more{{$post->Post_Id}}" onclick="$('#allcomments{{$post->Post_Id}}').slideToggle(function(){$('#more{{$post->Post_Id}}').html($('#allcomments{{$post->Post_Id}}').is(':visible')?'Hide Comments':'<i class=\'feather-message-circle text-dark text-grey-900 btn-round-sm font-lg\'></i> {{count($comments[$post->Post_Id])}} Comment');});" onclick="viewComment('{{$post->Post_Id}}')" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>{{count($comments[$post->Post_Id])}} Comment</a>
+            <a href="javascript:void(0)" id="more{{$post->Post_Id}}" onclick="$('#allcomments{{$post->Post_Id}}').slideToggle(function(){$('#more{{$post->Post_Id}}').html($('#allcomments{{$post->Post_Id}}').is(':visible')?'Hide Comments':'<i class=\'feather-message-circle text-dark text-grey-900 btn-round-sm font-lg\'></i> {{count($post->comments)}} Comment');});" onclick="viewComment('{{$post->Post_Id}}')" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>{{count($post->comments)}} Comment</a>
             @else
             <a href="javascript:void(0)" id="more{{$post->Post_Id}}" onclick="$('#allcomments{{$post->Post_Id}}').slideToggle(function(){$('#more{{$post->Post_Id}}').html($('#allcomments{{$post->Post_Id}}').is(':visible')?'Hide Comments':'<i class=\'feather-message-circle text-dark text-grey-900 btn-round-sm font-lg\'></i> 0 Comments');});" onclick="viewComment('{{$post->Post_Id}}')" class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>0 Comments</a>
             @endif
@@ -423,15 +423,15 @@
 
     })
 
+
     function setPost(id, name) {
 
-        // Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty
-        $("#id").val(id);
-        console.log(name);
-        $("#editPost").val(name);
-        $("#EditPostModal").modal("toggle");
-    }
-
+// Kda hwa mask el id w name bto3 el row el 2adem eli hwa fe delwa2ty
+$("#posteditid").val(id);
+console.log(name);
+$("#editPost").val(name);
+$("#EditPostModal").modal("toggle");
+}
 
     $('#EditPostForm').submit(function() {
 

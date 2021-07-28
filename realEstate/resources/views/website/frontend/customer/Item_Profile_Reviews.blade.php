@@ -5,7 +5,7 @@
         <div class="card-body d-block p-4">
             @if($AuthReview!=null)
             <a href="#" class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>This is your Review Do you want to Change it? </a>
-        
+
             @else
             <a href="#" class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>How did you find us?</a>
             @endif
@@ -79,7 +79,7 @@
     @foreach($reviews as $review)
     <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
         <div class="card-body p-0 d-flex">
-            
+
             <figure class="avatar me-3"><img src="{{asset('storage/cover page/'.$review->Profile_Picture)}}"  class="shadow-sm rounded-circle w45" alt="image"></figure>
             <?php $today = \Carbon\Carbon::now();
             $end = \Carbon\Carbon::parse($review->updated_at);
@@ -90,7 +90,7 @@
                                                                                         $end = \Carbon\Carbon::parse($review->updated_at);
                                                                                         ?>{{ $end->diffForHumans()}}</span></h4>
         </div>
-        
+
         <div class="card-body p-0 me-lg-5">
             <p class="fw-500  lh-26 font-xssss w-100">
                 {{$review->Review_Title}} <br />
@@ -99,7 +99,7 @@
             <div class="ms-auto">
                 </div>
             </div>
-            
+
             @if( isset($post_images[$review->Review_Id]) )
             <div class="card-body d-block p-0">
                 <div class="row ps-2 pe-2">
@@ -139,9 +139,9 @@
         </div>
         @endif
         <small>  {{$review->Number_Of_Stars}} <span>/5 </span><i class="feather-star  me-2"></i></small>
-        
+
         @include('website.frontend.customer.ReplyComments')
-        
+
     </div>
     @endforeach
 
@@ -153,7 +153,7 @@
             </p>
         </div>
         <div class="card-body p-0 d-flex">
-            <div style="margin-left: 120px;" class="col-xs-6 col-sm-6 p-1"><img src="{{asset('storage/profile gallery/bg-2.png')}}" class="rounded-3 w-100" alt="image"></div>
+            <div style="margin-left: 120px;" class="col-xs-6 col-sm-6 p-1"><img src="{{asset('FrontEnd/sociala/image/review2.png')}}" class="rounded-3 w-100" alt="image"></div>
         </div>
     </div>
     @endif
@@ -182,7 +182,7 @@
     //         data: {
     //             stars: n,
     //             id: item_id,
-    //             review_content: 
+    //             review_content:
     //         },
     //         success: function(data) {
     //             console.log(data);

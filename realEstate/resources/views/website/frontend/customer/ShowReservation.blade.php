@@ -14,12 +14,12 @@
         <div class="bg-pattern-div"></div>
 
         <h2 class="display2-size display2-md-size fw-700 text-white mb-0 mt-0">There is No Reservations Yet !</h2>
-        <img src="{{asset('storage/image/young women.jpg')}} ">
+        <img src="{{asset('FrontEnd/sociala/image/young women.jpg')}} ">
     </div>
 {{--        <div class="card p-md-5 p-4 bg-primary-gradiant rounded-3 shadow-xss bg-pattern border-0 overflow-hidden">--}}
 {{--            <div class="bg-pattern-div"></div>--}}
 
-{{--            <img src="{{asset('storage/image/young women.jpg')}} ">--}}
+{{--            <img src="{{asset('FrontEnd/sociala/image/young women.jpg')}} ">--}}
 {{--        </div>--}}
 
 </div>

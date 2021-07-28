@@ -1,11 +1,12 @@
-@extends('website.frontend.layouts.main')
+@extends('website.frontend.ownerlayouts.main')
 <div class="modal fade" id="EditMainTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add Details</h5>
+
                 <span aria-hidden="true">&times;</span>
-                </button>
+
             </div>
             <div class="modal-body">
             <p id="errormsg" class="text-red font-xssss "></p>
@@ -111,10 +112,11 @@
 
                 Object.values(data).forEach(val => {
 
-                    Form += ' <div class="form-group row"> ' +
-                        '<label for="' + val['Property_Detail_Id'] + '" class="col-md-2 col-form-label text-md-right">' + val['Detail_Name'] + '</label>' +
-                        '<div class="col-md-5">';
-
+                    if(val['datatype'] != "file") {
+                        Form += ' <div class="form-group row"> ' +
+                            '<label for="' + val['Property_Detail_Id'] + '" class="col-md-2 col-form-label text-md-right">' + val['Detail_Name'] + '</label>' +
+                            '<div class="col-md-5">';
+                    }
                     if (val['datatype'] == "checkbox") {
                         if (val['DetailValue'] == "yes") {
                             Form += '<input type="' + val['datatype'] + '" id="' + val['Property_Detail_Id'] + '" name="DetailItem[]"  class="form-check-input" checked>' +

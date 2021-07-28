@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{asset('FrontEnd/sociala/css/themify-icons.css')}}">
     <link rel="stylesheet" href="{{asset('FrontEnd/sociala/css/feather.css')}}">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('FrontEnd/sociala/images/favicon.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('FrontEnd/sociala/images/logo.png')}}">
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="{{asset('FrontEnd/sociala/css/style.css')}}">
 
@@ -34,7 +34,7 @@
             <a href="#"><img src="{{asset('storage/images/logo.png')}}" height="35" width="40"><span class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xl logo-text mb-0 "> Traveller club</span> </a>
             <a href="#" class="mob-menu ms-auto me-2 chat-active-btn"><i class="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
         
-                <a href="{{ route('loginUser') }}" class="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">Login</a>
+                <a href="#" class="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">Login</a>
                 <a href="{{ route('UserRegister') }}" class="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">Register</a>
 
             </div>
